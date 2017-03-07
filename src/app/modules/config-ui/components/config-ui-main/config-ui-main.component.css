@@ -1,0 +1,13 @@
+.example-card {
+    width: 400px;
+}
+
+.example-header-image {
+    /*background-image: url('./assets/img/001.png');*/
+    background: url("../../../../../assets/img/001.png") repeat;
+    background-size: cover;
+}
+
+div {
+    border: 2px solid;
+}
