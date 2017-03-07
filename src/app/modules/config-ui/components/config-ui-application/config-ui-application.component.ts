@@ -32,6 +32,7 @@ export class ConfigUiApplicationComponent implements OnInit {
       { field: 'topoName', header: 'Topology' },
       { field: 'userName', header: 'User Name' },
       { field: 'appDesc', header: 'Description' },
+      
       // {field: 'appId', header: 'Year'},
       // {field: 'dcId', header: 'Color'},
       // {field: 'dcTopoAssocId', header: 'Brand'},
