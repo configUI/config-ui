@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~https://fonts.googleapis.com/icon?family=Roboto';
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+body {
+    font-family: Roboto;
+}
