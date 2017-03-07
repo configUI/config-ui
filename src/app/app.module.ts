@@ -7,27 +7,38 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import {InputTextModule} from 'primeng/primeng';
+import {InputTextModule, DataTableModule} from 'primeng/primeng';
 
 import 'hammerjs';
 
+/**Config UI services */
+import { ConfigUiDataService } from './modules/config-ui/services/config-ui-data.service';
+
+/**Config UI Component */
 import { AppComponent } from './app.component';
 import { ConfigUiMainComponent } from './modules/config-ui/components/config-ui-main/config-ui-main.component';
+import { ConfigUiApplicationComponent } from './modules/config-ui/components/config-ui-application/config-ui-application.component';
+import { ConfigUiTopologyComponent } from './modules/config-ui/components/config-ui-topology/config-ui-topology.component';
+import { ConfigUiProfileComponent } from './modules/config-ui/components/config-ui-profile/config-ui-profile.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConfigUiMainComponent
+    ConfigUiMainComponent,
+    ConfigUiApplicationComponent,
+    ConfigUiTopologyComponent,
+    ConfigUiProfileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    InputTextModule
+    InputTextModule,
+    DataTableModule
   ],
-  providers: [],
+  providers: [ ConfigUiDataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
