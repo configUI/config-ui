@@ -4,7 +4,7 @@ import { ConfigUiDataService } from '../../services/config-ui-data.service';
 
 import { ApplicationData } from '../../containers/application-data';
 
-import { TableField } from '../../interfaces/table-field';
+import { APPLICATION_DATA } from '../../constants/cofig-ui-field-header-mapping'
 
 @Component({
   selector: 'app-config-ui-application',
@@ -14,30 +14,15 @@ import { TableField } from '../../interfaces/table-field';
 export class ConfigUiApplicationComponent implements OnInit {
 
   applicationData: ApplicationData[];
-  cols: TableField[];
+  cols = APPLICATION_DATA();
 
   constructor(private configUiDataService: ConfigUiDataService) { }
 
   ngOnInit() {
-    this.getApplicationColName();
     this.configUiDataService.getApplicationData().then(data => {
       this.applicationData = data;
       console.log("this.applicationData ", this.applicationData);
     });
-  }
-
-  getApplicationColName() {
-    this.cols = [
-      { field: 'appName', header: 'Name' },
-      { field: 'topoName', header: 'Topology' },
-      { field: 'userName', header: 'User Name' },
-      { field: 'appDesc', header: 'Description' },
-      
-      // {field: 'appId', header: 'Year'},
-      // {field: 'dcId', header: 'Color'},
-      // {field: 'dcTopoAssocId', header: 'Brand'},
-      // {field: 'topoId', header: 'Brand'},
-    ];
   }
 
 }

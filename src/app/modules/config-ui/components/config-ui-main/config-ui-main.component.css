@@ -12,6 +12,10 @@ div {
     border: 2px solid;
 }
 
+.ui-g {
+    border: 2px solid red;
+}
+
 .example-container {
     width: 500px;
     height: 300px;

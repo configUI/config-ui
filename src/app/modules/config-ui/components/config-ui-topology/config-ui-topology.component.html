@@ -1,3 +1,6 @@
 <p>
-  config-ui-topology works!
+    <a routerLink="/topology">Topology</a>
+    <p-dataTable [value]="tierData" [scrollable]="true" scrollHeight="100px">
+        <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+    </p-dataTable>
 </p>
