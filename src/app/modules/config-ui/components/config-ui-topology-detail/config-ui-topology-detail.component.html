@@ -5,5 +5,6 @@
         <template *ngIf="col.field=='profileName' " let-col let-topologydata="rowData " pTemplate="editor ">
           <p-dropdown [options]=profileList [(ngModel)]="topologydata[col.field] " [autoWidth]="false " [style]="{ 'width': '100%'} " required=true></p-dropdown>
         </template>
+
     </p-column>
 </p-dataTable>
