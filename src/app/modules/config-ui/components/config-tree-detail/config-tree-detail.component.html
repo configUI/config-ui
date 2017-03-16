@@ -1,3 +1,28 @@
-<p>
-  config-tree-detail works!
-</p>
+<p-dataTable [value]=topologyData>
+    <p-header>
+        <span> Topology Detail(s) </span>
+        <span style="float: right; margin-top:-5px">
+          <button pButton type="button" label="Generate"></button>
+            <button pButton type="button" label="Add" (click)="openAppDialog()" icon="fa-plus"></button>
+            <button pButton type="button" label="Edit"(click)="editAppDialog()" ></button>
+            <button pButton type="button"label="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+        </span>
+    </p-header>
+
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column class="col-overflow" field="topoName" header="Name" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate type="body">
+      <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['appId']]">{{application[col.field]}}</a></span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="topoDesc" header="Description" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate type="body">
+      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="profileName" header="Profile Applied" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate type="body">
+      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+    </template>
+    </p-column>
+</p-dataTable>

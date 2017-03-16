@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigTopologyService } from '../../services/config-topology.service';
 
 @Component({
   selector: 'app-config-tree-detail',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigTreeDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private configTopologyService: ConfigTopologyService) { }
 
   ngOnInit() {
+    this.loadTopologyData();
   }
 
+  loadTopologyData(): void{
+    
+  }
 }
