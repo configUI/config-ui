@@ -1,10 +1,18 @@
-<p-dataTable [value]="topologyDetail" [(selection)]="selectedTopology" [editable]="true" [scrollable]=true scrollHeight="200px" [style]="{'background':'#397a9c','height':'200px'}">
-    <p-header>Topology Detail</p-header>
-    <p-column [style]=" {width: '38px'} " selectionMode="multiple "></p-column>
-    <p-column *ngFor="let col of cols " [field]="col.field " [editable]="col.field=='profileName' " [header]="col.header " [style]=" { 'overflow': 'visible' } ">
-        <template *ngIf="col.field=='profileName' " let-col let-topologydata="rowData " pTemplate="editor ">
+<div class="ui-g">
+    <div class="ui-g-2">
+        <!--{{entityData | json}}-->
+        <p-tree [value]="entityData" (onNodeExpand)="loadNode($event)"></p-tree>
+    </div>
+    <div class="ui-g-10">
+        <p-dataTable [value]="topologyDetail" [(selection)]="selectedTopology" [editable]="true" [scrollable]=true scrollHeight="200px" [style]="{'background':'#397a9c','height':'200px'}">
+            <p-header>Topology Detail</p-header>
+            <p-column [style]=" {width: '38px'} " selectionMode="multiple "></p-column>
+            <p-column *ngFor="let col of cols " [field]="col.field " [editable]="col.field=='profileName' " [header]="col.header " [style]=" { 'overflow': 'visible' } ">
+                <template *ngIf="col.field=='profileName' " let-col let-topologydata="rowData " pTemplate="editor ">
           <p-dropdown [options]=profileList [(ngModel)]="topologydata[col.field] " [autoWidth]="false " [style]="{ 'width': '100%'} " required=true></p-dropdown>
         </template>
 
-    </p-column>
-</p-dataTable>
+            </p-column>
+        </p-dataTable>
+    </div>
+</div>

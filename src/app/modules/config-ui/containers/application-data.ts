@@ -1,76 +1,74 @@
 export class ApplicationData {
-    private _appDesc: string;
-    private _appId: number;
-    private _appName: string;
-    private _dcId: number;
-    private _dcTopoAssocId: number;
-    private _topoId: number;
-    private _topoName: string;
-    private _userName: string;
+    private appDesc: string;
+    private appId: number;
+    private appName: string;
+    private dcId: number;
+    private dcTopoAssocId: number;
+    private topoId: number;
+    private topoName: string;
+    private userName: string;
 
-
-    public get appName(): string {
-        return this._appName;
+    public get $appDesc(): string {
+        return this.appDesc;
     }
 
-    public set appName(value: string) {
-        this._appName = value;
+    public set $appDesc(value: string) {
+        this.appDesc = value;
     }
 
-    public get appDesc(): string {
-        return this._appDesc;
+    public get $appId(): number {
+        return this.appId;
     }
 
-    public set appDesc(value: string) {
-        this._appDesc = value;
+    public set $appId(value: number) {
+        this.appId = value;
     }
 
-    public get userName(): string {
-        return this._userName;
+    public get $appName(): string {
+        return this.appName;
     }
 
-    public set userName(value: string) {
-        this._userName = value;
+    public set $appName(value: string) {
+        this.appName = value;
     }
 
-    public get dcId(): number {
-        return this._dcId;
+    public get $dcId(): number {
+        return this.dcId;
     }
 
-    public set dcId(value: number) {
-        this._dcId = value;
+    public set $dcId(value: number) {
+        this.dcId = value;
     }
 
-	public get appId(): number {
-		return this._appId;
-	}
+    public get $dcTopoAssocId(): number {
+        return this.dcTopoAssocId;
+    }
 
-	public set appId(value: number) {
-		this._appId = value;
-	}
+    public set $dcTopoAssocId(value: number) {
+        this.dcTopoAssocId = value;
+    }
 
-	public get topoId(): number {
-		return this._topoId;
-	}
+    public get $topoId(): number {
+        return this.topoId;
+    }
 
-	public set topoId(value: number) {
-		this._topoId = value;
-	}
+    public set $topoId(value: number) {
+        this.topoId = value;
+    }
 
-	public get dcTopoAssocId(): number {
-		return this._dcTopoAssocId;
-	}
+    public get $topoName(): string {
+        return this.topoName;
+    }
 
-	public set dcTopoAssocId(value: number) {
-		this._dcTopoAssocId = value;
-	}
+    public set $topoName(value: string) {
+        this.topoName = value;
+    }
 
-	public get topoName(): string {
-		return this._topoName;
-	}
+    public get $userName(): string {
+        return this.userName;
+    }
 
-	public set topoName(value: string) {
-		this._topoName = value;
-	}
-    
+    public set $userName(value: string) {
+        this.userName = value;
+    }
 }

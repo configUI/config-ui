@@ -12,20 +12,9 @@ export class ConfigUiBreadcrumbComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.items =  [{
-            label: 'File',
-            items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
-            ]
-        },
-        {
-            label: 'Edit',
-            items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
-            ]
-        }];
+    this.items =  [{ label: 'Home', url: 'home'},
+                   { label: 'Application', url: 'topology-detail'},
+        ];
   }
 
 }

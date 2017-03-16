@@ -1,7 +1,7 @@
-import {DcInfo} from './dc-info';
+import {EntityInfo} from './entity-info';
 
 export interface TypeInfo{
     id: number;
     type: string;
-    value: DcInfo[]
+    value: EntityInfo[]
 }

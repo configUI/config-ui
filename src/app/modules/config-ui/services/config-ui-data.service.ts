@@ -8,6 +8,8 @@ import 'rxjs/add/operator/catch';
 
 import 'rxjs/add/operator/toPromise';
 
+import { SelectItem, TreeNode } from 'primeng/primeng';
+
 import * as URL from '../constants/config-ui-url-constant';
 import { ApplicationData } from '../containers/application-data';
 import { TopologyData } from '../containers/topology-data';
@@ -24,8 +26,36 @@ export class ConfigUiDataService {
   // Resolve HTTP using the constructor
   constructor(private http: Http) { }
 
+  nodes = {
+    "data": 
+    [
+        {
+            "label": "Lazy Node 0",
+            "data": "Node 0",
+            "expandedIcon": "fa-folder-open",
+            "collapsedIcon": "fa-folder",
+            "leaf": true
+        },
+        {
+            "label": "Lazy Node 1",
+            "data": "Node 1",
+            "expandedIcon": "fa-folder-open",
+            "collapsedIcon": "fa-folder",
+            "leaf": false
+        },
+        {
+            "label": "Lazy Node 1",
+            "data": "Node 2",
+            "expandedIcon": "fa-folder-open",
+            "collapsedIcon": "fa-folder",
+            "leaf": false
+        }
+    ]
+};
+
   applicationData: ApplicationData[];
   topologyData: TopologyData[];
+  topologyTree: TreeNode[];// = this.nodes.data;
 
   getApplicationData(): Promise<ApplicationData[]> {
     if(this.applicationData != undefined){
@@ -65,6 +95,18 @@ export class ConfigUiDataService {
     return this.http.get(`${URL.FETCH_TOPO_TABLE_URL}/12725`)
       .map((res: Response) => {
         return this.topologyData = res.json();
+      })
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getTopologyTreeData(): Observable<TreeNode[]>{
+    // if(this.topologyTree)
+    //  return Observable.of(this.topologyTree.slice());
+
+    //return this.http.get(`${URL.FETCH_TOPO_TREE_URL}/12725`)
+    return this.http.get(`assets/files.json`)
+      .map((res: Response) => {
+        return this.topologyTree = this.nodes.data;
       })
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
