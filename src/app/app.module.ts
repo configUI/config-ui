@@ -44,6 +44,7 @@ import { ProductIntegrationComponent } from './modules/config-ui/components/conf
 import { ConfigTopologyListComponent } from './modules/config-ui/components/config-topology-list/config-topology-list.component';
 import { ConfigNdAgentComponent } from './modules/config-ui/components/config-nd-agent/config-nd-agent.component';
 import { ConfigBreadcrumbComponent } from './modules/config-ui/components/config-breadcrumb/config-breadcrumb.component';
+import { ConfigTreeMainComponent } from './modules/config-ui/components/config-tree-main/config-tree-main.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ConfigBreadcrumbComponent } from './modules/config-ui/components/config
     ProductIntegrationComponent,
     ConfigTopologyListComponent,
     ConfigNdAgentComponent,
-    ConfigBreadcrumbComponent
+    ConfigBreadcrumbComponent,
+    ConfigTreeMainComponent
   ],
   imports: [
   BrowserModule,

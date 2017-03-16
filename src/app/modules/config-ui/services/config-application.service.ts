@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Rx'
 
 import {ConfigRestApiService} from './config-rest-api.service';
 import { ApplicationInfo } from '../interfaces/application-info';
-import * as URL from '../constants/config-ui-url-constant';
+import * as URL from '../constants/config-url-constant';
 
 @Injectable()
 export class ConfigApplicationService {

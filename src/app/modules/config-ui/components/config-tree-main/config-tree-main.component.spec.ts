@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfigUiTopologyComponent } from './config-ui-topology.component';
+import { ConfigTreeMainComponent } from './config-tree-main.component';
 
-describe('ConfigUiTopologyComponent', () => {
-  let component: ConfigUiTopologyComponent;
-  let fixture: ComponentFixture<ConfigUiTopologyComponent>;
+describe('ConfigTreeMainComponent', () => {
+  let component: ConfigTreeMainComponent;
+  let fixture: ComponentFixture<ConfigTreeMainComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfigUiTopologyComponent ]
+      declarations: [ ConfigTreeMainComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfigUiTopologyComponent);
+    fixture = TestBed.createComponent(ConfigTreeMainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
