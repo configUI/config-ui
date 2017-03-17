@@ -21,7 +21,9 @@ export class ConfigRestApiService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server Error'))
   }
 
-  getDataByPostReq(url: string, body: Object): Observable<any> {
+  getDataByPostReq(url: string, body?: any): Observable<any> {
+    if(body == undefined)
+      body = {};
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });// Create a request option
     

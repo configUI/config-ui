@@ -1,22 +1,24 @@
-<p-dataTable [value]=topologyData>
+<p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> Topology Detail(s) </span>
+        <span> {{currentEntity}} Detail(s) </span>
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="col-overflow" field="topoName" header="Name" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
-      <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['appId']]">{{application[col.field]}}</a></span>
-    </template>
-    </p-column>
-    <p-column class="col-overflow" field="topoDesc" header="Description" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
-      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-    </template>
-    </p-column>
-    <p-column class="col-overflow" field="profileName" header="Profile Applied" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
-      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-    </template>
+
+    <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="col-overflow" [sortable]="true">
+        <template *ngIf="col.field == 'topoName'" let-col let-entity="rowData" pTemplate="body">
+          <a (click)="getData(entity['topoId'], entity)">{{entity[col.field]}}</a>    
+        </template>
+
+        <template *ngIf="col.field == 'tierName'" let-col let-entity="rowData" pTemplate="body">
+          <a (click)="getData(entity['tierId'], entity)">{{entity[col.field]}}</a>    
+        </template>
+
+        <template *ngIf="col.field == 'serverDisplayName'" let-col let-entity="rowData" pTemplate="body">
+          <a (click)="getData(entity['serverId'], entity)">{{entity[col.field]}}</a>    
+        </template>
+        <template *ngIf="col.field == 'instanceDisplayName'" let-col let-entity="rowData" pTemplate="body">
+          <a>{{entity[col.field]}}</a>    
+        </template>
     </p-column>
 </p-dataTable>

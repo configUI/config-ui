@@ -22,7 +22,7 @@ export class ConfigTreeComponent implements OnInit {
 
   ngOnInit() {
     this.loadTopologyTreeData();
-    this.files = this.configTopologyService.getFiles();//.then(files => this.files = files);
+    this.files = this.configTopologyService.getFiles();
   }
 
   loadTopologyTreeData(): void{

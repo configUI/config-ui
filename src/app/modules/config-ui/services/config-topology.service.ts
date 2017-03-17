@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo } from '../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo } from '../interfaces/topology-info';
 import * as URL from '../constants/config-url-constant';
 
 @Injectable()
@@ -12,6 +12,18 @@ export class ConfigTopologyService {
 
   getTopologyDetail(dcId: number): Observable<TopologyInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_TOPO_TABLE_URL}/${dcId}`);
+  }
+
+  getTierDetail(topoId: number, entity: TopologyInfo): Observable<TierInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_TABLE_URL}/${topoId}`, entity);
+  }
+
+  getServerDetail(tierId: number, entity: TierInfo): Observable<ServerInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_SERVER_TABLE_URL}/${tierId}`, entity);
+  }
+
+  getInstanceDetail(serverId: number, entity: ServerInfo): Observable<InstanceInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_INSTANCE_TABLE_URL}/${serverId}`, entity);
   }
 
   getTopologyTreeDetail(dcId: number): Observable<TopologyInfo[]> {
