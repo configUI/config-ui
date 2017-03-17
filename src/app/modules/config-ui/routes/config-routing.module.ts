@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: ConfigHomeComponent },
     { path: 'application-list', component: ConfigApplicationListComponent },
-    { path: 'tree-main/:appId', component: ConfigTreeMainComponent },
+    { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
     { path: 'profile-list', component: ConfigProfileListComponent },
     { path: 'topology-list', component: ConfigTopologyListComponent },
     { path: 'nd-agent', component: ConfigNdAgentComponent },

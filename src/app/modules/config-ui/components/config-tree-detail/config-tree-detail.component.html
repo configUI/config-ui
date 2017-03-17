@@ -1,12 +1,6 @@
 <p-dataTable [value]=topologyData>
     <p-header>
         <span> Topology Detail(s) </span>
-        <span style="float: right; margin-top:-5px">
-          <button pButton type="button" label="Generate"></button>
-            <button pButton type="button" label="Add" (click)="openAppDialog()" icon="fa-plus"></button>
-            <button pButton type="button" label="Edit"(click)="editAppDialog()" ></button>
-            <button pButton type="button"label="Delete" (click)="deleteApp()" icon="fa-trash"></button>
-        </span>
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
