@@ -4,9 +4,9 @@
         <span>  Show Application(s) </span>
         <span style="float: right; margin-top:-5px">
           <button pButton type="button" label="Generate"></button>
-            <button pButton type="button" label="Add" (click)="openAppDialog()" icon="fa-plus"></button>
-            <button pButton type="button" label="Edit"(click)="editAppDialog()" ></button>
-            <button pButton type="button"label="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+            <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
+            <button pButton type="button"title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
         </span>
     </p-header>
 
@@ -37,24 +37,38 @@
 <!--Dialog for adding Application-->
 <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
     <div class="ui-g">
-        <div class="ui-g-12">
+        <div class="ui-g-4">
             <label>Name</label>
+        </div>
+        <div class="ui-g-8">
             <input id="in1" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" />
         </div>
-        <div class="ui-g-12">
+    </div>
+        <div class="ui-g">
+        <div class="ui-g-4">
             <label>Description</label>
+        </div>
+            <div class="ui-g-8">
             <input id="in3" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" />
         </div>
-        <div class="ui-g-12">
+        </div>
+        <div class="ui-g">
+        <div class="ui-g-4">
             <label>User Name</label>
+        </div>
+        <div class="ui-g-8">
             <input id="in3" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" />
         </div>
-        <div class="ui-g-12">
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
             <label>Topology</label>
+            </div>
+            <div class="ui-g-8">
             <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
             <p-dropdown id="in2" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body"></p-dropdown>
         </div>
-    </div>
+        </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-check" (click)="saveEditApp()" label="OK"></button>

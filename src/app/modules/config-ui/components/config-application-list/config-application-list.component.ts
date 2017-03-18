@@ -115,12 +115,34 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**This method is common method for save or edit application detail*/
   saveEditApp(): void {
-    if (this.isNewApp)
-      this.saveApp();
-    else
+    //When add new application 
+    if (this.isNewApp) {
+      //Check for app name already exist or not
+      if (!this.checkAppNameAlreadyExist()) {
+        this.saveApp();
+        return;
+      }
+    }
+    //When add edit application 
+    else {
+      if (this.selectedApplicationData[0].appName != this.applicationDetail.$appName) {
+        if (this.checkAppNameAlreadyExist())
+          return;
+      }
       this.editApp();
+    }
   }
-
+  
+  /**This method is used to validate the name of application is already exists. */
+  checkAppNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.applicationData.length; i++) {
+      if (this.applicationData[i].appName == this.applicationDetail.$appName) {
+        this.configUtilityService.errorMessage("Application Name already exist");
+        return true;
+      }
+    }
+  }
+  
   /**This method is used to add application detail */
   saveApp(): void {
     this.configApplicationService.addApplicationData(this.applicationDetail)
