@@ -8,7 +8,10 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule } from 'primeng/primeng';
+
+/**Perfect Scrollbar module */
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 
 import 'hammerjs';
 
@@ -45,7 +48,15 @@ import { ConfigTopologyListComponent } from './modules/config-ui/components/conf
 import { ConfigNdAgentComponent } from './modules/config-ui/components/config-nd-agent/config-nd-agent.component';
 import { ConfigBreadcrumbComponent } from './modules/config-ui/components/config-breadcrumb/config-breadcrumb.component';
 import { ConfigTreeMainComponent } from './modules/config-ui/components/config-tree-main/config-tree-main.component';
+import { ServiceEntryPointComponent } from './modules/config-ui/components/config-profile/advance/service-entry-point/service-entry-point.component';
+import { IntegrationPtDetectionComponent } from './modules/config-ui/components/config-profile/advance/integration-pt-detection/integration-pt-detection.component';
+import { TransactionConfigurationComponent } from './modules/config-ui/components/config-profile/advance/transaction-configuration/transaction-configuration.component';
+import { InstrumentMonitorsComponent } from './modules/config-ui/components/config-profile/advance/instrument-monitors/instrument-monitors.component';
+import { ErrorDetectionComponent } from './modules/config-ui/components/config-profile/advance/error-detection/error-detection.component';
 
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -67,7 +78,12 @@ import { ConfigTreeMainComponent } from './modules/config-ui/components/config-t
     ConfigTopologyListComponent,
     ConfigNdAgentComponent,
     ConfigBreadcrumbComponent,
-    ConfigTreeMainComponent
+    ConfigTreeMainComponent,
+    ServiceEntryPointComponent,
+    IntegrationPtDetectionComponent,
+    TransactionConfigurationComponent,
+    InstrumentMonitorsComponent,
+    ErrorDetectionComponent
   ],
   imports: [
   BrowserModule,
@@ -75,6 +91,7 @@ import { ConfigTreeMainComponent } from './modules/config-ui/components/config-t
     HttpModule,
     ConfigRoutingModule,
     MaterialModule.forRoot(),
+    PerfectScrollbarModule.forRoot(),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,
@@ -84,7 +101,8 @@ import { ConfigTreeMainComponent } from './modules/config-ui/components/config-t
     ButtonModule,
     DialogModule,
     GrowlModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TabViewModule
 
   ],
   providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService],

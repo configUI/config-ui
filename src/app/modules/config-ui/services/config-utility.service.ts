@@ -21,6 +21,17 @@ export class ConfigUtilityService {
   messageProvider$ = this._messageObser.asObservable();
 
 
+  /*Observable for update progress bar sources.*/
+  private _progressBarObser = new Subject();
+  
+  /*Service message commands.*/
+  progressBarEmit(flag) {
+    this._progressBarObser.next(flag);
+  }
+  /*Service Observable for getting update message.*/
+  progressBarProvider$ = this._progressBarObser.asObservable();
+
+
   public errorMessage(detail: string, summary?: string) {
     this._message.length = 0;
 

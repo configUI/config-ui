@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigProfileService } from '../../services/config-profile.service'
+import { ProfileInfo } from '../../interfaces/profile-info';
 
 @Component({
   selector: 'app-config-profile-list',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private configProfileService: ConfigProfileService) { }
+
+  profileData: ProfileInfo[];
 
   ngOnInit() {
+    this.loadProfileList();
+  }
+
+  loadProfileList() {
+    this.configProfileService.getProfileList().subscribe(data=> {
+      this.profileData = data["_embedded"]["profiles"]; // For temporary basis we are getting data from these keys
+    });
   }
 
 }

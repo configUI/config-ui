@@ -1,3 +1,20 @@
-<p>
-  config-profile-list works!
-</p>
+<p-dataTable [value]="profileData" [(selection)]="selectedProfile">
+    <p-header>
+        <span> Profile Detail(s)</span>
+        <span style="float :right; margin-top:-5px">
+            <button pButton type="button" title="Add Profile" (click)="addProfile()" icon="fa-plus"></button>
+        </span>
+    </p-header>
+
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileName" header="Name" [sortable]="true">
+        <template let-col let-profile="rowData" pTemplate type="body">
+      <span title="{{profile[col.field]}}"><a routerLink="/configuration/23752">{{profile[col.field]}}</a></span>
+    </template>
+    </p-column>
+    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileDesc" header="Description" [sortable]="true">
+        <template let-col let-profile="rowData" pTemplate type="body">
+      <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+    </template>
+    </p-column>
+</p-dataTable>

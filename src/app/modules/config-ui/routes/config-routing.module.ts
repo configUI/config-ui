@@ -9,6 +9,11 @@ import { ConfigProfileListComponent } from '../components/config-profile-list/co
 import { ConfigTopologyListComponent } from '../components/config-topology-list/config-topology-list.component';
 import { ConfigNdAgentComponent } from '../components/config-nd-agent/config-nd-agent.component';
 
+import { ConfigurationComponent } from '../components/config-profile/configuration/configuration.component';
+import { GeneralComponent } from '../components/config-profile/general/general.component';
+import { AdvanceComponent } from '../components/config-profile/advance/advance.component';
+import { InstrumentationComponent } from '../components/config-profile/instrumentation/instrumentation.component';
+import { ProductIntegrationComponent } from '../components/config-profile/product-integration/product-integration.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +21,11 @@ const routes: Routes = [
     { path: 'application-list', component: ConfigApplicationListComponent },
     { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
     { path: 'profile-list', component: ConfigProfileListComponent },
+    { path: 'configuration/:profileId', component: ConfigurationComponent },
+    { path: 'general/:profileId', component: GeneralComponent },
+    { path: 'advance/:profileId', component: AdvanceComponent },
+    { path: 'instrumentation/:profileId', component: InstrumentationComponent },
+    { path: 'integration/:profileId', component: ProductIntegrationComponent },
     { path: 'topology-list', component: ConfigTopologyListComponent },
     { path: 'nd-agent', component: ConfigNdAgentComponent },
 ];

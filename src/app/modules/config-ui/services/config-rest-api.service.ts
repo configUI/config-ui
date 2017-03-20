@@ -4,24 +4,31 @@ import { Observable } from 'rxjs/Rx';
 
 import './config-rxjs-import';
 
+import {ConfigUtilityService} from './config-utility.service';
+
 @Injectable()
 export class ConfigRestApiService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private configUtilityService: ConfigUtilityService) { }
 
   className: string = "ConfigRestApiService";
 
   // Fetch data
   getDataByGetReq(url: string): Observable<any> {
+    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
       // ...and calling .json() on the response to return data
-      .map((res: Response) => res.json())
+      .map((res: Response) => {
+        this.configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        return res.json();
+      })
       //...errors if any
-      .catch((error: any) => Observable.throw(error.json().error || 'Server Error'))
+      .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error')})
   }
 
   getDataByPostReq(url: string, body?: any): Observable<any> {
+    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
@@ -31,9 +38,12 @@ export class ConfigRestApiService {
 
     return this.http.post(url, body, options) // ...using post request
       // ...and calling .json() on the response to return data
-      .map((res: Response) => res.json())
+      .map((res: Response) => {
+        this.configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        return res.json();
+      })
       //...errors if any
-      .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+      .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
   }
 
   getDataByPutReq(url: string, body: Object): Observable<any> {

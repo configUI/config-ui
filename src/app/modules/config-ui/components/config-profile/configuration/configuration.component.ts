@@ -9,6 +9,8 @@ export class ConfigurationComponent implements OnInit {
 
   constructor() { }
 
+  profileId: number = 23752;
+
   ngOnInit() {
   }
 

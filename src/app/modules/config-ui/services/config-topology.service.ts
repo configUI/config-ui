@@ -10,6 +10,10 @@ export class ConfigTopologyService {
 
   constructor(private _restApi: ConfigRestApiService) { }
 
+  getTopologyList(): Observable<TopologyInfo[]> {
+    return this._restApi.getDataByGetReq(URL.FETCH_ALL_TOPODATA);
+  }
+
   getTopologyDetail(dcId: number): Observable<TopologyInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_TOPO_TABLE_URL}/${dcId}`);
   }

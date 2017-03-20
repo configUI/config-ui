@@ -1,3 +1,12 @@
-<p>
-  config-topology-list works!
-</p>
+<p-dataTable [value]="topologyData" [(selection)]="selectedtopology">
+    <p-header>
+        <span>Topology Detail(s)</span>
+    </p-header>
+    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoName" header="Name" [sortable]="true">
+        <template let-col let-topology="rowData" pTemplate type="body">
+      <span title="{{topology[col.field]}}">{{topology[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoDesc" header="Description" [sortable]="true">
+    </p-column>
+</p-dataTable>

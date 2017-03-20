@@ -41,34 +41,34 @@
             <label>Name</label>
         </div>
         <div class="ui-g-8">
-            <input id="in1" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" />
+            <input id="in1" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus />
         </div>
     </div>
-        <div class="ui-g">
+    <div class="ui-g">
         <div class="ui-g-4">
             <label>Description</label>
         </div>
-            <div class="ui-g-8">
+        <div class="ui-g-8">
             <input id="in3" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" />
         </div>
-        </div>
-        <div class="ui-g">
+    </div>
+    <div class="ui-g">
         <div class="ui-g-4">
             <label>User Name</label>
         </div>
         <div class="ui-g-8">
             <input id="in3" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" />
         </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
             <label>Topology</label>
-            </div>
-            <div class="ui-g-8">
+        </div>
+        <div class="ui-g-8">
             <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
             <p-dropdown id="in2" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body"></p-dropdown>
         </div>
-        </div>
+    </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-check" (click)="saveEditApp()" label="OK"></button>
