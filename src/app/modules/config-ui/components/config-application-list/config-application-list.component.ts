@@ -22,9 +22,9 @@ export class ConfigApplicationListComponent implements OnInit {
   constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) { }
 
   /**It stores application-list data */
-  applicationData: ApplicationInfo[];
+  applicationData: ApplicationData[];
   /**It stores selected application data */
-  selectedApplicationData: ApplicationInfo[];
+  selectedApplicationData: ApplicationData[];
   /**It stores selected application data for edit or add application */
   applicationDetail: ApplicationData;
   /**It stores topology info */
@@ -79,15 +79,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
     this.isNewApp = false;
     this.addEditAppDialog = true;
-    this.applicationDetail = new ApplicationData();
-    this.applicationDetail.$appDesc = this.selectedApplicationData[0].appDesc;
-    this.applicationDetail.$appId = this.selectedApplicationData[0].appId;
-    this.applicationDetail.$appName = this.selectedApplicationData[0].appName;
-    this.applicationDetail.$dcId = this.selectedApplicationData[0].dcId;
-    this.applicationDetail.$dcTopoAssocId = this.selectedApplicationData[0].dcTopoAssocId;
-    this.applicationDetail.$topoId = this.selectedApplicationData[0].topoId;
-    this.applicationDetail.$topoName = this.selectedApplicationData[0].topoName;
-    this.applicationDetail.$userName = this.selectedApplicationData[0].userName;
+    this.applicationDetail = Object.assign({}, this.selectedApplicationData[0]);
   }
 
   /**This method is used to delete application */
@@ -125,7 +117,7 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     //When add edit application 
     else {
-      if (this.selectedApplicationData[0].appName != this.applicationDetail.$appName) {
+      if (this.selectedApplicationData[0].appName != this.applicationDetail.appName) {
         if (this.checkAppNameAlreadyExist())
           return;
       }
@@ -136,7 +128,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to validate the name of application is already exists. */
   checkAppNameAlreadyExist(): boolean {
     for (let i = 0; i < this.applicationData.length; i++) {
-      if (this.applicationData[i].appName == this.applicationDetail.$appName) {
+      if (this.applicationData[i].appName == this.applicationDetail.appName) {
         this.configUtilityService.errorMessage("Application Name already exist");
         return true;
       }
@@ -175,7 +167,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method returns selected application row */
   getAppIndex(): number {
     if (this.applicationDetail) {
-      let appId = this.applicationDetail.$appId;
+      let appId = this.applicationDetail.appId;
       for (let i = 0; i < this.applicationData.length; i++) {
         if (this.applicationData[i].appId == appId) {
           return i;
