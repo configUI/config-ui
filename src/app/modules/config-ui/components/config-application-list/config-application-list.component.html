@@ -36,43 +36,45 @@
 
 <!--Dialog for adding Application-->
 <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Name</label>
+    <form (ngSubmit)="saveEditApp()" #groupForm="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus required ngModel/>
+            </div>
         </div>
-        <div class="ui-g-8">
-            <input id="in1" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus />
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="appDesc" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" required ngModel />
+            </div>
         </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Description</label>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>User Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" required ngModel />
+            </div>
         </div>
-        <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" />
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Topology</label>
+            </div>
+            <div class="ui-g-8">
+                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
+                <p-dropdown name="topoId" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+            </div>
         </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>User Name</label>
-        </div>
-        <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" />
-        </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Topology</label>
-        </div>
-        <div class="ui-g-8">
-            <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-            <p-dropdown id="in2" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body"></p-dropdown>
-        </div>
-    </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-check" (click)="saveEditApp()" label="OK"></button>
-            <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-        </div>
-    </footer>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>

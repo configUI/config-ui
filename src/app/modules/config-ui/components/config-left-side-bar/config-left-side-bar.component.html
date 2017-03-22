@@ -1,7 +1,21 @@
-<p>
+<md-sidenav #menuNavSide mode="side" opened="true" [style.width]="navWidth" class="app-sidenav" layout-padding id="sideNav">
+
+    <!-- Drawing Navigation Menu Here. -->
+    <ul class="cav-menu-ul">
+        <li *ngFor="let ngMenu of navMenuArray">
+            <a class="iconCss" routerLink="{{ngMenu.route}}" routerLinkActive="active" pTooltip="{{ngMenu.tooltip}}" tooltipPosition="right">
+                <button md-icon-button>
+                    <i style="font-size: 30px" class="{{ngMenu.icon}}"></i>
+             </button>
+            </a>
+        </li>
+    </ul>
+</md-sidenav>
+
+<!--<p>
     <a routerLink="home" routerLinkActive="active">Home</a>
     <a routerLink="application-list" routerLinkActive="active">Application</a>
     <a routerLink="profile-list" routerLinkActive="active">Profile</a>
     <a routerLink="topology-list" routerLinkActive="active">Topology</a>
     <a routerLink="nd-agent" routerLinkActive="active">ND Agent</a>
-</p>
+</p>-->

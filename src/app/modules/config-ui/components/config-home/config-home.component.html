@@ -1,1 +1,136 @@
-Home
+<!-- table for APPLICATION Detail -->
+<div class="ui-g">
+    <div class="ui-g-6">
+        <md-card class="md-card-css">
+            <md-card-subtitle class="md-card-subtitle-css">
+                <div class="header-Name">APPLICATION</div>
+                <div class="header-button"><a [routerLink]="['/application-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info"></button></a></div>
+            </md-card-subtitle>
+            <div class="table-css">
+                <p-dataTable [value]="applicationInfo">
+                    <p-column rowStyleClass="col-overflow" field="name" header="Name">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="topoName" header="Topology">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="userName" header="Last Updated On">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </md-card>
+    </div>
+
+    <!-- table for PROFILE Detail -->
+    <div class="ui-g-6">
+        <md-card class="md-card-css">
+            <md-card-subtitle class="md-card-subtitle-css">
+                <div class="header-Name">PROFILE</div>
+                <div class="header-button"><a [routerLink]="['/profile-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info "></button></a></div>
+            </md-card-subtitle>
+            <div class="table-css">
+                <p-dataTable [value]="profileInfo">
+                    <p-column rowStyleClass="col-overflow" field="name" header="Name">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}"><a [routerLink]="['/profile-list']">{{application[col.field]}}</a></span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="topoName" header="Description">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="userName" header="Last Updated On">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </md-card>
+    </div>
+</div>
+
+<!-- table for TOPOLOGY INFO -->
+<div class="ui-g ">
+    <div class="ui-g-5 ">
+        <md-card class="md-card-css">
+            <md-card-subtitle class="md-card-subtitle-css">
+                <div class="header-Name">TOPOLOGY INFO</div>
+                <div class="header-button">
+                    <a [routerLink]="['/trans-Config']"> <button pButton type="button" label="Import Topologies" class="ui-button-color-import" icon="fa-download"></button></a>
+                    <a [routerLink]="['/topology-list']"><button pButton type="button" label="Show All" icon="fa-info" class="button-color"></button></a>
+                </div>
+            </md-card-subtitle>
+            <div class="table-css">
+                <p-dataTable [value]="topologyInfo">
+                    <p-column [style]="{'width':'30px'}" field="Name" header="#">
+
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="name" header="Name">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                              <span title="{{application[col.field]}}"><a [routerLink]="['/topology-list']">{{application[col.field]}}</a></span>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </md-card>
+    </div>
+    <div class="ui-g-7 ">
+        <md-card class="md-card-css">
+            <md-card-subtitle class="md-card-subtitle-css">
+                <div class="header-Name">ND AGENT STATUS</div>
+                <div class="header-button"><a [routerLink]="['/nd-agent']"><button pButton type="button" icon="fa-info" label="Show All" class="button-color"></button></a></div>
+
+            </md-card-subtitle>
+            <div class="table-css">
+                <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData">
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column rowStyleClass="col-overflow" field="appName" header="Tier">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="topoName" header="Server">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="userName" header="Instance">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="userName" header="Installation Dir">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="userName" header="Version">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="userName" header="Running Since">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="appDesc" header="State">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+
+            </div>
+        </md-card>
+    </div>
+</div>

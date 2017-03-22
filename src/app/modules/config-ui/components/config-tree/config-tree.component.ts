@@ -30,6 +30,7 @@ export class ConfigTreeComponent implements OnInit {
   }
 
   loadNode(event) {
+    console.log("event", event);
         if(event.node) {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             event.node.children = this.configTopologyService.getLazyFiles();//.then(nodes => event.node.children = nodes);

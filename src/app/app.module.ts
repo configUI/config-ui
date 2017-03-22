@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -102,7 +102,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DialogModule,
     GrowlModule,
     ConfirmDialogModule,
-    TabViewModule
+    TabViewModule,
+    TooltipModule
 
   ],
   providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService],

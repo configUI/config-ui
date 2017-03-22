@@ -1,0 +1,60 @@
+.md-card-css {
+    padding: 0px;
+    border-radius: 7px;
+    height: 230px;
+    background: #bfdaeb;
+}
+
+.md-card-subtitle-css {
+    background: #183D65;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.mat-card-subtitle {
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+.header-Name {
+    text-align: left;
+    font-size: 12px;
+    color: white;
+    padding-top: 10px;
+    margin-left: 5px;
+    float: left
+}
+
+.header-button {
+    text-align: right;
+    padding-top: 8px;
+    margin-right: 5px;
+    font-size: 11px;
+}
+
+.table-css {
+    padding: 0px 8px 8px 8px;
+    font-size: 12px
+}
+
+.body-Width {
+    width: 93.6%;
+}
+
+.button-color {
+    background-color: #4cae4c;
+    border-color: #449d44;
+}
+
+.ui-button-color-import {
+    background-color: #EB3C00;
+    border-color: #EB3C00;
+}
+
+.ui-datatable-thead {
+    background: red !important;
+}
+
+.ui-datatable .ui-datatable-thead>tr>th {
+    background: red;
+}

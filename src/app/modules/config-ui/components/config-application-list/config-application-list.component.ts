@@ -11,6 +11,7 @@ import { ApplicationInfo } from '../../interfaces/application-info';
 
 import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
+import { deleteMany } from '../../utils/config-utility';
 
 @Component({
   selector: 'app-config-application-list',
@@ -69,11 +70,11 @@ export class ConfigApplicationListComponent implements OnInit {
   /**For showing edit application dialog */
   editAppDialog(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
-      this.configUtilityService.errorMessage("Please select for edit");
+      this.configUtilityService.errorMessage("Select row for edit");
       return;
     }
     else if (this.selectedApplicationData.length > 1) {
-      this.configUtilityService.errorMessage("Please select only one for edit");
+      this.configUtilityService.errorMessage("Select only one row for edit");
       return;
     }
 
@@ -93,9 +94,15 @@ export class ConfigApplicationListComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.configApplicationService.deleteApplicationData(this.applicationDetail)
+        //Get Selected Applications's AppId
+        let selectedApp = this.selectedApplicationData;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].appId);
+        }
+        this.configApplicationService.deleteApplicationData(arrAppIndex)
           .subscribe(data => {
-            console.log("deleteApp", "data", data);
+            this.deleteApplications(arrAppIndex);
           })
         this.configUtilityService.infoMessage("Delete Successfully");
       },
@@ -124,7 +131,7 @@ export class ConfigApplicationListComponent implements OnInit {
       this.editApp();
     }
   }
-  
+
   /**This method is used to validate the name of application is already exists. */
   checkAppNameAlreadyExist(): boolean {
     for (let i = 0; i < this.applicationData.length; i++) {
@@ -134,7 +141,7 @@ export class ConfigApplicationListComponent implements OnInit {
       }
     }
   }
-  
+
   /**This method is used to add application detail */
   saveApp(): void {
     this.configApplicationService.addApplicationData(this.applicationDetail)
@@ -149,11 +156,9 @@ export class ConfigApplicationListComponent implements OnInit {
   editApp(): void {
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {
-        console.log("edit ", data);
-        let index = this.getAppIndex();
+        let index = this.getAppIndex(this.applicationDetail.appId);
         this.selectedApplicationData.length = 0;
         this.selectedApplicationData.push(data);
-        console.log("index", index);
         this.applicationData[index] = data;
       });
     this.closeDialog();
@@ -164,14 +169,11 @@ export class ConfigApplicationListComponent implements OnInit {
     this.addEditAppDialog = false;
   }
 
-  /**This method returns selected application row */
-  getAppIndex(): number {
-    if (this.applicationDetail) {
-      let appId = this.applicationDetail.appId;
-      for (let i = 0; i < this.applicationData.length; i++) {
-        if (this.applicationData[i].appId == appId) {
-          return i;
-        }
+  /**This method returns selected application row on the basis of AppId */
+  getAppIndex(appId: number): number {
+    for (let i = 0; i < this.applicationData.length; i++) {
+      if (this.applicationData[i].appId == appId) {
+        return i;
       }
     }
     return -1;
@@ -185,5 +187,17 @@ export class ConfigApplicationListComponent implements OnInit {
       this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
     }
 
+  }
+
+  /**This method is used to delete application */
+  deleteApplications(arrAppId: number[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    for (let index in arrAppId) {
+      rowIndex.push(this.getAppIndex(arrAppId[index]));
+    }
+
+    this.applicationData = deleteMany(this.applicationData, rowIndex);
   }
 }

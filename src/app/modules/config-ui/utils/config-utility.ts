@@ -15,3 +15,13 @@ export class ConfigUiUtility {
         return selectItemList;
     }
 }
+
+/**
+var valuesArr = ["v1", "v2", "v3", "v4", "v5"];   
+var removeValFromIndex = [0, 2, 4]; // ascending
+
+it will return ["v2", "v4"]
+ */
+export function deleteMany(array, indexes = []) {
+  return array.filter((item, idx) => indexes.indexOf(idx) === -1);
+}

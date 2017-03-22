@@ -20,14 +20,26 @@ const routes: Routes = [
     { path: 'home', component: ConfigHomeComponent },
     { path: 'application-list', component: ConfigApplicationListComponent },
     { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
-    { path: 'profile-list', component: ConfigProfileListComponent },
-    { path: 'configuration/:profileId', component: ConfigurationComponent },
-    { path: 'general/:profileId', component: GeneralComponent },
-    { path: 'advance/:profileId', component: AdvanceComponent },
-    { path: 'instrumentation/:profileId', component: InstrumentationComponent },
-    { path: 'integration/:profileId', component: ProductIntegrationComponent },
+    {
+        path: 'profile-list', component: ConfigProfileListComponent, children: [
+            {
+                path: 'configuration/:profileId', component: ConfigurationComponent, children: [
+                    { path: 'general', component: GeneralComponent },
+                    { path: 'advance', component: AdvanceComponent },
+                    { path: 'instrumentation', component: InstrumentationComponent },
+                    { path: 'integration', component: ProductIntegrationComponent }
+                ]
+            },
+
+        ]
+    },
     { path: 'topology-list', component: ConfigTopologyListComponent },
-    { path: 'nd-agent', component: ConfigNdAgentComponent },
+    {
+        path: 'nd-agent', component: ConfigNdAgentComponent,
+        children: [{
+            path: 'test', component: ConfigTopologyListComponent
+        }]
+    },
 ];
 
 @NgModule({
