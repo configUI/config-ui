@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-/**Import material module */
+
+/**Import materiapl module */
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, SpinnerModule} from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -27,6 +28,7 @@ import {ConfigRestApiService} from './modules/config-ui/services/config-rest-api
 import {ConfigBreadcrumbService} from './modules/config-ui/services/config-breadcrumb.service';
 import {ConfigUtilityService} from './modules/config-ui/services/config-utility.service';
 import {ConfigHomeService} from './modules/config-ui/services/config-home.service';
+import {ConfigKeywordsDataService} from './modules/config-ui/services/config-keywords-data.service';
 
 /**Config UI Component */
 import { AppComponent } from './app.component';
@@ -83,7 +85,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     IntegrationPtDetectionComponent,
     TransactionConfigurationComponent,
     InstrumentMonitorsComponent,
-    ErrorDetectionComponent
+    ErrorDetectionComponent,
+    
   ],
   imports: [
   BrowserModule,
@@ -103,10 +106,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GrowlModule,
     ConfirmDialogModule,
     TabViewModule,
-    TooltipModule
+    TooltipModule,
+    SpinnerModule
+    
 
   ],
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService],
+  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService,ConfigKeywordsDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

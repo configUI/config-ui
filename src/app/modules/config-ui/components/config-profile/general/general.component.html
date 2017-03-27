@@ -1,3 +1,62 @@
-<p>
+<!--<p>
   general works!
-</p>
+</p>-->
+<!--<md-card class="md-card-css"> -->
+<div class = "ui-g">
+ <md-card class="md-card-css">
+    <md-card-subtitle class="md-card-subtitle-css">
+           <div class="header-Name">FlowPath Capturing</div>      
+     </md-card-subtitle>
+ <div class="ui-g">
+  <form (ngSubmit)="submitKeywords(groupForm)" #groupForm="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label>Full Flow Path capturing percentage[0-100%]</label>
+            </div>
+            <div class="ui-g-6">
+                <!--<input name="bciInstrSessionPct" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus required ngModel/>-->
+                <p-spinner size="30" name="bciInstrSessionPct"  [(ngModel)]="bciInstrSessionPct"   [min]="0" [max]="100"  required ngModel></p-spinner>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label>Capture complete transaction flow forcefully</label>
+            </div>
+            <div class="ui-g-6">
+                 <p-dropdown name="enableForcedFPChain"  [(ngModel)]="enableForcedFPChain" [options]="enableForcedFPChainSelectItem" appendTo="body"  required ngModel></p-dropdown>
+            </div>
+        </div>
+
+
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label>Capture Cpu Times</label>
+            </div>
+            <div class="ui-g-6">
+                  <p-dropdown name="enableCpuTime"  [(ngModel)]="enableCpuTime"  [options]="enableCpuTimeSelectItem" appendTo="body"   required ngModel></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label>Capture HTTP header for correlation id</label>
+            </div>
+            <div class="ui-g-6">
+                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
+                <!--<p-dropdown name="topoId" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>-->
+                 <input name="correlationIDHeader" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" autofocus required ngModel/>
+
+            </div>
+        </div>
+        <footer>
+            <div class="pull-right">
+                <button type="submit" pButton icon="fa-check" label="Save Changes"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Reset"></button>
+            </div>
+        </footer>
+    </form>
+ </div>
+
+  </md-card >
+  </div>
+

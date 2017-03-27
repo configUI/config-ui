@@ -9,8 +9,7 @@
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileName" header="Name" [sortable]="true">
         <template let-col let-profile="rowData" pTemplate type="body">
-      <!--<span title="{{profile[col.field]}}"><a [routerLink]="['configuration',profile['profileId'],'general']">{{profile[col.field]}}</a></span>-->
-       <span title="{{profile[col.field]}}"><a [routerLink]="['/generalTest',profile['profileId']]">{{profile[col.field]}}</a></span>
+      <span title="{{profile[col.field]}}"><a routerLink="configuration/23752">{{profile[col.field]}}</a></span>
     </template>
     </p-column>
     <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileDesc" header="Description" [sortable]="true">
@@ -20,4 +19,3 @@
     </p-column>
 </p-dataTable>
 <router-outlet></router-outlet>
-"['/tree-main', application['dcId']]"

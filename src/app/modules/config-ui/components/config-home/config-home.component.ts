@@ -3,6 +3,7 @@ import { ApplicationInfo } from '../../interfaces/application-info';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
+
 @Component({
   selector: 'app-config-home',
   templateUrl: './config-home.component.html',

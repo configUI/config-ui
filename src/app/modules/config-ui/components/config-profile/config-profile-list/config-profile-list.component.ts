@@ -19,7 +19,7 @@ export class ConfigProfileListComponent implements OnInit {
 
   loadProfileList() {
     this.configProfileService.getProfileList().subscribe(data=> {
-    this.profileData = data; 
+      this.profileData = data["_embedded"]["profiles"]; // For temporary basis we are getting data from these keys
     });
   }
 
