@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-configuration',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigurationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
-  profileId: number = 23752;
+  profileId: number;
 
   ngOnInit() {
+    this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );  
+    console.log("profileIdprofileId", this.profileId);
   }
 
 }

@@ -9,6 +9,7 @@ import { ConfigProfileListComponent } from '../components/config-profile-list/co
 import { ConfigTopologyListComponent } from '../components/config-topology-list/config-topology-list.component';
 import { ConfigNdAgentComponent } from '../components/config-nd-agent/config-nd-agent.component';
 
+import { ConfigProfileRoutingComponent } from '../components/config-profile/config-profile-routing/config-profile-routing.component';
 import { ConfigurationComponent } from '../components/config-profile/configuration/configuration.component';
 import { GeneralComponent } from '../components/config-profile/general/general.component';
 import { AdvanceComponent } from '../components/config-profile/advance/advance.component';
@@ -22,16 +23,14 @@ const routes: Routes = [
     { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
     { path: 'generalTest/:profileId', component: GeneralComponent },
     {
-        path: 'profile-list', component: ConfigProfileListComponent, children: [
-            {
-                path: 'configuration/:profileId', component: ConfigurationComponent, children: [
-                    { path: 'general', component: GeneralComponent },
-                    { path: 'advance', component: AdvanceComponent },
-                    { path: 'instrumentation', component: InstrumentationComponent },
-                    { path: 'integration', component: ProductIntegrationComponent }
-                ]
-            },
-
+        path: 'profile', component: ConfigProfileRoutingComponent, children: [
+            { path: '', redirectTo : 'profile-list', pathMatch: 'full'},
+            { path: 'profile-list', component: ConfigProfileListComponent },
+            { path: 'configuration/:profileId', component: ConfigurationComponent },
+            { path: 'general/:profileId', component: GeneralComponent },
+            { path: 'advance/:profileId', component: AdvanceComponent },
+            { path: 'instrumentation/:profileId', component: InstrumentationComponent },
+            { path: 'integration/:profileId', component: ProductIntegrationComponent }
         ]
     },
     { path: 'topology-list', component: ConfigTopologyListComponent },

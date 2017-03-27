@@ -33,23 +33,23 @@
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">PROFILE</div>
-                <div class="header-button"><a [routerLink]="['/profile-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info "></button></a></div>
+                <div class="header-button"><a [routerLink]="['/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info "></button></a></div>
             </md-card-subtitle>
             <div class="table-css">
                 <p-dataTable [value]="profileInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
-                        <template let-col let-application="rowData" pTemplate type="body">
-                            <span title="{{application[col.field]}}"><a [routerLink]="['/profile-list']">{{application[col.field]}}</a></span>
+                        <template let-col let-profile="rowData" pTemplate type="body">
+                            <span title="{{profile[col.field]}}"><a [routerLink]="['/profile/configuration/', profile['id']]">{{profile[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topoName" header="Description">
-                        <template let-col let-application="rowData" pTemplate type="body">
-                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        <template let-col let-profile="rowData" pTemplate type="body">
+                             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="userName" header="Last Updated On">
-                        <template let-col let-application="rowData" pTemplate type="body">
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        <template let-col let-profile="rowData" pTemplate type="body">
+                            <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -65,7 +65,7 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">TOPOLOGY INFO</div>
                 <div class="header-button">
-                    <a [routerLink]="['/trans-Config']"> <button pButton type="button" label="Import Topologies" class="ui-button-color-import" icon="fa-download"></button></a>
+                    <a (click)="importTopology()"> <button pButton type="button" label="Import Topologies" class="ui-button-color-import" icon="fa-download"></button></a>
                     <a [routerLink]="['/topology-list']"><button pButton type="button" label="Show All" icon="fa-info" class="button-color"></button></a>
                 </div>
             </md-card-subtitle>

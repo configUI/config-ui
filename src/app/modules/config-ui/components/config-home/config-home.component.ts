@@ -35,4 +35,8 @@ export class ConfigHomeComponent implements OnInit {
      })
   }
 
+  importTopology(): void{
+    this.configHomeService.importTopology().subscribe(data=> this.topologyInfo = data);
+  }
+
 }

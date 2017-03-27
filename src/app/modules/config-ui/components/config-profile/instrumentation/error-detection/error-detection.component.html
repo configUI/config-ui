@@ -1,0 +1,88 @@
+<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection">
+    <p-header>
+        <span>Error Detection(s) </span>
+        <span style="float :right; margin-top:-5px">
+            <button pButton type="button" title="Add" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
+            <button pButton type="button" title="Delete" (click)="deleteErrorDetection()" icon="fa-trash"></button>
+        </span>
+    </p-header>
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true">
+        <template let-col let-errorDetection="rowData" pTemplate type="body">
+      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column class="tableCss" field="errorFrom" header="From" [sortable]="true">
+        <template let-col let-errorDetection="rowData" pTemplate type="body">
+      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column class="tableCss" field="errorTo" header="To" [sortable]="true">
+        <template let-col let-errorDetection="rowData" pTemplate type="body">
+      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column field="enabled" header="Enabled">
+        <template let-col let-errorDetection="rowData" pTemplate type="body">
+      <p-inputSwitch onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></p-inputSwitch>
+    </template>
+    </p-column>
+    <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true">
+        <template let-col let-errorDetection="rowData" pTemplate type="body">
+      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+    </template>
+    </p-column>
+</p-dataTable>
+
+<!--Dialog for Error  Detection-->
+
+<p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Rule Name</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in1" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleName" />
+        </div>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>From</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.errorFrom" />
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>To</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.errorTo" />
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Enabled</label>
+        </div>
+        <div class="ui-g-8">
+            <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="errorDetectionDetail.enabled"></p-inputSwitch>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Description</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in3" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleDesc" />
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
+            <button type="button" pButton icon="fa-check" (click)="saveErrorDetection()" label="Save"></button>
+        </div>
+    </footer>
+</p-dialog>
