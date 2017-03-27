@@ -6,9 +6,9 @@ import * as BREADCRUMB from '../../constants/config-breadcrumb-constant';
 // import { BreadcrumbInfo } from '../../interfaces/breadcrumb-info';
 
 export interface BreadcrumbInfo {
-    label: string;
-    params?: Params;
-    url: string;
+  label: string;
+  params?: Params;
+  url: string;
 }
 interface IBreadcrumb {
   label: string;
@@ -30,33 +30,56 @@ export class ConfigBreadcrumbComponent implements OnInit {
   private items: MenuItem[];
 
   ngOnInit() {
+
     this.items = [];
+
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-      
-      //this.items.length = 0;
-      this.items = [{routerLink: ['home'], label: BREADCRUMB.LABEL.HOME}];
-      //this.items.push();
+      this.items = [{ routerLink: ['home'], label: BREADCRUMB.LABEL.HOME }];
+
       let url = event.url;
-      console.log("query param", this.router)
-      if (url == BREADCRUMB.URL.HOME) {
-        //this.items.push({routerLink: [url], label: BREADCRUMB.LABEL.HOME});
+      
+      if (url == BREADCRUMB.URL.APPLICATION_LIST) {
+        this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST });
       }
-      else if (url == BREADCRUMB.URL.APPLICATION_LIST) {
-        this.items.push({routerLink: [url], label: BREADCRUMB.LABEL.APPLICATION_LIST});
+      else if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
+
+        if (url.startsWith(BREADCRUMB.URL.PROFILE_LIST))
+          this.items.push({ label: BREADCRUMB.LABEL.PROFILE_LIST });
+        else {
+          this.items.push({ routerLink: [BREADCRUMB.URL.PROFILE_LIST], label: BREADCRUMB.LABEL.PROFILE_LIST });
+
+          if (url.startsWith(BREADCRUMB.URL.CONFIGURATION))
+            this.items.push({ label: BREADCRUMB.LABEL.CONFIGURATION });
+
+          else {
+            let profileId = url.substring(url.lastIndexOf("/"), url.length);
+            console.log("profileId", profileId);
+            this.items.push({routerLink: [`${BREADCRUMB.URL.CONFIGURATION}/${profileId}`], label: BREADCRUMB.LABEL.CONFIGURATION});
+            
+            if (url.startsWith(BREADCRUMB.URL.GENERAL))
+              this.items.push({ label: BREADCRUMB.LABEL.GENERAL });
+            else if (url.startsWith(BREADCRUMB.URL.INSTRUMENTATION))
+              this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION });
+            else if (url.startsWith(BREADCRUMB.URL.ADVANCE))
+              this.items.push({ label: BREADCRUMB.LABEL.ADVANCE });
+            else if (url.startsWith(BREADCRUMB.URL.INTEGRATION))
+              this.items.push({ label: BREADCRUMB.LABEL.INTEGRATION });
+          }
+        }
       }
-      else if (url == BREADCRUMB.URL.PROFILE_LIST) {
-        this.items.push({routerLink: [url], label: BREADCRUMB.LABEL.PROFILE_LIST});
-      }
-      else if (url.startsWith(BREADCRUMB.URL.CONFIGURATION)) {
-        this.items.push({routerLink: [BREADCRUMB.URL.PROFILE_LIST], label: BREADCRUMB.LABEL.PROFILE_LIST});
-        this.items.push({routerLink: [url], label: BREADCRUMB.LABEL.CONFIGURATION});
-      }
+
       else if (url == BREADCRUMB.URL.TOPOLOGY_LIST) {
-        this.items.push({routerLink: [url], label: BREADCRUMB.LABEL.TOPOLOGY_LIST});
+        this.items.push({ routerLink: [url], label: BREADCRUMB.LABEL.TOPOLOGY_LIST });
       }
+
+      console.log("this.items", this.items);
     });
+
   }
 
+  profileEmit(): void {
+    console.log("profileEmit()");
+  }
   private getBreadcrumbs(route: ActivatedRoute, url: string = "", breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
 
     const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";

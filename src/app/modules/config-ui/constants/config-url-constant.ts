@@ -1,7 +1,7 @@
 //const SERVICE_URL = 'http://localhost:8090';
 // const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
- //const  SERVICE_URL = 'http://10.10.40.112:8009/configUI';
+//  const  SERVICE_URL = 'http://10.10.30.26:8001/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
@@ -33,7 +33,8 @@ export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
 export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
-export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
+//export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
+export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist`
 //export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
 export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
 

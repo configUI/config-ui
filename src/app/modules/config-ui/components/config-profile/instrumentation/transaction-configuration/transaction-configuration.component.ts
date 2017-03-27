@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-transaction-configuration',
@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transaction-configuration.component.css']
 })
 export class TransactionConfigurationComponent implements OnInit {
-
+  
+  @Input()
+  profileId: number;
+  
   constructor() { }
 
   ngOnInit() {

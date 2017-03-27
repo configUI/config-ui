@@ -14,7 +14,13 @@ export const LABEL = {
 export const URL = {
     HOME: '/home',
     APPLICATION_LIST: '/application-list',
-    PROFILE_LIST: '/profile-list',
-    TOPOLOGY_LIST: '/topology-list',
-    CONFIGURATION: '/configuration'
+    PROFILE: '/profile',
+    PROFILE_LIST: '/profile/profile-list',
+    TOPOLOGY_LIST: '/profile/topology-list',
+    CONFIGURATION: '/profile/configuration',
+
+    GENERAL: '/profile/general',
+    INSTRUMENTATION: '/profile/instrumentation',
+    ADVANCE: '/profile/advance',
+    INTEGRATION: '/profile/integration'
 };

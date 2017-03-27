@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-instrument-monitors',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./instrument-monitors.component.css']
 })
 export class InstrumentMonitorsComponent implements OnInit {
+
+  @Input()
+  profileId: number;
 
   constructor() { }
 

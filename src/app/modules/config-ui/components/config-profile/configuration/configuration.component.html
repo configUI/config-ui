@@ -1,9 +1,4 @@
-<p>
-    configuration works!
-</p>
-<a [routerLink]="['/profile-list/configuration', profileId, 'general']">general</a>
-<a [routerLink]="['/profile-list/configuration', profileId, 'instrumentation']">instrumentation</a>
-<a [routerLink]="['/profile-list/configuration', profileId, 'advance']">advance</a>
-<a [routerLink]="['/profile-list/configuration', profileId, 'integration']">product-integration</a>
-
-<router-outlet></router-outlet>
+<a [routerLink]="['../../general', profileId]">general</a>
+<a [routerLink]="['../../instrumentation', profileId]">instrumentation</a>
+<a [routerLink]="['../../advance', profileId]">advance</a>
+<a [routerLink]="['../../integration', profileId]">product-integration</a>

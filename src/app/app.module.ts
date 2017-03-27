@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -27,6 +27,7 @@ import {ConfigRestApiService} from './modules/config-ui/services/config-rest-api
 import {ConfigBreadcrumbService} from './modules/config-ui/services/config-breadcrumb.service';
 import {ConfigUtilityService} from './modules/config-ui/services/config-utility.service';
 import {ConfigHomeService} from './modules/config-ui/services/config-home.service';
+import {ConfigKeywordsService} from './modules/config-ui/services/config-keywords.service';
 
 /**Config UI Component */
 import { AppComponent } from './app.component';
@@ -48,11 +49,12 @@ import { ConfigTopologyListComponent } from './modules/config-ui/components/conf
 import { ConfigNdAgentComponent } from './modules/config-ui/components/config-nd-agent/config-nd-agent.component';
 import { ConfigBreadcrumbComponent } from './modules/config-ui/components/config-breadcrumb/config-breadcrumb.component';
 import { ConfigTreeMainComponent } from './modules/config-ui/components/config-tree-main/config-tree-main.component';
-import { ServiceEntryPointComponent } from './modules/config-ui/components/config-profile/advance/service-entry-point/service-entry-point.component';
-import { IntegrationPtDetectionComponent } from './modules/config-ui/components/config-profile/advance/integration-pt-detection/integration-pt-detection.component';
-import { TransactionConfigurationComponent } from './modules/config-ui/components/config-profile/advance/transaction-configuration/transaction-configuration.component';
-import { InstrumentMonitorsComponent } from './modules/config-ui/components/config-profile/advance/instrument-monitors/instrument-monitors.component';
-import { ErrorDetectionComponent } from './modules/config-ui/components/config-profile/advance/error-detection/error-detection.component';
+import { ServiceEntryPointComponent } from './modules/config-ui/components/config-profile/instrumentation/service-entry-point/service-entry-point.component';
+import { IntegrationPtDetectionComponent } from './modules/config-ui/components/config-profile/instrumentation/integration-pt-detection/integration-pt-detection.component';
+import { TransactionConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/transaction-configuration.component';
+import { InstrumentMonitorsComponent } from './modules/config-ui/components/config-profile/instrumentation/instrument-monitors/instrument-monitors.component';
+import { ErrorDetectionComponent } from './modules/config-ui/components/config-profile/instrumentation/error-detection/error-detection.component';
+import { ConfigProfileRoutingComponent } from './modules/config-ui/components/config-profile/config-profile-routing/config-profile-routing.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -83,7 +85,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     IntegrationPtDetectionComponent,
     TransactionConfigurationComponent,
     InstrumentMonitorsComponent,
-    ErrorDetectionComponent
+    ErrorDetectionComponent,
+    ConfigProfileRoutingComponent
   ],
   imports: [
   BrowserModule,
@@ -103,10 +106,11 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GrowlModule,
     ConfirmDialogModule,
     TabViewModule,
-    TooltipModule
+    TooltipModule,
+    InputSwitchModule
 
   ],
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService],
+  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

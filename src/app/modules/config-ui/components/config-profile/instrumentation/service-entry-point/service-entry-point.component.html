@@ -1,0 +1,77 @@
+<p-dataTable [value]="serviceEntryData" [(selection)]="selectedserviceEntryData">
+    <p-header>
+        <span>  Service Entry Detail(s) </span>
+        <span style="float :right; margin-top:-5px">
+            <button pButton type="button" label="Add" (click)="openServiceEntryDialog()" icon="fa-plus"></button>
+        </span>
+    </p-header>
+
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="entryType" header="Type" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate type="body">
+      <span title="{{service[col.field]}}"><a href="https://www.w3schools.com">{{service[col.field]}}</a></span>
+    </template>
+    </p-column>
+    <p-column [style]="{'width':'140px','text-overflow':'ellipsis'}" field="name" header="Name" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate type="body">
+      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column [style]="{'width':'140px','text-overflow':'ellipsis'}" field="enabled" header="Enabled" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate type="body">
+      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column [style]="{'width':'170px','text-overflow':'ellipsis'}" field="desc" header="Description" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate type="body">
+      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-footer>
+        <ul>
+            <li *ngFor="let methodmonitor of selectedMethodMonitors2" style="text-align: left">{{methodmonitor.Display_Name + ' - ' + methodmonitor.Description + ' - ' + methodmonitor.Method_Name }}</li>
+        </ul>
+    </p-footer>
+</p-dataTable>
+
+<p-dialog header="New Service Entry" [(visible)]="displayNewService" modal="modal" width="500" responsive="true">
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Type</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in1" type="text" size="30" pInputText [(ngModel)]="typeAdd" />
+        </div>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Name</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="nameAdd" />
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Enabled</label>
+        </div>
+        <div class="ui-g-8">
+            <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="val"></p-inputSwitch>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Description</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in3" type="text" size="30" pInputText [(ngModel)]="descriptionAdd" />
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
+            <button type="button" pButton icon="fa-check" (click)="displayNewService=false" label="Save"></button>
+        </div>
+    </footer>
+</p-dialog>
