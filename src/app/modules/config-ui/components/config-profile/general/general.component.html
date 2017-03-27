@@ -1,20 +1,20 @@
 <p-tabView>
-    <p-tabPanel header="Flowpath">
-        <app-flowpath></app-flowpath>
-    </p-tabPanel>
     <p-tabPanel header="Hotspot">
-        <app-hotspot></app-hotspot>
+        <app-hotspot (keywordData)="saveKeywordData($event)"></app-hotspot>
+    </p-tabPanel>
+    <p-tabPanel header="Flowpath">
+        <app-flowpath (keywordData)="saveKeywordData($event)"></app-flowpath>
     </p-tabPanel>
     <p-tabPanel header="Exception ">
-        <app-exception></app-exception>
+        <app-exception (keywordData)="saveKeywordData($event)"></app-exception>
     </p-tabPanel>
     <p-tabPanel header="Flowpath Header ">
-        <app-header></app-header>
+        <app-header (keywordData)="saveKeywordData($event)"></app-header>
     </p-tabPanel>
     <p-tabPanel header="JVM Thread Stats Monitor">
-        <app-thread-stats></app-thread-stats>
+        <app-thread-stats (keywordData)="saveKeywordData($event)"></app-thread-stats>
     </p-tabPanel>
     <p-tabPanel header="Intrumentation Profiles">
-        <app-instrumentation-profiles></app-instrumentation-profiles>
+        <app-instrumentation-profiles (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
     </p-tabPanel>
 </p-tabView>

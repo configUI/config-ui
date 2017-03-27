@@ -1,64 +1,66 @@
 <!--Dialog for Hotspot Capturing-->
 <p-panel header="Hotspot Capturing">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <div class="ui-g-3">
-                    <label>As Sample Interval For Stack Trace</label>
+        <form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="ui-g-3">
+                        <label>As Sample Interval For Stack Trace</label>
+                    </div>
+                    <div class="ui-g-3">
+                        <input name="sampleInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required ngModel />
+                    </div>
+                    <div class="ui-g-3">
+                        <label>As Thresold Match count</label>
+                    </div>
+                    <div class="ui-g-3">
+                        <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
+                    </div>
                 </div>
-                <div class="ui-g-3">
-                    <input id="in1" type="number" size="20" pInputText [(ngModel)]="sampleInterval" />
+                <div class="ui-g-12">
+                    <div class="ui-g-3">
+                        <label>Hotspot Reporting Interval</label>
+                    </div>
+                    <div class="ui-g-3">
+                        <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}} max={{hotspot.ASReportInterval.max}} required ngModel />
+                    </div>
+                    <div class="ui-g-3">
+                        <label>Min Stack Depth for Hotspot</label>
+                    </div>
+                    <div class="ui-g-3">
+                        <input name="depthHotspot" type="number" size="20" pInputText [(ngModel)]="hotspot.ASDepthFilter.value" min={{hotspot.ASDepthFilter.min}} max={{hotspot.ASDepthFilter.max}} required ngModel />
+                    </div>
                 </div>
-                <div class="ui-g-3">
-                    <label>As Thresold Match count</label>
+                <div class="ui-g-12">
+                    <div class="ui-g-3">
+                        <label>As Trace Level</label>
+                    </div>
+                    <div class="ui-g-3">
+                        <input name="traceLevel" type="number" size="20" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}} max={{hotspot.ASTraceLevel.max}} required ngModel />
+                    </div>
+                    <div class="ui-g-3">
+                        <label>As Stack ComparingDepth</label>
+                    </div>
+                    <div class="ui-g-3">
+                        <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
+                    </div>
                 </div>
-                <div class="ui-g-3">
-                    <input id="in2" type="number" size="20" pInputText [(ngModel)]="matchCount" />
+                <div class="ui-g-12">
+                    <label>Filter Settings</label>
                 </div>
-            </div>
-            <div class="ui-g-12">
-                <div class="ui-g-3">
-                    <label>Hotspot Reporting Interval</label>
+                <div class="ui-g-12">
+                    <label>List of thread names to be included in Hotspot data</label>
                 </div>
-                <div class="ui-g-3">
-                    <input id="in1" type="number" size="20" pInputText [(ngModel)]="reportingInterval" />
-                </div>
-                <div class="ui-g-3">
-                    <label>Min Stack Depth for Hotspot</label>
-                </div>
-                <div class="ui-g-3">
-                    <input id="in2" type="number" size="20" pInputText [(ngModel)]="depthHotspot" />
-                </div>
-            </div>
-            <div class="ui-g-12">
-                <div class="ui-g-3">
-                    <label>As Trace Level</label>
-                </div>
-                <div class="ui-g-3">
-                    <input id="in1" type="number" size="20" pInputText [(ngModel)]="traceLevel" />
-                </div>
-                <div class="ui-g-3">
-                    <label>As Stack ComparingDepth</label>
-                </div>
-                <div class="ui-g-3">
-                    <input id="in2" type="number" size="20" pInputText [(ngModel)]="comparingDepth" />
-                </div>
-            </div>
-            <div class="ui-g-12">
-                <label>Filter Settings</label>
-            </div>
-            <div class="ui-g-12">
-                <label>List of thread names to be included in Hotspot data</label>
-            </div>
 
-            <div class="ui-g-12">
-                <label>List of thread names to be excluded in Hotspot data</label>
+                <div class="ui-g-12">
+                    <label>List of thread names to be excluded in Hotspot data</label>
+                </div>
             </div>
-        </div>
-        <!--<div class="">-->
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="text-align:right;">
-            <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
-            <button type="button" pButton icon="fa-check" (click)="hotspotCapturingDialog=false" label="Save"></button>
-        </div>
+            <!--<div class="">-->
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="text-align:right;">
+                <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+            </div>
+        </form>
     </div>
 </p-panel>

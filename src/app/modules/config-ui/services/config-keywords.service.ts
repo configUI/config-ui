@@ -7,7 +7,21 @@ import {ServiceEntryPoint, IntegrationPTDetection, ErrorDetection} from '../cont
 @Injectable()
 export class ConfigKeywordsService {
 
+  keywordData: Object = {};
+
   constructor(private _restApi: ConfigRestApiService) { }
+
+  /** For Getting all keywordData data */
+  getProfileKeywords(profileId){
+    this._restApi.getDataByGetReq(`${URL.GET_KEYWORDS_DATA}/${profileId}`)
+    .subscribe(data => this.keywordData = data);
+  }
+
+  /** For save all keywordData data */
+  saveProfileKeywords(profileId){
+    this._restApi.getDataByPostReq(`${URL.UPDATE_KEYWORDS_DATA}/${profileId}`, this.keywordData)
+    .subscribe(data => this.keywordData = data);
+  }
 
   /**Service Entry Point */
   getServiceEntryPointList(profileId): Observable<ServiceEntryPoint[]>{
