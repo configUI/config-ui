@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -55,6 +55,12 @@ import { TransactionConfigurationComponent } from './modules/config-ui/component
 import { InstrumentMonitorsComponent } from './modules/config-ui/components/config-profile/instrumentation/instrument-monitors/instrument-monitors.component';
 import { ErrorDetectionComponent } from './modules/config-ui/components/config-profile/instrumentation/error-detection/error-detection.component';
 import { ConfigProfileRoutingComponent } from './modules/config-ui/components/config-profile/config-profile-routing/config-profile-routing.component';
+import { FlowpathComponent } from './modules/config-ui/components/config-profile/general/flowpath/flowpath.component';
+import { HotspotComponent } from './modules/config-ui/components/config-profile/general/hotspot/hotspot.component';
+import { ExceptionComponent } from './modules/config-ui/components/config-profile/general/exception/exception.component';
+import { HeaderComponent } from './modules/config-ui/components/config-profile/general/header/header.component';
+import { ThreadStatsComponent } from './modules/config-ui/components/config-profile/general/thread-stats/thread-stats.component';
+import { InstrumentationProfilesComponent } from './modules/config-ui/components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -86,7 +92,13 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TransactionConfigurationComponent,
     InstrumentMonitorsComponent,
     ErrorDetectionComponent,
-    ConfigProfileRoutingComponent
+    ConfigProfileRoutingComponent,
+    FlowpathComponent,
+    HotspotComponent,
+    ExceptionComponent,
+    HeaderComponent,
+    ThreadStatsComponent,
+    InstrumentationProfilesComponent
   ],
   imports: [
   BrowserModule,
@@ -107,7 +119,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfirmDialogModule,
     TabViewModule,
     TooltipModule,
-    InputSwitchModule
+    InputSwitchModule,
+    PanelModule
 
   ],
   providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
