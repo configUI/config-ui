@@ -7,6 +7,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 //import * as _ from 'lodash';
 
 
+import { ConfigKeywordsService } from '../../../services/config-keywords.service';
+
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
@@ -15,62 +17,23 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 export class GeneralComponent implements OnInit {
 
-  constructor(private keywordsDataService: ConfigKeywordsDataService,private route: ActivatedRoute) { }
+  profileId: number;
 
-  enableForcedFPChainSelectItem:SelectItem[];
-  enableCpuTimeSelectItem:SelectItem[];
-  keywordsData:Keywords;
- // keywordInfo :KeywordsInfo;
-
+  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("genderal cmp---",this)
-    this.loadKeywordsData();
-    this.createEnableForcedFPChainSelectItem();
-    this.createEnableCpuTimeSelectItem();
+    this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );
   }
 
-  createEnableForcedFPChainSelectItem(){
-    this.enableForcedFPChainSelectItem = [];
-    this.enableForcedFPChainSelectItem.push( { value: -1, label: '--Select--' },
-                                            { value: 0, label: 'Disable' },
-                                            { value: 1, label: 'Enable' },
-                                            { value: 2, label: 'Enable all with complete FP' }
-    );
-  
-  }
-  createEnableCpuTimeSelectItem(){
-    this.enableCpuTimeSelectItem = [];
-    this.enableCpuTimeSelectItem.push( { value:-1, label: '--Select--' },
-                                      { value: 0, label: 'Disable' },
-                                      { value: 1, label: 'Enable at FP/ BT level' },
-                                      { value: 2, label: 'Enable both method and flowpath level' }
-    );
+  saveKeywordData(keywordData){
+    console.log("keywordData", keywordData);
+    for(let key in keywordData){
+      this.configKeywordsService.keywordData[key] = keywordData[key];
+    }
+    console.log("this.configKeywordsService.keywordData", this.configKeywordsService.keywordData);
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 
-  submitKeywords(data){
 
-    let formData = Object.assign({}, data.form._value); 
-    var keywordsData =  Object.assign({}, this.keywordsData);
- 
-    Object.keys(formData).forEach(function(key) {
-      keywordsData[key]['value'] = formData[key];
-      formData[key] = keywordsData[key];
-    });
-    let profileId;
-    this.route.params.subscribe((params: Params) => profileId = params['profileId']);
-    
-    this.keywordsDataService.saveKeywordData(formData,profileId);
-
-  }
-
-   loadKeywordsData(){
-    let profileId;
-    this.route.params.subscribe((params: Params) => profileId = params['profileId']);
-    this.keywordsDataService.getKeywordsData(profileId).subscribe(data =>
-      this.keywordsData = data
-    )
-  
-   }
 
 }
