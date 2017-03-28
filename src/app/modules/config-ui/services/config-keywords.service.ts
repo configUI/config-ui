@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
 
 @Injectable()
 export class ConfigKeywordsService {
@@ -40,8 +40,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`);
   }
 
-  addServiceEntryPointData(data): Observable<ServiceEntryPoint> {
-    return this._restApi.getDataByPostReq(URL.ADD_NEW_SERVICE_ENTRY_POINTS, data);
+  addServiceEntryPointData(data,profileId): Observable<ServiceEntryPoint>{
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`,data);
   }
 
   /**For Integration PT Detection */
@@ -75,6 +75,22 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(URL.DEL_ERROR_DETECTION, data);
   }
 
+
+  getMethodMonitorList(profileId): Observable<MethodMonitorData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_METHOD_MON_TABLEDATA}/${profileId}`);
+  }
+
+  editMethodMonitorData(data): Observable<MethodMonitorData> {
+    let url = `${URL.EDIT_ROW_METHOD_MONITOR_URL}/${data.methodId}`
+    return this._restApi.getDataByPutReq(url, data);
+  }
+  addMethodMonitorData(data, profileId): Observable<MethodMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_METHOD_MONITOR}/${profileId}`, data);
+  }
+
+  deleteMethodMonitorData(data): Observable<MethodMonitorData> {
+    return this._restApi.getDataByPostReq(URL.DEL_METHOD_MONITOR, data);
+  }
 
 
 }

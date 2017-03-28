@@ -7,12 +7,12 @@
   </p-header>
   <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
   <p-column class="tableCss" field="type" header="Type" [sortable]="true">
-    <template let-col let-integrationPTDetection="rowData" pTemplate type="body">
+    <template let-col let-integrationPTDetection="rowData" pTemplate>
       <span title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
     </template>
   </p-column>
   <p-column class="tableCss"  field="detail" header="Description" [sortable]="true">
-    <template let-col let-integrationPTDetection="rowData" pTemplate type="body">
+    <template let-col let-integrationPTDetection="rowData" pTemplate>
       <span title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
     </template>
   </p-column>
