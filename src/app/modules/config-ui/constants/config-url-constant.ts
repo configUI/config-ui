@@ -74,6 +74,8 @@ export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 
+/* Url fot BussinessTransactionGlobal */
+export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/bussinesstransglobal`;
 
 
 /* Url for Backend Detection */

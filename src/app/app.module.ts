@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule } from 'primeng/primeng';
+import {  CheckboxModule, RadioButtonModule, InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -28,6 +28,7 @@ import {ConfigBreadcrumbService} from './modules/config-ui/services/config-bread
 import {ConfigUtilityService} from './modules/config-ui/services/config-utility.service';
 import {ConfigHomeService} from './modules/config-ui/services/config-home.service';
 import {ConfigKeywordsService} from './modules/config-ui/services/config-keywords.service';
+import { ConfigBusinessTranService } from './modules/config-ui//services/config-business-trans-global-service';
 
 /**Config UI Component */
 import { AppComponent } from './app.component';
@@ -61,6 +62,8 @@ import { ExceptionComponent } from './modules/config-ui/components/config-profil
 import { HeaderComponent } from './modules/config-ui/components/config-profile/general/header/header.component';
 import { ThreadStatsComponent } from './modules/config-ui/components/config-profile/general/thread-stats/thread-stats.component';
 import { InstrumentationProfilesComponent } from './modules/config-ui/components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
+import { HTTPBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
+import { MethodBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/method-bt-configuration/method-bt-configuration.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -98,7 +101,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ExceptionComponent,
     HeaderComponent,
     ThreadStatsComponent,
-    InstrumentationProfilesComponent
+    InstrumentationProfilesComponent,
+    HTTPBTConfigurationComponent,
+    MethodBTConfigurationComponent
   ],
   imports: [
   BrowserModule,
@@ -120,10 +125,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TabViewModule,
     TooltipModule,
     InputSwitchModule,
-    PanelModule
+    PanelModule, 
+    RadioButtonModule,
+     CheckboxModule
 
   ],
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
+  providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

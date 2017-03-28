@@ -1,0 +1,134 @@
+<!--For showing Bussiness Transaction Pattern(s) list -->
+<p-dataTable [value]="businessTransMethodInfo" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-header>
+        <span> Method Bussiness Transaction(s) </span>
+        <span style="float: right; margin-top:-5px">
+                       <button pButton type="button" title="Add" (click)="openMethodDialog()" icon="fa-plus"></button>
+                       <button pButton type="button"title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+                    </span>
+    </p-header>
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate type="body">
+                   <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+            </template>
+    </p-column>
+    <p-column class="col-overflow" field="returnType" header="Return Type" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+    </p-column>
+</p-dataTable>
+
+<!--Dialog for adding Business Transaction Method-->
+<p-dialog header="Add Bussiness Transaction Method" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
+    <!--<form (ngSubmit)="saveEditApp()" #groupForm="ngForm">-->
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Fully Qualified Method Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input type="text" size="48" pInputText [(ngModel)]="methodName" autofocus required ngModel/>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <p-checkbox label="Enable Argument Type" [(ngModel)]="enableArgumentType" binary="false"></p-checkbox>
+            </div>
+            <div class="ui-g-8">
+                <div class="ui-g-3">
+                    Argument Index
+                </div>
+                <div class="ui-g-5" style="margin-top: -5px">
+                    <input disabled="{{!enableArgumentType}}" type="text" size="30" pInputText [(ngModel)]="argumentIndex" placeholder="Argument Index" autofocus required ngModel/>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-3">
+                Return Type
+            </div>
+            <div class="ui-g-3">
+                <p-dropdown [options]="returnTypeList" [(ngModel)]="selectedReturnType" appendTo="body" placeholder="Return Type"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <p-dataTable [value]="returnTypeInfo" *ngIf="selectedReturnType" [(selection)]="selectedReturnTypeInfo" [rows]="5" [paginator]="true" [pageLinks]="3">
+                <p-header>
+                    <span>  Return Type Info </span>
+                    <span style="float: right; margin-top:-5px">
+                       <button pButton type="button" title="Add" (click)="openAddReturnTypeDialog()" icon="fa-plus"></button>
+                       <button pButton type="button"title="Delete" (click)="deleteRetunType()" icon="fa-trash"></button>
+                    </span>
+                </p-header>
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column class="col-overflow" field="fqm" header="Value" [sortable]="true">
+                    <template let-col let-application="rowData" pTemplate type="body">
+                   <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+            </template>
+                </p-column>
+                <p-column class="col-overflow" field="returnType" header="Operation" [sortable]="true">
+                    <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                </p-column>
+                <p-column class="col-overflow" field="returnType" header="BT Name" [sortable]="true">
+                    <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="submit" pButton icon="fa-check" label="OK"></button>
+            <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+        </div>
+    </footer>
+    <!--</form>-->
+</p-dialog>
+
+<!-- Add new Return type info -->
+
+<p-dialog header="Add Return Type Info" *ngIf="addReturnTypeDialog" [(visible)]="addReturnTypeDialog" modal="modal" width="400" responsive="true">
+    <!--<form (ngSubmit)="saveEditApp()" #groupForm="ngForm">-->
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Value</label>
+            </div>
+            <div class="ui-g-8" style="margin-top: -5px">
+                <input type="text" size="30" pInputText [(ngModel)]="methodName" placeholder="Value" autofocus required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Select Operation</label>
+            </div>
+            <div class="ui-g-8" style="margin-top: -5px">
+                <input type="text" size="30" pInputText [(ngModel)]="methodName" placeholder="Select Operation" autofocus required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Bt Name</label>
+            </div>
+            <div class="ui-g-8" style="margin-top: -5px">
+                <input type="text" size="30" pInputText [(ngModel)]="methodName" placeholder="Bt Name" autofocus required ngModel/>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="submit" pButton icon="fa-check" label="OK"></button>
+        </div>
+    </footer>
+    <!--</form>-->
+</p-dialog>
