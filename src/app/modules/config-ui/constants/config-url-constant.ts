@@ -100,6 +100,7 @@ export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xml
 export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
 export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
 export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
+export const EDIT_ROW_METHOD_MONITOR_URL= `${SERVICE_URL}/custom/methodmonitor/updateMethodMonitor`;
 
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;

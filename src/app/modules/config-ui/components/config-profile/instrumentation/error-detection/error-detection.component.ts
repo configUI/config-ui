@@ -14,13 +14,16 @@ import { ConfigUtilityService } from '../../../../services/config-utility.servic
 export class ErrorDetectionComponent implements OnInit {
   @Input()
   profileId: number;
-
+/**It stores error detection data */
   errorDetectionData: ErrorDetection[];
+  /**It stores selected error detection data */
   selectedErrorDetection: ErrorDetection[];
-  
+  /**It stores data for add/edit error detection */
   errorDetectionDetail: ErrorDetection;
 
+/**For add/edit error-detection flag */
   isNewErrorDetection: boolean;
+  /**For open/close add/edit error detection detail */
   addEditErrorDetectionDialog: boolean = false;
   
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,private configUtilityService: ConfigUtilityService) { }
@@ -79,7 +82,7 @@ export class ErrorDetectionComponent implements OnInit {
     }
   }
   
-  /**This method is used to validate the name of application is already exists. */
+  /**This method is used to validate the name of error Detection is already exists. */
   checkErrorDetectionNameAlreadyExist(): boolean {
     for (let i = 0; i < this.errorDetectionData.length; i++) {
       if (this.errorDetectionData[i].ruleName == this.errorDetectionDetail.ruleName) {
@@ -113,8 +116,6 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
   saveErrDetection(): void {
-    console.log(" Error Detection data is------>", this.errorDetectionDetail);
-
     this.configKeywordsService.addErrorDetection(this.errorDetectionDetail)
       .subscribe(data => {
         //Insert data in main table after inserting Error detection in DB
@@ -125,9 +126,8 @@ export class ErrorDetectionComponent implements OnInit {
 
   /**This method is used to delete Error Detection */
   deleteErrorDetection(): void {
-    console.log("hello--------->")
     if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select for delete");
       return;
     }
     console.log("data for deletion is--------->",this.errorDetectionData);
