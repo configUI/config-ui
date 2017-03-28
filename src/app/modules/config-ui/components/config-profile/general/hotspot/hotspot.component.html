@@ -1,7 +1,7 @@
 <!--Dialog for Hotspot Capturing-->
 <p-panel header="Hotspot Capturing">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-        <form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm">
+        <form *ngIf="hotspot.ASThresholdMatchCount" (ngSubmit)="saveKeywordData()" #form="ngForm">
             <div class="ui-g">
                 <div class="ui-g-12">
                     <div class="ui-g-3">
