@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Output, EventEmitter } from '@angular/core';
 import {  SelectItem } from 'primeng/primeng';
 import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
-import { ConfigKeywordsDataService } from '../../../../services/config-keywords-data.service';
+import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ActivatedRoute, Params } from '@angular/router';
-//import * as _ from 'lodash';
 
 
+  
 @Component({
   selector: 'app-flowpath',
   templateUrl: './flowpath.component.html',
@@ -15,63 +15,59 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 export class FlowpathComponent implements OnInit {
 
-  constructor(private keywordsDataService: ConfigKeywordsDataService,private route: ActivatedRoute) { }
+  @Output()
+  keywordData = new EventEmitter();
+    
+  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'enableForcedFPChain','correlationIDHeader'];
+
+  flowPath:Object
+
+  constructor(private configKeywordsService: ConfigKeywordsService) { }
 
   enableForcedFPChainSelectItem:SelectItem[];
   enableCpuTimeSelectItem:SelectItem[];
   keywordsData:Keywords;
- // keywordInfo :KeywordsInfo;
 
 
   ngOnInit() {
-    console.log("genderal cmp---",this)
-    this.loadKeywordsData();
+    this.getKeywordData();
     this.createEnableForcedFPChainSelectItem();
     this.createEnableCpuTimeSelectItem();
   }
 
+  getKeywordData(){
+    let keywordData = this.configKeywordsService.keywordData;
+    this.flowPath = {}
+    this.keywordList.forEach((key)=>{
+      if(keywordData.hasOwnProperty(key)){
+        this.flowPath[key] = keywordData[key];
+      }
+    });
+  }
+
+/* creating dropdown menu list for enableForcedFpchain keyword */
   createEnableForcedFPChainSelectItem(){
     this.enableForcedFPChainSelectItem = [];
     this.enableForcedFPChainSelectItem.push( { value: -1, label: '--Select--' },
-                                            { value: 0, label: 'Disable' },
-                                            { value: 1, label: 'Enable' },
+                                             { value: 0, label: 'Disable' },
+                                             { value: 1, label: 'Enable' },
                                             { value: 2, label: 'Enable all with complete FP' }
     );
-  
   }
+
+/* creating dropdown menu list for enableCpuTime */
   createEnableCpuTimeSelectItem(){
     this.enableCpuTimeSelectItem = [];
-    this.enableCpuTimeSelectItem.push( { value:-1, label: '--Select--' },
-                                      { value: 0, label: 'Disable' },
-                                      { value: 1, label: 'Enable at FP/ BT level' },
-                                      { value: 2, label: 'Enable both method and flowpath level' }
+    this.enableCpuTimeSelectItem.push( { value:'-1', label: '--Select--' },
+                                      { value: '0', label: 'Disable' },
+                                      { value: '1', label: 'Enable at FP/ BT level' },
+                                      { value: '2', label: 'Enable both method and flowpath level' }
     );
   }
 
-  submitKeywords(data){
-    console.log("data---",data)
-    let formData = Object.assign({}, data.form._value); 
-    var keywordsData =  Object.assign({}, this.keywordsData);
- 
-    Object.keys(formData).forEach(function(key) {
-      keywordsData[key]['value'] = formData[key];
-      formData[key] = keywordsData[key];
-    });
-    let profileId;
-    this.route.params.subscribe((params: Params) => profileId = params['profileId']);
-    console.log("final data--",formData)
-   // this.keywordsDataService.saveKeywordData(formData,profileId);
-
+  saveKeywordData(){
+    this.keywordData.emit(this.flowPath);
   }
-
-   loadKeywordsData(){
-    let profileId;
-    this.route.params.subscribe((params: Params) => profileId = params['profileId']);
-    this.keywordsDataService.getKeywordsData(profileId).subscribe(data =>
-      this.keywordsData = data
-    )
-  
-   }
 
 }
 

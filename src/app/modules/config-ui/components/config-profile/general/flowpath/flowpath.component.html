@@ -1,18 +1,15 @@
-<!--<p>
-  flowpath works!
-</p>-->
+
 
 <p-panel header="FlowPath Capturing">
   <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-   <div class="ui-g">
-  <form (ngSubmit)="submitKeywords(groupForm)" #groupForm="ngForm">
+   <div class="ui-g"> 
+  <form  *ngIf="flowPath.bciInstrSessionPct" (ngSubmit)="saveKeywordData()" #form="ngForm">
         <div class="ui-g-12">
             <div class="ui-g-6">
                 <label>Full Flow Path capturing percentage[0-100%]</label>
             </div>
             <div class="ui-g-6">
-                <!--<input name="bciInstrSessionPct" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus required ngModel/>-->
-                <p-spinner size="30" name="bciInstrSessionPct"  [(ngModel)]="bciInstrSessionPct"   [min]="0" [max]="100"  required ngModel></p-spinner>
+                <p-spinner size="30" name="bciInstrSessionPct"  [(ngModel)]="flowPath.bciInstrSessionPct.value"   min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}  required ngModel></p-spinner>
             </div>
 
         </div>
@@ -21,8 +18,9 @@
             <div class="ui-g-6">
                 <label>Capture complete transaction flow forcefully</label>
             </div>
+
             <div class="ui-g-6">
-                 <p-dropdown name="enableForcedFPChain"  [(ngModel)]="enableForcedFPChain" [options]="enableForcedFPChainSelectItem" appendTo="body"  required ngModel></p-dropdown>
+                 <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true"  [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem"  appendTo="body"  required ngModel></p-dropdown>
             </div>
         </div>
 
@@ -32,7 +30,7 @@
                 <label>Capture Cpu Times</label>
             </div>
             <div class="ui-g-6">
-                  <p-dropdown name="enableCpuTime"  [(ngModel)]="enableCpuTime"  [options]="enableCpuTimeSelectItem" appendTo="body"   required ngModel></p-dropdown>
+                  <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px"  [(ngModel)]="flowPath.enableCpuTime.value"  [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g-12">
@@ -40,10 +38,7 @@
                 <label>Capture HTTP header for correlation id</label>
             </div>
             <div class="ui-g-6">
-                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <!--<p-dropdown name="topoId" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>-->
-                 <input name="correlationIDHeader" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" autofocus required ngModel/>
-
+                 <input name="correlationIDHeader" type="text" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min = {{flowPath.correlationIDHeader.min}}  max={{flowPath.correlationIDHeader.max}} autofocus required ngModel/>
             </div>
         </div>
         <footer>
