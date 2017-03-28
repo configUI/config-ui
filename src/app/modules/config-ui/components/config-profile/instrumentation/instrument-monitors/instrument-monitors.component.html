@@ -9,17 +9,17 @@
   </p-header>
   <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
   <p-column class="tableCss" field="methodDisplayName" header="Display Name" [sortable]="true">
-    <template let-col let-MethodMonitor="rowData" pTemplate type="body">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
       <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
     </template>
   </p-column>
   <p-column class="tableCss" field="methodName" header="Method Name" [sortable]="true">
-    <template let-col let-MethodMonitor="rowData" pTemplate type="body">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
       <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
     </template>
   </p-column>
   <p-column class="tableCss" field="methodDesc" header="Description" [sortable]="true">
-    <template let-col let-MethodMonitor="rowData" pTemplate type="body">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
       <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
     </template>
   </p-column>

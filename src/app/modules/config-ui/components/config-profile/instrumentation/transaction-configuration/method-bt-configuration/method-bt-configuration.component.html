@@ -9,12 +9,12 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
+        <template let-col let-application="rowData" pTemplate>
                    <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
             </template>
     </p-column>
     <p-column class="col-overflow" field="returnType" header="Return Type" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
+        <template let-col let-application="rowData" pTemplate>
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
     </p-column>
@@ -68,17 +68,17 @@
                 </p-header>
                 <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
                 <p-column class="col-overflow" field="fqm" header="Value" [sortable]="true">
-                    <template let-col let-application="rowData" pTemplate type="body">
+                    <template let-col let-application="rowData" pTemplate>
                    <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
             </template>
                 </p-column>
                 <p-column class="col-overflow" field="returnType" header="Operation" [sortable]="true">
-                    <template let-col let-application="rowData" pTemplate type="body">
+                    <template let-col let-application="rowData" pTemplate>
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                 </p-column>
                 <p-column class="col-overflow" field="returnType" header="BT Name" [sortable]="true">
-                    <template let-col let-application="rowData" pTemplate type="body">
+                    <template let-col let-application="rowData" pTemplate>
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                 </p-column>

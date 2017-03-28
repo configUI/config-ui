@@ -8,22 +8,22 @@
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="entryType" header="Type" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}"><a href="https://www.w3schools.com">{{service[col.field]}}</a></span>
     </template>
     </p-column>
     <p-column class="tableCss" field="name" header="Name" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>

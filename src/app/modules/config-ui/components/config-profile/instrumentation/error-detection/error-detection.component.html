@@ -9,27 +9,27 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="errorFrom" header="From" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="errorTo" header="To" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column field="enabled" header="Enabled">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <p-inputSwitch onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></p-inputSwitch>
     </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>

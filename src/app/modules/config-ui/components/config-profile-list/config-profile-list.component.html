@@ -8,12 +8,13 @@
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss"  field="profileName" header="Name" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate type="body">
+        <template let-col let-profile="rowData" pTemplate >
       <span title="{{profile[col.field]}}"><a [routerLink]="['/profile/configuration', profile['profileId']]" >{{profile[col.field]}}</a></span>
     </template>
     </p-column>
     <p-column class="tableCss"  field="profileDesc" header="Description" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate type="body">
+        <template let-col let-profile="rowData" pTemplate >
+
       <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
     </template>
     </p-column>
