@@ -7,40 +7,37 @@
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="entryType" header="Type" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+    <p-column class="tableCss" field="entryType" header="Type" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}"><a href="https://www.w3schools.com">{{service[col.field]}}</a></span>
     </template>
     </p-column>
-    <p-column [style]="{'width':'140px','text-overflow':'ellipsis'}" field="name" header="Name" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+    <p-column class="tableCss" field="name" header="Name" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-column [style]="{'width':'140px','text-overflow':'ellipsis'}" field="enabled" header="Enabled" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-column [style]="{'width':'170px','text-overflow':'ellipsis'}" field="desc" header="Description" [sortable]="true">
-        <template let-col let-service="rowData" pTemplate type="body">
+    <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+        <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-footer>
-        <ul>
-            <li *ngFor="let methodmonitor of selectedMethodMonitors2" style="text-align: left">{{methodmonitor.Display_Name + ' - ' + methodmonitor.Description + ' - ' + methodmonitor.Method_Name }}</li>
-        </ul>
-    </p-footer>
 </p-dataTable>
 
-<p-dialog header="New Service Entry" [(visible)]="displayNewService" modal="modal" width="500" responsive="true">
-    <div class="ui-g">
+<p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="600" responsive="true">
+    
+    <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm">
+        <div class="ui-g">
         <div class="ui-g-4">
             <label>Type</label>
         </div>
         <div class="ui-g-8">
-            <input id="in1" type="text" size="30" pInputText [(ngModel)]="typeAdd" />
+           <p-dropdown [options]="entryPointType"  name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="Select a Service"></p-dropdown>
         </div>
     </div>
 
@@ -49,7 +46,7 @@
             <label>Name</label>
         </div>
         <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="nameAdd" />
+            <input name="name" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.name" required ngModel/>
         </div>
     </div>
     <div class="ui-g">
@@ -57,7 +54,15 @@
             <label>Enabled</label>
         </div>
         <div class="ui-g-8">
-            <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="val"></p-inputSwitch>
+            <p-inputSwitch  name="switch" onLabel="true" offLabel="false" [(ngModel)]="serviceEntryPointDetail.enabled"></p-inputSwitch>
+        </div>
+    </div>
+        <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Fully Qualified Method Name</label>
+        </div>
+        <div class="ui-g-8">
+            <input name="fqm" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
         </div>
     </div>
     <div class="ui-g">
@@ -65,13 +70,14 @@
             <label>Description</label>
         </div>
         <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="descriptionAdd" />
+            <input name="desc" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.desc" required ngModel/>
         </div>
     </div>
     <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
-            <button type="button" pButton icon="fa-check" (click)="displayNewService=false" label="Save"></button>
+            <button type="submit" pButton icon="fa-check" label="OK"></button>
         </div>
     </footer>
+   </form>
 </p-dialog>

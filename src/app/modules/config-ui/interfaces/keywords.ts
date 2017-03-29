@@ -1,6 +1,7 @@
 import { KeywordsInfo } from './keywords-info';
+
 export class Keywords{
-  //  [keyword : string]:KeywordsInfo
+
  "ASStackComparingDepth": KeywordsInfo
 "doNotDiscardFlowPaths": KeywordsInfo
 "bciInstrSessionPct": KeywordsInfo
@@ -36,3 +37,4 @@ export class Keywords{
 "ASTraceLevel": KeywordsInfo
 "logLevelOneFpMethod": KeywordsInfo
 }
+

@@ -13,22 +13,22 @@
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
+        <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
     </template>
     </p-column>
     <p-column class="col-overflow" field="topoName" header="Topology" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
+        <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
+        <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate type="body">
+        <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
     </p-column>

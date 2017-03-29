@@ -14,5 +14,4 @@ export class InstrumentationComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );  
   }
-
 }

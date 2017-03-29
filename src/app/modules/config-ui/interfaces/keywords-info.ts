@@ -1,3 +1,5 @@
+
+
 export interface KeywordsInfo {
      defaultValue: string;
      assocId: number;
@@ -5,5 +7,7 @@ export interface KeywordsInfo {
      keyId: number;
      min: string;
      value: string;
-  
 }
+
+
+

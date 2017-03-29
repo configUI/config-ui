@@ -20,3 +20,13 @@ app-breadcrumb {
 .body-Width {
     width: 93.6%;
 }
+
+.ui-g-11 {
+    min-width: 93.666%;
+}
+
+.top-nav-bar {
+    height: 35px;
+    margin-top: 5px;
+    font-size: 14px;
+}

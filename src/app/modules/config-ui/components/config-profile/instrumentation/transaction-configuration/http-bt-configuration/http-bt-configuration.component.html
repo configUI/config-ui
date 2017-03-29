@@ -1,0 +1,258 @@
+<!--<p-accordion [style]="{'font-size':'12px'}">
+    <p-accordionTab header="HTTP BT CONFIGURATION" [selected]="true">-->
+HTTP Business Transaction Configuration
+<div class="ui-g" style="margin:10px;">
+    <div class="ui-g-6">
+        <p-radioButton name="BusinessTransaction" value="uriWithoutQueryParameters" label="URI without Query Parameters" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+    </div>
+    <div class="ui-g-6">
+        <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+    </div>
+</div>
+<div class="ui-g" *ngIf="selectedQueryPattern == 'uriWithoutQueryParameters'" style="margin-bottom:10px; border: ridge;">
+    <div class="ui-g-12 header-font-size"> Select part of URI used in Transaction name </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <p-radioButton name="URITransaction" value="complete" label="Complete" [(ngModel)]="selectedUri"></p-radioButton>
+    </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <div class="ui-g-2">
+            <p-radioButton name="URITransaction" value="segmentOfURI" label="Segment of URI" [(ngModel)]="selectedUri"></p-radioButton>
+        </div>
+        <div class="ui-g-10 text-box-Css">
+            <div class="ui-g-2">
+                <p-dropdown [disabled]="!(selectedUri == 'segmentOfURI')" [style]="{'width':'95%'}" [options]="segmentList" [(ngModel)]="selectesSegmentList"></p-dropdown>
+            </div>
+            <div class="ui-g-10">
+                <label>Segments of URI in Transaction</label> <input [disabled]="!(selectedUri == 'segmentOfURI')" type="text" size="15" pInputText [(ngModel)]="segmentURITrans" />
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-g-12 header-font-size">
+        <label>Transaction Threshold(ms)</label>
+    </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <div class="ui-g-1"><label>Slow</label></div>
+        <div class="ui-g-10 text-box-Css"> <input type="text" size="17" pInputText [(ngModel)]="slowTransaction" /></div>
+    </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <div class="ui-g-1"> <label>Very Slow</label> </div>
+        <div class="ui-g-10 text-box-Css"> <input type="text" size="17" pInputText [(ngModel)]="verySlowTransaction" /></div>
+    </div>
+    <div class="ui-g-12 header-font-size">
+        <p-checkbox label="Choose Dynamic Request type" [(ngModel)]="selectedDynamicRequestType" binary="true"></p-checkbox>
+    </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <div class="ui-g-2">
+            <p-radioButton disabled="{{!selectedDynamicRequestType}}" name="dynamicRequest" value="queryParameter" label="Query Parameter" [(ngModel)]="selectedDynamicRequest"></p-radioButton>
+        </div>
+        <div class="ui-g-10 ">
+            <input [disabled]="(!(selectedDynamicRequest == 'queryParameter') || !selectedDynamicRequestType) " type="text" size="32" pInputText [(ngModel)]="text" placeholder="Query Parameter " />
+        </div>
+    </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <div class="ui-g-2">
+            <p-radioButton disabled="{{!selectedDynamicRequestType}}" name="dynamicRequest" value="httpMethod" label="HTTP METHOD" [(ngModel)]="selectedDynamicRequest"></p-radioButton>
+        </div>
+        <div class="ui-g-10">
+            Use the request method (GET/POST/PUT) in Transaction names.
+        </div>
+    </div>
+
+    <div class="ui-g-12 padding-left-css">
+        <div class="ui-g-2">
+            <p-radioButton disabled="{{!selectedDynamicRequestType}}" name="dynamicRequest" value="httpHeader" label="HTTP HEADER" [(ngModel)]="selectedDynamicRequest"></p-radioButton>
+        </div>
+        <div class="ui-g-10">
+            <input [disabled]="(!(selectedDynamicRequest == 'httpHeader') || !selectedDynamicRequestType)" type="text " size="32 " pInputText [(ngModel)]="text " placeholder="HTTP HEADER " />
+        </div>
+    </div>
+
+    <div class="ui-g-12 ">
+        <button pButton type="button" (click)="saveBusinessTransaction()" label="Save"></button>
+    </div>
+</div>
+
+<div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
+    <!--For showing Bussiness Transaction Pattern(s) list -->
+    <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
+        <p-header>
+            <span>  Bussiness Transaction Pattern(s) </span>
+            <span style="float: right; margin-top:-5px">
+                       <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+                    </span>
+        </p-header>
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column class="col-overflow" field="btName" header="Name" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="matchType" header="Match Type" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="urlName" header="URL" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="include" header="BT Included" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="slowTransaction" header="Slow Transaction Threshold(ms)" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="verySlowTransaction" header="Very Slow Transaction Threshold(ms)" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="paramKeyValue" header="Req Param key Value" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="reqMethod" header="HTTP Method" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+        <p-column class="col-overflow" field="headerKeyValue" header="Req Header key Value" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+        </p-column>
+
+    </p-dataTable>
+</div>
+<!--</p-accordionTab>
+    <p-accordionTab header="METHOD BT CONFIGURATION ">
+        <app-method-bt-configuration></app-method-bt-configuration>
+    </p-accordionTab>
+</p-accordion>-->
+
+
+<!--Dialog for ADD and Edit Pattern-->
+<p-dialog header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Application'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="ui-g-3">
+                <label>Bussiness Transaction Name</label>
+            </div>
+            <div class="ui-g-5">
+                <input name="appName" type="text" size="40" pInputText [(ngModel)]="appName" placeholder="Bussiness Transaction Name" autofocus required ngModel/>
+            </div>
+            <div class="ui-g-4">
+                <p-checkbox label="Include" [(ngModel)]="appname" binary="false"></p-checkbox>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-3">
+                <label>URL</label>
+            </div>
+            <div class="ui-g-5">
+                <input type="text" size="40" pInputText [(ngModel)]="url" placeholder="URL" required ngModel />
+            </div>
+            <div class="ui-g-4">
+                <p-dropdown [style]="{'width':'40%'}" [options]="matchModeList" [(ngModel)]="selectedMatchMode" appendTo="body" required ngModel placeholder="Match Mode"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <label>Transaction Threshold (ms)</label>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-6">
+                <div class="ui-g-5" style="padding-left: 20px">
+                    Slow </div>
+                <div class="ui-g-7"><input name="userName" type="text" size="25" pInputText [(ngModel)]="userName" placeholder="Slow" required ngModel />
+                </div>
+            </div>
+            <div class="ui-g-6">
+                <div class="ui-g-4" style="padding-left: 20px">
+                    Very Slow </div>
+                <div class="ui-g-8">
+                    <input name="userName" type="text" size="25" pInputText [(ngModel)]="userName" placeholder="Very Slow" required ngModel />
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <p-checkbox label="Dynamic Part Request  (Please select atleast one Dynamic Part)" [(ngModel)]="selectedDynamicPartRequest" binary="false"></p-checkbox>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-6" style="padding-left: 20px">
+                <div class="ui-g-5">
+                    <label>Request Parameter key</label>
+                </div>
+                <div class="ui-g-7">
+                    <input disabled="{{!selectedDynamicPartRequest}}" type="text" size="25" pInputText [(ngModel)]="topoName" placeholder="Request Parameter key" />
+                </div>
+            </div>
+            <div class="ui-g-6">
+                <div class="ui-g-4">
+                    <label>Value</label>
+                </div>
+                <div class="ui-g-8">
+                    <input disabled="{{!selectedDynamicPartRequest}}" type="text" size="25" pInputText [(ngModel)]="topoName" placeholder="Value" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-6" style="padding-left: 20px">
+                <div class="ui-g-5">
+                    <label>Request Header key</label>
+                </div>
+                <div class="ui-g-7">
+                    <input disabled="{{!selectedDynamicPartRequest}}" type="text" size="25" pInputText [(ngModel)]="topoName" placeholder="Request Parameter key" />
+                </div>
+            </div>
+            <div class="ui-g-6">
+                <div class="ui-g-4">
+                    <label>Value</label>
+                </div>
+                <div class="ui-g-8">
+                    <input disabled="{{!selectedDynamicPartRequest}}" type="text" size="25" pInputText [(ngModel)]="topoName" placeholder="Value" />
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-6" style="padding-left: 20px">
+                <div class="ui-g-5">
+                    <label>Select Method Type</label>
+                </div>
+                <div class="ui-g-7">
+                    <p-dropdown disabled="{{!selectedDynamicPartRequest}}" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="selectesMethodType" placeholder="Select Method Type" appendTo="body"></p-dropdown>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content">
+            <button type="submit" pButton icon="fa-check" label="OK"></button>
+            <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+        </div>
+    </footer>
+
+</p-dialog>

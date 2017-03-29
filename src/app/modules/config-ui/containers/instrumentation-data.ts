@@ -28,3 +28,10 @@ export class MethodMonitor{
     methodDisplayName:string;
     methodDesc:string;
 }
+
+export class MethodMonitorData {
+    methodId: number;
+    methodName: string;
+    methodDisplayName: string;
+    methodDesc: string;
+}

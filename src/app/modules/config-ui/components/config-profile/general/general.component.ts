@@ -26,11 +26,9 @@ export class GeneralComponent implements OnInit {
   }
 
   saveKeywordData(keywordData){
-    console.log("keywordData", keywordData);
     for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
-    console.log("this.configKeywordsService.keywordData", this.configKeywordsService.keywordData);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 

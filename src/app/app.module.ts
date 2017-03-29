@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+//import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +11,8 @@ import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
 
-import { InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, SpinnerModule,InputSwitchModule, PanelModule } from 'primeng/primeng';
+import { CheckboxModule, RadioButtonModule, InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule ,SpinnerModule,
+  MultiSelectModule,ToggleButtonModule} from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -20,20 +22,21 @@ import 'hammerjs';
 /** Routing Module */
 import { ConfigRoutingModule } from './modules/config-ui/routes/config-routing.module'
 
-/**Config UI services */
-import {ConfigApplicationService} from './modules/config-ui/services/config-application.service';
-import {ConfigProfileService} from './modules/config-ui/services/config-profile.service';
-import {ConfigTopologyService} from './modules/config-ui/services/config-topology.service';
-import {ConfigNdAgentService} from './modules/config-ui/services/config-nd-agent.service';
-import {ConfigRestApiService} from './modules/config-ui/services/config-rest-api.service';
-import {ConfigBreadcrumbService} from './modules/config-ui/services/config-breadcrumb.service';
-import {ConfigUtilityService} from './modules/config-ui/services/config-utility.service';
-import {ConfigHomeService} from './modules/config-ui/services/config-home.service';
-//mine service
-import {ConfigKeywordsDataService} from './modules/config-ui/services/config-keywords-data.service';
-//Akshay Sir Service
-import {ConfigKeywordsService} from './modules/config-ui/services/config-keywords.service';
+/**Reducer */
+import { keywordReducer } from './modules/config-ui/reducers/keyword-reducer';
 
+/**Config UI services */
+
+import { ConfigApplicationService } from './modules/config-ui/services/config-application.service';
+import { ConfigProfileService } from './modules/config-ui/services/config-profile.service';
+import { ConfigTopologyService } from './modules/config-ui/services/config-topology.service';
+import { ConfigNdAgentService } from './modules/config-ui/services/config-nd-agent.service';
+import { ConfigRestApiService } from './modules/config-ui/services/config-rest-api.service';
+import { ConfigBreadcrumbService } from './modules/config-ui/services/config-breadcrumb.service';
+import { ConfigUtilityService } from './modules/config-ui/services/config-utility.service';
+import { ConfigHomeService } from './modules/config-ui/services/config-home.service';
+import { ConfigKeywordsService } from './modules/config-ui/services/config-keywords.service';
+import { ConfigBusinessTranService } from './modules/config-ui//services/config-business-trans-global-service';
 /**Config UI Component */
 import { AppComponent } from './app.component';
 import { ConfigMainComponent } from './modules/config-ui/components/config-main/config-main.component';
@@ -66,6 +69,8 @@ import { ExceptionComponent } from './modules/config-ui/components/config-profil
 import { HeaderComponent } from './modules/config-ui/components/config-profile/general/header/header.component';
 import { ThreadStatsComponent } from './modules/config-ui/components/config-profile/general/thread-stats/thread-stats.component';
 import { InstrumentationProfilesComponent } from './modules/config-ui/components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
+import { HTTPBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
+import { MethodBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/method-bt-configuration/method-bt-configuration.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -103,15 +108,18 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ExceptionComponent,
     HeaderComponent,
     ThreadStatsComponent,
-    InstrumentationProfilesComponent
+    InstrumentationProfilesComponent,
+    HTTPBTConfigurationComponent,
+    MethodBTConfigurationComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     FormsModule,
     HttpModule,
     ConfigRoutingModule,
     MaterialModule.forRoot(),
     PerfectScrollbarModule.forRoot(),
+//    StoreModule.provideStore({ keywordData: keywordReducer }),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,
@@ -126,9 +134,14 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TooltipModule,
     SpinnerModule,
     InputSwitchModule,
-    PanelModule
+    PanelModule,
+    RadioButtonModule,
+    CheckboxModule,
+    MultiSelectModule,
+    ToggleButtonModule
   ],
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigKeywordsDataService],
+ 
+  providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

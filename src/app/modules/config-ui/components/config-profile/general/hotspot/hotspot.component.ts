@@ -2,15 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { KeywordData } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 
-class Hotspot {
-  ASSampleInterval: KeywordData;
-  ASStackComparingDepth: KeywordData;
-  ASReportInterval: KeywordData;
-  ASTraceLevel: KeywordData;
-  ASThresholdMatchCount: KeywordData;
-  ASDepthFilter: KeywordData;
-}
-
 @Component({
   selector: 'app-hotspot',
   templateUrl: './hotspot.component.html',
@@ -18,14 +9,15 @@ class Hotspot {
 })
 export class HotspotComponent implements OnInit {
 
+  /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();
 
-  hotspotCapturingDialog: boolean;
+  /**These are those keyword which are used in current screen. */
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth'];
 
-  keywordList = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth'];
-
-  hotspot: Hotspot = new Hotspot();
+  /**It stores keyword data for showing in GUI */
+  hotspot: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService) { }
 
@@ -35,7 +27,8 @@ export class HotspotComponent implements OnInit {
 
   getKeywordData(){
     let keywordData = this.configKeywordsService.keywordData;
-    
+    this.hotspot = {};
+
     this.keywordList.forEach((key)=>{
       if(keywordData.hasOwnProperty(key)){
         this.hotspot[key] = keywordData[key];
@@ -43,7 +36,6 @@ export class HotspotComponent implements OnInit {
     });
   }
   
-
   saveKeywordData(){
     this.keywordData.emit(this.hotspot);
   }

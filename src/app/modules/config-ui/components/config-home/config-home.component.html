@@ -9,17 +9,17 @@
             <div class="table-css">
                 <p-dataTable [value]="applicationInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topology" header="Topology">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
@@ -38,17 +38,17 @@
             <div class="table-css">
                 <p-dataTable [value]="profileInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
-                        <template let-col let-profile="rowData" pTemplate type="body">
+                        <template let-col let-profile="rowData" pTemplate>
                             <span title="{{profile[col.field]}}"><a [routerLink]="['/profile/configuration/', profile['id']]">{{profile[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="description" header="Description">
-                        <template let-col let-profile="rowData" pTemplate type="body">
+                        <template let-col let-profile="rowData" pTemplate>
                              <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
-                        <template let-col let-profile="rowData" pTemplate type="body">
+                        <template let-col let-profile="rowData" pTemplate>
                             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
@@ -72,7 +72,7 @@
             <div class="table-css">
                 <p-dataTable [value]="topologyInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                               <span title="{{application[col.field]}}"><a [routerLink]="['/topology-list']">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
@@ -90,37 +90,37 @@
             <div class="table-css">
                 <p-dataTable [value]="agentsInfo" [(selection)]="selectedApplicationData">
                     <p-column rowStyleClass="col-overflow" field="tier" header="Tier">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="server" header="Server">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="instance" header="Instance">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="installDir" header="Installation Dir">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="version" header="Version">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="bciRunningSince" header="Running Since">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="state" header="State">
-                        <template let-col let-application="rowData" pTemplate type="body">
+                        <template let-col let-application="rowData" pTemplate>
                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>

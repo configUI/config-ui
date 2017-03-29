@@ -9,27 +9,27 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="errorFrom" header="From" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="errorTo" header="To" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column field="enabled" header="Enabled">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <p-inputSwitch onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></p-inputSwitch>
     </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true">
-        <template let-col let-errorDetection="rowData" pTemplate type="body">
+        <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
@@ -37,13 +37,14 @@
 
 <!--Dialog for Error  Detection-->
 
-<p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
+<p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal"  width="500" responsive="true">
+   <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm">
     <div class="ui-g">
         <div class="ui-g-4">
             <label>Rule Name</label>
         </div>
         <div class="ui-g-8">
-            <input id="in1" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleName" />
+            <input name="ruleName" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleName" autofocus required ngModel />
         </div>
     </div>
 
@@ -52,7 +53,7 @@
             <label>From</label>
         </div>
         <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.errorFrom" />
+            <input name="errorFrom" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.errorFrom" required ngModel />
         </div>
     </div>
     <div class="ui-g">
@@ -60,7 +61,7 @@
             <label>To</label>
         </div>
         <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.errorTo" />
+            <input name="errorTo" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.errorTo" required ngModel />
         </div>
     </div>
     <div class="ui-g">
@@ -68,7 +69,7 @@
             <label>Enabled</label>
         </div>
         <div class="ui-g-8">
-            <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="errorDetectionDetail.enabled"></p-inputSwitch>
+            <p-inputSwitch name="switch" onLabel="true" offLabel="false" [(ngModel)]="errorDetectionDetail.enabled"></p-inputSwitch>
         </div>
     </div>
     <div class="ui-g">
@@ -76,13 +77,14 @@
             <label>Description</label>
         </div>
         <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleDesc" />
+            <input name="ruleDesc" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel/>
         </div>
     </div>
     <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
-            <button type="button" pButton icon="fa-check" (click)="saveErrorDetection()" label="Save"></button>
+            <button type="submit" pButton icon="fa-check" label="OK"></button>
         </div>
     </footer>
+   </form>
 </p-dialog>

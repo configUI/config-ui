@@ -8,25 +8,16 @@
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileName" header="Name" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate type="body">
-<<<<<<< HEAD
-      <!--<span title="{{profile[col.field]}}"><a [routerLink]="['configuration',profile['profileId'],'general']">{{profile[col.field]}}</a></span>-->
-       <span title="{{profile[col.field]}}"><a [routerLink]="['/generalTest',profile['profileId']]">{{profile[col.field]}}</a></span>
-=======
+    <template let-col let-profile="rowData" pTemplate>
       <span title="{{profile[col.field]}}"><a [routerLink]="['/profile/configuration', profile['profileId']]" >{{profile[col.field]}}</a></span>
->>>>>>> 812a4dea2b3a999574377829b9515e6dd53c422d
     </template>
     </p-column>
     <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileDesc" header="Description" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate type="body">
+        <template let-col let-profile="rowData" pTemplate>
       <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
     </template>
     </p-column>
 </p-dataTable>
-<<<<<<< HEAD
-<router-outlet></router-outlet>
-"['/tree-main', application['dcId']]"
-=======
 
 <!--Dialog for Adding New Profile -->
 <p-dialog header="Add New Profile Configuration " *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">

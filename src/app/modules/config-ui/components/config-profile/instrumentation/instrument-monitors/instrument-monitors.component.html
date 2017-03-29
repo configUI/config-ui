@@ -1,3 +1,67 @@
-<p>
-  instrument-monitors works!
-</p>
+<p-dataTable [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData">
+  <p-header>
+    <span>Method Monitor(s) </span>
+    <span style="float :right; margin-top:-5px">
+            <button pButton type="button" title="Add" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
+            <button pButton type="button" title="Delete" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
+        </span>
+  </p-header>
+  <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+  <p-column class="tableCss" field="methodDisplayName" header="Display Name" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+  <p-column class="tableCss" field="methodName" header="Method Name" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+  <p-column class="tableCss" field="methodDesc" header="Description" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+
+</p-dataTable>
+
+<!--Dialog for method monitor-->
+
+<p-dialog header="{{isNewMethodMonitor ? 'Add Method Monitor' : 'Edit Method Monitor'}}" *ngIf="addEditMethodMonitorDialog"
+  [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+  <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm">
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Display Name</label>
+      </div>
+      <div class="ui-g-8">
+        <input name="methodDisplayName" type="text" size="30" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" autofocus
+          required ngModel/>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Method Name</label>
+      </div>
+      <div class="ui-g-8">
+        <input name="methodName" type="text" size="30" pInputText [(ngModel)]="methodMonitorDetail.methodName" required ngModel/>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Description</label>
+      </div>
+      <div class="ui-g-8">
+        <input name="methodDesc" type="text" size="30" pInputText [(ngModel)]="methodMonitorDetail.methodDesc" required ngModel/>
+      </div>
+    </div>
+    <footer>
+      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="addEditMethodMonitorDialog=false" label="Cancel"></button>
+        <button type="submit" pButton icon="fa-check" label="OK"></button>
+      </div>
+    </footer>
+  </form>
+</p-dialog>
