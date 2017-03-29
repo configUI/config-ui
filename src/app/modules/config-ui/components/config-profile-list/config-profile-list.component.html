@@ -7,13 +7,15 @@
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileName" header="Name" [sortable]="true">
-    <template let-col let-profile="rowData" pTemplate>
+
+    <p-column class="tableCss"  field="profileName" header="Name" [sortable]="true">
+        <template let-col let-profile="rowData" pTemplate >
       <span title="{{profile[col.field]}}"><a [routerLink]="['/profile/configuration', profile['profileId']]" >{{profile[col.field]}}</a></span>
     </template>
     </p-column>
-    <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="profileDesc" header="Description" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate>
+    <p-column class="tableCss"  field="profileDesc" header="Description" [sortable]="true">
+        <template let-col let-profile="rowData" pTemplate >
+
       <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
     </template>
     </p-column>
@@ -21,12 +23,13 @@
 
 <!--Dialog for Adding New Profile -->
 <p-dialog header="Add New Profile Configuration " *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
+   <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm">
     <div class="ui-g">
         <div class="ui-g-4">
             <label>Name</label>
         </div>
         <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" />
+            <input name = "profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" autofocus required ngModel/>
         </div>
     </div>
     <div class="ui-g">
@@ -34,7 +37,7 @@
             <label>Description</label>
         </div>
         <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileDesc" />
+            <input name="profileDesc" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileDesc" required ngModel />
         </div>
     </div>
     <div class="ui-g">
@@ -42,15 +45,15 @@
             <label>Copy Profile</label>
         </div>
         <div class="ui-g-8">
-            <p-dropdown [options]="profileListItem" [style]="{'width':'150px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Backend Type"></p-dropdown>
+            <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'150px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
 
         </div>
     </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <footer>
+        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
-            <button type="button" pButton icon="fa-check" (click)="saveNewProfile()" label="Save"></button>
+            <button type="submit" pButton icon="fa-check" label="OK"></button>
         </div>
     </footer>
+   </form>
 </p-dialog>
->>>>>>> 812a4dea2b3a999574377829b9515e6dd53c422d
