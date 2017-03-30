@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
@@ -21,12 +22,17 @@ export class ConfigKeywordsService {
   }
 
 
-  constructor(private _restApi: ConfigRestApiService) { }
+  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>) {
+
+   }
 
   /** For Getting all keywordData data */
   getProfileKeywords(profileId) {
     this._restApi.getDataByGetReq(`${URL.GET_KEYWORDS_DATA}/${profileId}`)
-      .subscribe(data => this.keywordData = data);
+      .subscribe(data => {
+        this.keywordData = data;
+        this.store.dispatch({type: "keywordData", payload: data});
+      });
   }
 
   /** For save all keywordData data */
