@@ -1,5 +1,8 @@
+const SERVICE_URL = 'http://localhost:8090';
+// const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+ //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
-const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+//const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 //  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //  const  SERVICE_URL = 'http://10.10.30.26:8001/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
@@ -85,14 +88,16 @@ export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`;
 export const UPDATE_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/updatebackend`;
 
 
-export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
+//export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
+export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/custom/topology/getalltopologylist`;
 
 /* URL for generating nd.conf file  */
 export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 
 /* Url for General Keywords Screen*/
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
-export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
+//export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
+export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
 
 /*Instrumentation Profile List*/
 export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles` ;

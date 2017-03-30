@@ -85,8 +85,8 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">ND AGENT STATUS</div>
                 <div class="header-button"><a [routerLink]="['/nd-agent']"><button pButton type="button" icon="fa-info" label="Show All" class="button-color"></button></a></div>
-
             </md-card-subtitle>
+            
             <div class="table-css">
                 <p-dataTable [value]="agentsInfo" [(selection)]="selectedApplicationData">
                     <p-column rowStyleClass="col-overflow" field="tier" header="Tier">

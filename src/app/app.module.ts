@@ -1,15 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
+//import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-/**Import material module */
+
+/**Import materiapl module */
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
-import { CheckboxModule, RadioButtonModule, InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule } from 'primeng/primeng';
+
+import { CheckboxModule, RadioButtonModule, InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule ,SpinnerModule,
+  MultiSelectModule,ToggleButtonModule} from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -23,6 +26,7 @@ import { ConfigRoutingModule } from './modules/config-ui/routes/config-routing.m
 import { keywordReducer } from './modules/config-ui/reducers/keyword-reducer';
 
 /**Config UI services */
+
 import { ConfigApplicationService } from './modules/config-ui/services/config-application.service';
 import { ConfigProfileService } from './modules/config-ui/services/config-profile.service';
 import { ConfigTopologyService } from './modules/config-ui/services/config-topology.service';
@@ -33,7 +37,6 @@ import { ConfigUtilityService } from './modules/config-ui/services/config-utilit
 import { ConfigHomeService } from './modules/config-ui/services/config-home.service';
 import { ConfigKeywordsService } from './modules/config-ui/services/config-keywords.service';
 import { ConfigBusinessTranService } from './modules/config-ui//services/config-business-trans-global-service';
-
 /**Config UI Component */
 import { AppComponent } from './app.component';
 import { ConfigMainComponent } from './modules/config-ui/components/config-main/config-main.component';
@@ -116,7 +119,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigRoutingModule,
     MaterialModule.forRoot(),
     PerfectScrollbarModule.forRoot(),
-    StoreModule.provideStore({ keywordData: keywordReducer }),
+//    StoreModule.provideStore({ keywordData: keywordReducer }),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,
@@ -129,13 +132,17 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfirmDialogModule,
     TabViewModule,
     TooltipModule,
+    SpinnerModule,
     InputSwitchModule,
     PanelModule,
     RadioButtonModule,
-    CheckboxModule
-
+    CheckboxModule,
+    MultiSelectModule,
+    ToggleButtonModule
   ],
+ 
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

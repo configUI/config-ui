@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {  SelectItem } from 'primeng/primeng';
+import { Keywords } from '../../../interfaces/keywords';
+import { KeywordsInfo } from '../../../interfaces/keywords-info';
+import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params } from '@angular/router';
+//import * as _ from 'lodash';
+
 
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 
@@ -8,6 +14,7 @@ import { ConfigKeywordsService } from '../../../services/config-keywords.service
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.css']
 })
+
 export class GeneralComponent implements OnInit {
 
   profileId: number;
@@ -24,5 +31,7 @@ export class GeneralComponent implements OnInit {
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
+
+
 
 }

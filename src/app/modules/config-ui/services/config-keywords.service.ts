@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
+import {  XmlFilesList } from '../interfaces/keywords-info';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
 
 @Injectable()
@@ -96,6 +97,10 @@ export class ConfigKeywordsService {
 
   deleteMethodMonitorData(data): Observable<MethodMonitorData> {
     return this._restApi.getDataByPostReq(URL.DEL_METHOD_MONITOR, data);
+  }
+
+  getListOfXmlFiles(profileId):Observable<string[]>{
+    return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST)
   }
 
 

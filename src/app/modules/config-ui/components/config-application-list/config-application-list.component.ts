@@ -186,7 +186,6 @@ export class ConfigApplicationListComponent implements OnInit {
     for (let i = 0; i < this.topologyInfo.length; i++) {
       this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
     }
-
   }
 
   /**This method is used to delete application */

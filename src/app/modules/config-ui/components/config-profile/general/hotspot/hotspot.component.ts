@@ -35,7 +35,7 @@ export class HotspotComponent implements OnInit {
       }
     });
   }
-
+  
   saveKeywordData(){
     this.keywordData.emit(this.hotspot);
   }

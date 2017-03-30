@@ -4,5 +4,5 @@ export class KeywordData {
     keyId: number;
     max: number;
     min: number;
-    value: number;
+    value: number | string;
 }

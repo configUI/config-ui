@@ -21,6 +21,7 @@ const routes: Routes = [
     { path: 'home', component: ConfigHomeComponent },
     { path: 'application-list', component: ConfigApplicationListComponent },
     { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
+    { path: 'generalTest/:profileId', component: GeneralComponent },
     {
         path: 'profile', component: ConfigProfileRoutingComponent, children: [
             { path: '', redirectTo : 'profile-list', pathMatch: 'full'},

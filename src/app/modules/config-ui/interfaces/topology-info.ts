@@ -36,3 +36,4 @@ export interface InstanceInfo {
     profileName: string;
     enabled: boolean;
 }
+

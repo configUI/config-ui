@@ -36,7 +36,7 @@
 
 <!--Dialog for adding Application-->
 <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveEditApp()" #groupForm="ngForm">
+    <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm">
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Name</label>

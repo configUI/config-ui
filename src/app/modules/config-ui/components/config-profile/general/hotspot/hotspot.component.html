@@ -1,6 +1,6 @@
 <!--Dialog for Hotspot Capturing-->
 <p-panel header="Hotspot Capturing">
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" >
         <form *ngIf="hotspot.ASThresholdMatchCount" (ngSubmit)="saveKeywordData()" #form="ngForm">
             <div class="ui-g">
                 <div class="ui-g-12">
@@ -17,6 +17,7 @@
                         <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
                     </div>
                 </div>
+
                 <div class="ui-g-12">
                     <div class="ui-g-3">
                         <label>Hotspot Reporting Interval</label>
@@ -31,6 +32,7 @@
                         <input name="depthHotspot" type="number" size="20" pInputText [(ngModel)]="hotspot.ASDepthFilter.value" min={{hotspot.ASDepthFilter.min}} max={{hotspot.ASDepthFilter.max}} required ngModel />
                     </div>
                 </div>
+
                 <div class="ui-g-12">
                     <div class="ui-g-3">
                         <label>As Trace Level</label>
@@ -45,6 +47,7 @@
                         <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
                     </div>
                 </div>
+                
                 <div class="ui-g-12">
                     <label>Filter Settings</label>
                 </div>
@@ -57,9 +60,11 @@
                 </div>
             </div>
             <!--<div class="">-->
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="text-align:right;">
-                <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
+            <div class="pull-right" >
+                <div  class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" >
+                    <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                </div>
             </div>
         </form>
     </div>
