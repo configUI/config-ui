@@ -96,8 +96,8 @@ export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 
 /* Url for General Keywords Screen*/
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
-//export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
-export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
+export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
+//export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
 
 /*Instrumentation Profile List*/
 export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles` ;
