@@ -1,3 +1,35 @@
-<p>
-  exception works!
-</p>
+<!--Dialog for Hotspot Capturing-->
+<p-panel header="Exception Capturing">
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
+      <div class="ui-g">
+          <div class="ui-g-12">
+            <p-checkbox label="Instrument Exceptions" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="false"></p-checkbox>
+          </div>
+          <div class="ui-g-12 padding-left-css">
+            <div class="ui-g-6">
+              <p-checkbox disabled={{!exceptionData.instrumentException}} label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
+              </p-checkbox>
+            </div>
+            <div class="ui-g-6 text-box-Css">
+              <input type="text" disabled={{!exceptionData.exceptionTrace}} name="exceptionTraceDepth" [(ngModel)]="exceptionData.exceptionTraceDepth" size="17" />
+            </div>
+          </div>
+          Capture Exceptions
+          <div class="ui-g-12" style="margin:10px;">
+            <div class="ui-g-6">
+              <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
+            </div>
+            <div class="ui-g-6">
+              <p-radioButton name="CaptureException"disabled={{!exceptionData.instrumentException}} value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
+            </div>
+          </div>
+      </div>
+      <!--<div class="">-->
+      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="text-align:right;">
+        <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
+        <button type="submit" pButton icon="fa-check" label="Save"></button>
+      </div>
+    </form>
+  </div>
+</p-panel>
