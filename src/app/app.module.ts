@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-//import { StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -119,7 +119,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigRoutingModule,
     MaterialModule.forRoot(),
     PerfectScrollbarModule.forRoot(),
-//    StoreModule.provideStore({ keywordData: keywordReducer }),
+   StoreModule.provideStore({ keywordData: keywordReducer }),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,

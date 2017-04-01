@@ -3,29 +3,27 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
-import {  XmlFilesList } from '../interfaces/keywords-info';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
+import { KEYWORD_DATA } from '../reducers/keyword-reducer';
+
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
 
 @Injectable()
 export class ConfigKeywordsService {
 
+  /**It stores keyword data */
   private _keywordData: Object;
 
-
   public get keywordData(): Object {
-    if (!this._keywordData)
-      return {};
     return this._keywordData;
   }
 
   public set keywordData(value: Object) {
     this._keywordData = value;
   }
-
 
   constructor(private _restApi: ConfigRestApiService, private store: Store<Object>) {
 
@@ -36,14 +34,17 @@ export class ConfigKeywordsService {
     this._restApi.getDataByGetReq(`${URL.GET_KEYWORDS_DATA}/${profileId}`)
       .subscribe(data => {
         this.keywordData = data;
-        this.store.dispatch({type: "keywordData", payload: data});
+        this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
   }
 
   /** For save all keywordData data */
   saveProfileKeywords(profileId) {
     this._restApi.getDataByPostReq(`${URL.UPDATE_KEYWORDS_DATA}/${profileId}`, this.keywordData)
-      .subscribe(data => this.keywordData = data);
+      .subscribe(data => {
+        this.keywordData = data;
+        this.store.dispatch({ type: KEYWORD_DATA, payload: data });
+      });
   }
 
   /**Service Entry Point */
@@ -60,9 +61,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
   }
 
-  addIntegrationPTDetectionData(data): Observable<IntegrationPTDetection> {
-    return this._restApi.getDataByPostReq(URL.ADD_NEW_BACKEND_POINT, data);
+  getIPList(profileId): Observable<any>{
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TYPES}/${profileId}`);
   }
+
+  addIntegrationPTDetectionData(profileId, data): Observable<IntegrationPTDetection> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
+  }
+  
 
   /**Transaction Configuration */
 

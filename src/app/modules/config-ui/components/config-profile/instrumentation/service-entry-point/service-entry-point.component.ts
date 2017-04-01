@@ -12,7 +12,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   @Input()
   profileId: number;
-/**It store service entry data */
+  /**It store service entry data */
   serviceEntryData: ServiceEntryPoint[];
   /**It store service entry data for add*/
   serviceEntryPointDetail: ServiceEntryPoint;

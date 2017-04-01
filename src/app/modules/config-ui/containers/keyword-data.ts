@@ -6,3 +6,7 @@ export class KeywordData {
     min: number;
     value: number | string;
 }
+
+export class KeywordList{
+    
+}
