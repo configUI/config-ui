@@ -77,6 +77,12 @@ import { MonitorsComponent } from './modules/config-ui/components/config-profile
 import { DelayComponent } from './modules/config-ui/components/config-profile/advance/delay/delay.component';
 import { GenerateExceptionComponent } from './modules/config-ui/components/config-profile/advance/generate-exception/generate-exception.component';
 
+import { HttpHeaderComponent } from './modules/config-ui/components/config-profile/general/header/http-header/http-header.component';
+import { CustomDataComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/custom-data.component';
+import { HttpRequestComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/http-request/http-request.component';
+import { SessionAttributeComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
+import { JavaMethodComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/java-method/java-method.component';
+
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -120,7 +126,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BackendMonitorsComponent,
     MonitorsComponent,
     DelayComponent,
-    GenerateExceptionComponent
+    GenerateExceptionComponent,
+    HttpHeaderComponent,
+    CustomDataComponent,
+    HttpRequestComponent,
+    SessionAttributeComponent,
+    JavaMethodComponent
   ],
   imports: [
     BrowserModule,
