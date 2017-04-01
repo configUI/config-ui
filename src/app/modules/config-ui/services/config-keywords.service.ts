@@ -5,6 +5,10 @@ import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
 import {  XmlFilesList } from '../interfaces/keywords-info';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
+import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
+import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
+import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
+import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
 
 @Injectable()
 export class ConfigKeywordsService {
@@ -103,5 +107,58 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST)
   }
 
+   /**
+   *  Business Transaction Service
+   * 
+   */
 
+  /* Fetch  Business Trans Global Info */
+  getBusinessTransGlobalData(): Observable<BusinessTransGlobalInfo[]> {
+    return this._restApi.getDataByGetReq(URL.FETCH_BT_GLOBAL_DATA);
+  }
+
+  /* Fetch  Business Trans Pattern Info */
+  getBusinessTransPatternData(): Observable<BusinessTransPatternInfo[]> {
+    return this._restApi.getDataByGetReq(URL.FETCH_BT_PATTERN_TABLEDATA);
+  }
+
+  /* Fetch  Business Trans Method Info */
+  getBusinessTransMethodData(): Observable<BusinessTransMehtodData[]> {
+    return this._restApi.getDataByGetReq(URL.FETCH_BTMETHOD_URL);
+  }
+
+  /* Fetch  Business Trans Method Info */
+  addBusinessTransMethodData(): Observable<BusinessTransMehtodData[]> {
+    return this._restApi.getDataByGetReq(URL.FETCH_BTMETHOD_URL);
+  }
+
+  /* Fetch  Business Trans Method Info */
+  deleteBusinessTransMethodData(data): Observable<BusinessTransMethodInfo> {
+    return this._restApi.getDataByPostReq(URL.DEL_METHOD_BT, data);
+  }
+  /* Fetch  Business Trans Method Info */
+  addBusinessTransMethod(data): Observable<BusinessTransMehtodData> {
+    return this._restApi.getDataByPostReq(URL.ADD_BT_METHOD, data);
+  }
+
+  /*Add Pattern Bt Data*/
+  addBusinessTransPattern(data): Observable<BusinessTransPatternData> {
+    return this._restApi.getDataByPostReq(URL.ADD_NEW_BT_PATTERN_DETAILS, data);
+  }
+
+  /*EDIT Pattern Bt Data*/
+  editBusinessTransPattern(data): Observable<BusinessTransPatternData> {
+    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${data.id}`
+    return this._restApi.getDataByPutReq(url, data);
+  }
+
+ /*Add Pattern Bt Data*/
+  addGlobalData(data): Observable<BusinessTransPatternData> {
+    return this._restApi.getDataByPostReq(URL.ADD_BT, data);
+  }
+
+  /*Add Pattern Bt Data*/
+  deleteBusinessTransPattern(data): Observable<BusinessTransPatternData[]> {
+    return this._restApi.getDataByPostReq(URL.DEL_BT_PATTERN_DETAILS, data);
+  }
 }
