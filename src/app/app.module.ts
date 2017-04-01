@@ -71,6 +71,11 @@ import { ThreadStatsComponent } from './modules/config-ui/components/config-prof
 import { InstrumentationProfilesComponent } from './modules/config-ui/components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
 import { HTTPBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
 import { MethodBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/method-bt-configuration/method-bt-configuration.component';
+import { HttpHeaderComponent } from './modules/config-ui/components/config-profile/general/header/http-header/http-header.component';
+import { CustomDataComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/custom-data.component';
+import { HttpRequestComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/http-request/http-request.component';
+import { SessionAttributeComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
+import { JavaMethodComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/java-method/java-method.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -110,7 +115,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ThreadStatsComponent,
     InstrumentationProfilesComponent,
     HTTPBTConfigurationComponent,
-    MethodBTConfigurationComponent
+    MethodBTConfigurationComponent,
+    HttpHeaderComponent,
+    CustomDataComponent,
+    HttpRequestComponent,
+    SessionAttributeComponent,
+    JavaMethodComponent
   ],
   imports: [
     BrowserModule,
