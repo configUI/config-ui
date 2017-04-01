@@ -21,15 +21,14 @@ const routes: Routes = [
     { path: 'home', component: ConfigHomeComponent },
     { path: 'application-list', component: ConfigApplicationListComponent },
     { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
-    { path: 'generalTest/:profileId', component: GeneralComponent },
     {
         path: 'profile', component: ConfigProfileRoutingComponent, children: [
             { path: '', redirectTo : 'profile-list', pathMatch: 'full'},
             { path: 'profile-list', component: ConfigProfileListComponent },
             { path: 'configuration/:profileId', component: ConfigurationComponent },
-            { path: 'general/:profileId', component: GeneralComponent },
-            { path: 'advance/:profileId', component: AdvanceComponent },
-            { path: 'instrumentation/:profileId', component: InstrumentationComponent },
+            { path: 'general/:profileId/:tabId', component: GeneralComponent },
+            { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
+            { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
             { path: 'integration/:profileId', component: ProductIntegrationComponent }
         ]
     },

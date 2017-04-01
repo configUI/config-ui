@@ -71,6 +71,11 @@ import { ThreadStatsComponent } from './modules/config-ui/components/config-prof
 import { InstrumentationProfilesComponent } from './modules/config-ui/components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
 import { HTTPBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
 import { MethodBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/method-bt-configuration/method-bt-configuration.component';
+import { DebugComponent } from './modules/config-ui/components/config-profile/advance/debug/debug.component';
+import { BackendMonitorsComponent } from './modules/config-ui/components/config-profile/advance/backend-monitors/backend-monitors.component';
+import { MonitorsComponent } from './modules/config-ui/components/config-profile/advance/monitors/monitors.component';
+import { DelayComponent } from './modules/config-ui/components/config-profile/advance/delay/delay.component';
+import { GenerateExceptionComponent } from './modules/config-ui/components/config-profile/advance/generate-exception/generate-exception.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -110,7 +115,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ThreadStatsComponent,
     InstrumentationProfilesComponent,
     HTTPBTConfigurationComponent,
-    MethodBTConfigurationComponent
+    MethodBTConfigurationComponent,
+    DebugComponent,
+    BackendMonitorsComponent,
+    MonitorsComponent,
+    DelayComponent,
+    GenerateExceptionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,93 +1,79 @@
-<div class="ui-g">
-<div class="ui-g" id="top-div">
-    <div class="ui-g-12">
+<div class="ui-g-12" id=top-div>
+    <div class="ui-g" style="height:50%">
         <div class="ui-g-6">
-            <md-card class="md-card-css" style="background: #413CD0;width:543px">
-                <md-card-subtitle class="md-card-subtitle-css">
-                    <a [routerLink]="['../../general', profileId]">GENERAL</a>
-                </md-card-subtitle>
-
-                <div class="ui-g-6" id="icon-position">
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Flowpath Capturing</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Hotspot Capturing</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Capture Exception</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Flow Path Header Capturing</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Choose Instrumentation Profiles</a></md-slide-toggle>
-                </div>
-                <div class="ui-g-6">
-                    <div class="ui-g-6">
-                        
+            <md-card style="background: #413CD0;">
+                <md-card-content>
+                    <a [routerLink]="['../../general', profileId, 0]">GENERAL</a>
+                    <div class="ui-g">
+                        <div class="ui-g-8">
+                            <md-slide-toggle class="contents" [(ngModel)]="checked"><a [routerLink]="['../../general', profileId, 0]">Flowpath Capturing</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot Capturing</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread Stats Monitor</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../general', profileId, 3]" class="contents">Capture Exception</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../general', profileId, 4]" class="contents">Flow Path Header Capturing</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../general', profileId, 5]" class="contents">Choose Instrumentation Profiles</a></md-slide-toggle>
+                        </div>
+                        <div class="ui-g-4">
+                            <i class="fa fa-users" style="font-size: 150px;color:white;"></i>
+                        </div>
                     </div>
-                    <div class="ui-g-6"> <i class="fa fa-users" style="font-size: 100px;color:white;"></i>
-                    </div>
-                </div>
+                </md-card-content>
             </md-card>
         </div>
         <div class="ui-g-6">
-            <md-card style="background: #407445;width:543px" class="md-card-css">
-               <md-card-subtitle class="md-card-subtitle-css">
-                    <a [routerLink]="['../../instrumentation', profileId]">INSTRUMENTATION</a>
-                </md-card-subtitle>
-
-                <div class="ui-g-6" id="icon-position">
-                    <md-slide-toggle [(ngModel)]="checked1"><a [routerLink]="" class="contents">Service Entry Point</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Integration Point Detection</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Transaction Configuration</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Instrument Monitors</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Error detection</a></md-slide-toggle>
-                </div>
-                <div class="ui-g-6">
-                    <div class="ui-g-6">
-                        
+            <md-card style="background: #407445;">
+                <md-card-content>
+                    <a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION</a>
+                    <div class="ui-g">
+                        <div class="ui-g-8">
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../instrumentation', profileId, 0]" class="contents">Service Entry Point</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../instrumentation', profileId, 1]" class="contents">Integration Point Detection</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../instrumentation', profileId, 2]" class="contents">Transaction Configuration</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../instrumentation', profileId, 3]" class="contents">Instrument Monitors</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../instrumentation', profileId, 4]" class="contents">Error detection</a></md-slide-toggle>
+                        </div>
+                        <div class="ui-g-4">
+                            <i class="fa fa-cube" style="font-size: 150px;color:white;"></i>
+                        </div>
                     </div>
-                    <div class="ui-g-6"> <i class="fa fa-cube" style="font-size: 100px;color:white;"></i>
-                    </div>
-                </div>
+                </md-card-content>
             </md-card>
         </div>
 
     </div>
-    <div class="ui-g-12">
+    <div class="ui-g">
         <div class="ui-g-6">
-            <md-card style="background: #9043BC;width:543px" class="md-card-css">
-                <md-card-subtitle class="md-card-subtitle-css">
-                    <a [routerLink]="['../../advance', profileId]">ADVANCE</a>
-                </md-card-subtitle>
-
-                <div class="ui-g-6" id="icon-position">
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Debug Level Capturing</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Put Delay in Method</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Backend Monitor, Monitors</a></md-slide-toggle>
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">Generate Exception in Method</a></md-slide-toggle>
-                    
-                </div>
-                <div class="ui-g-6">
-                    <div class="ui-g-6">
-                        
+            <md-card style="background: #9043BC;">
+                <md-card-content>
+                    <a [routerLink]="['../../advance', profileId, 0]">ADVANCE</a>
+                    <div class="ui-g">
+                        <div class="ui-g-8">
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level Capturing</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Put Delay in Method</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Backend Monitor, Monitors</a></md-slide-toggle>
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
+                        </div>
+                        <div class="ui-g-4">
+                            <i class="fa fa-cog" style="font-size: 150px;color:white;"></i>
+                        </div>
                     </div>
-                    <div class="ui-g-6"> <i class="fa fa-cog" style="font-size: 100px;color:white;"></i>
-                    </div>
-                </div>
+                </md-card-content>
             </md-card>
         </div>
         <div class="ui-g-6">
-            <md-card style="background: #221D24;width:543px" class="md-card-css">
-              <md-card-subtitle class="md-card-subtitle-css">
+            <md-card style="background: #221D24;">
+                <md-card-content>
                     <a [routerLink]="['../../integration', profileId]">PRODUCT INTEGRATION</a>
-                </md-card-subtitle>
-
-                <div class="ui-g-6" id="icon-position">
-                    <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="" class="contents">NV Cookie</a></md-slide-toggle>
-                </div>
-                <div class="ui-g-6">
-                    <div class="ui-g-6">
-                        
+                    <div class="ui-g">
+                        <div class="ui-g-8">
+                            <md-slide-toggle [(ngModel)]="checked"><a [routerLink]="['../../integration', profileId]" class="contents">NV Cookie</a></md-slide-toggle>
+                        </div>
+                        <div class="ui-g-4">
+                            <i class="fa fa-refresh" style="font-size: 150px;color:white;"></i>
+                        </div>
                     </div>
-                    <div class="ui-g-6"> <i class="fa fa-support" style="font-size: 100px;color:white;"></i>
-                    </div>
-                </div>
+                </md-card-content>
             </md-card>
         </div>
     </div>
-</div>
 </div>

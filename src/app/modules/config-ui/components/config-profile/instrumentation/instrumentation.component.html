@@ -1,17 +1,17 @@
 <p-tabView (onChange)=handleChange($event)>
-    <p-tabPanel header="SERVICE ENTRY POINT">
+    <p-tabPanel header="SERVICE ENTRY POINT" [selected]="index == 0">
         <app-service-entry-point *ngIf="index == 0" [profileId]=profileId></app-service-entry-point>
     </p-tabPanel>
-    <p-tabPanel header="INTEGRATION PT DETECTION">
+    <p-tabPanel header="INTEGRATION PT DETECTION" [selected]="index == 1">
         <app-integration-pt-detection *ngIf="index == 1" [profileId]=profileId></app-integration-pt-detection>
     </p-tabPanel>
-    <p-tabPanel header="TRANSACTION CONFIGURATION">
+    <p-tabPanel header="TRANSACTION CONFIGURATION" [selected]="index == 2">
         <app-transaction-configuration *ngIf="index == 2" [profileId]=profileId></app-transaction-configuration>
     </p-tabPanel>
-    <p-tabPanel header="INSTRUMENT MONITORS">
+    <p-tabPanel header="INSTRUMENT MONITORS" [selected]="index == 3">
         <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId></app-instrument-monitors>
     </p-tabPanel>
-    <p-tabPanel header="ERROR DETECTION">
+    <p-tabPanel header="ERROR DETECTION" [selected]="index == 4">
         <app-error-detection *ngIf="index == 4" [profileId]=profileId></app-error-detection>
     </p-tabPanel>
 </p-tabView>
