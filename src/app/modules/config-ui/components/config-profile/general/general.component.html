@@ -1,22 +1,20 @@
-
-<p-tabView>
-    <p-tabPanel header="Hotspot">
-        <app-hotspot (keywordData)="saveKeywordData($event)"></app-hotspot>
+<p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Flowpath" [selected]="index == 0">
+        <app-flowpath *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-flowpath>
     </p-tabPanel>
-    <p-tabPanel header="Flowpath">
-        <app-flowpath (keywordData)="saveKeywordData($event)"></app-flowpath>
+    <p-tabPanel header="Hotspot" [selected]="index == 1">
+        <app-hotspot *ngIf="index == 1" (keywordData)="saveKeywordData($event)"></app-hotspot>
     </p-tabPanel>
-     <p-tabPanel header="JVM Thread Stats Monitor">
-        <app-thread-stats (keywordData)="saveKeywordData($event)"></app-thread-stats>
+    <p-tabPanel header="JVM Thread Stats Monitor" [selected]="index == 2">
+        <app-thread-stats *ngIf="index == 2" (keywordData)="saveKeywordData($event)"></app-thread-stats>
     </p-tabPanel>
-    <p-tabPanel header="Exception ">
-        <app-exception (keywordData)="saveKeywordData($event)"></app-exception>
+    <p-tabPanel header="Exception" [selected]="index == 3">
+        <app-exception *ngIf="index == 3" (keywordData)="saveKeywordData($event)"></app-exception>
     </p-tabPanel>
-    <p-tabPanel header="Flowpath Header ">
-        <app-header (keywordData)="saveKeywordData($event)"></app-header>
+    <p-tabPanel header="Flowpath Header" [selected]="index == 4">
+        <app-header *ngIf="index == 4" (keywordData)="saveKeywordData($event)"></app-header>
     </p-tabPanel>
-   
-    <p-tabPanel header="Intrumentation Profiles">
-        <app-instrumentation-profiles [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
+    <p-tabPanel header="Intrumentation Profiles" [selected]="index == 5">
+        <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 5" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
     </p-tabPanel>
 </p-tabView>

@@ -52,8 +52,12 @@ export class ConfigBreadcrumbComponent implements OnInit {
             this.items.push({ label: BREADCRUMB.LABEL.CONFIGURATION });
 
           else {
-            let profileId = url.substring(url.lastIndexOf("/"), url.length);
-            console.log("profileId", profileId);
+            let arrURL = url.split("/");
+            
+            let tabId = arrURL[arrURL.length - 1];
+            let profileId = arrURL[arrURL.length - 2];
+
+            console.log("profileId", `${BREADCRUMB.URL.CONFIGURATION}/${profileId}`);
             this.items.push({routerLink: [`${BREADCRUMB.URL.CONFIGURATION}/${profileId}`], label: BREADCRUMB.LABEL.CONFIGURATION});
             
             if (url.startsWith(BREADCRUMB.URL.GENERAL))

@@ -1,0 +1,49 @@
+/*
+.iconCSS {
+    padding-left: 70px;
+    height: 30px;
+    width: 70px;
+}
+
+.header-Name {
+    text-align: left;
+    font-size: 12px;
+    color: white;
+    padding-top: 10px;
+    margin-left: 5px;
+    float: left;
+}
+
+.md-card-css {
+    height: 250px;
+    width: 350px;
+}
+
+.md-card-subtitle-css {
+    color: white;
+    font-size: 17px;
+}
+
+.cards-div {
+    float: left;
+}
+
+
+*/
+
+md-card {
+    height: 200px;
+}
+
+.contents:hover {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#top-div {
+    background: #8AC6CB;
+}

@@ -1,0 +1,27 @@
+<!--<p>
+  thread-stats works!
+</p>-->
+<p-panel header="Monitors Settings">
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+    <form *ngIf="monitor" (ngSubmit)="saveKeywordData()" #form="ngForm">
+      <div class="ui-g">
+        <div class="ui-g-12">
+        </div>
+        <div class="ui-g-12" style="padding-left: 20px">
+          <p-checkbox name="enableBTMonitor" [(ngModel)]="monitor.enableBciDebug.value" label="BT Monitor" binary="true"></p-checkbox>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+          <button type="submit" pButton icon="fa-check" label="Save"></button>
+          <button type="button" pButton icon="fa-refresh" (click)="hotspotCapturingDialog=false" label="Reset"></button>
+
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</p-panel>

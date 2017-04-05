@@ -25,5 +25,5 @@ body {
 }
 
 .ui-tabview.ui-tabview-top>.ui-tabview-nav li {
-    min-width: 19%;
+    /*min-width: 19%;*/
 }

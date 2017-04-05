@@ -39,6 +39,7 @@ export class ConfigTopologyService {
     return this._restApi.getDataByGetReq(URL.FETCH_ALL_TOPODATA);
   }
 
+  /** fetch topology table data*/
   getTopologyDetail(dcId: number): Observable<TopologyInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_TOPO_TABLE_URL}/${dcId}`);
   }

@@ -1,74 +1,136 @@
-<p-dataTable [value]="integrationPTDetectionData" [(selection)]="selectedintegrationPTDetectionyData">
-  <p-header>
-    <span>Integration Pt Detection(s) </span>
-    <span style="float :right; margin-top:-5px">
+<p-dataTable [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect($event)" (onRowDblclick)="showDialogToDetail()">
+    <p-header>
+        <span>Integration Pt Detection(s) </span>
+        <span style="float :right; margin-top:-5px">
             <button pButton type="button" label="Add" (click)="onAddIntegrationPTDetection()" icon="fa-plus"></button>
         </span>
-  </p-header>
-  <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-  <p-column class="tableCss" field="type" header="Type" [sortable]="true">
-    <template let-col let-integrationPTDetection="rowData" pTemplate>
+    </p-header>
+    <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
+    <p-column class="tableCss" field="type" header="Type" [sortable]="true">
+        <template let-col let-integrationPTDetection="rowData" pTemplate>
       <span title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
     </template>
-  </p-column>
-  <p-column class="tableCss"  field="detail" header="Description" [sortable]="true">
-    <template let-col let-integrationPTDetection="rowData" pTemplate>
+    </p-column>
+    <p-column class="tableCss" field="detail" header="Description" [sortable]="true">
+        <template let-col let-integrationPTDetection="rowData" pTemplate>
       <span title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
     </template>
-  </p-column>
+    </p-column>
 </p-dataTable>
 
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog header="New Integration PT Detection" *ngIf="displayNewIntegrationPTDetection" [(visible)]="displayNewIntegrationPTDetection" modal="modal"
-  width="500" responsive="true">
-  <div class="ui-g">
-    <div class="ui-g-4">
-      <label>Backend Type</label>
+<p-dialog header="New Integration PT Detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="500" responsive="true">
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Backend Type</label>
+        </div>
+        <div class="ui-g-8">
+            <p-dropdown [options]="backendTypeSelecetItem" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="Select a Backend Type"></p-dropdown>
+        </div>
     </div>
-    <div class="ui-g-8">
-      <p-dropdown [options]="IntegrationPTDetectionType" [(ngModel)]="integrationPTDetectionDetail.type" placeholder="Select a Backend Type"></p-dropdown>
 
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Name</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.name" />
+        </div>
     </div>
-  </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Enabled</label>
+        </div>
+        <div class="ui-g-8">
+            <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="addIPDetectionDetail.enabled"></p-inputSwitch>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Fully Qualified Method Name</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.fqm" />
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <label>Description</label>
+        </div>
+        <div class="ui-g-8">
+            <input id="in3" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.desc" />
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="displayNewIPDetection=false" label="Cancel"></button>
+            <button type="button" pButton icon="fa-check" (click)="saveAddIntegrationPTDetection()" label="Save"></button>
+        </div>
+    </footer>
+</p-dialog>
 
-  <div class="ui-g">
-    <div class="ui-g-4">
-      <label>Name</label>
+<p-dialog *ngIf="detailDialog" header="{{integrationDetail.type}}" [(visible)]="detailDialog" modal="modal" width="500" responsive="true">
+
+    <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
+    <div class="ui-g" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC">
+        <label> <h3>Naming Rules</h3> </label>
     </div>
-    <div class="ui-g-8">
-      <input id="in2" type="text" size="30" pInputText [(ngModel)]="integrationPTDetectionDetail.name" />
+    <div class="ui-g" [ngSwitch]="integrationDetail.type">
+        <div class="ui-g" *ngSwitchCase="IP.WS">
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+        </div>
+        <div class="ui-g" *ngSwitchCase="IP.RMI">
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+        </div>
+        <div class="ui-g" *ngSwitchCase="IP.HADOOP">
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table Name </md-checkbox>
+        </div>
+        <div class="ui-g" *ngSwitchCase="IP.HTTP">
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
+        </div>
+        <div class="ui-g" *ngSwitchCase="IP.JDBC">
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL</md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
+            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> UserName </md-checkbox>
+
+            <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
+        </div>
+        <div class="ui-g" *ngSwitchDefault>
+        </div>
     </div>
-  </div>
-  <div class="ui-g">
-    <div class="ui-g-4">
-      <label>Enabled</label>
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <label><h3>Exit Points</h3></label>
+            <div class="ui-g" *ngFor="let endPoints of integrationDetail.lstEndPoints">
+                <div class="ui-g-10">
+                    <label>{{endPoints.name}}</label>
+                </div>
+                <div>
+                    <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="ui-g-8">
-      <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="integrationPTDetectionDetail.enabled"></p-inputSwitch>
-    </div>
-  </div>
-  <div class="ui-g">
-    <div class="ui-g-4">
-      <label>Fully Qualified Method Name</label>
-    </div>
-    <div class="ui-g-8">
-      <input id="in2" type="text" size="30" pInputText [(ngModel)]="integrationPTDetectionDetail.fqm" />
-    </div>
-  </div>
-  <div class="ui-g">
-    <div class="ui-g-4">
-      <label>Description</label>
-    </div>
-    <div class="ui-g-8">
-      <input id="in3" type="text" size="30" pInputText [(ngModel)]="integrationPTDetectionDetail.desc" />
-    </div>
-  </div>
-  <footer>
-    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-      <button type="button" pButton icon="fa-close" (click)="displayNewIntegrationPTDetection=false" label="Cancel"></button>
-      <button type="button" pButton icon="fa-check" (click)="saveAddIntegrationPTDetection()" label="Save"></button>
-    </div>
-  </footer>
-  </p-dialog>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" (click)="saveIntegrationDetail()" label="Save"></button>
+            <button type="button" pButton icon="fa-close" (click)="detailDialog=false" label="Cancel"></button>
+        </div>
+    </footer>
+</p-dialog>

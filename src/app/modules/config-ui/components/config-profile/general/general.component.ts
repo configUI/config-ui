@@ -3,9 +3,7 @@ import {  SelectItem } from 'primeng/primeng';
 import { Keywords } from '../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
-import { ActivatedRoute, Params } from '@angular/router';
-//import * as _ from 'lodash';
-
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 
@@ -18,11 +16,22 @@ import { ConfigKeywordsService } from '../../../services/config-keywords.service
 export class GeneralComponent implements OnInit {
 
   profileId: number;
+  index: number = 0;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );
+    this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+      this.index = params['tabId']
+    } );
+    this.loadKeywordData();
+  }
+
+  /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
+  loadKeywordData(){
+    if(!this.configKeywordsService.keywordData)
+      this.configKeywordsService.getProfileKeywords(this.profileId);
   }
 
   saveKeywordData(keywordData){
@@ -32,6 +41,9 @@ export class GeneralComponent implements OnInit {
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 
-
+  handleChange(e){
+    this.index = e.index;
+    // this.router.navigate(['/profile/general', this.profileId, this.index]);
+  }
 
 }

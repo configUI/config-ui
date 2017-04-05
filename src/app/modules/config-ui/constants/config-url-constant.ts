@@ -1,6 +1,7 @@
-const SERVICE_URL = 'http://localhost:8090';
+// const SERVICE_URL = 'http://localhost:8090';
 // const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
- //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+// const  SERVICE_URL = 'http://10.10.60.77:8090';
+ const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 //  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
@@ -87,7 +88,8 @@ export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/bussinesstransglobal`;
 
 /* Url for Backend Detection */
 export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;
-export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/backendTypes`;
+// export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/backendTypes`;
+export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/custom/backenddetection/getbackendtype`;
 export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`;
 export const UPDATE_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/updatebackend`;
 

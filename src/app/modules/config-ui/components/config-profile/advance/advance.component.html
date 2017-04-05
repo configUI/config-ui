@@ -1,1 +1,17 @@
-advance works
+<p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Debug Level Capturing" [selected]="index == 0">
+        <app-debug *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-debug>
+    </p-tabPanel>
+    <p-tabPanel header="Backend Monitor" [selected]="index == 1">
+        <app-backend-monitors *ngIf="index == 1" (keywordData)="saveKeywordData($event)"></app-backend-monitors>
+    </p-tabPanel>
+    <p-tabPanel header="Monitor" [selected]="index == 2">
+        <app-monitors *ngIf="index == 2" (keywordData)="saveKeywordData($event)"></app-monitors>
+    </p-tabPanel>
+    <p-tabPanel header="Delay in Method" [selected]="index == 3">
+        <app-delay *ngIf="index == 3" (keywordData)="saveKeywordData($event)"></app-delay>
+    </p-tabPanel>
+    <p-tabPanel header="Generate Exception" [selected]="index == 4">
+        <app-generate-exception *ngIf="index == 4" (keywordData)="saveKeywordData($event)"></app-generate-exception>
+    </p-tabPanel>
+</p-tabView>
