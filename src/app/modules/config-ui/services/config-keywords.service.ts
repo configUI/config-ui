@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
-import {  XmlFilesList } from '../interfaces/keywords-info';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';

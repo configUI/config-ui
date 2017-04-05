@@ -22,5 +22,4 @@ export class ConfigurationComponent implements OnInit {
   loadKeywordData(){
     this.configKeywordsService.getProfileKeywords(this.profileId);
   }
-
 }

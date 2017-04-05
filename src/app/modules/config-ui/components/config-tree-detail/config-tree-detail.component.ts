@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { ConfigTopologyService } from '../../services/config-topology.service';
-import { TopologyInfo } from '../../interfaces/topology-info';
+import { TopologyInfo,TierInfo,ServerInfo,InstanceInfo } from '../../interfaces/topology-info';
 import * as CONS from '../../constants/config-constant';
 
 @Component({
@@ -17,6 +17,11 @@ export class ConfigTreeDetailComponent implements OnInit {
   topologyData: any[];
   tableHeaderInfo: any[];
   currentEntity: string = CONS.TOPOLOGY.TOPOLOGY;
+  topologyEntity:TopologyInfo;
+  tierEntity :TierInfo;
+  serverEntity:ServerInfo;
+  instanceEntity:InstanceInfo
+  
 
   ngOnInit() {
     this.loadTopologyData();
@@ -27,19 +32,24 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.route.params.switchMap((params: Params) => this.configTopologyService.getTopologyDetail(+params['dcId'])).subscribe(data => this.topologyData = data);
   }
 
-  /**For getting entity(Tier, Server, Instance) data  */
-  getData(id, entity?: any): void {
-    if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
+  /** For getting entity(Tier, Server, Instance) data  **/
+  
+  getData(event): void {
+
+    if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
       this.currentEntity = CONS.TOPOLOGY.TIER;
-      this.configTopologyService.getTierDetail(+id, entity).subscribe(data => this.topologyData = data);
+      this.topologyData.filter(row => {if(row.topoId == event.data.nodeId)  this.topologyEntity= row})
+      this.configTopologyService.getTierDetail(event.data.nodeId, this.topologyEntity).subscribe(data => this.topologyData = data);
     }
-    else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
+    else if (event.data.currentEntity == CONS.TOPOLOGY.TIER) {
       this.currentEntity = CONS.TOPOLOGY.SERVER;
-      this.configTopologyService.getServerDetail(+id, entity).subscribe(data => this.topologyData = data);
+       this.topologyData.filter(row => {if(row.tierId == event.data.nodeId)  this.tierEntity= row})
+      this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);
     }
-    else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
+    else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER) {
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
-      this.configTopologyService.getInstanceDetail(+id, entity).subscribe(data => this.topologyData = data);
+      this.topologyData.filter(row => {if(row.serverId == event.data.nodeId)  this.serverEntity= row})
+      this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => this.topologyData = data);
     }
     //For Table header Name
     this.getTableHeader();
@@ -50,10 +60,13 @@ export class ConfigTreeDetailComponent implements OnInit {
     let tableHeaderInfo = [];
 
     //Default for topology detail
-    let colField = ["topoName", "topoDesc", "profileName"];
+    let colField;
     let colHeader = ["Name", "Description", "Profile Applied"];
-    
-    if (this.currentEntity == CONS.TOPOLOGY.TIER) {
+    if(this.currentEntity == CONS.TOPOLOGY.TOPOLOGY){
+      colField = ["topoName", "topoDesc", "profileName"];
+    }
+   
+    else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
       colField = ["tierName", "tierDesc", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
