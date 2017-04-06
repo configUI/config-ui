@@ -5,14 +5,32 @@ import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
 
-import { CheckboxModule, RadioButtonModule, InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule ,SpinnerModule,
-  MultiSelectModule,ToggleButtonModule} from 'primeng/primeng';
+import {  CheckboxModule, 
+          RadioButtonModule, 
+          InputTextModule, 
+          DataTableModule, 
+          BreadcrumbModule, 
+          MenuModule, 
+          DropdownModule, 
+          TreeModule, 
+          ButtonModule, 
+          DialogModule, 
+          GrowlModule, 
+          ConfirmationService, 
+          ConfirmDialogModule, 
+          TabViewModule, 
+          TooltipModule, 
+          InputSwitchModule, 
+          PanelModule ,
+          SpinnerModule,
+          MultiSelectModule,
+          ToggleButtonModule,
+          AccordionModule} from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -129,7 +147,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigRoutingModule,
     MaterialModule.forRoot(),
     PerfectScrollbarModule.forRoot(),
-   StoreModule.provideStore({ keywordData: keywordReducer }),
+    StoreModule.provideStore({ keywordData: keywordReducer }),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,
@@ -148,7 +166,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RadioButtonModule,
     CheckboxModule,
     MultiSelectModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    AccordionModule
   ],
  
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
