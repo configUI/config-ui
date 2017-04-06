@@ -89,6 +89,12 @@ import { ThreadStatsComponent } from './modules/config-ui/components/config-prof
 import { InstrumentationProfilesComponent } from './modules/config-ui/components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
 import { HTTPBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
 import { MethodBTConfigurationComponent } from './modules/config-ui/components/config-profile/instrumentation/transaction-configuration/method-bt-configuration/method-bt-configuration.component';
+import { DebugComponent } from './modules/config-ui/components/config-profile/advance/debug/debug.component';
+import { BackendMonitorsComponent } from './modules/config-ui/components/config-profile/advance/backend-monitors/backend-monitors.component';
+import { MonitorsComponent } from './modules/config-ui/components/config-profile/advance/monitors/monitors.component';
+import { DelayComponent } from './modules/config-ui/components/config-profile/advance/delay/delay.component';
+import { GenerateExceptionComponent } from './modules/config-ui/components/config-profile/advance/generate-exception/generate-exception.component';
+
 import { HttpHeaderComponent } from './modules/config-ui/components/config-profile/general/header/http-header/http-header.component';
 import { CustomDataComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/custom-data.component';
 import { HttpRequestComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/http-request/http-request.component';
@@ -134,6 +140,11 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     InstrumentationProfilesComponent,
     HTTPBTConfigurationComponent,
     MethodBTConfigurationComponent,
+    DebugComponent,
+    BackendMonitorsComponent,
+    MonitorsComponent,
+    DelayComponent,
+    GenerateExceptionComponent,
     HttpHeaderComponent,
     CustomDataComponent,
     HttpRequestComponent,

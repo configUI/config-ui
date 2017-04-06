@@ -14,7 +14,11 @@ export class InstrumentationComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );  
+    this.route.params.subscribe((params: Params) =>{
+      this.profileId = params['profileId'];
+      this.index = params['tabId'];
+
+    });  
   }
 
   handleChange(e){

@@ -1,6 +1,7 @@
 // const SERVICE_URL = 'http://localhost:8090';
-const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
- //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+// const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+// const  SERVICE_URL = 'http://10.10.60.77:8090';
+ const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 //  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
@@ -29,7 +30,7 @@ export const DEL_ROW_DC_URL = `${SERVICE_URL}/dcdetail`;
 
 /* Url for Topology */
 export const FETCH_TOPO_TABLE_URL = `${SERVICE_URL}/custom/topology`;
-export const FETCH_TOPO_TREE_URL = `${SERVICE_URL}/custom/tree/topology`;
+export const FETCH_TOPO_TREE_URL = `${SERVICE_URL}/custom/tree/ng/topology`;
 export const DEL_TOPO_ROW_URL = `${SERVICE_URL}/dctopoassociation`;
 export const ATTACH_PROFTO_TOPO = `${SERVICE_URL}/custom/topology`;
 export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
@@ -42,14 +43,18 @@ export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelis
 export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
 
 /* Url for Tier */
-export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
+//export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
+export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/ng/tier`;
+
 //export const FETCH_TIER_TABLE_URL = `${SERVICE_URL}/topology`;
 export const FETCH_TIER_TABLE_URL = `${SERVICE_URL}/custom/tier`;
+//export const FETCH_TIER_TABLE_URL = `${SERVICE_URL}/custom/tier/ng`;
 export const ATTACH_PROFTO_TIER = `${SERVICE_URL}/custom/tier`;
 
 
 /* Url for Server */
-export const FETCH_SERVER_TREE_URL = `${SERVICE_URL}/custom/tree/server`;
+//export const FETCH_SERVER_TREE_URL = `${SERVICE_URL}/custom/tree/server`;
+export const FETCH_SERVER_TREE_URL = `${SERVICE_URL}/custom/tree/ng/server`;
 export const FETCH_SERVER_TABLE_URL = `${SERVICE_URL}/custom/server`;
 export const ATTACH_PROFTO_SERVER = `${SERVICE_URL}/custom/server`;
 
@@ -83,7 +88,8 @@ export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/bussinesstransglobal`;
 
 /* Url for Backend Detection */
 export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;
-export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/backendTypes`;
+// export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/backendTypes`;
+export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/custom/backenddetection/getbackendtype`;
 export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`;
 export const UPDATE_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/updatebackend`;
 

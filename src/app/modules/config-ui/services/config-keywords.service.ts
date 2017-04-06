@@ -11,6 +11,8 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
 
+import { BackendInfo } from '../interfaces/instrumentation-info';
+
 @Injectable()
 export class ConfigKeywordsService {
 
@@ -61,7 +63,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
   }
 
-  getIPList(profileId): Observable<any>{
+  getBackendList(profileId): Observable<BackendInfo[]>{
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TYPES}/${profileId}`);
   }
 

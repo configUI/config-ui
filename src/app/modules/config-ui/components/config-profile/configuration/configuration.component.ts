@@ -13,6 +13,7 @@ export class ConfigurationComponent implements OnInit {
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService) { }
 
   profileId: number;
+  checked =true;
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );
@@ -22,5 +23,4 @@ export class ConfigurationComponent implements OnInit {
   loadKeywordData(){
     this.configKeywordsService.getProfileKeywords(this.profileId);
   }
-
 }
