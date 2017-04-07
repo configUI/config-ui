@@ -25,7 +25,6 @@ export class AdvanceComponent implements OnInit {
     });
     this.loadKeywordData();
   }
-
   /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
   loadKeywordData(){
     if(!this.configKeywordsService.keywordData)
@@ -33,7 +32,6 @@ export class AdvanceComponent implements OnInit {
   }
 
   saveKeywordData(keywordData){
-    console.log("keywordData1111", keywordData);
     for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }

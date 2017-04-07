@@ -82,7 +82,8 @@ import { CustomDataComponent } from './modules/config-ui/components/config-profi
 import { HttpRequestComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/http-request/http-request.component';
 import { SessionAttributeComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
 import { JavaMethodComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/java-method/java-method.component';
-
+import { NVCookieComponent } from './modules/config-ui/components/config-profile/product-integration/nvcookie/nvcookie.component';
+import {ChipsModule} from 'primeng/primeng';
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -131,7 +132,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomDataComponent,
     HttpRequestComponent,
     SessionAttributeComponent,
-    JavaMethodComponent
+    JavaMethodComponent,
+    NVCookieComponent
   ],
   imports: [
     BrowserModule,
@@ -159,7 +161,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RadioButtonModule,
     CheckboxModule,
     MultiSelectModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ChipsModule
   ],
  
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],

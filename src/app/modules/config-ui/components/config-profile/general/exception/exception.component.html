@@ -12,7 +12,7 @@
               </p-checkbox>
             </div>
             <div class="ui-g-6 text-box-Css">
-              <input type="text" disabled={{!exceptionData.exceptionTrace}} name="exceptionTraceDepth" [(ngModel)]="exceptionData.exceptionTraceDepth" size="17" />
+              <input type="text" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} pattern="[a-zA-Z]+" oninvalid="setCustomValidity('Please fill with Alphabets ')" name="exceptionTraceDepth" [(ngModel)]="exceptionData.exceptionTraceDepth" size="17" required />
             </div>
           </div>
           Capture Exceptions

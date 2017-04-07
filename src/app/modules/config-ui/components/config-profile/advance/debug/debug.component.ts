@@ -27,7 +27,7 @@ export class DebugComponent {
 
   subscription: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
-
+    
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.debug = data;
       console.log(this.className, "constructor", "this.debug", this.debug);
@@ -38,11 +38,13 @@ export class DebugComponent {
   }
 
   saveKeywordData() {
-    console.log("kkeeeeeeeeeeyyyyyyy", this.debug);
     this.keywordData.emit(this.debug);
   }
+  resetDefaultValues(){
+    
+  }
 
-  ngOnDestroy() {
+  ngOnDestroy() { 
     if (this.subscription)
       this.subscription.unsubscribe();
   }
