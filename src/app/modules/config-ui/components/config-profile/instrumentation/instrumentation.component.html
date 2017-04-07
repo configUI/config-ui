@@ -5,6 +5,7 @@
     <p-tabPanel header="INTEGRATION PT DETECTION" [selected]="index == 1">
         <app-integration-pt-detection *ngIf="index == 1" [profileId]=profileId></app-integration-pt-detection>
     </p-tabPanel>
+
     <p-tabPanel header="TRANSACTION CONFIGURATION" [selected]="index == 2">
         <app-transaction-configuration *ngIf="index == 2" [profileId]=profileId></app-transaction-configuration>
     </p-tabPanel>
