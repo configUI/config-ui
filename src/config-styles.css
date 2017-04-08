@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
-@import '~https://fonts.googleapis.com/icon?family=Roboto';
+@import '~https://fonts.googleapis.com/icon?family=Open+Sans';
 @import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
 body {
-    font-family: Roboto;
+    font-family: 'Open Sans', sans-serif !important;
     background: url('assets/img/wall_num5.jpg');
     font-size: 12px;
+    margin: 0;
 }
 
 .ui-datatable .ui-datatable-thead>tr>th {
@@ -23,7 +24,42 @@ body {
 .ui-datatable .ui-datatable-thead>tr>th {
     color: white;
 }
-
 .ui-tabview.ui-tabview-top>.ui-tabview-nav li {
     /*min-width: 19%;*/
+}
+
+/*-----------------Cutom CSS---------------*/
+.app-sidenav {
+    background: #282828;
+}
+button[md-icon-button]{
+    border-bottom: 1px #353535 solid;
+}
+ul.cav-menu-ul{
+    margin-top: 0;
+}
+li.ui-breadcrumb-chevron.fa.fa-chevron-right {
+    font-size: 10px;
+}
+.header-button{
+    padding-top: 5px !important;
+}
+.mat-card-subtitle {
+    height: 30px !important;
+}
+.widget {
+    background: rgba(255,255,255, 0.65);
+    border-radius: 4px; padding: 8px;
+}
+.widget .header {
+    color: #fff;
+    font-size: 12px;  font-weight: 600;
+    line-height: 16px;    padding: 6px; margin: -8px -8px 10px;
+    background: #183D65;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
 }

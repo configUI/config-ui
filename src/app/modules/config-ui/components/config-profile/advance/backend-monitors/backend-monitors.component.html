@@ -6,9 +6,8 @@
         <div class="ui-g-12">
         </div>
         <div class="ui-g-12" style="padding-left: 20px">
-
-          <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend Monitor">
-          </p-checkbox>
+          <p-checkbox name="enableBackendMonitor" [(ngModel)]="backend.enableBackendMonitor.value" required ngModel label="Backend Monitor"
+            binary="false"></p-checkbox>
         </div>
       </div>
 

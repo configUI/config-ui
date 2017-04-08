@@ -9,14 +9,14 @@
         <div class="ui-g-12">
         </div>
         <div class="ui-g-12" style="padding-left: 20px">
-          <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="BT Monitor" binary="true" ngModel></p-checkbox>
+          <p-checkbox name="enableBTMonitor" [(ngModel)]="monitor.enableBciDebug.value" label="BT Monitor" binary="true"></p-checkbox>
         </div>
       </div>
 
       <div class="pull-right">
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
           <button type="submit" pButton icon="fa-check" label="Save"></button>
-          <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+          <button type="button" pButton icon="fa-refresh" (click)="hotspotCapturingDialog=false" label="Reset"></button>
 
         </div>
       </div>

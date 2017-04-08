@@ -1,11 +1,12 @@
-<p-dataTable [value]="profileData" [(selection)]="selectedProfile">
-    <p-header>
-        <span> Profile Detail(s)</span>
-        <span style="float :right; margin-top:-5px">
+<div class="widget">
+    <div class="header"><i class="fa fa-user" aria-hidden="true"></i> Profile Detail(s)
+        <span style="float :right; margin-top:-2px">
             <button pButton type="button" title="Add Profile" (click)="openProfileDialog()" icon="fa-plus"></button>
         </span>
-    </p-header>
 
+    </div>
+
+<p-dataTable [value]="profileData" [(selection)]="selectedProfile">
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column class="tableCss"  field="profileName" header="Name" [sortable]="true">
@@ -20,6 +21,7 @@
     </template>
     </p-column>
 </p-dataTable>
+</div>
 
 <!--Dialog for Adding New Profile -->
 <p-dialog header="Add New Profile Configuration " *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
