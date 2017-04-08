@@ -24,9 +24,10 @@ export class HotspotComponent implements OnInit, OnDestroy {
   /**It stores keyword data for showing in GUI */
   hotspot: any;
   copyHotspot: any;
-
+  bindIncluded:boolean=false;
+  bindExcluded:boolean=false;
   subscription: Subscription;
-
+  exceptionName:string[];
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
     this.subscription = this.store.select("keywordData")
       .subscribe(data => {
@@ -47,6 +48,19 @@ export class HotspotComponent implements OnInit, OnDestroy {
     // console.log("this.hotspot",JSON.stringify(this.hotspot) );
     // console.log("this.copyHotspot",this.copyHotspot);
      this.hotspot = JSON.parse(this.copyHotspot);
+  }
+
+  showExceptionNameText(){
+    if(this.bindIncluded==false)
+      this.bindIncluded=true;
+    else
+      this.bindIncluded=false;
+  }
+  showExcludedExceptionNameText(){
+    if(this.bindExcluded==false)
+      this.bindExcluded=true;
+    else
+      this.bindExcluded=false;
   }
 
   ngOnDestroy() {
