@@ -1,10 +1,7 @@
 <p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3"  [(selection)]="selectedTopologyData">
     <p-header>
-        <span> {{currentEntity}} Detail(s) </span>
 
-        <span style="float: right; margin-top:-5px">
-            <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
-        </span>
+        <span><b> {{currentEntity}} Detail(s) </b></span>
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

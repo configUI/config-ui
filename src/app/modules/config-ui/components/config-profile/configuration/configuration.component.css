@@ -34,11 +34,9 @@
 md-card {
     height: 200px;
 }
+
 .contents:hover {
     text-decoration: underline;
-}
-.contents{
-     margin:8px 0px;
 }
 
 a {
