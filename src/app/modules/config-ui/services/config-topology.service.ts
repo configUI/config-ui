@@ -73,27 +73,6 @@ export class ConfigTopologyService {
     this._restApi.getDataByGetReq(`${URL.FETCH_TIER_TABLE_URL}/${tierId}/{profileId}`).subscribe(data => this._tableData = data)
   }
 
-/* Changing Profile To Topology */
-  updateAttachedProfTopo(data) :Observable<Object>{
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`);
-  }
-
-/* Changing Profile to Tier */
-  updateAttachedProfTier(data){
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}`);
-  }
-  /* Changing Profile to Server */
-  updateAttachedProfServer(data){
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}`);
-  }
-
-  /* Changing Profile to Instance */
-  updateAttachedProfInstance(data){
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}`);
-  }
-
-
-
 
 
   getLazyFiles(){

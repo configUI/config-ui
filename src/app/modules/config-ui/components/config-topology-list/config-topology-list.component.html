@@ -1,7 +1,6 @@
+<div class="widget">
+    <div class="header"><i class="fa fa-object-group" aria-hidden="true"></i> Topology Detail(s)</div>
 <p-dataTable [value]="topologyData" [(selection)]="selectedtopology">
-    <p-header>
-        <span>Topology Detail(s)</span>
-    </p-header>
     <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoName" header="Name" [sortable]="true">
         <template let-col let-topology="rowData" pTemplate>
       <span title="{{topology[col.field]}}">{{topology[col.field]}}</span>
@@ -10,3 +9,4 @@
     <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoDesc" header="Description" [sortable]="true">
     </p-column>
 </p-dataTable>
+</div>

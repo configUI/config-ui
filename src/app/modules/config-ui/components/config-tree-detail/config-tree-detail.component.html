@@ -1,10 +1,6 @@
-<p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3"  [(selection)]="selectedTopologyData">
+<p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> {{currentEntity}} Detail(s) </span>
-
-        <span style="float: right; margin-top:-5px">
-            <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
-        </span>
+        <span><b> {{currentEntity}} Detail(s) </b></span>
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -29,28 +25,3 @@
         </template>
     </p-column>
 </p-dataTable>
-
-
-
-
-<!--Dialog for changing profile-------->
-<p-dialog header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm">
-     
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Profile</label>
-            </div>
-            <div class="ui-g-8">
-                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <p-dropdown name="profileId" [options]="profileSelectItem" [(ngModel)]="topoData.profileId" appendTo="body" required ngModel></p-dropdown>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>
