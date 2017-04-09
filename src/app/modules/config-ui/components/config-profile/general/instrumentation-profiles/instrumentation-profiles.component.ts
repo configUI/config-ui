@@ -29,7 +29,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   instrProfileSelectItem: SelectItem[];
 
   ngOnInit() {
-    // this.loadListOfXmlFiles()
+    this.loadListOfXmlFiles()
   }
 
  /** This method is used to creating instrProfile select item object **/
