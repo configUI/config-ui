@@ -4,30 +4,33 @@
             <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm">
                 <div class="ui-g-12">
                     <!--<div class = "ui-g-6">-->
-                    <div class="ui-g-5">
-                        <label>Full Flow Path capturing percentage[0-100%]</label>
+                     <div class="ui-g-1"> </div>  
+                    <div class="ui-g-3">
+                        <label>Full Flow Path Capturing Percentage[0-100%]</label>
                     </div>
 
                     <div class="ui-g-2">
-                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} required ngModel autofocus>
+                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} oninvalid="this.setCustomValidity('Invalid')" required ngModel autofocus>
                     </div>
                 </div>
 
                 <div class="ui-g-12">
-                    <div class="ui-g-5">
-                        <label>Capture complete transaction flow forcefully</label>
+                    <div class="ui-g-1"> </div> 
+                    <div class="ui-g-3">
+                        <label>Capture Complete Transaction Flow Forcefully</label>
                     </div>
 
 
                     <div class="ui-g-2">
-                        <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
+                        <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px"  [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
                     </div>
                 </div>
 
 
                 <div class="ui-g-12">
-                    <div class="ui-g-5">
-                        <label>Capture Cpu Times</label>
+                    <div class="ui-g-1"> </div> 
+                    <div class="ui-g-3">
+                        <label>Capture CPU Times</label>
                     </div>
 
                     <div class="ui-g-2">
@@ -37,12 +40,13 @@
 
 
                 <div class="ui-g-12">
-                    <div class="ui-g-5">
-                        <label>Capture HTTP header for correlation id</label>
+                    <div class="ui-g-1"> </div> 
+                    <div class="ui-g-3">
+                        <label>Capture HTTP Header for Correlation ID</label>
                     </div>
 
-                    <div class="ui-g-2">
-                        <input name="correlationIDHeader" type="text" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}} max={{flowPath.correlationIDHeader.max}} required ngModel/>
+                    <div class="ui-g-3">
+                        <input name="correlationIDHeader" type="number" size="30"   [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}} max={{flowPath.correlationIDHeader.max}} required ngModel/>
                     </div>
                 </div>
 

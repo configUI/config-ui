@@ -1,0 +1,83 @@
+<p-dataTable [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData">
+  <p-header>
+    <span>HTTP Stats Condition Monitor(s) </span>
+    <span style="float :right; margin-top:-5px">
+            <button pButton type="button" title="Add" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit" (click)="openEditHTTPStatsDialog()" icon="fa-pencil"></button>
+            <button pButton type="button" title="Delete" (click)="deleteHTTPStats()" icon="fa-trash"></button>
+        </span>
+  </p-header>
+  <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+  <p-column class="tableCss" field="methodDisplayName" header="Condition Name" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+  <p-column class="tableCss" field="methodDisplayName" header="Condition" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+  <p-column class="tableCss" field="methodName" header="Description" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+  <p-column class="tableCss" field="methodDesc" header="FP Dump Mode" [sortable]="true">
+    <template let-col let-MethodMonitor="rowData" pTemplate>
+      <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
+    </template>
+  </p-column>
+
+</p-dataTable>
+
+<!--Dialog for method monitor-->
+
+<p-dialog header="{{isNewMethodMonitor ? 'Add HTTP Stats Condition' : 'Edit HTTP Stats Condition'}}" *ngIf="addEditMethodMonitorDialog"
+  [(visible)]="addEditMethodMonitorDialog" modal="modal" width="800" responsive="true">
+  <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm">
+    <div class="ui-g">
+      <div class="ui-g-3">
+        <label>Name</label>
+      </div>
+      <div class="ui-g-3">
+        <input name="httpStatsMonitorName" type="text" placeholder="Enter Condition Name" style="width:177px;" pInputText 
+          autofocus required ngModel/>
+      </div>
+      <div class="ui-g-3">
+        <label>Select Flowpath Dump Mode</label>
+      </div>
+      <div class="ui-g-3">
+        <p-dropdown name="flowDump" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [options]="flowDumpData"
+          appendTo="body" required ngModel></p-dropdown>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        <label>Select Header Type</label>
+      </div>
+      <div class="ui-g-3">
+        <p-dropdown name="headerTypeName" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="headerType"  [(ngModel)]="headerType.value"
+          appendTo="body" required ngModel></p-dropdown>
+      </div>
+      
+      <div class="ui-g-3"  *ngIf="headerType.value==1||headerType.value==2">
+        <label>Select Header</label>
+      </div>
+      <div class="ui-g-3"  *ngIf="headerType.value==1">
+        <p-dropdown name="requestHeader" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="requestHeader"  [(ngModel)]="requestHeader.value"
+          appendTo="body" required ngModel></p-dropdown>
+      </div>
+      <div class="ui-g-3"  *ngIf="headerType.value==2">
+        <p-dropdown name="responseHeader" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="headerType"  [(ngModel)]="headerType.value"
+          appendTo="body" required ngModel></p-dropdown>
+      </div>
+    </div>
+    <footer>
+      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="addEditMethodMonitorDialog=false" label="Cancel"></button>
+        <button type="submit" pButton icon="fa-check" label="Save"></button>
+      </div>
+    </footer>
+  </form>
+  </p-dialog>

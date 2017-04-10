@@ -77,6 +77,18 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     this.keywordData.emit(this.flowPath);
   }
 
+  check(text){
+    console.log(event,"DFfdfgdfgfdgf");
+    // if(event>100)
+    // event.setCustomValidity('Value must be less than or equal to 100');
+    // if(event<0)
+    // event.setCustomValidity('Value must be greater than or equal to 0');
+    // if(event=='')
+    // event.setCustomValidity('This is a required field');
+ 
+
+  }
+
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

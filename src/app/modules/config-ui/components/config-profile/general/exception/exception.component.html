@@ -4,32 +4,43 @@
     <form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
       <div class="ui-g">
           <div class="ui-g-12">
-            <p-checkbox label="Instrument Exceptions" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="false"></p-checkbox>
+            <div class="ui-g-1"></div>
+              <div class="ui-g-3">           
+                      <p-checkbox label="Instrument Exceptions" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="false"></p-checkbox>
+              </div>
           </div>
-          <div class="ui-g-12 padding-left-css">
-            <div class="ui-g-6">
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3" style="margin-left: 16px">
               <p-checkbox disabled={{!exceptionData.instrumentException}} label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
               </p-checkbox>
             </div>
-            <div class="ui-g-6 text-box-Css">
-              <input type="text" disabled={{!exceptionData.exceptionTrace}} name="exceptionTraceDepth" [(ngModel)]="exceptionData.exceptionTraceDepth" size="17" />
+           
+            <div class="ui-g-2">
+             <input type="number" style="width:178px" placeholder="Stack Trace Limit for Frames" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} [min]=0 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth"  required ngModel/>
             </div>
           </div>
-          Capture Exceptions
-          <div class="ui-g-12" style="margin:10px;">
-            <div class="ui-g-6">
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-2" style="margin-left: 34px">Capture Exceptions</div>
+          </div>
+          <div class="ui-g-12" style="margin-left: 16px">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-2" style="margin-left: 16px">
               <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
             </div>
-            <div class="ui-g-6">
+            <div class="ui-g-2">
               <p-radioButton name="CaptureException"disabled={{!exceptionData.instrumentException}} value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
             </div>
           </div>
       </div>
-      <!--<div class="">-->
-      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="text-align:right;">
-        <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
-        <button type="submit" pButton icon="fa-check" label="Save"></button>
-      </div>
+     
+      <div class="pull-right">
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+                </div>
+            </div>
     </form>
   </div>
 </p-panel>

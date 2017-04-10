@@ -2,13 +2,12 @@
   <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
     <form *ngIf="backend" (ngSubmit)="saveKeywordData()" #form="ngForm">
-      <div class="ui-g">
-        <div class="ui-g-12">
-        </div>
-        <div class="ui-g-12" style="padding-left: 20px">
-          <p-checkbox name="enableBackendMonitor" [(ngModel)]="backend.enableBackendMonitor.value" required ngModel label="Backend Monitor"
-            binary="false"></p-checkbox>
-        </div>
+      
+        <div class="ui-g-12" style="padding-left: 50px">
+         
+         <div class="ui-g-2"> <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend Monitor">
+          </p-checkbox></div>
+      
       </div>
 
       <div class="pull-right">

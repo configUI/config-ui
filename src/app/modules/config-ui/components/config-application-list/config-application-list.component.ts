@@ -69,7 +69,6 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**For showing edit application dialog */
   editAppDialog(): void {
-    console.log(" this.selectedApplicationData[0]---", this.selectedApplicationData)
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
       this.configUtilityService.errorMessage("Select row for edit");
       return;

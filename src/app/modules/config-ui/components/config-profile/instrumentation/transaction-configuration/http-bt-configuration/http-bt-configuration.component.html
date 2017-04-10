@@ -22,16 +22,17 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
+                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton> 
             </div>
-            <div class="ui-g-10 text-box-Css">
+            
                 <div class="ui-g-2">
                     <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'95%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
                 </div>
-                <div class="ui-g-10">
-                    <label>Segments of URI in Transaction</label> <input name="segmentValue" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" size="15" pInputText [(ngModel)]="globalBtDetail.segmentValue" />
+                <div class="ui-g-2"></div>
+                <div class="ui-g-3">
+                Segments of URI in Transaction</div><div class="ui-g-2"> <input name="segmentValue" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" size="15" pInputText [(ngModel)]="globalBtDetail.segmentValue" />
                 </div>
-            </div>
+            
         </div>
 
         <div class="ui-g-12 header-font-size">
