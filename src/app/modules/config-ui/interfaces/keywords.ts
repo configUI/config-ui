@@ -27,7 +27,7 @@ export class Keywords{
 "enableForcedFPChain": KeywordsInfo
 "NDEntryPointsFile": KeywordsInfo
 "ASThresholdMatchCount": KeywordsInfo
-"instrExceptions": KeywordsInfo
+"Exceptions": KeywordsInfo
 "InstrTraceLevel": KeywordsInfo
 "captureCustomData": KeywordsInfo
 "ASDepthFilter": KeywordsInfo

@@ -69,7 +69,8 @@
             <label>Enabled</label>
         </div>
         <div class="ui-g-8">
-            <p-inputSwitch name="switch" onLabel="true" offLabel="false" [(ngModel)]="errorDetectionDetail.enabled"></p-inputSwitch>
+            
+            <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
         </div>
     </div>
     <div class="ui-g">
@@ -83,7 +84,7 @@
     <footer>
         <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
-            <button type="submit" pButton icon="fa-check" label="OK"></button>
+            <button type="submit" pButton icon="fa-check" label="Save"></button>
         </div>
     </footer>
    </form>
