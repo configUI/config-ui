@@ -5,6 +5,7 @@ import { SelectItem } from 'primeng/primeng';
 import { ConfigProfileService } from '../../services/config-profile.service'
 //  import { ProfileInfo } from '../../interfaces/profile-info';
 import { ProfileData } from '../../containers/profile-data';
+import { ROUTING_PATH } from '../../constants/config-url-constant';
 
 @Component({
   selector: 'app-config-profile-list',
@@ -22,6 +23,8 @@ export class ConfigProfileListComponent implements OnInit {
 
   profileListItem: SelectItem[];
   displayNewProfile: boolean = false;
+
+  ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
     this.loadProfileList();

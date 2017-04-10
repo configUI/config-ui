@@ -1,11 +1,11 @@
-// const SERVICE_URL = 'http://localhost:8090';
+ const SERVICE_URL = 'http://localhost:8090';
 // const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 // const  SERVICE_URL = 'http://10.10.60.77:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 // const  SERVICE_URL = 'http://10.10.60.70:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
-const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+//const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
  // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //  const  SERVICE_URL = 'http://10.10.30.26:8001/configUI';
 //const  SERVICE_URL = 'http://10.10.60.77:8090';

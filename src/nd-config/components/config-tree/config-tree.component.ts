@@ -49,8 +49,6 @@ export class ConfigTreeComponent implements OnInit {
    */
 
   loadNode(event) {
-    console.log("event", event);
-    console.log("topo Id---",event.node)
      if(event.node.data == "Topology") {
         let data= {'currentEntity':CONS.TOPOLOGY.TOPOLOGY,'nodeId':event.node.id}
         this.getTableData.emit({data})
