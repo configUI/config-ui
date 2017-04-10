@@ -8,8 +8,9 @@ import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
+import {  sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
 import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData} from '../containers/instrumentation-data';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
 
@@ -115,6 +116,13 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST)
   }
 
+  /*  FETCH SESSION ATTRIBUTE TABLEDATA
+   */
+   getFetchSessionAttributeTable(profileId): Observable<sessionAttributeInfo[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}${profileId}`);
+  }
+  
+
    /**
    *  Business Transaction Service
    * 
@@ -126,13 +134,13 @@ export class ConfigKeywordsService {
   }
 
   /* Fetch  Business Trans Pattern Info */
-  getBusinessTransPatternData(): Observable<BusinessTransPatternInfo[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_BT_PATTERN_TABLEDATA);
+  getBusinessTransPatternData(profileId): Observable<BusinessTransPatternInfo[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`);
   }
 
   /* Fetch  Business Trans Method Info */
-  getBusinessTransMethodData(): Observable<BusinessTransMehtodData[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_BTMETHOD_URL);
+  getBusinessTransMethodData(profileId): Observable<BusinessTransMehtodData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BTMETHOD_URL}/${profileId}`);
   }
 
   /* Fetch  Business Trans Method Info */

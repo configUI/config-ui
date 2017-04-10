@@ -8,6 +8,7 @@ import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../.
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { deleteMany } from '../../../../../utils/config-utility';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -16,6 +17,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 })
 export class HTTPBTConfigurationComponent implements OnInit {
 
+  profileId: number;
 
   /* Assign data to Global Bt */
   globalBtDetail: BusinessTransGlobalData;
@@ -75,7 +77,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   selectedPatternData: any;
   businessTransPatternDetail: BusinessTransPatternData;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     this.segmentList = [];
     let arrLabel = ['First', 'Last', 'Segment Number'];
@@ -104,14 +106,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
-
+     this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+    });
     this.configKeywordsService.getBusinessTransGlobalData().subscribe(data => { this.doAssignBusinessTransData(data) });
     this.loadBTPatternData();
   }
 
 
   loadBTPatternData(): void {
-    this.configKeywordsService.getBusinessTransPatternData().subscribe(data => this.businessTransPatternInfo = data);
+    this.configKeywordsService.getBusinessTransPatternData(this.profileId).subscribe(data => this.businessTransPatternInfo = data);
   }
 
   doAssignBusinessTransData(data) {

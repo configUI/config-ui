@@ -46,8 +46,7 @@ export class InstrumentMonitorsComponent implements OnInit {
 
   /**For showing Method Monitor dialog */
   openEditMethodMonitorDialog(): void {
-    console.log("hello------------", this.selectedMethodMonitorData)
-    if (!this.selectedMethodMonitorData || this.selectedMethodMonitorData.length < 1) {
+     if (!this.selectedMethodMonitorData || this.selectedMethodMonitorData.length < 1) {
       this.configUtilityService.errorMessage("Please select for edit");
       return;
     }
