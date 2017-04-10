@@ -36,7 +36,7 @@ export class ConfigBreadcrumbComponent implements OnInit {
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.items = [{ routerLink: ['home'], label: BREADCRUMB.LABEL.HOME }];
 
-      let url = event.url;
+      let url = event["url"];
       
       if (url == BREADCRUMB.URL.APPLICATION_LIST) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST });

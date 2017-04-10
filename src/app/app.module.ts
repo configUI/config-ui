@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -163,6 +164,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     ConfigRoutingModule,
     MaterialModule.forRoot(),
     PerfectScrollbarModule.forRoot(),

@@ -10,7 +10,7 @@ import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-i
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import {  sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
 import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData} from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint } from '../containers/instrumentation-data';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
 
@@ -70,6 +70,10 @@ export class ConfigKeywordsService {
 
   addIntegrationPTDetectionData(profileId, data): Observable<IntegrationPTDetection> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
+  }
+
+  addIPNamingAndExit(profileId, backendId, data): Observable<NamingRuleAndExitPoint> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BACKEND_POINT}/${profileId}/${backendId}`, data);
   }
   
 
