@@ -18,7 +18,7 @@ export class ErrorDetection {
     ruleDesc: string;
 }
 
-export class AddIPDetection{
+export class AddIPDetection {
     backendType: string;
     backendTypeId: number;
     desc: string;
@@ -34,7 +34,7 @@ export class IntegrationPTDetection {
     enabled: boolean;
     id: number;
     lstEndPoints: EndPoint[];
-    namingRule: NamingRule;
+    namingRule: NamingRuleAndExitPoint;
 }
 
 export class EndPoint {
@@ -45,7 +45,7 @@ export class EndPoint {
     fqm: string;
 }
 
-export class NamingRule {
+export class NamingRuleAndExitPoint {
     backendTypeId: number;
     databaseProductVersion: boolean;
     driverVersion: boolean;
@@ -55,7 +55,11 @@ export class NamingRule {
     tableName: boolean;
     topicName: boolean;
     url: boolean;
-    lstEndPoints: { id: number, enabled: true }[]
+    lstEndPoints: EndPointInfo[];
+}
+export class EndPointInfo {
+    id: number;
+    enabled: boolean;
 }
 
 export class MethodMonitor {

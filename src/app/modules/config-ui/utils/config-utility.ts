@@ -36,3 +36,7 @@ it will return ["v2", "v4"]
 export function deleteMany(array, indexes = []) {
     return array.filter((item, idx) => indexes.indexOf(idx) === -1);
 }
+
+export function cloneObject(data){
+    return JSON.parse(JSON.stringify(data));
+}
