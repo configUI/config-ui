@@ -229,7 +229,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /**This method is used to delete Pattern BT*/
   deletePattern(): void {
     if (!this.selectedPatternData || this.selectedPatternData.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select rows to be deleted");
       return;
     }
     this.confirmationService.confirm({

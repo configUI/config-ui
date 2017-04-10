@@ -6,14 +6,32 @@ import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
 
 /**Import primeng module  */
 
-import { CheckboxModule, RadioButtonModule, InputTextModule, DataTableModule, BreadcrumbModule, MenuModule, DropdownModule, TreeModule, ButtonModule, DialogModule, GrowlModule, ConfirmationService, ConfirmDialogModule, TabViewModule, TooltipModule, InputSwitchModule, PanelModule ,SpinnerModule,
-  MultiSelectModule,ToggleButtonModule} from 'primeng/primeng';
+import {  CheckboxModule, 
+          RadioButtonModule, 
+          InputTextModule, 
+          DataTableModule, 
+          BreadcrumbModule, 
+          MenuModule, 
+          DropdownModule, 
+          TreeModule, 
+          ButtonModule, 
+          DialogModule, 
+          GrowlModule, 
+          ConfirmationService, 
+          ConfirmDialogModule, 
+          TabViewModule, 
+          TooltipModule, 
+          InputSwitchModule, 
+          PanelModule ,
+          SpinnerModule,
+          MultiSelectModule,
+          ToggleButtonModule,
+          AccordionModule} from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -83,7 +101,12 @@ import { CustomDataComponent } from './modules/config-ui/components/config-profi
 import { HttpRequestComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/http-request/http-request.component';
 import { SessionAttributeComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
 import { JavaMethodComponent } from './modules/config-ui/components/config-profile/general/header/custom-data/java-method/java-method.component';
+import { NVCookieComponent } from './modules/config-ui/components/config-profile/product-integration/nvcookie/nvcookie.component';
+import {ChipsModule} from 'primeng/primeng';
+import { MethodMonitorsComponent } from './modules/config-ui/components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
+import { HttpStatsMonitorsComponent } from './modules/config-ui/components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
+import {FieldsetModule} from 'primeng/primeng';
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -132,7 +155,10 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomDataComponent,
     HttpRequestComponent,
     SessionAttributeComponent,
-    JavaMethodComponent
+    JavaMethodComponent,
+    NVCookieComponent,
+    MethodMonitorsComponent,
+    HttpStatsMonitorsComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +168,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigRoutingModule,
     MaterialModule.forRoot(),
     PerfectScrollbarModule.forRoot(),
-   StoreModule.provideStore({ keywordData: keywordReducer }),
+    StoreModule.provideStore({ keywordData: keywordReducer }),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,
@@ -161,7 +187,10 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RadioButtonModule,
     CheckboxModule,
     MultiSelectModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ChipsModule,
+    AccordionModule,
+    FieldsetModule
   ],
  
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],

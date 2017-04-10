@@ -9,7 +9,14 @@ export class HttpHeaderComponent implements OnInit {
 
   constructor() { }
 
+  httpRequestCustomDialog: boolean = false;
+
   ngOnInit() {
   }
+
+   openMethodDialog() {
+    this.httpRequestCustomDialog = true;
+  }
+
 
 }

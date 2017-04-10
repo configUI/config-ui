@@ -1,50 +1,53 @@
 <p-panel header="Delay in Method Settings">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
         <div class="ui-g">
-            <form *ngIf="delay" (ngSubmit)="saveKeywordData()" #form="ngForm">
+            <form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
                 <div class="ui-g-12">
-                    <!--<div class = "ui-g-6">-->
-                    <div class="ui-g-5">
+                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-2">
                         <label>Fully Qaulified Method Name</label>
                     </div>
-
                     <div class="ui-g-4">
-                        <input name="fullyQualifiedName" type="text" size="30" pInputText autofocus required ngModel/>
+                        <input name="fullyQualifiedName" type="text" size="30" [(ngModel)]="delayData.fullyQualifiedName" pInputText autofocus required
+                            ngModel/>
                     </div>
                 </div>
 
                 <div class="ui-g-12">
-                    <!--<div class = "ui-g-6">-->
-                    <div class="ui-g-5">
+                    <div class = "ui-g-1"></div>
+                    
+                    <div class="ui-g-2">
                         <label>Delay Time Range(in ms)</label>
                     </div>
 
-                    <div class="ui-g-1">
-                        From: <input name="delayFrom" type="text" size="30" pInputText autofocus required ngModel/>
+                    <div class="ui-g-2">
+                        From: <input name="from" type="number"  [(ngModel)]="delayData.from" pInputText required ngModel/>
                     </div>
-                    <div class="ui-g-1">
-                        To: <input name="delayTo" type="text" size="30" pInputText autofocus required ngModel/>
+                    <div class="ui-g-2">
+                        To: <input name="to" type="number"  [(ngModel)]="delayData.to" pInputText  required ngModel/>
                     </div>
                 </div>
                 <div class="ui-g-12">
+                    <div class = "ui-g-1"></div>
                     <!--<div class = "ui-g-6">-->
 
-                    <div class="ui-g-5">
-                        <p-checkbox name="cpuHogg" label="Is CPU Hogg" binary="true"></p-checkbox>
+                    <div class="ui-g-2">
+                        <p-checkbox name="cpuHogg" label="Is CPU Hogg" [(ngModel)]="delayData.cpuHoggChk" binary="true"></p-checkbox>
                     </div>
 
-                    <div class="ui-g-2">
+                    <div class="ui-g-4">
                         <i>(Add delay in any specified method using instrumentation)</i>
                     </div>
                 </div>
                 <div class="ui-g-12">
+                    <div class = "ui-g-1"></div>
                     <!--<div class = "ui-g-6">-->
 
-                    <div class="ui-g-5">
-                        <p-checkbox name="autoInstrument" label="Is Auto Instrument" binary="true"></p-checkbox>
+                    <div class="ui-g-2"> 
+                        <p-checkbox name="autoInstrument" label="Is Auto Instrument" [(ngModel)]="delayData.autoInstrumentChk" binary="true"></p-checkbox>
                     </div>
 
-                    <div class="ui-g-2">
+                    <div class="ui-g-4">
                         <i>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</i>
                     </div>
                 </div>
@@ -53,7 +56,7 @@
                     <div class="pull-right">
                         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                             <button type="submit" pButton icon="fa-check" label="Save"></button>
-                            <button type="button" pButton icon="fa-refresh" (click)="closeDialog()" label="Reset"></button>
+                            <button type="button" pButton icon="fa-refresh"  label="Reset"></button>
                         </div>
                     </div>
                 </footer>

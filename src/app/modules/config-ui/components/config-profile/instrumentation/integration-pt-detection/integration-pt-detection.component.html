@@ -2,7 +2,7 @@
     <p-header>
         <span>Integration Pt Detection(s) </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" label="Add" (click)="onAddIntegrationPTDetection()" icon="fa-plus"></button>
+            <button pButton type="button" label="Add" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add" ></button>
         </span>
     </p-header>
     <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
@@ -21,13 +21,13 @@
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog header="New Integration PT Detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="500" responsive="true">
+<p-dialog header="New Integration PT Detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="600" responsive="true">
     <div class="ui-g">
         <div class="ui-g-4">
             <label>Backend Type</label>
         </div>
         <div class="ui-g-8">
-            <p-dropdown [options]="backendTypeSelecetItem" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="Select a Backend Type"></p-dropdown>
+            <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'56%'}" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="Select a Backend Type"></p-dropdown>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
             <label>Name</label>
         </div>
         <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.name" />
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.name" required/>
         </div>
     </div>
     <div class="ui-g">
@@ -44,7 +44,7 @@
             <label>Enabled</label>
         </div>
         <div class="ui-g-8">
-            <p-inputSwitch onLabel="true" offLabel="false" [(ngModel)]="addIPDetectionDetail.enabled"></p-inputSwitch>
+            <md-slide-toggle [(ngModel)]="addIPDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
         </div>
     </div>
     <div class="ui-g">
@@ -52,7 +52,7 @@
             <label>Fully Qualified Method Name</label>
         </div>
         <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.fqm" />
+            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required />
         </div>
     </div>
     <div class="ui-g">
@@ -60,7 +60,7 @@
             <label>Description</label>
         </div>
         <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.desc" />
+            <input id="in3" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.desc" required/>
         </div>
     </div>
     <footer>

@@ -2,7 +2,7 @@
     <p-header>
         <span>  Service Entry Detail(s) </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" label="Add" (click)="openServiceEntryDialog()" icon="fa-plus"></button>
+            <button pButton type="button" label="Add" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add"></button>
         </span>
     </p-header>
 
@@ -19,7 +19,7 @@
     </p-column>
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+      <span title="{{service[col.field]}}">{{service[col.field]}}</span> 
     </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
@@ -34,10 +34,10 @@
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm">
         <div class="ui-g">
         <div class="ui-g-4">
-            <label>Type</label>
+            <label>Entry Point Type</label>
         </div>
         <div class="ui-g-8">
-           <p-dropdown [options]="entryPointType"  name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="Select a Service"></p-dropdown>
+           <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="Select a Service"></p-dropdown>
         </div>
     </div>
 
@@ -53,8 +53,9 @@
         <div class="ui-g-4">
             <label>Enabled</label>
         </div>
-        <div class="ui-g-8">
-            <p-inputSwitch  name="switch" onLabel="true" offLabel="false" [(ngModel)]="serviceEntryPointDetail.enabled"></p-inputSwitch>
+        <div class="ui-g-4">
+            <md-slide-toggle [(ngModel)]="serviceEntryPointDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+            
         </div>
     </div>
         <div class="ui-g">
@@ -76,7 +77,7 @@
     <footer>
         <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
-            <button type="submit" pButton icon="fa-check" label="OK"></button>
+            <button type="submit" pButton icon="fa-check" label="Save"></button>
         </div>
     </footer>
    </form>

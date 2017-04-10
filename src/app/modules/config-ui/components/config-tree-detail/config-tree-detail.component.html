@@ -1,21 +1,28 @@
 <p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> {{currentEntity}} Detail(s) </span>
+
+        <span><b> {{currentEntity}} Detail(s) </b></span>
+        <span style="float: right; margin-top:-5px">
+            <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
+        </span>
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="col-overflow" [sortable]="true">
         <template *ngIf="col.field == 'topoName'" let-col let-entity="rowData" pTemplate="body">
-          <a (click)="getData(entity['topoId'], entity)">{{entity[col.field]}}</a>    
+          <!--<a (click)="getData(entity['topoId'], entity)">{{entity[col.field]}}</a>    -->
+          <a >{{entity[col.field]}}</a>    
         </template>
 
         <template *ngIf="col.field == 'tierName'" let-col let-entity="rowData" pTemplate="body">
-          <a (click)="getData(entity['tierId'], entity)">{{entity[col.field]}}</a>    
+          <!--<a (click)="getData(entity['tierId'], entity)">{{entity[col.field]}}</a>    -->
+          <a >{{entity[col.field]}}</a>    
         </template>
 
         <template *ngIf="col.field == 'serverDisplayName'" let-col let-entity="rowData" pTemplate="body">
-          <a (click)="getData(entity['serverId'], entity)">{{entity[col.field]}}</a>    
+          <!--<a (click)="getData(entity['serverId'], entity)">{{entity[col.field]}}</a>  -->
+           <a>{{entity[col.field]}}</a>    
         </template>
         <template *ngIf="col.field == 'instanceDisplayName'" let-col let-entity="rowData" pTemplate="body">
           <a>{{entity[col.field]}}</a>    

@@ -4,22 +4,29 @@
 <p-panel header="Instrumentation Profiles">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
         <form (ngSubmit)="saveKeywordData(form)" #form="ngForm">
-        
-        <div class= "ui-g-12">
-          <label> Select profiles to instrument application methods</label>
-        </div>
 
-        <div class = "ui-g-12">
-          <div class="ui-g-6">
-            <p-multiSelect name = "instrProfiles" [options]="instrProfileSelectItem" [(ngModel)]="instrProfiles"  required ngModel></p-multiSelect>
-          </div>
-        </div>
+            <div class="ui-g-12">
+                <div class="ui-g-1"></div>
+                <label> Select profiles to instrument application methods</label>
+            </div>
 
-        
-        <div class="pull-right" >
-          <div  class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" >
-              <button type="button" pButton icon="fa-close" (click)="hotspotCapturingDialog=false" label="Cancel"></button>
-              <button type="submit" pButton icon="fa-check" label="Save"></button>
-          </div>
-      </div>
-    </form>
+            <div class="ui-g-12">
+
+                <div class="ui-g-1"></div>
+                <div class="ui-g-5">
+                    <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" [(ngModel)]="instrProfiles" required
+                        ngModel></p-multiSelect>
+
+                </div>
+
+            </div>
+            <footer>
+                <div class="pull-right">
+                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                        <button type="submit" pButton icon="fa-check" label="Save"></button>
+                        <button type="button" pButton icon="fa-refresh" (click)="closeDialog()" label="Reset"></button>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
