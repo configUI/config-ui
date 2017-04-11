@@ -139,3 +139,38 @@ export class BusinessTransGlobalData {
     verySlowTransaction: string;
     uriType: string;
 }
+
+export class SessionAtrributeComponetsData {
+    //  attrList : [{attrMode : number, attrName: string , attrType: string
+    //      ,attrValues:[{lb:string, rb:string,specAttrValId: number, type : string, valName: string }],sessAttrId: number }];
+    attrMode: number;
+    attrName: string;
+    attrType: string;
+    lb: string;
+    rb: string;
+    specAttrValId: number;
+    type: string;
+    valName: string;
+    sessAttrId: number;
+    profileId: number;
+    sessionType: string;
+}
+
+// export class SessionAtrributeComponetsData {
+//     //  attrList : [{attrMode : number, attrName: string , attrType: string
+//     //      ,attrValues:[{lb:string, rb:string,specAttrValId: number, type : string, valName: string }],sessAttrId: number }];
+//     // // // attrMode : number;
+//     // // attrName: string;
+//     // // attrType: string;
+//     // lb:string;
+//     // rb:string;
+//     // specAttrValId: number;
+//     // type : string;
+//     // valName: string;
+//     // sessAttrId :number ;
+//     attrName: string 
+//      profileId: number;
+//      sessionType : string;
+//      attrType: string;
+//      valName: string;
+// }

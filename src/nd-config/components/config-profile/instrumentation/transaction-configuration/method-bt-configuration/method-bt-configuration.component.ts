@@ -6,6 +6,7 @@ import { OperationType, BusinessTransMehtodData } from '../../../../../container
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { deleteMany } from '../../../../../utils/config-utility';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-method-bt-configuration',
@@ -13,6 +14,8 @@ import { deleteMany } from '../../../../../utils/config-utility';
   styleUrls: ['./method-bt-configuration.component.css']
 })
 export class MethodBTConfigurationComponent implements OnInit {
+
+  profileId : number;
 
   /* Assign data to Method Business Transaction Data table */
   businessTransMethodInfo: BusinessTransMehtodData[];
@@ -41,7 +44,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   /*selected item from return type list*/
   selectedOperation: string;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private route: ActivatedRoute,private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     let arrLabel = ['NUMERIC', 'STRING', 'BOOLEAN', 'CHAR OR BYTE'];
     let arrValue = ['Numeric', 'String', 'Boolean', 'Char or Byte'];
@@ -81,7 +84,10 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /** Fetch BT Mehtod Data and Assign on Loading */
   loadBTMethodData(): void {
-    this.configKeywordsService.getBusinessTransMethodData().subscribe(data => this.businessTransMethodInfo = data);
+     this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+    });
+    this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => this.businessTransMethodInfo = data);
   }
 
   /** this method used for open dialog for add Method Business Transaction */
