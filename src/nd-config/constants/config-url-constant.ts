@@ -126,7 +126,7 @@ export const DEL_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/delete
 
 
 /*URL for Http Stats Condition*/
-export const FETCH_HTTP_STATS_COND_TABLEDATA = `${SERVICE_URL}/custom/httpstatscondition/29046`;
+export const FETCH_HTTP_STATS_COND_TABLEDATA = `${SERVICE_URL}/custom/httpstatscondition/`;
 export const EDIT_ROW_HTTP_STATS_MONITOR_URL = `${SERVICE_URL}/custom/httpstatscondition/updateHTTPCond`;
 export const GET_HTTP_HEADERS_lIST =`${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
 export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/listoftypes`;
