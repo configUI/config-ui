@@ -1,25 +1,32 @@
+<form *ngIf="debug" (ngSubmit)="saveKeywordData()" #form="ngForm">
+    <p-panel header="Debug Level Capturing">
+        <p-header>
+            <div class="pull-right">
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                </div>
+            </div>
+        </p-header>
 
-<p-panel header="Debug Level Capturing">
-                   
-               
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-       
-        <div class="ui-g">
-            <form *ngIf="debug" (ngSubmit)="saveKeywordData()" #form="ngForm">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+            <div class="ui-g">
+
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-1"></div>
                     <div class="ui-g-3">
                         <label>BCI Debug Level</label>
                     </div>
 
                     <div class="ui-g-3">
-                        <input type="number"  size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}} max={{debug.enableBciDebug.max}}
-                            required ngModel>
+                        <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}}
+                            max={{debug.enableBciDebug.max}} required ngModel>
                     </div>
                 </div>
 
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-1"></div>
                     <div class="ui-g-3">
                         <label>Error Level</label>
                     </div>
@@ -30,7 +37,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-1"></div>
 
                     <div class="ui-g-3">
                         <label>InstrTrace Level</label>
@@ -41,25 +48,17 @@
                             required ngModel>
                     </div>
                 </div>
-                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
-                   <div class="ui-g-3">
+                <div class="ui-g-12">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3">
                         <label>NdMethodMonTrace Level</label>
                     </div>
-
                     <div class="ui-g-3">
                         <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
                             max={{debug.ndMethodMonTraceLevel.max}} required ngModel>
                     </div>
                 </div>
-
-                 <div class="pull-right">
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-          <button type="submit" pButton icon="fa-check" label="Save"></button>
-          <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+            </div>
         </div>
-      </div>
-            </form>
-        </div>
-    </div>
-</p-panel>
+    </p-panel>
+</form>

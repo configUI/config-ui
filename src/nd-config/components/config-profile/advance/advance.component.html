@@ -1,4 +1,4 @@
-<p-tabView (onChange)="handleChange($event)">
+<p-tabView (onChange)="handleChange($event)"  [style]="{'height': '540px'}">
     <p-tabPanel header="Debug Level Capturing" [selected]="index == 0">
         <app-debug *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-debug>
     </p-tabPanel>

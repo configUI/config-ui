@@ -14,5 +14,5 @@ export class InstrumentMonitorsComponent implements OnInit {
 
   ngOnInit() {
   }
- 
+
 }

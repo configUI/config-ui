@@ -1,4 +1,4 @@
-<p-tabView (onChange)="handleChange($event)">
+<p-tabView (onChange)="handleChange($event)" [style]="{'height': '540px'}">
     <p-tabPanel header="NV Cookie" [selected]="index == 0">
         <app-nvcookie *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-nvcookie>
     </p-tabPanel>

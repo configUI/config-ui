@@ -1,7 +1,15 @@
-<!--Dialog for Hotspot Capturing-->
-<p-panel header="Hotspot Capturing">
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
-        <form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm">
+<form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm">
+    <p-panel header="Hotspot Capturing">
+        <p-header>
+            <div class="pull-right">
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                </div>
+            </div>
+        </p-header>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+
             <div class="ui-g">
                 <div class="ui-g-12">
                     <div class="ui-g-1"></div>
@@ -20,92 +28,85 @@
                         <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}}
                             max={{hotspot.ASStackComparingDepth.max}} required ngModel />
                     </div>
-                    
+
 
                 </div>
                 <div class="ui-g-12">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-10">
-                    <p-fieldset legend="Advance Settings" [toggleable]="true">
-                <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
-                    
-                        <div class="ui-g-3">
-                            <label>Hotspot Reporting Interval</label>
-                        </div>
-                        <div class="ui-g-2">
-                            <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}}
-                                max={{hotspot.ASReportInterval.max}} required ngModel />
-                        </div>
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <label>Min Stack Depth for Hotspot</label>
-                        </div>
-                        <div class="ui-g-2">
-                            <input name="depthHotspot" type="number" size="20" pInputText [(ngModel)]="hotspot.ASDepthFilter.value" min={{hotspot.ASDepthFilter.min}}
-                                max={{hotspot.ASDepthFilter.max}} required ngModel />
-                        </div>
+                        <p-fieldset legend="Advance Settings" [toggleable]="true">
+                            <div class="ui-g-12">
+                                <div class="ui-g-1"></div>
+
+                                <div class="ui-g-3">
+                                    <label>Hotspot Reporting Interval</label>
+                                </div>
+                                <div class="ui-g-2">
+                                    <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}}
+                                        max={{hotspot.ASReportInterval.max}} required ngModel />
+                                </div>
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-3">
+                                    <label>Min Stack Depth for Hotspot</label>
+                                </div>
+                                <div class="ui-g-2">
+                                    <input name="depthHotspot" type="number" size="20" pInputText [(ngModel)]="hotspot.ASDepthFilter.value" min={{hotspot.ASDepthFilter.min}}
+                                        max={{hotspot.ASDepthFilter.max}} required ngModel />
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12">
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-3">
+                                    <label>Hotspot Trace Level</label>
+                                </div>
+                                <div class="ui-g-2">
+                                    <input name="traceLevel" type="number" size="20" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}}
+                                        max={{hotspot.ASTraceLevel.max}} required ngModel />
+                                </div>
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-3">
+                                    <label>Hotspot Thresold Match count</label>
+                                </div>
+
+                                <div class="ui-g-2">
+                                    <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}}
+                                        max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
                 </div>
 
                 <div class="ui-g-12">
                     <div class="ui-g-1"></div>
-                    <div class="ui-g-3">
-                        <label>Hotspot Trace Level</label>
-                    </div>
-                    <div class="ui-g-2">
-                        <input name="traceLevel" type="number" size="20" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}}
-                            max={{hotspot.ASTraceLevel.max}} required ngModel />
-                    </div>
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-3">
-                        <label>Hotspot Thresold Match count</label>
-                    </div>
+                    <div class="ui-g-10">
+                        <p-fieldset legend="Filter Settings" [toggleable]="true" [collapsed]="true">
+                            <div class="ui-g-12">
 
-                    <div class="ui-g-2">
-                        <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}}
-                            max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-5">
+                                    <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" (click)="showExceptionNameText()" binary="true" ngModel
+                                        label=" List of thread names to be included in Hotspot data"></p-checkbox>
+                                </div>
+                                <div class="ui-g-5">
+                                    <p-chips [(ngModel)]="includedException" name="IncludedExceptionName" [disabled]="!includedExceptionChk"></p-chips>
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-5">
+                                    <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" (click)="showExcludedExceptionNameText()" binary="true"
+                                        ngModel label=" List of thread names to be excluded in Hotspot data"></p-checkbox>
+                                </div>
+                                <div class="ui-g-5">
+                                    <p-chips [(ngModel)]="excludedException" name="ExcludedExceptionName" [disabled]="!excludedExceptionChk"></p-chips>
+                                </div>
+                            </div>
+                        </p-fieldset>
                     </div>
-                </div>
-                    </p-fieldset>
-                    </div>
-                </div>
-
-            <div class="ui-g-12">
-                <div class="ui-g-1"></div>
-                <div class="ui-g-10">
-                    <p-fieldset legend="Filter Settings" [toggleable]="true" [collapsed]="true">
-                <div class="ui-g-12">
-
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-5">
-                        <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" (click)="showExceptionNameText()" binary="true" ngModel
-                            label=" List of thread names to be included in Hotspot data"></p-checkbox>
-                    </div>
-                    <div class="ui-g-5">
-                        <p-chips [(ngModel)]="includedException" name="IncludedExceptionName" [disabled]="!includedExceptionChk"></p-chips>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-5">
-                        <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" (click)="showExcludedExceptionNameText()" binary="true"
-                            ngModel label=" List of thread names to be excluded in Hotspot data"></p-checkbox>
-                    </div>
-                    <div class="ui-g-5">
-                        <p-chips [(ngModel)]="excludedException" name="ExcludedExceptionName" [disabled]="!excludedExceptionChk"></p-chips>
-                    </div>
-                </div>
-                    </p-fieldset>
                 </div>
             </div>
-            </div>
-
-            <div class="pull-right">
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</p-panel>
+        </div>
+    </p-panel>
+</form>

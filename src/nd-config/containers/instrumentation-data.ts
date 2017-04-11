@@ -76,6 +76,20 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
+export class HttpStatsMonitorData{
+    compValue:string;
+    condition: string;
+    conditionName: string;
+    cookieName: string;
+    description: string;
+    fpDumpMode: number;
+    hmdId: number;
+    hscid: number;
+    htId: number;
+    optId: number;
+    valId: number;
+}
+
 export class OperationType    // Business Transaction Rules by Lucky
 {
     methodValue: string;

@@ -1,10 +1,15 @@
-<!--<p>
-  thread-stats works!
-</p>-->
+ <form (ngSubmit)="saveKeywordData(form)" #form="ngForm">
 <p-panel header="JVM Monitors">
+      <p-header>    
+                   <div class="pull-right">
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+          <button type="submit" pButton icon="fa-check" label="Save"></button>
+          <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+        </div>
+      </div></p-header>
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
-        <form (ngSubmit)="saveKeywordData(form)" #form="ngForm">
+       
             <div class="ui-g">
                 <div class="ui-g-1"></div>
                 <div class="ui-g-3">
@@ -30,15 +35,6 @@
                 <div class="ui-g-5"></div>
                 </div>-->
             </div>
-
-            <div class="pull-right">
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-                </div>
-            </div>
-
-        </form>
-
     </div>
 </p-panel>
+ </form>

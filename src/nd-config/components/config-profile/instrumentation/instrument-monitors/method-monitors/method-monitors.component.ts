@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
-
+import { ActivatedRoute, Params } from '@angular/router';
 import { MethodMonitorData } from '../../../../../containers/instrumentation-data';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
@@ -26,7 +26,7 @@ export class MethodMonitorsComponent implements OnInit {
   /**For open/close add/edit method-monitor detail */
   addEditMethodMonitorDialog: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadMethodMonitorList();
@@ -34,6 +34,9 @@ export class MethodMonitorsComponent implements OnInit {
   /**This method is called to load data */
 
   loadMethodMonitorList() {
+     this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+    });
     this.configKeywordsService.getMethodMonitorList(this.profileId).subscribe(data => {
       this.methodMonitorData = data;
     });

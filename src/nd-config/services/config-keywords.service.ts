@@ -10,7 +10,7 @@ import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-i
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import {  sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
 import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
 
@@ -126,6 +126,24 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}${profileId}`);
   }
   
+  //HTTP Stats Monitors
+
+   addHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_HTTP_STATS_COND}/${profileId}`, data);
+  }
+
+ getHttpStatsMonitorList(profileId): Observable<HttpStatsMonitorData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_HTTP_STATS_COND_TABLEDATA}/${profileId}`);
+  }
+  
+  editHttpStatsMonitorData(data): Observable<HttpStatsMonitorData> {
+    let url = `${URL.EDIT_ROW_HTTP_STATS_MONITOR_URL}/${data.methodId}`
+    return this._restApi.getDataByPutReq(url, data);
+  }
+
+  deleteHttpStatsMonitorData(data,profileId): Observable<HttpStatsMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_STATS_COND}/${profileId}`,data);
+  }
 
    /**
    *  Business Transaction Service
