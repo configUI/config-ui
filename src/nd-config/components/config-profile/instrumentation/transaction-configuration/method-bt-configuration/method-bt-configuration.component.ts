@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
-import { BusinessTransMethodInfo } from '../../../../../interfaces/business-Trans-Method-info';
+import { BusinessTransMethodInfo } from '../../../../../interfaces/business-trans-method-info';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
-import { OperationType, BusinessTransMehtodData } from '../../../../../containers/instrumentation-data'
+import { BusinessTransMethodData, RulesData } from '../../../../../containers/instrumentation-data'
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { deleteMany } from '../../../../../utils/config-utility';
@@ -15,16 +15,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class MethodBTConfigurationComponent implements OnInit {
 
-  profileId : number;
+  profileId: number;
 
   /* Assign data to Method Business Transaction Data table */
-  businessTransMethodInfo: BusinessTransMehtodData[];
-  businessTransMethodDetail: BusinessTransMehtodData;
+  businessTransMethodInfo: BusinessTransMethodData[];
+  businessTransMethodDetail: BusinessTransMethodData;
   selectedbusinessTransMethod: any;
 
   /* Assign data to Rules Business Transaction Data table */
-  methodRulesInfo: BusinessTransMehtodData[];
-  btMethodRulesDetail: OperationType;
+  methodRulesInfo: RulesData[];
+  btMethodRulesDetail: RulesData;
   selectedMethodRules: any;
 
 
@@ -44,7 +44,10 @@ export class MethodBTConfigurationComponent implements OnInit {
   /*selected item from return type list*/
   selectedOperation: string;
 
-  constructor(private route: ActivatedRoute,private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  isNewMethod: boolean = false;
+
+
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     let arrLabel = ['NUMERIC', 'STRING', 'BOOLEAN', 'CHAR OR BYTE'];
     let arrValue = ['Numeric', 'String', 'Boolean', 'Char or Byte'];
@@ -76,6 +79,8 @@ export class MethodBTConfigurationComponent implements OnInit {
       let arrLabel = ['EXCEPTION', 'EQ', 'NE'];
       this.operationList = ConfigUiUtility.createDropdown(arrLabel);
     }
+
+   
   }
 
   ngOnInit() {
@@ -84,7 +89,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /** Fetch BT Mehtod Data and Assign on Loading */
   loadBTMethodData(): void {
-     this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
     });
     this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => this.businessTransMethodInfo = data);
@@ -92,23 +97,54 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /** this method used for open dialog for add Method Business Transaction */
   openMethodDialog() {
-    this.businessTransMethodDetail = new BusinessTransMehtodData();
+    this.businessTransMethodDetail = new BusinessTransMethodData();
+    this.btMethodRulesDetail = new RulesData();
     this.addBusinessTransMethodDialog = true;
-    this.btMethodRulesDetail = new OperationType();
+    this.isNewMethod = true;
+
   }
 
   /** This method is used to open a dialog for add Rules
    * Call a method for fill Operation drop down according Return Type 
   */
   openAddRulesDialog() {
-    this.btMethodRulesDetail = new OperationType();
+
     this.addRulesDialog = true;
     this.changeOpertionType();
   }
 
+  /** Edit BT Method */
+  editMethodTrans(): void {
+    this.businessTransMethodDetail = new BusinessTransMethodData();
+    if (!this.selectedbusinessTransMethod || this.selectedbusinessTransMethod.length < 1) {
+      this.configUtilityService.errorMessage("Select row for edit");
+      return;
+    }
+    else if (this.selectedbusinessTransMethod.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row for edit");
+      return;
+    }
+
+    this.addBusinessTransMethodDialog = true;
+    this.isNewMethod = false;
+    this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
+  }
+
+  /**This method is used to edit Method detail */
+  editMethod(): void {
+    this.configKeywordsService.editBusinessTransMethod(this.businessTransMethodDetail, this.profileId)
+      .subscribe(data => {
+        let index = this.getMethodBusinessIndex(this.businessTransMethodDetail.btMethodId);
+        this.selectedbusinessTransMethod.length = 0;
+        this.selectedbusinessTransMethod.push(data);
+        this.businessTransMethodInfo[index] = data;
+      });
+    this.closeDialog();
+  }
 
   /**This method is used to delete Mehtod BT*/
   deleteMethodTrans(): void {
+
     if (!this.selectedbusinessTransMethod || this.selectedbusinessTransMethod.length < 1) {
       this.configUtilityService.errorMessage("Please select for delete");
       return;
@@ -124,9 +160,10 @@ export class MethodBTConfigurationComponent implements OnInit {
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].btMethodId);
         }
-        this.configKeywordsService.deleteBusinessTransMethodData(arrAppIndex)
+        this.configKeywordsService.deleteBusinessTransMethodData(arrAppIndex, this.profileId)
           .subscribe(data => {
             this.deleteMethodsBusinessTransactions(arrAppIndex);
+            this.selectedbusinessTransMethod = [];
             this.configUtilityService.infoMessage("Delete Successfully");
           })
       },
@@ -183,21 +220,76 @@ export class MethodBTConfigurationComponent implements OnInit {
     for (let index in arrIndex) {
       rowIndex.push(this.getMethodBusinessIndex(arrIndex[index]));
     }
-     this.businessTransMethodInfo = deleteMany(this.businessTransMethodInfo, rowIndex);
+    this.businessTransMethodInfo = deleteMany(this.businessTransMethodInfo, rowIndex);
   }
 
-  saveRules()
-  {
-     this.methodRulesInfo.push(this.businessTransMethodDetail);
-      this.addRulesDialog = false;
+  saveRules() {
+    this.methodRulesInfo.push(this.btMethodRulesDetail);
+    this.addRulesDialog = false;
   }
-  
-  saveADDEditMethodTrans() {
-    // this.methodRulesInfo.push(this.btMethodRulesDetail);
-     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail).subscribe(data => {
+
+  /**This method is common method for save or edit BT Method */
+  saveADDEditMethodTrans(): void {
+    //When add new application 
+    if (this.isNewMethod) {
+      //Check for app name already exist or not
+      if (!this.checkMethodNameAlreadyExist()) {
+        this.saveMethod();
+        return;
+      }
+    }
+    //When add edit Method 
+    else {
+      if (this.businessTransMethodInfo[0].fqm != this.businessTransMethodDetail.fqm) {
+        if (this.checkMethodNameAlreadyExist())
+          return;
+      }
+      this.editMethod();
+    }
+  }
+
+  /**This method is used to validate the name of Method is already exists. */
+  checkMethodNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.businessTransMethodInfo.length; i++) {
+      if (this.businessTransMethodInfo[i].fqm == this.businessTransMethodDetail.fqm) {
+        this.configUtilityService.errorMessage("Application Name already exist");
+        return true;
+      }
+    }
+  }
+
+  saveMethod() {
+
+    this.businessTransMethodDetail.rules = [];
+    var code: number;
+     if (this.btMethodRulesDetail.operationName == "EQUAL")
+      code = 1;
+    if (this.btMethodRulesDetail.operationName == "NOT EQUAL")
+      code = 2;
+    if (this.btMethodRulesDetail.operationName == "LESS THEN")
+      code = 3;
+    if (this.btMethodRulesDetail.operationName == "GREATER THEN")
+      code = 4;
+    if (this.btMethodRulesDetail.operationName == "LESS THEN EQUAL TO")
+      code = 5;
+    if (this.btMethodRulesDetail.operationName == "GREATER THEN EQUAL TO")
+      code = 6;
+      if (this.btMethodRulesDetail.operationName == "NOT EQUAL")
+      code = 7;
+    if (this.btMethodRulesDetail.operationName == "EQ")
+      code = 8;
+
+    for (let i = 0; i < this.methodRulesInfo.length; i++) {
+      this.businessTransMethodDetail.rules[i] = { btMethodRuleId: i, opCode: code,opCodeDropDown:{dropDownVal:code}, btName: this.methodRulesInfo[i].btName, value: this.methodRulesInfo[i].value, operationName: this.methodRulesInfo[i].operationName };
+    }
+    this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       this.businessTransMethodInfo.push(data)
     });
     this.addBusinessTransMethodDialog = false;
   }
 
+  /**For close add/edit Method dialog box */
+  closeDialog(): void {
+    this.addBusinessTransMethodDialog = false;
+  }
 }

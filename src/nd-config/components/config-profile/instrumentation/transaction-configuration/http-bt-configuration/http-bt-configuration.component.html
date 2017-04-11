@@ -22,17 +22,18 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton> 
+                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
-            
-                <div class="ui-g-2">
-                    <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'95%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
-                </div>
-                <div class="ui-g-2"></div>
-                <div class="ui-g-3">
-                Segments of URI in Transaction</div><div class="ui-g-2"> <input name="segmentValue" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" size="15" pInputText [(ngModel)]="globalBtDetail.segmentValue" />
-                </div>
-            
+
+            <div class="ui-g-2">
+                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'95%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
+            </div>
+            <div class="ui-g-2"></div>
+            <div class="ui-g-3">
+                Segments of URI in Transaction</div>
+            <div class="ui-g-2"> <input name="segmentValue" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" size="15" pInputText [(ngModel)]="globalBtDetail.segmentValue" />
+            </div>
+
         </div>
 
         <div class="ui-g-12 header-font-size">
@@ -87,7 +88,7 @@
 
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Bussiness Transaction Pattern(s) list -->
-    <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="15" [paginator]="true" [pageLinks]="3">
         <p-header>
             <span>  Bussiness Transaction Pattern(s) </span>
             <span style="float: right; margin-top:-5px">
