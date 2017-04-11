@@ -1,0 +1,34 @@
+/*.ui-g {
+    border: 2px solid;
+}*/
+
+.app-sidenav {
+    /*padding: 0.2%;*/
+    min-width: 5.2%;
+    overflow: initial;
+    background-color: #000000;
+    margin-top: 0;
+    font-size: 20px;
+    /*height: 597px;*/
+    /* background: rgba(40, 40, 40, 0.75) !important;*/
+}
+
+app-breadcrumb {
+    background-color: #c8e3f0;
+}
+
+
+/*.body-Width {
+    width: 93.6%;
+}*/
+
+
+/*.ui-g-11 {
+    min-width: 93.666%;
+}*/
+
+.top-nav-bar {
+    height: 35px;
+    margin-top: 5px;
+    font-size: 14px;
+}

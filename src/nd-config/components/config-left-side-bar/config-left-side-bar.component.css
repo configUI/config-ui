@@ -1,0 +1,32 @@
+ul.cav-menu-ul {
+    padding: 0;
+    list-style-type: none;
+    color: white;
+}
+
+.app-sidenav {
+    top: 16px;
+}
+
+.mat-button-focus-overlay {
+    background: white;
+}
+
+.icon {
+    margin: 0;
+    overflow: hidden;
+    float: left;
+}
+
+button[md-icon-button] {
+    width: 70px;
+    height: 50px;
+    border-radius: 0%;
+    margin-bottom: 1px;
+    background: #000000;
+}
+
+.iconCss {
+    color: white;
+    border-radius: 0%;
+}

@@ -1,0 +1,80 @@
+<!--For showing application list -->
+<p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-header>
+        <span>  Show Application(s) </span>
+        <span style="float: right; margin-top:-5px">
+          <button pButton type="button" label="Generate"></button>
+            <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
+            <button pButton type="button"title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+        </span>
+    </p-header>
+
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+
+    <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="topoName" header="Topology" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+    </template>
+    </p-column>
+</p-dataTable>
+
+<!--Dialog for adding Application-->
+<p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="appDesc" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" required ngModel />
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>User Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" required ngModel />
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Topology</label>
+            </div>
+            <div class="ui-g-8">
+                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
+                <p-dropdown name="topoId" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
