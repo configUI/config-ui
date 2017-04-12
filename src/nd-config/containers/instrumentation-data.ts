@@ -76,30 +76,42 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
-export class OperationType    // Business Transaction Rules by Lucky
-{
-    methodValue: string;
-    btName: string;
-    methodOperation: string;
+export class HttpStatsMonitorData{
+    compValue:string;
+    condition: string;
+    conditionName: string;
+    cookieName: string;
+    description: string;
+    fpDumpMode: number;
+    hmdId: number;
+    hscid: number;
+    htId: number;
+    optId: number;
+    valId: number;
 }
 
-export class BusinessTransMehtodData    // Business Transaction Method by Lucky
+export class BusinessTransMethodData    // Business Transaction Method by Lucky
 {
     argumentIndex: number;
     btMethodId: number;
-    enableArgumentType: boolean;
+    enableArgumentType: boolean = false;
     fqm: string;
     returnType: string;
-    rules: {
-        btMethodRuleId: number;
-        opCode: number;
-        parentBTMethodId: number;
-        previousBtMethodRulesIds: any;
-        value: string;
-        btName: string;
-        operationName: string;
-    };
+    rules: RulesData[];
 }
+
+export class RulesData {
+    btMethodRuleId?: number;
+    opCode?: number;
+    parentBTMethodId?: number;
+    opCodeDropDown?: { dropDownVal: number };
+    previousBtMethodRulesIds?: any;
+    value: string;
+    btName: string;
+    operationName: string;
+
+}
+
 
 export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
 {

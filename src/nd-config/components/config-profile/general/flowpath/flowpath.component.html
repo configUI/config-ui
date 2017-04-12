@@ -1,7 +1,16 @@
+ <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm">
 <p-panel header="FlowPath Capturing">
+      <p-header>
+            <div class="pull-right">
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                </div>
+            </div>
+        </p-header>
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
         <div class="ui-g">
-            <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm">
+           
                 <div class="ui-g-12">
                     <!--<div class = "ui-g-6">-->
                      <div class="ui-g-1"> </div>  
@@ -49,16 +58,7 @@
                         <input name="correlationIDHeader" type="number" size="30"   [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}} max={{flowPath.correlationIDHeader.max}} required ngModel/>
                     </div>
                 </div>
-
-                <footer>
-                    <div class="pull-right">
-                        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                            <button type="submit" pButton icon="fa-check" label="Save"></button>
-                            <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-                        </div>
-                    </div>
-                </footer>
-            </form>
         </div>
     </div>
 </p-panel>
+</form>

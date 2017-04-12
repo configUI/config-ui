@@ -1,25 +1,19 @@
-<!--<p>
-  thread-stats works!
-</p>-->
-<p-panel header="Monitors Settings">
-  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-    <form *ngIf="monitor" (ngSubmit)="saveKeywordData()" #form="ngForm">
-      
-        <div class="ui-g-12" style="padding-left: 50px">
-         <div class="ui-g-2"> <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="BT Monitor" binary="true" ngModel></p-checkbox></div>
-        
-      </div>
-
+<form *ngIf="monitor" (ngSubmit)="saveKeywordData()" #form="ngForm">
+  <p-panel header="Monitors Settings">
+    <p-header>
       <div class="pull-right">
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
           <button type="submit" pButton icon="fa-check" label="Save"></button>
           <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-
         </div>
       </div>
-
-    </form>
-
-  </div>
-</p-panel>
+    </p-header>
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+   <div class="ui-g-12" style="padding-left: 50px">
+        <div class="ui-g-2">
+          <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="BT Monitor" binary="true" ngModel></p-checkbox>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+</form>

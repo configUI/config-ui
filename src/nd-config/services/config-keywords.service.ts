@@ -8,9 +8,11 @@ import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
+
 import { sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
-import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
+
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
 
@@ -134,6 +136,25 @@ export class ConfigKeywordsService {
   getFetchSessionAttributeTable(profileId): Observable<sessionAttributeInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}${profileId}`);
   }
+  
+  //HTTP Stats Monitors
+
+   addHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_HTTP_STATS_COND}/${profileId}`, data);
+  }
+
+ getHttpStatsMonitorList(profileId): Observable<HttpStatsMonitorData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_HTTP_STATS_COND_TABLEDATA}/${profileId}`);
+  }
+  
+  editHttpStatsMonitorData(data): Observable<HttpStatsMonitorData> {
+    let url = `${URL.EDIT_ROW_HTTP_STATS_MONITOR_URL}/${data.methodId}`
+    return this._restApi.getDataByPutReq(url, data);
+  }
+
+  deleteHttpStatsMonitorData(data,profileId): Observable<HttpStatsMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_STATS_COND}/${profileId}`,data);
+  }
 
 
   /**
@@ -152,42 +173,44 @@ export class ConfigKeywordsService {
   }
 
   /* Fetch  Business Trans Method Info */
-  getBusinessTransMethodData(profileId): Observable<BusinessTransMehtodData[]> {
+  getBusinessTransMethodData(profileId): Observable<BusinessTransMethodData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BTMETHOD_URL}/${profileId}`);
   }
 
   /* Fetch  Business Trans Method Info */
-  addBusinessTransMethodData(): Observable<BusinessTransMehtodData[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_BTMETHOD_URL);
+  deleteBusinessTransMethodData(data, profileId): Observable<BusinessTransMethodInfo> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_BT}/${profileId}`, data);
+  }
+  /* add  Business Trans Method Info */
+  addBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_METHOD}/${profileId}`, data);
   }
 
-  /* Fetch  Business Trans Method Info */
-  deleteBusinessTransMethodData(data): Observable<BusinessTransMethodInfo> {
-    return this._restApi.getDataByPostReq(URL.DEL_METHOD_BT, data);
+  /* Edit  Business Trans Method Info */
+   editBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
+      return this._restApi.getDataByPostReq(`${URL.UPDATE_BTMETHOD}/${data.btMethodId}`, data);
   }
-  /* Fetch  Business Trans Method Info */
-  addBusinessTransMethod(data): Observable<BusinessTransMehtodData> {
-    return this._restApi.getDataByPostReq(URL.ADD_BT_METHOD, data);
-  }
+
 
   /*Add Pattern Bt Data*/
-  addBusinessTransPattern(data): Observable<BusinessTransPatternData> {
-    return this._restApi.getDataByPostReq(URL.ADD_NEW_BT_PATTERN_DETAILS, data);
+  addBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`, data);
   }
 
   /*EDIT Pattern Bt Data*/
-  editBusinessTransPattern(data): Observable<BusinessTransPatternData> {
-    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${data.id}`
+  editBusinessTransPattern(data , profileId): Observable<BusinessTransPatternData> {
+    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${profileId}/${data.id}`
     return this._restApi.getDataByPutReq(url, data);
   }
 
-  /*Add Pattern Bt Data*/
-  addGlobalData(data): Observable<BusinessTransPatternData> {
-    return this._restApi.getDataByPostReq(URL.ADD_BT, data);
+
+ /*Add Pattern Bt Data*/
+  addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
 
   /*Add Pattern Bt Data*/
-  deleteBusinessTransPattern(data): Observable<BusinessTransPatternData[]> {
-    return this._restApi.getDataByPostReq(URL.DEL_BT_PATTERN_DETAILS, data);
+  deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_BT_PATTERN_DETAILS}/${profileId}`, data);
   }
 }

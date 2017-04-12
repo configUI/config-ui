@@ -1,11 +1,20 @@
-<p-panel header="Delay in Method Settings">
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-        <div class="ui-g">
-            <form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
+<form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
+    <p-panel header="Delay in Method Settings">
+        <p-header>
+            <div class="pull-right">
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                </div>
+            </div>
+        </p-header>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-g">
+
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-1"></div>
                     <div class="ui-g-2">
-                        <label>Fully Qaulified Method Name</label>
+                        <label>Fully Qualified Method Name</label>
                     </div>
                     <div class="ui-g-4">
                         <input name="fullyQualifiedName" type="text" size="30" [(ngModel)]="delayData.fullyQualifiedName" pInputText autofocus required
@@ -14,21 +23,21 @@
                 </div>
 
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
-                    
+                    <div class="ui-g-1"></div>
+
                     <div class="ui-g-2">
                         <label>Delay Time Range(in ms)</label>
                     </div>
 
                     <div class="ui-g-2">
-                        From: <input name="from" type="number"  [(ngModel)]="delayData.from" pInputText required ngModel/>
+                        From: <input name="from" type="number" [(ngModel)]="delayData.from" pInputText required ngModel/>
                     </div>
                     <div class="ui-g-2">
-                        To: <input name="to" type="number"  [(ngModel)]="delayData.to" pInputText  required ngModel/>
+                        To: <input name="to" type="number" [(ngModel)]="delayData.to" pInputText required ngModel/>
                     </div>
                 </div>
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-1"></div>
                     <!--<div class = "ui-g-6">-->
 
                     <div class="ui-g-2">
@@ -40,10 +49,10 @@
                     </div>
                 </div>
                 <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
+                    <div class="ui-g-1"></div>
                     <!--<div class = "ui-g-6">-->
 
-                    <div class="ui-g-2"> 
+                    <div class="ui-g-2">
                         <p-checkbox name="autoInstrument" label="Is Auto Instrument" [(ngModel)]="delayData.autoInstrumentChk" binary="true"></p-checkbox>
                     </div>
 
@@ -51,16 +60,7 @@
                         <i>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</i>
                     </div>
                 </div>
-
-                <footer>
-                    <div class="pull-right">
-                        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                            <button type="submit" pButton icon="fa-check" label="Save"></button>
-                            <button type="button" pButton icon="fa-refresh"  label="Reset"></button>
-                        </div>
-                    </div>
-                </footer>
-            </form>
+            </div>
         </div>
-    </div>
-</p-panel>
+    </p-panel>
+</form>

@@ -1,4 +1,4 @@
-<p-tabView (onChange)="handleChange($event)">
+<p-tabView (onChange)="handleChange($event)"  [style]="{'height': '540px'}">
     <p-tabPanel header="Flowpath" [selected]="index == 0">
         <app-flowpath *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-flowpath>
     </p-tabPanel>
