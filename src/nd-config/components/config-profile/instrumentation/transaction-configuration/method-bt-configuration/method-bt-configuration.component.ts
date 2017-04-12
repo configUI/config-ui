@@ -66,7 +66,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     else if (this.businessTransMethodDetail.returnType == "String") {
       this.operationList = [];
-      let arrLabel = ['EQUAL', 'NOT EQUAL', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
+      let arrLabel = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
       this.operationList = ConfigUiUtility.createDropdown(arrLabel);
     }
     else if (this.businessTransMethodDetail.returnType == "Boolean") {
@@ -80,7 +80,7 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.operationList = ConfigUiUtility.createDropdown(arrLabel);
     }
 
-   
+
   }
 
   ngOnInit() {
@@ -259,28 +259,87 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   saveMethod() {
+    var arrStringOperation = [{ 'id': 1, 'option': 'EQUALS' },
+    { 'id': 2, 'option': 'NOT EQUALS' },
+    { 'id': 3, 'option': 'CONTAINS' },
+    { 'id': 4, 'option': 'STARTS WITH' },
+    { 'id': 5, 'option': 'ENDS WITH' },
+    { 'id': 6, 'option': 'EXCEPTION' }
 
+    ];
+
+    var arrNumericOperation = [{ 'id': 7, 'option': 'EQUAL' },
+    { 'id': 8, 'option': 'NOT EQUAL' },
+    { 'id': 9, 'option': 'LESS THAN' },
+    { 'id': 10, 'option': 'GREATER THAN' },
+    { 'id': 11, 'option': 'LESS THAN EQUAL TO' },
+    { 'id': 12, 'option': 'GREATER THAN EQUAL TO' },
+    { 'id': 13, 'option': 'EQ' },
+    { 'id': 14, 'option': 'NE' },
+    { 'id': 15, 'option': 'EXCEPTION' }
+    ];
+
+    var arrBooleanOperation = [{ 'id': 16, 'option': 'TRUE' },
+    { 'id': 17, 'option': 'FALSE' },
+    { 'id': 18, 'option': 'EXCEPTION' }
+
+    ];
+
+    var arrCharOperation = [{ 'id': 19, 'option': 'EXCEPTION' },
+    { 'id': 20, 'option': 'EQ' },
+    { 'id': 21, 'option': 'NE' },
+
+    ];
     this.businessTransMethodDetail.rules = [];
     var code: number;
-     if (this.btMethodRulesDetail.operationName == "EQUAL")
+    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
       code = 1;
-    if (this.btMethodRulesDetail.operationName == "NOT EQUAL")
+    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "NOT EQUALS"))
       code = 2;
-    if (this.btMethodRulesDetail.operationName == "LESS THEN")
+    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "CONTAINS"))
       code = 3;
-    if (this.btMethodRulesDetail.operationName == "GREATER THEN")
+    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "STARTS WITH"))
       code = 4;
-    if (this.btMethodRulesDetail.operationName == "LESS THEN EQUAL TO")
+    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "ENDS WITH"))
       code = 5;
-    if (this.btMethodRulesDetail.operationName == "GREATER THEN EQUAL TO")
+    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
       code = 6;
-      if (this.btMethodRulesDetail.operationName == "NOT EQUAL")
+
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQUAL"))
       code = 7;
-    if (this.btMethodRulesDetail.operationName == "EQ")
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NOT EQUAL"))
       code = 8;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THEN"))
+      code = 9;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THEN"))
+      code = 10;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THEN EQUAL TO"))
+      code = 11;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THEN EQUAL TO"))
+      code = 12;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQ"))
+      code = 13;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NE"))
+      code = 14;
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+      code = 15;
+
+    if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "TRUE"))
+      code = 16;
+    if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "FALSE"))
+      code = 17;
+    if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+      code = 18;
+
+    if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+      code = 19;
+    if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EQ"))
+      code = 20;
+    if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "NE"))
+      code = 21;
 
     for (let i = 0; i < this.methodRulesInfo.length; i++) {
-      this.businessTransMethodDetail.rules[i] = { btMethodRuleId: i, opCode: code,opCodeDropDown:{dropDownVal:code}, btName: this.methodRulesInfo[i].btName, value: this.methodRulesInfo[i].value, operationName: this.methodRulesInfo[i].operationName };
+      this.businessTransMethodDetail.rules[i] = { btMethodRuleId: i, opCode: code, opCodeDropDown: { dropDownVal: code }, btName: this.methodRulesInfo[i].btName, value: this.methodRulesInfo[i].value, operationName: this.methodRulesInfo[i].operationName };
     }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       this.businessTransMethodInfo.push(data)
