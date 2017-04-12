@@ -1,4 +1,4 @@
-<p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData">
+<p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="15" [paginator]="true" [pageLinks]="3">
   <p-header>
     <span>HTTP Stats Condition Monitor(s) </span>
     <span style="float :right; margin-top:-5px">
@@ -18,12 +18,12 @@
       <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
     </template>
   </p-column>
-  <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+  <p-column class="tableCss" field="description" header="Description" [sortable]="true">
     <template let-col let-HttpStatsMonitor="rowData" pTemplate>
       <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
     </template>
   </p-column>
-  <p-column class="tableCss" field="dumpMode" header="FP Dump Mode" [sortable]="true">
+  <p-column class="tableCss" field="fpDumpMode" header="FP Dump Mode" [sortable]="true">
     <template let-col let-HttpStatsMonitor="rowData" pTemplate>
       <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
     </template>
@@ -41,15 +41,15 @@
         <label>Name</label>
       </div>
       <div class="ui-g-3">
-        <input name="httpStatsMonitorName" type="text" placeholder="Enter Condition Name" style="width:177px;" pInputText 
-          autofocus required ngModel/>
+        <input name="httpStatsMonitorName" type="text" placeholder="Enter Condition Name" [(ngModel)]="httpStatsMonitorDetail.conditionName"
+          style="width:177px;" pInputText autofocus required ngModel/>
       </div>
       <div class="ui-g-3">
         <label>Select Flowpath Dump Mode</label>
       </div>
       <div class="ui-g-3">
         <p-dropdown name="flowDump" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [options]="flowDumpData"
-          appendTo="body" required ngModel></p-dropdown>
+          [(ngModel)]="httpStatsMonitorDetail.fpDumpMode" appendTo="body" required ngModel></p-dropdown>
       </div>
     </div>
     <div class="ui-g">
@@ -57,80 +57,81 @@
         <label>Select Header Type</label>
       </div>
       <div class="ui-g-3">
-        <p-dropdown name="headerTypeName" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="headerType"  [(ngModel)]="headerType.value"
+        <p-dropdown name="headerTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="headerType" [(ngModel)]="selectedHeaderType"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      
-      <div class="ui-g-3" *ngIf="headerType.value!=3">
+
+      <div class="ui-g-3" *ngIf="selectedHeaderType!=3">
         <label>Select Header</label>
       </div>
-      <div class="ui-g-3"   *ngIf="!(headerType.value==1)&&!(headerType.value==2)&&!(headerType.value==3)">
-        <p-dropdown name="requestHeader" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="requestHeader"  [(ngModel)]="requestHeader.value"
+      <div class="ui-g-3" *ngIf="!(selectedHeaderType==1)&&!(selectedHeaderType==2)&&!(selectedHeaderType==3)">
+        <p-dropdown name="requestHeader" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="requestHeader"
+          [(ngModel)]="selectedRequestHeader" appendTo="body" required ngModel></p-dropdown>
+      </div>
+      <div class="ui-g-3" *ngIf="selectedHeaderType==1">
+        <p-dropdown name="requestHeader" [style]="{'width': '100%'}" [autoWidth]="true" [options]="requestHeader" [(ngModel)]="selectedRequestHeader"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      <div class="ui-g-3" *ngIf="headerType.value==1">
-        <p-dropdown name="requestHeader" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="requestHeader"  [(ngModel)]="requestHeader.value"
+      <div class="ui-g-3" *ngIf="selectedHeaderType==2">
+        <p-dropdown name="responseHeader" [style]="{'width': '100%'}" [autoWidth]="true" [options]="responseHeader" [(ngModel)]="selectedResponseHeader"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      <div class="ui-g-3"  *ngIf="headerType.value==2">
-        <p-dropdown name="responseHeader" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="responseHeader"  [(ngModel)]="responseHeader.value"
-          appendTo="body" required ngModel></p-dropdown>
-      </div>
-      <div class="ui-g-3"  *ngIf="headerType.value==3">
+      <div class="ui-g-3" *ngIf="selectedHeaderType==3">
         <label>Cookie Name</label>
       </div>
-      <div class="ui-g-3"  *ngIf="headerType.value==3">
-        <input name="cookieName" type="text" style="width:177px;" pInputText 
-          autofocus required ngModel/>
+      <div class="ui-g-3" *ngIf="selectedHeaderType==3">
+        <input name="cookieName" type="text" style="width:177px;" [(ngModel)]="httpStatsMonitorDetail.cookieName" pInputText autofocus required ngModel/>
       </div>
-      
+
     </div>
     <div class="ui-g">
       <div class="ui-g-3">
         <label>Select Value Type</label>
       </div>
-      <div class="ui-g-3" *ngIf="!requestHeader.value&&!responseHeader.value&&!(headerType.value==3)" >
-        <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="valueType"  [(ngModel)]="valueType.value"
+      <div class="ui-g-3" *ngIf="!selectedRequestHeader&&!selectedResponseHeader&&!(selectedHeaderType==3)">
+        <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      <div class="ui-g-3" *ngIf="requestHeader.value||responseHeader.value||headerType.value==3" >
-        <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="valueType"  [(ngModel)]="valueType.value"
+      <div class="ui-g-3" *ngIf="selectedRequestHeader||selectedResponseHeader||selectedHeaderType==3">
+        <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType"
           appendTo="body" required ngModel></p-dropdown>
       </div>
       <div class="ui-g-3">
         <label>Select Operator Type</label>
       </div>
-      <div class="ui-g-3"  *ngIf="!(valueType.value==1)&&!(valueType.value==2)&&!(valueType.value==3)">
-        <p-dropdown name="StringOPTypeName" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP"
+      <div class="ui-g-3" *ngIf="!(selectedValueType==1)&&!(selectedValueType==2)&&!(selectedValueType==3)">
+        <p-dropdown name="StringOPTypeName" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP" appendTo="body"
+          required ngModel></p-dropdown>
+      </div>
+      <div class="ui-g-3" *ngIf="selectedValueType==1">
+        <p-dropdown name="StringOPTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="stringOP" [(ngModel)]="selectedStringOp"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      <div class="ui-g-3" *ngIf="valueType.value==1">
-        <p-dropdown name="StringOPTypeName" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="stringOP"  [(ngModel)]="stringOP.value"
+      <div class="ui-g-3" *ngIf="selectedValueType==2">
+        <p-dropdown name="NumericOPTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="numericOP" [(ngModel)]="selectedNumericOp"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      <div class="ui-g-3" *ngIf="valueType.value==2">
-        <p-dropdown name="NumericOPTypeName" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="numericOP"  [(ngModel)]="numericOP.value"
+      <div class="ui-g-3" *ngIf="selectedValueType==3">
+        <p-dropdown name="OthersOPTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="othersOP" [(ngModel)]="selectedOthersOp"
           appendTo="body" required ngModel></p-dropdown>
       </div>
-      <div class="ui-g-3" *ngIf="valueType.value==3">
-        <p-dropdown name="OthersOPTypeName" [style]="{'width': '100%'}"  [autoWidth]="true" [options]="othersOP"  [(ngModel)]="othersOP.value"
-          appendTo="body" required ngModel></p-dropdown>
-      </div>  
     </div>
-<div class="ui-g">
+    <div class="ui-g">
       <div class="ui-g-3">
         <label>Comparison  Value</label>
       </div>
       <div class="ui-g-3">
-        <input name="ComparisonValue" [disabled]="!othersOP.value&&!numericOP.value&&!stringOP.value" type="text" style="width:177px;" pInputText autofocus required ngModel/>
+        <input name="ComparisonValue" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" type="text" style="width:177px;"[(ngModel)]="httpStatsMonitorDetail.compValue"
+          pInputText autofocus required ngModel/>
       </div>
-      
+
       <div class="ui-g-3">
         <label>Description</label>
       </div>
       <div class="ui-g-3">
-        <input name="Description" [disabled]="!othersOP.value&&!numericOP.value&&!stringOP.value" type="text" style="width:177px;" pInputText autofocus required ngModel/>
-      </div>  
+        <input name="Description" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" type="text" style="width:177px;" [(ngModel)]="httpStatsMonitorDetail.description"
+          pInputText autofocus required ngModel/>
+      </div>
     </div>
 
     <footer>
