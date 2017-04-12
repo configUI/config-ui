@@ -259,37 +259,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   saveMethod() {
-    var arrStringOperation = [{ 'id': 1, 'option': 'EQUALS' },
-    { 'id': 2, 'option': 'NOT EQUALS' },
-    { 'id': 3, 'option': 'CONTAINS' },
-    { 'id': 4, 'option': 'STARTS WITH' },
-    { 'id': 5, 'option': 'ENDS WITH' },
-    { 'id': 6, 'option': 'EXCEPTION' }
-
-    ];
-
-    var arrNumericOperation = [{ 'id': 7, 'option': 'EQUAL' },
-    { 'id': 8, 'option': 'NOT EQUAL' },
-    { 'id': 9, 'option': 'LESS THAN' },
-    { 'id': 10, 'option': 'GREATER THAN' },
-    { 'id': 11, 'option': 'LESS THAN EQUAL TO' },
-    { 'id': 12, 'option': 'GREATER THAN EQUAL TO' },
-    { 'id': 13, 'option': 'EQ' },
-    { 'id': 14, 'option': 'NE' },
-    { 'id': 15, 'option': 'EXCEPTION' }
-    ];
-
-    var arrBooleanOperation = [{ 'id': 16, 'option': 'TRUE' },
-    { 'id': 17, 'option': 'FALSE' },
-    { 'id': 18, 'option': 'EXCEPTION' }
-
-    ];
-
-    var arrCharOperation = [{ 'id': 19, 'option': 'EXCEPTION' },
-    { 'id': 20, 'option': 'EQ' },
-    { 'id': 21, 'option': 'NE' },
-
-    ];
+  
     this.businessTransMethodDetail.rules = [];
     var code: number;
     if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
