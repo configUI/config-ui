@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 import { sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
 import { BusinessTransMethodData, BusinessTransPatternData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
-
+import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
 
@@ -33,7 +33,7 @@ export class ConfigKeywordsService {
   /**For Configuration Screen-
    * Handled Toggle Button and Enable/Disable keyword information.
    */
-  keywordGroup = {
+  keywordGroup: GroupKeyword = {
     general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: [] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] }, backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] }, monitors: { enable: false, keywordList: ['enableBTMonitor'] } },
     product_integration: { nvcookie: { enable: false, keywordList: ["setCavNVCookie"] } }

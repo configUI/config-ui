@@ -29,12 +29,16 @@ export class HotspotComponent implements OnInit, OnDestroy {
   bindExcluded:boolean=false;
   subscription: Subscription;
   exceptionName:string[];
+  enableGroupKeyword: boolean = false;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
     this.subscription = this.store.select("keywordData")
       .subscribe(data => {
         this.hotspot = data;
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
+
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.hotspot.enable;
   }
 
   ngOnInit() {

@@ -13,15 +13,13 @@ import { KeywordData, KeywordList } from '../../../containers/keyword-data';
 })
 export class ConfigurationComponent implements OnInit, OnDestroy {
   keywordGroup: any;
-
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
-    //Getting groupkeyword values
-    this.keywordGroup = this.configKeywordsService.keywordGroup;
-  }
-
   profileId: number;
   subscription: Subscription;
 
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+      //Initialize groupkeyword values
+      this.keywordGroup = this.configKeywordsService.keywordGroup;
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
@@ -61,13 +59,16 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
         for (let i = 0; i < keywordList.length; i++) {
           //If group of keywords value is not 0 that's means groupkeyword is enabled.
-          if (data[keywordList[i]].value != 0) {
+          if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
             //Enabling groupkeyword
             keywordInfo.enable = true;
           }
         }
       }
     }
+
+    //Updating groupkeyword values after reading keyword data object.
+    this.keywordGroup = this.configKeywordsService.keywordGroup;
   }
 
   /**This is used to enable/disable groupkeyword values. */
@@ -88,7 +89,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
             //When toggle moving for disable
             if (keywordGroupList[keywordKey].enable) {
               //Setting 0 value for disable keyword
-              this.configKeywordsService.keywordData[keywordList[i]].value = 0;
+              this.configKeywordsService.keywordData[keywordList[i]].value = "0";
             }
             else {
               //Setting Default value for enable keyword
