@@ -25,11 +25,14 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   flowPath: Object;
 
   subscription: Subscription;
+  enableGroupKeyword: boolean = false;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>) {
     this.subscription = this.store.select("keywordData").subscribe(data=>{
       this.flowPath = data;
-    })
+    });
+
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.flowpath.enable;
    }
 
   enableForcedFPChainSelectItem: SelectItem[];

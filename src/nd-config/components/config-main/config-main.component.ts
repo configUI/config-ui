@@ -9,12 +9,12 @@ export class ConfigMainComponent implements OnInit {
 
   constructor(private configUtilityService: ConfigUtilityService) { }
 
-  isProgressBar: boolean = false;
+  isProgressBar: string = "none";
   color: string = "primary";
   
   ngOnInit() {
     this.configUtilityService.progressBarProvider$.subscribe(flag=> {
-      this.isProgressBar = flag["flag"];
+      this.isProgressBar = flag["flag"] == true ? "inline" : "none";
       this.color = flag["color"];
     });
   }

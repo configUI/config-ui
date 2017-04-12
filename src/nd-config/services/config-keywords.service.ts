@@ -8,9 +8,11 @@ import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
-import {  sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
-import { OperationType, BusinessTransMehtodData, BusinessTransPatternData } from '../containers/instrumentation-data';
+
+import { sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
+import { BusinessTransMethodData, BusinessTransPatternData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
+import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
 
@@ -28,9 +30,18 @@ export class ConfigKeywordsService {
     this._keywordData = value;
   }
 
+  /**For Configuration Screen-
+   * Handled Toggle Button and Enable/Disable keyword information.
+   */
+  keywordGroup: GroupKeyword = {
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: [] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] }, backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] }, monitors: { enable: false, keywordList: ['enableBTMonitor'] } },
+    product_integration: { nvcookie: { enable: false, keywordList: ["setCavNVCookie"] } }
+  }
+
   constructor(private _restApi: ConfigRestApiService, private store: Store<Object>) {
 
-   }
+  }
 
   /** For Getting all keywordData data */
   getProfileKeywords(profileId) {
@@ -55,8 +66,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`);
   }
 
-  addServiceEntryPointData(data,profileId): Observable<ServiceEntryPoint>{
-    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`,data);
+  addServiceEntryPointData(data, profileId): Observable<ServiceEntryPoint> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
   /**For Integration PT Detection */
@@ -64,7 +75,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
   }
 
-  getBackendList(profileId): Observable<BackendInfo[]>{
+  getBackendList(profileId): Observable<BackendInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TYPES}/${profileId}`);
   }
 
@@ -75,7 +86,7 @@ export class ConfigKeywordsService {
   addIPNamingAndExit(profileId, backendId, data): Observable<NamingRuleAndExitPoint> {
     return this._restApi.getDataByPostReq(`${URL.UPDATE_BACKEND_POINT}/${profileId}/${backendId}`, data);
   }
-  
+
 
   /**Transaction Configuration */
 
@@ -116,13 +127,13 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(URL.DEL_METHOD_MONITOR, data);
   }
 
-  getListOfXmlFiles(profileId):Observable<string[]>{
+  getListOfXmlFiles(profileId): Observable<string[]> {
     return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST)
   }
 
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
    */
-   getFetchSessionAttributeTable(profileId): Observable<sessionAttributeInfo[]> {
+  getFetchSessionAttributeTable(profileId): Observable<sessionAttributeInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}${profileId}`);
   }
   
@@ -145,10 +156,11 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_STATS_COND}/${profileId}`,data);
   }
 
-   /**
-   *  Business Transaction Service
-   * 
-   */
+
+  /**
+  *  Business Transaction Service
+  * 
+  */
 
   /* Fetch  Business Trans Global Info */
   getBusinessTransGlobalData(): Observable<BusinessTransGlobalInfo[]> {
@@ -161,42 +173,44 @@ export class ConfigKeywordsService {
   }
 
   /* Fetch  Business Trans Method Info */
-  getBusinessTransMethodData(profileId): Observable<BusinessTransMehtodData[]> {
+  getBusinessTransMethodData(profileId): Observable<BusinessTransMethodData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BTMETHOD_URL}/${profileId}`);
   }
 
   /* Fetch  Business Trans Method Info */
-  addBusinessTransMethodData(): Observable<BusinessTransMehtodData[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_BTMETHOD_URL);
+  deleteBusinessTransMethodData(data, profileId): Observable<BusinessTransMethodInfo> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_BT}/${profileId}`, data);
+  }
+  /* add  Business Trans Method Info */
+  addBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_METHOD}/${profileId}`, data);
   }
 
-  /* Fetch  Business Trans Method Info */
-  deleteBusinessTransMethodData(data): Observable<BusinessTransMethodInfo> {
-    return this._restApi.getDataByPostReq(URL.DEL_METHOD_BT, data);
+  /* Edit  Business Trans Method Info */
+   editBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
+      return this._restApi.getDataByPostReq(`${URL.UPDATE_BTMETHOD}/${data.btMethodId}`, data);
   }
-  /* Fetch  Business Trans Method Info */
-  addBusinessTransMethod(data): Observable<BusinessTransMehtodData> {
-    return this._restApi.getDataByPostReq(URL.ADD_BT_METHOD, data);
-  }
+
 
   /*Add Pattern Bt Data*/
-  addBusinessTransPattern(data): Observable<BusinessTransPatternData> {
-    return this._restApi.getDataByPostReq(URL.ADD_NEW_BT_PATTERN_DETAILS, data);
+  addBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`, data);
   }
 
   /*EDIT Pattern Bt Data*/
-  editBusinessTransPattern(data): Observable<BusinessTransPatternData> {
-    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${data.id}`
+  editBusinessTransPattern(data , profileId): Observable<BusinessTransPatternData> {
+    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${profileId}/${data.id}`
     return this._restApi.getDataByPutReq(url, data);
   }
 
+
  /*Add Pattern Bt Data*/
-  addGlobalData(data): Observable<BusinessTransPatternData> {
-    return this._restApi.getDataByPostReq(URL.ADD_BT, data);
+  addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
 
   /*Add Pattern Bt Data*/
-  deleteBusinessTransPattern(data): Observable<BusinessTransPatternData[]> {
-    return this._restApi.getDataByPostReq(URL.DEL_BT_PATTERN_DETAILS, data);
+  deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_BT_PATTERN_DETAILS}/${profileId}`, data);
   }
 }

@@ -146,7 +146,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.globalBtDetail.complete = "false";
 
-    this.configKeywordsService.addGlobalData(this.globalBtDetail).subscribe(data => console.log(data));
+    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(data));
   }
 
   /**This method is used to add Pattern detail */
@@ -156,7 +156,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.businessTransPatternDetail.include = "exclude"
 
-    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail)
+    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
          this.businessTransPatternInfo.push(data);
@@ -190,7 +190,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is used to edit Pattern detail */
   editApp(): void {
-    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail)
+    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail , this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
@@ -248,7 +248,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
           arrAppIndex.push(selectedApp[index].id);
         }
-        this.configKeywordsService.deleteBusinessTransPattern(arrAppIndex)
+        this.configKeywordsService.deleteBusinessTransPattern(arrAppIndex, this.profileId)
           .subscribe(data => {
             this.deletePatternBusinessTransactions(arrAppIndex);
             this.selectedPatternData = [];

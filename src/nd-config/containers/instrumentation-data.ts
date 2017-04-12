@@ -90,30 +90,28 @@ export class HttpStatsMonitorData{  //Http stats monitors by Surbhi
     valId: number;
 }
 
-export class OperationType    // Business Transaction Rules by Lucky
-{
-    methodValue: string;
-    btName: string;
-    methodOperation: string;
-}
-
-export class BusinessTransMehtodData    // Business Transaction Method by Lucky
+export class BusinessTransMethodData    // Business Transaction Method by Lucky
 {
     argumentIndex: number;
     btMethodId: number;
-    enableArgumentType: boolean;
+    enableArgumentType: boolean = false;
     fqm: string;
     returnType: string;
-    rules: {
-        btMethodRuleId: number;
-        opCode: number;
-        parentBTMethodId: number;
-        previousBtMethodRulesIds: any;
-        value: string;
-        btName: string;
-        operationName: string;
-    };
+    rules: RulesData[];
 }
+
+export class RulesData {
+    btMethodRuleId?: number;
+    opCode?: number;
+    parentBTMethodId?: number;
+    opCodeDropDown?: { dropDownVal: number };
+    previousBtMethodRulesIds?: any;
+    value: string;
+    btName: string;
+    operationName: string;
+
+}
+
 
 export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
 {
