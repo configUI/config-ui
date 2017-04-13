@@ -147,8 +147,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_HTTP_STATS_COND_TABLEDATA}/${profileId}`);
   }
   
-  editHttpStatsMonitorData(data): Observable<HttpStatsMonitorData> {
-    let url = `${URL.EDIT_ROW_HTTP_STATS_MONITOR_URL}/${data.methodId}`
+  editHttpStatsMonitorData(data,profileId): Observable<HttpStatsMonitorData> {
+    let url = `${URL.EDIT_ROW_HTTP_STATS_MONITOR_URL}/${profileId}/${data.hscid}`
     return this._restApi.getDataByPutReq(url, data);
   }
 

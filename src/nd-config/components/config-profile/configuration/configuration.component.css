@@ -30,21 +30,48 @@
 
 
 */
-
-md-card {
-    height: 200px;
-     margin:8px 0px;
+#top-div {
+    background:rgba(255, 255, 255, 0.65);
+    padding:3px !important;
 }
 
+#top-div md-card {
+    height: 200px;
+    margin:6px;
+}
 .contents:hover {
     text-decoration: underline;
 }
-
 a {
     text-decoration: none;
     color: white;
 }
-
-#top-div {
-    background: #8AC6CB;
+#top-div .mat-slide-toggle {
+     margin: 5px 0 0;
+}
+#top-div .heading {
+    margin-bottom: 12px;
+    font-size: 16px;
+    border-bottom: 1px #777 solid;;
+}
+.card1 {
+    background: #2B5797;
+}
+.card2{
+    background: #1E7145;
+}
+.card3{
+    background: #603CBA;
+}
+.card4{
+    background: rgba(34, 34, 34, 0.95);
+}
+.icon_big {
+    font-size: 130px;
+    color: white;
+    margin-top: 25px;
+}
+#top-div .intrumentation li{
+    padding: 5px;
+    list-style-type: none;
 }
