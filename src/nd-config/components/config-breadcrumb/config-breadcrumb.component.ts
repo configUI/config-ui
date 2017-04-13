@@ -1,20 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { MenuItem } from 'primeng/primeng';
 
 import * as BREADCRUMB from '../../constants/config-breadcrumb-constant';
-// import { BreadcrumbInfo } from '../../interfaces/breadcrumb-info';
-
-export interface BreadcrumbInfo {
-  label: string;
-  params?: Params;
-  url: string;
-}
-interface IBreadcrumb {
-  label: string;
-  params?: Params;
-  url: string;
-}
 
 @Component({
   selector: 'app-config-breadcrumb',
@@ -22,10 +10,8 @@ interface IBreadcrumb {
   styleUrls: ['./config-breadcrumb.component.css']
 })
 export class ConfigBreadcrumbComponent implements OnInit {
-  breadcrumbs: IBreadcrumb[] = [];
-  breadcrumb: BreadcrumbInfo[] = [];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router) { }
 
   private items: MenuItem[];
 

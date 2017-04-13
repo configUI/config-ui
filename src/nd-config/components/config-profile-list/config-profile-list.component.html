@@ -10,7 +10,7 @@
 
     <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
         <template let-col let-profile="rowData" pTemplate>
-      <span title="{{profile[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/profile/configuration', profile['profileId']]" >{{profile[col.field]}}</a></span>
+      <span title="{{profile[col.field]}}"><a (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
     </template>
     </p-column>
     <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
