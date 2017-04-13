@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 import { KeywordData, KeywordList } from '../../../containers/keyword-data';
-import { GROUP_KEYWORD, keywordGroup } from '../../../reducers/keyword-reducer';
 
 @Component({
   selector: 'app-configuration',

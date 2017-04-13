@@ -82,7 +82,7 @@ export class HttpStatsMonitorData{
     conditionName: string;
     cookieName: string;
     description: string;
-    fpDumpMode: number;
+    fpDumpMode: string;
     hmdId: number;
     hscid: number;
     htId: number;
