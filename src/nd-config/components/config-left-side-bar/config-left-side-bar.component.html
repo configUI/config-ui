@@ -1,7 +1,7 @@
 <md-sidenav #menuNavSide mode="side" opened="true" [style.width]="navWidth" class="app-sidenav" layout-padding id="sideNav">
 
     <!-- Drawing Navigation Menu Here. -->
-    <ul class="cav-menu-ul">
+    <ul class="cav-menu-ul ndegui_left">
         <li *ngFor="let ngMenu of navMenuArray">
             <a class="iconCss" routerLink="{{ngMenu.route}}" routerLinkActive="active" pTooltip="{{ngMenu.tooltip}}" tooltipPosition="right">
                 <button md-icon-button>

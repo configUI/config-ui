@@ -3,7 +3,6 @@
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~https://fonts.googleapis.com/icon?family=Open+Sans';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
 body {
     font-family: 'Open Sans', sans-serif !important;
     background: url('assets/img/wall_num5.jpg');
@@ -18,44 +17,86 @@ body {
 .ui-datatable .ui-datatable-thead>tr>th,
 .ui-datatable .ui-datatable-tfoot>tr>td,
 .ui-datatable .ui-datatable-data>tr>td {
-    height: 30px;
+    height: 26px;
     text-overflow: ellipsis;
 }
 
 .ui-datatable .ui-datatable-thead>tr>th {
     color: white;
+    font-weight: 600;
 }
+
 .ui-tabview.ui-tabview-top>.ui-tabview-nav li {
     /*min-width: 19%;*/
 }
 
+
 /*-----------------Cutom CSS---------------*/
-.app-sidenav {
+
+.ndegui-sidenav {
     background: #282828;
+    margin-right: 20px;
+    min-width: 5.2%;
+    overflow: initial;
+    top: 30px;
 }
-button[md-icon-button]{
+
+.ndegui-sidenav .mat-sidenav {
+    top: 30px;
+}
+
+button[md-icon-button] {
     border-bottom: 1px #353535 solid;
 }
-ul.cav-menu-ul{
+
+.top-nav-bar {
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    margin: 1px -19px;
+    margin-bottom: 12px;
+    height: 30px;
+}
+
+ul.cav-menu-ul {
     margin-top: 0;
 }
+
+.custom-breadcrumb .ui-breadcrumb {
+    border-radius: 0px;
+    border: 0;
+    padding: 0.5em;
+}
+
+.top-nav-bar .ui-breadcrumb ul li.fa {
+    margin: 0 !important;
+}
+
+.top-nav-bar .ui-widget-header {
+    background: transparent;
+}
+
 li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     font-size: 10px;
 }
-.header-button{
+
+.header-button {
     padding-top: 5px !important;
 }
-.mat-card-subtitle {
-    height: 30px !important;
-}
+
 .widget {
-    background: rgba(255,255,255, 0.65);
-    border-radius: 4px; padding: 8px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 4px;
+    box-shadow: 0 0 8px 2px #2d2d2d;
+    padding: 8px;
 }
+
 .widget .header {
     color: #fff;
-    font-size: 12px;  font-weight: 600;
-    line-height: 16px;    padding: 6px; margin: -8px -8px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    padding: 6px;
+    margin: -8px -8px 10px;
     background: #183D65;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -63,4 +104,71 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     overflow: hidden;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
+}
+
+.ndegui_left button {
+    background: transparent !important;
+}
+
+.ui-datatable-odd {
+    background-color: #e8f4ff;
+}
+
+.table-css .ui-datatable .ui-datatable-data>tr>td {
+    border: 1px #adadad solid;
+}
+
+.tabs-all {
+    box-shadow: 0 0 8px 2px #2d2d2d;
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.tabs-all .ui-tabview {
+    background: rgba(255, 255, 255, 0.65);
+    padding: 1em;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
+    background: #2B5797;
+    font-weight: normal;
+    color: #fff;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default {
+    background: lightslategray;
+}
+
+.tabs-all .ui-tabview.ui-tabview-top>.ui-tabview-nav {
+    padding: 0;
+}
+
+.tabs-all .ui-tabview .ui-tabview-panel {
+    border: 1px #2b5797 solid;
+    background: rgba(43, 87, 151, 0.15);
+    /*#2b5797;*/
+}
+
+.tabs-all .ui-panel .ui-panel-content {
+    background: #fff;
+}
+
+.tabsincontent {
+    border-radius: 4px;
+}
+
+.tabsincontent .header {
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 6px 2px;
+    background: #183D65;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.tabsincontent .header .pull-right {
+    margin: -2px 0 0;
 }
