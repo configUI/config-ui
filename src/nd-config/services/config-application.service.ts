@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 import {ConfigRestApiService} from './config-rest-api.service';
 import { ApplicationInfo } from '../interfaces/application-info';
@@ -10,7 +11,14 @@ export class ConfigApplicationService {
 
   constructor(private _restApi: ConfigRestApiService) { }
 
-  //applicationData: ApplicationInfo[];
+  /**For Storing Profile Name. which is used to show in Meta-data component */
+  private _applicationName = new Subject<string>();
+
+  applicationNameProvider$ = this._applicationName.asObservable();
+
+  applicationNameObserver(applicationName: string){
+    this._applicationName.next(applicationName);
+  }
 
   getApplicationList(): Observable<ApplicationInfo[]>{
     return this._restApi.getDataByGetReq(URL.FETCH_APP_TABLE_DATA);

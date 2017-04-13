@@ -3,7 +3,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
-import { ConfigProfileService } from '../../services/config-profile.service'
+import { ConfigProfileService } from '../../services/config-profile.service';
+import { ConfigApplicationService } from '../../services/config-application.service';
 import * as BREADCRUMB from '../../constants/config-breadcrumb-constant';
 
 @Component({
@@ -13,15 +14,21 @@ import * as BREADCRUMB from '../../constants/config-breadcrumb-constant';
 })
 export class ConfigMetaDataComponent implements OnInit, OnDestroy {
 
-  constructor(private configProfileService: ConfigProfileService, private router: Router) { }
+  constructor(private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   isMetaDataDisplay: boolean = false;
+  label: string;
+
   profileName: string;
-  subscription: Subscription;
+  applicationName: string;
+
+  subscriptionProfile: Subscription;
+  subscriptionApplication: Subscription;
 
 
   ngOnInit() {
-    this.subscription = this.configProfileService.profileNameProvider$.subscribe(data => this.profileName = data);
+    this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => this.profileName = data);
+    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => this.applicationName = data);
 
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       let url = event["url"];
@@ -29,10 +36,15 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
         if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
           this.isMetaDataDisplay = true;
+          this.label = `Profile Name: ${this.profileName}`;
         }
         else {
           this.isMetaDataDisplay = false;
         }
+      }
+      else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
+        this.isMetaDataDisplay = true;
+        this.label = `Application Name: ${this.applicationName}`;
       }
       else {
         this.isMetaDataDisplay = false;
@@ -41,7 +53,10 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription)
-      this.subscription.unsubscribe();
+    if (this.subscriptionProfile)
+      this.subscriptionProfile.unsubscribe();
+
+    if (this.subscriptionApplication)
+      this.subscriptionApplication.unsubscribe();
   }
 }

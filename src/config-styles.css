@@ -172,3 +172,8 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 .tabsincontent .header .pull-right {
     margin: -2px 0 0;
 }
+
+.hyperlink {
+    text-decoration: underline;
+    cursor: pointer;
+}

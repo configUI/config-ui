@@ -10,7 +10,7 @@
                 <p-dataTable [value]="applicationInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'])">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topology" header="Topology">
@@ -39,7 +39,7 @@
                 <p-dataTable [value]="profileInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-profile="rowData" pTemplate>
-                            <span title="{{profile[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/profile/configuration/', profile['id']]">{{profile[col.field]}}</a></span>
+                            <span title="{{profile[col.field]}}"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="description" header="Description">
