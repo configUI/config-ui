@@ -9,12 +9,12 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
-import { sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
-import { BusinessTransMethodData, BusinessTransPatternData } from '../containers/instrumentation-data';
+import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData} from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
+import {  httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 
 @Injectable()
 export class ConfigKeywordsService {
@@ -34,7 +34,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: [] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData","captureHTTPRespFullFp", "captureHttpSessionAttr"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] }, backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] }, monitors: { enable: false, keywordList: ['enableBTMonitor'] } },
     product_integration: { nvcookie: { enable: false, keywordList: ["setCavNVCookie"] } }
   }
@@ -133,10 +133,20 @@ export class ConfigKeywordsService {
 
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
    */
-  getFetchSessionAttributeTable(profileId): Observable<sessionAttributeInfo[]> {
-    return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}${profileId}`);
-  }
+
+   getFetchSessionAttributeTable(profileId): Observable<SessionAtrributeComponentsData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}/${profileId}`);
+   }
   
+  deleteSessionAttributeData(data): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_SESSION_ATTR}`,data) 
+  }
+
+  addSessionAttributeData(data, profileId): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_SPECIFIC_ATTR}/${profileId}`, data);
+  }
+
+
   //HTTP Stats Monitors
 
    addHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
@@ -212,5 +222,16 @@ export class ConfigKeywordsService {
   /*Add Pattern Bt Data*/
   deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByPostReq(`${URL.DEL_BT_PATTERN_DETAILS}/${profileId}`, data);
+  }
+
+   /*  FETCH HTTP REQUEST HEADER TABLEDATA */
+   
+   getFetchHTTPReqHeaderTable(profileId): Observable<httpReqHeaderInfo[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREQ_HDR}${profileId}`);
+  }
+
+  /* Fetch  Business Trans Method Info */
+  deleteHTTPReqHeaderData(data, profileId): Observable<httpReqHeaderInfo> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REQ_HDR}/${profileId}`, data);
   }
 }

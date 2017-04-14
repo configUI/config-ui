@@ -1,3 +1,130 @@
-<p>
-    http-request works!
-</p>
+<!--For showing HTTP Request Header list -->
+<p-dataTable [value]="httpRequestHdrComponentInfo" [(selection)]="selectedHTTPReqHeader" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-header>
+        <span> HTTP Request Header (s) </span>
+        <span style="float: right; margin-top:-5px">`
+                       <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
+                       <button pButton type="button"title="Delete" (click)="deleteHeader()" icon="fa-trash"></button>
+                    </span>
+    </p-header>
+    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column class="col-overflow" field="headerName" header="Name" [sortable]="true">
+        <template let-col let-application="rowData">
+      <span></span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="dumpMode" header="Capture Mode" [sortable]="true">
+        <template let-col let-application="rowData">
+      <span></span>
+    </template>
+    </p-column>
+    <p-column class="col-overflow" field="rules" header="Rules" [sortable]="true">
+        <template let-col let-application="rowData">
+      <span></span>
+    </template>
+    </p-column>
+</p-dataTable>
+
+
+<<<<<<< HEAD
+<!--Dialog for ADD and Edit HTTP Request Header (s)-->
+<p-dialog header="{{isNew ? 'Add HTTP Request Header (s)' : 'Edit HTTP Request Header (s)'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
+    <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-3">
+                    <label>Header Name</label>
+                </div>
+                <div class="ui-g-5">
+                    <input name="btName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" autofocus required ngModel/>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-checkbox name="complete" label="Complete" [(ngModel)]="complete" binary="false"></p-checkbox>
+                </div>
+                <div class="ui-g-4">
+                    <p-checkbox name="specific" label="Specific" [(ngModel)]="specific" binary="false"></p-checkbox>
+                </div>
+            </div>
+            <div class="ui-g-12" *ngIf="specific">
+                <p-dataTable [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="15" [paginator]="true" [pageLinks]="3">
+                    <p-header>
+                        <span> Detail(s) </span>
+                        <span style="float: right; margin-top:-5px">
+                       <button pButton type="button" title="Add" (click)="openHTTPReqTypeValueDialog()" icon="fa-plus"></button>
+                       <button pButton type="button"title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
+                    </span>
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column class="col-overflow" field="valName" header="Display Name" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="valName" header="Type" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="lb" header="Left Bound" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="rb" header="Right Bound" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content">
+                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!--Dialog for ADD Value Types-->
+<p-dialog header="Add Custom Settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
+    <form (ngSubmit)="saveRules()" #groupForm="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label>Name</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesData.valName" placeholder="Name" autofocus required ngModel/>
+                </div>
+                <div class="ui-g-4">
+                    <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesData.type" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label>Left Bound</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesData.lb" placeholder="Left Bound" autofocus required ngModel/>
+                </div>
+                <div class="ui-g-2">
+                    <label>Right Bound</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesData.rb" placeholder="Right Bound" autofocus required ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content">
+                <button type="submit" pButton icon="fa-check" label="Add"></button>
+            </div>
+        </footer>
+    </form>
+
+</p-dialog>

@@ -94,11 +94,9 @@ export class ErrorDetectionComponent implements OnInit {
  editErrDetection(): void {
     this.configKeywordsService.editErrorDetection(this.errorDetectionDetail)
       .subscribe(data => {
-        console.log("edit ", data);
         let index = this.getErrorDetectionIndex();
         this.selectedErrorDetection.length = 0;
         this.selectedErrorDetection.push(data);
-        console.log("index", index);
         this.errorDetectionData[index] = data;
       });
     this.addEditErrorDetectionDialog=false;
