@@ -1,4 +1,4 @@
-<!--For showing HTTP Request Header list -->
+<!--For showing HTTP Request Header list 
 <p-dataTable [value]="httpRequestHeader" [(selection)]="selectedbusinessTransMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
         <span> HTTP Request Header (s)) </span>
@@ -27,7 +27,7 @@
 
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog header="Capture HTTP Request Custom Data" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="700" responsive="true">
+<!--<p-dialog header="Capture HTTP Request Custom Data" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="submitHTTPRequestCustomData()" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
@@ -93,4 +93,24 @@
             </div>
         </footer>
     </form>
-</p-dialog>
+</p-dialog>-->
+<div class="ui-g">
+    <div class="ui-g-12">
+        <div class="ui-g-2">
+            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="headerTypes" [(ngModel)]="selectedHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+        </div>
+        <div class="ui-g-6">
+            <p-multiSelect [options]="specifiedHeaderType" [disabled]="!(selectedHeader == 'Specified Headers')" [(ngModel)]="selectedCaptureMode"></p-multiSelect>
+            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-2">
+            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>
+        </div>
+        <div class="ui-g-5">
+            <label style="margin-right: 5px">Enter Range Of Characters</label>
+            <input name="btName" type="text" size="25" [disabled]="!(selectedCaptureMode == 'brief')" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+        </div>
+    </div>
+</div>
