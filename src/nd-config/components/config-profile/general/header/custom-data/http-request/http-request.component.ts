@@ -1,49 +1,11 @@
-// import { Component, OnInit } from '@angular/core';
-// import { ConfigUiUtility } from '../../../../../../utils/config-utility';
-// import { SelectItem } from 'primeng/primeng';
-
-// @Component({
-//   selector: 'app-http-request',
-//   templateUrl: './http-request.component.html',
-//   styleUrls: ['./http-request.component.css']
-// })
-// export class HttpRequestComponent implements OnInit {
-
-//   specifiedHeaderType: SelectItem[];
-//   selectedHeaderType: string;
-
-//   headerTypes: SelectItem[];
-//   selectedHeader: string;
-
-//   captureMode: SelectItem[];
-//   selectedCaptureMode: string;
-
-//   constructor() {
-//     var reqHdrList = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
-//       'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Cookie', 'DNT', 'Date', 'Expect',
-//       'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'Proxy-Connection',
-//       'Range', 'Referer', 'TE', 'Upgrade', 'User-Agent', 'Via', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
-//       'X-Requested-With', 'X-Wap-Profile'];
-
-//     this.specifiedHeaderType = ConfigUiUtility.createDropdown(reqHdrList);
-
-//     var reqHdrType = ['ALL Headers' , 'Specified Headers'];
-
-//     this.headerTypes = ConfigUiUtility.createDropdown(reqHdrType);
-
-//     var reqcaptureMode = ['complete' , 'brief'];
-
-//     this.captureMode = ConfigUiUtility.createDropdown(reqcaptureMode);
-
-
-//   }
-
-//   ngOnInit() {
-//   }
-
-// }
-
 import { Component, OnInit } from '@angular/core';
+import { ConfigUiUtility } from '../../../../../../utils/config-utility';
+import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
+import { HTTPRequestHdrComponentData,RulesHTTPRequestHdrComponentData } from '../../../../../../containers/instrumentation-data';
+import { httpReqHeaderInfo } from '../../../../../../interfaces/httpReqHeaderInfo';
+import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
+import { SelectItem,ConfirmationService } from 'primeng/primeng';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-http-request',
@@ -52,16 +14,145 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HttpRequestComponent implements OnInit {
 
-  constructor() { }
+  httpRequestHdrComponentInfo: httpReqHeaderInfo[];
 
+  /* Add and Edit HTTP Request Dialog open */
   httpRequestCustomDialog: boolean = false;
 
-  ngOnInit() {
+  /* Add and edit http request custom settings dialog */
+  rulesDialog: boolean = false;
+
+  isNew: boolean = false;
+
+  profileId: number;
+
+  httpRequestHdrDetail: HTTPRequestHdrComponentData;
+  httpRequestHdrInfo: HTTPRequestHdrComponentData[];
+  selectedHTTPReqHeader : any;
+
+  rulesData: RulesHTTPRequestHdrComponentData;
+  rulesDataInfo: RulesHTTPRequestHdrComponentData[];
+  selectedRulesData : any;
+
+  customValueType: SelectItem[];
+  
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) {
+    this.customValueType = [];
+    let arrLabel = ['String', 'Integer', 'Decimal'];
+    let arrValue = ['string', 'integer', 'decimal'];
+    this.customValueType = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
   }
 
-  openMethodDialog() {
+  ngOnInit() {
+    this.loadHTTPReqHeaderDetails();
+  }
+
+  loadHTTPReqHeaderDetails(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+    });
+    console.log("profile id - ",this.profileId);
+    this.configKeywordsService.getFetchHTTPReqHeaderTable('/29046').subscribe(data => this.constructTableData(data));
+  }
+
+
+
+  constructTableData(data) {
+    console.log("data - ", data)
+    for (let i = 0; i < data.length; i++) {
+      this.httpRequestHdrComponentInfo = data[i];
+    }
+    this.httpRequestHdrComponentInfo = this.filterData(data)
+    console.log("  this.httpRequestHdrComponentInfo == ", this.httpRequestHdrComponentInfo)
+  }
+
+  filterData(data): Array<httpReqHeaderInfo> {
+    var arrData = [];
+    for (var i = 0; i < data.length; i++) {
+      let rules = "";
+      let dumpModeTmp = "";
+
+      if (data[i].dumpMode == '1')
+        dumpModeTmp = 'Specific';
+      else
+        dumpModeTmp = 'Complete';
+
+      for (var j = 0; j < data[i].rules.length; j++) {
+        if (data[i].rules.length == 1)
+          rules = data[i].rules[j].valName;
+        else
+          rules = data[i].rules[j].valName + "," + rules;
+      }
+
+      console.log("rules - ", rules)
+      arrData.push({
+        headerName: data[i].headerName, dumpMode: dumpModeTmp, rules: rules
+      });
+    }
+    return arrData;
+
+  }
+  /* Open Dialog for Add Pattern */
+  openAddHTTPReqDialog() {
+    this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
+    this.rulesData = new RulesHTTPRequestHdrComponentData();
+
+    this.isNew = true;
     this.httpRequestCustomDialog = true;
   }
 
+  /** This method is used to open a dialog for add Type Values
+   */
+  openHTTPReqTypeValueDialog() {
+    // this.customValueTypeDetail = new SessionAtrributeComponetsData();
+    this.rulesDialog = true;
+  }
+
+  saveADDEditHTTPReqHeader()
+  {
+    console.log("saveADDEditHTTPReqHeader called")
+    
+  }
+
+  // Method for saving rules information
+  saveRules()
+  {
+    console.log("rules data - ", this.rulesData);
+    this.rulesDataInfo.push(this.rulesData);
+    console.log("rules data - ", this.rulesDataInfo.length);
+    this.rulesDialog = false;
+  }
+
+  deleteHeader() : void
+  {
+     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
+      this.configUtilityService.errorMessage("Please select for delete");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let selectedApp = this.selectedHTTPReqHeader;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].httpReqHdrBasedId);
+        }
+        this.configKeywordsService.deleteBusinessTransMethodData(arrAppIndex, '/29046')
+          .subscribe(data => {
+            // this.deleteMethodsBusinessTransactions(arrAppIndex);
+            // this.selectedbusinessTransMethod = [];
+            this.configUtilityService.infoMessage("Delete Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+  openMethodDialog() {
+    this.httpRequestCustomDialog = true;
+  }
 
 }

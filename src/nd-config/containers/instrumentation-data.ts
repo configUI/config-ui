@@ -171,3 +171,18 @@ export class SessionTypeValueData {
     type?: number;
     valName?: string;
   }
+
+  export class HTTPRequestHdrComponentData {
+    httpReqHdrBasedId: number;
+    headerName: string;
+    dumpMode: string;
+    rules: RulesHTTPRequestHdrComponentData[];
+}
+
+export class RulesHTTPRequestHdrComponentData {
+    ruleId: number;
+    valName: string;
+    lb: string;
+    rb: string;
+    type: string;
+}
