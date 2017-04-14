@@ -76,7 +76,7 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
-export class HttpStatsMonitorData{
+export class HttpStatsMonitorData{  //Http stats monitors by Surbhi
     compValue:string;
     condition: string;
     conditionName: string;

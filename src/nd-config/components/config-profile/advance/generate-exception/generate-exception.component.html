@@ -1,9 +1,9 @@
-<form *ngIf="genExceptionData" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
+<form *ngIf="genExceptionData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
 <p-panel header="Generate Exception in Method Settings">
      <p-header>
             <div class="pull-right">
                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
                     <button type="button" pButton icon="fa-refresh" label="Reset"></button>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="ui-g-3">
-                        <input name="fullName" type="text" size="30" [(ngModel)]="genExceptionData.fullyQaulifiedName" pInputText autofocus required ngModel/>
+                        <input name="fullName" type="text" size="30" pattern="a-zA-Z" [(ngModel)]="genExceptionData.fullyQaulifiedName" pInputText autofocus required ngModel/>
                     </div>
                 </div>
  

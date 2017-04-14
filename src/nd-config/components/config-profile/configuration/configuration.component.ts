@@ -15,6 +15,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   keywordGroup: any;
   profileId: number;
   subscription: Subscription;
+
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
       //Initialize groupkeyword values
       this.keywordGroup = this.configKeywordsService.keywordGroup;
@@ -97,6 +98,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           }
         }
       }
+
       //Saving keyword values
       this.configKeywordsService.saveProfileKeywords(this.profileId);
     }
@@ -105,6 +107,5 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-
   }
 }

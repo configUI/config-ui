@@ -1,3 +1,4 @@
+
 <div class="tabsincontent">
     <div class="header">FlowPath Capturing
          <div class="pull-right">
@@ -5,7 +6,7 @@
                     <button type="button" pButton icon="fa-refresh" label="Reset"></button>
             </div>
     </div>
-    <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm">
+    <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <p-panel>
         
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -19,7 +20,7 @@
                     </div>
 
                     <div class="ui-g-2">
-                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} oninvalid="this.setCustomValidity('Invalid')" required ngModel autofocus>
+                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} required ngModel autofocus>
                     </div>
                 </div>
 

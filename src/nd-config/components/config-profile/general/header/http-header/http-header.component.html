@@ -28,7 +28,7 @@
 
 <!--Dialog for adding Business Transaction Method-->
 <p-dialog header="Capture HTTP Request Custom Data" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="700" responsive="true">
-    <form (ngSubmit)="submitHTTPRequestCustomData()" #groupForm="ngForm">
+    <form (ngSubmit)="submitHTTPRequestCustomData()" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
             <div class="ui-g-12">

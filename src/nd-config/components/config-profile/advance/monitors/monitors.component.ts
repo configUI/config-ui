@@ -24,18 +24,20 @@ export class MonitorsComponent implements OnInit {
 
   /**It stores keyword data for showing in GUI */
   monitor: Object;
-  enableBTMonitorChk:boolean;
+  enableBTMonitorChk: boolean;
   subscription: Subscription;
+  enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.monitor = data;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.debug", this.monitor);
+      this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.monitors.enable;
     });
   }
-saveKeywordData() {
-  if (this.enableBTMonitorChk) {
+  saveKeywordData() {
+    if (this.enableBTMonitorChk) {
       this.monitor["enableBTMonitor"].value = 1;
     }
     else {
@@ -43,7 +45,7 @@ saveKeywordData() {
     }
     this.keywordData.emit(this.monitor);
   }
-  
+
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

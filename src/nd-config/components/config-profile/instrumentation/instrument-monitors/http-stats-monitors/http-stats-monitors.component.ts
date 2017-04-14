@@ -63,6 +63,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       this.profileId = params['profileId'];
     });
     this.configKeywordsService.getHttpStatsMonitorList(this.profileId).subscribe(data => {
+      //putting fpDumpMode values as labels instead of numbers
       for (var i = 0; i < data.length; i++) {
         if (data[i].fpDumpMode == '0')
           data[i].fpDumpMode = 'Disable';
