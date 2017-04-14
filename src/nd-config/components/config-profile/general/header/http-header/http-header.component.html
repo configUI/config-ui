@@ -1,116 +1,55 @@
-<!--For showing HTTP Request Header list 
-<p-dataTable [value]="httpRequestHeader" [(selection)]="selectedbusinessTransMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
-    <p-header>
-        <span> HTTP Request Header (s)) </span>
-        <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openMethodDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>
-                    </span>
-    </p-header>
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="col-overflow" field="name" header="Name" [sortable]="true">
-        <template let-col let-application="rowData">
-      <span></span>
-    </template>
-    </p-column>
-    <p-column class="col-overflow" field="captureMode" header="Capture Mode" [sortable]="true">
-        <template let-col let-application="rowData">
-      <span></span>
-    </template>
-    </p-column>
-    <p-column class="col-overflow" field="rules" header="Rules" [sortable]="true">
-        <template let-col let-application="rowData">
-      <span></span>
-    </template>
-    </p-column>
-</p-dataTable>
-
-
-<!--Dialog for adding Business Transaction Method-->
-<!--<p-dialog header="Capture HTTP Request Custom Data" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="700" responsive="true">
-    <form (ngSubmit)="submitHTTPRequestCustomData()" #groupForm="ngForm" ngNativeValidate>
-
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label>Header Name</label>
-                </div>
-                <div class="ui-g-8">
-                    <input name="headerName" type="text" size="48" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
-                </div>
-            </div>
-
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <p-checkbox name="enableArgumentType" label="Complete" [(ngModel)]="businessTransMethodDetail.enableArgumentType" binary="false"></p-checkbox>
-                </div>
-                <div class="ui-g-8">
-                    <p-checkbox name="enableArgumentType" label="Specific" [(ngModel)]="businessTransMethodDetail.enableArgumentType" binary="false"></p-checkbox>
-                </div>
-            </div>
-
-            <div class="ui-g-12">
-                <div class="ui-g-3">
-                    Return Type
-                </div>
-                <div class="ui-g-3">
-                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" appendTo="body" placeholder="Return Type"></p-dropdown>
-                </div>
-            </div>
-
-            <div class="ui-g-12">
-                <p-dataTable [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
-                    <p-header>
-                        <span>  Return Type Info </span>
-                        <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
-                    </span>
-                    </p-header>
-                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                    <p-column class="col-overflow" field="value" header="Value" [sortable]="true">
-                        <template let-col let-application="rowData">
-                   <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
-            </template>
-                    </p-column>
-                    <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
-                        <template let-col let-application="rowData">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
-                    </p-column>
-                    <p-column class="col-overflow" field="btName" header="BT Name" [sortable]="true">
-                        <template let-col let-application="rowData">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
-                    </p-column>
-                </p-dataTable>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>-->
 <div class="ui-g">
     <div class="ui-g-12">
+        <p-checkbox name="complete" label="Capture HTTP Request Header" [(ngModel)]="httpReqHeader" binary="true"></p-checkbox>
+    </div>
+</div>
+
+<div class="ui-g httpHeaderCss" *ngIf="httpReqHeader">
+    <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="headerTypes" [(ngModel)]="selectedHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="reqHeaderTypes" [(ngModel)]="selectedReqHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
         </div>
-        <div class="ui-g-6">
-            <p-multiSelect [options]="specifiedHeaderType" [disabled]="!(selectedHeader == 'Specified Headers')" [(ngModel)]="selectedCaptureMode"></p-multiSelect>
+        <div class="ui-g-10">
+            <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [disabled]="!(selectedReqHeader == 'Specified Headers')" [(ngModel)]="selectedReqHeaderType"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>
+            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="httpReqCaptureMode" binary="true"></p-checkbox>
+            <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!(selectedCaptureMode == 'brief')" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+            <input name="btName" type="text" size="25" [disabled]="!httpReqCaptureMode" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+        </div>
+    </div>
+</div>
+
+<div class="ui-g">
+    <div class="ui-g-12">
+        <p-checkbox name="specific" label="Capture HTTP Response Header" [(ngModel)]="httpResHeader" binary="true"></p-checkbox>
+    </div>
+</div>
+
+<div class="ui-g httpHeaderCss" *ngIf="httpResHeader">
+    <div class="ui-g-12">
+        <div class="ui-g-2">
+            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="resHeaderTypes" [(ngModel)]="selectedResHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+        </div>
+        <div class="ui-g-10">
+            <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [disabled]="!(selectedResHeader == 'Specified Headers')" [(ngModel)]="selectedResHeaderType"></p-multiSelect>
+            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-2">
+            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="httpResCaptureMode" binary="true"></p-checkbox>
+            <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
+        </div>
+        <div class="ui-g-5">
+            <label style="margin-right: 5px">Enter Range Of Characters</label>
+            <input name="btName" type="text" size="25" [disabled]="!httpResCaptureMode" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>

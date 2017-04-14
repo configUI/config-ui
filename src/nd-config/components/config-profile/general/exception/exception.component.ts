@@ -45,7 +45,6 @@ export class ExceptionComponent implements OnInit {
       }
     });
 
-    console.log("this.exception", this.exception);
     if ((this.exception["instrExceptions"].value).includes("%20")) {
       let arr = (this.exception["instrExceptions"].value).split("%20")
       this.exceptionData = new ExceptionData();

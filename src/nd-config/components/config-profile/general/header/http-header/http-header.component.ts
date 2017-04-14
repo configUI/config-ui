@@ -35,14 +35,20 @@ import { SelectItem } from 'primeng/primeng';
 })
 export class HttpHeaderComponent implements OnInit {
 
-  specifiedHeaderType: SelectItem[];
-  selectedHeaderType: string;
 
-  headerTypes: SelectItem[];
-  selectedHeader: string;
+  /* Request Header Drop Down */
+  specifiedReqHeaderType: SelectItem[];
+  selectedReqHeaderType: string;
 
-  captureMode: SelectItem[];
-  selectedCaptureMode: string;
+  reqHeaderTypes: SelectItem[];
+  selectedReqHeader: string;
+
+  /* Response Header Drop Down */
+  specifiedResHeaderType: SelectItem[];
+  selectedResHeaderType: string;
+
+  resHeaderTypes: SelectItem[];
+  selectedResHeader: string;
 
   constructor() {
     var reqHdrList = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
@@ -51,18 +57,25 @@ export class HttpHeaderComponent implements OnInit {
       'Range', 'Referer', 'TE', 'Upgrade', 'User-Agent', 'Via', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
       'X-Requested-With', 'X-Wap-Profile'];
 
-    this.specifiedHeaderType = ConfigUiUtility.createDropdown(reqHdrList);
+    this.specifiedReqHeaderType = ConfigUiUtility.createDropdown(reqHdrList);
 
-    var reqHdrType = ['ALL Headers' , 'Specified Headers'];
+    var reqHdrType = ['ALL Headers', 'Specified Headers'];
 
-    this.headerTypes = ConfigUiUtility.createDropdown(reqHdrType);
+    this.reqHeaderTypes = ConfigUiUtility.createDropdown(reqHdrType);
 
-    var reqcaptureMode = ['complete' , 'brief'];
+    var resHdrList = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
+      'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy',
+      'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified', 'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After',
+      'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security', 'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning',
+      'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
 
-    this.captureMode = ConfigUiUtility.createDropdown(reqcaptureMode);
+    this.specifiedResHeaderType = ConfigUiUtility.createDropdown(resHdrList);
 
+    var resHdrType = ['ALL Headers', 'Specified Headers'];
 
+    this.resHeaderTypes = ConfigUiUtility.createDropdown(resHdrType);
   }
+
 
   ngOnInit() {
   }
