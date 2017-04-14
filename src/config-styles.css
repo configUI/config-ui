@@ -54,7 +54,7 @@ button[md-icon-button] {
     background: rgba(255, 255, 255, 0.75);
     margin: 1px -19px;
     margin-bottom: 12px;
-    height: 30px;
+    /*height: 30px;*/
 }
 
 ul.cav-menu-ul {
@@ -171,4 +171,9 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 
 .tabsincontent .header .pull-right {
     margin: -2px 0 0;
+}
+
+.hyperlink {
+    text-decoration: underline;
+    cursor: pointer;
 }

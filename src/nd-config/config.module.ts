@@ -33,9 +33,10 @@ import {
   SpinnerModule,
   MultiSelectModule,
   ToggleButtonModule,
-  ChipsModule,
   AccordionModule,
-  FieldsetModule
+  FieldsetModule,
+  ChipsModule,
+  ToolbarModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -80,6 +81,7 @@ import { ProductIntegrationComponent } from './components/config-profile/product
 import { ConfigTopologyListComponent } from './components/config-topology-list/config-topology-list.component';
 import { ConfigNdAgentComponent } from './components/config-nd-agent/config-nd-agent.component';
 import { ConfigBreadcrumbComponent } from './components/config-breadcrumb/config-breadcrumb.component';
+import { ConfigMetaDataComponent } from './components/config-meta-data/config-meta-data.component';
 import { ConfigTreeMainComponent } from './components/config-tree-main/config-tree-main.component';
 import { ServiceEntryPointComponent } from './components/config-profile/instrumentation/service-entry-point/service-entry-point.component';
 import { IntegrationPtDetectionComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt-detection.component';
@@ -109,6 +111,7 @@ import { JavaMethodComponent } from './components/config-profile/general/header/
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
 import { HttpStatsMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
+
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -133,6 +136,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigTopologyListComponent,
     ConfigNdAgentComponent,
     ConfigBreadcrumbComponent,
+    ConfigMetaDataComponent,
     ConfigTreeMainComponent,
     ServiceEntryPointComponent,
     IntegrationPtDetectionComponent,
@@ -192,7 +196,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToggleButtonModule,
     ChipsModule,
     AccordionModule,
-    FieldsetModule
+    FieldsetModule,
+    ToolbarModule
   ],
 
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],

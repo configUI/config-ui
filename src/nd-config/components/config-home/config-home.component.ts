@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { ApplicationInfo } from '../../interfaces/application-info';
 import { ConfigHomeService } from '../../services/config-home.service';
+import { ConfigProfileService } from '../../services/config-profile.service'
+import { ConfigApplicationService } from '../../services/config-application.service'
+
 import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
 import { NDAgentInfo } from '../../interfaces/nd-agent-info';
@@ -23,7 +28,7 @@ export class ConfigHomeComponent implements OnInit {
   agentsInfo : NDAgentInfo[];
 
   ROUTING_PATH = ROUTING_PATH;
-  constructor(private configHomeService: ConfigHomeService) { }
+  constructor(private configHomeService: ConfigHomeService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
     this.loadHomeData();
@@ -43,6 +48,18 @@ export class ConfigHomeComponent implements OnInit {
 
   importTopology(): void{
     this.configHomeService.importTopology().subscribe(data=> this.topologyInfo = data);
+  }
+
+  routeToTreemain(selectedApplicationId, selectedApplicationName) {
+    //Observable application name 
+    this.configApplicationService.applicationNameObserver(selectedApplicationName);
+    this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedApplicationId]);
+  }
+
+  routeToConfiguration(selectedProfileId, selectedProfileName) {
+    //Observable profile name 
+    this.configProfileService.profileNameObserver(selectedProfileName);
+    this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
   }
 
 }

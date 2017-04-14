@@ -66,4 +66,9 @@ export class ConfigProfileListComponent implements OnInit {
     this.displayNewProfile = false;
   }
 
+  routeToConfiguration(selectedProfileId, selectedProfileName) {
+    //Observable profile name 
+    this.configProfileService.profileNameObserver(selectedProfileName);
+    this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
+  }
 }

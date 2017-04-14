@@ -6,22 +6,22 @@
 
     </div>
 
-<p-dataTable [value]="profileData" [(selection)]="selectedProfile">
-   
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-dataTable [value]="profileData" [(selection)]="selectedProfile">
 
-    <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate>
-      <span title="{{profile[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/profile/configuration', profile['profileId']]" >{{profile[col.field]}}</a></span>
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+
+        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
+            <template let-col let-profile="rowData" pTemplate>
+      <span title="{{profile[col.field]}}"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
     </template>
-    </p-column>
-    <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate>
+        </p-column>
+        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
+            <template let-col let-profile="rowData" pTemplate>
 
       <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
     </template>
-    </p-column>
-</p-dataTable>
+        </p-column>
+    </p-dataTable>
 </div>
 <!--Dialog for Adding New Profile -->
 <p-dialog header="Add New Profile Configuration " *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
