@@ -76,8 +76,8 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
-export class HttpStatsMonitorData{
-    compValue:string;
+export class HttpStatsMonitorData {
+    compValue: string;
     condition: string;
     conditionName: string;
     cookieName: string;
@@ -152,37 +152,22 @@ export class BusinessTransGlobalData {
     uriType: string;
 }
 
-export class SessionAtrributeComponetsData {
-    //  attrList : [{attrMode : number, attrName: string , attrType: string
-    //      ,attrValues:[{lb:string, rb:string,specAttrValId: number, type : string, valName: string }],sessAttrId: number }];
-    attrMode: number;
+export class SessionAtrributeComponentsData {
+    attrMode?: number;
     attrName: string;
     attrType: string;
-    lb: string;
-    rb: string;
-    specAttrValId: number;
-    type: string;
-    valName: string;
-    sessAttrId: number;
-    profileId: number;
-    sessionType: string;
+    specific?: boolean;
+    complete?: boolean;
+    sessAttrId?: number;
+    valName?: string;
+    attrValues: SessionTypeValueData[];
 }
 
-// export class SessionAtrributeComponetsData {
-//     //  attrList : [{attrMode : number, attrName: string , attrType: string
-//     //      ,attrValues:[{lb:string, rb:string,specAttrValId: number, type : string, valName: string }],sessAttrId: number }];
-//     // // // attrMode : number;
-//     // // attrName: string;
-//     // // attrType: string;
-//     // lb:string;
-//     // rb:string;
-//     // specAttrValId: number;
-//     // type : string;
-//     // valName: string;
-//     // sessAttrId :number ;
-//     attrName: string 
-//      profileId: number;
-//      sessionType : string;
-//      attrType: string;
-//      valName: string;
-// }
+export class SessionTypeValueData {
+    customValTypeName:string;
+    id?: number;
+    lb?: string;
+    rb?: string;
+    type?: number;
+    valName?: string;
+  }

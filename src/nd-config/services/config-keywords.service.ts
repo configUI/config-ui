@@ -8,8 +8,8 @@ import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
-import {  sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
-import {  BusinessTransMethodData, BusinessTransPatternData } from '../containers/instrumentation-data';
+// import {  sessionAttributeInfo } from '../interfaces/sessionAttributeInfo';
+import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData} from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 
 import { BackendInfo } from '../interfaces/instrumentation-info';
@@ -122,10 +122,19 @@ export class ConfigKeywordsService {
 
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
    */
-   getFetchSessionAttributeTable(profileId): Observable<sessionAttributeInfo[]> {
-    return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}${profileId}`);
+   getFetchSessionAttributeTable(profileId): Observable<SessionAtrributeComponentsData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}/${profileId}`);
   }
   
+  deleteSessionAttributeData(data): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_SESSION_ATTR}`,data) 
+  }
+
+  addSessionAttributeData(data, profileId): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_SPECIFIC_ATTR}/${profileId}`, data);
+  }
+
+
   //HTTP Stats Monitors
 
    addHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {

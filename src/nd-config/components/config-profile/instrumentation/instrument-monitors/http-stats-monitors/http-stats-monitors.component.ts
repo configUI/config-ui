@@ -142,8 +142,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   /**For showing HTTP Stats Condition dialog */
   openEditHTTPStatsDialog(): void {
-    console.log("hello------------", this.selectedHttpStatsMonitorData)
-    if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
+      if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
       this.configUtilityService.errorMessage("Select a field to edit");
       return;
     }
