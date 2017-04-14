@@ -1,4 +1,4 @@
-
+ <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
 <div class="tabsincontent">
     <div class="header">FlowPath Capturing
          <div class="pull-right">
@@ -6,7 +6,7 @@
                     <button type="button" pButton icon="fa-refresh" label="Reset"></button>
             </div>
     </div>
-    <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
+   
     <p-panel>
         
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -62,5 +62,6 @@
             </div>
         </div>
     </p-panel>
-</form>
+
 </div>
+</form>
