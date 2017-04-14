@@ -5,6 +5,7 @@ import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
+
 @Component({
   selector: 'app-advance',
   templateUrl: './advance.component.html',

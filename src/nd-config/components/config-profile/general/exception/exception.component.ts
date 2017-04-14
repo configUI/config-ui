@@ -20,8 +20,11 @@ export class ExceptionComponent implements OnInit {
   selectedValue: string = 'unhandled';
 
   exception: Object;
+  enableGroupKeyword:boolean
 
-  constructor(private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService) { 
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.exception.enable;
+  }
 
   exceptionData: ExceptionData;
 

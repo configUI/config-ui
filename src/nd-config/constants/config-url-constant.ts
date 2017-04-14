@@ -1,19 +1,16 @@
 // const SERVICE_URL = 'http://localhost:8090';
-// const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+ const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 // const  SERVICE_URL = 'http://10.10.60.77:8090';
- const  SERVICE_URL = 'http://10.10.50.6/configUI';
+// const  SERVICE_URL = 'http://10.10.50.6/configUI';
+//  const  SERVICE_URL = 'http://10.10.50.6/configUI';
 // const  SERVICE_URL = 'http://10.10.60.70:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
-//const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
  // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //  const  SERVICE_URL = 'http://10.10.30.26:8001/configUI';
 //const  SERVICE_URL = 'http://10.10.60.77:8090';
-
 //For Production use this SERVICE_URL
-
 //const SERVICE_URL = '/configUI';
-
 
 export const ROUTING_PATH: string = "";
 
@@ -126,7 +123,7 @@ export const DEL_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/delete
 
 
 /*URL for Http Stats Condition*/
-export const FETCH_HTTP_STATS_COND_TABLEDATA = `${SERVICE_URL}/custom/httpstatscondition/29046`;
+export const FETCH_HTTP_STATS_COND_TABLEDATA = `${SERVICE_URL}/custom/httpstatscondition/`;
 export const EDIT_ROW_HTTP_STATS_MONITOR_URL = `${SERVICE_URL}/custom/httpstatscondition/updateHTTPCond`;
 export const GET_HTTP_HEADERS_lIST =`${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
 export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/listoftypes`;

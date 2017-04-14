@@ -24,5 +24,7 @@ export const URL = {
     GENERAL: `${ROUTING_PATH}/profile/general`,
     INSTRUMENTATION: `${ROUTING_PATH}/profile/instrumentation`,
     ADVANCE: `${ROUTING_PATH}/profile/advance`,
-    INTEGRATION: `${ROUTING_PATH}/profile/integration`
+    INTEGRATION: `${ROUTING_PATH}/profile/integration`,
+
+    TREE_MAIN: `${ROUTING_PATH}/tree-main`
 };

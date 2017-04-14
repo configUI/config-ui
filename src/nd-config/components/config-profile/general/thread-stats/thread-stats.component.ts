@@ -13,13 +13,16 @@ export class ThreadStatsComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
 
-  /**These are those keyword which are used in current screen. */
+  /**These are those keyword which are used in current screen. */;
   keywordList: string[] = ['enableJVMThreadMonitor'];
 
   /**It stores keyword data for showing in GUI */
   threadStats: Object;
+  enableGroupKeyword: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService) {
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.thread_stats.enable;
+   }
 
   ngOnInit() {
     this.getKeywordData();

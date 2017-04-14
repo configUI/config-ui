@@ -151,4 +151,8 @@ export class HttpRequestComponent implements OnInit {
       }
     });
   }
+  openMethodDialog() {
+    this.httpRequestCustomDialog = true;
+  }
+
 }

@@ -90,7 +90,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to delete application */
   deleteApp(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select fields to delete");
       return;
     }
     this.confirmationService.confirm({

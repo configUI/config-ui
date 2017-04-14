@@ -93,8 +93,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.methodTypeList = ConfigUiUtility.createDropdown(arrLabel);
 
     this.globalBtDetail = new BusinessTransGlobalData();
-
-    /* Assign default value to slowTransaction */
+     /* Assign default value to slowTransaction */
     this.globalBtDetail.slowTransaction = '3000';
 
     /* Assign default value to slowTransaction */
@@ -102,7 +101,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     /* Assign default value to slowTransaction */
     this.globalBtDetail.segmentValue = '2';
-
+    
   }
 
   ngOnInit() {
@@ -120,14 +119,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   doAssignBusinessTransData(data) {
 
-    this.globalBtDetail = data._embedded.bussinessTransGlobal[0];
-    console.log("this.globalBtDetail.segmentURI--",this.globalBtDetail.segmentURI)
+    this.globalBtDetail = data._embedded.bussinessTransGlobal[1];
+    
     if (this.globalBtDetail.segmentURI == 'true')
       this.segmentURI = 'segmentOfURI';
     else
       this.segmentURI = 'complete';
 
-  console.log("this.globalBtDetail.segmentURI--",this.segmentURI)
     /* variable for Global BT  */
     if (this.globalBtDetail.httpMethod == true)
       this.httpMethod = 'httpMethod';

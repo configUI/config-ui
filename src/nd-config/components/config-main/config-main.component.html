@@ -1,5 +1,5 @@
 <div class="ui-g">
-    <div class="ui-g-1" class="app-sidenav">
+    <div class="ui-g-1" class="ndegui-sidenav">
 
         <app-config-left-side-bar></app-config-left-side-bar>
 
@@ -9,7 +9,7 @@
 
             <app-config-top-nav-bar></app-config-top-nav-bar>
 
-            <!--<md-progress-bar *ngIf="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>-->
+            <md-progress-bar [style.display]="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>
         </div>
 
         <div class="ui-g" style="height: 540px">

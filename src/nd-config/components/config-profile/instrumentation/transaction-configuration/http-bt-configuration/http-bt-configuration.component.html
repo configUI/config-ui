@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="ui-g" *ngIf="selectedQueryPattern == 'uriWithoutQueryParameters'" style="margin-bottom:10px; border: ridge;">
-    <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm">
+    <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g-12 header-font-size"> Select part of URI used in Transaction name </div>
 
         <div class="ui-g-12 padding-left-css">
@@ -149,7 +149,7 @@
 
 <!--Dialog for ADD and Edit Pattern-->
 <p-dialog header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
-    <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm">
+    <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
@@ -251,7 +251,7 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content">
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
             </div>
         </footer>

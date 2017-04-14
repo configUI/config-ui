@@ -24,13 +24,14 @@ export class DelayComponent implements OnInit {
   /**It stores keyword data for showing in GUI */
   delay: Object;
   delayData: DelayData;
-
+  enableGroupKeyword: boolean;
   subscription: Subscription;
-  constructor(private configKeywordsService: ConfigKeywordsService,private store: Store<KeywordList>) { 
-     this.subscription = this.store.select("keywordData").subscribe(data => {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+    this.subscription = this.store.select("keywordData").subscribe(data => {
       this.delay = data;
       console.log(this.className, "constructor", "this.delay", this.delay);
     });
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.delay.enable;
   }
   ngOnInit() {
     //Calling splitDelayKeywordData method
@@ -38,13 +39,12 @@ export class DelayComponent implements OnInit {
   }
 
   //Method to split the values of [putDelayInMethod] Keyword e.g. 20:33:1:0%20system%3BObject  will be splitted by :, %20 and %3B
-  splitDelayKeywordData()
-  {
+  splitDelayKeywordData() {
     console.log("this.delay", this.delay);
     if ((this.delay["putDelayInMethod"].value).includes("%20")) {
       let arr = (this.delay["putDelayInMethod"].value).split("%20")
       this.delayData = new DelayData();
-      let fqm=  arr[1].split("%3B").join(";");
+      let fqm = arr[1].split("%3B").join(";");
       this.delayData.fullyQualifiedName = fqm;
       if (arr[0].includes(":")) {
         let arrColon = arr[0].split(":");
@@ -90,8 +90,8 @@ export class DelayComponent implements OnInit {
   }
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {
-    let fqm=this.delayData.fullyQualifiedName.split(";").join("%3B");
-    let delayKeywordVaule = `${this.delayData.from}:${this.delayData.to}:${this.delayData.cpuHoggChk == true ? 1 : 0}:${this.delayData.autoInstrumentChk == true ? 1 : 0 }%20${fqm}`;
+    let fqm = this.delayData.fullyQualifiedName.split(";").join("%3B");
+    let delayKeywordVaule = `${this.delayData.from}:${this.delayData.to}:${this.delayData.cpuHoggChk == true ? 1 : 0}:${this.delayData.autoInstrumentChk == true ? 1 : 0}%20${fqm}`;
     return delayKeywordVaule;
   }
 

@@ -31,7 +31,7 @@
 
 <p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="600" responsive="true">
     
-    <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm">
+    <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
         <div class="ui-g-4">
             <label>Entry Point Type</label>
@@ -76,9 +76,9 @@
     </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
             <button type="submit" pButton icon="fa-check" label="Save"></button>
-        </div>
+            <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
+            </div>
     </footer>
    </form>
 </p-dialog>

@@ -11,8 +11,10 @@ import { SelectItem } from 'primeng/primeng';
 })
 
 export class InstrumentationProfilesComponent implements OnInit {
-
-  constructor(private configKeywordsService: ConfigKeywordsService) { }
+  enableGroupKeyword:boolean;
+  constructor(private configKeywordsService: ConfigKeywordsService) {
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.instrumentation_profiles.enable;
+   }
 
 
   //Here profileId is used for fetching list of xml files
