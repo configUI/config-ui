@@ -5,7 +5,7 @@
                 <md-card-content>
                    <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL</a></div>
                     <div class="ui-g">
-                        <div class="ui-g-8">
+                        <div class="ui-g-8 card-toggle">
                             <div>
                                 <!--keywordGroup {{keywordGroup.general | json}}-->
 
@@ -88,7 +88,7 @@
                 <md-card-content>
            <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE</a></div>
                     <div class="ui-g">
-                        <div class="ui-g-8">
+                        <div class="ui-g-8 card-toggle">
                             <div>
                                 <md-slide-toggle (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level Capturing</a></md-slide-toggle>
                             </div>
@@ -118,7 +118,7 @@
 
                   <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION</a></div>
                     <div class="ui-g">
-                        <div class="ui-g-8">
+                        <div class="ui-g-8 card-toggle">
                             <div>
                                 <md-slide-toggle (click)="change('nvcookie')" [(ngModel)]="keywordGroup.product_integration.nvcookie.enable"><a [routerLink]="['../../integration', profileId, 0]" class="contents">NV Cookie</a></md-slide-toggle>
                             </div>

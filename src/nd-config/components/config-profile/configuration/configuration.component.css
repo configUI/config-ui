@@ -38,6 +38,7 @@
 #top-div md-card {
     height: 200px;
     margin:6px;
+    padding: 20px;
 }
 .contents:hover {
     text-decoration: underline;
@@ -47,7 +48,7 @@ a {
     color: white;
 }
 #top-div .mat-slide-toggle {
-     margin: 5px 0 0;
+     margin: 4px 0 0;
 }
 #top-div .heading {
     margin-bottom: 12px;
@@ -75,3 +76,4 @@ a {
     padding: 5px;
     list-style-type: none;
 }
+

@@ -3,6 +3,80 @@
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~https://fonts.googleapis.com/icon?family=Open+Sans';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/*---------------Fonts CSS---------------*/
+
+@charset "UTF-8";
+@font-face {
+    font-family: "ndegui-icon";
+    src: url("fonts/ndegui-icon.eot");
+    src: url("fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"), url("fonts/ndegui-icon.woff") format("woff"), url("fonts/ndegui-icon.ttf") format("truetype"), url("fonts/ndegui-icon.svg#ndegui-icon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "ndegui-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="ndegui-"]:before,
+[class*=" ndegui-"]:before {
+    font-family: "ndegui-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.ndegui-home:before {
+    content: "\e00a";
+}
+
+.ndegui-group:before {
+    content: "\e001";
+}
+
+.ndegui-nd-agent:before {
+    content: "\e002";
+}
+
+.ndegui-topology:before {
+    content: "\e003";
+}
+
+.ndegui-profile:before {
+    content: "\e004";
+}
+
+.ndegui-application:before {
+    content: "\e005";
+}
+
+.ndeicon {
+    margin: 0;
+    margin-right: 10px;
+    color: #162a36 !important;
+    overflow: hidden;
+    float: left;
+    font-size: 4em;
+}
+
+
+/*------------------*/
+
 body {
     font-family: 'Open Sans', sans-serif !important;
     background: url('assets/img/wall_num5.jpg');
@@ -30,6 +104,10 @@ body {
     /*min-width: 19%;*/
 }
 
+.main .ui-g {
+    margin: 0px !important;
+}
+
 
 /*-----------------Cutom CSS---------------*/
 
@@ -53,8 +131,7 @@ button[md-icon-button] {
     font-size: 12px;
     background: rgba(255, 255, 255, 0.75);
     margin: 1px -19px;
-    margin-bottom: 12px;
-    /*height: 30px;*/
+    margin-bottom: 8px;
 }
 
 ul.cav-menu-ul {
@@ -106,6 +183,22 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     border-top-left-radius: 4px;
 }
 
+.header-content {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    padding: 6px;
+    margin: 10px 0 0 0;
+    background: #31669f;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
 .ndegui_left button {
     background: transparent !important;
 }
@@ -129,13 +222,18 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 }
 
 .tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
-    background: #2B5797;
+    background: #71a1e6;
     font-weight: normal;
     color: #fff;
 }
 
 .tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default {
-    background: lightslategray;
+    background: #e7eef5;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav li a,
+.ui-tabview.ui-tabview-collapsible .ui-tabview-nav li.ui-tabview-selected a {
+    color: #000 !important;
 }
 
 .tabs-all .ui-tabview.ui-tabview-top>.ui-tabview-nav {
@@ -176,4 +274,14 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 .hyperlink {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.card-toggle .mat-slide-toggle-thumb {
+    height: 16px;
+    width: 16px;
+}
+
+.card-toggle .mat-slide-toggle-bar {
+    width: 33px;
+    height: 12px;
 }

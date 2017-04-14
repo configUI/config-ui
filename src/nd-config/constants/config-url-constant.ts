@@ -16,6 +16,7 @@ const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 
 
 export const ROUTING_PATH: string = "";
+// export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
