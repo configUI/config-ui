@@ -1,13 +1,15 @@
-<form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-    <p-panel header="Hotspot Capturing">
-        <p-header>
-            <div class="pull-right">
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+<div class="tabsincontent">
+     <div class="header">Hotspot Capturing
+         <div class="pull-right">
+                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save" ngNativeValidate></button>
                     <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-                </div>
+
             </div>
-        </p-header>
+    </div>
+
+    <form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm">
+    <p-panel>
+        
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
 
             <div class="ui-g">
@@ -102,3 +104,4 @@
         </div>
     </p-panel>
 </form>
+</div>

@@ -1,9 +1,9 @@
 <div class="ui-g-12" id=top-div>
-    <div class="ui-g" style="height:50%">
+    <div class="ui-g">
         <div class="ui-g-6">
-            <md-card style="background: #413CD0;">
+            <md-card class="card1">
                 <md-card-content>
-                    <a [routerLink]="['../../general', profileId, 0]">GENERAL</a>
+                   <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8">
                             <div>
@@ -28,33 +28,33 @@
                             </div>
                         </div>
                         <div class="ui-g-4">
-                            <i class="fa fa-users" style="font-size: 150px;color:white;"></i>
+                            <i class="fa fa-users icon_big"></i>
                         </div>
                     </div>
                 </md-card-content>
             </md-card>
         </div>
         <div class="ui-g-6">
-            <md-card style="background: #407445;">
+            <md-card class="card2">
                 <md-card-content>
-                    <a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION</a>
+                     <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8">
-                            <ul>
+                            <ul class="intrumentation">
                                 <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents">Service Entry Point</a>
+                                    <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Service Entry Point</a>
                                 </li>
                                 <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents">Integration Point Detection</a>
+                                    <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Integration Point Detection</a>
                                 </li>
                                 <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 2]" class="contents">Transaction Configuration</a>
+                                    <a [routerLink]="['../../instrumentation', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Transaction Configuration</a>
                                 </li>
                                 <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 3]" class="contents">Instrument Monitors</a>
+                                    <a [routerLink]="['../../instrumentation', profileId, 3]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Instrument Monitors</a>
                                 </li>
                                 <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 4]" class="contents">Error detection</a>
+                                    <a [routerLink]="['../../instrumentation', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error detection</a>
                                 </li>
                             </ul>
                             <!--<div>
@@ -74,7 +74,7 @@
                             </div>-->
                         </div>
                         <div class="ui-g-4">
-                            <i class="fa fa-cube" style="font-size: 150px;color:white;"></i>
+                            <i class="fa fa-cube icon_big"></i>
                         </div>
                     </div>
                 </md-card-content>
@@ -84,9 +84,9 @@
     </div>
     <div class="ui-g">
         <div class="ui-g-6">
-            <md-card style="background: #9043BC;">
+            <md-card class="card3">
                 <md-card-content>
-                    <a [routerLink]="['../../advance', profileId, 0]">ADVANCE</a>
+           <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8">
                             <div>
@@ -106,16 +106,17 @@
                             </div>
                         </div>
                         <div class="ui-g-4">
-                            <i class="fa fa-cog" style="font-size: 150px;color:white;"></i>
+                            <i class="fa fa-cog icon_big"></i>
                         </div>
                     </div>
                 </md-card-content>
             </md-card>
         </div>
         <div class="ui-g-6">
-            <md-card style="background: #221D24;">
+            <md-card class="card4">
                 <md-card-content>
-                    <a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION</a>
+
+                  <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8">
                             <div>
@@ -123,7 +124,7 @@
                             </div>
                         </div>
                         <div class="ui-g-4">
-                            <i class="fa fa-refresh" style="font-size: 150px;color:white;"></i>
+                            <i class="fa fa-refresh icon_big"></i>
                         </div>
                     </div>
                 </md-card-content>
