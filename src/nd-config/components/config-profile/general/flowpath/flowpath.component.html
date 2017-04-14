@@ -1,4 +1,4 @@
-<form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm">
+<form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <p-panel header="FlowPath Capturing">
         <p-header>
             <div class="pull-right">
@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="ui-g-2">
-                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} oninvalid="this.setCustomValidity('Invalid')" required ngModel autofocus>
+                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} required ngModel autofocus>
                     </div>
                 </div>
 

@@ -35,7 +35,7 @@
 
 <p-dialog header="{{isNewHttpStatsMonitor ? 'Add HTTP Stats Condition' : 'Edit HTTP Stats Condition'}}" *ngIf="addEditHttpStatsMonitorDialog"
   [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true">
-  <form (ngSubmit)="saveHttpStatsMonitor()" #groupForm="ngForm">
+  <form (ngSubmit)="saveHttpStatsMonitor()" #groupForm="ngForm" ngNativeValidate>
     <div class="ui-g">
       <div class="ui-g-3">
         <label>Name</label>
@@ -136,8 +136,8 @@
 
     <footer>
       <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-        <button type="button" pButton icon="fa-close" (click)="addEditHttpStatsMonitorDialog=false" label="Cancel"></button>
         <button type="submit" pButton icon="fa-check" label="Save"></button>
+        <button type="button" pButton icon="fa-close" (click)="addEditHttpStatsMonitorDialog=false" label="Cancel"></button>
       </div>
     </footer>
   </form>

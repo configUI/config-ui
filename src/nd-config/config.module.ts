@@ -33,7 +33,9 @@ import {
   SpinnerModule,
   MultiSelectModule,
   ToggleButtonModule,
-  AccordionModule
+  ChipsModule,
+  AccordionModule,
+  FieldsetModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -105,11 +107,8 @@ import { HttpRequestComponent } from './components/config-profile/general/header
 import { SessionAttributeComponent } from './components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
 import { JavaMethodComponent } from './components/config-profile/general/header/custom-data/java-method/java-method.component';
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
-import { ChipsModule } from 'primeng/primeng';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
 import { HttpStatsMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
-
-import { FieldsetModule } from 'primeng/primeng';
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };

@@ -97,7 +97,7 @@
 
 <!--Dialog for ADD Value Types-->
 <p-dialog header="" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="550" responsive="true">
-    <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm">
+    <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-2">

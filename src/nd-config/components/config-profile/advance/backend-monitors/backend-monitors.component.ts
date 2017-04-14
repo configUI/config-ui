@@ -26,6 +26,7 @@ export class BackendMonitorsComponent implements OnInit {
   backend: Object;
   enableBackendMonitorChk: boolean;
   subscription: Subscription;
+  enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -33,6 +34,7 @@ export class BackendMonitorsComponent implements OnInit {
       this.enableBackendMonitorChk = this.backend["enableBackendMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.backend", this.backend);
     });
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.backend_monitors.enable;
   }
   saveKeywordData() {
     if (this.enableBackendMonitorChk) {

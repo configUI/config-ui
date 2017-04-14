@@ -35,7 +35,7 @@
 
 <!--Dialog for changing profile-------->
 <p-dialog header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm">
+    <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
      
         <div class="ui-g">
             <div class="ui-g-4">
