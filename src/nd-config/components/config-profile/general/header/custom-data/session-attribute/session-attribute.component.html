@@ -9,7 +9,7 @@
 
 <div class="ui-g" *ngIf="selectedSessionAttribute == 'specific'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Session Attribute(s) list -->
-    <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="10" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="5" [paginator]="true" [pageLinks]="3">
         <p-header>
             <span> Session Attribute(s) </span>
             <span style="float: right; margin-top:-5px">

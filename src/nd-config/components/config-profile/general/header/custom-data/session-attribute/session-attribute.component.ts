@@ -56,7 +56,7 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   doAssignSessionAttributeTableData(data) {
-      this.sessionAttributeComponentInfo = this.filterTRData(data)
+    this.sessionAttributeComponentInfo = this.filterTRData(data)
   }
   filterTRData(data): Array<SessionAtrributeComponentsData> {
     var arrTestRunData = [];
@@ -74,7 +74,7 @@ export class SessionAttributeComponent implements OnInit {
         else
           valueNames = valueNames + "," + data.attrList[i].attrValues[j].valName;
       }
-     
+
       arrTestRunData.push({
         attrName: data.attrList[i].attrName, attrType: data.attrList[i].attrType, valName: valueNames, sessAttrId: data.attrList[i].sessAttrId,
       });
@@ -251,6 +251,10 @@ export class SessionAttributeComponent implements OnInit {
       rowIndex.push(this.getSessionAttributeIndex(arrIndex[index]));
     }
     this.sessionAttributeComponentInfo = deleteMany(this.sessionAttributeComponentInfo, rowIndex);
+  }
+
+  closeDialog() {
+   this.addEditSessionAttrDialog = false;
   }
 
 }
