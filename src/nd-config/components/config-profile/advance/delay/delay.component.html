@@ -1,9 +1,9 @@
-<form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm">
+<form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <p-panel header="Delay in Method Settings">
         <p-header>
             <div class="pull-right">
                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
                     <button type="button" pButton icon="fa-refresh" label="Reset"></button>
                 </div>
             </div>

@@ -30,7 +30,7 @@
 
 <p-dialog header="{{isNewMethodMonitor ? 'Add Method Monitor' : 'Edit Method Monitor'}}" *ngIf="addEditMethodMonitorDialog"
   [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
-  <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm">
+  <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
     <div class="ui-g">
       <div class="ui-g-4">
         <label>Display Name</label>
@@ -59,8 +59,8 @@
     </div>
     <footer>
       <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-        <button type="button" pButton icon="fa-close" (click)="addEditMethodMonitorDialog=false" label="Cancel"></button>
         <button type="submit" pButton icon="fa-check" label="Save"></button>
+        <button type="button" pButton icon="fa-close" (click)="addEditMethodMonitorDialog=false" label="Cancel"></button>
       </div>
     </footer>
   </form>

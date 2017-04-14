@@ -33,11 +33,14 @@ import {
   SpinnerModule,
   MultiSelectModule,
   ToggleButtonModule,
-  AccordionModule
+  AccordionModule,
+  FieldsetModule,
+  ChipsModule,
+  ToolbarModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
-import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 
 import 'hammerjs';
 
@@ -78,6 +81,7 @@ import { ProductIntegrationComponent } from './components/config-profile/product
 import { ConfigTopologyListComponent } from './components/config-topology-list/config-topology-list.component';
 import { ConfigNdAgentComponent } from './components/config-nd-agent/config-nd-agent.component';
 import { ConfigBreadcrumbComponent } from './components/config-breadcrumb/config-breadcrumb.component';
+import { ConfigMetaDataComponent } from './components/config-meta-data/config-meta-data.component';
 import { ConfigTreeMainComponent } from './components/config-tree-main/config-tree-main.component';
 import { ServiceEntryPointComponent } from './components/config-profile/instrumentation/service-entry-point/service-entry-point.component';
 import { IntegrationPtDetectionComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt-detection.component';
@@ -105,11 +109,9 @@ import { HttpRequestComponent } from './components/config-profile/general/header
 import { SessionAttributeComponent } from './components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
 import { JavaMethodComponent } from './components/config-profile/general/header/custom-data/java-method/java-method.component';
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
-import { ChipsModule } from 'primeng/primeng';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
 import { HttpStatsMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
-import { FieldsetModule } from 'primeng/primeng';
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -134,6 +136,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigTopologyListComponent,
     ConfigNdAgentComponent,
     ConfigBreadcrumbComponent,
+    ConfigMetaDataComponent,
     ConfigTreeMainComponent,
     ServiceEntryPointComponent,
     IntegrationPtDetectionComponent,
@@ -193,7 +196,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToggleButtonModule,
     ChipsModule,
     AccordionModule,
-    FieldsetModule
+    FieldsetModule,
+    ToolbarModule
   ],
 
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],

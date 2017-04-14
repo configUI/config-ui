@@ -11,7 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-debug',
   templateUrl: './debug.component.html',
-  styleUrls: ['./debug.component.css'] 
+  styleUrls: ['./debug.component.css']
 })
 export class DebugComponent {
   @Output()
@@ -24,14 +24,15 @@ export class DebugComponent {
 
   /**It stores keyword data for showing in GUI */
   debug: Object;
-
+  enableGroupKeyword: boolean;
   subscription: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
-    
+
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.debug = data;
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
+    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.debug.enable;
   }
 
   ngOnInit() {
@@ -41,11 +42,11 @@ export class DebugComponent {
     this.keywordData.emit(this.debug);
   }
   //Method to reset the default values of the keywords
-  resetDefaultValues(){
-    
+  resetDefaultValues() {
+
   }
 
-  ngOnDestroy() { 
+  ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
   }

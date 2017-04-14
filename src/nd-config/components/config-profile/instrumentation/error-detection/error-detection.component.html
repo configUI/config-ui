@@ -38,7 +38,7 @@
 <!--Dialog for Error  Detection-->
 
 <p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal"  width="500" responsive="true">
-   <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm">
+   <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm" ngNativeValidate>
     <div class="ui-g">
         <div class="ui-g-4">
             <label>Rule Name</label>
@@ -83,8 +83,8 @@
     </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
             <button type="submit" pButton icon="fa-check" label="Save"></button>
+            <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
         </div>
     </footer>
    </form>

@@ -35,6 +35,13 @@ export class HttpStatsMonitorsComponent implements OnInit {
   stringOP: SelectItem[];
   numericOP: SelectItem[];
   othersOP: SelectItem[];
+  selectedRequestHeader: number;
+  selectedResponseHeader: number;
+  selectedOthersOp: number;
+  selectedNumericOp: number;
+  selectedStringOp: number;
+  selectedHeaderType: number;
+  selectedValueType: number;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
@@ -44,92 +51,102 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.loadFlowDumpData();
     this.loadHeaderType();
     this.loadRequestHeader();
-    this.loadResponsetHeader();
+    this.loadResponseHeader();
     this.loadValueType();
     this.loadStringOP();
     this.loadNumericOP();
     this.loadOthersOP();
   }
 
-   loadHttpStatsMonitorList() {
-     this.route.params.subscribe((params: Params) => {
+  loadHttpStatsMonitorList() {
+    this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
     });
     this.configKeywordsService.getHttpStatsMonitorList(this.profileId).subscribe(data => {
+      //putting fpDumpMode values as labels instead of numbers
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].fpDumpMode == '0')
+          data[i].fpDumpMode = 'Disable';
+        if (data[i].fpDumpMode == '1')
+          data[i].fpDumpMode = 'Enable';
+        if (data[i].fpDumpMode == '2')
+          data[i].fpDumpMode = 'Enable Forcefully';
+      }
       this.httpStatsMonitorData = data;
+
     });
   }
 
   //This method loads Flow dump Mode values
   loadFlowDumpData() {
     this.flowDumpData = [];
-    var flowDumpLabel = ['0', '1', '2'];
-    var flowDumpVal = ['0', '1', '2'];
-    this.flowDumpData = ConfigUiUtility.createListWithKeyValue(flowDumpLabel,flowDumpVal);
+    var flowDumpLabel = ['--Select--', 'Disable', 'Enable', ' Enable Forcefully'];
+    var flowDumpVal = ['-1', '0', '1', '2'];
+    this.flowDumpData = ConfigUiUtility.createListWithKeyValue(flowDumpLabel, flowDumpVal);
   }
   //This method loads Header Type values
   loadHeaderType() {
     this.headerType = [];
-    var headerTypeLabel = ['Request', 'Response', 'Cookie'];
-    var headerTypeVal = ['1', '2', '3'];
-    this.headerType = ConfigUiUtility.createListWithKeyValue(headerTypeLabel,headerTypeVal);
+    var headerTypeLabel = ['--Select--', 'Request', 'Response', 'Cookie'];
+    var headerTypeVal = ['0', '1', '2', '3'];
+    this.headerType = ConfigUiUtility.createListWithKeyValue(headerTypeLabel, headerTypeVal);
   }
   //This method loads Header request drop-down values
-  loadRequestHeader() {
-    this.requestHeader = [];
-    var reqHdrLabel = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
+  loadResponseHeader() {
+    this.responseHeader = [];
+    var resHdrLabel = ['--Select--', 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
       'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect',
       'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'If-Unmodified-Since',
       'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer',
       'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
       'X-Requested-With', 'X-Wap-Profile'];
 
-    var reqHdrVal = ['41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58',
+    var resHdrVal = ['0', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58',
       '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83'];
 
-    this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
+    this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
   }
-  //This method loads Header response drop-down values
-  loadResponsetHeader() {
-    this.responseHeader = [];
-    var resHdrLabel = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
+  //This method loads Header request drop-down values
+  loadRequestHeader() {
+    this.requestHeader = [];
+    var reqHdrLabel = ['--Select--', 'Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
       'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
       'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
       'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
       'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
 
-    var resHdrVal = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
+    var reqHdrVal = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
       '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'];
 
-    this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
+    this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
   }
   //This method loads Value types in drop-down menu
   loadValueType() {
     this.valueType = [];
-    var valueTypeLabel = ['String', 'Numeric', 'Others'];
-    var valueTypeVal = ['1', '2', '3'];
-    this.valueType = ConfigUiUtility.createListWithKeyValue(valueTypeLabel,valueTypeVal);
+    var valueTypeLabel = ['--Select--', 'String', 'Numeric', 'Others'];
+    var valueTypeVal = ['0', '1', '2', '3'];
+    this.valueType = ConfigUiUtility.createListWithKeyValue(valueTypeLabel, valueTypeVal);
   }
-//This method loads operators for String values
-  loadStringOP(){
+  //This method loads operators for String values
+  loadStringOP() {
     this.stringOP = [];
-    var stringOPLabel = ['=', '!=', 'contains','!contains'];
-    var stringOPVal = ['1', '2', '3', '4'];
-    this.stringOP = ConfigUiUtility.createListWithKeyValue(stringOPLabel,stringOPVal);
+    var stringOPLabel = ['--Select--', '=', '!=', 'contains', '!contains'];
+    var stringOPVal = ['0', '1', '2', '3', '4'];
+    this.stringOP = ConfigUiUtility.createListWithKeyValue(stringOPLabel, stringOPVal);
   }
 
-  loadNumericOP(){
-      this.numericOP = [];
-    var numericOPLabel = ['=', '!=', '<', '<=', '>', '>='];
-    var numericOPVal = ['1', '2', '3', '4', '5', '6'];
-    this.numericOP = ConfigUiUtility.createListWithKeyValue(numericOPLabel,numericOPVal);
+  loadNumericOP() {
+    this.numericOP = [];
+    var numericOPLabel = ['--Select--', '=', '!=', '<', '<=', '>', '>='];
+    var numericOPVal = ['0', '1', '2', '3', '4', '5', '6'];
+    this.numericOP = ConfigUiUtility.createListWithKeyValue(numericOPLabel, numericOPVal);
   }
 
-  loadOthersOP(){
+  loadOthersOP() {
     this.othersOP = [];
-    var othersOPLabel = ['PRESENT','!PRESENT'];
-    var othersOPVal = ['1', '2'];
-    this.othersOP = ConfigUiUtility.createListWithKeyValue(othersOPLabel,othersOPVal);
+    var othersOPLabel = ['--Select--', 'PRESENT', '!PRESENT'];
+    var othersOPVal = ['0', '1', '2'];
+    this.othersOP = ConfigUiUtility.createListWithKeyValue(othersOPLabel, othersOPVal);
 
   }
 
@@ -142,7 +159,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   /**For showing HTTP Stats Condition dialog */
   openEditHTTPStatsDialog(): void {
-      if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
+    if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
+
       this.configUtilityService.errorMessage("Select a field to edit");
       return;
     }
@@ -150,9 +168,9 @@ export class HttpStatsMonitorsComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one field to edit");
       return;
     }
-    this.httpStatsMonitorDetail = new HttpStatsMonitorData();
+    // this.httpStatsMonitorDetail = new HttpStatsMonitorData();
     this.isNewHttpStatsMonitor = false;
-    this.httpStatsMonitorDetail = new HttpStatsMonitorData();
+    // this.httpStatsMonitorDetail = new HttpStatsMonitorData();
     this.addEditHttpStatsMonitorDialog = true;
     this.httpStatsMonitorDetail = Object.assign({}, this.selectedHttpStatsMonitorData[0]);
   }
@@ -185,69 +203,93 @@ export class HttpStatsMonitorsComponent implements OnInit {
       }
     }
   }
+
   editHttpStatsMonitor(): void {
-    this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail)
+    this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
-        console.log("edit ", data);
-        let index = this.getMethodMonitorIndex();
+        let index = this.getAppIndex(this.httpStatsMonitorDetail.hscid);
         this.selectedHttpStatsMonitorData.length = 0;
         this.selectedHttpStatsMonitorData.push(data);
-        console.log("index", index);
         this.httpStatsMonitorData[index] = data;
       });
     this.addEditHttpStatsMonitorDialog = false;
   }
 
-  getMethodMonitorIndex(): number {
-    if (this.httpStatsMonitorDetail) {
-      let statsId = this.httpStatsMonitorDetail.valId;
-      for (let i = 0; i < this.httpStatsMonitorData.length; i++) {
-        if (this.httpStatsMonitorData[i].valId == statsId) {
-          return i;
-        }
-      }
-    }
-    return -1;
-  }
   /**This method save HTTP Stats Condition data at backend */
   saveHttpStatsMonitorData(): void {
-    console.log("datavaaallues",this.httpStatsMonitorDetail);
-    this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
-      .subscribe(data => {
-        //Insert data in main table after inserting HTTP Stats Condition in DB
-        this.httpStatsMonitorData.push(data);
-      });
-    this.addEditHttpStatsMonitorDialog = false;
+    //Calling method which will store values in httpStatsMonitorDetail object 
+    this.saveDataInObject();
+    //Error messages for every fields
+    if (!this.httpStatsMonitorDetail.conditionName)
+      this.configUtilityService.errorMessage("Condition Name Cannot be Blank");
+    else if (!this.httpStatsMonitorDetail.fpDumpMode)
+      this.configUtilityService.errorMessage("Select a Flow Dump Mode");
+    else if (!this.httpStatsMonitorDetail.htId)
+      this.configUtilityService.errorMessage("Select a Header Type");
+    else if (!this.httpStatsMonitorDetail.hmdId && !this.httpStatsMonitorDetail.cookieName)
+      this.configUtilityService.errorMessage("Select a Header Name/Cookie Value");
+    else if (!this.httpStatsMonitorDetail.valId)
+      this.configUtilityService.errorMessage("Select a Value Type");
+    else if (!this.httpStatsMonitorDetail.optId)
+      this.configUtilityService.errorMessage("Select an Operator Type ");
+    else if (!this.httpStatsMonitorDetail.compValue)
+      this.configUtilityService.errorMessage("Comparison Value cannot be blank");
+    else if (!this.httpStatsMonitorDetail.description)
+      this.configUtilityService.errorMessage("Write a Description");
+
+    else {
+      this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
+        .subscribe(data => {
+          //Putting fpDumpMode values;
+
+          if (data.fpDumpMode == '0')
+            data.fpDumpMode = 'Disable';
+          if (data.fpDumpMode == '1')
+            data.fpDumpMode = 'Enable';
+          if (data.fpDumpMode == '2')
+            data.fpDumpMode = 'Enable Forcefully';
+          //Insert data in main table after inserting HTTP Stats Condition in DB
+          this.httpStatsMonitorData.push(data);
+          this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
+        });
+      this.addEditHttpStatsMonitorDialog = false;
+    }
+  }
+
+  //Method will store the values from inputs into table
+  saveDataInObject() {
+    this.httpStatsMonitorDetail.htId = this.selectedHeaderType;
+    this.httpStatsMonitorDetail.valId = this.selectedValueType;
+    if (this.httpStatsMonitorDetail.htId == 1)
+      this.httpStatsMonitorDetail.hmdId = this.selectedRequestHeader;
+    else if (this.httpStatsMonitorDetail.htId == 2)
+      this.httpStatsMonitorDetail.hmdId = this.selectedResponseHeader;
+    if (this.selectedValueType == 1)
+      this.httpStatsMonitorDetail.optId = this.selectedStringOp;
+    if (this.selectedValueType == 2)
+      this.httpStatsMonitorDetail.optId = this.selectedNumericOp;
+    if (this.selectedValueType == 3)
+      this.httpStatsMonitorDetail.optId = this.selectedOthersOp;
   }
 
   /**This method is used to delete HTTP Stats Condition */
   deleteHTTPStats(): void {
-    console.log("hello--------->")
     if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
       this.configUtilityService.errorMessage("Select fields to delete");
       return;
     }
-    console.log("data for deletion is--------->", this.selectedHttpStatsMonitorData);
     this.confirmationService.confirm({
       message: 'Do you want to delete the selected record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
-      // accept: () => {
-      //   this.configKeywordsService.deleteHttpStatsMonitorData(this.selectedHttpStatsMonitorData)
-      //     .subscribe(data => {
-      //       console.log("deleteHttpStatsMonitor", "data", data);
-      //     })
-      //   this.configUtilityService.infoMessage("Deleted Successfully");
-      // },
-       accept: () => {
+      accept: () => {
         //Get Selected Applications's AppId
         let selectedApp = this.selectedHttpStatsMonitorData;
         let arrAppIndex = [];
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].hscid);
         }
-        console.log("pppapsaps",arrAppIndex);
-        this.configKeywordsService.deleteHttpStatsMonitorData(arrAppIndex,this.profileId)
+        this.configKeywordsService.deleteHttpStatsMonitorData(arrAppIndex, this.profileId)
           .subscribe(data => {
             this.deleteApplications(arrAppIndex);
           })
@@ -258,7 +300,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       }
     });
   }
-   /**This method is used to delete application */
+  /**This method is used to delete application */
   deleteApplications(arrAppId: number[]): void {
     //For stores table row index
     let rowIndex: number[] = [];
@@ -270,13 +312,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.httpStatsMonitorData = deleteMany(this.httpStatsMonitorData, rowIndex);
   }
 
-   /**This method returns selected application row on the basis of AppId */
-  getAppIndex(appId: number): number {
+  /**This method returns selected application row on the basis of AppId */
+  getAppIndex(appId: any): number {
     for (let i = 0; i < this.httpStatsMonitorData.length; i++) {
       if (this.httpStatsMonitorData[i].hscid == appId) {
         return i;
       }
-    }
-    return -1;
+    } return -1;
   }
 }

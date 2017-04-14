@@ -23,7 +23,7 @@
 
 <!--Dialog for adding Business Transaction Method-->
 <p-dialog header="{{isNewMethod ? 'Add Bussiness Transaction Method' : 'Edit Bussiness Transaction Method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
-    <form (ngSubmit)="saveADDEditMethodTrans()" #groupForm="ngForm">
+    <form (ngSubmit)="saveADDEditMethodTrans()" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
             <div class="ui-g-12">
@@ -88,7 +88,7 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
             </div>
         </footer>
@@ -98,7 +98,7 @@
 <!-- Add new Return type info -->
 
 <p-dialog header="Add Return Type Info" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="400" responsive="true">
-    <form (ngSubmit)="saveRules()" #groupForm="ngForm">
+    <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-4">
@@ -127,7 +127,8 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" label="Cancel"></button>
             </div>
         </footer>
     </form>

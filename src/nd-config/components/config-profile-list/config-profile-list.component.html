@@ -1,29 +1,31 @@
-<p-dataTable [value]="profileData" [(selection)]="selectedProfile">
-    <p-header>
-        <span> Profile Detail(s)</span>
-        <span style="float :right; margin-top:-5px">
+<div class="widget">
+    <div class="header"><i class="fa fa-user" aria-hidden="true"></i> Profile Detail(s)
+        <span style="float :right; margin-top:-2px">
             <button pButton type="button" title="Add Profile" (click)="openProfileDialog()" icon="fa-plus"></button>
         </span>
-    </p-header>
 
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    </div>
 
-    <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate>
-      <span title="{{profile[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/profile/configuration', profile['profileId']]" >{{profile[col.field]}}</a></span>
+    <p-dataTable [value]="profileData" [(selection)]="selectedProfile">
+
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+
+        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
+            <template let-col let-profile="rowData" pTemplate>
+      <span title="{{profile[col.field]}}"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
     </template>
-    </p-column>
-    <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
-        <template let-col let-profile="rowData" pTemplate>
+        </p-column>
+        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
+            <template let-col let-profile="rowData" pTemplate>
 
       <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
     </template>
-    </p-column>
-</p-dataTable>
-
+        </p-column>
+    </p-dataTable>
+</div>
 <!--Dialog for Adding New Profile -->
 <p-dialog header="Add New Profile Configuration " *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm">
+    <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Name</label>
@@ -51,9 +53,9 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
-            </div>
+                </div>
         </footer>
     </form>
 </p-dialog>

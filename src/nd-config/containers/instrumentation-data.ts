@@ -76,13 +76,13 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
-export class HttpStatsMonitorData {
-    compValue: string;
+export class HttpStatsMonitorData{  //Http stats monitors by Surbhi
+    compValue:string;
     condition: string;
     conditionName: string;
     cookieName: string;
     description: string;
-    fpDumpMode: number;
+    fpDumpMode: string;
     hmdId: number;
     hscid: number;
     htId: number;
