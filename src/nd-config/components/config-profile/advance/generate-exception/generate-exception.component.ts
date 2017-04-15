@@ -57,7 +57,7 @@ export class GenerateExceptionComponent implements OnInit {
       this.genExceptionData = new GenExceptionData();
       this.genExceptionData.percentage = arr[0];
       let fqm = arr[1].split("%3B").join(";");
-      this.genExceptionData.fullyQaulifiedName = fqm;
+      this.genExceptionData.fullyqualifiedName = fqm;
       this.genExceptionData.exceptionType = arr[2];
       this.genExceptionData.exceptionName = arr[3];
     }
@@ -65,14 +65,14 @@ export class GenerateExceptionComponent implements OnInit {
     else {
       this.genExceptionData = new GenExceptionData();
       if (this.genException["generateExceptionInMethod"].value == 0) {
-        this.genExceptionData.fullyQaulifiedName = null;
+        this.genExceptionData.fullyqualifiedName = null;
         this.genExceptionData.percentage = 0;
         this.genExceptionData.exceptionName = null;
         this.genExceptionData.exceptionType = false;
 
       }
       if (this.genException["generateExceptionInMethod"].value == 1) {
-        this.genExceptionData.fullyQaulifiedName = null;
+        this.genExceptionData.fullyqualifiedName = null;
         this.genExceptionData.percentage = 0;
         this.genExceptionData.exceptionName = null;
         this.genExceptionData.exceptionType = false;
@@ -91,7 +91,7 @@ export class GenerateExceptionComponent implements OnInit {
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
   genExceptionValueMethod(data) {
 
-    let fqm = this.genExceptionData.fullyQaulifiedName.split(";").join("%3B");
+    let fqm = this.genExceptionData.fullyqualifiedName.split(";").join("%3B");
     let genExceptionKeywordVaule = `${this.genExceptionData.percentage}%20${fqm}%20${this.genExceptionData.exceptionType}%20${this.genExceptionData.exceptionName}`;
     return genExceptionKeywordVaule;
 
@@ -103,7 +103,7 @@ export class GenerateExceptionComponent implements OnInit {
 }
 //Contains generateExceptionInMethod Keyword variables 
 class GenExceptionData {
-  fullyQaulifiedName: string;
+  fullyqualifiedName: string;
   percentage: number;
   exceptionType;
   exceptionName: string;

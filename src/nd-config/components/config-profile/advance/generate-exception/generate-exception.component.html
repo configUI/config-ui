@@ -1,58 +1,60 @@
 <form *ngIf="genExceptionData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-<p-panel header="Generate Exception in Method Settings">
-     <p-header>
+    <div class="tabsincontent">
+        <div class="header">Generate Exception in Method Settings
             <div class="pull-right">
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+            </div>
+        </div>
+        <p-panel>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-g">
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2">
+                            <label>Fully Qualified Method Name</label>
+                        </div>
+
+                        <div class="ui-g-3">
+                            <input name="fullName" type="text" size="30" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText
+                                autofocus required ngModel/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2">
+                            <label>Exception Type</label>
+                        </div>
+                        <div class="ui-g-3">
+                            <p-dropdown name="exceptionType" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="genExceptionData.exceptionType"
+                                [autoWidth]="true" [options]="exceptionType" appendTo="body" required ngModel></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2">
+                            <label>Exception Name</label>
+                        </div>
+
+                        <div class="ui-g-3">
+                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required
+                                ngModel/>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2">
+                            <label>Percentage <b> (%)</b></label>
+                        </div>
+
+                        <div class="ui-g-1">
+                            <input type="number" name="percentage" min=0 max=100 [(ngModel)]="genExceptionData.percentage" required ngModel>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </p-header>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-        <div class="ui-g">
-            
-                <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
-                    <div class="ui-g-2">
-                        <label>Fully Qualified Method Name</label>
-                    </div>
-
-                    <div class="ui-g-3">
-                        <input name="fullName" type="text" size="30" pattern="a-zA-Z" [(ngModel)]="genExceptionData.fullyQaulifiedName" pInputText autofocus required ngModel/>
-                    </div>
-                </div>
- 
-                <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
-                    <div class="ui-g-2">
-                        <label>Exception Type</label>
-                    </div>
-                    <div class="ui-g-3">
-                        <p-dropdown name="exceptionType" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="genExceptionData.exceptionType" [autoWidth]="true" [options]="exceptionType"
-                            appendTo="body" required ngModel></p-dropdown>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                   <div class = "ui-g-1"></div>
-                    <div class="ui-g-2">
-                        <label>Exception Name</label>
-                    </div>
-
-                    <div class="ui-g-3">
-                        <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required ngModel/>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class = "ui-g-1"></div>
-                    <div class="ui-g-2">
-                        <label>Percentage <b> (%)</b></label>
-                    </div>
-
-                    <div class="ui-g-1">
-                        <input type="number" name="percentage" min=0 max=100 [(ngModel)]="genExceptionData.percentage" required ngModel>
-                    </div>
-                </div>
-        </div>
+        </p-panel>
     </div>
-</p-panel>
- </form>
+</form>

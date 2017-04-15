@@ -1,64 +1,64 @@
 <form *ngIf="debug" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-    <p-panel header="Debug Level Capturing">
-        <p-header>
+    <div class="tabsincontent">
+        <div class="header">Debug Level Capturing
             <div class="pull-right">
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-                </div>
-            </div>
-        </p-header>
-
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-            <div class="ui-g">
-
-                <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-3">
-                        <label>BCI Debug Level</label>
-                    </div>
-
-                    <div class="ui-g-3">
-                        <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}}
-                            max={{debug.enableBciDebug.max}} required ngModel>
-                    </div>
-                </div>
-
-                <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-3">
-                        <label>Error Level</label>
-                    </div>
-
-                    <div class="ui-g-3">
-                        <input type="number" name="enableBciError" [(ngModel)]="debug.enableBciError.value" min={{debug.enableBciError.min}} max={{debug.enableBciError.max}}
-                            required ngModel>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
-
-                    <div class="ui-g-3">
-                        <label>InstrTrace Level</label>
-                    </div>
-
-                    <div class="ui-g-3">
-                        <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}}
-                            required ngModel>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-3">
-                        <label>NdMethodMonTrace Level</label>
-                    </div>
-                    <div class="ui-g-3">
-                        <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
-                            max={{debug.ndMethodMonTraceLevel.max}} required ngModel>
-                    </div>
-                </div>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
             </div>
         </div>
-    </p-panel>
+        <p-panel>
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                <div class="ui-g">
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <label>BCI Debug Level</label>
+                        </div>
+
+                        <div class="ui-g-3">
+                            <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}}
+                                max={{debug.enableBciDebug.max}} style="width: 47px" required ngModel>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <label>Error Level</label>
+                        </div>
+
+                        <div class="ui-g-3">
+                            <input type="number" name="enableBciError" [(ngModel)]="debug.enableBciError.value" min={{debug.enableBciError.min}} max={{debug.enableBciError.max}}
+                              style="width: 47px"  required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+
+                        <div class="ui-g-3">
+                            <label>InstrTrace Level</label>
+                        </div>
+
+                        <div class="ui-g-3">
+                            <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}}
+                                required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <label>NdMethodMonTrace Level</label>
+                        </div>
+                        <div class="ui-g-3">
+                            <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
+                                max={{debug.ndMethodMonTraceLevel.max}} style="width: 47px" required ngModel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+    </div>
 </form>

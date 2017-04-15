@@ -36,5 +36,6 @@ export class Keywords{
 "enableBTMonitor": KeywordsInfo
 "ASTraceLevel": KeywordsInfo
 "logLevelOneFpMethod": KeywordsInfo
+"enableNDSession": KeywordsInfo
 }
 

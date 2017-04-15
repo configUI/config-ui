@@ -36,7 +36,7 @@ export class ConfigKeywordsService {
   keywordGroup: GroupKeyword = {
     general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData","captureHTTPRespFullFp", "captureHttpSessionAttr"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] }, backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] }, monitors: { enable: false, keywordList: ['enableBTMonitor'] } },
-    product_integration: { nvcookie: { enable: false, keywordList: ["setCavNVCookie"] } }
+    product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
   constructor(private _restApi: ConfigRestApiService, private store: Store<Object>) {

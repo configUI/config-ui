@@ -7,7 +7,11 @@
     <p-column class="col-overflow" field="instance" header="Instance" [sortable]="true"></p-column>
     <p-column class="col-overflow" field="installDir" header="Installation Dir" [sortable]="true"></p-column>
     <p-column class="col-overflow" field="version" header="Versionr" [sortable]="true"></p-column>
-    <p-column class="col-overflow" field="bciRunningSince" header="Running Since" [sortable]="true"></p-column>
+    <p-column class="col-overflow" field="bciRunningSince" header="Running Since" [sortable]="true">
+        <template let-col let-ndagent="rowData" pTemplate>
+         <span style="float:right">{{ndagent[col.field]}}</span>
+         </template>
+    </p-column>
     <p-column class="col-overflow" field="state" header="State" [sortable]="true"></p-column>
 </p-dataTable>
 </div>
