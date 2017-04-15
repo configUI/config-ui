@@ -1,21 +1,19 @@
 // const SERVICE_URL = 'http://localhost:8090';
-// const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+ const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 // const  SERVICE_URL = 'http://10.10.60.77:8090';
+// const  SERVICE_URL = 'http://10.10.50.6/configUI';
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
 // const  SERVICE_URL = 'http://10.10.60.70:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
-const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
  // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //  const  SERVICE_URL = 'http://10.10.30.26:8001/configUI';
 //const  SERVICE_URL = 'http://10.10.60.77:8090';
-
 //For Production use this SERVICE_URL
-
 //const SERVICE_URL = '/configUI';
 
-
 export const ROUTING_PATH: string = "";
+// export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -123,6 +121,7 @@ export const EDIT_ROW_METHOD_MONITOR_URL= `${SERVICE_URL}/custom/methodmonitor/u
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
 export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
 export const DEL_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/delete`;
+export const EDIT_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/updateErrorDetection`;
 
 
 /*URL for Http Stats Condition*/

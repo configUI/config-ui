@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { MethodMonitorData } from '../../../../../containers/instrumentation-data';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { deleteMany } from '../../../../../utils/config-utility';
 
 @Component({
   selector: 'app-method-monitors',
@@ -34,7 +35,7 @@ export class MethodMonitorsComponent implements OnInit {
   /**This method is called to load data */
 
   loadMethodMonitorList() {
-     this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
     });
     this.configKeywordsService.getMethodMonitorList(this.profileId).subscribe(data => {
@@ -50,7 +51,6 @@ export class MethodMonitorsComponent implements OnInit {
 
   /**For showing Method Monitor dialog */
   openEditMethodMonitorDialog(): void {
-    console.log("hello------------", this.selectedMethodMonitorData)
     if (!this.selectedMethodMonitorData || this.selectedMethodMonitorData.length < 1) {
       this.configUtilityService.errorMessage("Select a field to edit");
       return;
@@ -95,13 +95,11 @@ export class MethodMonitorsComponent implements OnInit {
     }
   }
   editMethodMonitor(): void {
-    this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail)
+    this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
-        console.log("edit ", data);
         let index = this.getMethodMonitorIndex();
         this.selectedMethodMonitorData.length = 0;
         this.selectedMethodMonitorData.push(data);
-        console.log("index", index);
         this.methodMonitorData[index] = data;
       });
     this.addEditMethodMonitorDialog = false;
@@ -130,26 +128,48 @@ export class MethodMonitorsComponent implements OnInit {
 
   /**This method is used to delete Method Monitor */
   deleteMethodMonitor(): void {
-    console.log("hello--------->")
     if (!this.selectedMethodMonitorData || this.selectedMethodMonitorData.length < 1) {
       this.configUtilityService.errorMessage("Select fields to delete");
       return;
     }
-    console.log("data for deletion is--------->", this.selectedMethodMonitorData);
-    // this.confirmationService.confirm({
-    //   message: 'Do you want to delete the selected record?',
-    //   header: 'Delete Confirmation',
-    //   icon: 'fa fa-trash',
-    //   accept: () => {
-    //     this.configKeywordsService.deleteMethodMonitorData(this.methodMonitorDetail)
-    //       .subscribe(data => {
-    //         console.log("deleteMethodMonitor", "data", data);
-    //       })
-    //     this.configUtilityService.infoMessage("Delete Successfully");
-    //   },
-    //   reject: () => {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let selectedApp = this.selectedMethodMonitorData;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].methodId);
+        }
+        this.configKeywordsService.deleteMethodMonitorData(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteMethodMonitorFromTable(arrAppIndex);
+            this.selectedMethodMonitorData = [];
+            this.configUtilityService.infoMessage("Delete Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+  /**This method is used to delete  from Data Table */
+  deleteMethodMonitorFromTable(arrIndex) {
+    let rowIndex: number[] = [];
 
-    //   }
-    // });
+    for (let index in arrIndex) {
+      rowIndex.push(this.getMethodMonitor(arrIndex[index]));
+    }
+    this.methodMonitorData = deleteMany(this.methodMonitorData, rowIndex);
+  }
+  /**This method returns selected application row on the basis of selected row */
+  getMethodMonitor(appId: any): number {
+    for (let i = 0; i < this.methodMonitorData.length; i++) {
+      if (this.methodMonitorData[i].methodId == appId) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

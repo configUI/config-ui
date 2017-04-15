@@ -42,7 +42,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   selectedStringOp: number;
   selectedHeaderType: number;
   selectedValueType: number;
-
+  isDisableValueType: boolean = true;
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
@@ -153,6 +153,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
   /**For showing add HTTP Stats Condition dialog */
   openAddHTTPStatsDialog(): void {
     this.httpStatsMonitorDetail = new HttpStatsMonitorData();
+    this.selectedHeaderType = 0;
+    this.selectedValueType = 0;
+    this.isDisableValueType = true;
+    this.selectedRequestHeader = 0;
+    this.selectedResponseHeader = 0;
+    this.selectedHeaderType = 0;
     this.isNewHttpStatsMonitor = true;
     this.addEditHttpStatsMonitorDialog = true;
   }

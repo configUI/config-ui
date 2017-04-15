@@ -1,30 +1,23 @@
-<p-accordion>
-    <p-accordionTab header="HTTP Headers">
+<form *ngIf="HeaderForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
+    <p-panel header="Flow Path Header">
+        <p-header>
+            <div class="pull-right">
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                </div>
+            </div>
+        </p-header>
+        <div style="margin: 5px 0px">
+            <p-accordion>
+                <p-accordionTab header="HTTP Headers">
+                    <app-http-header></app-http-header>
+                </p-accordionTab>
+                <p-accordionTab header="Custom Data" [selected]="true">
+                    <app-custom-data></app-custom-data>
+                </p-accordionTab>
 
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <div class="ui-g-2">
-                    <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="headerTypes" [(ngModel)]="selectedHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
-                </div>
-                <div class="ui-g-6">
-                    <p-multiSelect [options]="specifiedHeaderType" [disabled]="!(selectedHeader == 'Specified Headers')" [(ngModel)]="selectedCaptureMode"></p-multiSelect>
-                    <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
-                </div>
-            </div>
-            <div class="ui-g-12">
-                <div class="ui-g-2">
-                    <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>
-                </div>
-                <div class="ui-g-5">
-                    <label style="margin-right: 5px">Enter Range Of Characters</label>
-                    <input name="btName" type="text" size="25" [disabled]="!(selectedCaptureMode == 'brief')" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
-                </div>
-            </div>
+            </p-accordion>
         </div>
-
-    </p-accordionTab>
-    <p-accordionTab header="Custom Data" [selected]="true">
-        <app-custom-data></app-custom-data>
-    </p-accordionTab>
-
-</p-accordion>
+    </p-panel>
+</form>

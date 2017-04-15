@@ -1,14 +1,15 @@
-<!--For showing application list -->
-<p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
-    <p-header>
-        <span>  Show Application(s) </span>
-        <span style="float: right; margin-top:-5px">
+<div class="widget">
+    <div class="header"><i class="fa fa-bars" aria-hidden="true"></i> Show Application(s)
+        <span style="float: right; margin-top:-2px">
           <button pButton type="button" label="Generate"></button>
             <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
             <button pButton type="button"title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
         </span>
-    </p-header>
+    </div>
+
+<!--For showing application list -->
+<p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -34,6 +35,7 @@
     </p-column>
 </p-dataTable>
 
+</div>
 <!--Dialog for adding Application-->
 <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>

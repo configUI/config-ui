@@ -167,6 +167,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpStatsMonitorsComponent
   ],
   imports: [
+    // CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -204,4 +205,5 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }
+
 

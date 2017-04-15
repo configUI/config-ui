@@ -1,23 +1,24 @@
-<div class="ui-g">
-    <div class="ui-g-1" class="ndegui-sidenav">
+<div class="main">
+    <div class="ui-g">
+        <div class="ui-g-1" class="ndegui-sidenav">
 
-        <app-config-left-side-bar></app-config-left-side-bar>
+            <app-config-left-side-bar></app-config-left-side-bar>
 
-    </div>
-    <div class="ui-g-11">
-        <div class="ui-g top-nav-bar">
-
-            <app-config-top-nav-bar></app-config-top-nav-bar>
-
-            <md-progress-bar [style.display]="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>
         </div>
-
-        <div class="ui-g" style="height: 540px">
-            <div class="ui-g-12">
-                <perfect-scrollbar style="height: 540px">
-                    <!--<div class="content">Scrollable content</div>-->
-                    <app-config-right-content></app-config-right-content>
-                </perfect-scrollbar>
+        <div class="ui-g-11">
+            <div class="top-nav-bar">
+                <app-config-top-nav-bar></app-config-top-nav-bar>
+                <md-progress-bar [style.display]="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>
+            </div>
+            <div class="main">
+                <div class="ui-g" style="height: 540px">
+                    <div class="ui-g-12">
+                        <perfect-scrollbar style="height: 540px">
+                            <!--<div class="content">Scrollable content</div>-->
+                            <app-config-right-content></app-config-right-content>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
