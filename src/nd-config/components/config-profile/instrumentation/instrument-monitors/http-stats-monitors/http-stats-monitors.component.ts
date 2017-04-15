@@ -282,7 +282,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        //Get Selected Applications's AppId
+        //Get Selected Httpstats Hscid
         let selectedApp = this.selectedHttpStatsMonitorData;
         let arrAppIndex = [];
         for (let index in selectedApp) {
@@ -311,7 +311,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.httpStatsMonitorData = deleteMany(this.httpStatsMonitorData, rowIndex);
   }
 
-  /**This method returns selected application row on the basis of AppId */
+  /**This method returns selected application row on the basis of HsciD */
   getAppIndex(appId: any): number {
     for (let i = 0; i < this.httpStatsMonitorData.length; i++) {
       if (this.httpStatsMonitorData[i].hscid == appId) {

@@ -1,4 +1,5 @@
-<p-tabView (onChange)=handleChange($event)  [style]="{'height': '540px'}">
+<div class='tabs-all'>
+<p-tabView (onChange)="handleChange($event)">
     <p-tabPanel header="SERVICE ENTRY POINT" [selected]="index == 0">
         <app-service-entry-point *ngIf="index == 0" [profileId]=profileId></app-service-entry-point>
     </p-tabPanel>
@@ -16,3 +17,4 @@
         <app-error-detection *ngIf="index == 4" [profileId]=profileId></app-error-detection>
     </p-tabPanel>
 </p-tabView>
+</div>

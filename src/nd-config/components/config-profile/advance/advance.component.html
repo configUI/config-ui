@@ -1,4 +1,5 @@
-<p-tabView (onChange)="handleChange($event)"  [style]="{'height': '540px'}">
+<div class='tabs-all'>
+<p-tabView (onChange)="handleChange($event)">
     <p-tabPanel header="Debug Level Capturing" [selected]="index == 0">
         <app-debug *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-debug>
     </p-tabPanel>
@@ -15,3 +16,4 @@
         <app-generate-exception *ngIf="index == 4" (keywordData)="saveKeywordData($event)"></app-generate-exception>
     </p-tabPanel>
 </p-tabView>
+</div>

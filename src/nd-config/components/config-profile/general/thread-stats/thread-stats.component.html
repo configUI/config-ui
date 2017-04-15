@@ -1,12 +1,12 @@
  <form (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-<p-panel header="JVM Monitors">
-      <p-header>    
-                   <div class="pull-right">
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-          <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-          <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-        </div>
-      </div></p-header>
+     <div class="tabsincontent">
+         <div class="header">JVM Monitors
+         <div class="pull-right">
+                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+            </div>
+    </div>
+<p-panel>
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
        
@@ -37,4 +37,5 @@
             </div>
     </div>
 </p-panel>
+</div>
  </form>
