@@ -2,8 +2,8 @@ import { ROUTING_PATH } from './config-url-constant';
 
 export const LABEL = {
     HOME: 'Home',
-    APPLICATION_LIST: 'Application List',
-    PROFILE_LIST: 'Profile List',
+    APPLICATION_LIST: 'Application',
+    PROFILE_LIST: 'Profile',
     TOPOLOGY_LIST: 'Topology List',
     TOPOLOGY_DETAIL: 'Topology Detail',
     CONFIGURATION: 'Configuration',
