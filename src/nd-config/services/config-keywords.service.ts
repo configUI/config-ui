@@ -97,17 +97,17 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_ERROR_DETECTION_TABLEDATA}/${profileId}`);
   }
 
-  addErrorDetection(data): Observable<ErrorDetection> {
-    return this._restApi.getDataByPostReq(URL.ADD_NEW_ERROR_DETECTION, data);
+  addErrorDetection(data, profileId): Observable<ErrorDetection> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NEW_ERROR_DETECTION}/${profileId}`, data);
   }
 
-  editErrorDetection(data): Observable<ErrorDetection> {
-    let url = `${URL.ADD_NEW_ERROR_DETECTION}/${data.errDetectionId}`
+  editErrorDetection(data, profileId): Observable<ErrorDetection> {
+    let url = `${URL.EDIT_ERROR_DETECTION}/${profileId}/${data.errDetectionId}`
     return this._restApi.getDataByPutReq(url, data);
   }
 
-  deleteErrorDetection(data): Observable<ErrorDetection> {
-    return this._restApi.getDataByPostReq(URL.DEL_ERROR_DETECTION, data);
+  deleteErrorDetection(data, profileId): Observable<ErrorDetection> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_ERROR_DETECTION}/${profileId}`, data);
   }
 
 
@@ -115,16 +115,17 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_METHOD_MON_TABLEDATA}/${profileId}`);
   }
 
-  editMethodMonitorData(data): Observable<MethodMonitorData> {
-    let url = `${URL.EDIT_ROW_METHOD_MONITOR_URL}/${data.methodId}`
+  editMethodMonitorData(data, profileId): Observable<MethodMonitorData> {
+    let url = `${URL.EDIT_ROW_METHOD_MONITOR_URL}/${profileId}/${data.methodId}`
     return this._restApi.getDataByPutReq(url, data);
   }
+
   addMethodMonitorData(data, profileId): Observable<MethodMonitorData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_METHOD_MONITOR}/${profileId}`, data);
   }
 
-  deleteMethodMonitorData(data): Observable<MethodMonitorData> {
-    return this._restApi.getDataByPostReq(URL.DEL_METHOD_MONITOR, data);
+  deleteMethodMonitorData(data, profileId): Observable<MethodMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_MONITOR}/${profileId}`, data);
   }
 
   getListOfXmlFiles(profileId): Observable<string[]> {

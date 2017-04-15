@@ -121,6 +121,7 @@ export const EDIT_ROW_METHOD_MONITOR_URL= `${SERVICE_URL}/custom/methodmonitor/u
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
 export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
 export const DEL_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/delete`;
+export const EDIT_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/updateErrorDetection`;
 
 
 /*URL for Http Stats Condition*/

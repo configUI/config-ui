@@ -4,6 +4,7 @@ import { ConfigKeywordsService } from '../../../../services/config-keywords.serv
 
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
+import { deleteMany } from '../../../../utils/config-utility';
 
 
 @Component({
@@ -14,19 +15,19 @@ import { ConfigUtilityService } from '../../../../services/config-utility.servic
 export class ErrorDetectionComponent implements OnInit {
   @Input()
   profileId: number;
-/**It stores error detection data */
+  /**It stores error detection data */
   errorDetectionData: ErrorDetection[];
   /**It stores selected error detection data */
   selectedErrorDetection: ErrorDetection[];
   /**It stores data for add/edit error detection */
   errorDetectionDetail: ErrorDetection;
 
-/**For add/edit error-detection flag */
+  /**For add/edit error-detection flag */
   isNewErrorDetection: boolean;
   /**For open/close add/edit error detection detail */
   addEditErrorDetectionDialog: boolean = false;
-  
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,private configUtilityService: ConfigUtilityService) { }
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadErrorDetectionList();
@@ -49,7 +50,7 @@ export class ErrorDetectionComponent implements OnInit {
 
   /**For showing Error Detection dialog */
   openEditErrorDetectionDialog(): void {
-     if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
+    if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
       this.configUtilityService.errorMessage("Please select for edit");
       return;
     }
@@ -81,7 +82,7 @@ export class ErrorDetectionComponent implements OnInit {
       this.editErrDetection();
     }
   }
-  
+
   /**This method is used to validate the name of error Detection is already exists. */
   checkErrorDetectionNameAlreadyExist(): boolean {
     for (let i = 0; i < this.errorDetectionData.length; i++) {
@@ -91,18 +92,18 @@ export class ErrorDetectionComponent implements OnInit {
       }
     }
   }
- editErrDetection(): void {
-    this.configKeywordsService.editErrorDetection(this.errorDetectionDetail)
+  editErrDetection(): void {
+    this.configKeywordsService.editErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
         let index = this.getErrorDetectionIndex();
         this.selectedErrorDetection.length = 0;
         this.selectedErrorDetection.push(data);
         this.errorDetectionData[index] = data;
       });
-    this.addEditErrorDetectionDialog=false;
+    this.addEditErrorDetectionDialog = false;
   }
 
-   getErrorDetectionIndex(): number {
+  getErrorDetectionIndex(): number {
     if (this.errorDetectionDetail) {
       let errDetectionId = this.errorDetectionDetail.errDetectionId;
       for (let i = 0; i < this.errorDetectionData.length; i++) {
@@ -114,7 +115,7 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
   saveErrDetection(): void {
-    this.configKeywordsService.addErrorDetection(this.errorDetectionDetail)
+    this.configKeywordsService.addErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Error detection in DB
         this.errorDetectionData.push(data);
@@ -128,21 +129,44 @@ export class ErrorDetectionComponent implements OnInit {
       this.configUtilityService.errorMessage("Select for delete");
       return;
     }
-    console.log("data for deletion is--------->",this.errorDetectionData);
-    // this.confirmationService.confirm({
-    //   message: 'Do you want to delete the selected record?',
-    //   header: 'Delete Confirmation',
-    //   icon: 'fa fa-trash',
-    //   accept: () => {
-    //     this.configProfileInstrumentationService.deleteErrorDetection(this.errorDetectionDetail)
-    //       .subscribe(data => {
-    //         console.log("deleteErrorDetection", "data", data);
-    //       })
-    //     this.configUtilityService.infoMessage("Delete Successfully");
-    //   },
-    //   reject: () => {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let selectedApp = this.selectedErrorDetection;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].errDetectionId);
+        }
+        this.configKeywordsService.deleteErrorDetection(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteErrorDetectionFromTable(arrAppIndex);
+            this.selectedErrorDetection = [];
+            this.configUtilityService.infoMessage("Delete Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+  /**This method is used to delete  from Data Table */
+  deleteErrorDetectionFromTable(arrIndex) {
+    let rowIndex: number[] = [];
 
-    //   }
-    // });
+    for (let index in arrIndex) {
+      rowIndex.push(this.getMethodBusinessIndex(arrIndex[index]));
+    }
+    this.errorDetectionData = deleteMany(this.errorDetectionData, rowIndex);
+  }
+  /**This method returns selected application row on the basis of selected row */
+  getMethodBusinessIndex(appId: any): number {
+    for (let i = 0; i < this.errorDetectionData.length; i++) {
+      if (this.errorDetectionData[i].errDetectionId == appId) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

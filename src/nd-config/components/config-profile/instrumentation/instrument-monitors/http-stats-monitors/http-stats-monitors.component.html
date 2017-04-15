@@ -81,26 +81,26 @@
             <div class="ui-g-3">
                 <label>Select Value Type</label>
             </div>
-            <div class="ui-g-3" *ngIf="!selectedRequestHeader&&!selectedResponseHeader&&!(selectedHeaderType==3)">
-                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body" required ngModel></p-dropdown>
+            <div class="ui-g-3">
+                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [disabled]="!(selectedRequestHeader||selectedResponseHeader||selectedHeaderType==3)" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body" required ngModel></p-dropdown>
             </div>
-            <div class="ui-g-3" *ngIf="selectedRequestHeader||selectedResponseHeader||selectedHeaderType==3">
-                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body" required ngModel></p-dropdown>
-            </div>
+            <!--<div class="ui-g-3" *ngIf="selectedRequestHeader||selectedResponseHeader||selectedHeaderType==3">
+                <p-dropdown name="ValueTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body" required ngModel></p-dropdown>
+            </div>-->
             <div class="ui-g-3">
                 <label>Select Operator Type</label>
             </div>
             <div class="ui-g-3" *ngIf="!(selectedValueType==1)&&!(selectedValueType==2)&&!(selectedValueType==3)">
-                <p-dropdown name="StringOPTypeName" [style]="{'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP" appendTo="body" required ngModel></p-dropdown>
+                <p-dropdown name="StringOPTypeName" [style]="{ 'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP" appendTo="body" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="selectedValueType==1">
-                <p-dropdown name="StringOPTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="stringOP" [(ngModel)]="selectedStringOp" appendTo="body" required ngModel></p-dropdown>
+                <p-dropdown name="StringOPTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="stringOP" [(ngModel)]="selectedStringOp" appendTo="body" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="selectedValueType==2">
-                <p-dropdown name="NumericOPTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="numericOP" [(ngModel)]="selectedNumericOp" appendTo="body" required ngModel></p-dropdown>
+                <p-dropdown name="NumericOPTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="numericOP" [(ngModel)]="selectedNumericOp" appendTo="body" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="selectedValueType==3">
-                <p-dropdown name="OthersOPTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="othersOP" [(ngModel)]="selectedOthersOp" appendTo="body" required ngModel></p-dropdown>
+                <p-dropdown name="OthersOPTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="othersOP" [(ngModel)]="selectedOthersOp" appendTo="body" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -120,11 +120,10 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-              <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="addEditHttpStatsMonitorDialog=false" label="Cancel"></button>
-                
+
             </div>
         </footer>
     </form>
 </p-dialog>
-
