@@ -174,8 +174,8 @@ export class ConfigKeywordsService {
   */
 
   /* Fetch  Business Trans Global Info */
-  getBusinessTransGlobalData(): Observable<BusinessTransGlobalInfo[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_BT_GLOBAL_DATA);
+  getBusinessTransGlobalData(profileId): Observable<BusinessTransGlobalInfo[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BT_GLOBAL_DATA}/${profileId}/bussinessTransGlobal`);
   }
 
   /* Fetch  Business Trans Pattern Info */

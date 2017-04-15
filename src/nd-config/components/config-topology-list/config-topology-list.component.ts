@@ -18,7 +18,7 @@ export class ConfigTopologyListComponent implements OnInit {
 
   loadTopologyList(){
     this.configTopologyService.getTopologyList().subscribe(data=> {
-      this.topologyData = data["_embedded"]["topology"];// For temporary basis we are getting data from these keys
+         this.topologyData = data// For temporary basis we are getting data from these keys
     });
   }
 

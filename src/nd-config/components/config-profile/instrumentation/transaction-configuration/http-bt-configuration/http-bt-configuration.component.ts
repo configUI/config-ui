@@ -108,7 +108,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
      this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
     });
-    this.configKeywordsService.getBusinessTransGlobalData().subscribe(data => { this.doAssignBusinessTransData(data) });
+    this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
     this.loadBTPatternData();
   }
 
@@ -118,7 +118,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   doAssignBusinessTransData(data) {
-
+    console.log("Data == " , data);
     this.globalBtDetail = data._embedded.bussinessTransGlobal[1];
     
     if (this.globalBtDetail.segmentURI == 'true')
@@ -144,7 +144,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.globalBtDetail.complete = "false";
 
-    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(data));
+    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == " ,data));
   }
 
   /**This method is used to add Pattern detail */

@@ -21,7 +21,7 @@ export class ConfigLeftSideBarComponent implements OnInit {
       { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "fa fa-user", tooltip: "Profile" },
       { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "fa fa-user", tooltip: "Topology" },
       { label: "ND Agent", route: `${ROUTING_PATH}/nd-agent`, icon: "fa fa-users", tooltip: "ND Agent" },
-      { label: "Discover Instrumentation Profile", route: `${ROUTING_PATH}/nd-agent`, icon: "fa fa-tint", tooltip: "Discover Instrumentation Profile" }
+     // { label: "Discover Instrumentation Profile", route: `${ROUTING_PATH}/nd-agent`, icon: "fa fa-tint", tooltip: "Discover Instrumentation Profile" }
     ];
   }
 

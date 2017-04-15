@@ -20,7 +20,7 @@
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -49,7 +49,7 @@
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
                         <template let-col let-profile="rowData" pTemplate>
-                            <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+                            <span title="{{profile[col.field]}}" style="float:right">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
