@@ -36,3 +36,8 @@
 .header-font-size {
     font-weight: bold;
 }
+
+.segment-type-css {
+    width: 12%;
+    margin-top: 3px;
+}

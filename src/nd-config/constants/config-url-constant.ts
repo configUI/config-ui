@@ -1,7 +1,7 @@
 // const SERVICE_URL = 'http://localhost:8090';
- const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+// const  SERVICE_URL = 'http://10.10.50.2:8001/configUI';
 // const  SERVICE_URL = 'http://10.10.60.77:8090';
-// const  SERVICE_URL = 'http://10.10.50.6/configUI';
+ const  SERVICE_URL = 'http://10.10.50.13:8001/configUI';
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
 // const  SERVICE_URL = 'http://10.10.60.70:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
@@ -85,7 +85,7 @@ export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGrou
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 
 /* Url fot BussinessTransactionGlobal */
-export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/bussinesstransglobal`;
+export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;
 
 
 /* Url for Backend Detection */
