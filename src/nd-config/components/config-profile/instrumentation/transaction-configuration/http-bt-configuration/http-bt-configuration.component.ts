@@ -256,7 +256,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
           .subscribe(data => {
             this.deletePatternBusinessTransactions(arrAppIndex);
             this.selectedPatternData = [];
-            this.configUtilityService.infoMessage("Deleted");
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
       reject: () => {
