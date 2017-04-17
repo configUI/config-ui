@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
-//import { BusinessTransPatternInfo } from '../../../../../interfaces/business-trans-pattern-info';
-//import { BusinessTransGlobalData } from '../../../../../containers/business-trans-global-data';
 import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../../containers/instrumentation-data';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
@@ -28,19 +26,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /* variable for Global BT  */
   segmentURI: string;
   complete: string;
-  httpMethod: string;
-
-  /* variable for Global BT  */
-  selectedDynamicRequest: string = "httpMethod";
-
-  /* Assign default value to slowTransaction */
-  slowTransaction: string = '3000';
-
-  /* Assign default value to slowTransaction */
-  verySlowTransaction: string = '5000';
-
-  /* Assign default value to slowTransaction */
-  segmentURITrans: string = '2';
 
   /* Assign interface values to businessTransGlobalData */
   businessTransData: BusinessTransGlobalInfo;
@@ -73,8 +58,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
   isNewApp: boolean = false;
 
   /* Assign data to Pattern data Table */
-  businessTransPatternInfo: BusinessTransPatternData[];
   selectedPatternData: any;
+  businessTransPatternInfo: BusinessTransPatternData[];
   businessTransPatternDetail: BusinessTransPatternData;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
@@ -92,8 +77,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
     arrLabel = ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'TRACE', 'CONNECT', 'OPTIONS'];
     this.methodTypeList = ConfigUiUtility.createDropdown(arrLabel);
 
+    this.initialBusinessTransaction();
+  }
+
+  /** Default Values of Global BT */
+  initialBusinessTransaction() {
     this.globalBtDetail = new BusinessTransGlobalData();
-     /* Assign default value to slowTransaction */
+    /* Assign default value to slowTransaction */
     this.globalBtDetail.slowTransaction = '3000';
 
     /* Assign default value to slowTransaction */
@@ -101,11 +91,24 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     /* Assign default value to slowTransaction */
     this.globalBtDetail.segmentValue = '2';
-    
+
+    this.globalBtDetail.dynamicReqValue = "httpMethod";
+
+    this.globalBtDetail.segmentType = 'first';
+
+    this.globalBtDetail.segmentURI = 'segmentOfURI';
+
+    this.globalBtDetail.requestHeader = 'NA';
+
+    this.globalBtDetail.requestParam = '';
+
+    this.globalBtDetail.dynamicReqType = false;
+
+    this.segmentURI = 'complete';
   }
 
   ngOnInit() {
-     this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
     });
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
@@ -114,37 +117,37 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
 
   loadBTPatternData(): void {
+
     this.configKeywordsService.getBusinessTransPatternData(this.profileId).subscribe(data => this.businessTransPatternInfo = data);
   }
 
   doAssignBusinessTransData(data) {
-    console.log("Data == " , data);
-    this.globalBtDetail = data._embedded.bussinessTransGlobal[1];
-    
-    if (this.globalBtDetail.segmentURI == 'true')
+
+    if (data._embedded.bussinessTransGlobal.length == 1)
+      this.globalBtDetail = data._embedded.bussinessTransGlobal[data._embedded.bussinessTransGlobal.length - 1];
+
+    if (Boolean(this.globalBtDetail.segmentURI) == true)
       this.segmentURI = 'segmentOfURI';
     else
       this.segmentURI = 'complete';
 
-    /* variable for Global BT  */
-    if (this.globalBtDetail.httpMethod == true)
-      this.httpMethod = 'httpMethod';
+  }
+
+  /** Reset All Global BT values */
+  resetBusinessTransaction() {
+    this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
   }
 
   /* Save all values of Business Transaction */
   saveBusinessTransaction() {
 
-    if (this.segmentURI == 'segmentOfURI')
-      this.globalBtDetail.segmentURI = "true";
+    this.globalBtDetail.uriType = this.segmentURI;
+    if (this.globalBtDetail.dynamicReqValue == "httpMethod")
+      this.globalBtDetail.httpMethod = true;
     else
-      this.globalBtDetail.segmentURI = "false";
+      this.globalBtDetail.httpMethod = false;
 
-    if (this.segmentURI == 'complete')
-      this.globalBtDetail.complete = "true";
-    else
-      this.globalBtDetail.complete = "false";
-
-    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == " ,data));
+    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
   }
 
   /**This method is used to add Pattern detail */
@@ -157,7 +160,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
-         this.businessTransPatternInfo.push(data);
+        this.businessTransPatternInfo.push(data);
       });
     this.closeDialog();
   }
@@ -165,6 +168,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /* Open Dialog for Add Pattern */
   openAddPatternDialog() {
     this.businessTransPatternDetail = new BusinessTransPatternData();
+    this.businessTransPatternDetail.slowTransaction = "3000";
+    this.businessTransPatternDetail.verySlowTransaction = "5000";
+
     this.isNewApp = true;
     this.addEditPatternDialog = true;
   }
@@ -188,7 +194,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is used to edit Pattern detail */
   editApp(): void {
-    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail , this.profileId)
+    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
@@ -250,7 +256,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
           .subscribe(data => {
             this.deletePatternBusinessTransactions(arrAppIndex);
             this.selectedPatternData = [];
-            this.configUtilityService.infoMessage("Delete Successfully");
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
       reject: () => {

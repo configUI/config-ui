@@ -4,7 +4,7 @@
         <span> HTTP Request Header (s) </span>
         <span style="float: right; margin-top:-5px">`
                        <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteHeader()" icon="fa-trash"></button>
+                       <button pButton type="button"title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -39,13 +39,13 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <p-checkbox name="complete" label="Complete" [(ngModel)]="complete" binary="false"></p-checkbox>
+                    <p-checkbox name="complete" label="Complete" [(ngModel)]="httpRequestHdrDetail.complete" binary="false"></p-checkbox>
                 </div>
                 <div class="ui-g-4">
-                    <p-checkbox name="specific" label="Specific" [(ngModel)]="specific" binary="false"></p-checkbox>
+                    <p-checkbox name="specific" label="Specific" [(ngModel)]="httpRequestHdrDetail.specific" binary="false"></p-checkbox>
                 </div>
             </div>
-            <div class="ui-g-12" *ngIf="specific">
+            <div class="ui-g-12" *ngIf="httpRequestHdrDetail.specific">
                 <p-dataTable [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="15" [paginator]="true" [pageLinks]="3">
                     <p-header>
                         <span> Detail(s) </span>

@@ -6,7 +6,7 @@ import * as URL from '../constants/config-url-constant';
 import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
-import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
+// import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
 import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData} from '../containers/instrumentation-data';
@@ -179,7 +179,7 @@ export class ConfigKeywordsService {
   }
 
   /* Fetch  Business Trans Pattern Info */
-  getBusinessTransPatternData(profileId): Observable<BusinessTransPatternInfo[]> {
+  getBusinessTransPatternData(profileId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`);
   }
 
