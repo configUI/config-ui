@@ -62,6 +62,9 @@ import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigBusinessTranService } from './/services/config-business-trans-global-service';
+import { ConfigCustomDataService } from './services/config-customdata.service';
+
+
 /**Config UI Component */
 import { AppComponentForConfig } from './config.component';
 import { ConfigMainComponent } from './components/config-main/config-main.component';
@@ -201,7 +204,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToolbarModule
   ],
 
-  providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
+  providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService],
   bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }
