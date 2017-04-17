@@ -36,7 +36,8 @@ import {
   AccordionModule,
   FieldsetModule,
   ChipsModule,
-  ToolbarModule
+  ToolbarModule,
+  SliderModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -198,7 +199,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ChipsModule,
     AccordionModule,
     FieldsetModule,
-    ToolbarModule
+    ToolbarModule,
+    SliderModule
   ],
 
   providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],

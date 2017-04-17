@@ -33,7 +33,7 @@ import { ProductIntegrationComponent } from '../components/config-profile/produc
 //                     { path: 'general/:profileId/:tabId', component: GeneralComponent },
 //                     { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
 //                     { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
-//                     { path: 'integration/:profileId', component: ProductIntegrationComponent }
+//                     { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
 //                 ]
 //             },
 //             { path: 'topology-list', component: ConfigTopologyListComponent },

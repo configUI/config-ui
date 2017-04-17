@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { ApplicationInfo } from '../../interfaces/application-info';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigProfileService } from '../../services/config-profile.service'
-import { ConfigApplicationService } from '../../services/config-application.service'
+import { ConfigApplicationService } from '../../services/config-application.service';
+import { ConfigUtilityService } from '../../services/config-utility.service';
 
 import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
@@ -26,9 +27,10 @@ export class ConfigHomeComponent implements OnInit {
   profileInfo: EntityInfo[];
   // It stores all the information regarding ND agents
   agentsInfo : NDAgentInfo[];
-
+  //For showing import technologies dialog
+  importTopo:boolean = false;
   ROUTING_PATH = ROUTING_PATH;
-  constructor(private configHomeService: ConfigHomeService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
+  constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
     this.loadHomeData();
@@ -46,8 +48,14 @@ export class ConfigHomeComponent implements OnInit {
      })
   }
 
+  importTopologyDialog(){
+    this.importTopo = true;
+  }
+
   importTopology(): void{
     this.configHomeService.importTopology().subscribe(data=> this.topologyInfo = data);
+    this.importTopo = false;
+    this.configUtilityService.infoMessage("Topologies imported successfully");
   }
 
   routeToTreemain(selectedApplicationId, selectedApplicationName) {

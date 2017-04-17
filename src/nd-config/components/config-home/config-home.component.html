@@ -4,7 +4,9 @@
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">APPLICATION</div>
-                <div class="header-button"><a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info"></button></a></div>
+                <div class="header-button">
+                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info"></button></a>
+                </div>
             </md-card-subtitle>
             <div class="table-css">
                 <p-dataTable [value]="applicationInfo">
@@ -15,7 +17,7 @@
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topology" header="Topology">
                         <template let-col let-application="rowData" pTemplate>
-                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
@@ -33,7 +35,9 @@
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">PROFILE</div>
-                <div class="header-button"><a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info "></button></a></div>
+                <div class="header-button">
+                    <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info "></button></a>
+                </div>
             </md-card-subtitle>
             <div class="table-css">
                 <p-dataTable [value]="profileInfo">
@@ -44,7 +48,7 @@
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="description" header="Description">
                         <template let-col let-profile="rowData" pTemplate>
-                             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+                            <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
@@ -65,7 +69,7 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">TOPOLOGY INFO</div>
                 <div class="header-button">
-                    <a (click)="importTopology()"> <button pButton type="button" label="Import Topologies" class="btn-danger" icon="fa-download"></button></a>
+                    <a (click)="importTopologyDialog()"> <button pButton type="button" label="Import Topologies" class="btn-danger" icon="fa-download"></button></a>
                     <a [routerLink]="[ ROUTING_PATH + '/topology-list']"><button pButton type="button" label="Show All" icon="fa-info" class="button-color"></button></a>
                 </div>
             </md-card-subtitle>
@@ -73,7 +77,7 @@
                 <p-dataTable [value]="topologyInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                              <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/topology-list']">{{application[col.field]}}</a></span>
+                            <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/topology-list']">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -84,44 +88,46 @@
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">ND AGENT STATUS</div>
-                <div class="header-button"><a [routerLink]="[ ROUTING_PATH + '/nd-agent']"><button pButton type="button" icon="fa-info" label="Show All" class="button-color"></button></a></div>
+                <div class="header-button">
+                    <a [routerLink]="[ ROUTING_PATH + '/nd-agent']"><button pButton type="button" icon="fa-info" label="Show All" class="button-color"></button></a>
+                </div>
             </md-card-subtitle>
 
             <div class="table-css">
                 <p-dataTable [value]="agentsInfo" [(selection)]="selectedApplicationData">
                     <p-column rowStyleClass="col-overflow" field="tier" header="Tier">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="server" header="Server">
                         <template let-col let-application="rowData" pTemplate>
-                           <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="instance" header="Instance">
                         <template let-col let-application="rowData" pTemplate>
-                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="installDir" header="Installation Dir">
                         <template let-col let-application="rowData" pTemplate>
-                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="version" header="Version">
                         <template let-col let-application="rowData" pTemplate>
-                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="bciRunningSince" header="Running Since">
                         <template let-col let-application="rowData" pTemplate>
-                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="state" header="State">
                         <template let-col let-application="rowData" pTemplate>
-                          <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -130,3 +136,13 @@
         </md-card>
     </div>
 </div>
+<!--Adding dialog for import topologies-->
+<p-dialog header="Import Topologies" *ngIf="importTopo" [(visible)]="importTopo" modal="modal" width="500" responsive="true">
+    This feature is used to sync the topology settings of GUI with the file system.
+    <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+    <a (click)="importTopology()"> <button pButton type="button" label="Import Topologies" align="right" icon="fa-download"></button></a>
+  <button type="button" pButton icon="fa-close" (click)="importTopo=false" label="Cancel"></button>
+            </div>
+        </footer>
+</p-dialog>

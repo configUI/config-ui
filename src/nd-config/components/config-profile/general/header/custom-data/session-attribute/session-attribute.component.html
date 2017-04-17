@@ -47,7 +47,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="btName" type="text" size="40" pInputText [(ngModel)]="sessionAttributeDetail.attrName" placeholder="Name" autofocus required ngModel/>
+                    <input name="attrName" type="text" size="40" pInputText [(ngModel)]="sessionAttributeDetail.attrName" placeholder="Name" required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -89,7 +89,7 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content">
-                <button type="submit" pButton icon="fa-check" label="OK"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
             </div>
         </footer>
@@ -97,7 +97,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog header="" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="550" responsive="true">
+<p-dialog header="Value Type Info" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -129,7 +129,8 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content">
-                <button type="submit" pButton icon="fa-check" label="Add"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
             </div>
         </footer>
         < </form>

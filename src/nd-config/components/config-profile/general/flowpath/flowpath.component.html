@@ -16,11 +16,12 @@
                     <!--<div class = "ui-g-6">-->
                     <div class="ui-g-1"> </div>
                     <div class="ui-g-3">
-                        <label>Full Flow Path Capturing Percentage[0-100%]</label>
+                        <label>Full Flow Path Capturing Percentage [0-100%]</label>
                     </div>
 
                     <div class="ui-g-2">
-                        <input type="number" size="30" name="bciInstrSessionPct" [(ngModel)]="flowPath.bciInstrSessionPct.value" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} required ngModel autofocus>
+                        <input type="text" name="bciInstrSessionPct" pInputText [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                            <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
                     </div>
                 </div>
 
