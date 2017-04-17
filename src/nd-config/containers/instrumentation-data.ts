@@ -129,9 +129,9 @@ export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
     reqMethod: string;
     reqParamKey: string;
     reqParamValue: string;
-    slowTransaction: number;
+    slowTransaction: string;
     urlName: string;
-    verySlowTransaction: number;
+    verySlowTransaction: string;
 
 }
 
