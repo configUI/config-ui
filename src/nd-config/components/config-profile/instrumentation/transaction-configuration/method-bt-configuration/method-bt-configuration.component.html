@@ -31,7 +31,7 @@
                     <label>Fully Qualified Method Name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="fqm" type="text" size="48" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
+                    <input name="fqm" type="text" size="65" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
                         Argument Index
                     </div>
                     <div class="ui-g-5" style="margin-top: -5px">
-                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="text" size="30" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="Argument Index" autofocus required ngModel/>
+                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="text" size="12" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="Argument Index" autofocus required ngModel/>
                     </div>
                 </div>
             </div>
