@@ -171,7 +171,7 @@ export class HttpRequestComponent implements OnInit {
           arrAppIndex.push(selectedApp[index].httpReqHdrBasedId);
         }
         console.log("arrAppIndex - ",arrAppIndex);
-         this.configKeywordsService.deleteHTTPReqHeaderData(arrAppIndex)
+         this.configKeywordsService.deleteHTTPReqHeaderData(arrAppIndex,this.profileId)
           .subscribe(data => {
             this.deleteHTTPReqHeaderIndex(arrAppIndex);
             this.configUtilityService.infoMessage("Delete Successfully");
