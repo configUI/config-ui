@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
+import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
 import {MethodBasedCustomData,ReturnTypeData,ArgumentTypeData} from '../../../../../../containers/method-based-custom-data';
 
 
@@ -63,7 +64,7 @@ export class JavaMethodComponent implements OnInit {
   arrBooleanValue:any[] = ['CAPTURE','INVOCATION','EXCEPTION'];
 
   //receiving data from store
-  constructor(private route: ActivatedRoute,private configCustomDataService: ConfigCustomDataService,private store: Store<Object>) { 
+  constructor(private route: ActivatedRoute,private configUtilityService: ConfigUtilityService, private configCustomDataService: ConfigCustomDataService,private store: Store<Object>) { 
       this.subscription = this.store.select("customData").subscribe(data=>{
      // this.tableData = data;
     })
@@ -151,6 +152,8 @@ export class JavaMethodComponent implements OnInit {
         this.tableData.push(data);
         this.modifyData(this.tableData)
     })
+    this.configUtilityService.successMessage("Saved Successfully !!!");
+
   }
 
    /**For close add/edit dialog box */
@@ -249,12 +252,16 @@ export class JavaMethodComponent implements OnInit {
     console.log("saveReturnRules method caleld--",this.returnTypeRules)
     this.returnTypeData.push(this.returnTypeRules);
     this.addReturnRulesDialog=false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
+
   }
 
   saveArgumentRules(){
     console.log("saveReturnRules method caleld--",this.argumentTypeRules)
     this.argumentTypeData.push(this.argumentTypeRules)
     this.addArgumentRulesDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
+
   }
 
   openAddArgumentRulesDialog(){

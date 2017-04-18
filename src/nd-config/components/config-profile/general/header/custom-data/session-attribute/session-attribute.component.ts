@@ -101,6 +101,7 @@ export class SessionAttributeComponent implements OnInit {
   saveTypesValues() {
     this.customValueTypeInfo.push(this.customValueTypeDetail);
     this.sessionAttrTypeValueDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   saveADDEditSessionAttr() {
@@ -131,6 +132,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
     });
     this.addEditSessionAttrDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   setDataSessionAttribute(data): Array<SessionAtrributeComponentsData> {

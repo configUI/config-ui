@@ -226,6 +226,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   saveRules() {
     this.methodRulesInfo.push(this.btMethodRulesDetail);
     this.addRulesDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is common method for save or edit BT Method */
@@ -315,6 +316,7 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.businessTransMethodInfo.push(data)
     });
     this.addBusinessTransMethodDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**For close add/edit Method dialog box */

@@ -124,6 +124,7 @@ export class MethodMonitorsComponent implements OnInit {
         this.methodMonitorData.push(data);
       });
     this.addEditMethodMonitorDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is used to delete Method Monitor */

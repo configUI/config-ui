@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 
 @Component({
   selector: 'app-thread-stats',
@@ -20,7 +21,7 @@ export class ThreadStatsComponent implements OnInit {
   threadStats: Object;
   enableGroupKeyword: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.thread_stats.enable;
    }
 
@@ -66,5 +67,7 @@ export class ThreadStatsComponent implements OnInit {
     }
     //this.threadStats.enableJVMThreadMonitor["value"] = jvmVal;
     this.keywordData.emit(this.threadStats);
+    this.configUtilityService.successMessage("Saved Successfully !!!");
+
   }
 }

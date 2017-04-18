@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SelectItem } from 'primeng/primeng';
+
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
+
 import { ServiceEntryPoint } from '../../../../containers/instrumentation-data';
 import { ServiceEntryType } from '../../../../interfaces/instrumentation-info';
 
-import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'app-service-entry-point',
@@ -23,7 +26,7 @@ export class ServiceEntryPointComponent implements OnInit {
   /**It is used as flag to open or close dialog */
   displayNewService: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadServiceEntryPoint();
@@ -43,7 +46,7 @@ export class ServiceEntryPointComponent implements OnInit {
   /**It adds data in dropdown of Entry type service */
   loadEntryPointTypeList() {
     //EntryPointType contains some values then return. no need to get data from server.
-    if(this.entryPointType)
+    if (this.entryPointType)
       return;
 
     this.entryPointType = [];
@@ -63,10 +66,12 @@ export class ServiceEntryPointComponent implements OnInit {
         this.serviceEntryPointDetail.entryType = this.entryPointType[i].label;
       }
     }
+
     this.configKeywordsService.addServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting service in DB
         this.serviceEntryData.push(data);
+        this.configUtilityService.successMessage("Saved Successfully !!!");
       });
     this.displayNewService = false;
   }
@@ -75,7 +80,6 @@ export class ServiceEntryPointComponent implements OnInit {
   enableToggle(rowData: ServiceEntryPoint) {
     this.configKeywordsService.enableServiceEntryPointList(rowData.id, !rowData.enabled).subscribe(
     );
-
   }
 
 }

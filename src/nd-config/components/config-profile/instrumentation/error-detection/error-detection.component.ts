@@ -121,6 +121,7 @@ export class ErrorDetectionComponent implements OnInit {
         this.errorDetectionData.push(data);
       });
     this.addEditErrorDetectionDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is used to delete Error Detection */

@@ -6,6 +6,7 @@ import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -27,7 +28,7 @@ export class BackendMonitorsComponent implements OnInit {
   enableBackendMonitorChk: boolean;
   subscription: Subscription;
   enableGroupKeyword: boolean;
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.backend = data;
@@ -45,6 +46,7 @@ export class BackendMonitorsComponent implements OnInit {
     }
     console.log("this.backend", this.backend);
     this.keywordData.emit(this.backend);
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   ngOnDestroy() {

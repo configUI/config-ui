@@ -155,6 +155,7 @@ export class ConfigApplicationListComponent implements OnInit {
         this.applicationData.push(data);
       });
     this.closeDialog();
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is used to edit application detail */
