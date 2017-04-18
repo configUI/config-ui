@@ -140,9 +140,9 @@
 <p-dialog header="Import Topologies" *ngIf="importTopo" [(visible)]="importTopo" modal="modal" width="500" responsive="true">
     This feature is used to sync the topology settings of GUI with the file system.
     <footer>
-            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-    <a (click)="importTopology()"> <button pButton type="button" label="Import Topologies" align="right" icon="fa-download" ></button></a>
-  <button type="button" pButton icon="fa-close" (click)="importTopo=false" label="Cancel"></button>
-            </div>
-        </footer>
+        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+            <a (click)="importTopology()"> <button pButton type="button" label="Import Topologies" align="right" icon="fa-download"></button></a>
+            <button type="button" pButton icon="fa-close" (click)="importTopo=false" label="Cancel"></button>
+        </div>
+    </footer>
 </p-dialog>

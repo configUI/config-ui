@@ -26,9 +26,9 @@ export class ConfigHomeComponent implements OnInit {
   /**It stores profile Info */
   profileInfo: EntityInfo[];
   // It stores all the information regarding ND agents
-  agentsInfo : NDAgentInfo[];
+  agentsInfo: NDAgentInfo[];
   //For showing import technologies dialog
-  importTopo:boolean = false;
+  importTopo: boolean = false;
   ROUTING_PATH = ROUTING_PATH;
   constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
@@ -36,26 +36,28 @@ export class ConfigHomeComponent implements OnInit {
     this.loadHomeData();
   }
 
-/**Getting topology list , application list and profile list. */
+  /**Getting topology list , application list and profile list. */
   loadHomeData(): void {
-     this.configHomeService.getMainData()
+    this.configHomeService.getMainData()
       .subscribe(data => {
 
         this.applicationInfo = (data.homeData[0].value).slice(0, 6);
         this.profileInfo = (data.homeData[1].value).slice(0, 6);
         this.topologyInfo = (data.homeData[2].value).slice(0, 6);
         this.agentsInfo = data.agentData;
-     })
+      })
   }
 
-  importTopologyDialog(){
+  importTopologyDialog() {
     this.importTopo = true;
   }
 
-  importTopology(): void{
-    this.configHomeService.importTopology().subscribe(data=> this.topologyInfo = data);
+  importTopology(): void {
+    this.configHomeService.importTopology().subscribe(data => {
+      this.topologyInfo = data;
+      this.configUtilityService.infoMessage("Topologies imported successfully");
+    });
     this.importTopo = false;
-    this.configUtilityService.infoMessage("Topologies imported successfully");
   }
 
   routeToTreemain(selectedApplicationId, selectedApplicationName) {

@@ -15,7 +15,7 @@
 
         <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+      <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
     </template>
         </p-column>
         <p-column class="col-overflow" field="topoName" header="Topology" [sortable]="true">
@@ -73,8 +73,8 @@
                 <label>Topology</label>
             </div>
             <div class="ui-g-8">
-                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <p-dropdown name="topoId" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+                <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
             </div>
         </div>
         <footer>
