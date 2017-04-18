@@ -140,7 +140,7 @@ export class HttpRequestComponent implements OnInit {
   saveADDEditHTTPReqHeader()
   {
     console.log("saveADDEditHTTPReqHeader called")
-    
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   // Method for saving rules information
@@ -150,6 +150,7 @@ export class HttpRequestComponent implements OnInit {
     this.rulesDataInfo.push(this.rulesData);
     console.log("rules data - ", this.rulesDataInfo.length);
     this.rulesDialog = false;
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   deleteHTTPReqHeader() : void

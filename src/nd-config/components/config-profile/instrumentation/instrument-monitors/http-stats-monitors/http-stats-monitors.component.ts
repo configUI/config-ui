@@ -259,6 +259,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         });
       this.addEditHttpStatsMonitorDialog = false;
     }
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   //Method will store the values from inputs into table

@@ -1,6 +1,7 @@
 
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { SelectItem } from 'primeng/primeng';
 //import { XmlFilesList } from '../../../../interfaces/keywords-info';
 
@@ -12,7 +13,7 @@ import { SelectItem } from 'primeng/primeng';
 
 export class InstrumentationProfilesComponent implements OnInit {
   enableGroupKeyword:boolean;
-  constructor(private configKeywordsService: ConfigKeywordsService) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.instrumentation_profiles.enable;
    }
 
@@ -60,5 +61,6 @@ export class InstrumentationProfilesComponent implements OnInit {
       keyword[key]["value"] = String(value);
     }
     this.keywordData.emit(keyword)
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 }

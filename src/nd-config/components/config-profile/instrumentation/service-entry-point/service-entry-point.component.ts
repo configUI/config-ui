@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ServiceEntryPoint } from '../../../../containers/instrumentation-data';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import {SelectItem } from 'primeng/primeng';
 
 @Component({
@@ -21,7 +22,7 @@ export class ServiceEntryPointComponent implements OnInit {
 /**It is used as flag to open or close dialog */
   displayNewService: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadServiceEntryPoint();
@@ -59,6 +60,7 @@ export class ServiceEntryPointComponent implements OnInit {
           this.serviceEntryData.push(data);
         });
       this.displayNewService = false;
+      this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
 }

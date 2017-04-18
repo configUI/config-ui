@@ -6,6 +6,7 @@ import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 
 @Component({
   selector: 'app-nvcookie',
@@ -23,7 +24,7 @@ export class NVCookieComponent implements OnInit {
   ndSessionData: NDSessionData;
   subscription: Subscription;
   enableGroupKeyword: boolean;
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.ndSession = data;
     });
@@ -90,6 +91,7 @@ export class NVCookieComponent implements OnInit {
         this.ndSession[key]["value"] = ndSessionValue;
     }
     this.keywordData.emit(this.ndSession);
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   //To create the value of the keyword "enableNDSession" by joining them with %20

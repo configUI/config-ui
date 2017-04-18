@@ -146,7 +146,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.globalBtDetail.httpMethod = true;
     else
       this.globalBtDetail.httpMethod = false;
-
+    this.configUtilityService.successMessage("Saved Successfully !!!");
     this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
   }
 
@@ -163,6 +163,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.businessTransPatternInfo.push(data);
       });
     this.closeDialog();
+    this.configUtilityService.successMessage("Saved Successfully !!!"); 
+
   }
 
   /* Open Dialog for Add Pattern */
@@ -222,6 +224,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       }
       this.editApp();
     }
+    
   }
 
   /**This method is used to validate the name of Pattern is already exists. */

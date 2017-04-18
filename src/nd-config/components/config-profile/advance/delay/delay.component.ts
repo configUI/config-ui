@@ -7,6 +7,7 @@ import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 
 @Component({
   selector: 'app-delay',
@@ -26,7 +27,7 @@ export class DelayComponent implements OnInit {
   delayData: DelayData;
   enableGroupKeyword: boolean;
   subscription: Subscription;
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.delay = data;
       console.log(this.className, "constructor", "this.delay", this.delay);
@@ -87,6 +88,7 @@ export class DelayComponent implements OnInit {
         this.delay[key]["value"] = delayValue;
     }
     this.keywordData.emit(this.delay);
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {

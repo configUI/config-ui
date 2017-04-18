@@ -5,6 +5,7 @@ import { SelectItem } from 'primeng/primeng';
 import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 
@@ -27,7 +28,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   enableGroupKeyword: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.subscription = this.store.select("keywordData").subscribe(data=>{
       this.flowPath = data;
     });
@@ -78,6 +79,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     this.keywordData.emit(this.flowPath);
+    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   check(text){
