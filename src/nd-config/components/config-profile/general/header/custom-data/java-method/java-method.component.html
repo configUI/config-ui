@@ -6,10 +6,10 @@
 <!--For showing Method Based Custom Data-->
 <p-dataTable [value]="tableData" [(selection)]="selectedbusinessTransMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> Java Method Based Custom Data </span>
+        <span style="float: left"> Java Method Based Custom Data </span>
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddDialog()" icon="fa-plus"></button>
-                       <!--<button pButton type="button"title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>-->
+                       <!--<button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>-->
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -46,101 +46,101 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-6">
-                 <p-checkbox name="enableReturnType" label="Enable Return Type" [(ngModel)]="methodBasedCustomData.enableReturnType" binary="true"></p-checkbox>
+                <p-checkbox name="enableReturnType" label="Enable Return Type" [(ngModel)]="methodBasedCustomData.enableReturnType" binary="true"></p-checkbox>
             </div>
-            
+
         </div>
 
 
-        <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType" >
-                <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
-                    <p-header>
-                        <span>  Return Type Info </span>
-                        <span style="float: right; margin-top:-5px">
+        <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
+            <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
+                <p-header>
+                    <span>  Return Type Info </span>
+                    <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddReturnRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
                     </span>
-                    </p-header>
-                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                    <p-column class="col-overflow" field="headerName" header="Header Name" [sortable]="true">
-                        <template let-col let-application="rowData">
+                </p-header>
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column class="col-overflow" field="headerName" header="Header Name" [sortable]="true">
+                    <template let-col let-application="rowData">
                    <!--<span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>-->
                 </template>
-                    </p-column>
+                </p-column>
 
-                     <p-column class="col-overflow" field="type" header="type" [sortable]="true">
-                        <template let-col let-application="rowData">
+                <p-column class="col-overflow" field="type" header="type" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
+                </p-column>
 
-                    <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
-                        <template let-col let-application="rowData">
+                <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
-                    <p-column class="col-overflow" field="operatorValue" header="operator Value" [sortable]="true">
-                      <template let-col let-application="rowData">
+                </p-column>
+                <p-column class="col-overflow" field="operatorValue" header="operator Value" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
-                </p-dataTable>
-         </div>
+                </p-column>
+            </p-dataTable>
+        </div>
 
 
 
         <div class="ui-g-12">
-            <div class="ui-g-6" style = "margin-left: -5px">
+            <div class="ui-g-6" style="margin-left: -5px">
                 <p-checkbox name="enableArgumentType" label="Enable Argument Type" [(ngModel)]="methodBasedCustomData.enableArgumentType" binary="true"></p-checkbox>
             </div>
         </div>
 
 
-        
+
 
         <div class="ui-g-12">
-                <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
-                    <p-header>
-                        <span>  Argument Type Settings </span>
-                        <span style="float: right; margin-top:-5px">
+            <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
+                <p-header>
+                    <span>  Argument Type Settings </span>
+                    <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddArgumentRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
                     </span>
-                    </p-header>
-                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                    <p-column class="col-overflow" field="headerName" header="Header Name" [sortable]="true">
-                        <template let-col let-application="rowData">
+                </p-header>
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column class="col-overflow" field="headerName" header="Header Name" [sortable]="true">
+                    <template let-col let-application="rowData">
                    <!--<span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>-->
              </template>
-                    </p-column>
+                </p-column>
 
-                     <p-column class="col-overflow" field="indexVal" header="Index" [sortable]="true">
-                        <template let-col let-application="rowData">
+                <p-column class="col-overflow" field="indexVal" header="Index" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
+                </p-column>
 
-                     <p-column class="col-overflow" field="type" header="type" [sortable]="true">
-                        <template let-col let-application="rowData">
+                <p-column class="col-overflow" field="type" header="type" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
+                </p-column>
 
-                    <p-column class="col-overflow" field="operation" header="Operation" [sortable]="true">
-                        <template let-col let-application="rowData">
+                <p-column class="col-overflow" field="operation" header="Operation" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
-                    <p-column class="col-overflow" field="operatorValue" header="operator Value" [sortable]="true">
-                      <template let-col let-application="rowData">
+                </p-column>
+                <p-column class="col-overflow" field="operatorValue" header="operator Value" [sortable]="true">
+                    <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
-                    </p-column>
-                </p-dataTable>
-         </div>
+                </p-column>
+            </p-dataTable>
+        </div>
 
-            
-        
+
+
         <footer>
             <div class="ui-dialog-buttonpane ">
                 <button type="submit" pButton icon="fa-check" label="OK"></button>
@@ -176,7 +176,7 @@
                     <label>Select Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                  <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="returnTypeRules.operationName" appendTo="body" placeholder="Select Operation"></p-dropdown>
+                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="returnTypeRules.operationName" appendTo="body" placeholder="Select Operation"></p-dropdown>
                 </div>
             </div>
 
@@ -185,7 +185,7 @@
                     <label>Operator Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input  name="operatorValue" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.operatorValue" placeholder="Select Operation" required ngModel/>
+                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.operatorValue" placeholder="Select Operation" required ngModel/>
                 </div>
             </div>
 
@@ -213,12 +213,12 @@
             </div>
 
 
-              <div class="ui-g-12">
+            <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Index</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input  name="indexVal" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.indexVal" placeholder="Index" required ngModel/>
+                    <input name="indexVal" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.indexVal" placeholder="Index" required ngModel/>
                 </div>
             </div>
 
@@ -228,7 +228,7 @@
                     <label>Custom Value Type</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="Select Custom Value Type" ></p-dropdown>
+                    <p-dropdown name="type" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="Select Custom Value Type"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -236,7 +236,7 @@
                     <label>Select Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                  <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="argumentTypeRules.operation" appendTo="body" placeholder="Select Operation" (click)="operationListArgumentType()" ></p-dropdown>
+                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="argumentTypeRules.operation" appendTo="body" placeholder="Select Operation" (click)="operationListArgumentType()"></p-dropdown>
                 </div>
             </div>
 
@@ -245,7 +245,7 @@
                     <label>Operator Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input  name="operatorValue" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.operatorValue" placeholder="Select Operation" required ngModel/>
+                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.operatorValue" placeholder="Select Operation" required ngModel/>
                 </div>
             </div>
 
@@ -257,6 +257,3 @@
         </footer>
     </form>
 </p-dialog>
-
-
- 

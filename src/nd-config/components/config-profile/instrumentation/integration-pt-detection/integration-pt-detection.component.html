@@ -1,6 +1,6 @@
 <p-dataTable [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect($event)" (onRowDblclick)="showDialogToDetail()">
     <p-header>
-        <span>Integration Point Detection(s) </span>
+        <span style="float: left">Integration Point Detection(s) </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add" ></button>
         </span>
