@@ -28,7 +28,8 @@
                 <label>Backend Type</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'56%'}" name="backendTypeId" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="Select a Backend Type" required ngModel></p-dropdown>
+                <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.backendTypeId" required ngModel/>
+                <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'56%'}" name="backendTypeId" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="-- Select a Backend Type --" required ngModel></p-dropdown>
             </div>
         </div>
 
@@ -75,57 +76,58 @@
 
 <!--This dialog showing the 'Naming Rules' & 'Exit Points' values for particular service entry point-->
 <p-dialog *ngIf="detailDialog" header="{{integrationDetail.type}}" [(visible)]="detailDialog" modal="modal" width="500" responsive="true">
+    <div style="max-height: 500px; overflow-y: auto;">
+        <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
+        <div class="ui-g" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC">
+            <label> <h3>Naming Rules</h3> </label>
+        </div>
+        <div class="ui-g" [ngSwitch]="integrationDetail.type">
+            <div class="ui-g" *ngSwitchCase="IP.WS">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.RMI">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.HADOOP">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table Name </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.HTTP">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.JDBC">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> UserName </md-checkbox>
 
-    <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
-    <div class="ui-g" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC">
-        <label> <h3>Naming Rules</h3> </label>
-    </div>
-    <div class="ui-g" [ngSwitch]="integrationDetail.type">
-        <div class="ui-g" *ngSwitchCase="IP.WS">
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+                <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
+            </div>
+            <div class="ui-g" *ngSwitchDefault>
+            </div>
         </div>
-        <div class="ui-g" *ngSwitchCase="IP.RMI">
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
-        </div>
-        <div class="ui-g" *ngSwitchCase="IP.HADOOP">
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table Name </md-checkbox>
-        </div>
-        <div class="ui-g" *ngSwitchCase="IP.HTTP">
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
-        </div>
-        <div class="ui-g" *ngSwitchCase="IP.JDBC">
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL</md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
-            <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> UserName </md-checkbox>
 
-            <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
-        </div>
-        <div class="ui-g" *ngSwitchDefault>
-        </div>
-    </div>
-
-    <div class="ui-g">
-        <div class="ui-g-12">
-            <label><h3>Exit Points</h3></label>
-            <div class="ui-g" *ngFor="let endPoints of integrationDetail.lstEndPoints">
-                <div class="ui-g-10">
-                    <label>{{endPoints.name}}</label>
-                </div>
-                <div>
-                    <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <label><h3>Exit Points</h3></label>
+                <div class="ui-g" *ngFor="let endPoints of integrationDetail.lstEndPoints">
+                    <div class="ui-g-10">
+                        <label>{{endPoints.name}}</label>
+                    </div>
+                    <div>
+                        <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+                    </div>
                 </div>
             </div>
         </div>
