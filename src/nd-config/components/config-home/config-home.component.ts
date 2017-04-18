@@ -41,9 +41,9 @@ export class ConfigHomeComponent implements OnInit {
      this.configHomeService.getMainData()
       .subscribe(data => {
 
-        this.applicationInfo = (data.homeData[0].value).slice(0, 5);
-        this.profileInfo = (data.homeData[1].value).slice(0, 5);
-        this.topologyInfo = (data.homeData[2].value).slice(0, 5);
+        this.applicationInfo = (data.homeData[0].value).slice(0, 6);
+        this.profileInfo = (data.homeData[1].value).slice(0, 6);
+        this.topologyInfo = (data.homeData[2].value).slice(0, 6);
         this.agentsInfo = data.agentData;
      })
   }

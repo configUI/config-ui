@@ -14,8 +14,12 @@
         </p-column>
         <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
             <template let-col let-profile="rowData" pTemplate>
-
                 <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="tableCss" field="timeStamp" header="Last Updated On" [sortable]="true">
+            <template let-col let-profile="rowData" pTemplate>
+                <span style="float:right" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
             </template>
         </p-column>
     </p-dataTable>

@@ -33,6 +33,11 @@
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
     </p-column>
+      <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+    </template>
+    </p-column>
 </p-dataTable>
 
 </div>
