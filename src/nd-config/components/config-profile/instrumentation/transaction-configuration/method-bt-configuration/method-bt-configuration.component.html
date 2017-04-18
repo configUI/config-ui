@@ -1,11 +1,11 @@
 <!--For showing Bussiness Transaction Pattern(s) list -->
 <p-dataTable [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> Method Bussiness Transaction(s) </span>
+        <span style="float: left"> Method Bussiness Transaction(s) </span>
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openMethodDialog()" icon="fa-plus"></button>
                         <button pButton type="button" title="Edit"(click)="editMethodTrans()" icon="fa-pencil" ></button>
-                       <button pButton type="button"title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -31,7 +31,7 @@
                     <label>Fully Qualified Method Name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="fqm" type="text" size="48" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
+                    <input name="fqm" type="text" size="65" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
                         Argument Index
                     </div>
                     <div class="ui-g-5" style="margin-top: -5px">
-                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="text" size="30" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="Argument Index" autofocus required ngModel/>
+                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="text" size="12" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="Argument Index" autofocus required ngModel/>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <span>  Return Type Info </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

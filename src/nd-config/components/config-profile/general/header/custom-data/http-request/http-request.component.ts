@@ -6,6 +6,7 @@ import { httpReqHeaderInfo } from '../../../../../../interfaces/httpReqHeaderInf
 import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
 import { SelectItem,ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
+import { deleteMany } from '../../../../../../utils/config-utility';
 
 @Component({
   selector: 'app-http-request',
@@ -32,12 +33,13 @@ export class HttpRequestComponent implements OnInit {
 
   rulesData: RulesHTTPRequestHdrComponentData;
   rulesDataInfo: RulesHTTPRequestHdrComponentData[];
-  selectedRulesData : any;
+  selectedRulesData : any[];
 
   customValueType: SelectItem[];
   
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) {
     this.customValueType = [];
+    this.rulesDataInfo =[];
     let arrLabel = ['String', 'Integer', 'Decimal'];
     let arrValue = ['string', 'integer', 'decimal'];
     this.customValueType = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
@@ -52,10 +54,37 @@ export class HttpRequestComponent implements OnInit {
       this.profileId = params['profileId'];
     });
     console.log("profile id - ",this.profileId);
-    this.configKeywordsService.getFetchHTTPReqHeaderTable('/29046').subscribe(data => this.constructTableData(data));
+    // this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => this.constructData(data));
   }
 
 
+  // constructData(data) {
+  //   this.httpRequestHdrInfo = this.filterTRData(data)
+  // }
+  //Code
+  filterTRData(data): Array<HTTPRequestHdrComponentData> {
+    var arrTestRunData = [];
+    for (var i = 0; i < data.rules.length; i++) {
+      let valueNames = "";
+      // if (data.rules[i].attrValues == "") {
+      //   if (data.rules[i].attrType == "complete")
+      //     valueNames = "NA";
+      //   else
+      //     valueNames = "Add Values";
+      // }
+      // for (var j = 0; j < data.rules[i].attrValues.length; j++) {
+      //   if (data.rules[i].attrValues.length == 1)
+      //     valueNames = data.rules[i].attrValues[j].valName;
+      //   else
+      //     valueNames = valueNames + "," + data.attrList[i].attrValues[j].valName;
+      // }
+
+      arrTestRunData.push({
+        attrName: data.rules[i].attrName, attrType: data.rules[i].attrType, valName: valueNames, sessAttrId: data.rules[i].sessAttrId,
+      });
+    }
+    return arrTestRunData;
+  }
 
   constructTableData(data) {
     console.log("data - ", data)
@@ -123,7 +152,7 @@ export class HttpRequestComponent implements OnInit {
     this.rulesDialog = false;
   }
 
-  deleteHeader() : void
+  deleteHTTPReqHeader() : void
   {
      if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
       this.configUtilityService.errorMessage("Please select for delete");
@@ -136,23 +165,46 @@ export class HttpRequestComponent implements OnInit {
       accept: () => {
         //Get Selected Applications's AppId
         let selectedApp = this.selectedHTTPReqHeader;
+        console.log("selectedApp - ",selectedApp);
         let arrAppIndex = [];
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].httpReqHdrBasedId);
         }
-        this.configKeywordsService.deleteBusinessTransMethodData(arrAppIndex, '/29046')
+        console.log("arrAppIndex - ",arrAppIndex);
+         this.configKeywordsService.deleteHTTPReqHeaderData(arrAppIndex,this.profileId)
           .subscribe(data => {
-            // this.deleteMethodsBusinessTransactions(arrAppIndex);
-            // this.selectedbusinessTransMethod = [];
+            this.deleteHTTPReqHeaderIndex(arrAppIndex);
             this.configUtilityService.infoMessage("Delete Successfully");
+            this.selectedHTTPReqHeader = [];
           })
       },
       reject: () => {
       }
     });
   }
+
+   /**This method is used to delete HTTP request from Data Table */
+  deleteHTTPReqHeaderIndex(arrIndex) {
+    let rowIndex: number[] = [];
+
+    for (let index in arrIndex) {
+      rowIndex.push(this.getHTTPReqHeaderIndex(arrIndex[index]));
+    }
+    this.httpRequestHdrDetail = deleteMany(this.httpRequestHdrDetail, rowIndex);
+  }
+
   openMethodDialog() {
     this.httpRequestCustomDialog = true;
   }
 
+  /**This method returns selected table data row on the basis of selected row */
+  getHTTPReqHeaderIndex(id: any): number {
+
+    for (let i = 0; i < this.httpRequestHdrComponentInfo.length; i++) {
+      if (this.httpRequestHdrDetail[i].httpReqHdrBasedId == id) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }

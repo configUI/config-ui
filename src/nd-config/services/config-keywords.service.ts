@@ -6,7 +6,7 @@ import * as URL from '../constants/config-url-constant';
 import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
-import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
+// import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
 import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData, AddIPDetection} from '../containers/instrumentation-data';
@@ -189,7 +189,7 @@ export class ConfigKeywordsService {
   }
 
   /* Fetch  Business Trans Pattern Info */
-  getBusinessTransPatternData(profileId): Observable<BusinessTransPatternInfo[]> {
+  getBusinessTransPatternData(profileId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`);
   }
 
@@ -212,7 +212,6 @@ export class ConfigKeywordsService {
       return this._restApi.getDataByPostReq(`${URL.UPDATE_BTMETHOD}/${data.btMethodId}`, data);
   }
 
-
   /*Add Pattern Bt Data*/
   addBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`, data);
@@ -224,7 +223,6 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPutReq(url, data);
   }
 
-
  /*Add Pattern Bt Data*/
   addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
@@ -235,14 +233,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_BT_PATTERN_DETAILS}/${profileId}`, data);
   }
 
-   /*  FETCH HTTP REQUEST HEADER TABLEDATA */
-   
-   getFetchHTTPReqHeaderTable(profileId): Observable<httpReqHeaderInfo[]> {
-    return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREQ_HDR}${profileId}`);
+  /*  FETCH HTTP REQUEST HEADER TABLEDATA */
+    getFetchHTTPReqHeaderTable(profileId): Observable<httpReqHeaderInfo[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREQ_HDR}/${profileId}`);
   }
 
   /* Fetch  Business Trans Method Info */
   deleteHTTPReqHeaderData(data, profileId): Observable<httpReqHeaderInfo> {
     return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REQ_HDR}/${profileId}`, data);
   }
+
 }

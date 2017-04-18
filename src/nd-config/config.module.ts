@@ -36,7 +36,8 @@ import {
   AccordionModule,
   FieldsetModule,
   ChipsModule,
-  ToolbarModule
+  ToolbarModule,
+  SliderModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -61,7 +62,9 @@ import { ConfigBreadcrumbService } from './services/config-breadcrumb.service';
 import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
-import { ConfigBusinessTranService } from './/services/config-business-trans-global-service';
+import { ConfigCustomDataService } from './services/config-customdata.service';
+
+
 /**Config UI Component */
 import { AppComponentForConfig } from './config.component';
 import { ConfigMainComponent } from './components/config-main/config-main.component';
@@ -198,10 +201,11 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ChipsModule,
     AccordionModule,
     FieldsetModule,
-    ToolbarModule
+    ToolbarModule,
+    SliderModule
   ],
 
-  providers: [ConfigBusinessTranService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService],
+  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService],
   bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }

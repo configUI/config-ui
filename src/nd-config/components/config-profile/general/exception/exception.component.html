@@ -1,47 +1,49 @@
 <form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-<div class="tabsincontent">
-    <div class="header">Exception Capturing
-         <div class="pull-right">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+    <div class="tabsincontent">
+        <div class="header">Exception Capturing
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+
             </div>
+        </div>
+        <p-panel>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <p-checkbox label="Instrument Exceptions" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="false"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3" style="margin-left: 16px">
+                            <p-checkbox disabled={{!exceptionData.instrumentException}} label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
+                            </p-checkbox>
+                        </div>
+
+                        <div class="ui-g-2">
+                            <input type="number" placeholder="Stack Trace Limit for Frames" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} style="width:173px" [min]=0 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth"
+                                required ngModel/>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2" style="margin-left: 34px">Capture Exceptions</div>
+                    </div>
+                    <div class="ui-g-12" style="margin-left: 16px">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2" style="margin-left: 16px">
+                            <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
+                        </div>
+                        <div class="ui-g-2">
+                            <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
     </div>
-<p-panel>
-  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-    
-      <div class="ui-g">
-          <div class="ui-g-12">
-            <div class="ui-g-1"></div>
-              <div class="ui-g-3">           
-                      <p-checkbox label="Instrument Exceptions" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="false"></p-checkbox>
-              </div>
-          </div>
-          <div class="ui-g-12">
-            <div class="ui-g-1"></div>
-            <div class="ui-g-3" style="margin-left: 16px">
-              <p-checkbox disabled={{!exceptionData.instrumentException}} label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
-              </p-checkbox>
-            </div>
-           
-            <div class="ui-g-2">
-             <input type="number" style="width:178px" placeholder="Stack Trace Limit for Frames" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} [min]=0 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth"  required ngModel/>
-            </div>
-          </div>
-          <div class="ui-g-12">
-            <div class="ui-g-1"></div>
-            <div class="ui-g-2" style="margin-left: 34px">Capture Exceptions</div>
-          </div>
-          <div class="ui-g-12" style="margin-left: 16px">
-            <div class="ui-g-1"></div>
-            <div class="ui-g-2" style="margin-left: 16px">
-              <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
-            </div>
-            <div class="ui-g-2">
-              <p-radioButton name="CaptureException"disabled={{!exceptionData.instrumentException}} value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
-            </div>
-          </div>
-      </div>
-  </div>
-</p-panel>
-</div>
- </form>
+</form>

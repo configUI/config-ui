@@ -34,18 +34,20 @@ export class ConfigBreadcrumbComponent implements OnInit {
         else {
           this.items.push({ routerLink: [BREADCRUMB.URL.PROFILE_LIST], label: BREADCRUMB.LABEL.PROFILE_LIST });
 
+
+
           if (url.startsWith(BREADCRUMB.URL.CONFIGURATION))
             this.items.push({ label: BREADCRUMB.LABEL.CONFIGURATION });
 
           else {
             let arrURL = url.split("/");
-            
+
             let tabId = arrURL[arrURL.length - 1];
             let profileId = arrURL[arrURL.length - 2];
 
             console.log("profileId", `${BREADCRUMB.URL.CONFIGURATION}/${profileId}`);
-            this.items.push({routerLink: [`${BREADCRUMB.URL.CONFIGURATION}/${profileId}`], label: BREADCRUMB.LABEL.CONFIGURATION});
-            
+            this.items.push({ routerLink: [`${BREADCRUMB.URL.CONFIGURATION}/${profileId}`], label: BREADCRUMB.LABEL.CONFIGURATION });
+
             if (url.startsWith(BREADCRUMB.URL.GENERAL))
               this.items.push({ label: BREADCRUMB.LABEL.GENERAL });
             else if (url.startsWith(BREADCRUMB.URL.INSTRUMENTATION))
@@ -62,7 +64,18 @@ export class ConfigBreadcrumbComponent implements OnInit {
         this.items.push({ routerLink: [url], label: BREADCRUMB.LABEL.TOPOLOGY_LIST });
       }
 
+      else if (url == BREADCRUMB.URL.TOPOLOGY_DETAIL) {
+        this.items.push({ label: BREADCRUMB.LABEL.TOPOLOGY_DETAIL })
+      }
+
+      else if (url == BREADCRUMB.URL.ND_AGENT) {
+        this.items.push({ label: BREADCRUMB.LABEL.ND_AGENT })
+      }
+
+      else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
+        this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+      }
       console.log("this.items", this.items);
     });
-  }  
+  }
 }

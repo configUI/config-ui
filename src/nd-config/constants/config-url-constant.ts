@@ -1,16 +1,10 @@
-// const SERVICE_URL = 'http://localhost:8090';
- const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
-// const  SERVICE_URL = 'http://10.10.60.77:8090';
-// const  SERVICE_URL = 'http://10.10.50.6/configUI';
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
-// const  SERVICE_URL = 'http://10.10.60.70:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
  // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-//  const  SERVICE_URL = 'http://10.10.30.26:8001/configUI';
-//const  SERVICE_URL = 'http://10.10.60.77:8090';
+
 //For Production use this SERVICE_URL
-//const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 export const ROUTING_PATH: string = "";
 // export const ROUTING_PATH: string = "/home/config";
@@ -73,7 +67,7 @@ export const  ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileservi
 export const  ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
 
-/*Url for Toggle */ 
+/*Url for Toggle */
 export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso` ;
 
 /* Url fot BussinessTransaction */
@@ -86,7 +80,7 @@ export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGrou
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 
 /* Url fot BussinessTransactionGlobal */
-export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/bussinesstransglobal`;
+export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;
 
 
 /* Url for Backend Detection */
@@ -131,7 +125,7 @@ export const EDIT_ROW_HTTP_STATS_MONITOR_URL = `${SERVICE_URL}/custom/httpstatsc
 export const GET_HTTP_HEADERS_lIST =`${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
 export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/listoftypes`;
 export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/listofvaluetypes`;
-export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`; 
+export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`;
 export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
 export const DEL_HTTP_STATS_COND   = `${SERVICE_URL}/custom/httpstatscondition/delete`;
 
@@ -158,7 +152,7 @@ export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/del
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
- /*URL for btMethod */    
+ /*URL for btMethod */
  export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
  export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
  export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;

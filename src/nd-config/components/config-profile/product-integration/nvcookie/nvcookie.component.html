@@ -1,70 +1,70 @@
 <form *ngIf="ndSession" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-    <div class="header">Integrate with other Cavisson Products
-         <div class="pull-right">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-            </div>
-    </div>
-    <p-panel>
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-            <div class="ui-g">
-
-                <div class="ui-g-12">
-                    <!--<div class = "ui-g-6">-->
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-4">
-                       <p-checkbox name="methodEntry" binary="true" [(ngModel)]="ndSessionData.methodEntryDepth"  label="Enable Cookie at Method Entry"></p-checkbox>
-                    </div>
-                    <div class="ui-g-3">
-                       <p-checkbox name="methodExit" binary="true" [(ngModel)]="ndSessionData.methodExitDepth"  label="Enable Cookie at Method Exit"></p-checkbox>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <!--<div class = "ui-g-6">-->
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-4">
-                       <p-checkbox name="OnResponseCommitEvent" binary="true" [(ngModel)]="ndSessionData.onResponseCommit"  label="Enable Cookie OnResponseCommitEvent"></p-checkbox>
-                    </div>
-                    <div class="ui-g-3">
-                       <p-checkbox name=" XCavNVHeader" binary="true" [(ngModel)]="ndSessionData.setResponseHeader" label="Enable X CavNV Header"></p-checkbox>
-                    </div>
-                </div>
-                <div></div>
-                <div class="ui-g-12">
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-2">
-                        <label>ND Session Cookie Name</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <input name="cookieName" [(ngModel)]="ndSessionData.cookieName" type="text" required  />
-                    </div>
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-3">
-                        <label>Domain Name</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <input name="domainName" [(ngModel)]="ndSessionData.domain" type="text" required  />
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-2">
-                        <label>Idle Timeout</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <input name="timeout" [(ngModel)]="ndSessionData.idleTimeOut" type="text" required  />
-                    </div>
-                    <div class="ui-g-1"></div>
-                     <div class="ui-g-3">
-                        <label>Maximum Flowpath in Session Count</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <input name="sessionCount" [(ngModel)]="ndSessionData.maxFPAllowedInSession" type="text" required  />
-                    </div>
-                </div>
+        <div class="header">Integrate with other Cavisson Products
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>
-    </p-panel>
+        <p-panel>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-g">
+
+                    <div class="ui-g-12">
+                        <!--<div class = "ui-g-6">-->
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-4">
+                            <p-checkbox name="methodEntry" binary="true" [(ngModel)]="ndSessionData.methodEntryDepth" label="Enable Cookie at Method Entry"></p-checkbox>
+                        </div>
+                        <div class="ui-g-3">
+                            <p-checkbox name="methodExit" binary="true" [(ngModel)]="ndSessionData.methodExitDepth" label="Enable Cookie at Method Exit"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <!--<div class = "ui-g-6">-->
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-4">
+                            <p-checkbox name="OnResponseCommitEvent" binary="true" [(ngModel)]="ndSessionData.onResponseCommit" label="Enable Cookie OnResponseCommitEvent"></p-checkbox>
+                        </div>
+                        <div class="ui-g-3">
+                            <p-checkbox name=" XCavNVHeader" binary="true" [(ngModel)]="ndSessionData.setResponseHeader" label="Enable X CavNV Header"></p-checkbox>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-2">
+                            <label>ND Session Cookie Name</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input name="cookieName" [(ngModel)]="ndSessionData.cookieName" type="text" required />
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <label>Domain Name</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input name="domainName" [(ngModel)]="ndSessionData.domain" type="text" required />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-2">
+                            <label>Idle Timeout</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input name="timeout" [(ngModel)]="ndSessionData.idleTimeOut" type="number" required />
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <label>Maximum Flowpath in Session Count</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input name="sessionCount" [(ngModel)]="ndSessionData.maxFPAllowedInSession" type="number" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
     </div>
 </form>
