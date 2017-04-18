@@ -9,11 +9,11 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
-import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData} from '../containers/instrumentation-data';
+import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData, AddIPDetection} from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
-import { BackendInfo } from '../interfaces/instrumentation-info';
+import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import {  httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 
 @Injectable()
@@ -66,6 +66,16 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`);
   }
 
+  /**For getting Entry Point Type List */
+  getEntryPointTypeList(): Observable<ServiceEntryType[]> {
+    return this._restApi.getDataByGetReq(URL.FETCHING_SERVICE_ENTRYPOINTS_FORM);
+  }
+
+  /**Service Entry Point */
+  enableServiceEntryPointList(serviceEntryId, isEnable): Observable<ServiceEntryPoint[]> {
+    return this._restApi.getDataByPostReq(`${URL.ENABLE_SERVICE_ENTRY_POINTS}/${serviceEntryId}/${isEnable}`);
+  }
+
   addServiceEntryPointData(data, profileId): Observable<ServiceEntryPoint> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
@@ -79,7 +89,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TYPES}/${profileId}`);
   }
 
-  addIntegrationPTDetectionData(profileId, data): Observable<IntegrationPTDetection> {
+  addIntegrationPTDetectionData(profileId, data): Observable<AddIPDetection> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
   }
 

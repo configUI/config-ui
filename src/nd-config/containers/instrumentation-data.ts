@@ -27,6 +27,29 @@ export class AddIPDetection {
     id: number;
     name: string;
 }
+export class BackendTableInfo {
+    type: string;
+    detail: string;
+    enabled: boolean;
+    id: number;
+    lstEndPoints: EndPoint[];
+    namingRule: NamingRule;
+}
+
+export class NamingRule {
+    databaseProductName: boolean;
+    databaseProductVersion: boolean;
+    driverName: boolean;
+    driverVersion: boolean;
+    host: boolean;
+    port: boolean;
+    query: boolean;
+    serviceName: boolean;
+    tableName: boolean;
+    topicName: boolean;
+    url: boolean;
+    userName: boolean;
+}
 
 export class IntegrationPTDetection {
     type: string;
@@ -47,14 +70,18 @@ export class EndPoint {
 
 export class NamingRuleAndExitPoint {
     backendTypeId: number;
+    databaseProductName: boolean;
     databaseProductVersion: boolean;
+    driverName: boolean;
     driverVersion: boolean;
     host: boolean;
     port: boolean;
+    query: boolean;
     serviceName: boolean;
     tableName: boolean;
     topicName: boolean;
     url: boolean;
+    userName: boolean;
     lstEndPoints: EndPointInfo[];
 }
 export class EndPointInfo {
@@ -76,8 +103,8 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
-export class HttpStatsMonitorData{  //Http stats monitors by Surbhi
-    compValue:string;
+export class HttpStatsMonitorData {  //Http stats monitors by Surbhi
+    compValue: string;
     condition: string;
     conditionName: string;
     cookieName: string;
@@ -164,15 +191,15 @@ export class SessionAtrributeComponentsData {
 }
 
 export class SessionTypeValueData {
-    customValTypeName:string;
+    customValTypeName: string;
     id?: number;
     lb?: string;
     rb?: string;
     type?: number;
     valName?: string;
-  }
+}
 
-  export class HTTPRequestHdrComponentData {
+export class HTTPRequestHdrComponentData {
     httpReqHdrBasedId: number;
     headerName: string;
     dumpMode: string;

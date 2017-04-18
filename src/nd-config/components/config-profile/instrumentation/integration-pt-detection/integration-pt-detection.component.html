@@ -1,4 +1,4 @@
-<p-dataTable [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect($event)" (onRowDblclick)="showDialogToDetail()">
+<p-dataTable [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect()">
     <p-header>
         <span>Integration Point Detection(s) </span>
         <span style="float :right; margin-top:-5px">
@@ -8,7 +8,7 @@
     <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
     <p-column class="tableCss" field="type" header="Type" [sortable]="true">
         <template let-col let-integrationPTDetection="rowData" pTemplate>
-      <span title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
+      <span class="hyperlink" title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="detail" header="Description" [sortable]="true">
@@ -22,55 +22,58 @@
 <!--Dialog for Adding New Integration PT Detection-->
 
 <p-dialog header="New Integration PT Detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="600" responsive="true">
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Backend Type</label>
+    <form (ngSubmit)="saveAddIntegrationPTDetection()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Backend Type</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'56%'}" name="backendTypeId" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="Select a Backend Type" required ngModel></p-dropdown>
+            </div>
         </div>
-        <div class="ui-g-8">
-            <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'56%'}" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="Select a Backend Type"></p-dropdown>
-        </div>
-    </div>
 
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Name</label>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="name" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
+            </div>
         </div>
-        <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.name" required/>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Enabled</label>
+            </div>
+            <div class="ui-g-8">
+                <md-slide-toggle [(ngModel)]="addIPDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+            </div>
         </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Enabled</label>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Fully Qualified Method Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="fqm" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
+            </div>
         </div>
-        <div class="ui-g-8">
-            <md-slide-toggle [(ngModel)]="addIPDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="desc" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.desc" required ngModel/>
+            </div>
         </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Fully Qualified Method Name</label>
-        </div>
-        <div class="ui-g-8">
-            <input id="in2" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required />
-        </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Description</label>
-        </div>
-        <div class="ui-g-8">
-            <input id="in3" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.desc" required/>
-        </div>
-    </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-check" (click)="saveAddIntegrationPTDetection()" label="Save"></button>
-            <button type="button" pButton icon="fa-close" (click)="displayNewIPDetection=false" label="Cancel"></button>
-        </div>
-    </footer>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="displayNewIPDetection=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>
 
+<!--This dialog showing the 'Naming Rules' & 'Exit Points' values for particular service entry point-->
 <p-dialog *ngIf="detailDialog" header="{{integrationDetail.type}}" [(visible)]="detailDialog" modal="modal" width="500" responsive="true">
 
     <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
