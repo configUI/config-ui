@@ -1,6 +1,6 @@
 <p-dataTable [value]="serviceEntryData" [(selection)]="selectedserviceEntryData">
     <p-header>
-        <span>  Service Entry Detail(s) </span>
+        <span style="float: left">  Service Entry Detail(s) </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add"></button>
         </span>
@@ -19,7 +19,7 @@
     </p-column>
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}">{{service[col.field]}}</span> 
+      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
@@ -30,55 +30,55 @@
 </p-dataTable>
 
 <p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="600" responsive="true">
-    
+
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Entry Point Type</label>
-        </div>
-        <div class="ui-g-8">
-           <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="Select a Service"></p-dropdown>
-        </div>
-    </div>
-
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Name</label>
-        </div>
-        <div class="ui-g-8">
-            <input name="name" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.name" required ngModel/>
-        </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Enabled</label>
-        </div>
-        <div class="ui-g-4">
-            <md-slide-toggle [(ngModel)]="serviceEntryPointDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
-            
-        </div>
-    </div>
-        <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Fully Qualified Method Name</label>
-        </div>
-        <div class="ui-g-8">
-            <input name="fqm" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
-        </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">
-            <label>Description</label>
-        </div>
-        <div class="ui-g-8">
-            <input name="desc" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.desc" required ngModel/>
-        </div>
-    </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-            <button type="submit" pButton icon="fa-check" label="Save"></button>
-            <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
+            <div class="ui-g-4">
+                <label>Entry Point Type</label>
             </div>
-    </footer>
-   </form>
+            <div class="ui-g-8">
+                <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="Select a Service"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="name" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.name" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Enabled</label>
+            </div>
+            <div class="ui-g-4">
+                <md-slide-toggle [(ngModel)]="serviceEntryPointDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Fully Qualified Method Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="fqm" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="desc" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.desc" required ngModel/>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="displayNewService=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>

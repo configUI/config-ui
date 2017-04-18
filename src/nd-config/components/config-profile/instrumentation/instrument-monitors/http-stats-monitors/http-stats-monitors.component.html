@@ -1,10 +1,10 @@
 <p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span>HTTP Stats Condition Monitor(s) </span>
+        <span style="float: left">HTTP Stats Condition Monitor(s) </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit" (click)="openEditHTTPStatsDialog()" icon="fa-pencil"></button>
-            <button pButton type="button" title="Delete" (click)="deleteHTTPStats()" icon="fa-trash"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteHTTPStats()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
