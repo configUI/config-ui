@@ -98,48 +98,48 @@
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
         <p-column class="col-overflow" field="btName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
-                    </template>
+        <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="matchType" header="Match Type" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="urlName" header="URL" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="include" header="BT Included" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="slowTransaction" header="Slow Transaction Threshold(ms)" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="verySlowTransaction" header="Very Slow Transaction Threshold(ms)" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="paramKeyValue" header="Req Param key Value" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="reqMethod" header="HTTP Method" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
         <p-column class="col-overflow" field="headerKeyValue" header="Req Header key Value" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                    </template>
+        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+      </template>
         </p-column>
 
     </p-dataTable>
@@ -182,6 +182,7 @@
                     <div class="ui-g-3" style="padding-left: 20px">
                         Slow </div>
                     <div class="ui-g-7"><input name="slowTransaction" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" placeholder="Slow" required ngModel />(ms)
+                        <span ng-show="slowTransaction <= verySlowTransaction">Please enter a greater value</span>
                     </div>
                 </div>
             </div>
@@ -213,7 +214,7 @@
                         <label>Value</label>
                     </div>
                     <div class="ui-g-8">
-                        <input name="reqParamValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" placeholder="Value"/>
+                        <input name="reqParamValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" placeholder="Value" />
                     </div>
                 </div>
 
@@ -225,7 +226,7 @@
                         <label>Request Header key</label>
                     </div>
                     <div class="ui-g-7">
-                        <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" placeholder="Request Header key"/>
+                        <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" placeholder="Request Header key" />
                     </div>
                 </div>
                 <div class="ui-g-6">

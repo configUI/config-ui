@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ConfirmationService, SelectItem } from 'primeng/primeng';
 
@@ -24,7 +25,7 @@ import { Messages } from '../../constants/config-constant';
 })
 export class ConfigApplicationListComponent implements OnInit {
 
-  constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) { }
+  constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router) { }
 
   /**It stores application-list data */
   applicationData: ApplicationData[];
@@ -205,5 +206,11 @@ export class ConfigApplicationListComponent implements OnInit {
     }
 
     this.applicationData = deleteMany(this.applicationData, rowIndex);
+  }
+
+  routeToTree(selectedAppId, selectedAppName) {
+    //Observable app name 
+    this.configApplicationService.applicationNameObserver(selectedAppName);
+    this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
   }
 }

@@ -1,4 +1,4 @@
-<p-dataTable [value]="serviceEntryData" [(selection)]="selectedserviceEntryData">
+<p-dataTable [value]="serviceEntryData" [(selection)]="selectedserviceEntryData" [rows]="12" [paginator]="true" [pageLinks]="3">
     <p-header>
         <span style="float: left">  Service Entry Detail(s) </span>
         <span style="float :right; margin-top:-5px">
@@ -9,7 +9,7 @@
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="entryType" header="Type" [sortable]="true">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}"><a href="https://www.w3schools.com">{{service[col.field]}}</a></span>
+      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
     <p-column class="tableCss" field="name" header="Name" [sortable]="true">
@@ -19,7 +19,9 @@
     </p-column>
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+
+            <md-slide-toggle (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
+
     </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
@@ -29,6 +31,7 @@
     </p-column>
 </p-dataTable>
 
+<!--Dialog for New Service Entry -->
 <p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="600" responsive="true">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
@@ -37,7 +40,7 @@
                 <label>Entry Point Type</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="Select a Service"></p-dropdown>
+                <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="-- Select a Service --"></p-dropdown>
             </div>
         </div>
 

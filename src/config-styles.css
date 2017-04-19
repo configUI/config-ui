@@ -289,3 +289,15 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 .hideheader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
     opacity: 0 !important;
 }
+
+/* 
+hide it behind the dropdown component, the required 
+  HTML5 pop up still shows which is good and the form
+ is still marked as not valid 
+*/
+
+.hidden-validator {
+    position: absolute;
+    /*left: 272px;*/
+    z-index: -1;
+}

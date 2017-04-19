@@ -3,7 +3,8 @@ export interface BackendInfo {
     backendTypeId: number;
 }
 
-export interface BackendTableInfo {
-    type: string;
-    detail: string;
+export interface ServiceEntryType {
+    entryTypeId: number;
+    entryTypeName: string;
+    entryTypeDetail: string;
 }

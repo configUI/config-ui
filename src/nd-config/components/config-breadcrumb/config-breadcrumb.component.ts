@@ -34,8 +34,6 @@ export class ConfigBreadcrumbComponent implements OnInit {
         else {
           this.items.push({ routerLink: [BREADCRUMB.URL.PROFILE_LIST], label: BREADCRUMB.LABEL.PROFILE_LIST });
 
-
-
           if (url.startsWith(BREADCRUMB.URL.CONFIGURATION))
             this.items.push({ label: BREADCRUMB.LABEL.CONFIGURATION });
 
@@ -73,6 +71,8 @@ export class ConfigBreadcrumbComponent implements OnInit {
       }
 
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
+        this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] })
+
         this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
       }
       console.log("this.items", this.items);
