@@ -1,20 +1,23 @@
-<form *ngIf="HeaderForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-    <p-panel header="Flow Path Header">
+<form *ngIf="HeaderForm" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
+    <p-panel class ="hideheader" header="Flow Path Header">
         <p-header>
             <div class="pull-right">
                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
                     <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+
                 </div>
             </div>
         </p-header>
         <div style="margin: 5px 0px">
+
+
             <p-accordion>
                 <p-accordionTab header="HTTP Headers">
-                    <app-http-header></app-http-header>
+                    <app-http-header [data]="httpKeywordObject"></app-http-header>
                 </p-accordionTab>
                 <p-accordionTab header="Custom Data" [selected]="true">
-                    <app-custom-data></app-custom-data>
+                    <app-custom-data  [data]="header"></app-custom-data>
                 </p-accordionTab>
 
             </p-accordion>

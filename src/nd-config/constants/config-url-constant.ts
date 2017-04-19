@@ -1,10 +1,12 @@
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
- // const SERVICE_URL = 'http://10.10.50.7:8001/configUI';
-//const SERVICE_URL = 'http://localhost:8090';
-// const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+
+ //const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+const SERVICE_URL = 'http://localhost:8090';
+ // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+
 
 //For Production use this SERVICE_URL
-const SERVICE_URL = '/configUI';
+//const SERVICE_URL = '/configUI';
 
 export const ROUTING_PATH: string = "";
 // export const ROUTING_PATH: string = "/home/config";
@@ -62,12 +64,16 @@ export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`
 
 /* Url for ServiceEntryPoint */
 export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;
-export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/entryTypes`;
-export const ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
+
+
+export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/custom/profileserviceentryasso/getentrytypes`;
+export const  ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
+export const  ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
 
 /*Url for Toggle */
-export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso`;
+export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso` ;
+
 
 /* Url fot BussinessTransaction */
 export const ADD_BT = `${SERVICE_URL}/custom/btGlobal`;
@@ -151,15 +157,14 @@ export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/del
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
-/*URL for btMethod */
-export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
-export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
-export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;
-export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
-export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
-export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
-export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
-
+ /*URL for btMethod */
+ export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
+ export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
+ export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;
+ export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
+ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
+ export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/deleteRules`;
+ export const DEL_METHOD_BT =  `${SERVICE_URL}/custom/btmethod/delete`;
 
 /* URL for methodBasedCapturingData */
 export const ADD_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapturing/addcustomdata`;

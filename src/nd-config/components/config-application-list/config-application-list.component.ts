@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ConfirmationService, SelectItem } from 'primeng/primeng';
 
@@ -15,6 +16,8 @@ import { deleteMany } from '../../utils/config-utility';
 
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 
+import { Messages } from '../../constants/config-constant';
+
 @Component({
   selector: 'app-config-application-list',
   templateUrl: './config-application-list.component.html',
@@ -22,7 +25,7 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 })
 export class ConfigApplicationListComponent implements OnInit {
 
-  constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) { }
+  constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router) { }
 
   /**It stores application-list data */
   applicationData: ApplicationData[];
@@ -152,6 +155,7 @@ export class ConfigApplicationListComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.applicationData.push(data);
+        this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
   }
@@ -202,5 +206,22 @@ export class ConfigApplicationListComponent implements OnInit {
     }
 
     this.applicationData = deleteMany(this.applicationData, rowIndex);
+  }
+
+  routeToTree(selectedAppId, selectedAppName) {
+    //Observable app name 
+    this.configApplicationService.applicationNameObserver(selectedAppName);
+    this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
+  }
+
+  generateNDConfFile(){
+    let selectedApp = this.selectedApplicationData;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].appId);
+        }
+        this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data => 
+            this.configUtilityService.infoMessage("Successfully generated nd.conf file at path : " + data));
+
   }
 }

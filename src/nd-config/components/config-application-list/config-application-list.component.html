@@ -1,39 +1,44 @@
 <div class="widget">
     <div class="header"><i aria-hidden="true"></i>Application(s)
         <span style="float: right; margin-top:-2px">
-          <button pButton type="button" label="Generate"></button>
+            <button pButton type="button" title="Generate nd.conf file" icon="fa-file-text" (click)="generateNDConfFile()"></button>
             <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
-            <button pButton type="button"title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+            <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
         </span>
     </div>
 
-<!--For showing application list -->
-<p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <!--For showing application list -->
+    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
 
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-    <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+        <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
     </template>
-    </p-column>
-    <p-column class="col-overflow" field="topoName" header="Topology" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate>
+        </p-column>
+        <p-column class="col-overflow" field="topoName" header="Topology" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
-    </p-column>
-    <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate>
+        </p-column>
+        <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
-    </p-column>
-    <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
-        <template let-col let-application="rowData" pTemplate>
+        </p-column>
+        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
-    </p-column>
-</p-dataTable>
+        </p-column>
+        <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+    </template>
+        </p-column>
+    </p-dataTable>
 
 </div>
 <!--Dialog for adding Application-->
@@ -44,7 +49,8 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" autofocus required ngModel/>
+                <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
         <div class="ui-g">
@@ -60,7 +66,8 @@
                 <label>User Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" required ngModel />
+                <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
         <div class="ui-g">
@@ -68,8 +75,8 @@
                 <label>Topology</label>
             </div>
             <div class="ui-g-8">
-                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <p-dropdown name="topoId" [options]="topologySelectItem" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+                <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
             </div>
         </div>
         <footer>

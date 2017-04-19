@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
@@ -31,13 +32,12 @@ export class HotspotComponent implements OnInit, OnDestroy {
   exceptionName:string[];
   enableGroupKeyword: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.subscription = this.store.select("keywordData")
       .subscribe(data => {
         this.hotspot = data;
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
-
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.hotspot.enable;
   }
 
@@ -46,6 +46,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     this.keywordData.emit(this.hotspot);
+
   }
 
   resetKeywordData(){

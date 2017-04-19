@@ -27,6 +27,29 @@ export class AddIPDetection {
     id: number;
     name: string;
 }
+export class BackendTableInfo {
+    type: string;
+    detail: string;
+    enabled: boolean;
+    id: number;
+    lstEndPoints: EndPoint[];
+    namingRule: NamingRule;
+}
+
+export class NamingRule {
+    databaseProductName: boolean;
+    databaseProductVersion: boolean;
+    driverName: boolean;
+    driverVersion: boolean;
+    host: boolean;
+    port: boolean;
+    query: boolean;
+    serviceName: boolean;
+    tableName: boolean;
+    topicName: boolean;
+    url: boolean;
+    userName: boolean;
+}
 
 export class IntegrationPTDetection {
     type: string;
@@ -47,14 +70,18 @@ export class EndPoint {
 
 export class NamingRuleAndExitPoint {
     backendTypeId: number;
+    databaseProductName: boolean;
     databaseProductVersion: boolean;
+    driverName: boolean;
     driverVersion: boolean;
     host: boolean;
     port: boolean;
+    query: boolean;
     serviceName: boolean;
     tableName: boolean;
     topicName: boolean;
     url: boolean;
+    userName: boolean;
     lstEndPoints: EndPointInfo[];
 }
 export class EndPointInfo {

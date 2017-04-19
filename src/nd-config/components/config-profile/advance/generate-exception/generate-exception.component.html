@@ -2,11 +2,11 @@
     <div class="tabsincontent">
         <div class="header">Generate Exception in Method Settings
             <div class="pull-right">
-                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
                 <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>
-        <p-panel>
+        <p-panel class ="hideheader">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                 <div class="ui-g">
 
@@ -17,8 +17,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="fullName" type="text" size="30" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText
-                                autofocus required ngModel/>
+                            <input name="fullName" type="text" size="30" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText autofocus required ngModel/>
                         </div>
                     </div>
 
@@ -28,8 +27,7 @@
                             <label>Exception Type</label>
                         </div>
                         <div class="ui-g-3">
-                            <p-dropdown name="exceptionType" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="genExceptionData.exceptionType"
-                                [autoWidth]="true" [options]="exceptionType" appendTo="body" required ngModel></p-dropdown>
+                            <p-dropdown name="exceptionType" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="genExceptionData.exceptionType" [autoWidth]="true" [options]="exceptionType" appendTo="body" required ngModel></p-dropdown>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -39,8 +37,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required
-                                ngModel/>
+                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { KeywordData } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ExceptionData } from '../../../../containers/exception-capture-data';
 
 @Component({
@@ -22,7 +23,7 @@ export class ExceptionComponent implements OnInit {
   exception: Object;
   enableGroupKeyword:boolean
 
-  constructor(private configKeywordsService: ConfigKeywordsService) { 
+  constructor(private configKeywordsService: ConfigKeywordsService,private configUtilityService: ConfigUtilityService) { 
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.exception.enable;
   }
 
@@ -90,6 +91,7 @@ export class ExceptionComponent implements OnInit {
             this.exception[key]["value"] = instrValue;
       }
     this.keywordData.emit(this.exception);
+
   }
 
   // Method used to construct the value of instrException keyword.

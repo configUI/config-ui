@@ -8,6 +8,8 @@ import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { Messages } from '../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-http-bt-configuration',
   templateUrl: './http-bt-configuration.component.html',
@@ -146,7 +148,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.globalBtDetail.httpMethod = true;
     else
       this.globalBtDetail.httpMethod = false;
-
+    this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
   }
 
@@ -161,8 +163,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.businessTransPatternInfo.push(data);
+    this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
+    this.configUtilityService.successMessage("Saved Successfully !!!");
+
   }
 
   /* Open Dialog for Add Pattern */
@@ -206,7 +211,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is common method for save or edit BT Pattern */
   saveADDEditBTPatternTrans(): void {
-    //When add new application 
+    //When add new application
     if (this.isNewApp) {
       //Check for app name already exist or not
       if (!this.checkAppNameAlreadyExist()) {
@@ -214,7 +219,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         return;
       }
     }
-    //When add edit Pattern 
+    //When add edit Pattern
     else {
       if (this.businessTransPatternInfo[0].id != this.businessTransPatternDetail.id) {
         if (this.checkAppNameAlreadyExist())
@@ -222,6 +227,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       }
       this.editApp();
     }
+
   }
 
   /**This method is used to validate the name of Pattern is already exists. */
@@ -288,5 +294,25 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /**For close add/edit application dialog box */
   closeDialog(): void {
     this.addEditPatternDialog = false;
+  }
+
+  checkSlow(slow, vslow){
+    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+      slow.setCustomValidity('Slow value shoule be less than very slow value.');
+    }
+    else{
+      slow.setCustomValidity('');
+    }
+    vslow.setCustomValidity('');
+  }
+
+  checkVSlow(slow, vslow){
+    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+      vslow.setCustomValidity('Very slow value shoule be greater than slow value.');
+    }
+    else{
+      vslow.setCustomValidity('');
+    }
+    slow.setCustomValidity('');
   }
 }

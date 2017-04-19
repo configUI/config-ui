@@ -6,7 +6,7 @@
 
     </div>
 
-    <p-dataTable [value]="profileData" [(selection)]="selectedProfile"  [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="profileData" [(selection)]="selectedProfile" [rows]="15" [paginator]="true" [pageLinks]="3">
         <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
             <template let-col let-profile="rowData" pTemplate>
                 <span title="{{profile[col.field]}}"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
@@ -14,22 +14,26 @@
         </p-column>
         <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
             <template let-col let-profile="rowData" pTemplate>
-
                 <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="tableCss" field="timeStamp" header="Last Updated On" [sortable]="true">
+            <template let-col let-profile="rowData" pTemplate>
+                <span style="float:right" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
             </template>
         </p-column>
     </p-dataTable>
 </div>
 <!--Dialog for Adding New Profile -->
-<p-dialog header="Add New Profile Configuration " *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal"
-    width="500" responsive="true">
+<p-dialog header="Add New Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" autofocus required ngModel/>
+                <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
         <div class="ui-g">
@@ -45,8 +49,7 @@
                 <label>Copy Profile</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId"
-                    placeholder="Select a Profile to be copied"></p-dropdown>
+                <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
 
             </div>
         </div>
@@ -57,4 +60,4 @@
             </div>
         </footer>
     </form>
-    </p-dialog>
+</p-dialog>

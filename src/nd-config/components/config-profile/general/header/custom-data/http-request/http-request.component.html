@@ -1,7 +1,7 @@
 <!--For showing HTTP Request Header list -->
 <p-dataTable [value]="httpRequestHdrComponentInfo" [(selection)]="selectedHTTPReqHeader" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> HTTP Request Header (s) </span>
+        <span style="float: left"> HTTP Request Header (s) </span>
         <span style="float: right; margin-top:-5px">`
                        <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"(click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
@@ -52,7 +52,11 @@
                         <span> Detail(s) </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openHTTPReqTypeValueDialog()" icon="fa-plus"></button>
+<<<<<<< HEAD
                        <button pButton type="button"title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+=======
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
+>>>>>>> f25461f4d1ea8aa4524977e7dad0203692763591
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

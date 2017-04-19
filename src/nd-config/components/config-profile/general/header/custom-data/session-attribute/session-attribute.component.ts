@@ -7,6 +7,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
 import { deleteMany } from '../../../../../../utils/config-utility';
 
+import { Messages } from '../../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-session-attribute',
   templateUrl: './session-attribute.component.html',
@@ -105,6 +107,7 @@ export class SessionAttributeComponent implements OnInit {
 
   saveTypesValues() {
     this.customValueTypeInfo.push(this.customValueTypeDetail);
+    this.configUtilityService.successMessage(Messages);
     this.sessionAttrTypeValueDialog = false;
   }
 
@@ -134,6 +137,7 @@ export class SessionAttributeComponent implements OnInit {
 
       let arrSessionAttr = this.setDataSessionAttribute(data);
       this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
+    this.configUtilityService.successMessage(Messages);
     });
     this.addEditSessionAttrDialog = false;
   }

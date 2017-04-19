@@ -6,7 +6,9 @@ import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+
 @Component({
   selector: 'app-generate-exception',
   templateUrl: './generate-exception.component.html',
@@ -38,7 +40,7 @@ export class GenerateExceptionComponent implements OnInit {
       { value: 5, label: 'Illegal Exception' });
 
   }
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.genException = data;
       console.log(this.className, "constructor", "this.genException", this.genException);

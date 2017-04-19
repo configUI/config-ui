@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 
+import { ConfigUtilityService } from '../../services/config-utility.service';
 import { ConfigProfileService } from '../../services/config-profile.service'
 //  import { ProfileInfo } from '../../interfaces/profile-info';
 import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
+
+import { Messages } from '../../constants/config-constant'
 
 @Component({
   selector: 'app-config-profile-list',
@@ -14,7 +17,7 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor(private configProfileService: ConfigProfileService, private router: Router) { }
+  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private router: Router) { }
 
   profileData: ProfileData[];
   selectedProfileData: ProfileData[];
@@ -62,6 +65,7 @@ export class ConfigProfileListComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting integration point detection in DB
         this.profileData.push(data);
+        this.configUtilityService.successMessage(Messages);
       });
     this.displayNewProfile = false;
   }

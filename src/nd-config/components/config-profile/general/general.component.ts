@@ -4,7 +4,8 @@ import { Keywords } from '../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { ConfigUtilityService } from '../../../services/config-utility.service';
+import { Messages } from '../../../constants/config-constant'
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class GeneralComponent implements OnInit {
   profileId: number;
   index: number = 0;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -38,6 +39,7 @@ export class GeneralComponent implements OnInit {
     for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
+        this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 

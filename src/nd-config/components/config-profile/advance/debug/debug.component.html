@@ -2,11 +2,11 @@
     <div class="tabsincontent">
         <div class="header">Debug Level Capturing
             <div class="pull-right">
-                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
                 <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>
-        <p-panel>
+        <p-panel class ="hideheader">
 
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
@@ -19,8 +19,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}}
-                                max={{debug.enableBciDebug.max}} style="width: 47px" required ngModel>
+                            <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}} max={{debug.enableBciDebug.max}} style="width: 47px" required ngModel>
                         </div>
                     </div>
 
@@ -31,8 +30,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input type="number" name="enableBciError" [(ngModel)]="debug.enableBciError.value" min={{debug.enableBciError.min}} max={{debug.enableBciError.max}}
-                              style="width: 47px"  required ngModel>
+                            <input type="number" name="enableBciError" [(ngModel)]="debug.enableBciError.value" min={{debug.enableBciError.min}} max={{debug.enableBciError.max}} style="width: 47px" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -43,8 +41,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}}
-                                required ngModel>
+                            <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}} required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -53,8 +50,7 @@
                             <label>NdMethodMonTrace Level</label>
                         </div>
                         <div class="ui-g-3">
-                            <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
-                                max={{debug.ndMethodMonTraceLevel.max}} style="width: 47px" required ngModel>
+                            <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}} max={{debug.ndMethodMonTraceLevel.max}} style="width: 47px" required ngModel>
                         </div>
                     </div>
                 </div>
