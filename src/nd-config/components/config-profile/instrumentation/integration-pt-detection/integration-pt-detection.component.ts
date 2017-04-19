@@ -8,6 +8,8 @@ import { BackendInfo } from '../../../../interfaces/instrumentation-info';
 
 import { cloneObject } from '../../../../utils/config-utility';
 
+import { Messages } from '../../../../constants/config-constant'
+
 @Component({
   selector: 'app-integration-pt-detection',
   templateUrl: './integration-pt-detection.component.html',

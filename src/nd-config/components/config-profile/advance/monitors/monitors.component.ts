@@ -45,7 +45,6 @@ export class MonitorsComponent implements OnInit {
       this.monitor["enableBTMonitor"].value = 0;
     }
     this.keywordData.emit(this.monitor);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   ngOnDestroy() {

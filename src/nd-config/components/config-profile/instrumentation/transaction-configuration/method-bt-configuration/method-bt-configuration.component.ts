@@ -8,6 +8,8 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { Messages } from '../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-method-bt-configuration',
   templateUrl: './method-bt-configuration.component.html',
@@ -225,8 +227,8 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   saveRules() {
     this.methodRulesInfo.push(this.btMethodRulesDetail);
+    this.configUtilityService.successMessage(Messages);
     this.addRulesDialog = false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is common method for save or edit BT Method */
@@ -314,9 +316,9 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       this.businessTransMethodInfo.push(data)
+    this.configUtilityService.successMessage(Messages);
     });
     this.addBusinessTransMethodDialog = false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**For close add/edit Method dialog box */

@@ -88,8 +88,8 @@ export class DelayComponent implements OnInit {
         this.delay[key]["value"] = delayValue;
     }
     this.keywordData.emit(this.delay);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
+  
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {
     let fqm = this.delayData.fullyQualifiedName.split(";").join("%3B");

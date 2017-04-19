@@ -8,6 +8,8 @@ import { ConfigProfileService } from '../../services/config-profile.service'
 import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 
+import { Messages } from '../../constants/config-constant'
+
 @Component({
   selector: 'app-config-profile-list',
   templateUrl: './config-profile-list.component.html',
@@ -63,9 +65,9 @@ export class ConfigProfileListComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting integration point detection in DB
         this.profileData.push(data);
+        this.configUtilityService.successMessage(Messages);
       });
     this.displayNewProfile = false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   routeToConfiguration(selectedProfileId, selectedProfileName) {
