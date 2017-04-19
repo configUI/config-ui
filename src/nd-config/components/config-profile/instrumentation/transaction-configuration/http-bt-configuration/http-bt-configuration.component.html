@@ -34,7 +34,7 @@
             </div>
             <div class="ui-g-2" style="margin-top:4px">
                 Segments of URI in Transaction</div>
-            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" size="10" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
+            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="number" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
             </div>
         </div>
 
@@ -182,7 +182,6 @@
                     <div class="ui-g-3" style="padding-left: 20px">
                         Slow </div>
                     <div class="ui-g-7"><input name="slowTransaction" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" placeholder="Slow" required ngModel />(ms)
-                        <span ng-show="slowTransaction <= verySlowTransaction">Please enter a greater value</span>
                     </div>
                 </div>
             </div>
