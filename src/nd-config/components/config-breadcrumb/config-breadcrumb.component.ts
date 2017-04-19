@@ -89,6 +89,10 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     });
   }
 
+  enabledRTC(){
+    //this.trData.status
+  }
+
   ngOnDestroy(){
     if(this.subscription)
       this.subscription.unsubscribe();
