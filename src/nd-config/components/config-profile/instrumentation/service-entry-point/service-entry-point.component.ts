@@ -4,6 +4,8 @@ import { ServiceEntryPoint } from '../../../../containers/instrumentation-data';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import {SelectItem } from 'primeng/primeng';
 
+import { Messages } from '../../../../constants/config-constant'
+
 @Component({
   selector: 'app-service-entry-point',
   templateUrl: './service-entry-point.component.html',
@@ -58,9 +60,9 @@ export class ServiceEntryPointComponent implements OnInit {
         .subscribe(data => {
           //Insert data in main table after inserting service in DB
           this.serviceEntryData.push(data);
+      this.configUtilityService.successMessage(Messages);
         });
       this.displayNewService = false;
-      this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
 }

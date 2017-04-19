@@ -47,7 +47,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     this.keywordData.emit(this.hotspot);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
 

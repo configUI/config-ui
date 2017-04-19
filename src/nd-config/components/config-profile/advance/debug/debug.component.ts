@@ -41,7 +41,6 @@ export class DebugComponent {
 
   saveKeywordData() {
     this.keywordData.emit(this.debug);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
   //Method to reset the default values of the keywords

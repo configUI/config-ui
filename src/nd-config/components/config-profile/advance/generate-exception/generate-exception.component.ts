@@ -8,6 +8,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+
 @Component({
   selector: 'app-generate-exception',
   templateUrl: './generate-exception.component.html',
@@ -88,7 +89,6 @@ export class GenerateExceptionComponent implements OnInit {
         this.genException[key]["value"] = genExceptionValue;
     }
     this.keywordData.emit(this.genException);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
   genExceptionValueMethod(data) {

@@ -285,3 +285,7 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     width: 33px;
     height: 12px;
 }
+
+.hideheader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    opacity: 0 !important;
+}

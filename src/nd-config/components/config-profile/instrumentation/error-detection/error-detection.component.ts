@@ -6,6 +6,7 @@ import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { deleteMany } from '../../../../utils/config-utility';
 
+import { Messages } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-error-detection',
@@ -119,9 +120,9 @@ export class ErrorDetectionComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting Error detection in DB
         this.errorDetectionData.push(data);
+    this.configUtilityService.successMessage(Messages);
       });
     this.addEditErrorDetectionDialog = false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is used to delete Error Detection */

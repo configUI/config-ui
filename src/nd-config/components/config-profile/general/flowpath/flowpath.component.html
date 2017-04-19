@@ -1,15 +1,13 @@
 <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
         <div class="header">FlowPath Capturing
-            <div class="pull-right">
+            <div class="pull-right" >
                 <button type="button" pButton icon="fa-refresh" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
 
             </div>
         </div>
-
-        <p-panel>
-
+        <p-panel>          
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                 <div class="ui-g">
 

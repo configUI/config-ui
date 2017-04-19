@@ -6,8 +6,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
 import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
-import {MethodBasedCustomData,ReturnTypeData,ArgumentTypeData} from '../../../../../../containers/method-based-custom-data';
+import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../../containers/method-based-custom-data';
 
+import { Messages } from '../../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-java-method',
@@ -19,8 +20,8 @@ export class JavaMethodComponent implements OnInit {
 
   subscription: Subscription;
 
-/* hold the data that needs to be displayed in table */
-  tableData:MethodBasedCustomData[];
+  /* hold the data that needs to be displayed in table */
+  tableData: MethodBasedCustomData[];
 
   /**For add/edit form flag */
   isNew: boolean = false;
@@ -29,64 +30,65 @@ export class JavaMethodComponent implements OnInit {
   addEditDialog: boolean = false;
 
 
-   /**It stores selected data for edit or add functionality */
+  /**It stores selected data for edit or add functionality */
   methodBasedCustomData: MethodBasedCustomData;
 
   /** for holding form fields */
   returnTypeRules: ReturnTypeData;
-  argumentTypeRules:ArgumentTypeData;
+  argumentTypeRules: ArgumentTypeData;
 
-  addReturnRulesDialog:boolean=false;
+  addReturnRulesDialog: boolean = false;
 
-  addArgumentRulesDialog:boolean= false;
+  addArgumentRulesDialog: boolean = false;
 
-  customValTypeList:SelectItem[];
+  customValTypeList: SelectItem[];
 
 
   /* store operation list */
-  operationList:SelectItem[];
+  operationList: SelectItem[];
 
   /* to hold data to display in table of return type and argument type in table */
-  returnTypeData:ReturnTypeData[];
-  argumentTypeData:ArgumentTypeData[];
+  returnTypeData: ReturnTypeData[];
+  argumentTypeData: ArgumentTypeData[];
 
-  arrStringLabel:any[]= ['CAPTURE','EXTRACT_SUBPART','INVOCATION','EQUALS','NOT_EQUALS','CONTAINS','STARTS_WITH','ENDS_WITH','EXCEPTION'];
-  arrStringValue:any[] = ['CAPTURE','EXTRACT_SUBPART','INVOCATION','EQUALS','NOT_EQUALS','CONTAINS','STARTS_WITH','ENDS_WITH','EXCEPTION'];
+  arrStringLabel: any[] = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+  arrStringValue: any[] = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
 
 
-  arrNumericLabel:any[] = ['CAPTURE','INVOCATION','EXCEPTION','EQ','NE','LT','GT','LE','GE'];
-  arrNumericValue:any[] = ['CAPTURE','INVOCATION','EXCEPTION','EQ','NE','LT','GT','LE','GE'];
+  arrNumericLabel: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE', 'LT', 'GT', 'LE', 'GE'];
+  arrNumericValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE', 'LT', 'GT', 'LE', 'GE'];
 
-  arrCharLabel:any[] = ['CAPTURE','INVOCATION','EXCEPTION','EQ','NE'];
-  arrCharValue :any[] =  ['CAPTURE','INVOCATION','EXCEPTION','EQ','NE'];
+  arrCharLabel: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE'];
+  arrCharValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE'];
 
-  arrBooleanLabel:any[] = ['CAPTURE','INVOCATION','EXCEPTION'];
-  arrBooleanValue:any[] = ['CAPTURE','INVOCATION','EXCEPTION'];
+  arrBooleanLabel: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION'];
+  arrBooleanValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION'];
 
   //receiving data from store
-  constructor(private route: ActivatedRoute,private configUtilityService: ConfigUtilityService, private configCustomDataService: ConfigCustomDataService,private store: Store<Object>) { 
-      this.subscription = this.store.select("customData").subscribe(data=>{
-     // this.tableData = data;
+  constructor(private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>) {
+    this.subscription = this.store.select("customData").subscribe(data => {
+      // this.tableData = data;
     })
 
-      this.returnTypeData = [];
-      this.argumentTypeData = [];
-   
+    this.returnTypeData = [];
+    this.argumentTypeData = [];
+
   }
-   profileId: number;
+  profileId: number;
 
 
   ngOnInit() {
     this.loadJavaMethodBasedCustomData()
   }
 
-  loadJavaMethodBasedCustomData(){
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId'] );
-    this.configCustomDataService.getMethodBasedCustomData(this.profileId).subscribe(data =>{this.modifyData(data)
-  })
+  loadJavaMethodBasedCustomData() {
+    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
+    this.configCustomDataService.getMethodBasedCustomData(this.profileId).subscribe(data => {
+      this.modifyData(data)
+    })
     let arrLabel = ['STRING', 'INTEGER', 'DECIMAL'];
     let arrValue = ['0', '1', '2'];
-    this.customValTypeList =ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
+    this.customValTypeList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
   }
 
 
@@ -99,72 +101,72 @@ export class JavaMethodComponent implements OnInit {
   *
   */
 
-  modifyData(data){
+  modifyData(data) {
     let that = this;
-    data.map(function(val){
+    data.map(function (val) {
 
-      if(val.returnTypeData != null && val.returnTypeData.length != 0){
-          let hdrNames = that.getHdrNames(val.returnTypeData);
-          val.returnTypeValue = hdrNames
+      if (val.returnTypeData != null && val.returnTypeData.length != 0) {
+        let hdrNames = that.getHdrNames(val.returnTypeData);
+        val.returnTypeValue = hdrNames
       }
-      else{
-         val.returnTypeValue = "NA"
-      } 
-      
-      if(val.argumentTypeData != null && val.argumentTypeData.length != 0){
-          let hdrNames = that.getHdrNames(val.argumentTypeData);
-          val.argumentTypeValue = hdrNames
+      else {
+        val.returnTypeValue = "NA"
       }
-      else{
-         val.argumentTypeValue = "NA"
-      } 
+
+      if (val.argumentTypeData != null && val.argumentTypeData.length != 0) {
+        let hdrNames = that.getHdrNames(val.argumentTypeData);
+        val.argumentTypeValue = hdrNames
+      }
+      else {
+        val.argumentTypeValue = "NA"
+      }
     })
-      this.tableData = data
+    this.tableData = data
   }
 
 
-   getHdrNames(data){
-     let hdrNamesHref ='';
-     data.map(function(val,index){
-      if(index != (data.length -1)){
-          hdrNamesHref = hdrNamesHref + val.headerName +"," ;
+  getHdrNames(data) {
+    let hdrNamesHref = '';
+    data.map(function (val, index) {
+      if (index != (data.length - 1)) {
+        hdrNamesHref = hdrNamesHref + val.headerName + ",";
       }
       else {
         hdrNamesHref = hdrNamesHref + val.headerName
       }
     })
-    return hdrNamesHref ;
+    return hdrNamesHref;
   }
 
 
-  openAddDialog(){
+  openAddDialog() {
     this.methodBasedCustomData = new MethodBasedCustomData();
     this.isNew = true;
     this.addEditDialog = true;
   }
 
-  saveEditData(){
+  saveEditData() {
     this.methodBasedCustomData.argumentTypeData = this.argumentTypeData;
     this.methodBasedCustomData.returnTypeData = this.returnTypeData;
-    console.log("data---",this.methodBasedCustomData)
+    console.log("data---", this.methodBasedCustomData)
     this.addEditDialog = false;
-    this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData,this.profileId).subscribe(data =>{
-        this.tableData.push(data);
-        this.modifyData(this.tableData)
+    this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
+      this.tableData.push(data);
+      this.configUtilityService.successMessage(Messages);
+      this.modifyData(this.tableData)
     })
-    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
 
-   /**For close add/edit dialog box */
+  /**For close add/edit dialog box */
   closeDialog(): void {
     this.addEditDialog = false;
   }
 
-  openAddReturnRulesDialog(){
+  openAddReturnRulesDialog() {
     this.addReturnRulesDialog = true;
     this.returnTypeRules = new ReturnTypeData()
-    console.log("openAddReturnRulesDialog method called--",this.methodBasedCustomData.fqm)
+    console.log("openAddReturnRulesDialog method called--", this.methodBasedCustomData.fqm)
     /*calling this function 
     * to know data type of return value of provided fqm 
     * and creating opertaion list a/c to return type
@@ -173,7 +175,7 @@ export class JavaMethodComponent implements OnInit {
     this.opValList(type)
   }
 
-   getTypeReturnType(fqm) {
+  getTypeReturnType(fqm) {
     //for getting return Type
     let returnType = "NA";
     if (fqm != null) {
@@ -224,54 +226,54 @@ export class JavaMethodComponent implements OnInit {
     }
   }
 
-  opValList(type){
+  opValList(type) {
 
-  let arrStringLabel = ['CAPTURE','EXTRACT_SUBPART','INVOCATION','EQUALS','NOT_EQUALS','CONTAINS','STARTS_WITH','ENDS_WITH','EXCEPTION'];
-  let arrStringValue = ['CAPTURE','EXTRACT_SUBPART','INVOCATION','EQUALS','NOT_EQUALS','CONTAINS','STARTS_WITH','ENDS_WITH','EXCEPTION']
-    let opList =[];
-    if(type == "object/string")
-       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel,this.arrStringValue) ;
+    let arrStringLabel = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+    let arrStringValue = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION']
+    let opList = [];
+    if (type == "object/string")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
 
-    else if(type == "int" || type == "short"|| type == "float"|| type == "long"|| type == "double" )
-       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabel,this.arrNumericValue) 
+    else if (type == "int" || type == "short" || type == "float" || type == "long" || type == "double")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabel, this.arrNumericValue)
 
-     else if(type == "byte" || type == "char")
-        this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabel,this.arrCharValue) 
+    else if (type == "byte" || type == "char")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabel, this.arrCharValue)
 
-    else if(type == "boolean" )
-         this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabel,this.arrBooleanValue) 
-
-}
-
-
-  deleteReturnRules(){
+    else if (type == "boolean")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabel, this.arrBooleanValue)
 
   }
 
-  saveReturnRules(){
-    console.log("saveReturnRules method caleld--",this.returnTypeRules)
+
+  deleteReturnRules() {
+
+  }
+
+  saveReturnRules() {
+    console.log("saveReturnRules method caleld--", this.returnTypeRules)
     this.returnTypeData.push(this.returnTypeRules);
-    this.addReturnRulesDialog=false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
+    this.configUtilityService.successMessage(Messages);
+    this.addReturnRulesDialog = false;
 
   }
 
-  saveArgumentRules(){
-    console.log("saveReturnRules method caleld--",this.argumentTypeRules)
+  saveArgumentRules() {
+    console.log("saveReturnRules method caleld--", this.argumentTypeRules)
     this.argumentTypeData.push(this.argumentTypeRules)
     this.addArgumentRulesDialog = false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
+    this.configUtilityService.successMessage(Messages);
 
   }
 
-  openAddArgumentRulesDialog(){
+  openAddArgumentRulesDialog() {
     this.addArgumentRulesDialog = true;
     this.argumentTypeRules = new ArgumentTypeData();
   }
 
-  operationListArgumentType(){
-    console.log("evt",this.argumentTypeRules.indexVal)
-    let type = this.getTypeArgumentType(this.methodBasedCustomData.fqm,this.argumentTypeRules.indexVal)
+  operationListArgumentType() {
+    console.log("evt", this.argumentTypeRules.indexVal)
+    let type = this.getTypeArgumentType(this.methodBasedCustomData.fqm, this.argumentTypeRules.indexVal)
     this.opValList(type)
   }
 

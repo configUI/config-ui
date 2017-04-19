@@ -16,3 +16,5 @@ export const INTEGRATION_TYPE = {
     HADOOP: 'HADOOP',
     CUSTOM: 'CUSTOM'
 }
+
+export const Messages = "Saved Successfully !!!!"

@@ -5,6 +5,8 @@ import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../services/config-utility.service';
+import { Messages } from '../../../constants/config-constant'
 
 @Component({
   selector: 'app-advance',
@@ -17,7 +19,7 @@ export class AdvanceComponent implements OnInit {
   profileId: number;
   index: number = 0;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute) { }
+  constructor(private configKeywordsService: ConfigKeywordsService,  private configUtilityService: ConfigUtilityService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -36,7 +38,9 @@ export class AdvanceComponent implements OnInit {
     for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
+    this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
+
   }
 
   handleChange(e){

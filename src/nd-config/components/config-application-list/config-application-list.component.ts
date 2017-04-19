@@ -15,6 +15,8 @@ import { deleteMany } from '../../utils/config-utility';
 
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 
+import { Messages } from '../../constants/config-constant';
+
 @Component({
   selector: 'app-config-application-list',
   templateUrl: './config-application-list.component.html',
@@ -152,9 +154,9 @@ export class ConfigApplicationListComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.applicationData.push(data);
+        this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   /**This method is used to edit application detail */

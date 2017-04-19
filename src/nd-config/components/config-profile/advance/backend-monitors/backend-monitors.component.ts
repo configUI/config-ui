@@ -46,7 +46,6 @@ export class BackendMonitorsComponent implements OnInit {
     }
     console.log("this.backend", this.backend);
     this.keywordData.emit(this.backend);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   ngOnDestroy() {
