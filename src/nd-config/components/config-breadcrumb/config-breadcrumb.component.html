@@ -1,3 +1,10 @@
 <div class="custom-breadcrumb">
-    <p-breadcrumb [model]="items"></p-breadcrumb>
+    <div class="ui-g">
+        <div class="ui-g-10">
+            <p-breadcrumb [model]="items"></p-breadcrumb>
+        </div>
+        <div class="ui-g-2">
+            <span *ngIf="trData"> Session No: {{ trData.trNo == null ? 'NA' : trData.trNo }} <md-slide-toggle (click)="enabled()" [(ngModel)]="trData.status" [disabled]="false"> </md-slide-toggle></span>
+        </div>
+    </div>
 </div>
