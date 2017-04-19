@@ -23,5 +23,10 @@ export class ConfigCustomDataService {
   addMethodBasedCustomData(data,profileId):Observable<MethodBasedCustomData>{
    return this._restApi.getDataByPostReq(`${URL.ADD_METHOD_BASED_CAPTURING}/${profileId}`,data)
   }
+  
+   deleteJavaMethodData(data): Observable<MethodBasedCustomData>{
+    return this._restApi.getDataByPostReq(URL.DEL_METHOD_BASED_CAPTURING, data);
+  }
+
 
 }

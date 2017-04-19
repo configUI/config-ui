@@ -4,11 +4,12 @@
 
 
 <!--For showing Method Based Custom Data-->
-<p-dataTable [value]="tableData" [(selection)]="selectedbusinessTransMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
+<p-dataTable [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Java Method Based Custom Data </span>
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddDialog()" icon="fa-plus"></button>
+                       <button pButton type="button"title="Delete" (click)="deleteJavaMethod()" icon="fa-trash"></button>
                        <!--<button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>-->
                     </span>
     </p-header>

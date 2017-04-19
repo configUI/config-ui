@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
 import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
+import { deleteMany } from '../../../../../../utils/config-utility';
 import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../../containers/method-based-custom-data';
 
 import { Messages } from '../../../../../../constants/config-constant'
@@ -32,6 +33,11 @@ export class JavaMethodComponent implements OnInit {
 
   /**It stores selected data for edit or add functionality */
   methodBasedCustomData: MethodBasedCustomData;
+
+  
+   /**It stores selected java method selected data */
+  selectedJavaMethod: MethodBasedCustomData[];
+
 
   /** for holding form fields */
   returnTypeRules: ReturnTypeData;
@@ -65,9 +71,9 @@ export class JavaMethodComponent implements OnInit {
   arrBooleanValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION'];
 
   //receiving data from store
-  constructor(private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>) {
-    this.subscription = this.store.select("customData").subscribe(data => {
-      // this.tableData = data;
+  constructor(private route: ActivatedRoute,private configCustomDataService: ConfigCustomDataService,private store: Store<Object>,private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) { 
+      this.subscription = this.store.select("customData").subscribe(data=>{
+     // this.tableData = data;
     })
 
     this.returnTypeData = [];
@@ -277,6 +283,7 @@ export class JavaMethodComponent implements OnInit {
     this.opValList(type)
   }
 
+
   getTypeArgumentType(fqm, index) {
 
     //    let fqm = this.props.fqm;
@@ -342,5 +349,59 @@ export class JavaMethodComponent implements OnInit {
       }
     }
   }
+
+  
+  /**This method is used to delete  */
+  deleteJavaMethod(): void {
+    if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
+      this.configUtilityService.errorMessage("Select fields to delete");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected row's id
+        let selectedRow = this.selectedJavaMethod;
+        let arrIndex = [];
+        for (let index in selectedRow) {
+          arrIndex.push(selectedRow[index].methodBasedId);
+        }
+        this.configCustomDataService.deleteJavaMethodData(arrIndex)
+          .subscribe(data => {
+            this.deleteJavaMethodData(arrIndex);
+          })
+        this.configUtilityService.infoMessage("Delete Successfully");
+      },
+      reject: () => {
+
+      }
+    });
+  }
+
+      /**This method is used to delete/update data at ui side i.e at real time updation of data */
+  deleteJavaMethodData(arrIndex: number[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+     for (let index in arrIndex) {
+       rowIndex.push(this.getIndex(arrIndex[index]));
+     }
+    this.tableData = deleteMany(this.tableData, rowIndex);
+    this.selectedJavaMethod=[];
+  }
+
+   /**This method returns selected  row on the basis of AppId */
+  getIndex(appId: number): number {
+    for (let i = 0; i < this.tableData.length; i++) {
+      if (this.tableData[i].methodBasedId == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+
+
 
 }
