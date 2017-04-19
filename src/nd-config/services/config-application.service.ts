@@ -36,4 +36,9 @@ export class ConfigApplicationService {
   deleteApplicationData(data): Observable<ApplicationInfo>{
     return this._restApi.getDataByPostReq(URL.DEL_ROW_APP_URL, data);
   }
+
+  generateNDConf(data): Observable<String>{
+    let url = `${URL.GENERATE_ND_CONF}/${data}`;
+    return this._restApi.getDataByGetReq(url);
+  }
 }

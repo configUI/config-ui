@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy ,Input} from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
+
+import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { cloneObject } from '../../../../../utils/config-utility';
+
 
 @Component({
   selector: 'app-custom-data',
@@ -7,7 +14,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomDataComponent implements OnInit {
 
-  constructor() { }
+  @Input() data;
+  subscription: Subscription;
+  header:Object;
+
+ 
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>) {
+   
+  }
 
   ngOnInit() {
   }

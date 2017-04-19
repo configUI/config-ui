@@ -67,7 +67,6 @@ export class ThreadStatsComponent implements OnInit {
     }
     //this.threadStats.enableJVMThreadMonitor["value"] = jvmVal;
     this.keywordData.emit(this.threadStats);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
 }

@@ -7,29 +7,31 @@
 
             </div>
         </div>
-
-
-        <p-panel>
+        <p-panel class="hideheader">
 
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
 
                 <div class="ui-g">
+
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <label>Hotspot Sample Interval For Stack Trace</label>
+                        <div class="ui-g-10">
+                            <p-fieldset legend="General Settings" [toggleable]="true">
+                                <div class="ui-g-4">
+                                    <label>Hotspot Sample Interval For Stack Trace(ms)</label>
+                                </div>
+                                <div class="ui-g-2">
+                                    <input name="sampleInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required ngModel />
+                                </div>
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-3">
+                                    <label>Hotspot Stack Comparing Depth</label>
+                                </div>
+                                <div class="ui-g-2">
+                                    <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
+                                </div>
+                            </p-fieldset>
                         </div>
-                        <div class="ui-g-2">
-                            <input name="sampleInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required ngModel />
-                        </div>
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-2">
-                            <label>Hotspot Stack Comparing Depth</label>
-                        </div>
-                        <div class="ui-g-2">
-                            <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
-                        </div>
-
 
                     </div>
                     <div class="ui-g-12">

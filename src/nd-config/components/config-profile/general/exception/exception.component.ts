@@ -91,7 +91,6 @@ export class ExceptionComponent implements OnInit {
             this.exception[key]["value"] = instrValue;
       }
     this.keywordData.emit(this.exception);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
 

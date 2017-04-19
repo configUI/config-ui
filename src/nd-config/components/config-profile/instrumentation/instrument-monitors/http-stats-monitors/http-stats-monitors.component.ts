@@ -7,6 +7,8 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 
+import { Messages } from '../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-http-stats-monitors',
   templateUrl: './http-stats-monitors.component.html',
@@ -256,10 +258,10 @@ export class HttpStatsMonitorsComponent implements OnInit {
           //Insert data in main table after inserting HTTP Stats Condition in DB
           this.httpStatsMonitorData.push(data);
           this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
+          this.configUtilityService.successMessage(Messages);
         });
       this.addEditHttpStatsMonitorDialog = false;
     }
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   //Method will store the values from inputs into table

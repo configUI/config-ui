@@ -8,6 +8,8 @@ import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { Messages } from '../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-http-bt-configuration',
   templateUrl: './http-bt-configuration.component.html',
@@ -146,7 +148,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.globalBtDetail.httpMethod = true;
     else
       this.globalBtDetail.httpMethod = false;
-    this.configUtilityService.successMessage("Saved Successfully !!!");
+    this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
   }
 
@@ -161,6 +163,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.businessTransPatternInfo.push(data);
+    this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
     this.configUtilityService.successMessage("Saved Successfully !!!");
@@ -291,5 +294,25 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /**For close add/edit application dialog box */
   closeDialog(): void {
     this.addEditPatternDialog = false;
+  }
+
+  checkSlow(slow, vslow){
+    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+      slow.setCustomValidity('Slow value shoule be less than very slow value.');
+    }
+    else{
+      slow.setCustomValidity('');
+    }
+    vslow.setCustomValidity('');
+  }
+
+  checkVSlow(slow, vslow){
+    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+      vslow.setCustomValidity('Very slow value shoule be greater than slow value.');
+    }
+    else{
+      vslow.setCustomValidity('');
+    }
+    slow.setCustomValidity('');
   }
 }

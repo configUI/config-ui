@@ -38,7 +38,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
         this.hotspot = data;
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
-
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.hotspot.enable;
   }
 
@@ -47,7 +46,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     this.keywordData.emit(this.hotspot);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
 

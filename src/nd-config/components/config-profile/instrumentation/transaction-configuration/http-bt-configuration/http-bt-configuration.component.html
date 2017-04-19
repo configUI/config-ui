@@ -44,12 +44,16 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"><label>Slow</label></div>
-            <div class="ui-g-10 text-box-Css"> <input name="slowTransaction" style="text-align:right" type="number" size="10" pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)</div>
+            <div class="ui-g-10 text-box-Css">
+                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right" type="number" min=0 size="10" pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
+            </div>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"> <label>Very Slow</label> </div>
-            <div class="ui-g-10 text-box-Css"> <input name="verySlowTransaction" style="text-align:right" type="number" size="10" pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)</div>
+            <div class="ui-g-10 text-box-Css">
+                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right" type="number" min=0 size="10" pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
+            </div>
         </div>
         <div class="ui-g-12 header-font-size">
             <p-checkbox name="dynamicReqType" label="Choose Dynamic Request type" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>

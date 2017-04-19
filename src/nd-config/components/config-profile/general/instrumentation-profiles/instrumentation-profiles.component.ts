@@ -61,6 +61,5 @@ export class InstrumentationProfilesComponent implements OnInit {
       keyword[key]["value"] = String(value);
     }
     this.keywordData.emit(keyword)
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 }

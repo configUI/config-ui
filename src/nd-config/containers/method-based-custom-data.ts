@@ -1,5 +1,5 @@
-export  class MethodBasedCustomData {
 
+export  class MethodBasedCustomData {
     methodBasedId: number;
     fqm: string;
     enableReturnType: boolean;

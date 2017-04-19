@@ -8,6 +8,8 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 
+import { Messages } from '../../../../constants/config-constant'
+
 @Component({
   selector: 'app-nvcookie',
   templateUrl: './nvcookie.component.html',
@@ -89,9 +91,9 @@ export class NVCookieComponent implements OnInit {
     for (let key in this.ndSession) {
       if (key == 'enableNDSession')
         this.ndSession[key]["value"] = ndSessionValue;
+    this.configUtilityService.successMessage(Messages);
     }
     this.keywordData.emit(this.ndSession);
-    this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
   //To create the value of the keyword "enableNDSession" by joining them with %20

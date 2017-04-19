@@ -8,6 +8,8 @@ import { ServiceEntryPoint } from '../../../../containers/instrumentation-data';
 import { ServiceEntryType } from '../../../../interfaces/instrumentation-info';
 
 
+import { Messages } from '../../../../constants/config-constant'
+
 @Component({
   selector: 'app-service-entry-point',
   templateUrl: './service-entry-point.component.html',
@@ -71,7 +73,7 @@ export class ServiceEntryPointComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting service in DB
         this.serviceEntryData.push(data);
-        this.configUtilityService.successMessage("Saved Successfully !!!");
+        this.configUtilityService.successMessage(Messages);
       });
     this.displayNewService = false;
   }

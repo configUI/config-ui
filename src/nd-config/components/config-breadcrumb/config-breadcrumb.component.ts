@@ -1,25 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { MenuItem } from 'primeng/primeng';
 
 import * as BREADCRUMB from '../../constants/config-breadcrumb-constant';
+import { ConfigHomeService } from '../../services/config-home.service';
+import { TRData } from '../../interfaces/main-info';
 
 @Component({
   selector: 'app-config-breadcrumb',
   templateUrl: './config-breadcrumb.component.html',
   styleUrls: ['./config-breadcrumb.component.css']
 })
-export class ConfigBreadcrumbComponent implements OnInit {
+export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private configHomeService: ConfigHomeService) { }
 
   private items: MenuItem[];
+  trData: TRData;
+  subscription: Subscription;
+  breadcrumbSubscription: Subscription;
 
   ngOnInit() {
 
+    this.subscription = this.configHomeService.trData$.subscribe(data => {
+      this.trData = data;
+    });
+    
     this.items = [];
 
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+    this.breadcrumbSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.items = [{ routerLink: [BREADCRUMB.URL.HOME], label: BREADCRUMB.LABEL.HOME }];
 
       let url = event["url"];
@@ -77,5 +87,17 @@ export class ConfigBreadcrumbComponent implements OnInit {
       }
       console.log("this.items", this.items);
     });
+  }
+
+  enabledRTC(){
+    //this.trData.status
+  }
+
+  ngOnDestroy(){
+    if(this.subscription)
+      this.subscription.unsubscribe();
+
+    if(this.breadcrumbSubscription)
+      this.breadcrumbSubscription.unsubscribe();
   }
 }

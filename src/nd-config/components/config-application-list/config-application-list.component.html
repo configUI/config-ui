@@ -1,7 +1,7 @@
 <div class="widget">
     <div class="header"><i aria-hidden="true"></i>Application(s)
         <span style="float: right; margin-top:-2px">
-          <button pButton type="button" label="Generate"></button>
+            <button pButton type="button" title="Generate nd.conf file" icon="fa-file-text" (click)="generateNDConfFile()"></button>
             <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
             <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteApp()" icon="fa-trash"></button>

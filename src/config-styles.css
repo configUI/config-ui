@@ -286,6 +286,9 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     height: 12px;
 }
 
+.hideheader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    opacity: 0 !important;
+}
 
 /* 
 hide it behind the dropdown component, the required 
