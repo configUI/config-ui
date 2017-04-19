@@ -1,55 +1,56 @@
+
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-checkbox name="complete" label="Capture HTTP Request Header" [(ngModel)]="httpReqHeader" binary="true"></p-checkbox>
+        <p-checkbox name="captureHttpRequestHeader" label="Capture HTTP Request Header" [(ngModel)]="data[0].enableHttpReq" binary="true"></p-checkbox>
     </div>
 </div>
 
-<div class="ui-g httpHeaderCss" *ngIf="httpReqHeader">
+<div class="ui-g httpHeaderCss" *ngIf="data[0].enableHttpReq">
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="reqHeaderTypes" [(ngModel)]="selectedReqHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
         </div>
-        <div class="ui-g-10">
-            <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [disabled]="!(selectedReqHeader == 'Specified Headers')" [(ngModel)]="selectedReqHeaderType"></p-multiSelect>
+        <div class="ui-g-10" *ngIf="(data[0].headerMode == 'Specified Headers')">
+            <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}"  [(ngModel)]="data[0].headersName"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="httpReqCaptureMode" binary="true"></p-checkbox>
+            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!httpReqCaptureMode" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+            <input name="btName" type="text" size="25" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>
 
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-checkbox name="specific" label="Capture HTTP Response Header" [(ngModel)]="httpResHeader" binary="true"></p-checkbox>
+        <p-checkbox name="captureHTTPRespFullFp" label="Capture HTTP Response Header" [(ngModel)]="data[1].enableHttpResp" binary="true"></p-checkbox>
     </div>
 </div>
 
-<div class="ui-g httpHeaderCss" *ngIf="httpResHeader">
+<div class="ui-g httpHeaderCss" *ngIf="data[1].enableHttpResp">
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="resHeaderTypes" [(ngModel)]="selectedResHeader" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+            <p-dropdown name="headerMode" [style]="{'width':'80%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
         </div>
-        <div class="ui-g-10">
-            <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [disabled]="!(selectedResHeader == 'Specified Headers')" [(ngModel)]="selectedResHeaderType"></p-multiSelect>
+        <div class="ui-g-10" *ngIf="(data[1].headerModeResp == 'Specified Headers')">
+            <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}"  [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="httpResCaptureMode" binary="true"></p-checkbox>
+            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="data[1].captureModeResp" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!httpResCaptureMode" pInputText [(ngModel)]="valName" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+            <input name="btName" type="text" size="25" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>

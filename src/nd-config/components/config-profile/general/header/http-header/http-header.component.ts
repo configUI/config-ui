@@ -21,7 +21,7 @@
 
 // }
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
 
@@ -36,6 +36,8 @@ import { SelectItem } from 'primeng/primeng';
 export class HttpHeaderComponent implements OnInit {
 
 
+  @Input() data;
+
   /* Request Header Drop Down */
   specifiedReqHeaderType: SelectItem[];
   selectedReqHeaderType: string;
@@ -49,6 +51,8 @@ export class HttpHeaderComponent implements OnInit {
 
   resHeaderTypes: SelectItem[];
   selectedResHeader: string;
+
+  
 
   constructor() {
     var reqHdrList = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
@@ -81,3 +85,4 @@ export class HttpHeaderComponent implements OnInit {
   }
 
 }
+
