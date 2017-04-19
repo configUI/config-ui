@@ -1,7 +1,7 @@
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
-// const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+ // const SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 //const SERVICE_URL = 'http://localhost:8090';
- // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+// const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 
 //For Production use this SERVICE_URL
 const SERVICE_URL = '/configUI';
@@ -63,11 +63,11 @@ export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`
 /* Url for ServiceEntryPoint */
 export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/entryTypes`;
-export const  ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
+export const ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
 
-/*Url for Toggle */ 
-export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso` ;
+/*Url for Toggle */
+export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso`;
 
 /* Url fot BussinessTransaction */
 export const ADD_BT = `${SERVICE_URL}/custom/btGlobal`;
@@ -97,36 +97,36 @@ export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/custom/topology/getalltopology
 export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 
 /* Url for General Keywords Screen*/
-export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
+export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 //export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
 
 /*Instrumentation Profile List*/
-export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles` ;
+export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles`;
 
 
 /* URL for monitors  */
 export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
 export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
 export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
-export const EDIT_ROW_METHOD_MONITOR_URL= `${SERVICE_URL}/custom/methodmonitor/updateMethodMonitor`;
+export const EDIT_ROW_METHOD_MONITOR_URL = `${SERVICE_URL}/custom/methodmonitor/updateMethodMonitor`;
 
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
 export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
-export const DEL_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/delete`;
-export const EDIT_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/updateErrorDetection`;
+export const DEL_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection/delete`;
+export const EDIT_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection/updateErrorDetection`;
 
 
 /*URL for Http Stats Condition*/
 export const FETCH_HTTP_STATS_COND_TABLEDATA = `${SERVICE_URL}/custom/httpstatscondition/`;
 export const EDIT_ROW_HTTP_STATS_MONITOR_URL = `${SERVICE_URL}/custom/httpstatscondition/updateHTTPCond`;
-export const GET_HTTP_HEADERS_lIST =`${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
+export const GET_HTTP_HEADERS_lIST = `${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
 export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/listoftypes`;
 export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/listofvaluetypes`;
-export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`; 
+export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`;
 export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
-export const DEL_HTTP_STATS_COND   = `${SERVICE_URL}/custom/httpstatscondition/delete`;
+export const DEL_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition/delete`;
 
 /*URL for RUNTIME changes*/
 export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topology`;
@@ -139,7 +139,7 @@ export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/inst
 export const FETCH_ND_AGENT_TABLEDATA = `${SERVICE_URL}/ndagent`;
 
 /* URL for SessionAtrributeMonitor */
-export const FETCH_SESSION_ATTR_TABLEDATA = `${SERVICE_URL}/custom/sessionattrmonitor/getallsessionattrdata` ;
+export const FETCH_SESSION_ATTR_TABLEDATA = `${SERVICE_URL}/custom/sessionattrmonitor/getallsessionattrdata`;
 export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addspecificattr`;
 export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;
 export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
@@ -151,14 +151,14 @@ export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/del
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
- /*URL for btMethod */    
- export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
- export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
- export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;
- export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
- export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
- export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/deleteRules`;
- export const DEL_METHOD_BT =  `${SERVICE_URL}/custom/btmethod/delete`;
+/*URL for btMethod */
+export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
+export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
+export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;
+export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
+export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
+export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
+export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 
 
 /* URL for methodBasedCapturingData */

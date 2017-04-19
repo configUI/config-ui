@@ -76,8 +76,8 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
-export class HttpStatsMonitorData{  //Http stats monitors by Surbhi
-    compValue:string;
+export class HttpStatsMonitorData {  //Http stats monitors by Surbhi
+    compValue: string;
     condition: string;
     conditionName: string;
     cookieName: string;
@@ -164,25 +164,31 @@ export class SessionAtrributeComponentsData {
 }
 
 export class SessionTypeValueData {
-    customValTypeName:string;
+    customValTypeName: string;
     id?: number;
     lb?: string;
     rb?: string;
     type?: number;
     valName?: string;
-  }
+}
 
-  export class HTTPRequestHdrComponentData {
+export class HTTPRequestHdrComponentData {
+    attrValues?: RulesHTTPRequestHdrComponentData[];
     httpReqHdrBasedId: number;
     headerName: string;
-    dumpMode: string;
-    rules: RulesHTTPRequestHdrComponentData[];
+    dumpMode: number;
+    specific?: boolean;
+    complete?: boolean;
+    valueNames?:string;
+    rules?: RulesHTTPRequestHdrComponentData[];
 }
 
 export class RulesHTTPRequestHdrComponentData {
-    ruleId: number;
+  //  ruleId: number;
     valName: string;
     lb: string;
     rb: string;
-    type: string;
+    id: number;
+    customValTypeName: string;
+    type: number;
 }
