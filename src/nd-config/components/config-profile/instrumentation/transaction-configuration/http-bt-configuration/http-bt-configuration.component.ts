@@ -294,4 +294,24 @@ export class HTTPBTConfigurationComponent implements OnInit {
   closeDialog(): void {
     this.addEditPatternDialog = false;
   }
+
+  checkSlow(slow, vslow){
+    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+      slow.setCustomValidity('Slow value shoule be less than very slow value.');
+    }
+    else{
+      slow.setCustomValidity('');
+    }
+    vslow.setCustomValidity('');
+  }
+
+  checkVSlow(slow, vslow){
+    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+      vslow.setCustomValidity('Very slow value shoule be greater than slow value.');
+    }
+    else{
+      vslow.setCustomValidity('');
+    } 
+    slow.setCustomValidity('');
+  }
 }
