@@ -1,10 +1,10 @@
 <!--For showing HTTP Request Header list -->
 <p-dataTable [value]="httpRequestHdrComponentInfo" [(selection)]="selectedHTTPReqHeader" [rows]="15" [paginator]="true" [pageLinks]="3">
     <p-header>
-        <span> HTTP Request Header (s) </span>
+        <span style="float: left"> HTTP Request Header (s) </span>
         <span style="float: right; margin-top:-5px">`
                        <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -27,7 +27,7 @@
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->
 <p-dialog header="{{isNew ? 'Add HTTP Request Header (s)' : 'Edit HTTP Request Header (s)'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
-    <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm">
+    <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
@@ -51,7 +51,7 @@
                         <span> Detail(s) </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openHTTPReqTypeValueDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -89,7 +89,7 @@
 
 <!--Dialog for ADD Value Types-->
 <p-dialog header="Add Custom Settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
-    <form (ngSubmit)="saveRules()" #groupForm="ngForm">
+    <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-2">

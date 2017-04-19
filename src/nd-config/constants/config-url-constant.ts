@@ -62,11 +62,12 @@ export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`
 
 /* Url for ServiceEntryPoint */
 export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;
-export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/entryTypes`;
+export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/custom/profileserviceentryasso/getentrytypes`;
 export const  ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
+export const  ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
 
-/*Url for Toggle */ 
+/*Url for Toggle */
 export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso` ;
 
 /* Url fot BussinessTransaction */
@@ -124,7 +125,7 @@ export const EDIT_ROW_HTTP_STATS_MONITOR_URL = `${SERVICE_URL}/custom/httpstatsc
 export const GET_HTTP_HEADERS_lIST =`${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
 export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/listoftypes`;
 export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/listofvaluetypes`;
-export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`; 
+export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`;
 export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
 export const DEL_HTTP_STATS_COND   = `${SERVICE_URL}/custom/httpstatscondition/delete`;
 
@@ -151,7 +152,7 @@ export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/del
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
- /*URL for btMethod */    
+ /*URL for btMethod */
  export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
  export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
  export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;

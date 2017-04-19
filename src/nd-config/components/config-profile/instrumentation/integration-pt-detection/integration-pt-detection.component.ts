@@ -1,12 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
 
-import { IntegrationPTDetection, AddIPDetection, NamingRuleAndExitPoint, EndPointInfo } from '../../../../containers/instrumentation-data';
+import { IntegrationPTDetection, BackendTableInfo, AddIPDetection, NamingRuleAndExitPoint, EndPointInfo, EndPoint, NamingRule } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { INTEGRATION_TYPE } from '../../../../constants/config-constant';
-import { BackendInfo, BackendTableInfo } from '../../../../interfaces/instrumentation-info';
+import { BackendInfo } from '../../../../interfaces/instrumentation-info';
 
 import { cloneObject } from '../../../../utils/config-utility';
+
+import { Messages } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-integration-pt-detection',
@@ -14,7 +16,7 @@ import { cloneObject } from '../../../../utils/config-utility';
   styleUrls: ['./integration-pt-detection.component.css']
 })
 export class IntegrationPtDetectionComponent implements OnInit {
-obj="public static void main(String[] ar){\n     int a;\n     int b;\n}";
+
   @Input()
   profileId: number;
 
@@ -71,26 +73,32 @@ obj="public static void main(String[] ar){\n     int a;\n     int b;\n}";
     this.displayNewIPDetection = true;
   }
 
-  /**This method is called to save the Data Of Dialog box in Backend */
+  /**This method is called to save the Data Add New Integration Point Detection data */
   saveAddIntegrationPTDetection(): void {
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)
       .subscribe(data => {
+        //Getting index for set data in main array table data.
+        let index = this.getTableIndex(data.backendTypeId);
+
         //Insert data in main table after inserting integration point detection in DB
-        //  this.integrationPTDetectionData.push(dat);
+        let endPointData: EndPoint = new EndPoint();
+        endPointData.id = data.id;
+        endPointData.description = data.desc;
+        endPointData.enabled = data.enabled;
+        endPointData.fqm = data.fqm;
+        endPointData.name = data.name;
+
+        this.ipDetectionData[index].lstEndPoints.push(endPointData);
       });
     this.displayNewIPDetection = false;
   }
 
-  showDialogToDetail() {
-    this.detailDialog = true;
-  }
-
-  onRowSelect(event) {
+  onRowSelect() {
     this.detailDialog = true;
     this.integrationDetail = cloneObject(this.selectedIpDetectionData);
-    console.log("this.selectedintegrationPTDetectionData", this.selectedIpDetectionData);
   }
 
+  /**This method is used to update Naming Rules & Exit Points data. */
   saveIntegrationDetail() {
     console.log("this.integrationDetail", this.integrationDetail);
     this.namingRuleAndExitPoint = new NamingRuleAndExitPoint();
@@ -111,9 +119,65 @@ obj="public static void main(String[] ar){\n     int a;\n     int b;\n}";
 
     this.detailDialog = false;
     this.configKeywordsService.addIPNamingAndExit(this.profileId, this.namingRuleAndExitPoint.backendTypeId, this.namingRuleAndExitPoint)
-    .subscribe(data=>
-    {}
-    );
+      .subscribe(data => {
+        //Getting index for set data in main array table data.
+        let index = this.getTableIndex(data.backendTypeId);
+
+        this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
+        this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
+      }
+      );
   }
+
+  /**
+   * Set NamingRuleAndExitPoint data in main table.
+   * @param NamingRule of maintable data.
+   * @param updated NamingRule.
+   */
+  setNamingRuleAndExitPointData(backendTableInfo: NamingRule, data: NamingRuleAndExitPoint) {
+    backendTableInfo.databaseProductName = data.databaseProductName;
+    backendTableInfo.databaseProductVersion = data.databaseProductVersion;
+    backendTableInfo.driverName = data.driverName;
+    backendTableInfo.driverVersion = data.driverVersion;
+    backendTableInfo.host = data.host;
+    backendTableInfo.port = data.port;
+    backendTableInfo.query = data.query;
+    backendTableInfo.serviceName = data.serviceName;
+    backendTableInfo.tableName = data.tableName;
+    backendTableInfo.topicName = data.topicName;
+    backendTableInfo.url = data.url;
+    backendTableInfo.userName = data.userName;
+  }
+
+  /**Used to set updated EndPoint Data in main table. */
+  setEndPointData(mainTableEndPoints: EndPoint[], updatedEndPoints: EndPointInfo[]) {
+    for (let i = 0; i < mainTableEndPoints.length; i++) {
+      mainTableEndPoints[i].enabled = this.getEndPointValue(mainTableEndPoints[i].id, updatedEndPoints);
+    }
+  }
+
+  /**
+   *  This method return EndPoint Value ie. enabled/disabled
+   */
+  getEndPointValue(id, updatedEndPoints: EndPointInfo[]): boolean {
+    for (let i = 0; i < updatedEndPoints.length; i++) {
+      if (id == updatedEndPoints[i].id) {
+        return updatedEndPoints[i].enabled;
+      }
+    }
+    return false;
+  }
+
+  /**This method match the backend id with backend rowdata's id.
+   * It will return row index for update data.
+   */
+  getTableIndex(backendId: number) {
+    for (let i = 0; i < this.ipDetectionData.length; i++) {
+      if (this.ipDetectionData[i].id == backendId) {
+        return i;
+      }
+    }
+  }
+
 }
 

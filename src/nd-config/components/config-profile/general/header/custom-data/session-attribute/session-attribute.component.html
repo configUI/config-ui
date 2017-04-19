@@ -11,11 +11,11 @@
     <!--For showing Session Attribute(s) list -->
     <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="5" [paginator]="true" [pageLinks]="3">
         <p-header>
-            <span> Session Attribute(s) </span>
+            <span style="float: left"> Session Attribute(s) </span>
             <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="opensSessionAttributeDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"(click)="editSessionAttribute()" icon="fa-pencil" ></button>
-                       <button pButton type="button"title="Delete" (click)="deleteSessionAttribute()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteSessionAttribute()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -40,7 +40,7 @@
 
 <!--Dialog for ADD and Edit Session Attribute-->
 <p-dialog header="{{isNewSessionAttr ? 'Add Session Attribute(s)' : 'Edit Session Attribute(s)'}}" *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true">
-    <form (ngSubmit)="saveADDEditSessionAttr()" #groupForm="ngForm">
+    <form (ngSubmit)="saveADDEditSessionAttr()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
@@ -64,7 +64,7 @@
                         <span> Session Attribute(s) </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openSessionAttrTypeValueDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteSessionValueType()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteSessionValueType()" icon="fa-trash"></button>
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -133,6 +133,6 @@
                 <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
             </div>
         </footer>
-        < </form>
+         </form>
 
 </p-dialog>

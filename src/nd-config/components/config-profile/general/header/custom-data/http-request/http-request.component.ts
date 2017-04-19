@@ -8,6 +8,8 @@ import { SelectItem,ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
 import { deleteMany } from '../../../../../../utils/config-utility';
 
+import { Messages } from '../../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-http-request',
   templateUrl: './http-request.component.html',
@@ -140,7 +142,7 @@ export class HttpRequestComponent implements OnInit {
   saveADDEditHTTPReqHeader()
   {
     console.log("saveADDEditHTTPReqHeader called")
-    
+    this.configUtilityService.successMessage(Messages);
   }
 
   // Method for saving rules information
@@ -148,6 +150,7 @@ export class HttpRequestComponent implements OnInit {
   {
     console.log("rules data - ", this.rulesData);
     this.rulesDataInfo.push(this.rulesData);
+    this.configUtilityService.successMessage(Messages);
     console.log("rules data - ", this.rulesDataInfo.length);
     this.rulesDialog = false;
   }

@@ -1,19 +1,19 @@
 <form *ngIf="backend" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-  <div class="tabsincontent">
-    <div class="header">Backend Monitors Settings
-      <div class="pull-right">
-        <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-        <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-      </div>
-    </div>
-    <p-panel>
-      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-        <div class="ui-g-12" style="padding-left: 50px">
-          <div class="ui-g-2">
-            <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend Monitor"></p-checkbox>
-          </div>
+    <div class="tabsincontent">
+        <div class="header">Backend Monitors Settings
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+            </div>
         </div>
-      </div>
-    </p-panel>
-  </div>
+        <p-panel>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-g-12" style="padding-left: 50px">
+                    <div class="ui-g-2">
+                        <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend Monitor"></p-checkbox>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+    </div>
 </form>

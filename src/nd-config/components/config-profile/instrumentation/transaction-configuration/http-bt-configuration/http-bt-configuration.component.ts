@@ -8,6 +8,8 @@ import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { Messages } from '../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-http-bt-configuration',
   templateUrl: './http-bt-configuration.component.html',
@@ -146,7 +148,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.globalBtDetail.httpMethod = true;
     else
       this.globalBtDetail.httpMethod = false;
-
+    this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
   }
 
@@ -161,8 +163,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.businessTransPatternInfo.push(data);
+    this.configUtilityService.successMessage(Messages); 
       });
     this.closeDialog();
+
   }
 
   /* Open Dialog for Add Pattern */
@@ -222,6 +226,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       }
       this.editApp();
     }
+    
   }
 
   /**This method is used to validate the name of Pattern is already exists. */

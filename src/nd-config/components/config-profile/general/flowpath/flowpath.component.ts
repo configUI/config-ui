@@ -5,9 +5,8 @@ import { SelectItem } from 'primeng/primeng';
 import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-flowpath',
@@ -27,7 +26,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   enableGroupKeyword: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.subscription = this.store.select("keywordData").subscribe(data=>{
       this.flowPath = data;
     });
@@ -78,18 +77,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     this.keywordData.emit(this.flowPath);
-  }
-
-  check(text){
-    console.log(event,"DFfdfgdfgfdgf");
-    // if(event>100)
-    // event.setCustomValidity('Value must be less than or equal to 100');
-    // if(event<0)
-    // event.setCustomValidity('Value must be greater than or equal to 0');
-    // if(event=='')
-    // event.setCustomValidity('This is a required field');
- 
-
   }
 
   ngOnDestroy() {

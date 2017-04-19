@@ -6,6 +6,8 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 
+import { Messages } from '../../../../../constants/config-constant'
+
 @Component({
   selector: 'app-method-monitors',
   templateUrl: './method-monitors.component.html',
@@ -122,6 +124,7 @@ export class MethodMonitorsComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting Method Monitor in DB
         this.methodMonitorData.push(data);
+    this.configUtilityService.successMessage(Messages);
       });
     this.addEditMethodMonitorDialog = false;
   }

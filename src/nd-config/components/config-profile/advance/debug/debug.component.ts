@@ -6,6 +6,7 @@ import { Keywords } from '../../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -26,7 +27,7 @@ export class DebugComponent {
   debug: Object;
   enableGroupKeyword: boolean;
   subscription: Subscription;
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService,  private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.debug = data;
@@ -40,6 +41,7 @@ export class DebugComponent {
 
   saveKeywordData() {
     this.keywordData.emit(this.debug);
+
   }
   //Method to reset the default values of the keywords
   resetDefaultValues() {

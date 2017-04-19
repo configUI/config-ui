@@ -1,68 +1,67 @@
- <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-<div class="tabsincontent">
-    <div class="header">FlowPath Capturing
-         <div class="pull-right">
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-            </div>
-    </div>
-   
-    <p-panel>
-        
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-            <div class="ui-g">
+<form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
+    <div class="tabsincontent">
+        <div class="header">FlowPath Capturing
+            <div class="pull-right" >
+                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
 
-                <div class="ui-g-12">
-                    <!--<div class = "ui-g-6">-->
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-3">
-                        <label>Full Flow Path Capturing Percentage [0-100%]</label>
-                    </div>
-
-                    <div class="ui-g-2">
-                        <input type="text" name="bciInstrSessionPct" pInputText [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
-                            <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
-                    </div>
-                </div>
-
-                <div class="ui-g-12">
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-3">
-                        <label>Capture Complete Transaction Flow Forcefully</label>
-                    </div>
-
-
-                    <div class="ui-g-2">
-                        <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
-                    </div>
-                </div>
-
-
-                <div class="ui-g-12">
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-3">
-                        <label>Capture CPU Times</label>
-                    </div>
-
-                    <div class="ui-g-2">
-                        <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value" [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
-                    </div>
-                </div>
-
-
-                <div class="ui-g-12">
-                    <div class="ui-g-1"> </div>
-                    <div class="ui-g-3">
-                        <label>Capture HTTP Header for Correlation ID</label>
-                    </div>
-
-                    <div class="ui-g-3">
-                        <input name="correlationIDHeader" type="number" size="30" [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}} max={{flowPath.correlationIDHeader.max}} required ngModel/>
-                    </div>
-                </div>
             </div>
         </div>
-    </p-panel>
+        <p-panel>          
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-g">
 
-</div>
+                    <div class="ui-g-12">
+                        <!--<div class = "ui-g-6">-->
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3">
+                            <label>Full Flow Path Capturing Percentage [0-100%]</label>
+                        </div>
+
+                        <div class="ui-g-2">
+                            <input type="text" name="bciInstrSessionPct" pInputText [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                            <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3">
+                            <label>Capture Complete Transaction Flow Forcefully</label>
+                        </div>
+
+
+                        <div class="ui-g-2">
+                            <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3">
+                            <label>Capture CPU Times</label>
+                        </div>
+
+                        <div class="ui-g-2">
+                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value" [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3">
+                            <label>Capture HTTP Header for Correlation ID</label>
+                        </div>
+
+                        <div class="ui-g-3">
+                            <input name="correlationIDHeader" type="number" size="30" [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}} max={{flowPath.correlationIDHeader.max}} required ngModel/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+
+    </div>
 </form>
