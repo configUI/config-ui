@@ -2,8 +2,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ConfigUiUtility } from '../../../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import { ConfigCustomDataService } from '../../../../services/config-customdata.service';
 
 @Component({
   selector: 'app-header',
@@ -34,12 +36,12 @@ export class HeaderComponent implements OnInit {
   httpReqFullFp: HttpReqFullFp;
   httpRespFullFp: HttpRespFullFp;
 
-
+  profileId: number;
 
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to 
   *  to boolean value
   */
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>,private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       for (let key in data) {
         data[key].value = (data[key].value == 'true' || data[key].value == 'false') ? data[key].value == 'true' : data[key].value
@@ -126,11 +128,17 @@ export class HeaderComponent implements OnInit {
 
     this.header["captureHTTPReqFullFp"].value = captureHttpReqFullFpVal;
     this.header["captureHTTPRespFullFp"].value = captureHttpRespFullFpVal;
+    this.header["captureCustomData"].value = String(this.header["captureCustomData"].value == '1');
 
+    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
+    this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
     this.keywordData.emit(this.header);
+
+
   }
+
   /*
-  * 
+  * t
   */
 
   splitKeywordData(keywords) {
