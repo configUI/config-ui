@@ -17,7 +17,7 @@
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true">
+    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align': 'center'}">
         <template let-col let-service="rowData" pTemplate>
 
             <md-slide-toggle (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
