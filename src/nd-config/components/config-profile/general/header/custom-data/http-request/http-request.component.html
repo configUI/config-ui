@@ -4,7 +4,8 @@
         <span style="float: left"> HTTP Request Header (s) </span>
         <span style="float: right; margin-top:-5px">`
                        <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Edit"(click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -18,7 +19,7 @@
       <span></span>
     </template>
     </p-column>
-    <p-column class="col-overflow" field="rules" header="Rules" [sortable]="true">
+    <p-column class="col-overflow" field="valueNames" header="Rules" [sortable]="true">
         <template let-col let-application="rowData">
       <span></span>
     </template>
@@ -34,7 +35,7 @@
                     <label>Header Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="btName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" autofocus required ngModel/>
+                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" autofocus required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -51,7 +52,11 @@
                         <span> Detail(s) </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openHTTPReqTypeValueDialog()" icon="fa-plus"></button>
+<<<<<<< HEAD
+                       <button pButton type="button"title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+=======
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
+>>>>>>> f25461f4d1ea8aa4524977e7dad0203692763591
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -60,7 +65,7 @@
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                     </p-column>
-                    <p-column class="col-overflow" field="valName" header="Type" [sortable]="true">
+                    <p-column class="col-overflow" field="customValTypeName" header="Type" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -96,10 +101,10 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesData.valName" placeholder="Name" autofocus required ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" placeholder="Name" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-4">
-                    <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesData.type" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>
+                    <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>
                 </div>
             </div>
 
@@ -108,13 +113,13 @@
                     <label>Left Bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesData.lb" placeholder="Left Bound" autofocus required ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" placeholder="Left Bound" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right Bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesData.rb" placeholder="Right Bound" autofocus required ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" placeholder="Right Bound" autofocus required ngModel/>
                 </div>
             </div>
         </div>

@@ -58,30 +58,35 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   doAssignSessionAttributeTableData(data) {
-    this.sessionAttributeComponentInfo = this.filterTRData(data)
+      this.sessionAttributeComponentInfo = this.filterTRData(data);
   }
   filterTRData(data): Array<SessionAtrributeComponentsData> {
     var arrTestRunData = [];
+    if(data.attrList != null)
+    {
     for (var i = 0; i < data.attrList.length; i++) {
       let valueNames = "";
       if (data.attrList[i].attrValues == "") {
-        if (data.attrList[i].attrType == "complete")
-          valueNames = "NA";
-        else
-          valueNames = "Add Values";
+          valueNames = "-";
       }
       for (var j = 0; j < data.attrList[i].attrValues.length; j++) {
         if (data.attrList[i].attrValues.length == 1)
-          valueNames = data.attrList[i].attrValues[j].valName;
+          valueNames = valueNames + data.attrList[i].attrValues[j].valName;
         else
           valueNames = valueNames + "," + data.attrList[i].attrValues[j].valName;
       }
+
+      if(valueNames.indexOf(",") != -1)
+            valueNames = valueNames.substr(1);
 
       arrTestRunData.push({
         attrName: data.attrList[i].attrName, attrType: data.attrList[i].attrType, valName: valueNames, sessAttrId: data.attrList[i].sessAttrId,
       });
     }
     return arrTestRunData;
+  }
+  else
+  return null;
   }
 
   /* Open Dialog for Add Session Attribute */
