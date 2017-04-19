@@ -45,6 +45,7 @@ export class ConfigHomeComponent implements OnInit {
         this.profileInfo = (data.homeData[1].value).slice(0, 6);
         this.topologyInfo = (data.homeData[2].value).slice(0, 6);
         this.agentsInfo = data.agentData;
+        this.configHomeService.setTrData(data.trData);
       })
   }
 
