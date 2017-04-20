@@ -28,5 +28,9 @@ export class ConfigCustomDataService {
     return this._restApi.getDataByPostReq(URL.DEL_METHOD_BASED_CAPTURING, data);
   }
 
+  updateCaptureCustomDataFile(profileId){
+    this._restApi.getDataByGetReq(`${URL.UPDATE_CUSTOM_CAPTURE_DATA_FILE}/${profileId}`).subscribe();
+  }
+
 
 }

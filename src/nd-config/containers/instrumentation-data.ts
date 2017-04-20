@@ -200,16 +200,22 @@ export class SessionTypeValueData {
 }
 
 export class HTTPRequestHdrComponentData {
+    attrValues?: RulesHTTPRequestHdrComponentData[];
     httpReqHdrBasedId: number;
     headerName: string;
-    dumpMode: string;
-    rules: RulesHTTPRequestHdrComponentData[];
+    dumpMode: number;
+    specific?: boolean;
+    complete?: boolean;
+    valueNames?:string;
+    rules?: RulesHTTPRequestHdrComponentData[];
 }
 
 export class RulesHTTPRequestHdrComponentData {
-    ruleId: number;
+  //  ruleId: number;
     valName: string;
     lb: string;
     rb: string;
-    type: string;
+    id: number;
+    customValTypeName: string;
+    type: number;
 }

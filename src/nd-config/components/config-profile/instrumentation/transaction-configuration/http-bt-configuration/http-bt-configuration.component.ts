@@ -163,9 +163,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.businessTransPatternInfo.push(data);
-    this.configUtilityService.successMessage(Messages); 
+    this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
+    this.configUtilityService.successMessage("Saved Successfully !!!");
 
   }
 
@@ -210,7 +211,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is common method for save or edit BT Pattern */
   saveADDEditBTPatternTrans(): void {
-    //When add new application 
+    //When add new application
     if (this.isNewApp) {
       //Check for app name already exist or not
       if (!this.checkAppNameAlreadyExist()) {
@@ -218,7 +219,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         return;
       }
     }
-    //When add edit Pattern 
+    //When add edit Pattern
     else {
       if (this.businessTransPatternInfo[0].id != this.businessTransPatternDetail.id) {
         if (this.checkAppNameAlreadyExist())
@@ -226,7 +227,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       }
       this.editApp();
     }
-    
+
   }
 
   /**This method is used to validate the name of Pattern is already exists. */
@@ -311,7 +312,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     else{
       vslow.setCustomValidity('');
-    } 
+    }
     slow.setCustomValidity('');
   }
 }

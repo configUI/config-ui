@@ -73,7 +73,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
   /**This is used to enable/disable groupkeyword values. */
   change(selectedKeywordGroup) {
-
     for (let moduleName in this.keywordGroup) {
       let keywordGroupList = this.keywordGroup[moduleName];
 
@@ -98,10 +97,9 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           }
         }
       }
-
-      //Saving keyword values
-      this.configKeywordsService.saveProfileKeywords(this.profileId);
     }
+    //saving keyword values
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 
   ngOnDestroy() {

@@ -23,9 +23,9 @@
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column field="enabled" header="Enabled">
+    <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <p-inputSwitch onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></p-inputSwitch>
+      <md-slide-toggle onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
     </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true">
