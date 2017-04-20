@@ -10,12 +10,12 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
     <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
-        <template let-col let-application="rowData" type="body">
-                   <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+        <template let-col let-application="rowData" pTemplate>
+                   <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
     </p-column>
     <p-column class="col-overflow" field="returnType" header="Return Type" [sortable]="true">
-        <template let-col let-application="rowData">
+        <template let-col let-application="rowData" pTemplate>
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
     </p-column>
@@ -44,7 +44,7 @@
                         Argument Index
                     </div>
                     <div class="ui-g-5" style="margin-top: -5px">
-                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="text" size="12" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="Argument Index" autofocus required ngModel/>
+                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="number" style="text-align:right;width:45%;" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="enter value" autofocus required ngModel/>
                     </div>
                 </div>
             </div>
@@ -55,14 +55,14 @@
                 </div>
                 <div class="ui-g-3">
                     <input name="dropdown" type="text" size="23" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.returnType" required ngModel/>
-                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" appendTo="body" placeholder="Return Type" required ngModel></p-dropdown>
+                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" appendTo="body" placeholder="Select Return Type" required ngModel></p-dropdown>
                 </div>
             </div>
 
             <div class="ui-g-12">
                 <p-dataTable [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
                     <p-header>
-                        <span>  Return Type Info </span>
+                        <span style="float: left"> Return Type Info </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddRulesDialog()" icon="fa-plus"></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
@@ -129,7 +129,7 @@
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="submit" pButton icon="fa-check" label="Cancel"></button>
+                <button type="submit" pButton icon="fa-check" (click)="closeReturnDialog()" label="Cancel"></button>
             </div>
         </footer>
     </form>

@@ -31,28 +31,28 @@
 <p-dialog header="{{isNewMethodMonitor ? 'Add Method Monitor' : 'Edit Method Monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
-            <div class="ui-g-4">
+            <div class="ui-g-3">
                 <label>Display Name</label>
             </div>
-            <div class="ui-g-8">
-                <input name="methodDisplayName" type="text" size="30" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" autofocus required ngModel/>
+            <div class="ui-g-9">
+                <input name="methodDisplayName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" autofocus required ngModel/>
             </div>
         </div>
 
         <div class="ui-g">
-            <div class="ui-g-4">
+            <div class="ui-g-3">
                 <label>Method Name</label>
             </div>
-            <div class="ui-g-8">
-                <input name="methodName" type="text" size="30" pInputText [(ngModel)]="methodMonitorDetail.methodName" required ngModel/>
+            <div class="ui-g-9">
+                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required ngModel/>
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g-4">
+            <div class="ui-g-3">
                 <label>Description</label>
             </div>
-            <div class="ui-g-8">
-                <input name="methodDesc" type="text" size="30" pInputText [(ngModel)]="methodMonitorDetail.methodDesc" required ngModel/>
+            <div class="ui-g-9">
+                <input name="methodDesc" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDesc" required ngModel/>
             </div>
         </div>
         <footer>
