@@ -213,4 +213,15 @@ export class ConfigApplicationListComponent implements OnInit {
     this.configApplicationService.applicationNameObserver(selectedAppName);
     this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
   }
+
+  generateNDConfFile(){
+    let selectedApp = this.selectedApplicationData;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].appId);
+        }
+        this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data => 
+            this.configUtilityService.infoMessage("Successfully generated nd.conf file at path : " + data));
+
+  }
 }

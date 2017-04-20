@@ -9,12 +9,14 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 // import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
-import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData, AddIPDetection} from '../containers/instrumentation-data';
+
+import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData,HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection} from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import {  httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
+
 
 @Injectable()
 export class ConfigKeywordsService {
@@ -34,18 +36,8 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, 
-                hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, 
-                thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, 
-                exception: { enable: false, keywordList: ["instrExceptions"] },
-                header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData","captureHTTPRespFullFp", "captureHttpSessionAttr"] },
-                instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
-                
-    advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] },
-               delay: { enable: false, keywordList: ['putDelayInMethod'] }, backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, 
-               generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] },
-                monitors: { enable: false, keywordList: ['enableBTMonitor'] } },
-
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp", "captureHttpSessionAttr"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] }, backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] }, monitors: { enable: false, keywordList: ['enableBTMonitor'] } },
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
@@ -155,12 +147,12 @@ export class ConfigKeywordsService {
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
    */
 
-   getFetchSessionAttributeTable(profileId): Observable<SessionAtrributeComponentsData[]> {
+  getFetchSessionAttributeTable(profileId): Observable<SessionAtrributeComponentsData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SESSION_ATTR_TABLEDATA}/${profileId}`);
-   }
-  
+  }
+
   deleteSessionAttributeData(data): Observable<SessionAtrributeComponentsData> {
-    return this._restApi.getDataByPostReq(`${URL.DELETE_SESSION_ATTR}`,data) 
+    return this._restApi.getDataByPostReq(`${URL.DELETE_SESSION_ATTR}`, data)
   }
 
   addSessionAttributeData(data, profileId): Observable<SessionAtrributeComponentsData> {
@@ -170,21 +162,21 @@ export class ConfigKeywordsService {
 
   //HTTP Stats Monitors
 
-   addHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
+  addHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_HTTP_STATS_COND}/${profileId}`, data);
   }
 
- getHttpStatsMonitorList(profileId): Observable<HttpStatsMonitorData[]> {
+  getHttpStatsMonitorList(profileId): Observable<HttpStatsMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_HTTP_STATS_COND_TABLEDATA}/${profileId}`);
   }
-  
-  editHttpStatsMonitorData(data,profileId): Observable<HttpStatsMonitorData> {
+
+  editHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
     let url = `${URL.EDIT_ROW_HTTP_STATS_MONITOR_URL}/${profileId}/${data.hscid}`
     return this._restApi.getDataByPutReq(url, data);
   }
 
-  deleteHttpStatsMonitorData(data,profileId): Observable<HttpStatsMonitorData> {
-    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_STATS_COND}/${profileId}`,data);
+  deleteHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_STATS_COND}/${profileId}`, data);
   }
 
 
@@ -218,8 +210,8 @@ export class ConfigKeywordsService {
   }
 
   /* Edit  Business Trans Method Info */
-   editBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
-      return this._restApi.getDataByPostReq(`${URL.UPDATE_BTMETHOD}/${data.btMethodId}`, data);
+  editBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BTMETHOD}/${data.btMethodId}`, data);
   }
 
   /*Add Pattern Bt Data*/
@@ -228,12 +220,12 @@ export class ConfigKeywordsService {
   }
 
   /*EDIT Pattern Bt Data*/
-  editBusinessTransPattern(data , profileId): Observable<BusinessTransPatternData> {
-    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${profileId}/${data.id}`
+  editBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData> {
+    let url = `${URL.EDIT_BT_PATTERN_TABLEDATA}/${profileId}/${data.id}`;
     return this._restApi.getDataByPutReq(url, data);
   }
 
- /*Add Pattern Bt Data*/
+  /*Add Pattern Bt Data*/
   addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
@@ -244,13 +236,30 @@ export class ConfigKeywordsService {
   }
 
   /*  FETCH HTTP REQUEST HEADER TABLEDATA */
-    getFetchHTTPReqHeaderTable(profileId): Observable<httpReqHeaderInfo[]> {
+  getFetchHTTPReqHeaderTable(profileId): Observable<httpReqHeaderInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREQ_HDR}/${profileId}`);
   }
 
+  /* delete  Business Trans Method Info */
+  deleteHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REQ_HDR}`, data);
+  }
+
   /* Fetch  Business Trans Method Info */
-  deleteHTTPReqHeaderData(data, profileId): Observable<httpReqHeaderInfo> {
-    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REQ_HDR}/${profileId}`, data);
+  addHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
+  }
+
+  /* Edit  Business Trans Method Info */
+  editHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    let url = `${URL.UPDATE_HTTPREQHDR}/${profileId}`;
+    return this._restApi.getDataByPostReq(url, data);
+  }
+
+    /* Edit  Business Trans Method Info */
+  editHTTPReqHeaderRulesData(data, ReqId): Observable<RulesHTTPRequestHdrComponentData> {
+    let url = `${URL.ADD_RULES_HTTPREQHDR}/${ReqId}`;
+    return this._restApi.getDataByPostReq(url, data);
   }
 
 }
