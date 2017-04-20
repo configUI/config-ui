@@ -1,17 +1,14 @@
 <form *ngIf="HeaderForm" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-    <p-panel class ="hideheader" header="Flow Path Header">
-        <p-header>
-            <div class="pull-right">
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="button" pButton icon="fa-refresh" label="Reset"></button>
-                    <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+    <div class="tabsincontent">
+        <div class="header">Flow Path Header
+            <div class="pull-right" >
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
 
-                </div>
             </div>
-        </p-header>
+        </div>
+    <p-panel class ="hideheader">
         <div style="margin: 5px 0px">
-
-
             <p-accordion>
                 <p-accordionTab header="HTTP Headers">
                     <app-http-header [data]="httpKeywordObject"></app-http-header>
@@ -23,4 +20,5 @@
             </p-accordion>
         </div>
     </p-panel>
+    </div>
 </form>

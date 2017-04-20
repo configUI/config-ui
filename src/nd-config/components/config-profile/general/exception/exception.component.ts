@@ -3,6 +3,7 @@ import { KeywordData } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ExceptionData } from '../../../../containers/exception-capture-data';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-exception',
@@ -55,12 +56,12 @@ export class ExceptionComponent implements OnInit {
       else
         this.exceptionData.instrumentException = false;
 
-      if(arr[1] == "1")
+      if(arr[1] === "1")
         this.exceptionData.exceptionTrace = true;
       else
         this.exceptionData.exceptionTrace = false;
         
-      this.exceptionData.exceptionType = arr[2];
+      this.exceptionData.exceptionType = arr[2] == '1' ? 'all':'unhandled';
       
       if(arr.length > 2)
         this.exceptionData.exceptionTraceDepth = arr[3];
@@ -72,13 +73,13 @@ export class ExceptionComponent implements OnInit {
       {
       this.exceptionData.instrumentException = false;
       this.exceptionData.exceptionTrace = false;
-      this.exceptionData.exceptionType = "unhandled"
+      this.exceptionData.exceptionType = 'unhandled';
       }
       else if(this.exception["instrExceptions"].value == 1)
       {
-      this.exceptionData.instrumentException = true;
+      this.exceptionData.instrumentException = false;
       this.exceptionData.exceptionTrace = false;
-      this.exceptionData.exceptionType = "unhandled"
+      this.exceptionData.exceptionType = 'unhandled';
       }
 
     }
@@ -92,6 +93,11 @@ export class ExceptionComponent implements OnInit {
       }
     this.keywordData.emit(this.exception);
 
+  }
+
+   resetKeywordData(){
+     this.exception = cloneObject(this.configKeywordsService.keywordData);
+     this.getKeywordData();
   }
 
   // Method used to construct the value of instrException keyword.

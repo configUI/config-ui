@@ -8,6 +8,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-backend-monitors',
@@ -46,6 +47,11 @@ export class BackendMonitorsComponent implements OnInit {
     }
     console.log("this.backend", this.backend);
     this.keywordData.emit(this.backend);
+  }
+
+  resetKeywordData() {
+    this.backend = cloneObject(this.configKeywordsService.keywordData);
+    this.enableBackendMonitorChk = this.backend["enableBackendMonitor"].value == 0 ? false : true;
   }
 
   ngOnDestroy() {

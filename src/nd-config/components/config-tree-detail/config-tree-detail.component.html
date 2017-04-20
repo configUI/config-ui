@@ -7,8 +7,6 @@
 
 
 <p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3"  [(selection)]="selectedTopologyData">
-
-
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="col-overflow" [sortable]="true">
