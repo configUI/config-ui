@@ -2,7 +2,7 @@
     <div class="tabsincontent">
         <div class="header">FlowPath Capturing
             <div class="pull-right" >
-                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
 
             </div>
@@ -19,8 +19,8 @@
                         </div>
 
                         <div class="ui-g-2">
-                            <input type="text" name="bciInstrSessionPct" pInputText [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
-                            <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
+                            <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                            <p-slider name="bciInstrSessionPctSlider" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
                         </div>
                     </div>
 

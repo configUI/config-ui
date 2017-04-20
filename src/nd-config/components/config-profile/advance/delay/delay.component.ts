@@ -8,6 +8,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-delay',
@@ -88,6 +89,11 @@ export class DelayComponent implements OnInit {
         this.delay[key]["value"] = delayValue;
     }
     this.keywordData.emit(this.delay);
+  }
+
+   resetKeywordData(){
+     this.delay = cloneObject(this.configKeywordsService.keywordData);
+     this.splitDelayKeywordData();
   }
   
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.

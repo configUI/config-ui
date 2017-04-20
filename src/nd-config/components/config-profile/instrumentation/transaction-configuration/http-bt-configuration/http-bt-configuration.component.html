@@ -92,7 +92,7 @@
     <!--For showing Bussiness Transaction Pattern(s) list -->
     <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="15" [paginator]="true" [pageLinks]="3">
         <p-header>
-            <span>  Bussiness Transaction Pattern(s) </span>
+            <span style="float: left;">  Bussiness Transaction Pattern(s) </span>
             <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddPatternDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"(click)="editPatternDialog()" icon="fa-pencil" ></button>

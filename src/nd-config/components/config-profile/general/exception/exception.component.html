@@ -2,7 +2,7 @@
     <div class="tabsincontent">
         <div class="header">Exception Capturing
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
 
             </div>
@@ -20,7 +20,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3" style="margin-left: 16px">
-                            <p-checkbox disabled={{!exceptionData.instrumentException}} label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
+                            <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
                             </p-checkbox>
                         </div>
 
@@ -36,10 +36,10 @@
                     <div class="ui-g-12" style="margin-left: 16px">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2" style="margin-left: 16px">
-                            <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
+                            <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
                         </div>
                         <div class="ui-g-2">
-                            <p-radioButton name="CaptureException" disabled={{!exceptionData.instrumentException}} value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
+                            <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
     <div class="tabsincontent">
         <div class="header">Backend Monitors Settings
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>

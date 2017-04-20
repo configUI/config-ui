@@ -8,6 +8,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-monitors',
@@ -28,7 +29,7 @@ export class MonitorsComponent implements OnInit {
   enableBTMonitorChk: boolean;
   subscription: Subscription;
   enableGroupKeyword: boolean;
-  constructor(private configKeywordsService: ConfigKeywordsService,private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.monitor = data;
@@ -45,6 +46,12 @@ export class MonitorsComponent implements OnInit {
       this.monitor["enableBTMonitor"].value = 0;
     }
     this.keywordData.emit(this.monitor);
+  }
+
+  resetKeywordData() {
+    this.monitor = cloneObject(this.configKeywordsService.keywordData);
+    this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+
   }
 
   ngOnDestroy() {

@@ -2,7 +2,7 @@
     <div class="tabsincontent">
         <div class="header">Instrumentation Profiles
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>
@@ -19,8 +19,7 @@
 
                     <div class="ui-g-1"></div>
                     <div class="ui-g-5">
-                        <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" [(ngModel)]="instrProfiles" required ngModel></p-multiSelect>
-
+                        <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" [(ngModel)]="instrProfiles" ngModel></p-multiSelect>
                     </div>
 
                 </div>
