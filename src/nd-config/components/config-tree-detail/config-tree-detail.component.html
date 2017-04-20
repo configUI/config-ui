@@ -1,5 +1,5 @@
 <div class="">
-    <div class="header-content"><i aria-hidden="true"></i> <span>{{currentEntity}} Detail (s)</span>
+    <div class="header-content"><i class="fa fa-bars" aria-hidden="true"></i> <span>{{currentEntity}} Detail (s)</span>
        <span style="float: right; margin-top:-2px">
             <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
         </span>
@@ -7,8 +7,6 @@
 
 
 <p-dataTable [value]=topologyData [rows]="15" [paginator]="true" [pageLinks]="3"  [(selection)]="selectedTopologyData">
-
-
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="col-overflow" [sortable]="true">
