@@ -23,6 +23,13 @@ export class ExceptionComponent implements OnInit {
 
   exception: Object;
   enableGroupKeyword:boolean
+  /**Value for this keyword is
+   * 1%201%201%2012
+   * 1- instrumentException
+   * 1- exceptionTrace
+   * 1- All
+   * 12- Trace limit for frames
+   */
 
   constructor(private configKeywordsService: ConfigKeywordsService,private configUtilityService: ConfigUtilityService) { 
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.exception.enable;
