@@ -42,6 +42,11 @@ export class InstrumentationProfilesComponent implements OnInit {
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.instrumentation_profiles.enable;
   }
 
+/**
+ * value for instrProfile keyword is
+ * abc.xml,exception.xml
+ */
+
   ngOnInit() {
     this.loadListOfXmlFiles();
   }

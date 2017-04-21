@@ -215,6 +215,14 @@ export class ConfigApplicationListComponent implements OnInit {
   }
 
   generateNDConfFile(){
+    if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to generate nd.conf file");
+      return;
+    }
+    else if (this.selectedApplicationData.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to generate nd.conf file");
+      return;
+    }
     let selectedApp = this.selectedApplicationData;
         let arrAppIndex = [];
         for (let index in selectedApp) {

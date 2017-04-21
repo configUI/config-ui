@@ -168,11 +168,11 @@ export class HttpStatsMonitorsComponent implements OnInit {
   /**For showing HTTP Stats Condition dialog */
   openEditHTTPStatsDialog(): void {
     if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
-      this.configUtilityService.errorMessage("Select a field to edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedHttpStatsMonitorData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one field to edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
     // this.httpStatsMonitorDetail = new HttpStatsMonitorData();
@@ -183,7 +183,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
 
   saveHttpStatsMonitor(): void {
-    //When add new HTTP Stats Condition 
+    //When add new HTTP Stats Condition
     if (this.isNewHttpStatsMonitor) {
       //Check for HttpStatsMonitor name already exist or not
       if (!this.checkHttpStatsMonitorNameAlreadyExist()) {
@@ -224,7 +224,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   /**This method save HTTP Stats Condition data at backend */
   saveHttpStatsMonitorData(): void {
-    //Calling method which will store values in httpStatsMonitorDetail object 
+    //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
     //Error messages for every fields
     if (!this.httpStatsMonitorDetail.conditionName)
@@ -283,7 +283,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   /**This method is used to delete HTTP Stats Condition */
   deleteHTTPStats(): void {
     if (!this.selectedHttpStatsMonitorData || this.selectedHttpStatsMonitorData.length < 1) {
-      this.configUtilityService.errorMessage("Select fields to delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
@@ -301,7 +301,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
           .subscribe(data => {
             this.deleteApplications(arrAppIndex);
           })
-        this.configUtilityService.infoMessage("Delete Successfully");
+        this.configUtilityService.infoMessage("Deleted Successfully !!!");
       },
       reject: () => {
 

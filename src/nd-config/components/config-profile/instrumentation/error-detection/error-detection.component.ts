@@ -52,11 +52,11 @@ export class ErrorDetectionComponent implements OnInit {
   /**For showing Error Detection dialog */
   openEditErrorDetectionDialog(): void {
     if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
-      this.configUtilityService.errorMessage("Please select for edit");
+      this.configUtilityService.errorMessage("Select a row for edit");
       return;
     }
     else if (this.selectedErrorDetection.length > 1) {
-      this.configUtilityService.errorMessage("Please select only one for edit");
+      this.configUtilityService.errorMessage("Select only one row for edit");
       return;
     }
     this.errorDetectionDetail = new ErrorDetection();
@@ -66,7 +66,7 @@ export class ErrorDetectionComponent implements OnInit {
   }
 
   saveErrorDetection(): void {
-    //When add new Error Detection 
+    //When add new Error Detection
     if (this.isNewErrorDetection) {
       //Check for errorDetection name already exist or not
       if (!this.checkErrorDetectionNameAlreadyExist()) {
@@ -128,7 +128,7 @@ export class ErrorDetectionComponent implements OnInit {
   /**This method is used to delete Error Detection */
   deleteErrorDetection(): void {
     if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
-      this.configUtilityService.errorMessage("Select for delete");
+      this.configUtilityService.errorMessage("Select row(s) for delete");
       return;
     }
     this.confirmationService.confirm({
@@ -146,7 +146,7 @@ export class ErrorDetectionComponent implements OnInit {
           .subscribe(data => {
             this.deleteErrorDetectionFromTable(arrAppIndex);
             this.selectedErrorDetection = [];
-            this.configUtilityService.infoMessage("Delete Successfully");
+            this.configUtilityService.infoMessage("Deleted Successfully !!!");
           })
       },
       reject: () => {
