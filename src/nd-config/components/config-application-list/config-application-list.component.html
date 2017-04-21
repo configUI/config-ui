@@ -18,7 +18,7 @@
       <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
     </template>
         </p-column>
-        <p-column class="col-overflow" field="topoName" header="Topology" [sortable]="true">
+        <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
@@ -42,48 +42,50 @@
 
 </div>
 <!--Dialog for adding Application-->
-<p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Name</label>
+<div class="profile-dialog">
+    <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
+        <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Name</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+                </div>
             </div>
-            <div class="ui-g-8">
-                <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Description</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="appDesc" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" required ngModel />
+                </div>
             </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Description</label>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>User Name</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+                </div>
             </div>
-            <div class="ui-g-8">
-                <input name="appDesc" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" required ngModel />
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Topology</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                    <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+                </div>
             </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>User Name</label>
-            </div>
-            <div class="ui-g-8">
-                <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                    required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-            </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Topology</label>
-            </div>
-            <div class="ui-g-8">
-                <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+                </div>
+            </footer>
+        </form>
+    </p-dialog>
+</div>

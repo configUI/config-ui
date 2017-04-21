@@ -54,11 +54,11 @@ export class MethodMonitorsComponent implements OnInit {
   /**For showing Method Monitor dialog */
   openEditMethodMonitorDialog(): void {
     if (!this.selectedMethodMonitorData || this.selectedMethodMonitorData.length < 1) {
-      this.configUtilityService.errorMessage("Select a field to edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedMethodMonitorData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one field to edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
     this.methodMonitorDetail = new MethodMonitorData();
@@ -69,7 +69,7 @@ export class MethodMonitorsComponent implements OnInit {
   }
 
   saveMethodMonitor(): void {
-    //When add new Method Monitor 
+    //When add new Method Monitor
     if (this.isNewMethodMonitor) {
       //Check for MethodMonitor name already exist or not
       if (!this.checkMethodMonitorNameAlreadyExist()) {
@@ -132,7 +132,7 @@ export class MethodMonitorsComponent implements OnInit {
   /**This method is used to delete Method Monitor */
   deleteMethodMonitor(): void {
     if (!this.selectedMethodMonitorData || this.selectedMethodMonitorData.length < 1) {
-      this.configUtilityService.errorMessage("Select fields to delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
@@ -150,7 +150,7 @@ export class MethodMonitorsComponent implements OnInit {
           .subscribe(data => {
             this.deleteMethodMonitorFromTable(arrAppIndex);
             this.selectedMethodMonitorData = [];
-            this.configUtilityService.infoMessage("Delete Successfully");
+            this.configUtilityService.infoMessage("Deleted Successfully !!!");
           })
       },
       reject: () => {

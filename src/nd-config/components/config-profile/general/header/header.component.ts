@@ -5,7 +5,9 @@ import { ConfigKeywordsService } from '../../../../services/config-keywords.serv
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import { cloneObject } from '../../../../utils/config-utility';
 import { ConfigCustomDataService } from '../../../../services/config-customdata.service';
+
 
 @Component({
   selector: 'app-header',
@@ -61,7 +63,7 @@ export class HeaderComponent implements OnInit {
 ``* Here value of keyword should be as:
   * 3%20ALL%201%2030
   * here 3 = enables
-  *     ALL = captureMode ,if Specified headers selected ,headers Namde is written instead of ALL
+  *     ALL = captureMode ,if Specified headers selected ,headers Name is written instead of ALL
   */
 
   constructValHttpReqFullFp(httpReqkeyword) {
@@ -176,6 +178,11 @@ export class HeaderComponent implements OnInit {
     this.httpKeywordObject.push(this.httpRespFullFp)
 
 
+  }
+
+   resetKeywordData(){
+     this.header = cloneObject(this.configKeywordsService.keywordData);
+     this.splitKeywordData(this.header);
   }
 
 }

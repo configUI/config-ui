@@ -8,6 +8,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-debug',
@@ -44,8 +45,8 @@ export class DebugComponent {
 
   }
   //Method to reset the default values of the keywords
-  resetDefaultValues() {
-
+  resetKeywordData(){
+     this.debug = cloneObject(this.configKeywordsService.keywordData);
   }
 
   ngOnDestroy() {

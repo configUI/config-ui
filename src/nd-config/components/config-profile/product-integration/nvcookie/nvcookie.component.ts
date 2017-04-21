@@ -7,7 +7,7 @@ import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
-
+import { cloneObject } from '../../../../utils/config-utility';
 import { Messages } from '../../../../constants/config-constant'
 
 @Component({
@@ -115,6 +115,12 @@ export class NVCookieComponent implements OnInit {
       return keyVal;
     }
   }
+
+   resetKeywordData(){
+     this.ndSession = cloneObject(this.configKeywordsService.keywordData);
+     this.splitNDSessionKeywordValue();
+  }
+
 }
 
 class NDSessionData {

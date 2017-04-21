@@ -21,7 +21,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth'];
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth','ASPositiveThreadFilters','ASNegativeThreadFilter'];
 
   /**It stores keyword data for showing in GUI */
   hotspot: any;
@@ -30,7 +30,15 @@ export class HotspotComponent implements OnInit, OnDestroy {
   bindExcluded:boolean=false;
   subscription: Subscription;
   exceptionName:string[];
+  includedException;
+  excludedException;
   enableGroupKeyword: boolean = false;
+
+  /**Value for the keyword ASPositiveThreadFilters
+   * Thread1&Thread2&Thread3
+   * Value for the keyword ASNegativeThreadFilter
+   * Thread1&Thread2&Thread3
+  */
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.subscription = this.store.select("keywordData")
@@ -49,26 +57,16 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   saveKeywordData() {
+    //Joining the values of ASNegativeThreadFilter and ASPositiveThreadFilters keywords with &.
+    this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].value.join("&");
+    this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].value.join("&");
     this.keywordData.emit(this.hotspot);
-
   }
 
   resetKeywordData(){
      this.hotspot = cloneObject(this.configKeywordsService.keywordData);
   }
 
-  showExceptionNameText(){
-    if(this.bindIncluded==false)
-      this.bindIncluded=true;
-    else
-      this.bindIncluded=false;
-  }
-  showExcludedExceptionNameText(){
-    if(this.bindExcluded==false)
-      this.bindExcluded=true;
-    else
-      this.bindExcluded=false;
-  }
 
   ngOnDestroy() {
     if (this.subscription)

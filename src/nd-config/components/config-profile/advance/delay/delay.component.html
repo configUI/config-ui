@@ -2,11 +2,11 @@
     <div class="tabsincontent">
         <div class="header">Put Delay in Method Settings
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>
-        <p-panel class ="hideheader">
+        <p-panel class="hideheader">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                 <div class="ui-g">
 
@@ -28,10 +28,10 @@
                         </div>
 
                         <div class="ui-g-2">
-                            From: <input name="from" type="number" [(ngModel)]="delayData.from" pInputText required ngModel/>
+                            From: <input name="from" type="number" style="text-align: right" [(ngModel)]="delayData.from" pInputText required ngModel/>
                         </div>
                         <div class="ui-g-2">
-                            To: <input name="to" type="number" [(ngModel)]="delayData.to" pInputText required ngModel/>
+                            To: <input name="to" type="number" style="text-align: right" [(ngModel)]="delayData.to" pInputText required ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">

@@ -85,19 +85,19 @@
 
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-5">
-                                        <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" (click)="showExceptionNameText()" binary="true" ngModel label=" List of thread names to be included in Hotspot data"></p-checkbox>
+                                        <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk"  binary="true" ngModel label=" List of thread names to be included in Hotspot data"></p-checkbox>
                                     </div>
                                     <div class="ui-g-5">
-                                        <p-chips [(ngModel)]="includedException" name="IncludedExceptionName" [disabled]="!includedExceptionChk" required></p-chips>
+                                        <p-chips [(ngModel)]="includedException" name="includedeException" [(ngModel)]="hotspot.ASPositiveThreadFilters.value" [disabled]="!includedExceptionChk" ngModel required></p-chips>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-5">
-                                        <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" (click)="showExcludedExceptionNameText()" binary="true" ngModel label=" List of thread names to be excluded in Hotspot data"></p-checkbox>
+                                        <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk"  binary="true" ngModel label=" List of thread names to be excluded in Hotspot data"></p-checkbox>
                                     </div>
                                     <div class="ui-g-5">
-                                        <p-chips [(ngModel)]="excludedException" name="ExcludedExceptionName" [disabled]="!excludedExceptionChk" required></p-chips>
+                                        <p-chips [(ngModel)]="excludedException" name="excludedExcepion" [(ngModel)]="hotspot.ASNegativeThreadFilter.value" [disabled]="!excludedExceptionChk" ngModel required></p-chips>
                                     </div>
                                 </div>
                             </p-fieldset>

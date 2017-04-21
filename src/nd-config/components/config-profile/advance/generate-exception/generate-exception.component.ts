@@ -8,6 +8,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-generate-exception',
@@ -40,6 +41,15 @@ export class GenerateExceptionComponent implements OnInit {
       { value: 5, label: 'Illegal Exception' });
 
   }
+
+/**
+ * value for generateExceptionInMethod keyword is 2%20abc%3Baaa%3Baaa%201%20sd
+ * 2-percentage
+ * abc;aaa;aaa-fqm, ; is replaced by %3B
+ * 1- exceptionType value
+ * sd-exceptionName
+ */
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.genException = data;
@@ -90,6 +100,12 @@ export class GenerateExceptionComponent implements OnInit {
     }
     this.keywordData.emit(this.genException);
   }
+
+ resetKeywordData(){
+     this.genException = cloneObject(this.configKeywordsService.keywordData);
+     this.GenExceptionKeywordValue();
+  }
+
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
   genExceptionValueMethod(data) {
 

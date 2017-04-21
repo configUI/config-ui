@@ -2,7 +2,7 @@
     <div class="tabsincontent">
         <div class="header">JVM Monitors
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
             </div>
         </div>
@@ -13,7 +13,7 @@
                 <div class="ui-g">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="enableJVMMonitor" label="Enable JVM Monitor" [(ngModel)]="enableJVMMonitor" binary="true"></p-checkbox>
+                        <p-checkbox name="enableJVMMonitor" label="Enable JVM Monitor" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
                     </div>
 
                     <div class="ui-g-12" style="padding-left: 20px">
@@ -22,13 +22,13 @@
                             <label>Minimum CPU % filter</label>
                         </div>
                         <div class="ui-g-2">
-                            <input disabled="{{!enableJVMMonitor}}" [min]=0 [max]=100 name="cpuFilter" type="number" size="20" pInputText [(ngModel)]="cpuFilter" required ngModel/>
+                            <input disabled="{{!jvmThreadStats.jvm}}" [min]=0 [max]=100 name="cpuFilter" type="number" size="20" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2" style="margin-left: 16px">
-                            <p-checkbox disabled="{{!enableJVMMonitor}}" name="doNotDelVector" label="Do not delete Vector" [(ngModel)]="doNotDelVector" binary="true"></p-checkbox>
+                            <p-checkbox disabled="{{!jvmThreadStats.jvm}}" name="doNotDelVector" label="Do not delete Vector" [(ngModel)]="jvmThreadStats.deleteVector" binary="true"></p-checkbox>
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-flowpath',
@@ -82,6 +83,10 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     this.keywordData.emit(this.flowPath);
+  }
+
+   resetKeywordData(){
+     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
   }
 
   ngOnDestroy() {

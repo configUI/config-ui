@@ -5,17 +5,9 @@
         <li *ngFor="let ngMenu of navMenuArray">
             <a class="iconCss" routerLink="{{ngMenu.route}}" routerLinkActive="active" pTooltip="{{ngMenu.tooltip}}" tooltipPosition="right">
                 <button md-icon-button>
-                    <i style="font-size: 36px" class="{{ngMenu.icon}}"></i>
+                    <i style="font-size: 32px" class="{{ngMenu.icon}}"></i>
              </button>
             </a>
         </li>
     </ul>
 </md-sidenav>
-
-<!--<p>
-    <a routerLink="home" routerLinkActive="active">Home</a>
-    <a routerLink="application-list" routerLinkActive="active">Application</a>
-    <a routerLink="profile-list" routerLinkActive="active">Profile</a>
-    <a routerLink="topology-list" routerLinkActive="active">Topology</a>
-    <a routerLink="nd-agent" routerLinkActive="active">ND Agent</a>
-</p>-->

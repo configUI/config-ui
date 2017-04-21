@@ -1,0 +1,13 @@
+ .togglebtn{
+    margin: 3px 0px;
+    padding: 3px 0 0!important;;
+ }
+ .togglebtn span{
+   font-weight: 600;
+ }
+ .togglebtnslide .mat-slide-toggle-bar{
+    top: 4px !important;
+ }
+ .togglebtnslide .mat-slide-toggle-bar, [dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar {
+     margin-left: 8px !important;
+ }
