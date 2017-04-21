@@ -67,11 +67,8 @@
 
 .ndeicon {
     margin: 0;
-    margin-right: 10px;
-    color: #162a36 !important;
     overflow: hidden;
-    float: left;
-    font-size: 4em;
+    font-size: 2em;
 }
 
 
@@ -91,7 +88,7 @@ body {
 .ui-datatable .ui-datatable-thead>tr>th,
 .ui-datatable .ui-datatable-tfoot>tr>td,
 .ui-datatable .ui-datatable-data>tr>td {
-    height: 26px;
+    height: 24px;
     text-overflow: ellipsis;
 }
 
@@ -113,10 +110,11 @@ body {
 
 .ndegui-sidenav {
     background: #282828;
-    margin-right: 20px;
-    min-width: 5.2%;
+    margin-right: 15px;
+    min-width: 6%;
     overflow: initial;
     top: 30px;
+    min-height: 585px;
 }
 
 .ndegui-sidenav .mat-sidenav {
@@ -130,7 +128,7 @@ button[md-icon-button] {
 .top-nav-bar {
     font-size: 12px;
     background: rgba(255, 255, 255, 0.75);
-    margin: 1px -19px;
+    margin: 1px -15px;
     margin-bottom: 8px;
 }
 
@@ -290,6 +288,7 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     opacity: 0 !important;
 }
 
+
 /* 
 hide it behind the dropdown component, the required 
   HTML5 pop up still shows which is good and the form
@@ -300,4 +299,50 @@ hide it behind the dropdown component, the required
     position: absolute;
     /*left: 272px;*/
     z-index: -1;
+}
+
+.ui-radiobutton .ui-radiobutton-box {
+    width: 12px !important;
+    height: 12px !important
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #FFEB3B;
+}
+
+.mat-slide-toggle-thumb {
+    background-color: #cccccc;
+}
+
+.mat-slide-toggle-bar {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    margin: 0 !important;
+    padding: 5px !important;
+    background: #282828 !important;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+.profile-dialog .ui-g {
+    margin: 10px !important;
+}
+
+.profile-dialog label {
+    font-weight: 600;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-buttonpane {
+    padding: 0px !important;
 }

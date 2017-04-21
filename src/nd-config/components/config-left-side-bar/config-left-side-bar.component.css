@@ -8,12 +8,6 @@ ul.cav-menu-ul {
     background: white;
 }
 
-.icon {
-    margin: 0;
-    overflow: hidden;
-    float: left;
-}
-
 button[md-icon-button] {
     width: 70px;
     height: 50px;
@@ -25,4 +19,7 @@ button[md-icon-button] {
 .iconCss {
     color: white;
     border-radius: 0%;
+    display: inline-block;
+    overflow: hidden;
+    padding: 10px 0 0;
 }

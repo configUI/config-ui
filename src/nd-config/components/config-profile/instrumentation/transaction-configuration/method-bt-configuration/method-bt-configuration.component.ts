@@ -107,7 +107,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   /** This method is used to open a dialog for add Rules
-   * Call a method for fill Operation drop down according Return Type 
+   * Call a method for fill Operation drop down according Return Type
   */
   openAddRulesDialog() {
 
@@ -166,7 +166,7 @@ export class MethodBTConfigurationComponent implements OnInit {
           .subscribe(data => {
             this.deleteMethodsBusinessTransactions(arrAppIndex);
             this.selectedbusinessTransMethod = [];
-            this.configUtilityService.infoMessage("Delete Successfully");
+            this.configUtilityService.infoMessage("Deleted Successfully !!!");
           })
       },
       reject: () => {
@@ -233,7 +233,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /**This method is common method for save or edit BT Method */
   saveADDEditMethodTrans(): void {
-    //When add new application 
+    //When add new application
     if (this.isNewMethod) {
       //Check for app name already exist or not
       if (!this.checkMethodNameAlreadyExist()) {
@@ -241,7 +241,7 @@ export class MethodBTConfigurationComponent implements OnInit {
         return;
       }
     }
-    //When add edit Method 
+    //When add edit Method
     else {
       if (this.businessTransMethodInfo[0].fqm != this.businessTransMethodDetail.fqm) {
         if (this.checkMethodNameAlreadyExist())
@@ -262,7 +262,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   saveMethod() {
-  
+
     this.businessTransMethodDetail.rules = [];
     var code: number;
     if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
@@ -324,5 +324,10 @@ export class MethodBTConfigurationComponent implements OnInit {
   /**For close add/edit Method dialog box */
   closeDialog(): void {
     this.addBusinessTransMethodDialog = false;
+  }
+
+  closeReturnDialog(): void {
+     this.addRulesDialog=false;
+     this.addBusinessTransMethodDialog = true;
   }
 }
