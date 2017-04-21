@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
 import { ProfileData } from '../containers/profile-data';
-import {NodeData} from '../containers/node-data';
+import { NodeData } from '../containers/node-data';
 
 @Injectable()
 export class ConfigProfileService {
@@ -33,7 +33,7 @@ export class ConfigProfileService {
   //   this._nodeData.next(nodeData);
   // }
 
-  profileNameObserver(profileName: string){
+  profileNameObserver(profileName: string) {
     this._profileName.next(profileName);
   }
 
@@ -43,5 +43,9 @@ export class ConfigProfileService {
 
   addProfileData(data): Observable<ProfileData> {
     return this._restApi.getDataByPostReq(URL.UPDATE_PROFILE_TABLE, data);
+  }
+
+  getProfileName(profileId: number): Observable<string> {
+    return this._restApi.getDataByGetReq(`${URL.GET_PROFILE_NAME}/${profileId}`);
   }
 }

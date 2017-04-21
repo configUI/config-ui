@@ -37,6 +37,10 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
         if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
           this.isMetaDataDisplay = true;
           this.label = `Profile Name: ${this.profileName}`;
+          if(!this.profileName){
+            let profileId = url.substring(url.lastIndexOf("/") + 1, url.length);
+            this.getProfileName(profileId);
+          }
         }
         else {
           this.isMetaDataDisplay = false;
@@ -45,11 +49,28 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
         this.isMetaDataDisplay = true;
         this.label = `Application Name: ${this.applicationName}`;
+        if(!this.applicationName){
+            let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
+            this.getAppName(appId);
+          }
       }
       else {
         this.isMetaDataDisplay = false;
       }
     });
+  }
+
+  getProfileName(profileId: number){
+    return;
+    // this.configProfileService.getProfileName(profileId).
+    // subscribe(profileName => {
+    //   this.profileName = profileName;
+    //   this.label = `Profile Name: ${this.profileName}`;
+    //   console.log("this.label", this.label);
+    // });
+  }
+  getAppName(appId: number){
+
   }
 
   ngOnDestroy() {
