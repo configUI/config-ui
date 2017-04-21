@@ -11,7 +11,8 @@ import * as URL from '../constants/config-url-constant';
 export class ConfigHomeService {
 
   private trDataSource = new Subject<TRData>();
-
+  
+  trData :TRData;
   // Observable string streams
   trData$ = this.trDataSource.asObservable();
 

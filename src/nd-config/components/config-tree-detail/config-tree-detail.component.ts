@@ -8,6 +8,10 @@ import { ConfigUtilityService } from '../../services/config-utility.service';
 import { SelectItem } from 'primeng/primeng';
 import { ConfigProfileService } from '../../services/config-profile.service';
 import { ProfileInfo } from '../../interfaces/profile-info';
+import { Router } from '@angular/router';
+import { ROUTING_PATH } from '../../constants/config-url-constant';
+import {NodeData} from '../../containers/node-data';
+
 
 @Component({
   selector: 'app-config-tree-detail',
@@ -19,7 +23,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   constructor(private configTopologyService: ConfigTopologyService, 
               private route: ActivatedRoute,
               private configUtilityService: ConfigUtilityService,
-              private configProfileService:ConfigProfileService
+              private configProfileService:ConfigProfileService,
+              private router: Router
               ) { }
   
 
@@ -42,6 +47,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   profileSelectItem: SelectItem[];
 
   profileData: ProfileInfo[];
+
+  ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
     //no need to call when store used [TO DO's]
@@ -188,4 +195,32 @@ export class ConfigTreeDetailComponent implements OnInit {
     })
       
   }
+
+  // routeToConfiguration(selectedProfileId, selectedProfileName) {
+  //   //Observable profile name 
+  //   this.configProfileService.profileNameObserver(selectedProfileName);
+  //   this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
+  // }
+
+   routeToConfiguration(entity) {
+     console.log("entity--routeToConfiguration---",entity)
+     if('topoId' in entity){
+       this.configProfileService.nodeData = {'nodeType':'topology','nodeId':entity.topoId};
+     }
+     else if('tierId' in entity){
+       this.configProfileService.nodeData = {'nodeType':'tier','nodeId':entity.tierId};
+     }
+     else if('serverId' in entity){
+       this.configProfileService.nodeData = {'nodeType':'server','nodeId':entity.serverId};
+     }
+     else if('instanceId' in entity){
+       this.configProfileService.nodeData = {'nodeType':'instance','nodeId':entity.instanceId};
+     }
+
+    //Observable profile name 
+    this.configProfileService.profileNameObserver(entity.profileName);
+    this.router.navigate([this.ROUTING_PATH + '/profile/configuration', entity.profileId]);
+  }
+
+ 
 }
