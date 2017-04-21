@@ -22,8 +22,7 @@
                         <div class="ui-g-2">
                             <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
                                 [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
-                            <p-slider name="bciInstrSessionPctSlider" min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
-                                [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
+                            <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
                         </div>
                     </div>
 

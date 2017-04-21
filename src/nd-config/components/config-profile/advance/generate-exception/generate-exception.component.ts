@@ -41,6 +41,15 @@ export class GenerateExceptionComponent implements OnInit {
       { value: 5, label: 'Illegal Exception' });
 
   }
+
+/**
+ * value for generateExceptionInMethod keyword is 2%20abc%3Baaa%3Baaa%201%20sd
+ * 2-percentage
+ * abc;aaa;aaa-fqm, ; is replaced by %3B
+ * 1- exceptionType value
+ * sd-exceptionName
+ */
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.genException = data;
