@@ -27,6 +27,7 @@ export class GeneralComponent implements OnInit {
   index: number = 0;
   subscriptionNodeData: Subscription;
   subscriptionTRData: Subscription;
+
   nodeData: NodeData;
   trData: TRData
   className: string = "General Component";
@@ -59,7 +60,6 @@ export class GeneralComponent implements OnInit {
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
     this.configUtilityService.successMessage(Messages);
-
 
     this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.triggerRunTimeChanges(keywordData);

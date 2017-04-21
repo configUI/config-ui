@@ -1,5 +1,4 @@
 <div class="custom-breadcrumb">
-
     <div class="ui-g">
         <div class="ui-g-10">
             <p-breadcrumb [model]="items"></p-breadcrumb>
@@ -8,7 +7,6 @@
             <span *ngIf="trData">
                  Session No: {{ trData.trNo == null ? 'NA' : trData.trNo }} <md-slide-toggle (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null"> </md-slide-toggle>
             </span>
-
         </div>
     </div>
 </div>

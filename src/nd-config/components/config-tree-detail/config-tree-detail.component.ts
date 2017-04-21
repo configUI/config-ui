@@ -222,6 +222,4 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.configProfileService.profileNameObserver(entity.profileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', entity.profileId]);
   }
-
-
 }
