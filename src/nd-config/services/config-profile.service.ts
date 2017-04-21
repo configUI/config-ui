@@ -27,4 +27,8 @@ export class ConfigProfileService {
   addProfileData(data): Observable<ProfileData> {
     return this._restApi.getDataByPostReq(URL.UPDATE_PROFILE_TABLE, data);
   }
+
+  getProfileName(profileId: number): Observable<string>{
+    return this._restApi.getDataByGetReq(`${URL.GET_PROFILE_NAME}/${profileId}`);
+  }
 }
