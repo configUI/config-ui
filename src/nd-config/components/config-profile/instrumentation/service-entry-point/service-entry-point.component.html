@@ -40,6 +40,7 @@
                 <label>Entry Point Type</label>
             </div>
             <div class="ui-g-8">
+                <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
                 <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="-- Select a Service --"></p-dropdown>
             </div>
         </div>

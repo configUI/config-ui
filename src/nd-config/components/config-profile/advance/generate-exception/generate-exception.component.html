@@ -27,6 +27,7 @@
                             <label>Exception Type</label>
                         </div>
                         <div class="ui-g-3">
+                            <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="genExceptionData.exceptionType" required ngModel/>
                             <p-dropdown name="exceptionType" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="genExceptionData.exceptionType" [autoWidth]="true" [options]="exceptionType" appendTo="body" required ngModel></p-dropdown>
                         </div>
                     </div>
