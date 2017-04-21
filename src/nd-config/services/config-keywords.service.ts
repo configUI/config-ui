@@ -262,4 +262,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(url, data);
   }
 
+  sendRunTimeChange(URL,data){
+    this._restApi.getDataByPostReq(URL,data).subscribe();
+  }
+
 }

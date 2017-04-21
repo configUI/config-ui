@@ -30,6 +30,11 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.subscription = this.store.select("keywordData").subscribe(data=>{
       this.flowPath = data;
+        var keywordDataVal={}
+        this.keywordList.map(function(key){
+          keywordDataVal[key] = data[key];
+        })
+        this.flowPath = keywordDataVal;
     });
 
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.flowpath.enable;

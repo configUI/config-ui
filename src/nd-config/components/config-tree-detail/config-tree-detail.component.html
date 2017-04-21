@@ -10,23 +10,12 @@
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="col-overflow" [sortable]="true">
-        <template *ngIf="col.field == 'topoName'" let-col let-entity="rowData" pTemplate="body">
-          <!--<a (click)="getData(entity['topoId'], entity)">{{entity[col.field]}}</a>    -->
-          <a >{{entity[col.field]}}</a>    
+        <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
+          <!--<a (click)="getData(entity)">{{entity[col.field]}}</a>    -->
+          <a class="hyperlink" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
         </template>
 
-        <template *ngIf="col.field == 'tierName'" let-col let-entity="rowData" pTemplate="body">
-          <!--<a (click)="getData(entity['tierId'], entity)">{{entity[col.field]}}</a>    -->
-          <a >{{entity[col.field]}}</a>    
-        </template>
-
-        <template *ngIf="col.field == 'serverDisplayName'" let-col let-entity="rowData" pTemplate="body">
-          <!--<a (click)="getData(entity['serverId'], entity)">{{entity[col.field]}}</a>  -->
-           <a>{{entity[col.field]}}</a>    
-        </template>
-        <template *ngIf="col.field == 'instanceDisplayName'" let-col let-entity="rowData" pTemplate="body">
-          <a>{{entity[col.field]}}</a>    
-        </template>
+      
     </p-column>
 </p-dataTable>
 
