@@ -34,7 +34,7 @@ export class JavaMethodComponent implements OnInit {
   /**It stores selected data for edit or add functionality */
   methodBasedCustomData: MethodBasedCustomData;
 
-  
+
    /**It stores selected java method selected data */
   selectedJavaMethod: MethodBasedCustomData[];
 
@@ -57,21 +57,21 @@ export class JavaMethodComponent implements OnInit {
   returnTypeData: ReturnTypeData[];
   argumentTypeData: ArgumentTypeData[];
 
-  arrStringLabel: any[] = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+  arrStringLabel: any[] = ['Capture', 'Extract_Subpart', 'Invocation', 'Equals', 'Not Equals', 'Contains', 'Starts With', 'Ends With', 'Exception'];
   arrStringValue: any[] = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
 
 
-  arrNumericLabel: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE', 'LT', 'GT', 'LE', 'GE'];
+  arrNumericLabel: any[] = ['Capture', 'Invocation', 'Exception', 'Equals', 'Not Equals', 'Less Than', 'Greater Than', 'Less Than Equals To', 'Greater Than Equal To'];
   arrNumericValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE', 'LT', 'GT', 'LE', 'GE'];
 
-  arrCharLabel: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE'];
+  arrCharLabel: any[] = ['Capture', 'Invocation', 'Exception', 'Equals', 'Not Equals'];
   arrCharValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE'];
 
-  arrBooleanLabel: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION'];
+  arrBooleanLabel: any[] = ['Capture', 'Invocation', 'Exception'];
   arrBooleanValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION'];
 
   //receiving data from store
-  constructor(private route: ActivatedRoute,private configCustomDataService: ConfigCustomDataService,private store: Store<Object>,private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) { 
+  constructor(private route: ActivatedRoute,private configCustomDataService: ConfigCustomDataService,private store: Store<Object>,private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) {
       this.subscription = this.store.select("customData").subscribe(data=>{
      // this.tableData = data;
     })
@@ -170,11 +170,16 @@ export class JavaMethodComponent implements OnInit {
   }
 
   openAddReturnRulesDialog() {
+    // if(this.methodBasedCustomData == null){
+    //   this.addReturnRulesDialog=false;
+    //   this.configUtilityService.infoMessage("Please provide valid FQM Name !!!");
+
+    // }
     this.addReturnRulesDialog = true;
     this.returnTypeRules = new ReturnTypeData()
     console.log("openAddReturnRulesDialog method called--", this.methodBasedCustomData.fqm)
-    /*calling this function 
-    * to know data type of return value of provided fqm 
+    /*calling this function
+    * to know data type of return value of provided fqm
     * and creating opertaion list a/c to return type
     */
     let type = this.getTypeReturnType(this.methodBasedCustomData.fqm)
@@ -350,7 +355,7 @@ export class JavaMethodComponent implements OnInit {
     }
   }
 
-  
+
   /**This method is used to delete  */
   deleteJavaMethod(): void {
     if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
@@ -401,7 +406,12 @@ export class JavaMethodComponent implements OnInit {
     return -1;
   }
 
+closeArgumentDialog(): void{
 
+this.addArgumentRulesDialog=false;
+}
 
-
+closeReturnDialog(): void{
+  this.addReturnRulesDialog=false;
+}
 }

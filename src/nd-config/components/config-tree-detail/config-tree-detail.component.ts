@@ -16,12 +16,12 @@ import { ProfileInfo } from '../../interfaces/profile-info';
 })
 export class ConfigTreeDetailComponent implements OnInit {
 
-  constructor(private configTopologyService: ConfigTopologyService, 
+  constructor(private configTopologyService: ConfigTopologyService,
               private route: ActivatedRoute,
               private configUtilityService: ConfigUtilityService,
               private configProfileService:ConfigProfileService
               ) { }
-  
+
 
   /* holds current topo data [either topo data /tier /server /instance data a/c to the screen] */
   topologyData: any[];
@@ -47,7 +47,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     //no need to call when store used [TO DO's]
     this.loadProfileList();
     this.loadTopologyData();
-  
+
   }
   loadTopologyData(): void {
     this.getTableHeader();
@@ -58,7 +58,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.configProfileService.getProfileList().subscribe(data=> { this.createProfileSelectItem(data);
     });
   }
-  
+
   /**For close change Profile dialog box */
   closeDialog(): void {
     this.changeProf = false;
@@ -67,7 +67,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
 
   /** For getting entity(Tier, Server, Instance) data  **/
-  
+
   getData(event): void {
 
     if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
@@ -100,7 +100,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if(this.currentEntity == CONS.TOPOLOGY.TOPOLOGY){
       colField = ["topoName", "topoDesc", "profileName"];
     }
-   
+
     else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
       colField = ["tierName", "tierDesc", "profileName"];
     }
@@ -128,7 +128,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row for edit");
       return;
     }
-     this.changeProf = true ; 
+     this.changeProf = true ;
      this.topoData = Object.assign({}, this.selectedTopologyData[0]);
     // this.selectedTopologyData.empty();
 
@@ -144,6 +144,8 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => {this.updateTopo(data)})
      else if(this.currentEntity == CONS.TOPOLOGY.INSTANCE)
         this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => {this.updateTopo(data)})
+
+        this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
 
@@ -174,8 +176,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.changeProf = false;
   }
 
-  
- 
+
+
    /**This method is used to creating topology select item object */
   createProfileSelectItem(data) {
     this.profileSelectItem = [];
@@ -183,9 +185,9 @@ export class ConfigTreeDetailComponent implements OnInit {
     console.log("this.profileData---",data)
     let that = this;
     data.forEach(function(val){
-    
+
         that.profileSelectItem.push({ value: val.profileId, label: val.profileName });
     })
-      
+
   }
 }
