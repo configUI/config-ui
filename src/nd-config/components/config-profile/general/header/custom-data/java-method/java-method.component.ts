@@ -34,6 +34,8 @@ export class JavaMethodComponent implements OnInit {
   /**It stores selected data for edit or add functionality */
   methodBasedCustomData: MethodBasedCustomData;
 
+  selectedReturnRules: ReturnTypeData[];
+
 
    /**It stores selected java method selected data */
   selectedJavaMethod: MethodBasedCustomData[];
@@ -257,7 +259,11 @@ export class JavaMethodComponent implements OnInit {
   }
 
 
-  deleteReturnRules() {
+  deleteReturnRules(): void {
+         if(!this.selectedReturnRules || this.selectedReturnRules.length<1)
+         {
+           this.configUtilityService.errorMessage("Select row(s) to delete");
+         }
 
   }
 
@@ -359,7 +365,7 @@ export class JavaMethodComponent implements OnInit {
   /**This method is used to delete  */
   deleteJavaMethod(): void {
     if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
-      this.configUtilityService.errorMessage("Select fields to delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete !!!");
       return;
     }
     this.confirmationService.confirm({

@@ -263,7 +263,13 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   closeDialog() {
+
    this.addEditSessionAttrDialog = false;
+
+  }
+  closeValueInfoDialog(): void{
+
+    this.sessionAttrTypeValueDialog = false;
   }
 
 }

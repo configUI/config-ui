@@ -9,7 +9,7 @@
     </div>
 
     <!--For showing application list -->
-    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 

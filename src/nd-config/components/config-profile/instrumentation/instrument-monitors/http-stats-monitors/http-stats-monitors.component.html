@@ -1,4 +1,4 @@
-<p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="15" [paginator]="true" [pageLinks]="3">
+<p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="12" [paginator]="httpStatsMonitorData?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left">HTTP Stats Condition Monitor(s) </span>
         <span style="float :right; margin-top:-5px">

@@ -1,11 +1,11 @@
 <!--For showing HTTP Request Header list -->
-<p-dataTable [value]="httpRequestHdrComponentInfo" [(selection)]="selectedHTTPReqHeader" [rows]="15" [paginator]="true" [pageLinks]="3">
+<p-dataTable [value]="httpRequestHdrComponentInfo" [(selection)]="selectedHTTPReqHeader" [rows]="5" [paginator]="httpRequestHdrComponentInfo?.length > 5 " [pageLinks]="3">
     <p-header>
         <span style="float: left"> HTTP Request Header (s) </span>
         <span style="float: right; margin-top:-5px">`
                        <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"(click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="httpRequestHdrDetail.specific">
-                <p-dataTable [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="15" [paginator]="true" [pageLinks]="3">
+                <p-dataTable [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="5" [paginator]="rulesDataInfo?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Detail(s) </span>
                         <span style="float: right; margin-top:-5px">
