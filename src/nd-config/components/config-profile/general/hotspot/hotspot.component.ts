@@ -21,7 +21,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth','ASPositiveThreadFilters','ASNegativeThreadFilter'];
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth','ASPositiveThreadFilters','ASNegativeThreadFilter','ASMethodHotspots','maxStackSizeDiff'];
 
   /**It stores keyword data for showing in GUI */
   hotspot: any;
@@ -47,7 +47,9 @@ export class HotspotComponent implements OnInit, OnDestroy {
         this.keywordList.map(function(key){
           keywordDataVal[key] = data[key];
         })
+       
         this.hotspot = keywordDataVal;
+        this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == '1';
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.hotspot.enable;
@@ -56,10 +58,20 @@ export class HotspotComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  /*
+  *  ASMethodHotspots = 0/1 value to be wriiten in file 
+  * so its value = false/true is conerted to "0/1" beforre sending to server
+  */
+
   saveKeywordData() {
     //Joining the values of ASNegativeThreadFilter and ASPositiveThreadFilters keywords with &.
-    this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].value.join("&");
-    this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].value.join("&");
+    if(this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value != "NA"  ){
+       this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].value.join("&");
+    }
+     if(this.hotspot["ASNegativeThreadFilter"].value != null &&  this.hotspot["ASNegativeThreadFilter"].value != "NDControlConnection" ){
+       this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].value.join("&");
+    }
+    this.hotspot["ASMethodHotspots"].value =  this.hotspot["ASMethodHotspots"].value ? '1' :'0';
     this.keywordData.emit(this.hotspot);
   }
 
