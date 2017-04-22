@@ -12,4 +12,5 @@ export interface MainInfo {
 export interface TRData {
     status: string;
     trNo: string;
+    switch:boolean;
 }

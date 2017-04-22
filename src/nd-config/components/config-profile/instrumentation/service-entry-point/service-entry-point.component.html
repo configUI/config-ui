@@ -1,4 +1,4 @@
-<p-dataTable [value]="serviceEntryData" [(selection)]="selectedserviceEntryData" [rows]="12" [paginator]="true" [pageLinks]="3">
+<p-dataTable [value]="serviceEntryData" [(selection)]="selectedserviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left">  Service Entry Detail(s) </span>
         <span style="float :right; margin-top:-5px">
@@ -7,24 +7,24 @@
     </p-header>
 
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="entryType" header="Type" [sortable]="true">
+    <p-column class="tableCss" field="entryType" header="Type" [sortable]="true" [style]="{'width':'15%'}">
         <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="name" header="Name" [sortable]="true">
+    <p-column class="tableCss" field="name" header="Name" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align': 'center'}">
+    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center', 'width':'10%'}">
         <template let-col let-service="rowData" pTemplate>
 
             <md-slide-toggle (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
 
     </template>
     </p-column>
-    <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+    <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
         <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
@@ -32,7 +32,7 @@
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="600" responsive="true">
+<p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700" responsive="true">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -50,7 +50,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.name" required ngModel/>
+                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" required ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -67,7 +67,7 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+                <input name="fqm" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -75,7 +75,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <input name="desc" type="text" size="30" pInputText [(ngModel)]="serviceEntryPointDetail.desc" required ngModel/>
+                <input name="desc" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.desc" required ngModel/>
             </div>
         </div>
         <footer>

@@ -26,7 +26,6 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     this.subscription = this.configHomeService.trData$.subscribe(data => {
       this.trData = data;
     });
-    
     this.items = [];
 
     this.breadcrumbSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
@@ -91,6 +90,10 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
   enabledRTC(){
     //this.trData.status
+    var that = this;
+    setTimeout(function(this){
+      that.configHomeService.trData.switch = that.trData.switch      
+    },100)
   }
 
   ngOnDestroy(){

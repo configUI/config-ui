@@ -4,7 +4,9 @@
             <p-breadcrumb [model]="items"></p-breadcrumb>
         </div>
         <div class="ui-g-2 togglebtn">
-            <span *ngIf="trData"> Session No: {{ trData.trNo == null ? 'NA' : trData.trNo }} <md-slide-toggle (click)="enabledRTC()" [(ngModel)]="trData.status" [disabled]="trData.trNo == null"> </md-slide-toggle></span>
+            <span *ngIf="trData">
+                 Session No: {{ trData.trNo == null ? 'NA' : trData.trNo }} <md-slide-toggle (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null"> </md-slide-toggle>
+            </span>
         </div>
     </div>
 </div>

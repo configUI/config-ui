@@ -5,18 +5,35 @@ import { Subject } from 'rxjs/Subject';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
 import { ProfileData } from '../containers/profile-data';
+import { NodeData } from '../containers/node-data';
 
 @Injectable()
 export class ConfigProfileService {
 
   constructor(private _restApi: ConfigRestApiService) { }
+  nodeData: NodeData;
 
   /**For Storing Profile Name. which is used to show in Meta-data component */
   private _profileName = new Subject<string>();
 
+
   profileNameProvider$ = this._profileName.asObservable();
 
-  profileNameObserver(profileName: string){
+  // private _nodeData = new Subject<NodeData>();
+  // /** this  is used for maintaing data from which node configuration screen or profile is navigated to
+  //  * This data is required for runTime Changes
+  //  */
+  // nodeDataProvider$ = this._nodeData.asObservable();
+
+  // /***this function is called from tree-detail component whenever from any node profile is navigated to 
+  //  * 
+  // */
+  // nodeDataObserver(nodeData:NodeData){
+  //   console.log("nodeData--",nodeData)
+  //   this._nodeData.next(nodeData);
+  // }
+
+  profileNameObserver(profileName: string) {
     this._profileName.next(profileName);
   }
 
@@ -26,5 +43,9 @@ export class ConfigProfileService {
 
   addProfileData(data): Observable<ProfileData> {
     return this._restApi.getDataByPostReq(URL.UPDATE_PROFILE_TABLE, data);
+  }
+
+  getProfileName(profileId: number): Observable<string> {
+    return this._restApi.getDataByGetReq(`${URL.GET_PROFILE_NAME}/${profileId}`);
   }
 }

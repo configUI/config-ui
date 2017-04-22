@@ -41,28 +41,44 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.ndegui-home:before {
-    content: "\e00a";
+.ndegui-application:before {
+    content: "\e00d";
 }
 
 .ndegui-group:before {
-    content: "\e001";
+    content: "\e00e";
+}
+
+.ndegui-home1:before {
+    content: "\e00f";
 }
 
 .ndegui-nd-agent:before {
-    content: "\e002";
-}
-
-.ndegui-topology:before {
-    content: "\e003";
+    content: "\e010";
 }
 
 .ndegui-profile:before {
-    content: "\e004";
+    content: "\e011";
 }
 
-.ndegui-application:before {
-    content: "\e005";
+.ndegui-topology:before {
+    content: "\e012";
+}
+
+.ndegui-server:before {
+    content: "\e013";
+}
+
+.ndegui-tier:before {
+    content: "\e014";
+}
+
+.ndegui-topology-1:before {
+    content: "\e015";
+}
+
+.ndegui-instance:before {
+    content: "\e016";
 }
 
 .ndeicon {
@@ -248,6 +264,10 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     background: #fff;
 }
 
+.tabs-all .ui-g {
+    padding: 5px;
+}
+
 .tabsincontent {
     border-radius: 4px;
 }
@@ -325,7 +345,7 @@ hide it behind the dropdown component, the required
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
     margin: 0 !important;
     padding: 5px !important;
-    background: #282828 !important;
+    background: #3ca8da !important;
     color: #fff;
     font-size: 11px;
     font-weight: 600;
@@ -345,4 +365,22 @@ hide it behind the dropdown component, the required
 
 .profile-dialog .ui-dialog .ui-dialog-buttonpane {
     padding: 0px !important;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+.flowpathheader-accordion {
+    color: #000;
+}
+
+.flowpathheader-accordion .ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #000 !important;
+}
+
+.flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #ececec;
 }

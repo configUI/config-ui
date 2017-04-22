@@ -16,7 +16,7 @@ export class ConfigLeftSideBarComponent implements OnInit {
   ngOnInit() {
     /* Main Menu Array.  */
     this.navMenuArray = [
-      { label: "Home", route: `${ROUTING_PATH}/home`, icon: "ndeicon ndegui-home", tooltip: "Home" },
+      { label: "Home", route: `${ROUTING_PATH}/home`, icon: "ndeicon ndegui-home1", tooltip: "Home" },
       { label: "Application", route: `${ROUTING_PATH}/application-list`, icon: "icon ndegui-application", tooltip: "Application" },
       { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "icon ndegui-profile", tooltip: "Profile" },
       { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "ndeicon ndegui-topology", tooltip: "Topology" },
