@@ -4,12 +4,12 @@
 
 
 <!--For showing Method Based Custom Data-->
-<p-dataTable [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
+<p-dataTable [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Java Method Based Custom Data </span>
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"title="Delete" (click)="deleteJavaMethod()" icon="fa-trash"></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteJavaMethod()" icon="fa-trash"></button>
                        <!--<button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>-->
                     </span>
     </p-header>
@@ -54,22 +54,22 @@
 
 
         <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
-            <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
+            <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedMethodRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
                     <span>  Return Type Info </span>
                     <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddReturnRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
                     </span>
                 </p-header>
                 <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                <p-column class="col-overflow" field="headerName" header="Header Name" [sortable]="true">
+                <p-column class="col-overflow" field="headerName" header="Name" [sortable]="true">
                     <template let-col let-application="rowData">
                    <!--<span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>-->
                 </template>
                 </p-column>
 
-                <p-column class="col-overflow" field="type" header="type" [sortable]="true">
+                <p-column class="col-overflow" field="type" header="Type" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -80,7 +80,7 @@
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column class="col-overflow" field="operatorValue" header="operator Value" [sortable]="true">
+                <p-column class="col-overflow" field="operatorValue" header="Operator Value" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -100,7 +100,7 @@
 
 
         <div class="ui-g-12">
-            <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
+            <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedMethodRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
                     <span>  Argument Type Settings </span>
                     <span style="float: right; margin-top:-5px">
@@ -109,7 +109,7 @@
                     </span>
                 </p-header>
                 <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                <p-column class="col-overflow" field="headerName" header="Header Name" [sortable]="true">
+                <p-column class="col-overflow" field="headerName" header="Name" [sortable]="true">
                     <template let-col let-application="rowData">
                    <!--<span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>-->
              </template>
@@ -121,7 +121,7 @@
                     </template>
                 </p-column>
 
-                <p-column class="col-overflow" field="type" header="type" [sortable]="true">
+                <p-column class="col-overflow" field="type" header="Type" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -132,7 +132,7 @@
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column class="col-overflow" field="operatorValue" header="operator Value" [sortable]="true">
+                <p-column class="col-overflow" field="operatorValue" header="Operator Value" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -158,7 +158,7 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Header Name</label>
+                    <label>Name</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <input name="headerName" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
@@ -194,6 +194,8 @@
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeReturnDialog()" label="Cancel"></button>
+
             </div>
         </footer>
     </form>
@@ -206,7 +208,7 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Header Name</label>
+                    <label>Name</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <input name="headerName" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
@@ -254,6 +256,8 @@
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeArgumentDialog()" label="Cancel"></button>
+
             </div>
         </footer>
     </form>

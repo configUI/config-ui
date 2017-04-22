@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -21,6 +23,7 @@ import { NodeData } from '../../containers/node-data';
 export class ConfigTreeDetailComponent implements OnInit {
 
   constructor(private configTopologyService: ConfigTopologyService,
+
     private route: ActivatedRoute,
     private configUtilityService: ConfigUtilityService,
     private configProfileService: ConfigProfileService,
@@ -136,22 +139,25 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row for edit");
       return;
     }
+
     this.changeProf = true;
     this.topoData = Object.assign({}, this.selectedTopologyData[0]);
     // this.selectedTopologyData.empty();
 
   }
 
-  saveEditProfile(): void {
-    console.log("saveEditProfile method called--", this.topoData)
-    if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
-      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => { this.updateTopo(data) })
-    else if (this.currentEntity == CONS.TOPOLOGY.TIER)
-      this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => { this.updateTopo(data) })
-    else if (this.currentEntity == CONS.TOPOLOGY.SERVER)
-      this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => { this.updateTopo(data) })
-    else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE)
-      this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => { this.updateTopo(data) })
+  saveEditProfile():void{
+    console.log("saveEditProfile method called--",this.topoData)
+     if(this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
+        this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => {this.updateTopo(data) })
+     else if(this.currentEntity == CONS.TOPOLOGY.TIER)
+        this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => {this.updateTopo(data)})
+     else if(this.currentEntity == CONS.TOPOLOGY.SERVER)
+        this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => {this.updateTopo(data)})
+     else if(this.currentEntity == CONS.TOPOLOGY.INSTANCE)
+        this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => {this.updateTopo(data)})
+
+        this.configUtilityService.successMessage("Saved Successfully !!!");
   }
 
 
@@ -191,14 +197,13 @@ export class ConfigTreeDetailComponent implements OnInit {
     console.log("this.profileData---", data)
     let that = this;
     data.forEach(function (val) {
-
       that.profileSelectItem.push({ value: val.profileId, label: val.profileName });
     })
 
   }
 
   // routeToConfiguration(selectedProfileId, selectedProfileName) {
-  //   //Observable profile name 
+  //   //Observable profile name
   //   this.configProfileService.profileNameObserver(selectedProfileName);
   //   this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
   // }
@@ -218,7 +223,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId };
     }
 
-    //Observable profile name 
+    //Observable profile name
     this.configProfileService.profileNameObserver(entity.profileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', entity.profileId]);
   }

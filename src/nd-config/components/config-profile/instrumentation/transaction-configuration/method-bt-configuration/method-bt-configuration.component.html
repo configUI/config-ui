@@ -1,5 +1,5 @@
 <!--For showing Bussiness Transaction Pattern(s) list -->
-<p-dataTable [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="15" [paginator]="true" [pageLinks]="3">
+<p-dataTable [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Method Bussiness Transaction(s) </span>
         <span style="float: right; margin-top:-5px">
@@ -60,7 +60,7 @@
             </div>
 
             <div class="ui-g-12">
-                <p-dataTable [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="5" [paginator]="true" [pageLinks]="3">
+                <p-dataTable [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                     <p-header>
                         <span style="float: left;">  Return Type Info </span>
                         <span style="float: right; margin-top:-5px">

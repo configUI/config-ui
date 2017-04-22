@@ -1,17 +1,17 @@
 <div class="widget">
     <div class="header"><i class="fa fa-users" aria-hidden="true"></i> ND Agent Status</div>
-    
-<p-dataTable [value]="ndAgentStatusData" [rows]="15" [paginator]="true" [pageLinks]="3">
-    <p-column class="col-overflow" field="tier" header="Tier" [sortable]="true"></p-column>
-    <p-column class="col-overflow" field="server" header="Server" [sortable]="true"></p-column>
-    <p-column class="col-overflow" field="instance" header="Instance" [sortable]="true"></p-column>
-    <p-column class="col-overflow" field="installDir" header="Installation Dir" [sortable]="true"></p-column>
-    <p-column class="col-overflow" field="version" header="Versionr" [sortable]="true"></p-column>
-    <p-column class="col-overflow" field="bciRunningSince" header="Running Since" [sortable]="true">
-        <template let-col let-ndagent="rowData" pTemplate>
+
+    <p-dataTable [value]="ndAgentStatusData" [rows]="15" [paginator]="ndAgentStatusData?.length > 15" [pageLinks]="3">
+        <p-column class="col-overflow" field="tier" header="Tier" [sortable]="true"></p-column>
+        <p-column class="col-overflow" field="server" header="Server" [sortable]="true"></p-column>
+        <p-column class="col-overflow" field="instance" header="Instance" [sortable]="true"></p-column>
+        <p-column class="col-overflow" field="installDir" header="Installation Dir" [sortable]="true"></p-column>
+        <p-column class="col-overflow" field="version" header="Versionr" [sortable]="true"></p-column>
+        <p-column class="col-overflow" field="bciRunningSince" header="Running Since" [sortable]="true">
+            <template let-col let-ndagent="rowData" pTemplate>
          <span style="float:right">{{ndagent[col.field]}}</span>
          </template>
-    </p-column>
-    <p-column class="col-overflow" field="state" header="State" [sortable]="true"></p-column>
-</p-dataTable>
+        </p-column>
+        <p-column class="col-overflow" field="state" header="State" [sortable]="true"></p-column>
+    </p-dataTable>
 </div>

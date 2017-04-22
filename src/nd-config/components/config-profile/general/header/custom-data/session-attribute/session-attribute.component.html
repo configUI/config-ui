@@ -9,7 +9,7 @@
 
 <div class="ui-g" *ngIf="selectedSessionAttribute == 'specific'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Session Attribute(s) list -->
-    <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="5" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4" [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
         <p-header>
             <span style="float: left"> Session Attribute(s) </span>
             <span style="float: right; margin-top:-5px">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="sessionAttributeDetail.specific">
-                <p-dataTable [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="15" [paginator]="true" [pageLinks]="3">
+                <p-dataTable [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="customValueTypeInfo?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Session Attribute(s) </span>
                         <span style="float: right; margin-top:-5px">
@@ -130,9 +130,9 @@
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeValueInfoDialog()" label="Cancel"></button>
             </div>
         </footer>
-         </form>
+    </form>
 
 </p-dialog>

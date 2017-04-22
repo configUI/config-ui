@@ -264,6 +264,10 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     background: #fff;
 }
 
+.tabs-all .ui-g {
+    padding: 5px;
+}
+
 .tabsincontent {
     border-radius: 4px;
 }
@@ -341,7 +345,7 @@ hide it behind the dropdown component, the required
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
     margin: 0 !important;
     padding: 5px !important;
-    background: #282828 !important;
+    background: #3ca8da !important;
     color: #fff;
     font-size: 11px;
     font-weight: 600;
@@ -365,4 +369,18 @@ hide it behind the dropdown component, the required
 
 input[type="number"] {
     text-align: right;
+}
+
+.flowpathheader-accordion {
+    color: #000;
+}
+
+.flowpathheader-accordion .ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #000 !important;
+}
+
+.flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #ececec;
 }

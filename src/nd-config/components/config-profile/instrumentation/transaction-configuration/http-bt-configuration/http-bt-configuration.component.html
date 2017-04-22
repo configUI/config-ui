@@ -34,7 +34,7 @@
             </div>
             <div class="ui-g-2" style="margin-top:4px">
                 Segments of URI in Transaction</div>
-            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="number" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
+            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
             </div>
         </div>
 
@@ -90,7 +90,7 @@
 
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Bussiness Transaction Pattern(s) list -->
-    <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="15" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
         <p-header>
             <span style="float: left;">  Bussiness Transaction Pattern(s) </span>
             <span style="float: right; margin-top:-5px">
