@@ -93,4 +93,5 @@ export class InstrumentationProfilesComponent implements OnInit {
     this.xmlFilesList = cloneObject(this.configKeywordsService.keywordData);
     this.loadListOfXmlFiles();
   }
+
 }

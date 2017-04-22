@@ -6,7 +6,8 @@
 
     </div>
 
-    <p-dataTable [value]="profileData" [rows]="15" [paginator]="true" [pageLinks]="3">
+
+    <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3">
         <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
             <template let-col let-profile="rowData" pTemplate>
                 <span title="{{profile[col.field]}}"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>

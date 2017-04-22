@@ -1,4 +1,4 @@
-<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection">
+<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
     <p-header>
         <span style="float: left">Error Detection(s) </span>
         <span style="float :right; margin-top:-5px">
@@ -8,27 +8,27 @@
         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true">
+    <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="errorFrom" header="From" [sortable]="true">
+    <p-column class="tableCss" field="errorFrom" header="From" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="errorTo" header="To" [sortable]="true">
+    <p-column class="tableCss" field="errorTo" header="To" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center'}">
+    <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <md-slide-toggle onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
     </template>
     </p-column>
-    <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true">
+    <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>

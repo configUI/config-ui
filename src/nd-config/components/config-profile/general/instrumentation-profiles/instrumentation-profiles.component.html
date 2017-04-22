@@ -3,7 +3,7 @@
         <div class="header">Instrumentation Profiles
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" (click)="validateInstrProfiles()" label="Save"></button>
             </div>
         </div>
         <p-panel class="hideheader">
