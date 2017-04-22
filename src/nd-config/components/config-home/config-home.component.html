@@ -94,7 +94,7 @@
             </md-card-subtitle>
 
             <div class="table-css">
-                <p-dataTable [value]="agentsInfo" [(selection)]="selectedApplicationData">
+                <p-dataTable [value]="agentsInfo">
                     <p-column rowStyleClass="col-overflow" field="tier" header="Tier">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>

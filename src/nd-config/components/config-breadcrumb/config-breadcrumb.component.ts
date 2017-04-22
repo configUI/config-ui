@@ -16,7 +16,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private configHomeService: ConfigHomeService) { }
 
-  private items: MenuItem[];
+  items: MenuItem[];
   trData: TRData;
   subscription: Subscription;
   breadcrumbSubscription: Subscription;

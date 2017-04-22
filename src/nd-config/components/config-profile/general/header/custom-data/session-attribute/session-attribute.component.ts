@@ -35,6 +35,7 @@ export class SessionAttributeComponent implements OnInit {
   sessionAttributeDetail: SessionAtrributeComponentsData;
   customValueTypeDetail: SessionTypeValueData;
   customValueTypeInfo: SessionTypeValueData[];
+  selectedSessionAttribute;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) {
 
