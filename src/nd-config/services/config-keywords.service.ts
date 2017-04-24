@@ -10,12 +10,12 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
 
-import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData,HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection} from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
-import {  httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
+import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 
 
 @Injectable()
@@ -159,6 +159,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_SPECIFIC_ATTR}/${profileId}`, data);
   }
 
+  getSessionAttributeValue(data, profileId): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_SESSION_TYPE}/${profileId}`, data);
+  }
+
+  editSessionAttributeData(data): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_SESSION_ATTR}`, data)
+  }
+
 
   //HTTP Stats Monitors
 
@@ -256,14 +264,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(url, data);
   }
 
-    /* Edit  Business Trans Method Info */
+  /* Edit  Business Trans Method Info */
   editHTTPReqHeaderRulesData(data, ReqId): Observable<RulesHTTPRequestHdrComponentData> {
     let url = `${URL.ADD_RULES_HTTPREQHDR}/${ReqId}`;
     return this._restApi.getDataByPostReq(url, data);
   }
 
-  sendRunTimeChange(URL,data){
-    this._restApi.getDataByPostReq(URL,data).subscribe();
+  sendRunTimeChange(URL, data) {
+    this._restApi.getDataByPostReq(URL, data).subscribe();
   }
 
 }
