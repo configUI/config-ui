@@ -37,43 +37,11 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     //Getting whole keyword data values
     this.subscription = this.store.select<KeywordData>("keywordData")
       .subscribe(data => {
-        if (data)
-          this.toggleKeywordData(data);
-      });
-  }
-
-  /**
-   * This method is used to enable/disable toggle button.
-   */
-  toggleKeywordData(data: KeywordData) {
-
-    //moduleName -> general, advance, product_integration
-    for (let moduleName in this.keywordGroup) {
-
-      //keywordGroupList -> { flowpath: { enable: false, keywordList: ["k1", "k2"]}, hotspot: { enable: false, keywordList: ["k1", "k2"] }, ....}
-      let keywordGroupList = this.keywordGroup[moduleName];
-
-      //keywordKey -> flowpath, hotspot...
-      for (let keywordKey in keywordGroupList) {
-
-        //keywordInfo -> { enable: false, keywordList: ["k1", "k2"]}
-        let keywordInfo = keywordGroupList[keywordKey];
-
-        //keywordList -> ["k1", "k2"]
-        let keywordList = keywordInfo.keywordList;
-
-        for (let i = 0; i < keywordList.length; i++) {
-          //If group of keywords value is not 0 that's means groupkeyword is enabled.
-          if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
-            //Enabling groupkeyword
-            keywordInfo.enable = true;
-          }
+        if (data){
+          this.keywordGroup = this.configKeywordsService.toggleKeywordData();
         }
-      }
-    }
 
-    //Updating groupkeyword values after reading keyword data object.
-    this.keywordGroup = this.configKeywordsService.keywordGroup;
+      });
   }
 
   /**This is used to enable/disable groupkeyword values. */

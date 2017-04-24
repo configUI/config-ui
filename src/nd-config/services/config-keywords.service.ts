@@ -63,6 +63,46 @@ export class ConfigKeywordsService {
       });
   }
 
+
+    /**
+   * This method is used to enable/disable toggle button.
+   */
+  toggleKeywordData() {
+    let data  = this.keywordData;
+
+    //First time doesn't have keyword data then we return default keyword group data.
+    if(!data)
+      return this.keywordGroup;
+      
+    //moduleName -> general, advance, product_integration
+    for (let moduleName in this.keywordGroup) {
+
+      //keywordGroupList -> { flowpath: { enable: false, keywordList: ["k1", "k2"]}, hotspot: { enable: false, keywordList: ["k1", "k2"] }, ....}
+      let keywordGroupList = this.keywordGroup[moduleName];
+
+      //keywordKey -> flowpath, hotspot...
+      for (let keywordKey in keywordGroupList) {
+
+        //keywordInfo -> { enable: false, keywordList: ["k1", "k2"]}
+        let keywordInfo = keywordGroupList[keywordKey];
+
+        //keywordList -> ["k1", "k2"]
+        let keywordList = keywordInfo.keywordList;
+
+        for (let i = 0; i < keywordList.length; i++) {
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.
+          if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
+            //Enabling groupkeyword
+            keywordInfo.enable = true;
+          }
+        }
+      }
+    }
+    return this.keywordGroup;
+    //Updating groupkeyword values after reading keyword data object.
+    //this.keywordGroup = this.configKeywordsService.keywordGroup;
+  }
+
   /**Service Entry Point */
   getServiceEntryPointList(profileId): Observable<ServiceEntryPoint[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`);

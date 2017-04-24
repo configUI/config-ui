@@ -53,8 +53,10 @@ export class GeneralComponent implements OnInit {
 
   /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
   loadKeywordData() {
-    if (!this.configKeywordsService.keywordData)
+    if (!this.configKeywordsService.keywordData){
       this.configKeywordsService.getProfileKeywords(this.profileId);
+      this.configKeywordsService.toggleKeywordData();
+    }
   }
 
   saveKeywordData(keywordData) {
