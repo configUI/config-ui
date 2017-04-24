@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -16,6 +16,9 @@ import { cloneObject } from '../../../../utils/config-utility';
 })
 
 export class FlowpathComponent implements OnInit, OnDestroy {
+
+  @Input()
+  saveDisable: boolean;
 
   @Output()
   keywordData = new EventEmitter();
