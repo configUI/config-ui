@@ -240,13 +240,11 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.complete = true;
 
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
-    this.selectedSessionAttributeList[0].attrValues = [];
     if (this.selectedSessionAttributeList[0].attrValues.length != 0) {
       for (let i = 0; i < this.selectedSessionAttributeList[0].attrValues.length; i++) {
         this.customValueTypeInfo[i] = this.selectedSessionAttributeList[0].attrValues[i];
       }
     }
-    //this.sessionAttributeDetail = Object.assign({}, this.selectedSessionAttributeList[0]);
   }
 
   /**This method is used to delete Session Attribute*/
@@ -345,9 +343,6 @@ export class SessionAttributeComponent implements OnInit {
     let sessionType = { sessionType: this.selectedSessionAttribute };
     this.configKeywordsService.getSessionAttributeValue(sessionType, this.profileId).subscribe(data => this.selectedSessionAttribute = data["sessionType"]);
   }
-
-
-
 }
 
 
