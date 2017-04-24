@@ -1,13 +1,13 @@
 <div class="ui-g-12" style="background: #f6f7f9">
     <div class="ui-g-2">
-        <p-radioButton name="sessionAttribute" label="All" value="all" [(ngModel)]="selectedSessionAttribute"></p-radioButton>
+        <p-radioButton name="sessionAttribute" label="All" value="All" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
     <div class="ui-g-2">
-        <p-radioButton name="sessionAttribute" label="Specific" value="specific" [(ngModel)]="selectedSessionAttribute"></p-radioButton>
+        <p-radioButton name="sessionAttribute" label="Specific" value="Specific" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
 </div>
 
-<div class="ui-g" *ngIf="selectedSessionAttribute == 'specific'" style="margin-bottom:10px; border: ridge;">
+<div class="ui-g" *ngIf="selectedSessionAttribute == 'Specific'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Session Attribute(s) list -->
     <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4" [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
         <p-header>
@@ -52,10 +52,10 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <p-checkbox name="complete" label="Complete" [(ngModel)]="sessionAttributeDetail.complete" binary="false"></p-checkbox>
+                    <p-checkbox name="complete" label="Complete" [(ngModel)]="sessionAttributeDetail.complete" binary="true"></p-checkbox>
                 </div>
                 <div class="ui-g-4">
-                    <p-checkbox name="specific" label="Specific" [(ngModel)]="sessionAttributeDetail.specific" binary="false"></p-checkbox>
+                    <p-checkbox name="specific" label="Specific" [(ngModel)]="sessionAttributeDetail.specific" binary="true"></p-checkbox>
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="sessionAttributeDetail.specific">

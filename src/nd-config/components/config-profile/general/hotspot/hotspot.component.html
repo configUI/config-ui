@@ -1,6 +1,6 @@
 <form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Hotspot Capturing
+        <div class="header">Hotspot Detection settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
@@ -18,14 +18,15 @@
                         <div class="ui-g-10">
                             <p-fieldset legend="General Settings" [toggleable]="true">
                                 <div class="ui-g-4">
-                                    <label>Hotspot Sample Interval For Stack Trace(ms)</label>
+                                    <label>Sampling interval for collecting thread information</label>
                                 </div>
                                 <div class="ui-g-2">
-                                    <input name="sampleInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required ngModel />
+                                    <input name="sampleInterval" type="number" size="20" title="Set this to 0 if you don't need this feature" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required ngModel
+                                    />
                                 </div>
                                 <div class="ui-g-1"></div>
                                 <div class="ui-g-3">
-                                    <label>Hotspot Stack Comparing Depth</label>
+                                    <label>Compare top frames</label>
                                 </div>
                                 <div class="ui-g-2">
                                     <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
@@ -42,14 +43,14 @@
                                     <div class="ui-g-1"></div>
 
                                     <div class="ui-g-3">
-                                        <label>Hotspot Reporting Interval</label>
+                                        <label>Report hotspot threads at each interval(ms)</label>
                                     </div>
                                     <div class="ui-g-2">
                                         <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}} max={{hotspot.ASReportInterval.max}} required ngModel />
                                     </div>
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-3">
-                                        <label>Min Stack Depth for Hotspot</label>
+                                        <label>Filter threads whose stack trace is less than</label>
                                     </div>
                                     <div class="ui-g-2">
                                         <input name="depthHotspot" type="number" size="20" pInputText [(ngModel)]="hotspot.ASDepthFilter.value" min={{hotspot.ASDepthFilter.min}} max={{hotspot.ASDepthFilter.max}} required ngModel />
@@ -59,14 +60,14 @@
                                 <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-3">
-                                        <label>Hotspot Trace Level</label>
+                                        <label>Set hotspot trace logging level to</label>
                                     </div>
                                     <div class="ui-g-2">
                                         <input name="traceLevel" type="number" size="20" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}} max={{hotspot.ASTraceLevel.max}} required ngModel />
                                     </div>
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-3">
-                                        <label>Hotspot Thresold Match count</label>
+                                        <label>Declare a thread as hotspot after this match count</label>
                                     </div>
 
                                     <div class="ui-g-2">
@@ -100,7 +101,7 @@
 
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-5">
-                                        <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk"  binary="true" ngModel label=" List of thread names to be included in Hotspot data"></p-checkbox>
+                                        <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" binary="true" ngModel label="Thread names to be included in hotspot"></p-checkbox>
                                     </div>
                                     <div class="ui-g-5">
                                         <p-chips [(ngModel)]="includedException" name="includedeException" [(ngModel)]="hotspot.ASPositiveThreadFilters.value" [disabled]="!includedExceptionChk" ngModel required></p-chips>
@@ -109,7 +110,7 @@
                                 <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-5">
-                                        <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk"  binary="true" ngModel label=" List of thread names to be excluded in Hotspot data"></p-checkbox>
+                                        <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" binary="true" ngModel label="Thread names to be excluded in hotspot"></p-checkbox>
                                     </div>
                                     <div class="ui-g-5">
                                         <p-chips [(ngModel)]="excludedException" name="excludedExcepion" [(ngModel)]="hotspot.ASNegativeThreadFilter.value" [disabled]="!excludedExceptionChk" ngModel required></p-chips>
