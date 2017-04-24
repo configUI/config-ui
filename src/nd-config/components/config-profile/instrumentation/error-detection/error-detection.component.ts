@@ -171,4 +171,26 @@ export class ErrorDetectionComponent implements OnInit {
     }
     return -1;
   }
+
+   checkFrom(from , to){
+     if(this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo)
+     {
+       from.setCustomValidity('From value should be less than To value.');
+     }
+     else{
+      from.setCustomValidity('');
+    }
+    to.setCustomValidity('');
+
+  }
+
+  checkTo(from , to ){
+     if(this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo){
+      to.setCustomValidity('To value should be greater than from value.');
+    }
+    else{
+      to.setCustomValidity('');
+    }
+    from.setCustomValidity('');
+  }
 }

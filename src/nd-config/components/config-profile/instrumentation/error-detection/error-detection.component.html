@@ -8,17 +8,17 @@
         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
+    <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="errorFrom" header="From" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
+    <p-column class="tableCss" field="errorFrom" header="Status Code From" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="errorTo" header="To" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
+    <p-column class="tableCss" field="errorTo" header="Status Code To" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
@@ -28,7 +28,7 @@
       <md-slide-toggle onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
     </template>
     </p-column>
-    <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
+    <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
@@ -44,14 +44,27 @@
                 <label>Rule Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="ruleName" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid group name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid group name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                     autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
 
-        <div class="ui-g">
+        <div class="ui-g-12">
             <div class="ui-g-4">
-                <label>From</label>
+                <label>Status Code</label>
+            </div>
+
+            <div class="ui-g-4">
+                From: <input name="errorfrom" type="number" style="text-align: right" #from (input)="checkFrom(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
+            </div>
+            <div class="ui-g-4">
+                To: <input name="errorto" type="number" style="text-align: right" #to (input)="checkTo(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
+            </div>
+        </div>
+
+        <!--<div class="ui-g">
+            <div class="ui-g-4">
+                <label>From Status Code</label>
             </div>
             <div class="ui-g-8">
                 <input name="errorFrom" type="number" style="min-width: 69%;text-align: right;" max="99999" pInputText [(ngModel)]="errorDetectionDetail.errorFrom" required ngModel />
@@ -59,12 +72,12 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>To</label>
+                <label>To Status Code</label>
             </div>
             <div class="ui-g-8">
                 <input name="errorTo" type="number" style="min-width: 69%;text-align: right;" max="99999" pInputText [(ngModel)]="errorDetectionDetail.errorTo" required ngModel />
             </div>
-        </div>
+        </div>-->
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Enabled</label>
@@ -79,7 +92,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <input name="ruleDesc" type="text" size="30" pInputText [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel/>
+                <input name="ruleDesc" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel/>
             </div>
         </div>
         <footer>
