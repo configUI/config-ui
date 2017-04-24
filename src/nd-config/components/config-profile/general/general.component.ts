@@ -29,7 +29,8 @@ export class GeneralComponent implements OnInit {
   subscriptionTRData: Subscription;
 
   nodeData: NodeData;
-  trData: TRData
+  trData: TRData;
+  saveDisable: boolean = false;
   className: string = "General Component";
 
   constructor(private configKeywordsService: ConfigKeywordsService,
@@ -43,6 +44,7 @@ export class GeneralComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable = this.profileId == 1 ? true : false;
       this.index = params['tabId']
     });
 

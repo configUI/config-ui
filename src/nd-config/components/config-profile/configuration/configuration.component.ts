@@ -14,6 +14,8 @@ import { KeywordData, KeywordList } from '../../../containers/keyword-data';
 export class ConfigurationComponent implements OnInit, OnDestroy {
   keywordGroup: any;
   profileId: number;
+  toggleDisable: boolean = false;
+
   subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
@@ -22,7 +24,10 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
+    this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId']
+      this.toggleDisable = this.profileId == 1 ? true : false;
+    });
     this.loadKeywordData();
   }
 
