@@ -74,6 +74,21 @@
                                         <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
                                     </div>
                                 </div>
+
+                                 <div class="ui-g-12">
+                                    <div class="ui-g-1"></div>
+                                    <div class = "ui-g-5">
+                                      <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value"  binary="true" ngModel label=" Enable Method Hotspot Sensor"></p-checkbox>
+                                    </div>
+                                    <div class="ui-g-1"></div>
+                                    <div class="ui-g-3" >
+                                        <label>Max Stack Depth in Sample for Method Hotspot</label>
+                                    </div>
+
+                                    <div class="ui-g-2"  >
+                                        <input name="maxStackSizeDiff" disabled ="{{!hotspot.ASMethodHotspots.value}}"  type="number" size="20" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}} required ngModel/>
+                                    </div>
+                                </div>
                             </p-fieldset>
                         </div>
                     </div>
