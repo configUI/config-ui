@@ -3,7 +3,7 @@
         <div class="header">Hotspot Detection settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
 
             </div>
         </div>
@@ -75,18 +75,18 @@
                                     </div>
                                 </div>
 
-                                 <div class="ui-g-12">
+                                <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
-                                    <div class = "ui-g-5">
-                                      <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value"  binary="true" ngModel label=" Enable Method Hotspot Sensor"></p-checkbox>
+                                    <div class="ui-g-5">
+                                        <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value" binary="true" ngModel label=" Enable Method Hotspot Sensor"></p-checkbox>
                                     </div>
                                     <div class="ui-g-1"></div>
-                                    <div class="ui-g-3" >
+                                    <div class="ui-g-3">
                                         <label>Max Stack Depth in Sample for Method Hotspot</label>
                                     </div>
 
-                                    <div class="ui-g-2"  >
-                                        <input name="maxStackSizeDiff" disabled ="{{!hotspot.ASMethodHotspots.value}}"  type="number" size="20" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}} required ngModel/>
+                                    <div class="ui-g-2">
+                                        <input name="maxStackSizeDiff" disabled="{{!hotspot.ASMethodHotspots.value}}" type="number" size="20" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}} required ngModel/>
                                     </div>
                                 </div>
                             </p-fieldset>
