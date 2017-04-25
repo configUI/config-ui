@@ -48,6 +48,8 @@ export class HeaderComponent implements OnInit {
   */
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>,private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
+      if(!data)
+      return;
       for (let key in data) {
         data[key].value = (data[key].value == 'true' || data[key].value == 'false') ? data[key].value == 'true' : data[key].value
       }

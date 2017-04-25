@@ -105,7 +105,7 @@ export class MethodMonitorData {
 
 export class HttpStatsMonitorData {  //Http stats monitors by Surbhi
     compValue: string;
-    condition: string;
+    condition?: string;
     conditionName: string;
     cookieName: string;
     description: string;

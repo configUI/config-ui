@@ -33,7 +33,7 @@ export class HttpRequestComponent implements OnInit {
 
   httpRequestHdrDetail: HTTPRequestHdrComponentData;
   httpRequestHdrInfo: HTTPRequestHdrComponentData[];
-  selectedHTTPReqHeader: any;
+  selectedHTTPReqHeader: any[];
 
   rulesDataDetail: RulesHTTPRequestHdrComponentData;
   rulesDataInfo: RulesHTTPRequestHdrComponentData[];
@@ -76,7 +76,6 @@ export class HttpRequestComponent implements OnInit {
           valueNames = valueNames + data[i].rules[j].valName;
         else {
           valueNames = valueNames + "," + data[i].rules[j].valName;
-
         }
       }
       if (valueNames.indexOf(",") != -1)
@@ -84,6 +83,8 @@ export class HttpRequestComponent implements OnInit {
 
       if (data[i].dumpMode == 1)
         dumpModeTmp = "Specific";
+      else if (data[i].dumpMode == 3)
+        dumpModeTmp = "Complete,Specific";
       else
         dumpModeTmp = "Complete"
 
@@ -104,7 +105,7 @@ export class HttpRequestComponent implements OnInit {
   }
 
   saveADDEditHTTPReqHeader(): void {
-    //When add new application 
+    //When add new Http Request header
     if (this.isNew) {
       //Check for app name already exist or not
       if (!this.checkHttpReqNameAlreadyExist()) {
@@ -145,6 +146,8 @@ export class HttpRequestComponent implements OnInit {
   /* Open Dialog for Edit HTTP Req */
   editHTTPReqDialog() {
     let selectedHTTPReq = [];
+    let isSpecific = false;
+    let isComplete = false;
     this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
       this.configUtilityService.errorMessage("Select row for edit");
@@ -154,13 +157,16 @@ export class HttpRequestComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row for edit");
       return;
     }
-    let isSpecific = false;
+
     if (this.selectedHTTPReqHeader[0].dumpMode == "Specific")
       isSpecific = true;
-    let isComplete = false;
-    if (this.selectedHTTPReqHeader[0].dumpMode == "Complete")
+    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete")
       isComplete = true;
-    selectedHTTPReq[0] = { headerName: this.selectedHTTPReqHeader[0].headerName, complete: isComplete, specific: isSpecific, rules: this.selectedHTTPReqHeader[0].rules[0] };
+    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete,Specific") {
+      isComplete = true;
+      isSpecific = true;
+    }
+    selectedHTTPReq[0] = { headerName: this.selectedHTTPReqHeader[0].headerName, complete: isComplete, specific: isSpecific, rules: this.selectedHTTPReqHeader[0].rules };
 
     this.httpRequestHdrDetail = Object.assign({}, selectedHTTPReq[0]);
     if (this.selectedHTTPReqHeader[0].rules.length != 0) {
@@ -171,7 +177,7 @@ export class HttpRequestComponent implements OnInit {
           this.selectedHTTPReqHeader[0].rules[i].customValTypeName = "String";
         if (this.selectedHTTPReqHeader[0].rules[i].type == 2)
           this.selectedHTTPReqHeader[0].rules[i].customValTypeName = "Decimal";
-        this.rulesDataInfo.push(this.selectedHTTPReqHeader[0].rules[i]);
+        this.rulesDataInfo[i] = this.selectedHTTPReqHeader[0].rules[i];
       }
     }
 
@@ -182,33 +188,42 @@ export class HttpRequestComponent implements OnInit {
   /* Method for Edit HTTP Req */
   editHTTPRequest() {
     this.setEditedNewValues("Edit");
+          console.log(" ======= ==== 2 === ==-- --  ==" , this.httpRequestHdrDetail)
+     
+        console.log(" ======= ==== 4 === == ==" , this.selectedHTTPReqHeader )
     this.configKeywordsService.editHTTPReqHeaderData(this.httpRequestHdrDetail, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
       .subscribe(data => {
         let index = this.getMethodBusinessIndex(data.httpReqHdrBasedId);
         this.selectedHTTPReqHeader.length = 0;
-        this.selectedHTTPReqHeader.push(data);
-        let abc = [];
-        abc = this.addReqHeaderTableData(this.httpRequestHdrDetail);
+        this.selectedHTTPReqHeader.push(data); 
+       console.log(" 1 == " , this.httpRequestHdrDetail)
+       console.log("2  == " , data)
+
+
         this.httpRequestHdrComponentInfo[index] = this.addReqHeaderTableData(this.httpRequestHdrDetail)[0];
         this.closeDialog();
       });
 
-    if (this.httpRequestHdrDetail.dumpMode == 1) {
-      if (this.httpRequestHdrDetail.rules != undefined || this.rulesDataInfo.length != 0) {
-        this.setEditedNewValues("EditSpecific");
-        this.configKeywordsService.editHTTPReqHeaderRulesData(this.editSpecific, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
-          .subscribe(data => {
-            let index = this.getRulesIndex(this.editSpecific.valName);
-            this.selectedHTTPReqHeader.length = 0;
-            this.httpRequestHdrComponentInfo[index].valueNames = this.addReqHeaderTableData(this.editSpecific)[0].valueNames; 
-            console.log("============ " ,this.httpRequestHdrComponentInfo[index].valueNames );
-            this.selectedHTTPReqHeader.push(data);
-            //this.rulesDataDetail[index] = data;
-          });
-      }
-    }
+    // if (this.httpRequestHdrDetail.dumpMode == 1) {
+    //   if (this.rulesDataInfo.length != 0) {
+    //     this.setEditedNewValues("EditSpecific");
+    //     console.log(" ======= ==== === ==-- --  ==" , this.rulesDataInfo.length)
+    //      console.log(" ======= ==== === ==-- --  ==" , this.httpRequestHdrDetail.rules)
+    //     console.log(" ======= ==== === ==-- --  ==" , this.editSpecific )
+    //     console.log(" ======= ==== === == ==" , this.selectedHTTPReqHeader[0].httpReqHdrBasedId )
+    //     this.configKeywordsService.editHTTPReqHeaderRulesData(this.editSpecific, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
+    //       .subscribe(data => {
+    //         // let index = this.getRulesIndex(this.editSpecific.valName);
+    //         // this.selectedHTTPReqHeader.length = 0;
+    //         // this.httpRequestHdrComponentInfo[index].valueNames = this.addReqHeaderTableData(this.editSpecific)[0].valueNames;
+    //         // this.selectedHTTPReqHeader.push(data);
+    //         //this.rulesDataDetail[index] = data;
+    //       });
+    //   }
+    // }
     this.closeDialog();
   }
+
 
   /**This method returns selected application row on the basis of selected row */
   getMethodBusinessIndex(appId: any): number {
@@ -230,7 +245,7 @@ export class HttpRequestComponent implements OnInit {
   /*set format of Edit and add new Http Request */
   setEditedNewValues(opertionType: string) {
     let type: number;
-
+    this.httpRequestHdrDetail.rules = [];
     for (let i = 0; i < this.rulesDataInfo.length; i++) {
       if (this.rulesDataInfo[i].customValTypeName == "Integer")
         type = 0;
@@ -238,22 +253,34 @@ export class HttpRequestComponent implements OnInit {
         type = 1;
       else if (this.rulesDataInfo[i].customValTypeName == "Decimal")
         type = 2;
+
+      if (opertionType == "Edit") {
+        this.httpRequestHdrDetail.rules = [];
+        this.httpRequestHdrDetail.attrValues = [];
+        this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
+        this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };  
+ }
+
       if (opertionType == "NewAdd") {
+        console.log("new Add == ")
         this.httpRequestHdrDetail.rules = [];
         this.httpRequestHdrDetail.attrValues = [];
         this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
         this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
       }
-      if (opertionType == "EditSpecific") {
-        this.httpRequestHdrDetail.rules = [];
-        this.httpRequestHdrDetail.attrValues = [];
-        this.editSpecific = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-        //this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-      }
+      // if (opertionType == "EditSpecific") {
+      //   console.log("EditSpecific   == ")
+      //   this.httpRequestHdrDetail.rules = [];
+      //   this.httpRequestHdrDetail.attrValues = [];
+      //   this.editSpecific = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
+      //   this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
+      // }
     }
 
     //  this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.customValueTypeInfo[i].lb, rb: this.customValueTypeInfo[i].rb, customValTypeName: this.customValueTypeInfo[i].customValTypeName, valName: this.customValueTypeInfo[i].valName };
-    if (this.httpRequestHdrDetail.complete == true)
+    if (this.httpRequestHdrDetail.complete == true && this.httpRequestHdrDetail.specific == true)
+      this.httpRequestHdrDetail.dumpMode = 3;
+    else if (this.httpRequestHdrDetail.complete == true)
       this.httpRequestHdrDetail.dumpMode = 2;
     else
       this.httpRequestHdrDetail.dumpMode = 1;
@@ -262,10 +289,12 @@ export class HttpRequestComponent implements OnInit {
   /* Method for Add new HTTP Req */
   saveHttpRequest() {
     this.setEditedNewValues("NewAdd");
-    this.configKeywordsService.addHTTPReqHeaderData(this.httpRequestHdrDetail, this.profileId).subscribe(data => {
 
+    this.configKeywordsService.addHTTPReqHeaderData(this.httpRequestHdrDetail, this.profileId).subscribe(data => {
       let arrSessionAttr = this.addReqHeaderTableData(data);
+
       this.httpRequestHdrComponentInfo.push(arrSessionAttr[0]);
+      this.configUtilityService.successMessage(Messages);
     });
     this.rulesDataInfo = [];
     this.closeDialog();
@@ -281,11 +310,11 @@ export class HttpRequestComponent implements OnInit {
   */
 
   addReqHeaderTableData(data): Array<HTTPRequestHdrComponentData> {
-    console.log(" ===== ", data );
     var arrTableData = [];
     let dumpModeTmp = "";
     let valueNames = "";
-
+   
+    console.log("console log = ", data)
     if (data.rules != null) {
       for (var j = 0; j < data.rules.length; j++) {
         if (data.rules.length == 1)
@@ -297,15 +326,19 @@ export class HttpRequestComponent implements OnInit {
     }
     if (valueNames == "")
       valueNames = "-";
+
     if (valueNames.indexOf(",") != -1)
       valueNames = valueNames.substr(1);
+
     if (data.dumpMode == 1)
       dumpModeTmp = "Specific";
+    else if (data.dumpMode == 3)
+      dumpModeTmp = "Complete,Specific";
     else
       dumpModeTmp = "Complete"
 
     arrTableData.push({
-      headerName: data.headerName, dumpMode: dumpModeTmp, valueNames: valueNames, rules: data.rules,
+      headerName: data.headerName, dumpMode: dumpModeTmp, valueNames: valueNames, rules: data.rules, httpReqHdrBasedId: data.httpReqHdrBasedId,
     });
 
     return arrTableData;
@@ -350,8 +383,6 @@ export class HttpRequestComponent implements OnInit {
     this.rulesDataInfo = deleteMany(this.rulesDataInfo, rowIndex);
   }
 
-
-
   deleteHTTPReqHeader(): void {
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
       this.configUtilityService.errorMessage("Please select for delete");
@@ -364,9 +395,11 @@ export class HttpRequestComponent implements OnInit {
       accept: () => {
         //Get Selected Applications's AppId
         let selectedApp = this.selectedHTTPReqHeader;
+        console.log("===== === ", this.selectedHTTPReqHeader);
         let arrAppIndex = [];
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].httpReqHdrBasedId);
+          console.log("===== === ", arrAppIndex);
         }
         this.configKeywordsService.deleteHTTPReqHeaderData(arrAppIndex, this.profileId)
           .subscribe(data => {
@@ -408,6 +441,7 @@ export class HttpRequestComponent implements OnInit {
   }
 
   closeRulesDialog() {
+   
     this.rulesDialog = false;
   }
 }

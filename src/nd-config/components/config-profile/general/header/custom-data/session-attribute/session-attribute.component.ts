@@ -109,7 +109,7 @@ export class SessionAttributeComponent implements OnInit {
 
   saveTypesValues() {
     this.customValueTypeInfo.push(this.customValueTypeDetail);
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
     this.sessionAttrTypeValueDialog = false;
   }
 

@@ -25,7 +25,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth','ASPositiveThreadFilters','ASNegativeThreadFilter','ASMethodHotspots','maxStackSizeDiff'];
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASTraceLevel', 'ASStackComparingDepth','ASPositiveThreadFilters','ASNegativeThreadFilter','ASMethodHotspots','maxStackSizeDiff'];
 
   /**It stores keyword data for showing in GUI */
   hotspot: any;
