@@ -38,7 +38,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-10">
-                            <p-fieldset legend="Advance Settings" [toggleable]="true">
+                            <p-fieldset legend="Advanced Settings" [toggleable]="true">
                                 <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
 
@@ -49,11 +49,12 @@
                                         <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}} max={{hotspot.ASReportInterval.max}} required ngModel />
                                     </div>
                                     <div class="ui-g-1"></div>
-                                    <div class="ui-g-3">
-                                        <label>Filter threads whose stack trace is less than</label>
+                                  <div class="ui-g-3">
+                                        <label>Declare a thread as hotspot after this match count</label>
                                     </div>
+
                                     <div class="ui-g-2">
-                                        <input name="depthHotspot" type="number" size="20" pInputText [(ngModel)]="hotspot.ASDepthFilter.value" min={{hotspot.ASDepthFilter.min}} max={{hotspot.ASDepthFilter.max}} required ngModel />
+                                        <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
                                     </div>
                                 </div>
 
@@ -65,27 +66,20 @@
                                     <div class="ui-g-2">
                                         <input name="traceLevel" type="number" size="20" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}} max={{hotspot.ASTraceLevel.max}} required ngModel />
                                     </div>
-                                    <div class="ui-g-1"></div>
-                                    <div class="ui-g-3">
-                                        <label>Declare a thread as hotspot after this match count</label>
-                                    </div>
-
-                                    <div class="ui-g-2">
-                                        <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
-                                    </div>
-                                </div>
+                                 </div>
 
                                  <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
                                     <div class = "ui-g-5">
                                       <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value"  binary="true" ngModel label=" Enable Method Hotspot Sensor"></p-checkbox>
                                     </div>
-                                    <div class="ui-g-1"></div>
-                                    <div class="ui-g-3" >
+                                </div>
+                                <div class="ui-g-12">
+                                <div class="ui-g-1"></div>
+                                    <div class="ui-g-3" style="margin-left:20px">
                                         <label>Max Stack Depth in Sample for Method Hotspot</label>
                                     </div>
-
-                                    <div class="ui-g-2"  >
+                                    <div class="ui-g-2">
                                         <input name="maxStackSizeDiff" disabled ="{{!hotspot.ASMethodHotspots.value}}"  type="number" size="20" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}} required ngModel/>
                                     </div>
                                 </div>

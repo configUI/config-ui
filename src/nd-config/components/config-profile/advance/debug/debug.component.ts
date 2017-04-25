@@ -22,7 +22,7 @@ export class DebugComponent {
   className: string = "DebugComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  // keywordList: string[] = ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'];
+  // keywordList: string[] = ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel', 'ASDepthFilter'];
 
   /**It stores keyword data for showing in GUI */
   debug: Object;

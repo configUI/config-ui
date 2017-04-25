@@ -270,7 +270,7 @@ export class JavaMethodComponent implements OnInit {
   saveReturnRules() {
     console.log("saveReturnRules method caleld--", this.returnTypeRules)
     this.returnTypeData.push(this.returnTypeRules);
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
     this.addReturnRulesDialog = false;
 
   }
@@ -279,7 +279,7 @@ export class JavaMethodComponent implements OnInit {
     console.log("saveReturnRules method caleld--", this.argumentTypeRules)
     this.argumentTypeData.push(this.argumentTypeRules)
     this.addArgumentRulesDialog = false;
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
 
   }
 

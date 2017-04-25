@@ -6,7 +6,7 @@
         <p-tabPanel header="Hotspot" [selected]="index == 1">
             <app-hotspot *ngIf="index == 1" (keywordData)="saveKeywordData($event)"></app-hotspot>
         </p-tabPanel>
-        <p-tabPanel header="JVM Thread Stats Monitor" [selected]="index == 2">
+        <p-tabPanel header="Thread CPU Monitor" [selected]="index == 2">
             <app-thread-stats *ngIf="index == 2" (keywordData)="saveKeywordData($event)"></app-thread-stats>
         </p-tabPanel>
         <p-tabPanel header="Exception" [selected]="index == 3">
