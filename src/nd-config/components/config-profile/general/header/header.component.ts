@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   keywordData = new EventEmitter();
 
   @Input()
-  saveDiasable:boolean;
+  saveDisable:boolean;
 
 
   HeaderForm: boolean = true;
