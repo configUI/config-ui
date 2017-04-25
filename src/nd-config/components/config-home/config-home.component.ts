@@ -43,21 +43,21 @@ export class ConfigHomeComponent implements OnInit {
 
       if(data.homeData[0].value.length > 5)
         {
-             this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length-5 , data.homeData[0].value.length );
+             this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length-5 , data.homeData[0].value.length ).reverse();
         }
       else
         {
-             this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length);
+             this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
         }
 
       if(data.homeData[1].value.length > 5)
         {
-             this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length-5, data.homeData[1].value.length);
+             this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length-5, data.homeData[1].value.length).reverse();
         }
 
       else
         {
-             this.profileInfo = (data.homeData[1].value).splice(0,data.homeData[1].value.length)
+             this.profileInfo = (data.homeData[1].value).splice(0,data.homeData[1].value.length).reverse();
         }
         this.topologyInfo = (data.homeData[2].value).slice(0, 6);
         this.agentsInfo = data.agentData;

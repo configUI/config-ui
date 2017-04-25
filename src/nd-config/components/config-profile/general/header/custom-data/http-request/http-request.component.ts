@@ -294,6 +294,7 @@ export class HttpRequestComponent implements OnInit {
       let arrSessionAttr = this.addReqHeaderTableData(data);
 
       this.httpRequestHdrComponentInfo.push(arrSessionAttr[0]);
+      this.configUtilityService.successMessage(Messages);
     });
     this.rulesDataInfo = [];
     this.closeDialog();

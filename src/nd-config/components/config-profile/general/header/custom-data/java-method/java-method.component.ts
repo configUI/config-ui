@@ -425,7 +425,7 @@ export class JavaMethodComponent implements OnInit {
     this.returnTypeRules["id"] = this.returnCounter ;
     this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
     this.returnTypeData.push(this.returnTypeRules);
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
     this.addReturnRulesDialog = false;
     this.returnCounter = this.returnCounter + 1;
 
@@ -437,7 +437,7 @@ export class JavaMethodComponent implements OnInit {
     this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
     this.argumentTypeData.push(this.argumentTypeRules)
     this.addArgumentRulesDialog = false;
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
 
   }
 

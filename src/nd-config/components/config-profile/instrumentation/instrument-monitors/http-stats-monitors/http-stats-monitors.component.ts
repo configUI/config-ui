@@ -180,6 +180,19 @@ export class HttpStatsMonitorsComponent implements OnInit {
     // this.httpStatsMonitorDetail = new HttpStatsMonitorData();
     this.addEditHttpStatsMonitorDialog = true;
     this.httpStatsMonitorDetail = Object.assign({}, this.selectedHttpStatsMonitorData[0]);
+    if(this.httpStatsMonitorDetail.htId==1)
+    this.selectedRequestHeader = this.httpStatsMonitorDetail.hmdId;
+    else
+    this.selectedResponseHeader = this.httpStatsMonitorDetail.hmdId;
+    this.selectedValueType = this.httpStatsMonitorDetail.valId;
+    if(this.selectedValueType == 1)
+    this.selectedStringOp = this.httpStatsMonitorDetail.optId;
+    else if(this.selectedValueType == 2)
+      this.selectedNumericOp = this.httpStatsMonitorDetail.optId;
+    else 
+      this.selectedOthersOp = this.httpStatsMonitorDetail.optId;
+
+    console.log("asasasasas",this.httpStatsMonitorDetail.hmdId);
   }
 
   saveHttpStatsMonitor(): void {
@@ -226,29 +239,9 @@ export class HttpStatsMonitorsComponent implements OnInit {
   saveHttpStatsMonitorData(): void {
     //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
-    //Error messages for every fields
-    if (!this.httpStatsMonitorDetail.conditionName)
-      this.configUtilityService.errorMessage("Condition Name Cannot be Blank");
-    else if (!this.httpStatsMonitorDetail.fpDumpMode)
-      this.configUtilityService.errorMessage("Select a Flow Dump Mode");
-    else if (!this.httpStatsMonitorDetail.htId)
-      this.configUtilityService.errorMessage("Select a Header Type");
-    else if (!this.httpStatsMonitorDetail.hmdId && !this.httpStatsMonitorDetail.cookieName)
-      this.configUtilityService.errorMessage("Select a Header Name/Cookie Value");
-    else if (!this.httpStatsMonitorDetail.valId)
-      this.configUtilityService.errorMessage("Select a Value Type");
-    else if (!this.httpStatsMonitorDetail.optId)
-      this.configUtilityService.errorMessage("Select an Operator Type ");
-    else if (!this.httpStatsMonitorDetail.compValue)
-      this.configUtilityService.errorMessage("Comparison Value cannot be blank");
-    else if (!this.httpStatsMonitorDetail.description)
-      this.configUtilityService.errorMessage("Write a Description");
-
-    else {
       this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
         .subscribe(data => {
           //Putting fpDumpMode values;
-
           if (data.fpDumpMode == '0')
             data.fpDumpMode = 'Disable';
           if (data.fpDumpMode == '1')
@@ -261,12 +254,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
           this.configUtilityService.successMessage(Messages);
         });
       this.addEditHttpStatsMonitorDialog = false;
-    }
+    // }
   }
 
   //Method will store the values from inputs into table
   saveDataInObject() {
-    this.httpStatsMonitorDetail.htId = this.selectedHeaderType;
+    // this.httpStatsMonitorDetail.htId = this.selectedHeaderType;
     this.httpStatsMonitorDetail.valId = this.selectedValueType;
     if (this.httpStatsMonitorDetail.htId == 1)
       this.httpStatsMonitorDetail.hmdId = this.selectedRequestHeader;
