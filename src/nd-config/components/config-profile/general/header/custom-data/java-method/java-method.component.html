@@ -9,7 +9,7 @@
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddDialog()" icon="fa-plus"></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteJavaMethod()" icon="fa-trash"></button>
-                       <!--<button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteMethodTrans()" icon="fa-trash"></button>-->
+                        <button pButton type="button" title="Edit"(click)="openEditDialog()" icon="fa-pencil" ></button>                     
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -36,13 +36,13 @@
 
 <!--Dialog for adding -->
 <p-dialog header="{{isNew ? 'Settings for Method Based Custom Data' : 'Edit  Settings for Method Based Custom Data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
-    <form (ngSubmit)="saveEditData(groupForm)" #groupForm="ngForm" ngNativeValidate>
+    <form (ngSubmit)="saveEditData(fqmField)" id="addMethodBasedForm" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Fully Qualified Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus required ngModel/>
+                <input name="fqm" disabled ={{!isNew}}  #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus required ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -54,11 +54,13 @@
 
 
         <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
-            <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedMethodRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
+            <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedReturnRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
                     <span>  Return Type Info </span>
                     <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddReturnRulesDialog()" icon="fa-plus"></button>
+                       <!--<button pButton type="add" title="Add" (click)="first=true" icon="fa-plus"></button>-->
+                       <button pButton type="sumbit" title="Add" (click)="first=true" icon="fa-plus"></button>
+                       
                        <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
                     </span>
                 </p-header>
@@ -69,7 +71,7 @@
                 </template>
                 </p-column>
 
-                <p-column class="col-overflow" field="type" header="Type" [sortable]="true">
+                <p-column class="col-overflow" field="typeName" header="Type" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -97,15 +99,13 @@
         </div>
 
 
-
-
         <div class="ui-g-12">
-            <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedMethodRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
+            <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedArgumentRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
                     <span>  Argument Type Settings </span>
                     <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddArgumentRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
+                       <button pButton type="submit" title="Add" (click)="second=true" icon="fa-plus"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
                     </span>
                 </p-header>
                 <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -121,7 +121,7 @@
                     </template>
                 </p-column>
 
-                <p-column class="col-overflow" field="type" header="Type" [sortable]="true">
+                <p-column class="col-overflow" field="typeName" header="Type" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -216,12 +216,21 @@
             </div>
 
 
-            <div class="ui-g-12">
+            <!--<div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Index</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <input name="indexVal" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.indexVal" placeholder="Index" required ngModel/>
+                </div>
+            </div>-->
+
+             <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Index</label>
+                </div>
+                <div class="ui-g-8" style="margin-top: -5px">
+                    <p-dropdown name="type" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body" ></p-dropdown>
                 </div>
             </div>
 

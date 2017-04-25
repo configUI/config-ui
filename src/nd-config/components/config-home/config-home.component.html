@@ -5,11 +5,11 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">APPLICATION</div>
                 <div class="header-button">
-                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info"></button></a>
+                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" label="Configure" class="ui-button-info"></button></a>
                 </div>
             </md-card-subtitle>
             <div class="table-css">
-                <p-dataTable [value]="applicationInfo">
+                <p-dataTable [value]="applicationInfo" [rows]="5">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'])">{{application[col.field]}}</a></span>
@@ -36,7 +36,7 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">PROFILE</div>
                 <div class="header-button">
-                    <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Show All" class="ui-button-info "></button></a>
+                    <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Configure" class="ui-button-info "></button></a>
                 </div>
             </md-card-subtitle>
             <div class="table-css">
@@ -77,7 +77,7 @@
                 <p-dataTable [value]="topologyInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/topology-list']">{{application[col.field]}}</a></span>
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -141,7 +141,7 @@
     This feature is used to sync the topology settings of GUI with the file system.
     <footer>
         <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-            <a (click)="importTopology()"> <button pButton type="button" label="Import Topologies" align="right" icon="fa-download"></button></a>
+            <a (click)="importTopology()"> <button pButton type="button" label="Import" align="right" icon="fa-download"></button></a>
             <button type="button" pButton icon="fa-close" (click)="importTopo=false" label="Cancel"></button>
         </div>
     </footer>

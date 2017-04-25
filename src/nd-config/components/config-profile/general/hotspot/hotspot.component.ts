@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
@@ -13,6 +13,10 @@ import { cloneObject } from '../../../../utils/config-utility';
   styleUrls: ['./hotspot.component.css']
 })
 export class HotspotComponent implements OnInit, OnDestroy {
+
+
+  @Input()
+  saveDisable: boolean;
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
@@ -47,7 +51,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
         this.keywordList.map(function(key){
           keywordDataVal[key] = data[key];
         })
-       
+
         this.hotspot = keywordDataVal;
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == '1';
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
@@ -59,7 +63,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   /*
-  *  ASMethodHotspots = 0/1 value to be wriiten in file 
+  *  ASMethodHotspots = 0/1 value to be wriiten in file
   * so its value = false/true is conerted to "0/1" beforre sending to server
   */
 

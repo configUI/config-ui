@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -18,6 +18,8 @@ import { cloneObject } from '../../../../utils/config-utility';
 export class BackendMonitorsComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
+  @Input()
+  saveDisable:boolean;
 
   className: string = "BackendMonitorsComponent";
   keywordsData: Keywords;

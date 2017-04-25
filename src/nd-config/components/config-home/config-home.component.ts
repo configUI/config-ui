@@ -41,8 +41,24 @@ export class ConfigHomeComponent implements OnInit {
     this.configHomeService.getMainData()
       .subscribe(data => {
 
-        this.applicationInfo = (data.homeData[0].value).slice(0, 6);
-        this.profileInfo = (data.homeData[1].value).slice(0, 6);
+      if(data.homeData[0].value.length > 5)
+        {
+             this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length-5 , data.homeData[0].value.length );
+        }
+      else
+        {
+             this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length);
+        }
+
+      if(data.homeData[1].value.length > 5)
+        {
+             this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length-5, data.homeData[1].value.length);
+        }
+
+      else
+        {
+             this.profileInfo = (data.homeData[1].value).splice(0,data.homeData[1].value.length)
+        }
         this.topologyInfo = (data.homeData[2].value).slice(0, 6);
         this.agentsInfo = data.agentData;
         data.trData.switch = data.trData.status == 'running';
@@ -64,13 +80,13 @@ export class ConfigHomeComponent implements OnInit {
   }
 
   routeToTreemain(selectedApplicationId, selectedApplicationName) {
-    //Observable application name 
+    //Observable application name
     this.configApplicationService.applicationNameObserver(selectedApplicationName);
     this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedApplicationId]);
   }
 
   routeToConfiguration(selectedProfileId, selectedProfileName) {
-    //Observable profile name 
+    //Observable profile name
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
   }

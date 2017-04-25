@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { KeywordData } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
@@ -11,6 +11,9 @@ import { cloneObject } from '../../../../utils/config-utility';
   styleUrls: ['./exception.component.css']
 })
 export class ExceptionComponent implements OnInit {
+
+   @Input()
+  saveDisable: boolean;
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
@@ -31,7 +34,7 @@ export class ExceptionComponent implements OnInit {
    * 12- Trace limit for frames
    */
 
-  constructor(private configKeywordsService: ConfigKeywordsService,private configUtilityService: ConfigUtilityService) { 
+  constructor(private configKeywordsService: ConfigKeywordsService,private configUtilityService: ConfigUtilityService) {
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.exception.enable;
   }
 
@@ -67,9 +70,9 @@ export class ExceptionComponent implements OnInit {
         this.exceptionData.exceptionTrace = true;
       else
         this.exceptionData.exceptionTrace = false;
-        
+
       this.exceptionData.exceptionType = arr[2] == '1' ? 'all':'unhandled';
-      
+
       if(arr.length > 2)
         this.exceptionData.exceptionTraceDepth = arr[3];
     }
@@ -91,7 +94,7 @@ export class ExceptionComponent implements OnInit {
 
     }
   }
- 
+
   saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
     for(let key in this.exception){
