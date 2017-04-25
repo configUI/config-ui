@@ -11,3 +11,7 @@
  .togglebtnslide .mat-slide-toggle-bar, [dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar {
      margin-left: 8px !important;
  }
+ .breadcrumb-toggle{
+    display: inline-block;
+    margin: 0;
+ }
