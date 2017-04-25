@@ -41,20 +41,20 @@ export class ThreadStatsComponent implements OnInit {
       this.jvmThreadStats = new JVMThreadStats();
       this.jvmThreadStats.jvm = arr[0] == 1 ? true : false;
       this.jvmThreadStats.cpu = arr[1];
-      this.jvmThreadStats.deleteVector = arr[2] == 1 ? true : false;
+      // this.jvmThreadStats.deleteVector = arr[2] == 1 ? true : false;
 
     }
     if (this.threadStats["enableJVMThreadMonitor"].value == 0) {
       this.jvmThreadStats = new JVMThreadStats();
       this.jvmThreadStats.jvm = false;
       this.jvmThreadStats.cpu = null;
-      this.jvmThreadStats.deleteVector = false;
+      // this.jvmThreadStats.deleteVector = false;
     }
     if (this.threadStats["enableJVMThreadMonitor"].value == 1) {
       this.jvmThreadStats = new JVMThreadStats();
       this.jvmThreadStats.jvm = false;
       this.jvmThreadStats.cpu = null;
-      this.jvmThreadStats.deleteVector = false;
+      // this.jvmThreadStats.deleteVector = false;
     }
   }
 
@@ -93,7 +93,7 @@ export class ThreadStatsComponent implements OnInit {
       return key;
     }
     else{
-    let key = `${this.jvmThreadStats.jvm == true ? 1 : 0}%20${this.jvmThreadStats.cpu}%20${this.jvmThreadStats.deleteVector == true ? 1 : 0}`;
+    let key = `${this.jvmThreadStats.jvm == true ? 1 : 0}%20${this.jvmThreadStats.cpu}%20${this.jvmThreadStats.jvm == true ? 1 : 0}`;
     return key;
     }
   }
@@ -107,5 +107,4 @@ export class ThreadStatsComponent implements OnInit {
 class JVMThreadStats {
   jvm;
   cpu;
-  deleteVector;
 }
