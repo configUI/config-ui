@@ -15,6 +15,7 @@ import { MaterialModule } from '@angular/material';
 /**Import primeng module  */
 
 import {
+  SplitButtonModule,
   CheckboxModule,
   RadioButtonModule,
   InputTextModule,
@@ -72,6 +73,7 @@ import { AppComponentForConfig } from './config.component';
 import { ConfigMainComponent } from './components/config-main/config-main.component';
 import { ConfigLeftSideBarComponent } from './components/config-left-side-bar/config-left-side-bar.component';
 import { ConfigTopNavBarComponent } from './components/config-top-nav-bar/config-top-nav-bar.component';
+import { ConfigTopHeaderNavBarComponent } from './components/config-header-top-nav-bar/config-header-top-nav-bar';
 import { ConfigRightContentComponent } from './components/config-right-content/config-right-content.component';
 import { ConfigHomeComponent } from './components/config-home/config-home.component';
 import { ConfigApplicationListComponent } from './components/config-application-list/config-application-list.component';
@@ -169,7 +171,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     JavaMethodComponent,
     NVCookieComponent,
     MethodMonitorsComponent,
-    HttpStatsMonitorsComponent
+    HttpStatsMonitorsComponent,
+    ConfigTopHeaderNavBarComponent
   ],
   imports: [
     // CommonModule,
@@ -204,7 +207,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AccordionModule,
     FieldsetModule,
     ToolbarModule,
-    SliderModule
+    SliderModule,
+    SplitButtonModule
   ],
 
   providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService, {provide: LocationStrategy, useClass: HashLocationStrategy},],
