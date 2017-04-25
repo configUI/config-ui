@@ -23,6 +23,10 @@ export class InstrumentationProfilesComponent implements OnInit {
   @Input()
   profileId: number;
 
+
+  @Input()
+  saveDisable: boolean;
+
   @Output()
   keywordData = new EventEmitter();
 

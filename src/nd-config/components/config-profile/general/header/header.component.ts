@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { ConfigUiUtility } from '../../../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
@@ -20,6 +20,9 @@ export class HeaderComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
 
+  @Input()
+  saveDisable:boolean;
+
 
   HeaderForm: boolean = true;
 
@@ -27,8 +30,8 @@ export class HeaderComponent implements OnInit {
 
   enableGroupKeyword: boolean = false;
 
-  /*holding keyword data and sending to its child component 
-  * i.e so that when its values is changed at child 
+  /*holding keyword data and sending to its child component
+  * i.e so that when its values is changed at child
   * it can be acessed from its parent i.e its current component
   */
   header: Object;           //it is send to customData child component
@@ -40,7 +43,7 @@ export class HeaderComponent implements OnInit {
 
   profileId: number;
 
-  /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to 
+  /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
   *  to boolean value
   */
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>,private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute) {
@@ -188,7 +191,7 @@ export class HeaderComponent implements OnInit {
   }
 
 }
-//Contains httpReqFullFp Keyword variables 
+//Contains httpReqFullFp Keyword variables
 class HttpReqFullFp {
   enableHttpReq: boolean = false;
   headerMode: any = 0;
@@ -197,7 +200,7 @@ class HttpReqFullFp {
   briefVal: string = '0';
 }
 
-//Contains httpRespFullFp Keyword variables 
+//Contains httpRespFullFp Keyword variables
 class HttpRespFullFp {
   enableHttpResp: boolean = false;
   headerModeResp: any = 0;

@@ -6,6 +6,8 @@ import { StoreModule } from '@ngrx/store';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+//Added for Preventing 404 error while reloading
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
@@ -205,7 +207,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SliderModule
   ],
 
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService],
+  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService, {provide: LocationStrategy, useClass: HashLocationStrategy},],
   bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }

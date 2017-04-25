@@ -25,12 +25,14 @@ export class SessionAttributeComponent implements OnInit {
   addEditSessionAttrDialog: boolean = false;
   sessionAttrTypeValueDialog: boolean = false;
 
-  selectedSessionAttributeList: any[];
+  selectedSessionAttributeList: SessionAtrributeComponentsData[];
   selectedSessionValueType: any[];
 
   customValueType: SelectItem[];
   /* Assign selected dropdown values to selected method type */
   selectedCustomValueType: string;
+
+  selectedSessionAttribute: string;
 
   sessionAttributeDetail: SessionAtrributeComponentsData;
   customValueTypeDetail: SessionTypeValueData;
@@ -43,7 +45,7 @@ export class SessionAttributeComponent implements OnInit {
     //  let arrValue = ['string', 'integer', 'decimal'];
     this.customValueType = ConfigUiUtility.createDropdown(arrLabel);
     this.customValueTypeInfo = [];
-
+  
   }
 
   ngOnInit() {
@@ -58,35 +60,35 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   doAssignSessionAttributeTableData(data) {
-      this.sessionAttributeComponentInfo = this.filterTRData(data);
+    this.selectedSessionAttribute = data.sessionType;
+    this.sessionAttributeComponentInfo = this.filterTRData(data);
   }
   filterTRData(data): Array<SessionAtrributeComponentsData> {
     var arrTestRunData = [];
-    if(data.attrList != null)
-    {
-    for (var i = 0; i < data.attrList.length; i++) {
-      let valueNames = "";
-      if (data.attrList[i].attrValues == "") {
+    if (data.attrList != null) {
+      for (var i = 0; i < data.attrList.length; i++) {
+        let valueNames = "";
+        if (data.attrList[i].attrValues == "") {
           valueNames = "-";
-      }
-      for (var j = 0; j < data.attrList[i].attrValues.length; j++) {
-        if (data.attrList[i].attrValues.length == 1)
-          valueNames = valueNames + data.attrList[i].attrValues[j].valName;
-        else
-          valueNames = valueNames + "," + data.attrList[i].attrValues[j].valName;
-      }
+        }
+        for (var j = 0; j < data.attrList[i].attrValues.length; j++) {
+          if (data.attrList[i].attrValues.length == 1)
+            valueNames = valueNames + data.attrList[i].attrValues[j].valName;
+          else
+            valueNames = valueNames + "," + data.attrList[i].attrValues[j].valName;
+        }
 
-      if(valueNames.indexOf(",") != -1)
-            valueNames = valueNames.substr(1);
+        if (valueNames.indexOf(",") != -1)
+          valueNames = valueNames.substr(1);
 
-      arrTestRunData.push({
-        attrName: data.attrList[i].attrName, attrType: data.attrList[i].attrType, valName: valueNames, sessAttrId: data.attrList[i].sessAttrId,
-      });
+        arrTestRunData.push({
+          attrName: data.attrList[i].attrName, attrType: data.attrList[i].attrType, valName: valueNames, sessAttrId: data.attrList[i].sessAttrId, attrValues: data.attrList[i].attrValues,
+        });
+      }
+      return arrTestRunData;
     }
-    return arrTestRunData;
-  }
-  else
-  return null;
+    else
+      return null;
   }
 
   /* Open Dialog for Add Session Attribute */
@@ -112,15 +114,72 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveADDEditSessionAttr() {
-    let type: number;
-    this.sessionAttributeDetail.attrValues = [];
-    if (this.sessionAttributeDetail.complete == true && this.sessionAttributeDetail.specific == true)
-      this.sessionAttributeDetail.attrType = "complete,specific";
-    else if (this.sessionAttributeDetail.specific == true)
-      this.sessionAttributeDetail.attrType = "specific";
-    else if (this.sessionAttributeDetail.complete == true)
-      this.sessionAttributeDetail.attrType = "complete";
+    //When add new Session Attribute
+    if (this.isNewSessionAttr) {
+      //Check for app name already exist or not
+      if (!this.checkAppNameAlreadyExist()) {
+        this.saveSessionAttr();
+        return;
+      }
+    }
+    //When add edit Session Attribute
+    else {
+      if (this.sessionAttributeComponentInfo[0].sessAttrId != this.sessionAttributeDetail.sessAttrId) {
+        if (this.checkAppNameAlreadyExist() || this.sessionAttributeComponentInfo[0] == this.sessionAttributeDetail)
+          return;
+      }
+      this.editSessionAttr();
+    }
+  }
 
+  /**This method is used to validate the name of Session Attribute is already exists. */
+  checkAppNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.sessionAttributeComponentInfo.length; i++) {
+      if (this.sessionAttributeComponentInfo[i].attrName == this.sessionAttributeDetail.attrName) {
+        this.configUtilityService.errorMessage("Session Attribute Name already exist");
+        return true;
+      }
+    }
+  }
+
+  editSessionAttr() {
+    this.sessionAtrributeDetailSaveAndEdit();
+    this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
+      .subscribe(data => {
+        let index = this.getSessionAttributeIndex(this.sessionAttributeDetail.sessAttrId);
+        this.selectedSessionAttributeList.length = 0;
+        this.selectedSessionAttributeList.push(data);
+        this.sessionAttributeComponentInfo[index] = data;
+      });
+    this.closeDialog();
+  }
+
+  saveSessionAttr() {
+    this.sessionAtrributeDetailSaveAndEdit();
+    this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
+
+      let arrSessionAttr = this.setDataSessionAttribute(data);
+      this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
+      this.configUtilityService.successMessage(Messages);
+    });
+    this.addEditSessionAttrDialog = false;
+  }
+
+  sessionAtrributeDetailSaveAndEdit() {
+    this.sessionAttributeDetail.attrValues = [];
+    let type: number;
+    if (this.sessionAttributeDetail.complete == true && this.sessionAttributeDetail.specific == true) {
+      this.sessionAttributeDetail.attrType = "complete,specific";
+      this.sessionAttributeDetail.attrMode = 3;
+    }
+    else if (this.sessionAttributeDetail.specific == true) {
+      this.sessionAttributeDetail.attrType = "specific";
+      this.sessionAttributeDetail.attrMode = 1;
+    }
+    else if (this.sessionAttributeDetail.complete == true) {
+      this.sessionAttributeDetail.attrType = "complete";
+      this.sessionAttributeDetail.attrMode = 2;
+    }
     for (let i = 0; i < this.customValueTypeInfo.length; i++) {
 
       if (this.customValueTypeInfo[i].customValTypeName == "Integer")
@@ -132,32 +191,24 @@ export class SessionAttributeComponent implements OnInit {
 
       this.sessionAttributeDetail.attrValues[i] = { type: type, id: i, lb: this.customValueTypeInfo[i].lb, rb: this.customValueTypeInfo[i].rb, customValTypeName: this.customValueTypeInfo[i].customValTypeName, valName: this.customValueTypeInfo[i].valName };
     }
-
-    this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
-
-      let arrSessionAttr = this.setDataSessionAttribute(data);
-      this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
-    this.configUtilityService.successMessage(Messages);
-    });
-    this.addEditSessionAttrDialog = false;
   }
 
   setDataSessionAttribute(data): Array<SessionAtrributeComponentsData> {
     var arrTestRunData = [];
     let valueNames = "";
+    if (data.attrValues == "")
+      valueNames = "-";
+
     for (var i = 0; i < data.attrValues.length; i++) {
-      console.log(" === ", data.attrType)
-      if (data.attrValues == "") {
-        if (data.attrType == "complete")
-          valueNames = "NA";
-        else
-          valueNames = "Add Values";
-      }
       if (data.attrValues.length == 1)
         valueNames = data.attrValues[i].valName;
       else
         valueNames = valueNames + "," + data.attrValues[i].valName;
     }
+
+    if (valueNames.indexOf(",") != -1)
+      valueNames = valueNames.substr(1);
+
     arrTestRunData.push({
       attrName: data.attrName, attrType: data.attrType, valName: valueNames, sessAttrId: data.sessAttrId,
     });
@@ -178,7 +229,22 @@ export class SessionAttributeComponent implements OnInit {
 
     this.addEditSessionAttrDialog = true;
     this.isNewSessionAttr = false;
-    this.sessionAttributeDetail = Object.assign({}, this.selectedSessionAttributeList[0]);
+   
+    if (this.selectedSessionAttributeList[0].attrType == "complete,specific") {
+      this.sessionAttributeDetail.complete = true;
+      this.sessionAttributeDetail.specific = true;
+    }
+    else if (this.selectedSessionAttributeList[0].attrType == "specific")
+      this.sessionAttributeDetail.specific = true;
+    else if (this.selectedSessionAttributeList[0].attrType == "complete")
+      this.sessionAttributeDetail.complete = true;
+
+    this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
+    if (this.selectedSessionAttributeList[0].attrValues.length != 0) {
+      for (let i = 0; i < this.selectedSessionAttributeList[0].attrValues.length; i++) {
+        this.customValueTypeInfo[i] = this.selectedSessionAttributeList[0].attrValues[i];
+      }
+    }
   }
 
   /**This method is used to delete Session Attribute*/
@@ -264,14 +330,19 @@ export class SessionAttributeComponent implements OnInit {
 
   closeDialog() {
 
-   this.addEditSessionAttrDialog = false;
+    this.addEditSessionAttrDialog = false;
 
   }
-  closeValueInfoDialog(): void{
+  closeValueInfoDialog(): void {
 
     this.sessionAttrTypeValueDialog = false;
   }
 
+  /* set Value of All or Specific which Selected */
+  getSelectedAtribute() {
+    let sessionType = { sessionType: this.selectedSessionAttribute };
+    this.configKeywordsService.getSessionAttributeValue(sessionType, this.profileId).subscribe(data => this.selectedSessionAttribute = data["sessionType"]);
+  }
 }
 
 

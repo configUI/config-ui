@@ -18,20 +18,23 @@ export class AdvanceComponent implements OnInit {
 
   profileId: number;
   index: number = 0;
-
+  saveDisable:boolean = false;
   constructor(private configKeywordsService: ConfigKeywordsService,  private configUtilityService: ConfigUtilityService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+       this.saveDisable = this.profileId == 1 ? true : false;
       this.index = params['tabId'];
     });
     this.loadKeywordData();
   }
   /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
   loadKeywordData(){
-    if(!this.configKeywordsService.keywordData)
+    if(!this.configKeywordsService.keywordData){
       this.configKeywordsService.getProfileKeywords(this.profileId);
+      this.configKeywordsService.toggleKeywordData();
+    }
   }
 
   saveKeywordData(keywordData){

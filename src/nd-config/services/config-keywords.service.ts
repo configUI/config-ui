@@ -10,12 +10,12 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
 
-import {  BusinessTransMethodData, BusinessTransPatternData , SessionAtrributeComponentsData,HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection} from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
-import {  httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
+import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 
 
 @Injectable()
@@ -61,6 +61,46 @@ export class ConfigKeywordsService {
         this.keywordData = data;
         this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
+  }
+
+
+    /**
+   * This method is used to enable/disable toggle button.
+   */
+  toggleKeywordData() {
+    let data  = this.keywordData;
+
+    //First time doesn't have keyword data then we return default keyword group data.
+    if(!data)
+      return this.keywordGroup;
+      
+    //moduleName -> general, advance, product_integration
+    for (let moduleName in this.keywordGroup) {
+
+      //keywordGroupList -> { flowpath: { enable: false, keywordList: ["k1", "k2"]}, hotspot: { enable: false, keywordList: ["k1", "k2"] }, ....}
+      let keywordGroupList = this.keywordGroup[moduleName];
+
+      //keywordKey -> flowpath, hotspot...
+      for (let keywordKey in keywordGroupList) {
+
+        //keywordInfo -> { enable: false, keywordList: ["k1", "k2"]}
+        let keywordInfo = keywordGroupList[keywordKey];
+
+        //keywordList -> ["k1", "k2"]
+        let keywordList = keywordInfo.keywordList;
+
+        for (let i = 0; i < keywordList.length; i++) {
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.
+          if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
+            //Enabling groupkeyword
+            keywordInfo.enable = true;
+          }
+        }
+      }
+    }
+    return this.keywordGroup;
+    //Updating groupkeyword values after reading keyword data object.
+    //this.keywordGroup = this.configKeywordsService.keywordGroup;
   }
 
   /**Service Entry Point */
@@ -157,6 +197,14 @@ export class ConfigKeywordsService {
 
   addSessionAttributeData(data, profileId): Observable<SessionAtrributeComponentsData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_SPECIFIC_ATTR}/${profileId}`, data);
+  }
+
+  getSessionAttributeValue(data, profileId): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_SESSION_TYPE}/${profileId}`, data);
+  }
+
+  editSessionAttributeData(data): Observable<SessionAtrributeComponentsData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_SESSION_ATTR}`, data)
   }
 
 
@@ -256,14 +304,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(url, data);
   }
 
-    /* Edit  Business Trans Method Info */
+  /* Edit  Business Trans Method Info */
   editHTTPReqHeaderRulesData(data, ReqId): Observable<RulesHTTPRequestHdrComponentData> {
     let url = `${URL.ADD_RULES_HTTPREQHDR}/${ReqId}`;
     return this._restApi.getDataByPostReq(url, data);
   }
 
-  sendRunTimeChange(URL,data){
-    this._restApi.getDataByPostReq(URL,data).subscribe();
+  sendRunTimeChange(URL, data) {
+    this._restApi.getDataByPostReq(URL, data).subscribe();
   }
 
 }

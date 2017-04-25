@@ -2,11 +2,10 @@
   java-method works!
 </p>-->
 
-
 <!--For showing Method Based Custom Data-->
 <p-dataTable [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Java Method Based Custom Data </span>
+        <span style="float: left"> Java Method Based Custom Data</span>
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add" (click)="openAddDialog()" icon="fa-plus"></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteJavaMethod()" icon="fa-trash"></button>
@@ -14,21 +13,22 @@
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+
     <p-column class="col-overflow" field="fqm" header="Fully Qualified Name" [sortable]="true">
-        <template let-col let-tableData="rowData">
-      <span></span>
+        <template let-col let-tableData="rowData" pTemplate>
+      <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
     </p-column>
 
     <p-column class="col-overflow" field="returnTypeValue" header="Return Type" [sortable]="true">
-        <template let-col let-tableData="rowData">
-      <span></span>
+        <template let-col let-tableData="rowData" pTemplate>
+      <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
     </p-column>
 
     <p-column class="col-overflow" field="argumentTypeValue" header="Argument Type" [sortable]="true">
-        <template let-col let-tableData="rowData">
-      <span></span>
+        <template let-col let-tableData="rowData" pTemplate>
+      <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
     </p-column>
 </p-dataTable>

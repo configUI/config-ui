@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -18,6 +18,9 @@ import { cloneObject } from '../../../../utils/config-utility';
 export class DelayComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
+
+   @Input()
+   saveDisable:boolean;
 
   className: string = "DelayComponent";
   keywordsData: Keywords;
@@ -104,7 +107,7 @@ export class DelayComponent implements OnInit {
      this.delay = cloneObject(this.configKeywordsService.keywordData);
      this.splitDelayKeywordData();
   }
-  
+
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {
     let fqm = this.delayData.fullyQualifiedName.split(";").join("%3B");
@@ -116,7 +119,7 @@ export class DelayComponent implements OnInit {
 
   }
 }
-//Contains putDelayInMethod Keyword variables 
+//Contains putDelayInMethod Keyword variables
 class DelayData {
   fullyQualifiedName: string;
   from: string;

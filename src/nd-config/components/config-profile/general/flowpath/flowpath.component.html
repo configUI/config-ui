@@ -5,7 +5,7 @@
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
 
-                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
 
             </div>
         </div>
@@ -17,11 +17,10 @@
                         <!--<div class = "ui-g-6">-->
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
-                            <label>Full Flow Path Capturing Percentage [0-100%]</label>
+                            <label>Flowpath instrumentation percentage</label>
                         </div>
                         <div class="ui-g-2">
-                            <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
-                                [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                            <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
                             <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
                         </div>
                     </div>
@@ -29,13 +28,12 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
-                            <label>Capture Complete Transaction Flow Forcefully</label>
+                            <label>Force detection of end to end transaction flow</label>
                         </div>
 
 
                         <div class="ui-g-2">
-                            <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value"
-                                [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
+                            <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
                         </div>
                     </div>
 
@@ -43,17 +41,38 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
-                            <label>Capture CPU Times</label>
+                            <label>Show CPU timings</label>
                         </div>
 
                         <div class="ui-g-2">
-                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value"
-                                [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
+                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value" [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
                         </div>
                     </div>
 
-
                     <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <p-checkbox name="enableCaptureHeader" label="HTTP header name for searching & correlating flowpaths" [(ngModel)]="flowPath.correlationIDHeader" binary="true"></p-checkbox>
+                        </div>
+                        <div class="ui-g-2">
+                            <input disabled="{{!flowPath.correlationIDHeader}}" name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="number" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}}
+                                max={{flowPath.correlationIDHeader.max}} required ngModel/>
+                            <span></span>
+                        </div>
+
+                    </div>
+                    <!--<div class="ui-g-12" style="padding-left: 20px">
+                            <div class="ui-g-1"></div>
+                            <div class="ui-g-3" style="margin-left: 16px">
+                                <label>Capture HTTP Header for Correlation ID</label>
+                            </div>
+                            <div class="ui-g-2">
+                                <input disabled="{{!flowPath.correlationIDHeader}}" name="correlationIDHeader" type="number" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}} max={{flowPath.correlationIDHeader.max}} required
+                                    ngModel/>
+                            </div>
+                        </div>-->
+
+                    <!--<div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
                             <label>Capture HTTP Header for Correlation ID</label>
@@ -63,7 +82,7 @@
                             <input name="correlationIDHeader" type="number" size="30" [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}}
                                 max={{flowPath.correlationIDHeader.max}} required ngModel/>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </p-panel>

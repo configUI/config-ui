@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { cloneObject } from '../../../../utils/config-utility';
@@ -10,7 +10,8 @@ import { cloneObject } from '../../../../utils/config-utility';
 })
 export class ThreadStatsComponent implements OnInit {
 
-
+  @Input()
+  saveDisable: boolean;
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();

@@ -1,17 +1,17 @@
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-//const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
 // const SERVICE_URL = 'http://localhost:8090';
 //  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 
 
 //For Production use this SERVICE_URL
-const SERVICE_URL = '/configUI';
+// const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
 
-/* for running configUI with ProductUI
+/* for running configUI with ProductUI*/
 // export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
