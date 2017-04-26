@@ -15,22 +15,34 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
-                            <p-checkbox label="Instrument exceptions and errors" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="false"></p-checkbox>
+                            <p-checkbox label="Enable Exception Capturing" name="instrumentException" [(ngModel)]="exceptionData.instrumentException"
+                                binary="true"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
-                        <div class="ui-g-3" style="margin-left: 16px">
-                            <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture Exception Stack Trace" name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="false">
-                            </p-checkbox>
+                        <div class="ui-g-5" style="margin-left: 16px">
+                            <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture Exception Stack Trace upto " name="exceptionTrace"
+                                [(ngModel)]="exceptionData.exceptionTrace" binary="true">
+                                </p-checkbox>
+                                <input type="number" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} [min]=0
+                                    [max]=999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth"
+                                    required ngModel/> frames
                         </div>
 
                         <div class="ui-g-2">
-                            <input type="number" placeholder="Stack Trace Limit for Frames" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} style="width:173px" [min]=0 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth"
-                                required ngModel/>
+
                         </div>
                     </div>
                     <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-7" style="margin-left: 16px">
+                            <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture Exception logged using logging API (java.util.logging, log4j, Atg logger) " name="exceptionType"
+                                [(ngModel)]="exceptionData.exceptionType" binary="true">
+                                </p-checkbox>
+                        </div>
+                    </div>
+                    <!--<div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2" style="margin-left: 34px">Capture Exceptions</div>
                     </div>
@@ -42,7 +54,7 @@
                         <div class="ui-g-2">
                             <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </p-panel>
