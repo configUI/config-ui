@@ -26,32 +26,29 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'enableForcedFPChain', 'correlationIDHeader'];
 
   flowPath: Object;
+  cpuTime: string = '1';
 
   subscription: Subscription;
   enableGroupKeyword: boolean = false;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
-    this.subscription = this.store.select("keywordData").subscribe(data=>{
-      // this.flowPath = data;
-        var keywordDataVal={}
-        this.keywordList.map(function(key){
-          keywordDataVal[key] = data[key];
-        })
-        this.flowPath = keywordDataVal;
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      // this.flowPath = data
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.flowPath = keywordDataVal;
+      this.cpuTime = this.flowPath['enableCpuTime'].value;
     });
-
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.flowpath.enable;
-   }
+  }
 
   enableForcedFPChainSelectItem: SelectItem[];
   enableCpuTimeSelectItem: SelectItem[];
   keywordsData: Keywords;
 
-
   ngOnInit() {
-    //this.getKeywordData();
-    this.createEnableForcedFPChainSelectItem();
-    this.createEnableCpuTimeSelectItem();
   }
 
   getKeywordData() {
@@ -64,32 +61,13 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     // });
   }
 
-  /* creating dropdown menu list for enableForcedFpchain keyword */
-  createEnableForcedFPChainSelectItem() {
-    this.enableForcedFPChainSelectItem = [];
-    this.enableForcedFPChainSelectItem.push({ value: -1, label: '--Select--' },
-      { value: 0, label: 'Disable' },
-      { value: 1, label: 'Enable' },
-      { value: 2, label: 'Enable all with complete FP' }
-    );
-  }
-
-  /* creating dropdown menu list for enableCpuTime */
-  createEnableCpuTimeSelectItem() {
-    this.enableCpuTimeSelectItem = [];
-    this.enableCpuTimeSelectItem.push({ value: '-1', label: '--Select--' },
-      { value: '0', label: 'Disable' },
-      { value: '1', label: 'Enable at FP/ BT level' },
-      { value: '2', label: 'Enable both method and flowpath level' }
-    );
-  }
-
   saveKeywordData() {
+    this.flowPath['enableCpuTime'].value = this.cpuTime;
     this.keywordData.emit(this.flowPath);
   }
 
-   resetKeywordData(){
-     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
+  resetKeywordData() {
+    this.flowPath = cloneObject(this.configKeywordsService.keywordData);
   }
 
   ngOnDestroy() {
@@ -97,4 +75,3 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
   }
 }
-

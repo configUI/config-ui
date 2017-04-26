@@ -1,6 +1,6 @@
 <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">FlowPath Capturing
+        <div class="header">FlowPath Settings
 
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
@@ -20,42 +20,59 @@
                             <label>Flowpath instrumentation percentage</label>
                         </div>
                         <div class="ui-g-2">
-                            <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                            <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
+                                [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
                             <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
                         </div>
                     </div>
 
-                    <div class="ui-g-12">
+                    <!--<div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
                             <label>Force detection of end to end transaction flow</label>
                         </div>
 
 
-                        <div class="ui-g-2">
-                            <p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>
+                        <div class="ui-g-1">
+                            <p-radioButton name="enableForcedFPChain" value="0" label="Disable" [(ngModel)]="fpChain"></p-radioButton>
                         </div>
-                    </div>
-
-
+                        <div class="ui-g-2">
+                            <p-radioButton name="enableForcedFPChain" value="1" label="Enable" [(ngModel)]="fpChain"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3">
+                            <p-radioButton name="enableForcedFPChain" value="2" label="Enable all with complete FP" [(ngModel)]="fpChain"></p-radioButton>
+                        </div>
+                    </div>-->
                     <div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
-                            <label>Show CPU timings</label>
+                            <label>CPU timing Capturing</label>
                         </div>
-
+                        <div class="ui-g-1">
+                            <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
                         <div class="ui-g-2">
-                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value" [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
+                            <p-radioButton name="enableCpuTime" value="1" label="Enable at FP/ BT level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
+                        <div class="ui-g-4">
+                            <p-radioButton name="enableCpuTime" value="2" label="Enable both method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+ <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>-->
+                        <!--<div class="ui-g-2">
+                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value"
+                                [options]="enableCpuTimeSelectItem" appendTo="body" required ngModel></p-dropdown>
+                        </div>-->
                     </div>
 
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
-                            <p-checkbox name="enableCaptureHeader" label="HTTP header name for searching & correlating flowpaths" [(ngModel)]="flowPath.correlationIDHeader" binary="true"></p-checkbox>
+                            <p-checkbox name="enableCaptureHeader" label="Enable Correlation ID using HTTP Header" [(ngModel)]="flowPath.correlationIDHeader"
+                                binary="true"></p-checkbox>
                         </div>
                         <div class="ui-g-2">
-                            <input disabled="{{!flowPath.correlationIDHeader}}" name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="number" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}}
+                            <input disabled="{{!flowPath.correlationIDHeader}}" name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header"
+                                type="text" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}}
                                 max={{flowPath.correlationIDHeader.max}} required ngModel/>
                             <span></span>
                         </div>

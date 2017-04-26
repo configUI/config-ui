@@ -64,6 +64,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternInfo: BusinessTransPatternData[];
   businessTransPatternDetail: BusinessTransPatternData;
 
+  chkInclude: boolean = false;
+
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     this.segmentList = [];
@@ -148,13 +150,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.globalBtDetail.httpMethod = true;
     else
       this.globalBtDetail.httpMethod = false;
+
+    this.globalBtDetail.verySlowTransaction = "" + this.globalBtDetail.verySlowTransaction;
+    this.globalBtDetail.slowTransaction = "" + this.globalBtDetail.slowTransaction;
+
     this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
   }
 
   /**This method is used to add Pattern detail */
   savePattern(): void {
-    if (this.businessTransPatternDetail.include == "true")
+    if (this.chkInclude == true)
       this.businessTransPatternDetail.include = "include"
     else
       this.businessTransPatternDetail.include = "exclude"
@@ -163,7 +169,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.businessTransPatternInfo.push(data);
-    this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
     this.configUtilityService.successMessage("Saved Successfully !!!");
@@ -192,13 +198,26 @@ export class HTTPBTConfigurationComponent implements OnInit {
       return;
     }
 
+    if (this.selectedPatternData[0].include == "include")
+      this.chkInclude = true;
+    else
+      this.chkInclude = false;
+
+
     this.isNewApp = false;
     this.addEditPatternDialog = true;
     this.businessTransPatternDetail = Object.assign({}, this.selectedPatternData[0]);
   }
 
   /**This method is used to edit Pattern detail */
-  editApp(): void {
+  editPattern(): void {
+    if (this.chkInclude == true)
+      this.businessTransPatternDetail.include = "include";
+    else
+      this.businessTransPatternDetail.include = "exclude";
+    this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
+    this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+   
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -221,13 +240,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     //When add edit Pattern
     else {
-      if (this.businessTransPatternInfo[0].id != this.businessTransPatternDetail.id) {
+      if (this.selectedPatternData[0].btName != this.businessTransPatternDetail.btName) {
         if (this.checkAppNameAlreadyExist())
           return;
       }
-      this.editApp();
+      this.editPattern();
     }
-
   }
 
   /**This method is used to validate the name of Pattern is already exists. */
@@ -296,21 +314,21 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.addEditPatternDialog = false;
   }
 
-  checkSlow(slow, vslow){
-    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+  checkSlow(slow, vslow) {
+    if (this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction) {
       slow.setCustomValidity('Slow value should be less than very slow value.');
     }
-    else{
+    else {
       slow.setCustomValidity('');
     }
     vslow.setCustomValidity('');
   }
 
-  checkVSlow(slow, vslow){
-    if(this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction){
+  checkVSlow(slow, vslow) {
+    if (this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction) {
       vslow.setCustomValidity('Very slow value should be greater than slow value.');
     }
-    else{
+    else {
       vslow.setCustomValidity('');
     }
     slow.setCustomValidity('');
