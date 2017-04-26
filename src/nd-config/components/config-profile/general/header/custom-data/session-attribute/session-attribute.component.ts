@@ -45,7 +45,7 @@ export class SessionAttributeComponent implements OnInit {
     //  let arrValue = ['string', 'integer', 'decimal'];
     this.customValueType = ConfigUiUtility.createDropdown(arrLabel);
     this.customValueTypeInfo = [];
-  
+
   }
 
   ngOnInit() {
@@ -114,14 +114,20 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveADDEditSessionAttr() {
+
+     if((this.sessionAttributeDetail.complete==false && this.sessionAttributeDetail.specific==false) || (!this.sessionAttributeDetail.complete && !this.sessionAttributeDetail.specific))
+      {
+        this.configUtilityService.errorMessage("Please select any of the checkbox");
+      }
     //When add new Session Attribute
-    if (this.isNewSessionAttr) {
+   else if (this.isNewSessionAttr) {
       //Check for app name already exist or not
       if (!this.checkAppNameAlreadyExist()) {
         this.saveSessionAttr();
         return;
       }
     }
+
     //When add edit Session Attribute
     else {
       if (this.sessionAttributeComponentInfo[0].sessAttrId != this.sessionAttributeDetail.sessAttrId) {
@@ -130,6 +136,7 @@ export class SessionAttributeComponent implements OnInit {
       }
       this.editSessionAttr();
     }
+
   }
 
   /**This method is used to validate the name of Session Attribute is already exists. */
@@ -229,7 +236,7 @@ export class SessionAttributeComponent implements OnInit {
 
     this.addEditSessionAttrDialog = true;
     this.isNewSessionAttr = false;
-   
+
     if (this.selectedSessionAttributeList[0].attrType == "complete,specific") {
       this.sessionAttributeDetail.complete = true;
       this.sessionAttributeDetail.specific = true;
@@ -343,6 +350,8 @@ export class SessionAttributeComponent implements OnInit {
     let sessionType = { sessionType: this.selectedSessionAttribute };
     this.configKeywordsService.getSessionAttributeValue(sessionType, this.profileId).subscribe(data => this.selectedSessionAttribute = data["sessionType"]);
   }
+
+
 }
 
 
