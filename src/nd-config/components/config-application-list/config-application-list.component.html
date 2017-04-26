@@ -62,21 +62,21 @@
                     <input name="appDesc" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" required ngModel />
                 </div>
             </div>
-            <div class="ui-g">
+            <!--<div class="ui-g">
                 <div class="ui-g-4">
                     <label>User Name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="userName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    <input name="userName" type="text" size="30" pInputText [disabled]="true" [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                         required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
-            </div>
+            </div>-->
             <div class="ui-g">
                 <div class="ui-g-4">
                     <label>Topology</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                    <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
                     <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
                 </div>
             </div>

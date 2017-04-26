@@ -43,6 +43,8 @@ export class ConfigApplicationListComponent implements OnInit {
   /**SelectItem for topology */
   topologySelectItem: SelectItem[];
 
+  userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
+
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
@@ -151,6 +153,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**This method is used to add application detail */
   saveApp(): void {
+    this.applicationDetail.userName = this.userName;
     this.configApplicationService.addApplicationData(this.applicationDetail)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB

@@ -311,6 +311,7 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
     opacity: 0 !important;
 }
 
+
 /* 
 hide it behind the dropdown component, the required 
   HTML5 pop up still shows which is good and the form
@@ -380,7 +381,8 @@ input[type="number"] {
 .flowpathheader-accordion .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-    color: #000 !important;
+    /*Comment because of it effects on Scenario Module*/
+    /*color: #000 !important;*/
 }
 
 .flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
