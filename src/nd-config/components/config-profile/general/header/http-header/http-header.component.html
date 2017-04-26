@@ -1,18 +1,18 @@
 
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-checkbox name="captureHttpRequestHeader" label="Capture HTTP Request Header" [(ngModel)]="data[0].enableHttpReq" binary="true"></p-checkbox>
+        <p-checkbox name="captureHttpRequestHeader" label="Capture HTTP Request Headers" [(ngModel)]="data[0].enableHttpReq" binary="true"></p-checkbox>
     </div>
 </div>
 
 <div class="ui-g httpHeaderCss" *ngIf="data[0].enableHttpReq">
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+            <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" appendTo="body" required ngModel placeholder="Select Header"></p-dropdown>
         </div>
-        <div class="ui-g-10" *ngIf="(data[0].headerMode == 'Specified Headers')">
+        <div class="ui-g-10" *ngIf="(data[0].headerMode == 'Specified')">
             <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}"  [(ngModel)]="data[0].headersName"></p-multiSelect>
-            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
+            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
@@ -29,18 +29,18 @@
 
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-checkbox name="captureHTTPRespFullFp" label="Capture HTTP Response Header" [(ngModel)]="data[1].enableHttpResp" binary="true"></p-checkbox>
+        <p-checkbox name="captureHTTPRespFullFp" label="Capture HTTP Response Headers" [(ngModel)]="data[1].enableHttpResp" binary="true"></p-checkbox>
     </div>
 </div>
 
 <div class="ui-g httpHeaderCss" *ngIf="data[1].enableHttpResp">
     <div class="ui-g-12">
         <div class="ui-g-2">
-            <p-dropdown name="headerMode" [style]="{'width':'80%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" appendTo="body" required ngModel placeholder="Header Type"></p-dropdown>
+            <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" appendTo="body" required ngModel placeholder="Select Header"></p-dropdown>
         </div>
-        <div class="ui-g-10" *ngIf="(data[1].headerModeResp == 'Specified Headers')">
+        <div class="ui-g-10" *ngIf="(data[1].headerModeResp == 'Specified')">
             <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}"  [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
-            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified Headers')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
+            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
