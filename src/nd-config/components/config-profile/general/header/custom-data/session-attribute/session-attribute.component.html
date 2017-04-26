@@ -47,7 +47,8 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="attrName" type="text" size="40" pInputText [(ngModel)]="sessionAttributeDetail.attrName" placeholder="Name" required ngModel/>
+                    <input name="attrName" type="text" size="40" pInputText [(ngModel)]="sessionAttributeDetail.attrName" placeholder="Name" title="Please enter valid name.   &#013;Please enter alphabets and numeric values only." required pattern="^[0-9a-zA-Z][a-zA-Z0-9]{0,31}$"
+                        ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">

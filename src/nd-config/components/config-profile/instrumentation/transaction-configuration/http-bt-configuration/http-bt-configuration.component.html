@@ -161,7 +161,7 @@
                     <input name="btName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.btName" placeholder="Bussiness Transaction Name" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-4">
-                    <p-checkbox name="include" label="Include" [(ngModel)]="businessTransPatternDetail.include" binary="false"></p-checkbox>
+                    <p-checkbox name="include" label="Include" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
                 </div>
             </div>
 
@@ -174,7 +174,7 @@
                 </div>
                 <div class="ui-g-4">
                     <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
-                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Match Mode" [(ngModel)]="businessTransPatternDetail.matchType" appendTo="body" required ngModel></p-dropdown>
+                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select Mode" [(ngModel)]="businessTransPatternDetail.matchType" appendTo="body" required ngModel></p-dropdown>
                 </div>
             </div>
 
