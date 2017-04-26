@@ -15,7 +15,7 @@
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot Capturing</a></md-slide-toggle>
                             </div>
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Thread CPU Monitor</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread CPU Monitor</a></md-slide-toggle>
                             </div>
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Capture Exception</a></md-slide-toggle>

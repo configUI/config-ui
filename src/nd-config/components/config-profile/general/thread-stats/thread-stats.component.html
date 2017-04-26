@@ -13,24 +13,22 @@
                 <div class="ui-g">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="enableJVMMonitor" label="Monitor CPU utilisation of active threads in VM" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
+                        <p-checkbox name="enableJVMMonitor" label="Enable JVM Thread CPU Monitor" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
                     </div>
 
                     <div class="ui-g-12" style="padding-left: 20px">
                         <div class="ui-g-1"></div>
-                        <div class="ui-g-2" style="margin-left: 16px">
-                            <label>Minimum CPU % filter</label>
-                        </div>
-                        <div class="ui-g-2">
-                            <input disabled="{{!jvmThreadStats.jvm}}" [min]=0 [max]=100 name="cpuFilter" type="number" size="20" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/>
+                        <div class="ui-g-6" style="margin-left: 16px">
+                            <label>Do not report thread with CPU Utilization < = </label>
+                            <input disabled="{{!jvmThreadStats.jvm}}" style="width: 10%" [min]=0 [max]=100 name="cpuFilter" type="text" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/> value
                         </div>
                     </div>
-                    <div class="ui-g-12">
+                    <!--<div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2" style="margin-left: 16px">
                             <p-checkbox disabled="{{!jvmThreadStats.jvm}}" name="doNotDelVector" label="Do not delete Vector" [(ngModel)]="jvmThreadStats.deleteVector" binary="true"></p-checkbox>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </p-panel>
