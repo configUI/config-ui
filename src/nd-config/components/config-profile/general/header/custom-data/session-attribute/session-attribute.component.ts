@@ -110,7 +110,7 @@ export class SessionAttributeComponent implements OnInit {
   saveTypesValues() {
     this.customValueTypeInfo.push(this.customValueTypeDetail);
     // this.configUtilityService.successMessage(Messages);
-    this.sessionAttrTypeValueDialog = false;
+    this.closeValueInfoDialog();
   }
 
   saveADDEditSessionAttr() {
@@ -124,8 +124,8 @@ export class SessionAttributeComponent implements OnInit {
     }
     //When add edit Session Attribute
     else {
-      if (this.sessionAttributeComponentInfo[0].sessAttrId != this.sessionAttributeDetail.sessAttrId) {
-        if (this.checkAppNameAlreadyExist() || this.sessionAttributeComponentInfo[0] == this.sessionAttributeDetail)
+      if (this.selectedSessionAttributeList[0].attrName != this.sessionAttributeDetail.attrName) {
+        if (this.checkAppNameAlreadyExist())
           return;
       }
       this.editSessionAttr();
@@ -144,12 +144,16 @@ export class SessionAttributeComponent implements OnInit {
 
   editSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
+     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
+   
     this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
       .subscribe(data => {
         let index = this.getSessionAttributeIndex(this.sessionAttributeDetail.sessAttrId);
         this.selectedSessionAttributeList.length = 0;
         this.selectedSessionAttributeList.push(data);
-        this.sessionAttributeComponentInfo[index] = data;
+        console.log("data - - " , data)
+        
+        this.sessionAttributeComponentInfo[index] = this.setDataSessionAttribute(data)[0];
       });
     this.closeDialog();
   }
@@ -162,7 +166,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
       this.configUtilityService.successMessage(Messages);
     });
-    this.addEditSessionAttrDialog = false;
+    this.closeDialog();
   }
 
   sessionAtrributeDetailSaveAndEdit() {
@@ -180,6 +184,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.attrType = "complete";
       this.sessionAttributeDetail.attrMode = 2;
     }
+      
     for (let i = 0; i < this.customValueTypeInfo.length; i++) {
 
       if (this.customValueTypeInfo[i].customValTypeName == "Integer")
@@ -238,13 +243,13 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.specific = true;
     else if (this.selectedSessionAttributeList[0].attrType == "complete")
       this.sessionAttributeDetail.complete = true;
-
+  
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
-    if (this.selectedSessionAttributeList[0].attrValues.length != 0) {
-      for (let i = 0; i < this.selectedSessionAttributeList[0].attrValues.length; i++) {
-        this.customValueTypeInfo[i] = this.selectedSessionAttributeList[0].attrValues[i];
-      }
-    }
+    // if (this.selectedSessionAttributeList[0].attrValues.length != 0) {
+    //   for (let i = 0; i < this.selectedSessionAttributeList[0].attrValues.length; i++) {
+    //     this.customValueTypeInfo[i] = this.selectedSessionAttributeList[0].attrValues[i];
+    //   }
+    // }
   }
 
   /**This method is used to delete Session Attribute*/
@@ -329,9 +334,8 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   closeDialog() {
-
+     this.selectedSessionAttributeList = [];
     this.addEditSessionAttrDialog = false;
-
   }
   closeValueInfoDialog(): void {
 

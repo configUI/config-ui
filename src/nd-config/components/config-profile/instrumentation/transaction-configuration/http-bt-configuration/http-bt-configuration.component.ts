@@ -240,13 +240,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     //When add edit Pattern
     else {
-      if (this.businessTransPatternInfo[0].id != this.businessTransPatternDetail.id) {
+      if (this.selectedPatternData[0].btName != this.businessTransPatternDetail.btName) {
         if (this.checkAppNameAlreadyExist())
           return;
       }
       this.editPattern();
     }
-
   }
 
   /**This method is used to validate the name of Pattern is already exists. */
