@@ -94,9 +94,7 @@ body {
     font-family: 'Open Sans', sans-serif !important;
     font-size: 12px;
     margin: 0;
-    height: 100%;
     padding: 0;
-    overflow: hidden;
     background: url('assets/img/ocean.jpg') center #000000;
 }
 
@@ -310,6 +308,7 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 .hideheader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
     opacity: 0 !important;
 }
+
 
 /* 
 hide it behind the dropdown component, the required 
