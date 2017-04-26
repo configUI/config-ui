@@ -14,17 +14,17 @@
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot Capturing</a></md-slide-toggle>
                             </div>
-                            <div>
+                            <!--<div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread CPU Monitor</a></md-slide-toggle>
+                            </div>-->
+                            <div>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Capture Exception</a></md-slide-toggle>
                             </div>
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Capture Exception</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flow Path Header Capturing</a></md-slide-toggle>
                             </div>
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Flow Path Header Capturing</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 5]" class="contents">Choose Instrumentation Profiles</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
                             </div>
                         </div>
                         <div class="ui-g-4">

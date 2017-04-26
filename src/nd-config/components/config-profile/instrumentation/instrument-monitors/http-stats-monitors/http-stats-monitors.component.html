@@ -25,7 +25,7 @@
     </p-column>
     <p-column class="tableCss" field="fpDumpMode" header="FP Dump Mode" [sortable]="true">
         <template let-col let-HttpStatsMonitor="rowData" pTemplate>
-            <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
+            <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field] | fpDumpVal }}</span>
         </template>
     </p-column>
 

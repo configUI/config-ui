@@ -89,8 +89,6 @@ export class ExceptionComponent implements OnInit {
 
   saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
-    // if(this.exceptionData.exceptionTrace == false)
-    //   this.exceptionData.exceptionTraceDepth = 999;
     for (let key in this.exception) {
       if (key == 'instrExceptions')
         this.exception[key]["value"] = instrValue;
