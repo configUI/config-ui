@@ -21,8 +21,7 @@ export class InstrumentMonitorsComponent implements OnInit {
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private route: ActivatedRoute) { }
 
  saveKeywordData(keywordData) {
-   console.log("keyyydasta",keywordData);
-    for (let key in keywordData) {
+   for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
     this.configUtilityService.successMessage(Messages);

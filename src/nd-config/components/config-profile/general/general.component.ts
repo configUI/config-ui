@@ -81,7 +81,6 @@ export class GeneralComponent implements OnInit {
     for (let key in data) {
       keyWordDataList.push(key + "=" + data[key].value);
     }
-
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
