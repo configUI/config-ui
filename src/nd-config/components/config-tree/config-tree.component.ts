@@ -51,17 +51,17 @@ export class ConfigTreeComponent implements OnInit {
 
   loadNode(event) {
     if (event.node.data == "Topology") {
-      let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id }
+      let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
     }
     else if (event.node.data == "Tier") {
       this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
-      let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id }
+      let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
     }
     else if (event.node.data == "Server") {
       this.configTopologyService.getServerTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
-      let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id }
+      let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
     }
   }
@@ -71,6 +71,7 @@ export class ConfigTreeComponent implements OnInit {
     for (let i in data) {
       let node: TreeNode = data[i];
       this.addNodeInImage(node);
+      node.styleClass = "node-class";
 
       for (let j = 0; j < node.children.length; j++) {
         let childNode: TreeNode = node.children[j];
@@ -102,10 +103,10 @@ export class ConfigTreeComponent implements OnInit {
     }
 
     let NODE_IMAGE = {
-      TOPOLOGY: 'tree-icon ndegui-topology-1',
-      TIER: 'tree-icon ndegui-tier',
-      SERVER: 'tree-icon ndegui-server',
-      INSTANCE: 'tree-icon ndegui-instance'
+      TOPOLOGY: 'ndegui-topology-1',
+      TIER: 'ndegui-tier',
+      SERVER: 'ndegui-server',
+      INSTANCE: 'ndegui-instance'
     }
 
     if (node.data == NODE_NAME.TOPOLOGY) {

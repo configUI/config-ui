@@ -322,10 +322,11 @@ hide it behind the dropdown component, the required
     z-index: -1;
 }
 
-.ui-radiobutton .ui-radiobutton-box {
+
+/*.ui-radiobutton .ui-radiobutton-box {
     width: 12px !important;
     height: 12px !important
-}
+}*/
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
     background-color: #FFEB3B;
@@ -388,8 +389,8 @@ input[type="number"] {
 }
 
 .config-tree {
-    min-height: 300px;
-    max-height: 450px;
+    min-height: 480px;
+    max-height: 480px;
     width: 100%;
     background: rgba(255, 255, 255, 0.65);
     overflow-y: auto;

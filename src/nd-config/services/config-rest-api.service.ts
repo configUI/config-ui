@@ -46,7 +46,7 @@ export class ConfigRestApiService {
       .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
   }
 
-  getDataByPutReq(url: string, body: Object): Observable<any> {
+  getDataByPutReq(url: string, body?: Object): Observable<any> {
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });// Create a request option
     
