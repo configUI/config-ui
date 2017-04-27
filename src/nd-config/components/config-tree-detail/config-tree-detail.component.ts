@@ -116,18 +116,21 @@ export class ConfigTreeDetailComponent implements OnInit {
     let colField;
     let colHeader = ["Name", "Description", "Profile Applied"];
     if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
-      colField = ["topoName", "topoDesc", "profileName"];
+      colHeader = ["Name",  "Profile Applied"];
+      colField = ["topoName", "profileName"];
     }
 
     else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
+      colHeader = ["Name", "Description", "Profile Applied"];
       colField = ["tierName", "tierDesc", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
-      colField = ["serverDisplayName", "serverDesc", "profileName"];
+       colHeader = ["Display Name", " Name", "Profile Applied"];
+       colField = ["serverDisplayName", "serverName", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
-      colField = ["instanceDisplayName", "instanceDesc", "profileName", "enabled"];
-      colHeader.push("Enabled");
+      colHeader = ["Display Name", " Name","Description", "Profile Applied","Enabled"];
+      colField = ["instanceDisplayName", "instanceName", "instanceDesc","profileName", "enabled"];
     }
 
     for (let i = 0; i < colField.length; i++) {

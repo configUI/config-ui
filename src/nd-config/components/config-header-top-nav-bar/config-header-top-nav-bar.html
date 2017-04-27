@@ -1,7 +1,7 @@
 <md-toolbar color="primary" class="cav-toolbar">
     <img class="image" src="assets/img/cavi_logo_white.png" style="cursor:pointer">
 
-    <nav md-tab-nav-bar class="product-nav-bar">
+    <!--<nav md-tab-nav-bar class="product-nav-bar">
         <a md-tab-link *ngFor="let link of mainNavLinks" [routerLink]="link.routeURL" [active]="link.isActive" class="product-nav-link" (click)="onNavTabChange(link);">
             <md-icon class="top-panel-nav-icon" fontSet="fa" [fontIcon]="link.routeIcon" [title]="link.label"></md-icon>
         </a>
@@ -11,16 +11,16 @@
     <div class="login-settings">
         <span>
        {{date}}{{timeZone}}
-     </span>
-        <!--<span>
+     </span>-->
+    <!--<span>
         <p-splitButton class="navBarAccClass" [label]="username" icon="fa-user" [model]="items"></p-splitButton>
      </span>-->
-        <!--<span>
+    <!--<span>
           <span (click)='fillScreenMode()'>
           <button type="text" *ngIf="visible" pButton icon="fa fa-expand" onclick="requestFullScreen(document.documentElement);"></button>
           <button type="text" *ngIf="!visible" pButton icon="fa fa-window-minimize" onclick="closeFullScreen(document)"></button>
         </span>
-        </span>-->
-    </div>
+        </span>
+    </div>-->
 
 </md-toolbar>

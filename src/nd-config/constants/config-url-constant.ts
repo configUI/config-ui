@@ -179,6 +179,7 @@ export const DEL_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapt
 export const UPDATE_METHODBASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/updatemethodbasedcapture`;
 export const DEL_CUSTOM_METHOD_RETURN_VALUE = `${SERVICE_URL}/custom/methodbasedcapturing/deletereturnvalue`;
 export const DEL_CUSTOM_METHOD_ARG_VALUE = `${SERVICE_URL}/custom/methodbasedcapturing/deleteargvalue`;
+export const EDIT_METHODBASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/editmethodbasedcapture`;
 
 
 export const UPDATE_CUSTOM_CAPTURE_DATA_FILE = `${SERVICE_URL}/custom/methodbasedcapturing/updatecustomcapturefile`;
