@@ -20,7 +20,7 @@
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center', 'width':'10%'}">
         <template let-col let-service="rowData" pTemplate>
 
-            <md-slide-toggle (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
+            <md-slide-toggle (click)="enableToggle(service)" class="toggle-space" [(ngModel)]="service[col.field]"></md-slide-toggle>
 
     </template>
     </p-column>
