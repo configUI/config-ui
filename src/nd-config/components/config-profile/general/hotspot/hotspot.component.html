@@ -16,71 +16,42 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-10">
-                            <p-fieldset legend="General Settings" [toggleable]="true">
-                                <div class="ui-g-4">
-                                    <label>Sampling interval for collecting thread information</label>
-                                </div>
-                                <div class="ui-g-2">
-                                    <input name="sampleInterval" type="number" size="20" title="Set this to 0 if you don't need this feature" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required ngModel
-                                    />
-                                </div>
-                                <div class="ui-g-1"></div>
-                                <div class="ui-g-3">
-                                    <label>Compare top frames</label>
-                                </div>
-                                <div class="ui-g-2">
-                                    <input name="comparingDepth" type="number" size="20" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
-                                </div>
-                            </p-fieldset>
-                        </div>
-
-                    </div>
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-10">
-                            <p-fieldset legend="Advanced Settings" [toggleable]="true">
+                            <p-fieldset legend="Hotspot Detection Settings" [toggleable]="true">
                                 <div class="ui-g-12">
-                                    <div class="ui-g-1"></div>
-
-                                    <div class="ui-g-3">
-                                        <label>Report hotspot threads at each interval(ms)</label>
+                                    <div class="ui-g-4">
+                                        <label>Sampling interval for collecting thread information</label>
                                     </div>
                                     <div class="ui-g-2">
-                                        <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}} max={{hotspot.ASReportInterval.max}} required ngModel />
+                                        <input name="sampleInterval" type="number" style="width: 68px" title="Set this to 0 if you don't need this feature" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}} required
+                                            ngModel /> (ms)
                                     </div>
-                                    <div class="ui-g-1"></div>
-                                  <div class="ui-g-3">
-                                        <label>Declare a thread as hotspot after this match count</label>
+                                    <div class="ui-g-4">
+                                        <label>Match count for hotspot detection</label>
                                     </div>
-
                                     <div class="ui-g-2">
-                                        <input name="matchCount" type="number" size="20" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
+                                        <input name="matchCount" type="number" style="width: 68px" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
                                     </div>
                                 </div>
 
                                 <div class="ui-g-12">
-                                    <div class="ui-g-1"></div>
-                                    <div class="ui-g-3">
-                                        <label>Set hotspot trace logging level to</label>
+                                    <!--<div class="ui-g-4">
+                                        <label>Compare top frames</label>
                                     </div>
                                     <div class="ui-g-2">
-                                        <input name="traceLevel" type="number" size="20" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}} max={{hotspot.ASTraceLevel.max}} required ngModel />
-                                    </div>
-                                 </div>
+                                        <input name="comparingDepth" type="number" style="width: 50%" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
+                                    </div>-->
 
-                                <div class="ui-g-12">
-                                    <div class="ui-g-1"></div>
-                                    <div class="ui-g-5">
+                                    <div class="ui-g-6">
                                         <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value" binary="true" ngModel label=" Enable Method Hotspot Sensor"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
-                                <div class="ui-g-1"></div>
-                                    <div class="ui-g-3" style="margin-left:20px">
+                                    <div class="ui-g-4" style="margin-left:20px">
                                         <label>Max Stack Depth in Sample for Method Hotspot</label>
                                     </div>
-                                    <div class="ui-g-2">
-                                        <input name="maxStackSizeDiff" disabled ="{{!hotspot.ASMethodHotspots.value}}"  type="number" size="20" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}} required ngModel/>
+                                    <div class="ui-g-1">
+                                        <input name="maxStackSizeDiff" disabled="{{!hotspot.ASMethodHotspots.value}}" type="number" style="width: 68px" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}} required
+                                            ngModel/>
                                     </div>
                                 </div>
                             </p-fieldset>
@@ -92,27 +63,65 @@
                         <div class="ui-g-10">
                             <p-fieldset legend="Filter Settings" [toggleable]="true" [collapsed]="true">
                                 <div class="ui-g-12">
+                                    <div class="ui-g-1"></div>
+                                    <div class="ui-g-3" style="margin-left:95px">
+                                        <div style="padding-left:25px"> <label>Compare top frames</label></div>
+                                    </div>
+                                    <div class="ui-g-2">
+                                        <input name="comparingDepth" type="number" style="width: 68px" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel />
+                                    </div>
+                                </div>
+                                <div class="ui-g-12">
 
                                     <div class="ui-g-1"></div>
-                                    <div class="ui-g-5">
+                                    <div class="ui-g-4">
                                         <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" binary="true" ngModel label="Thread names to be included in hotspot"></p-checkbox>
                                     </div>
-                                    <div class="ui-g-5">
+                                    <div class="ui-g-5" style="margin-left:20px">
                                         <p-chips [(ngModel)]="includedException" name="includedeException" [(ngModel)]="hotspot.ASPositiveThreadFilters.value" [disabled]="!includedExceptionChk" ngModel required></p-chips>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
-                                    <div class="ui-g-5">
+                                    <div class="ui-g-4">
                                         <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" binary="true" ngModel label="Thread names to be excluded in hotspot"></p-checkbox>
                                     </div>
-                                    <div class="ui-g-5">
+                                    <div class="ui-g-5" style="margin-left:20px">
                                         <p-chips [(ngModel)]="excludedException" name="excludedExcepion" [(ngModel)]="hotspot.ASNegativeThreadFilter.value" [disabled]="!excludedExceptionChk" ngModel required></p-chips>
                                     </div>
                                 </div>
                             </p-fieldset>
                         </div>
                     </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-10">
+                            <p-fieldset legend="Advanced Settings" [toggleable]="true" [collapsed]="true">
+                                <!--<div class="ui-g-12">
+                                    <div class="ui-g-1"></div>
+
+                                    <div class="ui-g-3">
+                                        <label>Report hotspot threads at each interval(ms)</label>
+                                    </div>
+                                    <div class="ui-g-2">
+                                        <input name="reportingInterval" type="number" size="20" pInputText [(ngModel)]="hotspot.ASReportInterval.value" min={{hotspot.ASReportInterval.min}} max={{hotspot.ASReportInterval.max}} required ngModel />
+                                    </div>
+
+                                </div>-->
+                                <div class="ui-g-12">
+                                    <div class="ui-g-1"></div>
+                                    <div class="ui-g-3">
+                                        <label>Set hotspot trace logging level to</label>
+                                    </div>
+                                    <div class="ui-g-2">
+                                        <input name="traceLevel" type="number" style="width: 68px" pInputText [(ngModel)]="hotspot.ASTraceLevel.value" min={{hotspot.ASTraceLevel.min}} max={{hotspot.ASTraceLevel.max}} required ngModel />
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </p-panel>

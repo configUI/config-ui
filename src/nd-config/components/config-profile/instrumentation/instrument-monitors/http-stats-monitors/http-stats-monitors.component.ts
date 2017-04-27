@@ -6,7 +6,7 @@ import { HttpStatsMonitorData } from '../../../../../containers/instrumentation-
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
-
+import { Pipe, PipeTransform } from '@angular/core';
 import { Messages } from '../../../../../constants/config-constant'
 
 @Component({
@@ -82,8 +82,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Flow dump Mode values
   loadFlowDumpData() {
     this.flowDumpData = [];
-    var flowDumpLabel = ['--Select--', 'Disable', 'Enable', ' Enable Forcefully'];
-    var flowDumpVal = ['-1', '0', '1', '2'];
+    var flowDumpLabel = ['--Select--', 'Disable', 'Enable', 'Enable Forcefully'];
+    var flowDumpVal = ['-1', '0', '1', '2' ];
     this.flowDumpData = ConfigUiUtility.createListWithKeyValue(flowDumpLabel, flowDumpVal);
   }
   //This method loads Header Type values
@@ -180,19 +180,18 @@ export class HttpStatsMonitorsComponent implements OnInit {
     // this.httpStatsMonitorDetail = new HttpStatsMonitorData();
     this.addEditHttpStatsMonitorDialog = true;
     this.httpStatsMonitorDetail = Object.assign({}, this.selectedHttpStatsMonitorData[0]);
-    if(this.httpStatsMonitorDetail.htId==1)
-    this.selectedRequestHeader = this.httpStatsMonitorDetail.hmdId;
+    if (this.httpStatsMonitorDetail.htId == 1)
+      this.selectedRequestHeader = this.httpStatsMonitorDetail.hmdId;
     else
-    this.selectedResponseHeader = this.httpStatsMonitorDetail.hmdId;
+      this.selectedResponseHeader = this.httpStatsMonitorDetail.hmdId;
     this.selectedValueType = this.httpStatsMonitorDetail.valId;
-    if(this.selectedValueType == 1)
-    this.selectedStringOp = this.httpStatsMonitorDetail.optId;
-    else if(this.selectedValueType == 2)
+    if (this.selectedValueType == 1)
+      this.selectedStringOp = this.httpStatsMonitorDetail.optId;
+    else if (this.selectedValueType == 2)
       this.selectedNumericOp = this.httpStatsMonitorDetail.optId;
-    else 
+    else
       this.selectedOthersOp = this.httpStatsMonitorDetail.optId;
 
-    console.log("asasasasas",this.httpStatsMonitorDetail.hmdId);
   }
 
   saveHttpStatsMonitor(): void {
@@ -239,27 +238,19 @@ export class HttpStatsMonitorsComponent implements OnInit {
   saveHttpStatsMonitorData(): void {
     //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
-      this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
-        .subscribe(data => {
-          //Putting fpDumpMode values;
-          if (data.fpDumpMode == '0')
-            data.fpDumpMode = 'Disable';
-          if (data.fpDumpMode == '1')
-            data.fpDumpMode = 'Enable';
-          if (data.fpDumpMode == '2')
-            data.fpDumpMode = 'Enable Forcefully';
-          //Insert data in main table after inserting HTTP Stats Condition in DB
-          this.httpStatsMonitorData.push(data);
-          this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
-          this.configUtilityService.successMessage(Messages);
-        });
-      this.addEditHttpStatsMonitorDialog = false;
+    this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
+      .subscribe(data => {
+        //Insert data in main table after inserting HTTP Stats Condition in DB
+        this.httpStatsMonitorData.push(data);
+        this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
+        this.configUtilityService.successMessage(Messages);
+      });
+    this.addEditHttpStatsMonitorDialog = false;
     // }
   }
 
   //Method will store the values from inputs into table
   saveDataInObject() {
-    // this.httpStatsMonitorDetail.htId = this.selectedHeaderType;
     this.httpStatsMonitorDetail.valId = this.selectedValueType;
     if (this.httpStatsMonitorDetail.htId == 1)
       this.httpStatsMonitorDetail.hmdId = this.selectedRequestHeader;
@@ -320,5 +311,21 @@ export class HttpStatsMonitorsComponent implements OnInit {
         return i;
       }
     } return -1;
+  }
+}
+
+//It will convert the values of flowpath dump from 0, 1 and 2 to Disable, Enable and Enable Forcefully respectively
+@Pipe({name: 'fpDumpVal'})
+export class PipeForFpDump implements PipeTransform{
+
+   transform(value: string): string{
+     let label = "";
+    if(value == 'Enable' || value == '1')
+    label = 'Enable';
+    if(value == 'Disable' || value == '0')
+    label = 'Disable';
+    if(value == 'Enable Forcefully' || value == '2')
+    label = 'Enable Forcefully';
+    return label;
   }
 }

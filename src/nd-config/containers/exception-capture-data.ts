@@ -2,6 +2,6 @@ export class ExceptionData
 {
     instrumentException : boolean;
     exceptionTrace : boolean;
-    exceptionTraceDepth : string;
-    exceptionType : string;
+    exceptionTraceDepth : number = 999;
+    exceptionType : boolean;
 }

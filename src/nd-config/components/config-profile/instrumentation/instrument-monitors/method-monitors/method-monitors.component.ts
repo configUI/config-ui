@@ -91,12 +91,23 @@ export class MethodMonitorsComponent implements OnInit {
   checkMethodMonitorNameAlreadyExist(): boolean {
     for (let i = 0; i < this.methodMonitorData.length; i++) {
       if (this.methodMonitorData[i].methodDisplayName == this.methodMonitorDetail.methodDisplayName) {
-        this.configUtilityService.errorMessage("Method Monitor Name already exist");
+        this.configUtilityService.errorMessage("Display Name already exist");
+        return true;
+      }
+      if (this.methodMonitorData[i].methodName == this.methodMonitorDetail.methodName) {
+        this.configUtilityService.errorMessage("Method Name already exist");
         return true;
       }
     }
   }
+  
   editMethodMonitor(): void {
+    let str = this.methodMonitorDetail.methodName;
+
+    if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
+      this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
+    }
+
     this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getMethodMonitorIndex();
@@ -120,11 +131,17 @@ export class MethodMonitorsComponent implements OnInit {
   }
   /**This method save Method Monitor data at backend */
   saveMethodMonitorData(): void {
+    let str = this.methodMonitorDetail.methodName;
+
+    if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
+      this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
+    }
+
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Method Monitor in DB
         this.methodMonitorData.push(data);
-    this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(Messages);
       });
     this.addEditMethodMonitorDialog = false;
   }

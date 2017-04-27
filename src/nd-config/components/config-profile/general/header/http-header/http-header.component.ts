@@ -63,7 +63,7 @@ export class HttpHeaderComponent implements OnInit {
 
     this.specifiedReqHeaderType = ConfigUiUtility.createDropdown(reqHdrList);
 
-    var reqHdrType = ['ALL Headers', 'Specified Headers'];
+    var reqHdrType = ['ALL', 'Specified'];
 
     this.reqHeaderTypes = ConfigUiUtility.createDropdown(reqHdrType);
 
@@ -75,7 +75,7 @@ export class HttpHeaderComponent implements OnInit {
 
     this.specifiedResHeaderType = ConfigUiUtility.createDropdown(resHdrList);
 
-    var resHdrType = ['ALL Headers', 'Specified Headers'];
+    var resHdrType = ['ALL', 'Specified'];
 
     this.resHeaderTypes = ConfigUiUtility.createDropdown(resHdrType);
   }

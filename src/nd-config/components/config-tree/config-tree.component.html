@@ -1,2 +1,2 @@
-
-<p-tree [value]="files" (onNodeExpand)="loadNode($event)" [style]="{'min-height':'300px','max-height':'450px','background':'rgba(255,255,255, 0.65)','overflow-y':'auto','overflow-x':'hidden'}"></p-tree>
+<p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeExpand)="loadNode($event)" class="config-tree" [styleClass]="'config-tree'">
+</p-tree>

@@ -12,7 +12,7 @@ import { cloneObject } from '../../../../utils/config-utility';
 })
 export class ExceptionComponent implements OnInit {
 
-   @Input()
+  @Input()
   saveDisable: boolean;
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
@@ -25,16 +25,9 @@ export class ExceptionComponent implements OnInit {
   selectedValue: string = 'unhandled';
 
   exception: Object;
-  enableGroupKeyword:boolean
-  /**Value for this keyword is
-   * 1%201%201%2012
-   * 1- instrumentException
-   * 1- exceptionTrace
-   * 1- All
-   * 12- Trace limit for frames
-   */
+  enableGroupKeyword: boolean
 
-  constructor(private configKeywordsService: ConfigKeywordsService,private configUtilityService: ConfigUtilityService) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.exception.enable;
   }
 
@@ -61,54 +54,61 @@ export class ExceptionComponent implements OnInit {
       let arr = (this.exception["instrExceptions"].value).split("%20")
       this.exceptionData = new ExceptionData();
 
-      if(arr[0] === "1")
+      if (arr[0] === "1")
         this.exceptionData.instrumentException = true;
       else
         this.exceptionData.instrumentException = false;
 
-      if(arr[1] === "1")
+      if (arr[1] === "1")
         this.exceptionData.exceptionTrace = true;
       else
         this.exceptionData.exceptionTrace = false;
 
-      this.exceptionData.exceptionType = arr[2] == '1' ? 'all':'unhandled';
-
-      if(arr.length > 2)
+      this.exceptionData.exceptionType = arr[2] == 0 ? false : true;
+      if (arr.length > 3)
         this.exceptionData.exceptionTraceDepth = arr[3];
+      else
+        this.exceptionData.exceptionTraceDepth = 999;
     }
-    else
-    {
-         this.exceptionData = new ExceptionData();
-      if(this.exception["instrExceptions"].value == 0)
-      {
-      this.exceptionData.instrumentException = false;
-      this.exceptionData.exceptionTrace = false;
-      this.exceptionData.exceptionType = 'unhandled';
+    else {
+      this.exceptionData = new ExceptionData();
+      if (this.exception["instrExceptions"].value == 0) {
+        this.exceptionData.instrumentException = false;
+        this.exceptionData.exceptionTrace = false;
+        this.exceptionData.exceptionType = false;
+        this.exceptionData.exceptionTraceDepth = 999;
       }
-      else if(this.exception["instrExceptions"].value == 1)
-      {
-      this.exceptionData.instrumentException = false;
-      this.exceptionData.exceptionTrace = false;
-      this.exceptionData.exceptionType = 'unhandled';
+      else if (this.exception["instrExceptions"].value == 1) {
+        this.exceptionData.instrumentException = false;
+        this.exceptionData.exceptionTrace = false;
+        this.exceptionData.exceptionType = false;
+        this.exceptionData.exceptionTraceDepth = 999;
       }
-
     }
   }
 
   saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
-    for(let key in this.exception){
-          if(key == 'instrExceptions')
-            this.exception[key]["value"] = instrValue;
-      }
+    for (let key in this.exception) {
+      if (key == 'instrExceptions')
+        this.exception[key]["value"] = instrValue;
+    }
     this.keywordData.emit(this.exception);
 
   }
 
-   resetKeywordData(){
-     this.exception = cloneObject(this.configKeywordsService.keywordData);
-     this.getKeywordData();
+  resetKeywordData() {
+    this.exception = cloneObject(this.configKeywordsService.keywordData);
+    this.getKeywordData();
   }
+
+  /**Value for this keyword is
+   * 1%201%200%2012
+   * 1-  Enable instrumentException
+   * 1- enable exceptionTrace
+   * 0- false 3- true //for capture Exception type
+   * 12- Trace limit for frames //dependent on 2nd value
+   */
 
   // Method used to construct the value of instrException keyword.
   instrExceptionValue(data) {
@@ -124,10 +124,10 @@ export class ExceptionComponent implements OnInit {
       else
         instrVal = instrVal + "%200";
 
-      if (data.form._value.exceptionType === 'unhandled')
+      if (data.form._value.exceptionType === false || data.form._value.exceptionType === "false")
         instrVal = instrVal + "%200";
       else
-        instrVal = instrVal + "%201"
+        instrVal = instrVal + "%203"
 
       if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
         instrVal = instrVal + "%20" + data.form._value.exceptionTraceDepth;
