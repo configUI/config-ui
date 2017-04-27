@@ -1,12 +1,12 @@
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
-// const SERVICE_URL = 'http://localhost:8090';
-//  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+//const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+ //const SERVICE_URL = 'http://localhost:8090';
+//const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 
 
 //For Production use this SERVICE_URL
-// const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
@@ -179,6 +179,7 @@ export const DEL_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapt
 export const UPDATE_METHODBASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/updatemethodbasedcapture`;
 export const DEL_CUSTOM_METHOD_RETURN_VALUE = `${SERVICE_URL}/custom/methodbasedcapturing/deletereturnvalue`;
 export const DEL_CUSTOM_METHOD_ARG_VALUE = `${SERVICE_URL}/custom/methodbasedcapturing/deleteargvalue`;
+export const EDIT_METHODBASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/editmethodbasedcapture`;
 
 
 export const UPDATE_CUSTOM_CAPTURE_DATA_FILE = `${SERVICE_URL}/custom/methodbasedcapturing/updatecustomcapturefile`;
