@@ -31,13 +31,14 @@ export class DebugComponent {
   debug: Object;
   enableGroupKeyword: boolean;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService,  private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.debug = data;
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.debug.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
 
   ngOnInit() {

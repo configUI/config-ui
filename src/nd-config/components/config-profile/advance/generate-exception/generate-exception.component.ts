@@ -30,6 +30,7 @@ export class GenerateExceptionComponent implements OnInit {
   genException: Object;
   genExceptionData: GenExceptionData;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   exceptionType: SelectItem[];
   enableGroupKeyword: boolean;
   // Items to be displayed in Exception Type drop-down menu
@@ -58,7 +59,7 @@ export class GenerateExceptionComponent implements OnInit {
       this.genException = data;
       console.log(this.className, "constructor", "this.genException", this.genException);
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.generate_exception.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
   ngOnInit() {
     this.createExceptionTypeSelectType();

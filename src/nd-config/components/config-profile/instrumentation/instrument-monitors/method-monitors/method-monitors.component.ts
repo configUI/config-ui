@@ -28,6 +28,7 @@ export class MethodMonitorsComponent implements OnInit {
   isNewMethodMonitor: boolean = false;
   /**For open/close add/edit method-monitor detail */
   addEditMethodMonitorDialog: boolean = false;
+  saveDisable: boolean= false;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
@@ -39,6 +40,7 @@ export class MethodMonitorsComponent implements OnInit {
   loadMethodMonitorList() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable=this.profileId==1 ? true:false;
     });
     this.configKeywordsService.getMethodMonitorList(this.profileId).subscribe(data => {
       this.methodMonitorData = data;
@@ -100,7 +102,7 @@ export class MethodMonitorsComponent implements OnInit {
       }
     }
   }
-  
+
   editMethodMonitor(): void {
     let str = this.methodMonitorDetail.methodName;
 

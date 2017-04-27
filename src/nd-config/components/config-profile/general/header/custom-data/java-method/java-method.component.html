@@ -7,9 +7,9 @@
     <p-header>
         <span style="float: left"> Java Method Based Custom Data</span>
         <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteJavaMethod()" icon="fa-trash"></button>
-                        <button pButton type="button" title="Edit"(click)="openEditDialog()" icon="fa-pencil" ></button>                     
+                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
+                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil" ></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -42,7 +42,7 @@
                 <label>Fully Qualified Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" disabled ={{!isNew}}  #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus required ngModel/>
+                <input name="fqm" disabled={{!isNew}} #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus required ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -60,7 +60,7 @@
                     <span style="float: right; margin-top:-5px">
                        <!--<button pButton type="add" title="Add" (click)="first=true" icon="fa-plus"></button>-->
                        <button pButton type="sumbit" title="Add" (click)="first=true" icon="fa-plus"></button>
-                       
+
                        <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
                     </span>
                 </p-header>
@@ -225,12 +225,12 @@
                 </div>
             </div>-->
 
-             <div class="ui-g-12">
+            <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Index</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body" ></p-dropdown>
+                    <p-dropdown name="type" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
                 </div>
             </div>
 

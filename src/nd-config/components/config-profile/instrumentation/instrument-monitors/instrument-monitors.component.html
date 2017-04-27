@@ -5,7 +5,7 @@
     <p-tabPanel header="HTTP Stats Monitors">
         <app-http-stats-monitors></app-http-stats-monitors>
     </p-tabPanel>
-     <p-tabPanel header="JVM Thread CPU Monitor">
-            <app-thread-stats (keywordData)="saveKeywordData($event)"></app-thread-stats>
-        </p-tabPanel>
+    <p-tabPanel header="JVM Thread CPU Monitor">
+        <app-thread-stats [saveDisable]="saveDisable" [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-thread-stats>
+    </p-tabPanel>
 </p-tabView>

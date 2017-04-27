@@ -2,7 +2,7 @@
     <p-header>
         <span style="float: left">Integration Point Detection(s) </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add" ></button>
+            <button pButton type="button" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add" ></button>
         </span>
     </p-header>
     <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
@@ -134,7 +134,7 @@
     </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-check" (click)="saveIntegrationDetail()" label="Save"></button>
+            <button type="button" pButton icon="fa-check" [disabled]="saveDisable" (click)="saveIntegrationDetail()" label="Save"></button>
             <button type="button" pButton icon="fa-close" (click)="detailDialog=false" label="Cancel"></button>
         </div>
     </footer>

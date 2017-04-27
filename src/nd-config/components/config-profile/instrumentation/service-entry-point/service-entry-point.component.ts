@@ -24,6 +24,8 @@ export class ServiceEntryPointComponent implements OnInit {
   /**It store service entry data for add*/
   serviceEntryPointDetail: ServiceEntryPoint;
   entryPointType: SelectItem[];
+  @Input()
+  saveDisable: boolean = false;
 
   /**It is used as flag to open or close dialog */
   displayNewService: boolean = false;
@@ -32,6 +34,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   ngOnInit() {
     this.loadServiceEntryPoint();
+    this.saveDisable=this.profileId==1 ? true:false;
   }
   /**It loads service entry data  */
   loadServiceEntryPoint() {

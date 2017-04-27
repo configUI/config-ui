@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
   HeaderForm: boolean = true;
 
   subscription: Subscription;
+  subscriptionEG: Subscription;
 
   enableGroupKeyword: boolean = false;
 
@@ -55,7 +56,7 @@ export class HeaderComponent implements OnInit {
       }
       this.header = data;
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.header.enable;
+   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
     this.httpKeywordObject = [];
   }
 

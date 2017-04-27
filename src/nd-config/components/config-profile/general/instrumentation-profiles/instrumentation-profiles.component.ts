@@ -37,13 +37,14 @@ export class InstrumentationProfilesComponent implements OnInit {
   instrProfileSelectItem: SelectItem[];
   instrProfiles: any = [];
   subscription: Subscription;
+  subscriptionEG: Subscription;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     // this.subscription = this.store.select("keywordData").subscribe(data => {
     //   this.instrProfiles = data;
     //   console.log( "constructor", "this.debug", this.instrProfiles);
     // });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.instrumentation_profiles.enable;
+   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
 
 /**

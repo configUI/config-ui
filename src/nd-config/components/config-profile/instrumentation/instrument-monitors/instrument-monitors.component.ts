@@ -12,11 +12,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./instrument-monitors.component.css']
 })
 export class InstrumentMonitorsComponent implements OnInit {
-
+  @Input()
+  saveDisable: boolean;
   @Input()
   profileId: number;
   index: number = 1;
-  
+
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private route: ActivatedRoute) { }
 
  saveKeywordData(keywordData) {
@@ -32,6 +33,7 @@ export class InstrumentMonitorsComponent implements OnInit {
 
   ngOnInit() {
      this.route.params.subscribe((params: Params) => {
+       this.saveDisable=this.profileId==1 ? true:false;
     });
     this.loadKeywordData();
   }

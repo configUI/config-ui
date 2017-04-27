@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { ConfigCustomDataService } from '../../../../../../services/config-customdata.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,8 @@ import { Messages } from '../../../../../../constants/config-constant'
 })
 export class JavaMethodComponent implements OnInit {
 
+  @Input()
+  saveDisable: boolean;
 
   subscription: Subscription;
 
@@ -127,7 +129,8 @@ export class JavaMethodComponent implements OnInit {
   }
 
   loadJavaMethodBasedCustomData() {
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
+    this.route.params.subscribe((params: Params) => {this.profileId = params['profileId'];
+    this.saveDisable = this.profileId == 1 ? true : false;});
     this.configCustomDataService.getMethodBasedCustomData(this.profileId).subscribe(data => {
       this.modifyData(data)
     })
@@ -192,7 +195,7 @@ export class JavaMethodComponent implements OnInit {
 
   openEditDialog(){
     this.methodBasedCustomData = new MethodBasedCustomData();
-    
+
     if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
       this.configUtilityService.errorMessage("Select row for edit");
       return;
@@ -210,20 +213,20 @@ export class JavaMethodComponent implements OnInit {
       this.returnTypeData.map(function(val){
         val.id = returnCounterEdit;
         returnCounterEdit = returnCounterEdit + 1;
-        val.typeName = that.getTypeName(val.type) 
-      }) 
+        val.typeName = that.getTypeName(val.type)
+      })
       this.argumentTypeData = this.selectedJavaMethod[0].argumentTypeData;
       this.argumentTypeData.map(function(val){
         val.id = argumentCounterEdit;
         argumentCounterEdit = argumentCounterEdit + 1;
-        val.typeName = that.getTypeName(val.type) 
-      })  
+        val.typeName = that.getTypeName(val.type)
+      })
       this.addEditDialog = true;
       this.isNew = false;
     }
   }
 
-  
+
   saveEditData(fqmField) {
 
     //openAddReturnRulesDialog()
@@ -362,12 +365,12 @@ export class JavaMethodComponent implements OnInit {
           arrAppIndex.push(selectedRules[index].id);
       }
       this.returnTypeData = this.returnTypeData.filter(function(val){
-                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted 
+                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
     }
   }
 
-//deletimg Argument rules 
+//deletimg Argument rules
   deleteArgumentsRules():void{
      if (!this.selectedArgumentRules || this.selectedArgumentRules.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");
@@ -379,7 +382,7 @@ export class JavaMethodComponent implements OnInit {
           arrAppIndex.push(selectedRules[index].id);
       }
       this.argumentTypeData = this.argumentTypeData.filter(function(val){
-                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted 
+                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
     }
   }

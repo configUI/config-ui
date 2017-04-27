@@ -18,7 +18,7 @@
             <div class="ui-g-6"> Select part of URI used in Transaction name </div>
             <div class="ui-g-6" style="text-align:right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetBusinessTransaction()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable" label="Save"></button>
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
@@ -94,9 +94,9 @@
         <p-header>
             <span style="float: left;">  Bussiness Transaction Pattern(s) </span>
             <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit"(click)="editPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

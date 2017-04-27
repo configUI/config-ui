@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -16,6 +16,8 @@ import { Messages } from '../../../../constants/config-constant'
   styleUrls: ['./nvcookie.component.css']
 })
 export class NVCookieComponent implements OnInit {
+  @Input()
+  saveDisable: boolean;
   @Output()
   keywordData = new EventEmitter();
   className: "NVCookieComponent";
@@ -25,12 +27,13 @@ export class NVCookieComponent implements OnInit {
   ndSession: Object;
   ndSessionData: NDSessionData;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.ndSession = data;
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.product_integration.nvcookie.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
 
   ngOnInit() {

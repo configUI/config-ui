@@ -16,6 +16,8 @@ import { Messages } from '../../../../constants/config-constant'
   styleUrls: ['./integration-pt-detection.component.css']
 })
 export class IntegrationPtDetectionComponent implements OnInit {
+  @Input()
+  saveDisable: boolean;
 
   @Input()
   profileId: number;
