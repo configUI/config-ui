@@ -45,6 +45,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   selectedHeaderType: number;
   selectedValueType: number;
   isDisableValueType: boolean = true;
+  saveDisable: boolean = false;
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
@@ -63,6 +64,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   loadHttpStatsMonitorList() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+       this.saveDisable=this.profileId==1 ? true:false;
     });
     this.configKeywordsService.getHttpStatsMonitorList(this.profileId).subscribe(data => {
       //putting fpDumpMode values as labels instead of numbers

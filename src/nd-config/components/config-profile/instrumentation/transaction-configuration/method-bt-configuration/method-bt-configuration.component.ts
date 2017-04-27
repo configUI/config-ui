@@ -48,6 +48,8 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   isNewMethod: boolean = false;
 
+  saveDisable: boolean = false;
+
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
@@ -93,6 +95,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   loadBTMethodData(): void {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable=this.profileId==1 ? true:false;
     });
     this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => this.businessTransMethodInfo = data);
   }

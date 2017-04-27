@@ -2,9 +2,9 @@
     <p-header>
         <span style="float: left">Method Monitor(s) </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" title="Add" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
-            <button pButton class="ui-button-danger" type="button" title="Delete" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
+            <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
+            <button pButton class="ui-button-danger" type="button" title="Delete" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

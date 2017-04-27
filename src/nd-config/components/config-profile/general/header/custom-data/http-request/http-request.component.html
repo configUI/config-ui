@@ -3,9 +3,9 @@
     <p-header>
         <span style="float: left"> HTTP Request Header (s) </span>
         <span style="float: right; margin-top:-5px">`
-                       <button pButton type="button" title="Add" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit"(click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

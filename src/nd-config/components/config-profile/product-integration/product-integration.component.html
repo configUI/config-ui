@@ -1,7 +1,7 @@
 <div class='tabs-all'>
-<p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="NV-ND Sessions" [selected]="index == 0">
-        <app-nvcookie *ngIf="index == 0" (keywordData)="saveKeywordData($event)"></app-nvcookie>
-    </p-tabPanel>
-</p-tabView>
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="NV-ND Sessions" [selected]="index == 0">
+            <app-nvcookie *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-nvcookie>
+        </p-tabPanel>
+    </p-tabView>
 </div>

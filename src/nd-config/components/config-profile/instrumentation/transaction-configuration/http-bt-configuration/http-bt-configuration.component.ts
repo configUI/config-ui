@@ -70,6 +70,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternDetail: BusinessTransPatternData;
 
   chkInclude: boolean = false;
+  saveDisable: boolean =false;
 
    keywordList: string[] = ['BTRuleConfig'];
    BusinessTransGlobalPattern: Object;
@@ -122,6 +123,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable=this.profileId==1 ? true:false;
     });
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
     this.getKeywordData();

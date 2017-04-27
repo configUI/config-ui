@@ -31,6 +31,7 @@ export class MonitorsComponent implements OnInit {
   monitor: Object;
   enableBTMonitorChk: boolean;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
@@ -38,7 +39,7 @@ export class MonitorsComponent implements OnInit {
       this.monitor = data;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.debug", this.monitor);
-      this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.monitors.enable;
+     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
     });
   }
   saveKeywordData() {

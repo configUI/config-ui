@@ -31,12 +31,13 @@ export class DelayComponent implements OnInit {
   delayData: DelayData;
   enableGroupKeyword: boolean;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.delay = data;
       console.log(this.className, "constructor", "this.delay", this.delay);
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.delay.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
   ngOnInit() {
     //Calling splitDelayKeywordData method

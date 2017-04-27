@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
 import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
 import { HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData } from '../../../../../../containers/instrumentation-data';
@@ -16,6 +16,8 @@ import { Messages } from '../../../../../../constants/config-constant'
   styleUrls: ['./http-request.component.css']
 })
 export class HttpRequestComponent implements OnInit {
+  @Input()
+  saveDisable: boolean;
 
   httpRequestHdrComponentInfo: HTTPRequestHdrComponentData[];
 
@@ -56,6 +58,7 @@ export class HttpRequestComponent implements OnInit {
   loadHTTPReqHeaderDetails(): void {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => this.doAssignSessionAttributeTableData(data));
   }

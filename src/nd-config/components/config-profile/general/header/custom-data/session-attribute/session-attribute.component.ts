@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
 import { SessionAtrributeComponentsData, SessionTypeValueData } from '../../../../../../containers/instrumentation-data';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
@@ -15,6 +15,9 @@ import { Messages } from '../../../../../../constants/config-constant'
   styleUrls: ['./session-attribute.component.css']
 })
 export class SessionAttributeComponent implements OnInit {
+
+  @Input()
+  saveDisable: boolean;
 
   profileId: number;
 
@@ -55,6 +58,7 @@ export class SessionAttributeComponent implements OnInit {
   loadGetSessionAttribute(): void {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => this.doAssignSessionAttributeTableData(data));
   }
@@ -152,14 +156,14 @@ export class SessionAttributeComponent implements OnInit {
   editSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
      this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
-   
+
     this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
       .subscribe(data => {
         let index = this.getSessionAttributeIndex(this.sessionAttributeDetail.sessAttrId);
         this.selectedSessionAttributeList.length = 0;
         this.selectedSessionAttributeList.push(data);
         console.log("data - - " , data)
-        
+
         this.sessionAttributeComponentInfo[index] = this.setDataSessionAttribute(data)[0];
       });
     this.closeDialog();
@@ -191,7 +195,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.attrType = "complete";
       this.sessionAttributeDetail.attrMode = 2;
     }
-      
+
     for (let i = 0; i < this.customValueTypeInfo.length; i++) {
 
       if (this.customValueTypeInfo[i].customValTypeName == "Integer")
@@ -250,7 +254,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.specific = true;
     else if (this.selectedSessionAttributeList[0].attrType == "complete")
       this.sessionAttributeDetail.complete = true;
-  
+
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
     // if (this.selectedSessionAttributeList[0].attrValues.length != 0) {
     //   for (let i = 0; i < this.selectedSessionAttributeList[0].attrValues.length; i++) {

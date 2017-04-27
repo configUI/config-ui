@@ -18,12 +18,14 @@ export class CustomDataComponent implements OnInit {
   subscription: Subscription;
   header:Object;
 
- 
+ saveDisable: boolean = false;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>) {
-   
+
   }
 
   ngOnInit() {
+
+
   }
 
 }
