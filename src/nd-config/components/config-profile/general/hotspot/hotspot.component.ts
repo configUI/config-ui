@@ -33,6 +33,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   bindIncluded:boolean=false;
   bindExcluded:boolean=false;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   exceptionName:string[];
   includedException;
   excludedException;
@@ -56,7 +57,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == '1';
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.hotspot.enable;
+      this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
   }
 
   ngOnInit() {

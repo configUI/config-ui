@@ -18,7 +18,6 @@ export class ConfigTreeComponent implements OnInit {
 
   constructor(private configTopologyService: ConfigTopologyService, private route: ActivatedRoute) { }
 
-
   topologyTreeData: TopologyInfo[];
   files: TreeNode[];
 
@@ -103,10 +102,10 @@ export class ConfigTreeComponent implements OnInit {
     }
 
     let NODE_IMAGE = {
-      TOPOLOGY: 'ndegui-topology-1',
-      TIER: 'ndegui-tier',
-      SERVER: 'ndegui-server',
-      INSTANCE: 'ndegui-instance'
+      TOPOLOGY: 'tree-icon ndegui-topology-1',
+      TIER: 'tree-icon ndegui-tier',
+      SERVER: 'tree-icon ndegui-server',
+      INSTANCE: 'tree-icon ndegui-instance'
     }
 
     if (node.data == NODE_NAME.TOPOLOGY) {
