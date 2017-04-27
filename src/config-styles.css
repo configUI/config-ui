@@ -386,3 +386,19 @@ input[type="number"] {
 .flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
     background: #ececec;
 }
+
+.config-tree {
+    min-height: 300px;
+    max-height: 450px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.65);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/*For hiding scroll in tree node */
+
+.config-tree>.ui-tree .ui-tree-container {
+    overflow: hidden;
+}

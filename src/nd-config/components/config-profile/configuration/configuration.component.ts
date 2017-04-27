@@ -17,6 +17,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   toggleDisable: boolean = false;
 
   subscription: Subscription;
+  subscriptionKeywordGroup: Subscription;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
       //Initialize groupkeyword values
@@ -38,7 +39,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     this.subscription = this.store.select<KeywordData>("keywordData")
       .subscribe(data => {
         if (data){
-          this.keywordGroup = this.configKeywordsService.toggleKeywordData();
+          this.configKeywordsService.toggleKeywordData();
+          this.subscriptionKeywordGroup = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.keywordGroup = data );
         }
 
       });

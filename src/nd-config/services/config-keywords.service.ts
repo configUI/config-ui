@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
 import { ConfigRestApiService } from './config-rest-api.service';
 import * as URL from '../constants/config-url-constant';
@@ -31,6 +32,10 @@ export class ConfigKeywordsService {
   public set keywordData(value: Object) {
     this._keywordData = value;
   }
+
+  private keywordGroupSubject = new Subject<GroupKeyword>();
+
+  keywordGroupProvider$  = this.keywordGroupSubject.asObservable();
 
   /**For Configuration Screen-
    * Handled Toggle Button and Enable/Disable keyword information.
@@ -98,7 +103,7 @@ export class ConfigKeywordsService {
         }
       }
     }
-    return this.keywordGroup;
+    this.keywordGroupSubject.next(this.keywordGroup);
     //Updating groupkeyword values after reading keyword data object.
     //this.keywordGroup = this.configKeywordsService.keywordGroup;
   }

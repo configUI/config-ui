@@ -29,6 +29,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   cpuTime: string = '1';
 
   subscription: Subscription;
+  subscriptionEG: Subscription;
   enableGroupKeyword: boolean = false;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
@@ -41,7 +42,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.flowPath = keywordDataVal;
       this.cpuTime = this.flowPath['enableCpuTime'].value;
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.flowpath.enable;
+     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
 
   enableForcedFPChainSelectItem: SelectItem[];
@@ -73,5 +74,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+    if(this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
   }
 }
