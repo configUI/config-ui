@@ -1,7 +1,7 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
-import { ConfigUtilityService } from '../../../../services/config-utility.service';
-import { cloneObject } from '../../../../utils/config-utility';
+import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../../services/config-utility.service';
+import { cloneObject } from '../../../../../utils/config-utility';
 
 @Component({
   selector: 'app-thread-stats',
@@ -26,12 +26,10 @@ export class ThreadStatsComponent implements OnInit {
   enableGroupKeyword: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.thread_stats.enable;
   }
 
   ngOnInit() {
     this.getKeywordData();
-    this.threadStatsKeyVal();
   }
 
   //method to split enableJVMThreadMonitor keyword value
@@ -61,13 +59,12 @@ export class ThreadStatsComponent implements OnInit {
   getKeywordData() {
     let keywordData = this.configKeywordsService.keywordData;
     this.threadStats = {}
-
-
     this.keywordList.forEach((key) => {
       if (keywordData.hasOwnProperty(key)) {
         this.threadStats[key] = keywordData[key];
       }
     });
+    this.threadStatsKeyVal();
   }
 
   /*Here the value of this keyword is as:

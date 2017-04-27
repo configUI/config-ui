@@ -28,8 +28,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNewMethodMonitor ? 'Add Method Monitor' : 'Edit Method Monitor'}}" *ngIf="addEditMethodMonitorDialog"
-    [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog header="{{isNewMethodMonitor ? 'Add Method Monitor' : 'Edit Method Monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
@@ -44,8 +43,7 @@
                 <label>Display Name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodDisplayName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" 
-                    required ngModel/>
+                <input name="methodDisplayName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -63,4 +61,4 @@
             </div>
         </footer>
     </form>
-    </p-dialog>
+</p-dialog>

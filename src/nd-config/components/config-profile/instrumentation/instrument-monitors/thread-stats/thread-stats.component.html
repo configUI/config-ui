@@ -3,7 +3,7 @@
         <div class="header">JVM Monitors
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
             </div>
         </div>
         <p-panel class="hideheader">
@@ -19,7 +19,7 @@
                     <div class="ui-g-12" style="padding-left: 20px">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-6" style="margin-left: 16px">
-                            <label>Do not report thread with CPU Utilization < = </label>
+                            <label>Do not report thread with CPU Utilization less than or equal to </label>
                             <input disabled="{{!jvmThreadStats.jvm}}" style="width: 10%" [min]=0 [max]=100 name="cpuFilter" type="text" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/> value
                         </div>
                     </div>

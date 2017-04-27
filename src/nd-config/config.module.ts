@@ -94,13 +94,13 @@ import { ServiceEntryPointComponent } from './components/config-profile/instrume
 import { IntegrationPtDetectionComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt-detection.component';
 import { TransactionConfigurationComponent } from './components/config-profile/instrumentation/transaction-configuration/transaction-configuration.component';
 import { InstrumentMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/instrument-monitors.component';
+import { ThreadStatsComponent } from './components/config-profile/instrumentation/instrument-monitors/thread-stats/thread-stats.component';
 import { ErrorDetectionComponent } from './components/config-profile/instrumentation/error-detection/error-detection.component';
 import { ConfigProfileRoutingComponent } from './components/config-profile/config-profile-routing/config-profile-routing.component';
 import { FlowpathComponent } from './components/config-profile/general/flowpath/flowpath.component';
 import { HotspotComponent } from './components/config-profile/general/hotspot/hotspot.component';
 import { ExceptionComponent } from './components/config-profile/general/exception/exception.component';
 import { HeaderComponent } from './components/config-profile/general/header/header.component';
-import { ThreadStatsComponent } from './components/config-profile/general/thread-stats/thread-stats.component';
 import { InstrumentationProfilesComponent } from './components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
 import { HTTPBTConfigurationComponent } from './components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
 import { MethodBTConfigurationComponent } from './components/config-profile/instrumentation/transaction-configuration/method-bt-configuration/method-bt-configuration.component';
@@ -117,7 +117,7 @@ import { SessionAttributeComponent } from './components/config-profile/general/h
 import { JavaMethodComponent } from './components/config-profile/general/header/custom-data/java-method/java-method.component';
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
-import { HttpStatsMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
+import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -172,7 +172,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NVCookieComponent,
     MethodMonitorsComponent,
     HttpStatsMonitorsComponent,
-    ConfigTopHeaderNavBarComponent
+    ConfigTopHeaderNavBarComponent,
+    PipeForFpDump
   ],
   imports: [
     // CommonModule,
