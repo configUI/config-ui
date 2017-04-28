@@ -1,5 +1,6 @@
 <p-dataTable [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData">
     <p-header>
+        <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span style="float: left">Method Monitor(s) </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>

@@ -1,5 +1,6 @@
 <p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
     <p-header>
+        <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span style="float: left">Error Detection(s) </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>

@@ -3,6 +3,7 @@ import { SelectItem } from 'primeng/primeng';
 
 import { IntegrationPTDetection, BackendTableInfo, AddIPDetection, NamingRuleAndExitPoint, EndPointInfo, EndPoint, NamingRule } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { INTEGRATION_TYPE } from '../../../../constants/config-constant';
 import { BackendInfo } from '../../../../interfaces/instrumentation-info';
 
@@ -40,7 +41,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
   backendTypeSelecetItem: SelectItem[] = [];
   IP = INTEGRATION_TYPE;
 
-  constructor(private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadIntegrationPTDetectionList();
@@ -91,6 +92,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
         endPointData.name = data.name;
 
         this.ipDetectionData[index].lstEndPoints.push(endPointData);
+        this.configUtilityService.successMessage(Messages);
       });
     this.displayNewIPDetection = false;
   }
@@ -127,6 +129,8 @@ export class IntegrationPtDetectionComponent implements OnInit {
 
         this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
         this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
+
+        this.configUtilityService.successMessage(Messages);
       }
       );
   }

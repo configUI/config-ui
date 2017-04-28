@@ -11,10 +11,10 @@
             <app-transaction-configuration *ngIf="index == 2" [profileId]=profileId></app-transaction-configuration>
         </p-tabPanel>
         <p-tabPanel header="INSTRUMENT MONITORS" [selected]="index == 3">
-            <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId></app-instrument-monitors>
+            <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
         </p-tabPanel>
         <p-tabPanel header="ERROR DETECTION" [selected]="index == 4">
-            <app-error-detection *ngIf="index == 4" [profileId]=profileId></app-error-detection>
+            <app-error-detection *ngIf="index == 4" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
         </p-tabPanel>
     </p-tabView>
 </div>

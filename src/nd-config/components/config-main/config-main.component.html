@@ -14,13 +14,15 @@
             <div class="top-nav-bar">
                 <app-config-top-nav-bar></app-config-top-nav-bar>
 
-                <!--<md-progress-bar [style.display]="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>-->
+                <div style="height:1px">
+                    <md-progress-bar *ngIf="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>
+                </div>
 
             </div>
             <div class="main">
-                <div class="ui-g" style="height: 530px">
+                <div class="ui-g" style="height: 540px">
                     <div class="ui-g-12">
-                        <perfect-scrollbar style="height: 530px">
+                        <perfect-scrollbar style="height: 540px">
                             <!--<div class="content">Scrollable content</div>-->
                             <app-config-right-content></app-config-right-content>
                         </perfect-scrollbar>

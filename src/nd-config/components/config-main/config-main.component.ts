@@ -9,13 +9,17 @@ export class ConfigMainComponent implements OnInit {
 
   constructor(private configUtilityService: ConfigUtilityService) { }
 
-  isProgressBar: string = "none";
+  isProgressBar: boolean = false;
   color: string = "primary";
   
   ngOnInit() {
     this.configUtilityService.progressBarProvider$.subscribe(flag=> {
-      this.isProgressBar = flag["flag"] == true ? "inline" : "none";
-      this.color = flag["color"];
+      //For resolve this error in Dev Mode add Timeout method -> Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
+      setTimeout(()=>{
+        this.isProgressBar = flag["flag"];
+        this.color = flag["color"];
+      }, 1);
+      
     });
   }
 

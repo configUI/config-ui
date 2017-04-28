@@ -19,27 +19,33 @@ export class BackendMonitorsComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
   @Input()
-  saveDisable:boolean;
+  saveDisable: boolean;
 
   className: string = "BackendMonitorsComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  // keywordList: string[] = ['enableBackendMonitor'];
+  keywordList = ['enableBackendMonitor'];
 
   /**It stores keyword data for showing in GUI */
   backend: Object;
   enableBackendMonitorChk: boolean;
   subscription: Subscription;
   subscriptionEG: Subscription;
+
   enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.backend = data;
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.backend = keywordDataVal;
       this.enableBackendMonitorChk = this.backend["enableBackendMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.backend", this.backend);
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.backend_monitors.enable);
+
   }
   saveKeywordData() {
     if (this.enableBackendMonitorChk) {
@@ -48,7 +54,6 @@ export class BackendMonitorsComponent implements OnInit {
     else {
       this.backend["enableBackendMonitor"].value = 0;
     }
-    console.log("this.backend", this.backend);
     this.keywordData.emit(this.backend);
   }
 
@@ -60,6 +65,8 @@ export class BackendMonitorsComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+    if (this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
   }
 
   ngOnInit() {

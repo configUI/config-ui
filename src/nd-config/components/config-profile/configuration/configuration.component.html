@@ -98,10 +98,10 @@
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Monitors</a></md-slide-toggle>
                             </div>
-                            <div>
+                            <div *ngIf="adminMode == 'true'">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Put Delay in Method</a></md-slide-toggle>
                             </div>
-                            <div>
+                            <div *ngIf="adminMode == 'true'">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Generate Exception in Method</a></md-slide-toggle>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
         </div>
         <div class="ui-g-6">
             <md-card class="card4">
-                <md-card-content>
+                <md-card-content>   
 
                     <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION</a></div>
                     <div class="ui-g">

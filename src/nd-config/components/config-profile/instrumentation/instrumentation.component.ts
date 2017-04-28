@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
+import { ConfigKeywordsService } from '../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../services/config-utility.service';
+import { Messages } from '../../../constants/config-constant'
 
 @Component({
   selector: 'app-instrumentation',
@@ -12,7 +16,11 @@ export class InstrumentationComponent implements OnInit {
   index: number = 0;
   saveDisable: boolean = false;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private configKeywordsService: ConfigKeywordsService,
+    private configUtilityService: ConfigUtilityService,
+    private route: ActivatedRoute,
+  ) { }
+
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) =>{
@@ -23,6 +31,17 @@ export class InstrumentationComponent implements OnInit {
 
     });
   }
+
+  saveKeywordData(keywordData) {
+    for (let key in keywordData) {
+      this.configKeywordsService.keywordData[key] = keywordData[key];
+    }
+    this.configUtilityService.successMessage(Messages);
+
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+
+  }
+
 
   handleChange(e){
     this.index = e.index;
