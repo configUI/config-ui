@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
+import { ConfigHomeService } from '../../../services/config-home.service';
 import { KeywordData, KeywordList } from '../../../containers/keyword-data';
 
 @Component({
@@ -19,7 +20,9 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionKeywordGroup: Subscription;
 
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>) {
+  adminMode: boolean;
+
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configHomeService: ConfigHomeService, private store: Store<KeywordList>) {
       //Initialize groupkeyword values
       this.keywordGroup = this.configKeywordsService.keywordGroup;
   }
@@ -29,7 +32,16 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
       this.profileId = params['profileId']
       this.toggleDisable = this.profileId == 1 ? true : false;
     });
+    this.loadAdminInfo();
     this.loadKeywordData();
+  }
+
+  //This method is used to see whether it is admin mode or not
+  loadAdminInfo(): void {
+    this.configHomeService.getMainData()
+      .subscribe(data => {this.adminMode = data.adminMode;
+      }
+      );
   }
 
   loadKeywordData() {
