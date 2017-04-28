@@ -537,7 +537,7 @@ export class JavaMethodComponent implements OnInit {
       }
       else {
         if (!this.DATA_TYPE_ARR.includes(args[i])){
-          this.configUtilityService.errorMessage("Invalid Argumnet Data Type")
+          this.configUtilityService.errorMessage("Invalid Argument Data Type")
           return;
         }
         else{

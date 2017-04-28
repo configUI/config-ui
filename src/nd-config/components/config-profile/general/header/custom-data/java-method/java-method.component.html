@@ -94,7 +94,7 @@
 
 
         <div class="ui-g-12">
-            <div class="ui-g-6" style="margin-left: -5px">
+            <div class="ui-g-6">
                 <p-checkbox name="enableArgumentType" label="Custom Data using Method Argument Value" [(ngModel)]="methodBasedCustomData.enableArgumentType" binary="true"></p-checkbox>
             </div>
         </div>
@@ -170,7 +170,7 @@
                     <label>Custom Value Type</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" Custom Value Type"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '150px'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" --Select-- "></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -178,7 +178,7 @@
                     <label> Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="returnTypeRules.operation" appendTo="body" placeholder=" Operation"></p-dropdown>
+                    <p-dropdown name="operationName" [style]="{'width': '150px'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" appendTo="body" placeholder=" --Select-- "></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
@@ -186,7 +186,7 @@
                     <label>Operator Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.operatorValue" placeholder=" Operation" required ngModel/>
+                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.operatorValue" required ngModel/>
                 </div>
             </div>
 
@@ -248,7 +248,7 @@
                     <label>Index</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '150px'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
                 </div>
             </div>
 
@@ -258,26 +258,26 @@
                     <label>Custom Value Type</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="Select Custom Value Type"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '150px'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Select Operation</label>
+                    <label>Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" appendTo="body" placeholder="Select Operation" (click)="operationListArgumentType()"></p-dropdown>
+                    <p-dropdown name="operationName" [style]="{'width': '150px'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
                 </div>
             </div>
 
-            <!--<div class="ui-g-12">
+            <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Operator Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.operatorValue" placeholder="Select Operation" required ngModel/>
+                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.operatorValue" required ngModel/>
                 </div>
-            </div>-->
+            </div>
 
             <!--<div class="ui-g-12" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
                 <div class="ui-g-4">
