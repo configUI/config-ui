@@ -20,24 +20,29 @@ export class DebugComponent {
   keywordData = new EventEmitter();
 
   @Input()
-  saveDisable:boolean;
+  saveDisable: boolean;
 
   className: string = "DebugComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  // keywordList: string[] = ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel', 'ASDepthFilter'];
+  keywordList = ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel', 'ASDepthFilter'];
 
   /**It stores keyword data for showing in GUI */
   debug: Object;
   enableGroupKeyword: boolean;
   subscription: Subscription;
-  constructor(private configKeywordsService: ConfigKeywordsService,  private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+  subscriptionEG: Subscription;
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.debug = data;
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.debug = keywordDataVal;
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.debug.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
   }
 
   ngOnInit() {
@@ -48,12 +53,14 @@ export class DebugComponent {
 
   }
   //Method to reset the default values of the keywords
-  resetKeywordData(){
-     this.debug = cloneObject(this.configKeywordsService.keywordData);
+  resetKeywordData() {
+    this.debug = cloneObject(this.configKeywordsService.keywordData);
   }
 
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+    if (this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
   }
 }

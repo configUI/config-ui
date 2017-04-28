@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -19,24 +19,30 @@ export class DelayComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
 
-   @Input()
-   saveDisable:boolean;
+  @Input()
+  saveDisable: boolean;
 
   className: string = "DelayComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['putDelayInMethod'];
+  keywordList = ['putDelayInMethod'];
   /**It stores keyword data for showing in GUI */
   delay: Object;
   delayData: DelayData;
   enableGroupKeyword: boolean;
   subscription: Subscription;
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
+  subscriptionEG: Subscription;
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, ) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.delay = data;
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.delay = keywordDataVal;
       console.log(this.className, "constructor", "this.delay", this.delay);
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.delay.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.delay.enable);
   }
   ngOnInit() {
     //Calling splitDelayKeywordData method
@@ -103,9 +109,9 @@ export class DelayComponent implements OnInit {
     this.keywordData.emit(this.delay);
   }
 
-   resetKeywordData(){
-     this.delay = cloneObject(this.configKeywordsService.keywordData);
-     this.splitDelayKeywordData();
+  resetKeywordData() {
+    this.delay = cloneObject(this.configKeywordsService.keywordData);
+    this.splitDelayKeywordData();
   }
 
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
@@ -116,7 +122,10 @@ export class DelayComponent implements OnInit {
   }
 
   ngOnDestroy() {
-
+    if (this.subscription)
+      this.subscription.unsubscribe();
+    if (this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
   }
 }
 //Contains putDelayInMethod Keyword variables

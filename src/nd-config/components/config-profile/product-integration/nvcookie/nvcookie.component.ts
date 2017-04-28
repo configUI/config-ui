@@ -25,12 +25,19 @@ export class NVCookieComponent implements OnInit {
   ndSession: Object;
   ndSessionData: NDSessionData;
   subscription: Subscription;
+  subscriptionEG: Subscription;
+  
   enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.ndSession = data;
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.ndSession = keywordDataVal;
     });
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.product_integration.nvcookie.enable;
+    
   }
 
   ngOnInit() {
@@ -91,7 +98,6 @@ export class NVCookieComponent implements OnInit {
     for (let key in this.ndSession) {
       if (key == 'enableNDSession')
         this.ndSession[key]["value"] = ndSessionValue;
-    this.configUtilityService.successMessage(Messages);
     }
     this.keywordData.emit(this.ndSession);
   }

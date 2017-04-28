@@ -25,20 +25,25 @@ export class MonitorsComponent implements OnInit {
   className: string = "MonitorsComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  // keywordList: string[] = ['enableBTMonitor'];
+  keywordList = ['enableBTMonitor'];
 
   /**It stores keyword data for showing in GUI */
   monitor: Object;
   enableBTMonitorChk: boolean;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.monitor = data;
+       var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.monitor = keywordDataVal;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.debug", this.monitor);
-      this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.monitors.enable;
+      this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
     });
   }
   saveKeywordData() {
@@ -60,6 +65,8 @@ export class MonitorsComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+      if (this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
   }
   ngOnInit() {
   }

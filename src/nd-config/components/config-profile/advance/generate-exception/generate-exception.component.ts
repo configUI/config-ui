@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -20,7 +20,7 @@ export class GenerateExceptionComponent implements OnInit {
   keywordData = new EventEmitter();
 
   @Input()
-  saveDisable:boolean;
+  saveDisable: boolean;
 
   className: string = "GenerateExceptionComponent";
   keywordsData: Keywords;
@@ -30,6 +30,7 @@ export class GenerateExceptionComponent implements OnInit {
   genException: Object;
   genExceptionData: GenExceptionData;
   subscription: Subscription;
+  subscriptionEG: Subscription;
   exceptionType: SelectItem[];
   enableGroupKeyword: boolean;
   // Items to be displayed in Exception Type drop-down menu
@@ -45,20 +46,24 @@ export class GenerateExceptionComponent implements OnInit {
 
   }
 
-/**
- * value for generateExceptionInMethod keyword is 2%20abc%3Baaa%3Baaa%201%20sd
- * 2-percentage
- * abc;aaa;aaa-fqm, ; is replaced by %3B
- * 1- exceptionType value
- * sd-exceptionName
- */
+  /**
+   * value for generateExceptionInMethod keyword is 2%20abc%3Baaa%3Baaa%201%20sd
+   * 2-percentage
+   * abc;aaa;aaa-fqm, ; is replaced by %3B
+   * 1- exceptionType value
+   * sd-exceptionName
+   */
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService,) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, ) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.genException = data;
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.genException = keywordDataVal;
       console.log(this.className, "constructor", "this.genException", this.genException);
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.advance.generate_exception.enable;
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.generate_exception.enable);
   }
   ngOnInit() {
     this.createExceptionTypeSelectType();
@@ -66,7 +71,6 @@ export class GenerateExceptionComponent implements OnInit {
   }
   //Method to split the generateExceptionInMethod keyword values by %20 e.g. 2%20abc%3Baaa%3Baaa%201%20sd will be splitted by %20 and %3B
   GenExceptionKeywordValue() {
-    console.log("this.genException", this.genException);
     if ((this.genException["generateExceptionInMethod"].value).includes("%20")) {
       let arr = (this.genException["generateExceptionInMethod"].value).split("%20")
       this.genExceptionData = new GenExceptionData();
@@ -104,9 +108,9 @@ export class GenerateExceptionComponent implements OnInit {
     this.keywordData.emit(this.genException);
   }
 
- resetKeywordData(){
-     this.genException = cloneObject(this.configKeywordsService.keywordData);
-     this.GenExceptionKeywordValue();
+  resetKeywordData() {
+    this.genException = cloneObject(this.configKeywordsService.keywordData);
+    this.GenExceptionKeywordValue();
   }
 
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
@@ -119,7 +123,10 @@ export class GenerateExceptionComponent implements OnInit {
   }
 
   ngOnDestroy() {
-
+    if (this.subscription)
+      this.subscription.unsubscribe();
+    if (this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
   }
 }
 //Contains generateExceptionInMethod Keyword variables
