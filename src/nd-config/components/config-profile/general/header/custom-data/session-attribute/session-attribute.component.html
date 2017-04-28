@@ -13,9 +13,9 @@
         <p-header>
             <span style="float: left"> Session Attribute(s) </span>
             <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="opensSessionAttributeDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit"(click)="editSessionAttribute()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteSessionAttribute()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="opensSessionAttributeDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit"[disabled]="saveDisable" (click)="editSessionAttribute()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable"  (click)="deleteSessionAttribute()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

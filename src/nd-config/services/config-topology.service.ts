@@ -92,8 +92,10 @@ export class ConfigTopologyService {
     return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}`);
   }
 
-
-
+  /**For disable Profile at instance level */
+  disableProfInstance(instanceId, flag){
+    return this._restApi.getDataByPutReq(`${URL.TOGGLED_INSTANCE_STATE}/${instanceId}/${flag}`);
+  }
 
 
   getLazyFiles(){

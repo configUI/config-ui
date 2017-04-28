@@ -64,6 +64,7 @@ export class GenerateExceptionComponent implements OnInit {
       console.log(this.className, "constructor", "this.genException", this.genException);
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.generate_exception.enable);
+
   }
   ngOnInit() {
     this.createExceptionTypeSelectType();

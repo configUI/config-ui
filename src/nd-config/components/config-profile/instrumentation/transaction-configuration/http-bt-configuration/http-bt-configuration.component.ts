@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
@@ -7,8 +7,9 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
+import { KeywordData } from '../../../../../containers/keyword-data';
 
-import { Messages } from '../../../../../constants/config-constant'
+import { Messages } from '../../../../../constants/config-constant';
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -17,13 +18,17 @@ import { Messages } from '../../../../../constants/config-constant'
 })
 export class HTTPBTConfigurationComponent implements OnInit {
 
+ /**This is to send data to parent component(General Screen Component) for save keyword data */
+  @Output()
+  keywordData = new EventEmitter();
+
   profileId: number;
 
   /* Assign data to Global Bt */
   globalBtDetail: BusinessTransGlobalData;
 
   /* variable Preselection for URI without Query Parameters */
-  selectedQueryPattern: string = 'uriWithoutQueryParameters';
+  selectedQueryPattern: string = 'global';
 
   /* variable for Global BT  */
   segmentURI: string;
@@ -65,6 +70,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternDetail: BusinessTransPatternData;
 
   chkInclude: boolean = false;
+  saveDisable: boolean =false;
+
+   keywordList: string[] = ['BTRuleConfig'];
+   BusinessTransGlobalPattern: Object;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
@@ -100,7 +109,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.globalBtDetail.segmentType = 'first';
 
-    this.globalBtDetail.segmentURI = 'segmentOfURI';
+   // this.globalBtDetail.segmentURI = 'segmentOfURI';
 
     this.globalBtDetail.requestHeader = 'NA';
 
@@ -108,17 +117,38 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.globalBtDetail.dynamicReqType = false;
 
-    this.segmentURI = 'complete';
+    //this.segmentURI = 'segmentOfURI';
   }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable=this.profileId==1 ? true:false;
     });
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
+    this.getKeywordData();
     this.loadBTPatternData();
   }
 
+getKeywordData() {
+    let keywordData = this.configKeywordsService.keywordData;
+    this.BusinessTransGlobalPattern = {};
+    this.keywordList.forEach((key) => {
+      if (keywordData.hasOwnProperty(key)) {
+        this.BusinessTransGlobalPattern[key] = keywordData[key];
+        this.selectedQueryPattern = this.BusinessTransGlobalPattern[key].value;
+      }
+    });
+}
+
+setSelectedValueOfBT(value){
+   for (let key in this.BusinessTransGlobalPattern) {
+      if (key == 'BTRuleConfig')
+        this.BusinessTransGlobalPattern[key]["value"] = value;
+        this.configKeywordsService.keywordData[key] = this.BusinessTransGlobalPattern[key];
+    }
+      this.configKeywordsService.saveProfileKeywords(this.profileId);
+}
 
   loadBTPatternData(): void {
 
@@ -127,14 +157,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   doAssignBusinessTransData(data) {
 
-    if (data._embedded.bussinessTransGlobal.length == 1)
+    if (data._embedded.bussinessTransGlobal.length == 1) {
       this.globalBtDetail = data._embedded.bussinessTransGlobal[data._embedded.bussinessTransGlobal.length - 1];
-
-    if (Boolean(this.globalBtDetail.segmentURI) == true)
+    
+      if (this.globalBtDetail.segmentType == "true")
+        this.segmentURI = 'segmentOfURI';
+      else
+        this.segmentURI = 'complete';
+    }
+    else {
       this.segmentURI = 'segmentOfURI';
-    else
-      this.segmentURI = 'complete';
-
+    }
   }
 
   /** Reset All Global BT values */
@@ -217,7 +250,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "exclude";
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
     this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
-   
+
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);

@@ -11,6 +11,8 @@ import { cloneObject } from '../../../../../utils/config-utility';
 export class ThreadStatsComponent implements OnInit {
 
   @Input()
+  profileId: number;
+  @Input()
   saveDisable: boolean;
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
@@ -30,6 +32,8 @@ export class ThreadStatsComponent implements OnInit {
 
   ngOnInit() {
     this.getKeywordData();
+    this.saveDisable=this.profileId==1 ? true:false;
+    console.log("hi",this.profileId);
   }
 
   //method to split enableJVMThreadMonitor keyword value

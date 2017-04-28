@@ -2,3 +2,7 @@
     width: 120px;
     text-overflow: ellipsis
 }
+
+.toggle-space {
+    margin: 1px 0;
+}

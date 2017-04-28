@@ -34,6 +34,7 @@ export class DebugComponent {
   subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
+
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -43,6 +44,7 @@ export class DebugComponent {
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
+
   }
 
   ngOnInit() {

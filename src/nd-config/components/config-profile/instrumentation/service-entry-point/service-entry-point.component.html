@@ -2,7 +2,7 @@
     <p-header>
         <span style="float: left">  Service Entry Detail(s) </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add"></button>
+            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add"></button>
         </span>
     </p-header>
 
@@ -19,9 +19,7 @@
     </p-column>
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center', 'width':'10%'}">
         <template let-col let-service="rowData" pTemplate>
-
-            <md-slide-toggle (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
-
+            <md-slide-toggle [disabled]="saveDisable" class="toggle-space" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
     </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'45%'}">

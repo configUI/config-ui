@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { ConfigCustomDataService } from '../../../../../../services/config-customdata.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,8 @@ import { Messages } from '../../../../../../constants/config-constant'
 })
 export class JavaMethodComponent implements OnInit {
 
+  @Input()
+  saveDisable: boolean;
 
   subscription: Subscription;
 
@@ -64,6 +66,9 @@ export class JavaMethodComponent implements OnInit {
   returnCounter:number =0;
   argumentCounter:number = 0;
 
+  returnCounterEdit :number= 0;
+  argumentCounterEdit :number= 0;
+
 
   /* store operation list */
   operationList: SelectItem[];
@@ -71,6 +76,16 @@ export class JavaMethodComponent implements OnInit {
   /* to hold data to display in table of return type and argument type in table */
   returnTypeData: ReturnTypeData[];
   argumentTypeData: ArgumentTypeData[];
+
+//for holding operator';s value of Extract SubPart Operation for return type
+  leftBoundReturn:any;
+  rightBoundReturn:any;
+
+  //for holding operartor's value of extract subpart Operation for argument Type
+  leftBoundArgument:any;
+  rightBoundArgument:any;
+
+
 
   arrStringLabel: any[] = ['Capture', 'Extract_Subpart', 'Invocation', 'Equals', 'Not Equals', 'Contains', 'Starts With', 'Ends With', 'Exception'];
   arrStringValue: any[] = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
@@ -127,7 +142,8 @@ export class JavaMethodComponent implements OnInit {
   }
 
   loadJavaMethodBasedCustomData() {
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
+    this.route.params.subscribe((params: Params) => {this.profileId = params['profileId'];
+    this.saveDisable = this.profileId == 1 ? true : false;});
     this.configCustomDataService.getMethodBasedCustomData(this.profileId).subscribe(data => {
       this.modifyData(data)
     })
@@ -186,13 +202,17 @@ export class JavaMethodComponent implements OnInit {
 
   openAddDialog() {
     this.methodBasedCustomData = new MethodBasedCustomData();
+    this.returnTypeData = [];
+    this.argumentTypeData = [];
     this.isNew = true;
     this.addEditDialog = true;
   }
 
   openEditDialog(){
+    this.leftBoundReturn = '';
+    this.rightBoundReturn = '';
     this.methodBasedCustomData = new MethodBasedCustomData();
-    
+
     if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
       this.configUtilityService.errorMessage("Select row for edit");
       return;
@@ -202,28 +222,27 @@ export class JavaMethodComponent implements OnInit {
       return;
     }
     else{
-      let returnCounterEdit = 0;
-      let argumentCounterEdit = 0;
+
       let that = this;
       this.methodBasedCustomData = this.selectedJavaMethod[0];
       this.returnTypeData = this.selectedJavaMethod[0].returnTypeData;
       this.returnTypeData.map(function(val){
-        val.id = returnCounterEdit;
-        returnCounterEdit = returnCounterEdit + 1;
-        val.typeName = that.getTypeName(val.type) 
-      }) 
+        val.id =that.returnCounterEdit;
+        that.returnCounterEdit = that.returnCounterEdit + 1;
+        val.typeName = that.getTypeName(val.type)
+      })
       this.argumentTypeData = this.selectedJavaMethod[0].argumentTypeData;
       this.argumentTypeData.map(function(val){
-        val.id = argumentCounterEdit;
-        argumentCounterEdit = argumentCounterEdit + 1;
-        val.typeName = that.getTypeName(val.type) 
-      })  
+        val.id = that.argumentCounterEdit;
+        that.argumentCounterEdit = that.argumentCounterEdit + 1;
+        val.typeName = that.getTypeName(val.type)
+      })
       this.addEditDialog = true;
       this.isNew = false;
     }
   }
 
-  
+
   saveEditData(fqmField) {
 
     //openAddReturnRulesDialog()
@@ -246,32 +265,43 @@ export class JavaMethodComponent implements OnInit {
       this.openAddArgumentRulesDialog();
     }
     else {
-
       this.methodBasedCustomData.argumentTypeData = this.argumentTypeData;
       this.methodBasedCustomData.returnTypeData = this.returnTypeData;
-      this.addEditDialog = false;
-      this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
+
+      if(!this.isNew){
+        //for edit case
+        this.configCustomDataService.editMethodBasedCustomData(this.methodBasedCustomData).subscribe(data => {
+        this.tableData.map(function(val){
+          if(val.methodBasedId == data.methodBasedId ){
+            val = data
+          }
+        })
+        this.configUtilityService.successMessage(Messages);
+        this.modifyData(this.tableData)
+      })
+
+      }
+      else {
+        this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
         this.tableData.push(data);
         this.configUtilityService.successMessage(Messages);
         this.modifyData(this.tableData)
       })
+    }
+      this.addEditDialog = false;
     }
   }
 
   /**For close add/edit dialog box */
   closeDialog(): void {
     this.addEditDialog = false;
+
   }
 
   openAddReturnRulesDialog() {
-    // if(this.methodBasedCustomData == null){
-    //   this.addReturnRulesDialog=false;
-    //   this.configUtilityService.infoMessage("Please provide valid FQM Name !!!");
 
-    // }
     this.addReturnRulesDialog = true;
     this.returnTypeRules = new ReturnTypeData()
-    console.log("openAddReturnRulesDialog method called--", this.methodBasedCustomData.fqm)
     /*calling this function
     * to know data type of return value of provided fqm
     * and creating opertaion list a/c to return type
@@ -333,8 +363,6 @@ export class JavaMethodComponent implements OnInit {
 
   opValList(type) {
 
-    let arrStringLabel = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
-    let arrStringValue = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION']
     let opList = [];
     if (type == "object/string")
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
@@ -356,18 +384,19 @@ export class JavaMethodComponent implements OnInit {
       this.configUtilityService.errorMessage("Select row(s) to delete");
     }
     else{
+
       let selectedRules = this.selectedReturnRules;
       let arrAppIndex = [];
       for (let index in selectedRules) {
           arrAppIndex.push(selectedRules[index].id);
       }
       this.returnTypeData = this.returnTypeData.filter(function(val){
-                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted 
+                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
     }
   }
 
-//deletimg Argument rules 
+//deletimg Argument rules
   deleteArgumentsRules():void{
      if (!this.selectedArgumentRules || this.selectedArgumentRules.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");
@@ -379,7 +408,7 @@ export class JavaMethodComponent implements OnInit {
           arrAppIndex.push(selectedRules[index].id);
       }
       this.argumentTypeData = this.argumentTypeData.filter(function(val){
-                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted 
+                               return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
     }
   }
@@ -421,36 +450,52 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveReturnRules() {
-    console.log("saveReturnRules method caleld--", this.returnTypeRules)
-    this.returnTypeRules["id"] = this.returnCounter ;
-    this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
-    this.returnTypeData.push(this.returnTypeRules);
-    // this.configUtilityService.successMessage(Messages);
-    this.addReturnRulesDialog = false;
-    this.returnCounter = this.returnCounter + 1;
+    if(this.returnTypeRules.operation== 'EXTRACT_SUBPART'){
+       this.returnTypeRules.operatorValue = this.leftBoundReturn + "-" + this.rightBoundReturn ;
+    }
+    if(!this.isNew){
+      //for edit form
+      this.returnTypeRules["id"] = this.returnCounterEdit ;
+      this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
+      this.returnTypeData.push(this.returnTypeRules)
+      this.returnCounterEdit  = this.returnCounterEdit  + 1;
+    }
+    else{
+      // for add form
+      this.returnTypeRules["id"] = this.returnCounter ;
+      this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
+      this.returnTypeData.push(this.returnTypeRules);
+      // this.configUtilityService.successMessage(Messages);
 
+      this.returnCounter = this.returnCounter + 1;
+    }
+     this.addReturnRulesDialog = false;
   }
 
-  saveArgumentRules() {
-    console.log("saveReturnRules method caleld--", this.argumentTypeRules)
-     this.argumentTypeRules["id"]=this.argumentCounter ;
-    this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
-    this.argumentTypeData.push(this.argumentTypeRules)
-    this.addArgumentRulesDialog = false;
-    // this.configUtilityService.successMessage(Messages);
 
+  saveArgumentRules() {
+     if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
+       this.argumentTypeRules.operatorValue = this.leftBoundArgument + "-" + this.rightBoundArgument ;
+    }
+    if(!this.isNew){
+       this.argumentTypeRules["id"]=this.argumentCounterEdit ;
+       this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
+       this.argumentTypeData.push(this.argumentTypeRules)
+    }
+    else{
+        this.argumentTypeRules["id"]=this.argumentCounter ;
+        this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
+        this.argumentTypeData.push(this.argumentTypeRules)
+      }
+    this.addArgumentRulesDialog = false;
   }
 
   openAddArgumentRulesDialog() {
-    console.log("openAddArgumentRulesDialog method called")
     this.validateArgAndGetArgumentsNumberList();
-
   }
 
   operationListArgumentType() {
-    console.log("evt", this.argumentTypeRules.indexVal)
     let type = this.getTypeArgumentType(this.methodBasedCustomData.fqm, this.argumentTypeRules.indexVal)
-    console.log("type--", type)
     this.opValList(type)
   }
 
@@ -492,7 +537,7 @@ export class JavaMethodComponent implements OnInit {
       }
       else {
         if (!this.DATA_TYPE_ARR.includes(args[i])){
-          this.configUtilityService.errorMessage("Invalid Argumnet Data Type")
+          this.configUtilityService.errorMessage("Invalid Argument Data Type")
           return;
         }
         else{
@@ -500,7 +545,6 @@ export class JavaMethodComponent implements OnInit {
         }
       }
     }
-    console.log("length---",length)
     this.indexList = [];
     this.indexList.push({ value: -1, label: '--Select Index--' });
     for (let i = 1; i <= length; i++) {
@@ -630,7 +674,6 @@ export class JavaMethodComponent implements OnInit {
   }
 
   closeArgumentDialog(): void {
-
     this.addArgumentRulesDialog = false;
   }
 

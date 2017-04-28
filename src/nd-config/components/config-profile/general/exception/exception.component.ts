@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { KeywordData } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
@@ -21,14 +22,14 @@ export class ExceptionComponent implements OnInit {
 
   /**These are those keyword which are used in current screen. */
   keywordList: string[] = ['instrExceptions'];
-
+   subscriptionEG: Subscription;
   selectedValue: string = 'unhandled';
 
   exception: Object;
   enableGroupKeyword: boolean
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.general.exception.enable;
+     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
   }
 
   exceptionData: ExceptionData;

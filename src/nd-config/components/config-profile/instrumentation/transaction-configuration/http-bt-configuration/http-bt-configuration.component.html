@@ -5,20 +5,20 @@
 
     <div class="ui-g-12" style="background: #ededf0">
         <div class="ui-g-6">
-            <p-radioButton name="BusinessTransaction" value="uriWithoutQueryParameters" label="URI without Query Parameters" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="URI without Query Parameters" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
         </div>
         <div class="ui-g-6">
-            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
         </div>
     </div>
 </div>
-<div class="ui-g" *ngIf="selectedQueryPattern == 'uriWithoutQueryParameters'" style="margin-bottom:10px; border: ridge;">
+<div class="ui-g" *ngIf="selectedQueryPattern == 'global'" style="margin-bottom:10px; border: ridge;">
     <form (ngSubmit)="saveBusinessTransaction()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g-12 header-font-size">
             <div class="ui-g-6"> Select part of URI used in Transaction name </div>
             <div class="ui-g-6" style="text-align:right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetBusinessTransaction()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable" label="Save"></button>
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
@@ -94,9 +94,9 @@
         <p-header>
             <span style="float: left;">  Bussiness Transaction Pattern(s) </span>
             <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit"(click)="editPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -122,12 +122,12 @@
         </p-column>
         <p-column class="col-overflow" field="slowTransaction" header="Slow Transaction Threshold(ms)" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+        <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
         <p-column class="col-overflow" field="verySlowTransaction" header="Very Slow Transaction Threshold(ms)" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+        <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
         <p-column class="col-overflow" field="paramKeyValue" header="Req Param key Value" [sortable]="true">
@@ -167,7 +167,7 @@
 
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <label>URL</label>
+                    <label>URL Pattern</label>
                 </div>
                 <div class="ui-g-5">
                     <input name="urlName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.urlName" placeholder="URL" required ngModel />

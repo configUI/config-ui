@@ -36,6 +36,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   tableHeaderInfo: any[];
   currentEntity: string = CONS.TOPOLOGY.TOPOLOGY;
+  selectedEntityArr: string[];
   topologyEntity: TopologyInfo;
   tierEntity: TierInfo;
   serverEntity: ServerInfo;
@@ -54,6 +55,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
+    this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
     //no need to call when store used [TO DO's]
     this.loadProfileList();
     this.loadTopologyData();
@@ -80,23 +82,28 @@ export class ConfigTreeDetailComponent implements OnInit {
   /** For getting entity(Tier, Server, Instance) data  **/
 
   getData(event): void {
-
+    this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
     if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
       this.currentEntity = CONS.TOPOLOGY.TIER;
       this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
       this.configTopologyService.getTierDetail(event.data.nodeId, this.topologyEntity).subscribe(data => this.topologyData = data);
+      this.selectedEntityArr.push(CONS.TOPOLOGY.TIER);
     }
     else if (event.data.currentEntity == CONS.TOPOLOGY.TIER) {
       //this.selectedTopologyData :TierInfo[];
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);
+      this.selectedEntityArr.push(CONS.TOPOLOGY.TIER, CONS.TOPOLOGY.SERVER);
     }
     else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER) {
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => this.topologyData = data);
+      this.selectedEntityArr.push(CONS.TOPOLOGY.TIER, CONS.TOPOLOGY.SERVER, CONS.TOPOLOGY.INSTANCE);
     }
+    
+    this.selectedEntityArr = [this.selectedEntityArr.join("> ")];
     //For Table header Name
     this.getTableHeader();
   }
@@ -109,18 +116,21 @@ export class ConfigTreeDetailComponent implements OnInit {
     let colField;
     let colHeader = ["Name", "Description", "Profile Applied"];
     if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
-      colField = ["topoName", "topoDesc", "profileName"];
+      colHeader = ["Name",  "Profile Applied"];
+      colField = ["topoName", "profileName"];
     }
 
     else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
+      colHeader = ["Name", "Description", "Profile Applied"];
       colField = ["tierName", "tierDesc", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
-      colField = ["serverDisplayName", "serverDesc", "profileName"];
+       colHeader = ["Display Name", " Name", "Profile Applied"];
+       colField = ["serverDisplayName", "serverName", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
-      colField = ["instanceDisplayName", "instanceDesc", "profileName", "enabled"];
-      colHeader.push("Enabled");
+      colHeader = ["Display Name", " Name","Description", "Profile Applied","Enabled"];
+      colField = ["instanceDisplayName", "instanceName", "instanceDesc","profileName", "enabled"];
     }
 
     for (let i = 0; i < colField.length; i++) {
@@ -226,5 +236,17 @@ export class ConfigTreeDetailComponent implements OnInit {
     //Observable profile name
     this.configProfileService.profileNameObserver(entity.profileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', entity.profileId]);
+  }
+
+  disableProfInstance(instanceId, flag){
+
+    this.configTopologyService.disableProfInstance(instanceId, flag).subscribe(data => {
+        if(data.enabled == "true"){
+          this.configUtilityService.infoMessage("Enabled Profile Sucessfully.");
+        }
+        else{
+          this.configUtilityService.infoMessage("Disabled Profile Sucessfully.");
+        }
+    });
   }
 }

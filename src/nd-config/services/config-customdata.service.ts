@@ -32,5 +32,9 @@ export class ConfigCustomDataService {
     this._restApi.getDataByGetReq(`${URL.UPDATE_CUSTOM_CAPTURE_DATA_FILE}/${profileId}`).subscribe();
   }
 
+  editMethodBasedCustomData(data):Observable<MethodBasedCustomData>{
+    return this._restApi.getDataByPostReq(`${URL.EDIT_METHODBASED_CUSTOMDATA}/${data.methodBasedId}`,data)
+  }
+
 
 }

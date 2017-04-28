@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ErrorDetection } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
-
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { deleteMany } from '../../../../utils/config-utility';
@@ -16,6 +15,8 @@ import { Messages } from '../../../../constants/config-constant'
 export class ErrorDetectionComponent implements OnInit {
   @Input()
   profileId: number;
+  @Input()
+  saveDisable: boolean;
   /**It stores error detection data */
   errorDetectionData: ErrorDetection[];
   /**It stores selected error detection data */
@@ -32,10 +33,12 @@ export class ErrorDetectionComponent implements OnInit {
 
   ngOnInit() {
     this.loadErrorDetectionList();
+    this.saveDisable=this.profileId==1 ? true:false;
   }
 
   /**This method is called to load data */
   loadErrorDetectionList() {
+
     this.configKeywordsService.getErrorDetectionList(this.profileId).subscribe(data => {
       this.errorDetectionData = data;
     });

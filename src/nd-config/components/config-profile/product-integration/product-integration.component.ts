@@ -43,6 +43,7 @@ export class ProductIntegrationComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
+      this.saveDisable = this.profileId == 1 ? true : false;
       this.index = params['tabId'];
     });
     this.loadKeywordData();

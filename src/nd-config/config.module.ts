@@ -44,7 +44,7 @@ import {
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
-import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import 'hammerjs';
 

@@ -40,11 +40,9 @@ export class InstrumentMonitorsComponent implements OnInit {
     private configHomeService: ConfigHomeService
   ) { }
   
-  
 
  saveKeywordData(keywordData) {
-   console.log("keyyydasta",keywordData);
-    for (let key in keywordData) {
+   for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
     this.configUtilityService.successMessage(Messages);
@@ -55,6 +53,7 @@ export class InstrumentMonitorsComponent implements OnInit {
 
   ngOnInit() {
      this.route.params.subscribe((params: Params) => {
+       this.saveDisable=this.profileId==1 ? true:false;
     });
     this.loadKeywordData();
   }

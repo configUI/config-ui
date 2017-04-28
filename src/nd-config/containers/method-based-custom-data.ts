@@ -15,7 +15,7 @@ export class ReturnTypeData{
      id:number;
      returnTypeId: number; 
      headerName: string;
-     operationName:string;
+     operation:string;
      operatorValue:string;
      indexVal:number | string;
      type:number | string;
@@ -27,7 +27,7 @@ export class ArgumentTypeData{
     id:number;
     argTypeId: number;
      headerName: string;
-     operation:string;
+     operationName:string;
      operatorValue:string;
      type:number | string;
      indexVal:number | string;
