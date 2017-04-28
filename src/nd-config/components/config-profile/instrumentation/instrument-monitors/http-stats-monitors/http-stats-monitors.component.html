@@ -1,5 +1,6 @@
 <p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="12" [paginator]="httpStatsMonitorData?.length > 12" [pageLinks]="3">
     <p-header>
+        <!--<span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>-->
         <span style="float: left">HTTP Stats Condition Monitor(s) </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>

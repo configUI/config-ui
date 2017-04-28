@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ActivatedRoute, Params } from '@angular/router';
 import { MethodMonitorData } from '../../../../../containers/instrumentation-data';
@@ -17,6 +17,8 @@ export class MethodMonitorsComponent implements OnInit {
 
   @Input()
   profileId: number;
+  @Output()
+  keywordData = new EventEmitter();
   /**It stores method monitor-list data */
   methodMonitorData: MethodMonitorData[];
   /**It stores selected method monitor data for edit or add method-monitor */
@@ -30,10 +32,45 @@ export class MethodMonitorsComponent implements OnInit {
   addEditMethodMonitorDialog: boolean = false;
   saveDisable: boolean= false;
 
+  keywordList: string[] = ['ndMethodMonFile'];
+  methodMonitor: Object;
+  selectedValues: boolean;
+  keywordValue:Object;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadMethodMonitorList();
+
+    this.keywordValue= this.configKeywordsService.keywordData;
+     this. methodMonitor = {};
+    this.keywordList.forEach((key) => {
+      if (this.keywordValue.hasOwnProperty(key)) {
+        this. methodMonitor[key] = this.keywordValue[key];
+        if(this. methodMonitor[key].value == "true")
+        this.selectedValues = true;
+        else
+        this.selectedValues = false;
+      }
+    });
+  }
+  saveKeywordData() {
+
+    for (let key in this.methodMonitor) {
+      if (key == 'ndMethodMonFile') {
+        if (this.selectedValues == true){
+          this.methodMonitor[key]["value"] = "true";
+           this.configUtilityService.successMessage("ndMethodMonFile is enabled");
+        }
+        else{
+          this.methodMonitor[key]["value"] = "false";
+          this.configUtilityService.successMessage("ndMethodMonFile is disabled");
+        }
+      }
+      this.configKeywordsService.keywordData[key] = this.methodMonitor[key];
+    }
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+
   }
   /**This method is called to load data */
 

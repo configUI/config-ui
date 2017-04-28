@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ErrorDetection } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { deleteMany } from '../../../../utils/config-utility';
-
+import { Keywords } from '../../../../interfaces/keywords';
 import { Messages } from '../../../../constants/config-constant'
 
 @Component({
@@ -17,6 +17,8 @@ export class ErrorDetectionComponent implements OnInit {
   profileId: number;
   @Input()
   saveDisable: boolean;
+  @Output()
+  keywordData = new EventEmitter();
   /**It stores error detection data */
   errorDetectionData: ErrorDetection[];
   /**It stores selected error detection data */
@@ -29,11 +31,48 @@ export class ErrorDetectionComponent implements OnInit {
   /**For open/close add/edit error detection detail */
   addEditErrorDetectionDialog: boolean = false;
 
+  keywordList: string[] = ['BTErrorRules'];
+  errorDetection: Object;
+  selectedValues: boolean;
+  keywordValue:Object;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadErrorDetectionList();
-    this.saveDisable=this.profileId==1 ? true:false;
+    this.saveDisable = this.profileId == 1 ? true : false;
+
+    this.keywordValue= this.configKeywordsService.keywordData;
+     this.errorDetection = {};
+    this.keywordList.forEach((key) => {
+      if (this.keywordValue.hasOwnProperty(key)) {
+        this.errorDetection[key] = this.keywordValue[key];
+        if(this.errorDetection[key].value == "true")
+        this.selectedValues = true;
+        else
+        this.selectedValues = false;
+      }
+    });
+  }
+  saveKeywordData() {
+
+    for (let key in this.errorDetection) {
+      if (key == 'BTErrorRules') {
+
+        if (this.selectedValues == true){
+          this.errorDetection[key]["value"] = "true";
+          this.configUtilityService.successMessage("BTErrorRules is enabled");
+        }
+        else
+        {
+          this.errorDetection[key]["value"] = "false";
+          this.configUtilityService.successMessage("BTErrorRules is disabled");
+        }
+      }
+      this.configKeywordsService.keywordData[key] = this.errorDetection[key];
+    }
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+
   }
 
   /**This method is called to load data */
@@ -123,7 +162,7 @@ export class ErrorDetectionComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting Error detection in DB
         this.errorDetectionData.push(data);
-    this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(Messages);
       });
     this.addEditErrorDetectionDialog = false;
   }
@@ -175,23 +214,22 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
 
-   checkFrom(from , to){
-     if(this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo)
-     {
-       from.setCustomValidity('From value should be less than To value.');
-     }
-     else{
+  checkFrom(from, to) {
+    if (this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo) {
+      from.setCustomValidity('From value should be less than To value.');
+    }
+    else {
       from.setCustomValidity('');
     }
     to.setCustomValidity('');
 
   }
 
-  checkTo(from , to ){
-     if(this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo){
+  checkTo(from, to) {
+    if (this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo) {
       to.setCustomValidity('To value should be greater than from value.');
     }
-    else{
+    else {
       to.setCustomValidity('');
     }
     from.setCustomValidity('');

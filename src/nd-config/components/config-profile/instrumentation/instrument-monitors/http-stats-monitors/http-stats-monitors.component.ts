@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -18,6 +18,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   @Input()
   profileId: number;
+  // @Output()
+  // keywordData = new EventEmitter();
   /**It stores HTTP Stats Condition-list data */
   httpStatsMonitorData: HttpStatsMonitorData[];
   /**It stores selected HTTP Stats Condition data for edit or add method-monitor */
@@ -46,6 +48,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
   selectedValueType: number;
   isDisableValueType: boolean = true;
   saveDisable: boolean = false;
+
+  // keywordList: string[] = ['HTTPStatsCondCfg'];
+  // HttpStatsCond: Object;
+  // selectedValues: boolean;
+  // keywordValue:Object;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
@@ -59,7 +67,35 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.loadStringOP();
     this.loadNumericOP();
     this.loadOthersOP();
+    // this.keywordValue= this.configKeywordsService.keywordData;
+    //  this.HttpStatsCond = {};
+    // this.keywordList.forEach((key) => {
+    //   if (this.keywordValue.hasOwnProperty(key)) {
+    //     this.HttpStatsCond[key] = this.keywordValue[key];
+    //     if(this.HttpStatsCond[key].value == "true")
+    //     this.selectedValues = true;
+    //     else
+    //     this.selectedValues = false;
+    //   }
+    // });
   }
+
+  // saveKeywordData() {
+
+  //   for (let key in this.HttpStatsCond) {
+  //     if (key == 'HTTPStatsCondCfg') {
+
+  //       console.log("hi",this.selectedValues);
+  //       if (this.selectedValues == true)
+  //         this.HttpStatsCond[key]["value"] = "true";
+  //       else
+  //         this.HttpStatsCond[key]["value"] = "false";
+  //     }
+  //     this.configKeywordsService.keywordData[key] = this.HttpStatsCond[key];
+  //   }
+  //   this.configKeywordsService.saveProfileKeywords(this.profileId);
+
+  // }
 
   loadHttpStatsMonitorList() {
     this.route.params.subscribe((params: Params) => {
