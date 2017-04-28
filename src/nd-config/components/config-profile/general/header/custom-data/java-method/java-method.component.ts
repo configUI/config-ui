@@ -522,7 +522,7 @@ export class JavaMethodComponent implements OnInit {
 
           //here string = "Ljava/lang/String;"
 
-          if (!this.DATA_TYPE_ARR.includes(string)){
+          if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1){
             this.configUtilityService.errorMessage("Invalid Argument Data Type")
             flag = false;
             return;
@@ -536,7 +536,7 @@ export class JavaMethodComponent implements OnInit {
 
       }
       else {
-        if (!this.DATA_TYPE_ARR.includes(args[i])){
+        if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1){
           this.configUtilityService.errorMessage("Invalid Argument Data Type")
           return;
         }
