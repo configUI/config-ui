@@ -205,7 +205,7 @@ setSelectedValueOfBT(value){
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
-    this.configUtilityService.successMessage("Saved Successfully !!!");
+    this.configUtilityService.successMessage("Saved Successfully");
 
   }
 
