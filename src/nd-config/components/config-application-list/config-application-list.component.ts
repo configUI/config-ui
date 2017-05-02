@@ -75,7 +75,6 @@ export class ConfigApplicationListComponent implements OnInit {
     this.isNewApp = true;
     this.addEditAppDialog = true;
   }
-
   /**For showing edit application dialog */
   editAppDialog(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
@@ -86,7 +85,6 @@ export class ConfigApplicationListComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row for edit");
       return;
     }
-
     this.isNewApp = false;
     this.addEditAppDialog = true;
     this.applicationDetail = Object.assign({}, this.selectedApplicationData[0]);
@@ -123,7 +121,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**This method is common method for save or edit application detail*/
   saveEditApp(): void {
-    //When add new application 
+    //When add new application
     if (this.isNewApp) {
       //Check for app name already exist or not
       if (!this.checkAppNameAlreadyExist()) {
@@ -131,7 +129,7 @@ export class ConfigApplicationListComponent implements OnInit {
         return;
       }
     }
-    //When add edit application 
+    //When add edit application
     else {
       if (this.selectedApplicationData[0].appName != this.applicationDetail.appName) {
         if (this.checkAppNameAlreadyExist())
@@ -209,10 +207,12 @@ export class ConfigApplicationListComponent implements OnInit {
     }
 
     this.applicationData = deleteMany(this.applicationData, rowIndex);
+    //clearing the array used for storing selected row
+    this.selectedApplicationData = [];
   }
 
   routeToTree(selectedAppId, selectedAppName) {
-    //Observable app name 
+    //Observable app name
     this.configApplicationService.applicationNameObserver(selectedAppName);
     this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
   }
@@ -231,7 +231,7 @@ export class ConfigApplicationListComponent implements OnInit {
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].appId);
         }
-        this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data => 
+        this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data =>
             this.configUtilityService.infoMessage("Successfully generated nd.conf file at path : " + data));
 
   }

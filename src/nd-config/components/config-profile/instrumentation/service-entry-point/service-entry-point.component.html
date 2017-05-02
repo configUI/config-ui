@@ -6,7 +6,7 @@
         </span>
     </p-header>
 
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
     <p-column class="tableCss" field="entryType" header="Type" [sortable]="true" [style]="{'width':'15%'}">
         <template let-col let-service="rowData" pTemplate>
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
@@ -17,7 +17,7 @@
       <span title="{{service[col.field]}}">{{service[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center', 'width':'10%'}">
+    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
         <template let-col let-service="rowData" pTemplate>
             <md-slide-toggle [disabled]="saveDisable" class="toggle-space" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
     </template>
