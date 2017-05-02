@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit {
     if (httpReqkeyword.enableHttpReq) {
       httpReqFullFpVal = "3%20"
 
-      if (httpReqkeyword.headerMode != 'ALL Headers') {
+      if (httpReqkeyword.headerMode != 'ALL') {
         let val = '';
         for (var i = 0; i < httpReqkeyword.headersName.length; i++) {
           if (i == (httpReqkeyword.headersName.length - 1))
@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit {
     if (httpRespKeyword.enableHttpResp) {
       httpRespFullFpVal = "3%20"
 
-      if (httpRespKeyword.headerModeResp != 'ALL Headers') {
+      if (httpRespKeyword.headerModeResp != 'ALL') {
         let val = '';
         for (var i = 0; i < httpRespKeyword.headersNameResp.length; i++) {
           if (i == (httpRespKeyword.headersNameResp.length - 1))
@@ -155,7 +155,7 @@ export class HeaderComponent implements OnInit {
     if ((keywords["captureHTTPReqFullFp"].value).includes("%20")) {
       let arr = (keywords["captureHTTPReqFullFp"].value).split("%20")
       this.httpReqFullFp.enableHttpReq = arr[0] == 3;
-      this.httpReqFullFp.headerMode = arr[1] == "ALL" ? "ALL Headers" : "Specified Headers";
+      this.httpReqFullFp.headerMode = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
       if (arr[1].includes(",") && arr[1] != "ALL") {
         arrVal = arr[1].split(",")
@@ -168,7 +168,7 @@ export class HeaderComponent implements OnInit {
     if ((keywords["captureHTTPRespFullFp"].value).includes("%20")) {
       let arr = (keywords["captureHTTPRespFullFp"].value).split("%20")
       this.httpRespFullFp.enableHttpResp = arr[0] == 3;
-      this.httpRespFullFp.headerModeResp = arr[1] == "ALL" ? "ALL Headers" : "Specified Headers";
+      this.httpRespFullFp.headerModeResp = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
       if (arr[1] != "ALL") {
         arrVal = arr[1].split(",")
