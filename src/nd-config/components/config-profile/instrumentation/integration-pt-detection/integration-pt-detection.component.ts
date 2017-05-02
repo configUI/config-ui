@@ -116,6 +116,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
     this.namingRuleAndExitPoint.topicName = this.integrationDetail.namingRule.topicName;
     this.namingRuleAndExitPoint.url = this.integrationDetail.namingRule.url;
     this.namingRuleAndExitPoint.lstEndPoints = [];
+    this.namingRuleAndExitPoint.query = this.integrationDetail.namingRule.query;
 
     for (let i = 0; i < this.integrationDetail.lstEndPoints.length; i++) {
       this.namingRuleAndExitPoint.lstEndPoints[i] = { id: this.integrationDetail.lstEndPoints[i].id, enabled: this.integrationDetail.lstEndPoints[i].enabled };;
