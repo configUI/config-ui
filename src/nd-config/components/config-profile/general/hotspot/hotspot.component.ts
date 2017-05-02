@@ -37,8 +37,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
   exceptionName: string[];
   includedException;
   excludedException;
-  includedExceptionChk: boolean = false;
-  excludedExceptionChk: boolean = false;
   enableGroupKeyword: boolean = false;
 
   /**Value for the keyword ASPositiveThreadFilters
@@ -60,7 +58,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
         // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == '1';
-        console.log("--this.includedException--", this.includedException);
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
@@ -77,35 +74,28 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     //Joining the values of ASNegativeThreadFilter and ASPositiveThreadFilters keywords with &.
-    console.log("--this.hotspotvalue--", this.hotspot["ASPositiveThreadFilters"].value);
-    // if(this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value != "NA"  ){
-    //    this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].value.join("&");
-    //    console.log("this.hotspot['ASPositiveThreadFilters'].value ",this.hotspot["ASPositiveThreadFilters"].value );
-    // }
-    //  if(this.hotspot["ASNegativeThreadFilter"].value != null &&  this.hotspot["ASNegativeThreadFilter"].value != "NDControlConnection" ){
-    //    this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].value.join("&");
-    //   console.log("this.hotspotaaavalue------------------------------------",this.hotspot["ASPositiveThreadFilters"].value);
-    // }
-    console.log("includeException",this.includedExceptionChk);
-    console.log("excludedExceptionChk",this.excludedExceptionChk);
-    console.log("--includedException--", this.includedException);
-    console.log("--excludeException--",this.excludedException);
-    if (this.includedExceptionChk == true && this.hotspot["ASPositiveThreadFilters"].value !="NA" && this.hotspot["ASPositiveThreadFilters"].value != null) {
+  /*
+  *  ASPositiveThreadFilters is given the defaultValue
+  *  so if there is a change in that default value it automatically refers to that value and we need to made the change in only one file
+  *  this is done to handle the case of writing keywords as:
+  *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
+  */
+
+    if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 ) {
       this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
-      console.log("hello", this.includedException);
     }
-    // else if(this.includedExceptionChk != true && this.hotspot["ASPositiveThreadFilters"].value != null){
-    //   console.log("hi..",this.hotspot["ASPositiveThreadFilters"].value );
-    //   this.hotspot["ASPositiveThreadFilters"].value = "NA";
-    // }
-    if (this.excludedExceptionChk == true && this.hotspot["ASNegativeThreadFilter"].value != "NDControlConnection" && this.hotspot["ASNegativeThreadFilter"].value != null) {
+    else {
+      this.hotspot["ASPositiveThreadFilters"].value= this.hotspot["ASPositiveThreadFilters"].defaultValue;
+    }
+
+    if (this.hotspot["ASNegativeThreadFilter"].value != null && this.hotspot["ASNegativeThreadFilter"].value.length != 0) {
       this.hotspot["ASNegativeThreadFilter"].value = this.excludedException.join("&");
-      console.log("hey",this.excludedException);
     }
-    // else if(this.excludedExceptionChk == false && this.excludedException != null){
-    //   console.log("how r u",this.hotspot["ASNegativeThreadFilter"].value);
-    //   this.hotspot["ASNegativeThreadFilter"].value = "NDControlConnection";
-    // }
+
+    else{
+      this.hotspot["ASNegativeThreadFilter"].value= this.hotspot["ASNegativeThreadFilter"].defaultValue ;
+    }
+
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value ? '1' : '0';
     this.keywordData.emit(this.hotspot);
   }
@@ -117,7 +107,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.subscription)
-      this.subscription.unsubscribe();
+   this.subscription.unsubscribe();
   }
 
 
