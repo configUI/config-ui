@@ -11,7 +11,7 @@
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
-                    </span>
+                   </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -297,7 +297,7 @@
                 </div>
             </div>-->
 
-            <div class="ui-g-12">
+            <div class="ui-g-12" *ngIf="!(argumentTypeRules.operationName =='CAPTURE')&&!(argumentTypeRules.operationName =='EXCEPTION')&&!(argumentTypeRules.operationName =='EXTRACT_SUBPART')">
                 <div class="ui-g-2">
                     <label>Operator Value</label>
                 </div>
