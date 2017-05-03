@@ -15,7 +15,7 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-    <p-column class="col-overflow" field="fqm" header="Fully Qualified Name" [sortable]="true">
+    <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
