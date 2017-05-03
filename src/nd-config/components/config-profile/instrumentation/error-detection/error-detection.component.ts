@@ -61,12 +61,12 @@ export class ErrorDetectionComponent implements OnInit {
 
         if (this.selectedValues == true){
           this.errorDetection[key]["value"] = "true";
-          this.configUtilityService.successMessage("BTErrorRules is enabled");
+          this.configUtilityService.successMessage("Error Detection settings are enabled");
         }
         else
         {
           this.errorDetection[key]["value"] = "false";
-          this.configUtilityService.successMessage("BTErrorRules is disabled");
+          this.configUtilityService.successMessage("Error detection settings disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.errorDetection[key];
@@ -94,11 +94,11 @@ export class ErrorDetectionComponent implements OnInit {
   /**For showing Error Detection dialog */
   openEditErrorDetectionDialog(): void {
     if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
-      this.configUtilityService.errorMessage("Select a row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedErrorDetection.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
     this.errorDetectionDetail = new ErrorDetection();
@@ -170,11 +170,11 @@ export class ErrorDetectionComponent implements OnInit {
   /**This method is used to delete Error Detection */
   deleteErrorDetection(): void {
     if (!this.selectedErrorDetection || this.selectedErrorDetection.length < 1) {
-      this.configUtilityService.errorMessage("Select row(s) for delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {

@@ -1,34 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-http-header',
-//   templateUrl: './http-header.component.html',
-//   styleUrls: ['./http-header.component.css']
-// })
-// export class HttpHeaderComponent implements OnInit {
-
-//   constructor() { }
-
-//   httpRequestCustomDialog: boolean = false;
-
-//   ngOnInit() {
-//   }
-
-//    openMethodDialog() {
-//     this.httpRequestCustomDialog = true;
-//   }
-
-
-// }
-
 import { Component, OnInit,Input } from '@angular/core';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
-  // selector: 'app-http-request',
-  // templateUrl: './http-request.component.html',
-  // styleUrls: ['./http-request.component.css']
   selector: 'app-http-header',
   templateUrl: './http-header.component.html',
   styleUrls: ['./http-header.component.css']

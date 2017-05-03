@@ -26,7 +26,7 @@
     </p-column>
     <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <md-slide-toggle onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
+      <md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
     </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'30%'}">
@@ -93,7 +93,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <input name="ruleDesc" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleDesc" ngModel/>
+                <textarea name="ruleDesc" rows="2" cols="45" maxlength="200" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel></textarea>
             </div>
         </div>
         <footer>

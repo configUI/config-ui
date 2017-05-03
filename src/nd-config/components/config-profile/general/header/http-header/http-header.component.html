@@ -1,4 +1,3 @@
-
 <div class="ui-g">
     <div class="ui-g-12">
         <p-checkbox name="captureHttpRequestHeader" label="Capture HTTP Request Headers" [(ngModel)]="data[0].enableHttpReq" binary="true"></p-checkbox>
@@ -7,11 +6,14 @@
 
 <div class="ui-g httpHeaderCss" *ngIf="data[0].enableHttpReq">
     <div class="ui-g-12">
+        <div class="ui-g-1">
+            <label>Header Type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" appendTo="body" required ngModel placeholder="Select Header"></p-dropdown>
+            <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode"
+                appendTo="body" required ngModel></p-dropdown>
         </div>
-        <div class="ui-g-10" *ngIf="(data[0].headerMode == 'Specified')">
-            <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}"  [(ngModel)]="data[0].headersName"></p-multiSelect>
+        <div class="ui-g-8" *ngIf="(data[0].headerMode == 'Specified')">
+            <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
@@ -22,7 +24,7 @@
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+            <input name="btName" style="text-align:right" type="text" size="10" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>
@@ -35,11 +37,14 @@
 
 <div class="ui-g httpHeaderCss" *ngIf="data[1].enableHttpResp">
     <div class="ui-g-12">
+        <div class="ui-g-1">
+            <label>Header Type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" appendTo="body" required ngModel placeholder="Select Header"></p-dropdown>
+            <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" appendTo="body"
+                required ngModel></p-dropdown>
         </div>
-        <div class="ui-g-10" *ngIf="(data[1].headerModeResp == 'Specified')">
-            <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}"  [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
+        <div class="ui-g-8" *ngIf="(data[1].headerModeResp == 'Specified')">
+            <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
@@ -50,7 +55,7 @@
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" placeholder="Enter Range Of Characters" autofocus required ngModel/>
+            <input name="btName" type="text" style="text-align:right" size="10" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>

@@ -60,11 +60,11 @@ export class MethodMonitorsComponent implements OnInit {
       if (key == 'ndMethodMonFile') {
         if (this.selectedValues == true){
           this.methodMonitor[key]["value"] = "true";
-           this.configUtilityService.successMessage("ndMethodMonFile is enabled");
+           this.configUtilityService.successMessage("Method Monitors settings are enabled");
         }
         else{
           this.methodMonitor[key]["value"] = "false";
-          this.configUtilityService.successMessage("ndMethodMonFile is disabled");
+          this.configUtilityService.successMessage("Method Monitors settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.methodMonitor[key];
@@ -192,7 +192,7 @@ export class MethodMonitorsComponent implements OnInit {
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
