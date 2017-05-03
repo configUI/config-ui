@@ -1,10 +1,10 @@
 <div class="widget">
-    <div class="header"><i aria-hidden="true"></i>Application(s)
+    <div class="header"><i aria-hidden="true"></i>Application (s)
         <span style="float: right; margin-top:-2px">
-            <button pButton type="button" title="Generate nd.conf file" icon="fa-file-text" (click)="generateNDConfFile()"></button>
-            <button pButton type="button" title="Add" (click)="openAppDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit"(click)="editAppDialog()" icon="fa-pencil" ></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteApp()" icon="fa-trash"></button>
+            <button pButton type="button" title="Generate Agent Configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>
+            <button pButton type="button" title="Add an application" (click)="openAppDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit an application"(click)="editAppDialog()" icon="fa-pencil" ></button>
+            <button pButton type="button"class="ui-button-danger" title="Delete application(s)" (click)="deleteApp()" icon="fa-trash"></button>
         </span>
     </div>
 
@@ -15,7 +15,8 @@
 
         <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
+      <span title="{{application[col.field]}}
+Click to open topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
     </template>
         </p-column>
         <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true">
@@ -56,10 +57,19 @@
             </div>
             <div class="ui-g">
                 <div class="ui-g-4">
+                    <label>Topology</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                    <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-4">
                     <label>Description</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="appDesc" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appDesc" required ngModel />
+                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" required ngModel></textarea>
                 </div>
             </div>
             <!--<div class="ui-g">
@@ -71,15 +81,6 @@
                         required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
             </div>-->
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Topology</label>
-                </div>
-                <div class="ui-g-8">
-                    <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                    <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
-                </div>
-            </div>
             <footer>
                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                     <button type="submit" pButton icon="fa-check" label="Save"></button>

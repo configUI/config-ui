@@ -121,7 +121,7 @@ export class SessionAttributeComponent implements OnInit {
 
      if((this.sessionAttributeDetail.complete==false && this.sessionAttributeDetail.specific==false) || (!this.sessionAttributeDetail.complete && !this.sessionAttributeDetail.specific))
       {
-        this.configUtilityService.errorMessage("Please select any of the checkbox");
+        this.configUtilityService.errorMessage("Select Attribute type(s)");
       }
     //When add new Session Attribute
    else if (this.isNewSessionAttr) {
@@ -235,11 +235,11 @@ export class SessionAttributeComponent implements OnInit {
   editSessionAttribute(): void {
     this.sessionAttributeDetail = new SessionAtrributeComponentsData();
     if (!this.selectedSessionAttributeList || this.selectedSessionAttributeList.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedSessionAttributeList.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
 
@@ -266,11 +266,11 @@ export class SessionAttributeComponent implements OnInit {
   /**This method is used to delete Session Attribute*/
   deleteSessionAttribute(): void {
     if (!this.selectedSessionAttributeList || this.selectedSessionAttributeList.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
@@ -283,7 +283,7 @@ export class SessionAttributeComponent implements OnInit {
         this.configKeywordsService.deleteSessionAttributeData(arrAppIndex)
           .subscribe(data => {
             this.deleteSessionAttributeIndex(arrAppIndex);
-            this.configUtilityService.infoMessage("Delete Successfully");
+            this.configUtilityService.infoMessage("Deleted Successfully");
             this.selectedSessionAttributeList = [];
           })
       },
@@ -294,12 +294,32 @@ export class SessionAttributeComponent implements OnInit {
 
   /**This method is used to delete Session Value Types */
   deleteSessionValueType() {
-    let selectedRules = this.selectedSessionValueType;
-    let arrRulesIndex = [];
-    for (let index in selectedRules) {
-      arrRulesIndex.push(selectedRules[index]);
+    if (!this.selectedSessionValueType || this.selectedSessionValueType.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
     }
-    this.deleteTypeValuesFromTable(arrRulesIndex);
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let selectedRules = this.selectedSessionValueType;
+        let arrRulesIndex = [];
+        for (let index in selectedRules) {
+           arrRulesIndex.push(selectedRules[index]);
+        }
+            this.deleteTypeValuesFromTable(arrRulesIndex);
+            this.configUtilityService.infoMessage("Deleted Successfully");
+            this.selectedSessionValueType = [];
+          }
+    // let selectedRules = this.selectedSessionValueType;
+    // let arrRulesIndex = [];
+    // for (let index in selectedRules) {
+    //   arrRulesIndex.push(selectedRules[index]);
+    // }
+    // this.deleteTypeValuesFromTable(arrRulesIndex);
+  });
   }
 
   /**This method returns selected Session Attribute row on the basis of selected row */

@@ -157,11 +157,11 @@ export class HttpRequestComponent implements OnInit {
     let isComplete = false;
     this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedHTTPReqHeader.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
 
@@ -361,12 +361,26 @@ export class HttpRequestComponent implements OnInit {
 
   // Method for delete rules information
   deleteRules() {
-    let selectedRules = this.selectedRulesData;
+     if (!this.selectedRulesData || this.selectedRulesData.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+     this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+       let selectedRules = this.selectedRulesData;
     let arrRulesIndex = [];
-    for (let index in selectedRules) {
+        for (let index in selectedRules) {
       arrRulesIndex.push(selectedRules[index].valName);
     }
-    this.deleteRulesFromTable(arrRulesIndex);
+       this.deleteRulesFromTable(arrRulesIndex);
+            this.configUtilityService.infoMessage("Delete Successfully");
+            this.selectedHTTPReqHeader = [];
+          }
+     });
+  
   }
 
   /**This method returns selected Rules row on the basis of selected row */
@@ -381,6 +395,7 @@ export class HttpRequestComponent implements OnInit {
 
   /**This method is used to delete Rules from Data Table */
   deleteRulesFromTable(arrRulesIndex: any[]): void {
+
     //For stores table row index
     let rowIndex: number[] = [];
 
@@ -392,11 +407,11 @@ export class HttpRequestComponent implements OnInit {
 
   deleteHTTPReqHeader(): void {
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {

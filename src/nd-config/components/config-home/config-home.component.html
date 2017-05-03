@@ -3,7 +3,7 @@
     <div class="ui-g-6">
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
-                <div class="header-Name">APPLICATION</div>
+                <div class="header-Name">APPLICATION LIST</div>
                 <div class="header-button">
                     <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" label="Configure" class="ui-button-info"></button></a>
                 </div>
@@ -12,7 +12,8 @@
                 <p-dataTable [value]="applicationInfo" [rows]="5">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'])">{{application[col.field]}}</a></span>
+                            <span title="{{application[col.field]}}
+Click to open topology details"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'])">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topology" header="Topology Applied">
@@ -34,7 +35,7 @@
     <div class="ui-g-6">
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
-                <div class="header-Name">PROFILE</div>
+                <div class="header-Name">PROFILE LIST</div>
                 <div class="header-button">
                     <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Configure" class="ui-button-info "></button></a>
                 </div>
@@ -43,7 +44,8 @@
                 <p-dataTable [value]="profileInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-profile="rowData" pTemplate>
-                            <span title="{{profile[col.field]}}"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
+                            <span title="{{profile[col.field]}}
+Click to open profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="description" header="Description">
@@ -67,7 +69,7 @@
     <div class="ui-g-5">
         <md-card class="md-card-css">
             <md-card-subtitle class="md-card-subtitle-css">
-                <div class="header-Name">TOPOLOGY INFO</div>
+                <div class="header-Name">TOPOLOGY LIST</div>
                 <div class="header-button">
                     <a (click)="importTopologyDialog()"> <button pButton type="button" label="Import Topologies" class="button-color" icon="fa-download"></button></a>
                     <a [routerLink]="[ ROUTING_PATH + '/topology-list']"><button pButton type="button" label="Show All" icon="fa-info" class="ui-button-info"></button></a>
