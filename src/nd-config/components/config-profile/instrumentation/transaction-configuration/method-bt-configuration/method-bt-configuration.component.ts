@@ -53,7 +53,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
-    let arrLabel = ['NUMERIC', 'STRING', 'BOOLEAN', 'CHAR OR BYTE'];
+    let arrLabel = ['Numeric', 'String', 'Boolean', 'Char or byte'];
     let arrValue = ['Numeric', 'String', 'Boolean', 'Char or Byte'];
 
     this.returnTypeList = [];
@@ -65,23 +65,27 @@ export class MethodBTConfigurationComponent implements OnInit {
   changeOpertionType() {
     if (this.businessTransMethodDetail.returnType == "Numeric") {
       this.operationList = [];
-      let arrLabel = ['EQUAL', 'NOT EQUAL', 'LESS THEN', 'GREATER THEN', 'LESS THEN EQUAL TO', 'GREATER THEN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createDropdown(arrLabel);
+      let arrLabel = ['Equals', 'Not equals', 'Less then', 'Greater then', 'Less then equals to', 'Greater then equals to', 'Eq', 'Ne', 'Exception'];
+       let arrValue = ['EQUAL', 'NOT EQUAL', 'LESS THEN', 'GREATER THEN', 'LESS THEN EQUAL TO', 'GREATER THEN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
     }
     else if (this.businessTransMethodDetail.returnType == "String") {
       this.operationList = [];
-      let arrLabel = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createDropdown(arrLabel);
+      let arrLabel = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
+      let arrValue = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
     }
     else if (this.businessTransMethodDetail.returnType == "Boolean") {
       this.operationList = [];
-      let arrLabel = ['TRUE', 'FALSE', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createDropdown(arrLabel);
+      let arrLabel = ['True', 'False', 'Exception'];
+      let arrValue = ['TRUE', 'FALSE', 'EXCEPTION'];
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
     }
     else if (this.businessTransMethodDetail.returnType == "Char or Byte") {
       this.operationList = [];
-      let arrLabel = ['EXCEPTION', 'EQ', 'NE'];
-      this.operationList = ConfigUiUtility.createDropdown(arrLabel);
+      let arrLabel = ['Exception', 'Eq', 'Ne'];
+      let arrValue = ['EXCEPTION', 'EQ', 'NE'];
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
     }
 
 

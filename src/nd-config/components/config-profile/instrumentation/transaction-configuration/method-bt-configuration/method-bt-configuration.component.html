@@ -1,20 +1,20 @@
 <!--For showing Bussiness Transaction Pattern(s) list -->
 <p-dataTable [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Method Bussiness Transaction(s) </span>
+        <span style="float: left"> Method bussiness transaction list </span>
         <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
-                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a method bussiness transaction" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
+                        <button pButton type="button" title="Edit a method bussiness transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete method bussiness transaction" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
+    <p-column class="col-overflow" field="fqm" header="Fully qualified method name" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
     </p-column>
-    <p-column class="col-overflow" field="returnType" header="Return Type" [sortable]="true">
+    <p-column class="col-overflow" field="returnType" header="Return type" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -22,13 +22,13 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog header="{{isNewMethod ? 'Add Bussiness Transaction Method' : 'Edit Bussiness Transaction Method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
+<p-dialog header="{{isNewMethod ? 'Add bussiness transaction method' : 'Edit bussiness transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveADDEditMethodTrans()" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Fully Qualified Method Name</label>
+                    <label>Fully qualified method name</label>
                 </div>
                 <div class="ui-g-8">
                     <input name="fqm" type="text" size="65" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
@@ -37,35 +37,35 @@
 
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <p-checkbox name="enableArgumentType" label="Enable Argument Type" [(ngModel)]="businessTransMethodDetail.enableArgumentType" binary="false"></p-checkbox>
+                    <p-checkbox name="enableArgumentType" label="Enable argument type" [(ngModel)]="businessTransMethodDetail.enableArgumentType" binary="false"></p-checkbox>
                 </div>
                 <div class="ui-g-8">
                     <div class="ui-g-3">
-                        Argument Index
+                        Argument index
                     </div>
                     <div class="ui-g-5" style="margin-top: -5px">
-                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="number" style="text-align:right;width:45%;" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" placeholder="enter value" autofocus required ngModel/>
+                        <input name="argumentIndex" [disabled]="!businessTransMethodDetail.enableArgumentType" type="number" style="text-align:right;width:45%;" pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" autofocus required ngModel/>
                     </div>
                 </div>
             </div>
 
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    Return Type
+                    Return type
                 </div>
                 <div class="ui-g-3">
                     <input name="dropdown" type="text" size="22" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.returnType" required ngModel/>
-                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" appendTo="body" placeholder="Select Return Type" required ngModel></p-dropdown>
+                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" appendTo="body" placeholder="--Select--" required ngModel></p-dropdown>
                 </div>
             </div>
 
             <div class="ui-g-12">
                 <p-dataTable [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                     <p-header>
-                        <span style="float: left;">  Return Type Info </span>
+                        <span style="float: left;">  Return type info </span>
                         <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" (click)="openAddRulesDialog()" icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a return type info" (click)="openAddRulesDialog()" icon="fa-plus"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete return type info" (click)="deleteRules()" icon="fa-trash"></button>
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -79,7 +79,7 @@
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                     </p-column>
-                    <p-column class="col-overflow" field="btName" header="BT Name" [sortable]="true">
+                    <p-column class="col-overflow" field="btName" header="BT name" [sortable]="true">
                         <template let-col let-application="rowData">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -98,7 +98,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog header="Add Return Type Info" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="400" responsive="true">
+<p-dialog header="Add return type info" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="400" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -106,23 +106,23 @@
                     <label>Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="value" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.value" placeholder="Value" autofocus required ngModel/>
+                    <input name="value" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Select Operation</label>
+                    <label>Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" appendTo="body" placeholder="Selecte Operation"></p-dropdown>
+                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" appendTo="body" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Bt Name</label>
+                    <label>Bt name</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="btName" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.btName" placeholder="Bt Name" required ngModel/>
+                    <input name="btName" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.btName" required ngModel/>
                 </div>
             </div>
         </div>

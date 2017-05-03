@@ -1,6 +1,6 @@
 <div class="ui-g">
     <div class="ui-g-6" style="margin-bottom:5px; font-weight: bold">
-        HTTP Business Transaction Configuration
+        HTTP business transaction configuration
     </div>
 
     <div class="ui-g-12" style="background: #ededf0">
@@ -27,44 +27,44 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2 segment-type-css">
-                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
+                <p-radioButton name="partOfURI" label="Segment(s) of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
             <div class="ui-g-2">
                 <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'68%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2" style="margin-top:4px">
-                Segments of URI in Transaction</div>
+                Segments of URI in transaction</div>
             <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
             </div>
         </div>
 
         <div class="ui-g-12 header-font-size">
-            <label>Transaction Threshold</label>
+            <label>Transaction threshold</label>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"><label>Slow</label></div>
             <div class="ui-g-10 text-box-Css">
-                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right" type="number" min=1 size="10" pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
+                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
             </div>
         </div>
 
         <div class="ui-g-12 padding-left-css">
-            <div class="ui-g-1"> <label>Very Slow</label> </div>
+            <div class="ui-g-1"> <label>Very slow</label> </div>
             <div class="ui-g-10 text-box-Css">
-                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right" type="number" min=1 size="10" pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
+                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
             </div>
         </div>
         <div class="ui-g-12 header-font-size">
-            <p-checkbox name="dynamicReqType" label="Choose Dynamic Request type" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
+            <p-checkbox name="dynamicReqType" label="Choose dynamic request type" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="requestParam" label="Query Parameter" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="requestParam" label="Query parameter" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10 ">
-                <input name="requestParam" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) " type="text" size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" placeholder="Query Parameter " required />
+                <input name="requestParam" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) " type="text" size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" required />
             </div>
         </div>
 
@@ -73,7 +73,7 @@
                 <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="httpMethod" label="HTTP METHOD" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
-                Use the request method (GET/POST/PUT) in Transaction names.
+                Use the request method (GET/POST/PUT) in transaction names.
             </div>
         </div>
 
@@ -92,11 +92,11 @@
     <!--For showing Bussiness Transaction Pattern(s) list -->
     <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
         <p-header>
-            <span style="float: left;">  Bussiness Transaction Pattern(s) </span>
+            <span style="float: left;">  Bussiness transaction pattern list </span>
             <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a bussiness transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit a bussiness transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete bussiness transaction pattern" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -105,7 +105,7 @@
         <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="matchType" header="Match Type" [sortable]="true">
+        <p-column class="col-overflow" field="matchType" header="Match type" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
@@ -115,32 +115,32 @@
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="include" header="BT Included" [sortable]="true">
+        <p-column class="col-overflow" field="include" header="BT included" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="slowTransaction" header="Slow Transaction Threshold(ms)" [sortable]="true">
+        <p-column class="col-overflow" field="slowTransaction" header="Slow transaction threshold(ms)" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="verySlowTransaction" header="Very Slow Transaction Threshold(ms)" [sortable]="true">
+        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow transaction threshold(ms)" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="paramKeyValue" header="Req Param key Value" [sortable]="true">
+        <p-column class="col-overflow" field="paramKeyValue" header="Req param key value" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="reqMethod" header="HTTP Method" [sortable]="true">
+        <p-column class="col-overflow" field="reqMethod" header="HTTP method" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="headerKeyValue" header="Req Header key Value" [sortable]="true">
+        <p-column class="col-overflow" field="headerKeyValue" header="Req header key value" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
@@ -150,15 +150,15 @@
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
-<p-dialog header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
+<p-dialog header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
     <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <label>Bussiness Transaction Name</label>
+                    <label>Bussiness transaction name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="btName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.btName" placeholder="Bussiness Transaction Name" autofocus required ngModel/>
+                    <input name="btName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-4">
                     <p-checkbox name="include" label="Include" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
@@ -167,10 +167,10 @@
 
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <label>URL Pattern</label>
+                    <label>URL pattern</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="urlName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.urlName" placeholder="URL" required ngModel />
+                    <input name="urlName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                 </div>
                 <div class="ui-g-4">
                     <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
@@ -179,7 +179,7 @@
             </div>
 
             <div class="ui-g-12 header-font-size">
-                <label>Transaction Threshold (ms)</label>
+                <label>Transaction threshold (ms)</label>
             </div>
 
             <div class="ui-g-12">
@@ -193,7 +193,7 @@
             <div class="ui-g-12">
                 <div class="ui-g-6">
                     <div class="ui-g-3" style="padding-left: 20px">
-                        Very Slow </div>
+                        Very slow </div>
                     <div class="ui-g-8">
                         <input name="verySlowTransaction" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" placeholder="Very Slow" required ngModel />(ms)
                     </div>
@@ -201,16 +201,16 @@
             </div>
 
             <div class="ui-g-12 header-font-size">
-                <p-checkbox name="dynamicPartReq" label="Dynamic Part Request  (Please select atleast one Dynamic Part)" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
+                <p-checkbox name="dynamicPartReq" label="Dynamic part request  (Please select atleast one dynamic part)" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
             </div>
 
             <div class="ui-g-12">
                 <div class="ui-g-6" style="padding-left: 20px">
                     <div class="ui-g-5">
-                        <label>Request Parameter key</label>
+                        <label>Request parameter key</label>
                     </div>
                     <div class="ui-g-7">
-                        <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" placeholder="Request Parameter key" />
+                        <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" />
                     </div>
                 </div>
                 <div class="ui-g-6">
@@ -218,7 +218,7 @@
                         <label>Value</label>
                     </div>
                     <div class="ui-g-8">
-                        <input name="reqParamValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" placeholder="Value" />
+                        <input name="reqParamValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" />
                     </div>
                 </div>
 
@@ -227,10 +227,10 @@
             <div class="ui-g-12">
                 <div class="ui-g-6" style="padding-left: 20px">
                     <div class="ui-g-5">
-                        <label>Request Header key</label>
+                        <label>Request header key</label>
                     </div>
                     <div class="ui-g-7">
-                        <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" placeholder="Request Header key" />
+                        <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" />
                     </div>
                 </div>
                 <div class="ui-g-6">
@@ -238,7 +238,7 @@
                         <label>Value</label>
                     </div>
                     <div class="ui-g-8">
-                        <input name="reqHeaderValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" placeholder="Value" />
+                        <input name="reqHeaderValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" />
                     </div>
                 </div>
             </div>
@@ -246,10 +246,10 @@
             <div class="ui-g-12">
                 <div class="ui-g-6" style="padding-left: 20px">
                     <div class="ui-g-5">
-                        <label>Select Method Type</label>
+                        <label>Method type</label>
                     </div>
                     <div class="ui-g-7">
-                        <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod" placeholder="Select Method Type" appendTo="body"></p-dropdown>
+                        <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
                     </div>
                 </div>
             </div>

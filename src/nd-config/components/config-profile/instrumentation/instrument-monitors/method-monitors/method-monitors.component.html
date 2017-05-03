@@ -1,20 +1,20 @@
 <p-dataTable [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData">
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Method Monitor(s) </span>
+        <span style="float: left">Method monitors list </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
-            <button pButton class="ui-button-danger" type="button" title="Delete" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
+            <button pButton type="button" title="Add a method monitor" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit a method monitor" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
+            <button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="methodName" header="Method Name" [sortable]="true">
+    <p-column class="tableCss" field="methodName" header="Method name" [sortable]="true">
         <template let-col let-MethodMonitor="rowData" pTemplate>
             <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="methodDisplayName" header="Display Name" [sortable]="true">
+    <p-column class="tableCss" field="methodDisplayName" header="Display name" [sortable]="true">
         <template let-col let-MethodMonitor="rowData" pTemplate>
             <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
         </template>
@@ -29,11 +29,11 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNewMethodMonitor ? 'Add Method Monitor' : 'Edit Method Monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
-                <label>Method Name</label>
+                <label>Method name</label>
             </div>
             <div class="ui-g-9">
                 <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required autofocus ngModel/>
@@ -41,7 +41,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-3">
-                <label>Display Name</label>
+                <label>Display name</label>
             </div>
             <div class="ui-g-9">
                 <input name="methodDisplayName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>

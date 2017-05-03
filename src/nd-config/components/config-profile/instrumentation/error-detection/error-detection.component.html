@@ -1,11 +1,11 @@
 <p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Error Detection(s) </span>
+        <span style="float: left">Error detection list </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
-            <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteErrorDetection()" icon="fa-trash"></button>
+            <button pButton type="button" title="Add an error detection" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit an error detection" [disabled]="saveDisable" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete an error detection" [disabled]="saveDisable" (click)="deleteErrorDetection()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -14,12 +14,12 @@
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="errorFrom" header="Status Code From" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
+    <p-column class="tableCss" field="errorFrom" header="Status code from" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
     </p-column>
-    <p-column class="tableCss" field="errorTo" header="Status Code To" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
+    <p-column class="tableCss" field="errorTo" header="Status code to" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
     </template>
@@ -42,24 +42,24 @@
     <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Rule Name</label>
+                <label>Rule name</label>
             </div>
             <div class="ui-g-8">
-                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid group name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid rule name. &#013;Rule name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                     autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
 
         <div class="ui-g-12">
             <div class="ui-g-4">
-                <label>Status Code</label>
+                <label>Status code</label>
             </div>
 
             <div class="ui-g-4">
-                From: <input name="errorfrom" type="number" style="text-align: right" #from (input)="checkFrom(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
+                from: <input name="errorfrom" type="number" style="text-align: right" #from (input)="checkFrom(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
             </div>
             <div class="ui-g-4">
-                To: <input name="errorto" type="number" style="text-align: right" #to (input)="checkTo(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
+                to: <input name="errorto" type="number" style="text-align: right" #to (input)="checkTo(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
             </div>
         </div>
 

@@ -38,7 +38,7 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
         <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'36%'}">
             <template let-col let-application="rowData" pTemplate>
 
-                <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
 
         </p-column>

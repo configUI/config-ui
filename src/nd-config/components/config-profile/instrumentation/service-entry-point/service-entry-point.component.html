@@ -1,8 +1,8 @@
 <p-dataTable [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left">  Service Entry Detail(s) </span>
+        <span style="float: left">  Service entry points list </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add"></button>
+            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add service entry point"></button>
         </span>
     </p-header>
 
@@ -30,7 +30,7 @@
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog header="New Service Entry" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700" responsive="true">
+<p-dialog header="Add service entry point" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700" responsive="true">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -38,8 +38,8 @@
                 <label>Entry Point Type</label>
             </div>
             <div class="ui-g-8">
-                <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
-                <p-dropdown [options]="entryPointType" [style]="{'width':'56%'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="-- Select a Service --"></p-dropdown>
+                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
+                <p-dropdown [options]="entryPointType" [style]="{'width':'180px'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="--Select--"></p-dropdown>
             </div>
         </div>
 
@@ -53,19 +53,19 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
+                <label>Fully Qualified Method Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="fqm" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
                 <label>Enabled</label>
             </div>
             <div class="ui-g-4">
                 <md-slide-toggle [(ngModel)]="serviceEntryPointDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
 
-            </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Fully Qualified Method Name</label>
-            </div>
-            <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
             </div>
         </div>
         <div class="ui-g">

@@ -48,14 +48,19 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTreemain(ap
 Click to open profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
                         </template>
                     </p-column>
-                    <p-column rowStyleClass="col-overflow" field="description" header="Description">
+                    <!--<p-column rowStyleClass="col-overflow" field="description" header="Description">
                         <template let-col let-profile="rowData" pTemplate>
                             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
-                    </p-column>
+                    </p-column>-->
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
                         <template let-col let-profile="rowData" pTemplate>
                             <span title="{{profile[col.field]}}" style="float:right">{{profile[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column rowStyleClass="col-overflow" field="description" header="Description">
+                        <template let-col let-profile="rowData" pTemplate>
+                            <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
