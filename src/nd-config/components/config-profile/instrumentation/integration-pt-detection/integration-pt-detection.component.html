@@ -110,7 +110,7 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> UserName </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
 
                 <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
             </div>
@@ -134,7 +134,7 @@
     </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-check" [disabled]="saveDisable0000000000000000000000" (click)="saveIntegrationDetail()" label="Save"></button>
+            <button type="button" pButton icon="fa-check" [disabled]="saveDisable" (click)="saveIntegrationDetail()" label="Save"></button>
             <button type="button" pButton icon="fa-close" (click)="detailDialog=false" label="Cancel"></button>
         </div>
     </footer>
