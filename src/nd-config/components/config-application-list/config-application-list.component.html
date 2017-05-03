@@ -1,5 +1,5 @@
 <div class="widget">
-    <div class="header"><i aria-hidden="true"></i>Application (s)
+    <div class="header"><i aria-hidden="true"></i>Application(s)
         <span style="float: right; margin-top:-2px">
             <button pButton type="button" title="Generate Agent Configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>
             <button pButton type="button" title="Add an application" (click)="openAppDialog()" icon="fa-plus"></button>
@@ -11,36 +11,35 @@
     <!--For showing application list -->
     <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
-        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-        <p-column class="col-overflow" field="appName" header="Name" [sortable]="true" [style]="{'width':'18%'}">
+        <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}
 Click to open topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true" [style]="{'width':'18%'}">
+        <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true" [style]="{'width':'13%'}">
+        <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true" [style]="{'width':'13%'}">
+        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-
-      <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
-    </template>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
         </p-column>
-        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'36%'}">
+        <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
 
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
 
+            </template>
         </p-column>
     </p-dataTable>
 
@@ -58,6 +57,16 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                         autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
             </div>
+
+            <!--<div class="ui-g">
+                <div class="ui-g-4">
+                    <label>User Name</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="userName" type="text" size="30" pInputText [disabled]="true" [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+                </div>
+            </div>-->
             <div class="ui-g">
                 <div class="ui-g-4">
                     <label>Topology</label>
@@ -75,15 +84,6 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                     <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" required ngModel></textarea>
                 </div>
             </div>
-            <!--<div class="ui-g">
-                <div class="ui-g-4">
-                    <label>User Name</label>
-                </div>
-                <div class="ui-g-8">
-                    <input name="userName" type="text" size="30" pInputText [disabled]="true" [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                        required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-                </div>
-            </div>-->
             <footer>
                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                     <button type="submit" pButton icon="fa-check" label="Save"></button>

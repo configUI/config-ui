@@ -97,6 +97,13 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPutReq(`${URL.TOGGLED_INSTANCE_STATE}/${instanceId}/${flag}`);
   }
 
+  getTopologyStructure(topoId){
+    return this._restApi.getDataByGetReq(`${URL.TOPOLOGY_TREE_STRUCTURE}/${topoId}`);
+  }
+
+   getTopologyStructureTableData(topoId){
+     return this._restApi.getDataByGetReq(`${URL.TOPOLOGY_STRUCT_TABLEDATA}/${topoId}`);
+   }
 
   getLazyFiles(){
     let data = {

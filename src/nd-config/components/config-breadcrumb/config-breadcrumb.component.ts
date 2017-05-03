@@ -14,17 +14,23 @@ import { TRData } from '../../interfaces/main-info';
 })
 export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
+
   constructor(private router: Router, private configHomeService: ConfigHomeService) { }
 
   items: MenuItem[];
   trData: TRData;
+  displaySessionLabel: boolean;
   subscription: Subscription;
   breadcrumbSubscription: Subscription;
 
   ngOnInit() {
 
     this.subscription = this.configHomeService.trData$.subscribe(data => {
-      this.trData = data;
+     this.trData = data;
+      if (data.trNo != null)
+        this.displaySessionLabel = true;
+      else
+        this.displaySessionLabel = false;
     });
     this.items = [];
 
@@ -79,6 +85,10 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
         this.items.push({ label: BREADCRUMB.LABEL.ND_AGENT })
       }
 
+      else if(url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)){
+        this.items.push({label: BREADCRUMB.LABEL.TREE_MAIN})
+      }
+
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] })
 
@@ -88,19 +98,19 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     });
   }
 
-  enabledRTC(){
+  enabledRTC() {
     //this.trData.status
     var that = this;
-    setTimeout(function(this){
-      that.configHomeService.trData.switch = that.trData.switch      
-    },100)
+    setTimeout(function (this) {
+      that.configHomeService.trData.switch = that.trData.switch
+    }, 100)
   }
 
-  ngOnDestroy(){
-    if(this.subscription)
+  ngOnDestroy() {
+    if (this.subscription)
       this.subscription.unsubscribe();
 
-    if(this.breadcrumbSubscription)
+    if (this.breadcrumbSubscription)
       this.breadcrumbSubscription.unsubscribe();
   }
 }

@@ -30,6 +30,11 @@ export class ConfigHomeComponent implements OnInit {
   //For showing import technologies dialog
   importTopo: boolean = false;
   ROUTING_PATH = ROUTING_PATH;
+
+  applicationMsg: string;
+  profileInfoMsg: string;
+  topologyInfoMsg: string;
+
   constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
@@ -41,25 +46,29 @@ export class ConfigHomeComponent implements OnInit {
     this.configHomeService.getMainData()
       .subscribe(data => {
 
-      if(data.homeData[0].value.length > 5)
-        {
-             this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length-5 , data.homeData[0].value.length ).reverse();
+        if (data.homeData[0].value.length > 5) {
+          this.applicationMsg = "(Last 5 Updated)";
+          this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
         }
-      else
-        {
-             this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
-        }
+        else
+          this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
 
-      if(data.homeData[1].value.length > 5)
-        {
-             this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length-5, data.homeData[1].value.length).reverse();
+        if (data.homeData[1].value.length > 5) {
+          this.profileInfoMsg = "(Last 5 Updated)";
+          this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length - 5, data.homeData[1].value.length).reverse();
         }
+        else
+          this.profileInfo = (data.homeData[1].value).splice(0, data.homeData[1].value.length).reverse();
 
-      else
-        {
-             this.profileInfo = (data.homeData[1].value).splice(0,data.homeData[1].value.length).reverse();
+        if (data.homeData[2].value.length > 5) {
+          this.topologyInfoMsg = "(Last 5 Updated)";
+          this.topologyInfo = (data.homeData[2].value).slice(data.homeData[2].value.length - 5, data.homeData[2].value.length).reverse();
         }
-        this.topologyInfo = (data.homeData[2].value).slice(0, 6);
+        else
+          this.topologyInfo = (data.homeData[2].value).splice(0, data.homeData[2].value.length).reverse();
+
+
+
         this.agentsInfo = data.agentData;
         data.trData.switch = data.trData.status == 'running';
         this.configHomeService.setTrData(data.trData);
@@ -79,10 +88,17 @@ export class ConfigHomeComponent implements OnInit {
     this.importTopo = false;
   }
 
-  routeToTreemain(selectedApplicationId, selectedApplicationName) {
+  routeToTreemain(selectedTypeId, selectedName,type) {
     //Observable application name
-    this.configApplicationService.applicationNameObserver(selectedApplicationName);
-    this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedApplicationId]);
+    if(type == 'topology'){
+      //it routes to (independent) topology screen 
+      this.configApplicationService.applicationNameObserver(selectedName);
+      this.router.navigate([this.ROUTING_PATH + '/tree-main/topology', selectedTypeId]);
+    }
+    else{
+      this.configApplicationService.applicationNameObserver(selectedName);
+      this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedTypeId]);
+    }
   }
 
   routeToConfiguration(selectedProfileId, selectedProfileName) {

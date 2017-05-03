@@ -30,5 +30,6 @@ export const URL = {
     ADVANCE: `${ROUTING_PATH}/profile/advance`,
     INTEGRATION: `${ROUTING_PATH}/profile/integration`,
 
-    TREE_MAIN: `${ROUTING_PATH}/tree-main/`
+    TREE_MAIN: `${ROUTING_PATH}/tree-main/`,
+    TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`
 };  

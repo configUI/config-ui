@@ -403,3 +403,7 @@ input[type="number"] {
 .config-tree>.ui-tree .ui-tree-container {
     overflow: hidden;
 }
+
+.sessionTab .ui-tabview .ui-tabview-panel {
+    min-height: 64px;
+}

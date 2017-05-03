@@ -1,6 +1,6 @@
 <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Flowpath Settings
+        <div class="header">Flowpath settings
 
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
@@ -44,16 +44,16 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-3">
-                            <label>CPU timing Capturing</label>
+                            <label>CPU time capturing</label>
                         </div>
                         <div class="ui-g-1">
                             <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
                         <div class="ui-g-3">
-                            <p-radioButton name="enableCpuTime" value="1" label="Enable at Flowpath/ Business Transaction level" [(ngModel)]="cpuTime"></p-radioButton>
+                            <p-radioButton name="enableCpuTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
-                        <div class="ui-g-3">
-                            <p-radioButton name="enableCpuTime" value="2" label="Enable both method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
+                        <div class="ui-g-3" style="margin-left:20px">
+                            <p-radioButton name="enableCpuTime" value="2" label="Enable at method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
                         <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>-->
                         <!--<div class="ui-g-2">
@@ -65,7 +65,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
-                            <p-checkbox name="enableCaptureHeader" label="Enable Correlation ID using HTTP Header" [(ngModel)]="flowPath.correlationIDHeader" binary="true"></p-checkbox>
+                            <p-checkbox name="enableCaptureHeader" label="Enable correlation ID using HTTP header" [(ngModel)]="flowPath.correlationIDHeader" binary="true"></p-checkbox>
                         </div>
                         <div class="ui-g-2">
                             <input disabled="{{!flowPath.correlationIDHeader}}" name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}}

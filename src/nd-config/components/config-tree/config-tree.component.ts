@@ -1,9 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { TreeNode } from 'primeng/primeng';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 import { TopologyInfo } from '../../interfaces/topology-info';
 import * as CONS from '../../constants/config-constant';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-config-tree',
@@ -16,7 +18,10 @@ export class ConfigTreeComponent implements OnInit {
   @Output()
   getTableData = new EventEmitter();
 
-  constructor(private configTopologyService: ConfigTopologyService, private route: ActivatedRoute) { }
+  constructor(private configTopologyService: ConfigTopologyService,
+              private route: ActivatedRoute,
+              private router: Router
+               ) { }
 
   topologyTreeData: TopologyInfo[];
   files: TreeNode[];
@@ -24,25 +29,49 @@ export class ConfigTreeComponent implements OnInit {
   selectedFiles: TreeNode[];
 
   dcId: number;
+  topoId:number;
+
+  subscription: Subscription;
 
   ngOnInit() {
+    console.log('routeparams---',this.route.params)
     this.loadTopologyTreeData();
   }
   /*
   * Here request for tree where topology acts as root node gives response 
   * topology as root node and tiers as children
-  * so when user clicks on topo node no nedd to request to sever to get all  tier childrens,
+  * so when user clicks on topo node no need to request to sever to get all  tier childrens,
   * they are already present in tree but not visible tills its parent node topo is collapsed state.
   */
 
   loadTopologyTreeData(): void {
 
-    this.route.params.subscribe((params: Params) => this.dcId = params['profileId']);
-    this.route.params.subscribe((params: Params) => {
-      this.configTopologyService.getTopologyTreeDetail(+params['dcId']).subscribe(data => {
-        this.createTreeData(data);
-      })
+    this.route.params.subscribe((params: Params) => {this.dcId = params['dcId']
+                                                    this.topoId = params['topoId']
     });
+    let url;
+
+    /**below route function is always called whenever routing changes
+     * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
+     * 
+     */
+     this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+       url = event["url"];
+       let arr = url.split("/");
+      if(arr.indexOf("tree-main") != -1){
+      
+          if(arr.indexOf("topology") != -1){
+            this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
+                this.createTreeData(data);
+            })
+          }
+          else{
+          this.configTopologyService.getTopologyTreeDetail(this.dcId).subscribe(data => {
+            this.createTreeData(data);
+            })
+          }
+      }
+    }) 
   }
 
   /*
@@ -128,5 +157,12 @@ export class ConfigTreeComponent implements OnInit {
     else {
       console.warn("No Node data found ", node.data);
     }
+  }
+
+   ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+
   }
 }

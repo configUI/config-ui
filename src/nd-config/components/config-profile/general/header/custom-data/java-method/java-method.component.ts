@@ -147,7 +147,7 @@ export class JavaMethodComponent implements OnInit {
     this.configCustomDataService.getMethodBasedCustomData(this.profileId).subscribe(data => {
       this.modifyData(data)
     })
-    let arrLabel = ['STRING', 'INTEGER', 'DECIMAL'];
+    let arrLabel = ['String', 'Integer', 'Decimal'];
     let arrValue = ['0', '1', '2'];
     this.customValTypeList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
   }
