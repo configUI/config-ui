@@ -79,10 +79,17 @@ export class ConfigHomeComponent implements OnInit {
     this.importTopo = false;
   }
 
-  routeToTreemain(selectedApplicationId, selectedApplicationName) {
+  routeToTreemain(selectedTypeId, selectedName,type) {
     //Observable application name
-    this.configApplicationService.applicationNameObserver(selectedApplicationName);
-    this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedApplicationId]);
+    if(type == 'topology'){
+      //it routes to (independent) topology screen 
+      this.configApplicationService.applicationNameObserver(selectedName);
+      this.router.navigate([this.ROUTING_PATH + '/tree-main/topology', selectedTypeId]);
+    }
+    else{
+      this.configApplicationService.applicationNameObserver(selectedName);
+      this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedTypeId]);
+    }
   }
 
   routeToConfiguration(selectedProfileId, selectedProfileName) {

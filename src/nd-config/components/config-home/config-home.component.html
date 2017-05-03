@@ -12,7 +12,7 @@
                 <p-dataTable [value]="applicationInfo" [rows]="5">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'])">{{application[col.field]}}</a></span>
+                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topology" header="Topology Applied">
@@ -77,7 +77,8 @@
                 <p-dataTable [value]="topologyInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
+                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['id'], application['name'],'topology')">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                 </p-dataTable>
