@@ -85,6 +85,10 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
         this.items.push({ label: BREADCRUMB.LABEL.ND_AGENT })
       }
 
+      else if(url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)){
+        this.items.push({label: BREADCRUMB.LABEL.TREE_MAIN})
+      }
+
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] })
 

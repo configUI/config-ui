@@ -1,6 +1,6 @@
 <div class='tabs-all'>
     <p-tabView (onChange)="handleChange($event)">
-        <p-tabPanel header="Debug Level Capturing" [selected]="index == 0">
+        <p-tabPanel header="Debug Level" [selected]="index == 0">
             <app-debug *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-debug>
         </p-tabPanel>
         <p-tabPanel header="Backend Monitor" [selected]="index == 1">

@@ -36,7 +36,7 @@
 
 
 <!--Dialog for adding -->
-<p-dialog header="{{isNew ? 'Settings for Java Method Based Custom Data' : 'Edit  Settings for Java Method Based Custom Data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
+<p-dialog header="{{isNew ? 'Settings for Java Method Based Custom Data' : 'Edit Settings for Java Method Based Custom Data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveEditData(fqmField)" id="addMethodBasedForm" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">

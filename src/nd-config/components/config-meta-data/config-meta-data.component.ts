@@ -46,6 +46,9 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
           this.isMetaDataDisplay = false;
         }
       }
+      else if(url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)){
+        this.isMetaDataDisplay = false;
+      }
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
         this.isMetaDataDisplay = true;
         this.label = `Application Name: ${this.applicationName}`;

@@ -3,16 +3,16 @@
         <div class="ui-g-6">
             <md-card class="card1">
                 <md-card-content>
-                    <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL</a></div>
+                    <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL SETTINGS</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8 card-toggle">
                             <div>
                                 <!--keywordGroup {{keywordGroup.general | json}}-->
 
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath Capturing</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
                             </div>
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot Capturing</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
                             </div>
                             <!--<div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread CPU Monitor</a></md-slide-toggle>
@@ -21,7 +21,7 @@
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Capture Exception</a></md-slide-toggle>
                             </div>
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flow Path Header Capturing</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flowpath Header</a></md-slide-toggle>
                             </div>
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
@@ -37,7 +37,7 @@
         <div class="ui-g-6">
             <md-card class="card2">
                 <md-card-content>
-                    <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION</a></div>
+                    <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION SETTINGS</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8">
                             <ul class="intrumentation">
@@ -86,11 +86,11 @@
         <div class="ui-g-6">
             <md-card class="card3">
                 <md-card-content>
-                    <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE</a></div>
+                    <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8 card-toggle">
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level Capturing</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
                             </div>
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('backend_monitors')" [(ngModel)]="keywordGroup.advance.backend_monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Backend Monitor</a></md-slide-toggle>
@@ -116,7 +116,7 @@
             <md-card class="card4">
                 <md-card-content>   
 
-                    <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION</a></div>
+                    <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION SETTINGS</a></div>
                     <div class="ui-g">
                         <div class="ui-g-8 card-toggle">
                             <div>

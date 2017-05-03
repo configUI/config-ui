@@ -1,8 +1,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-
+import { ActivatedRoute, Params ,Router, NavigationEnd } from '@angular/router';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo } from '../../interfaces/topology-info';
 import * as CONS from '../../constants/config-constant';
@@ -10,9 +9,9 @@ import { ConfigUtilityService } from '../../services/config-utility.service';
 import { SelectItem } from 'primeng/primeng';
 import { ConfigProfileService } from '../../services/config-profile.service';
 import { ProfileInfo } from '../../interfaces/profile-info';
-import { Router } from '@angular/router';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { NodeData } from '../../containers/node-data';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -27,7 +26,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private configUtilityService: ConfigUtilityService,
     private configProfileService: ConfigProfileService,
-    private router: Router
+    private router: Router,
+    
   ) { }
 
 
@@ -54,16 +54,45 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   ROUTING_PATH = ROUTING_PATH;
 
+  //used when topology is screen comes from application
+  dcId:number
+
+  //used when topology screen comes from its topology show All screen or home screen
+  topoId:number
+
+  subscription: Subscription;
+
   ngOnInit() {
     this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
     //no need to call when store used [TO DO's]
     this.loadProfileList();
     this.loadTopologyData();
-
   }
+
   loadTopologyData(): void {
     this.getTableHeader();
-    this.route.params.switchMap((params: Params) => this.configTopologyService.getTopologyDetail(+params['dcId'])).subscribe(data => this.topologyData = data);
+    let url;
+    this.route.params.subscribe((params: Params) => {this.dcId = params['dcId']
+                                                     this.topoId = params['topoId']
+     });
+
+    /**below route function is always called whenever routing changes
+     * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
+     * 
+     */
+   
+   this.subscription =  this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+      url = event["url"];
+      let arr = url.split("/");
+      if(arr.indexOf("tree-main") != -1){
+        if(arr.indexOf("topology") != -1){
+         this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);
+        }
+        else{
+        this.configTopologyService.getTopologyDetail(this.dcId).subscribe(data => this.topologyData = data);
+        }
+      }
+  }) 
   }
 
   loadProfileList() {
@@ -125,7 +154,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       colField = ["tierName", "tierDesc", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
-       colHeader = ["Display Name", " Name", "Profile Applied"];
+       colHeader = ["Display Name", "Actual Name", "Profile Applied"];
        colField = ["serverDisplayName", "serverName", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
@@ -157,7 +186,6 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   saveEditProfile():void{
-    console.log("saveEditProfile method called--",this.topoData)
      if(this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
         this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => {this.updateTopo(data) })
      else if(this.currentEntity == CONS.TOPOLOGY.TIER)
@@ -248,5 +276,12 @@ export class ConfigTreeDetailComponent implements OnInit {
           this.configUtilityService.infoMessage("Instance Disabled Sucessfully.");
         }
     });
+  }
+
+  ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+
   }
 }
