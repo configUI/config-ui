@@ -9,15 +9,12 @@
         </div>
         <p-panel class="hideheader">
             <div style="margin: 5px 0px" class="flowpathheader-accordion">
-                <p-accordion>
-                    <p-accordionTab header="HTTP Headers">
-                        <app-http-header [data]="httpKeywordObject"></app-http-header>
-                    </p-accordionTab>
-                    <p-accordionTab header="Custom Data" [selected]="true">
-                        <app-custom-data [data]="header"></app-custom-data>
-                    </p-accordionTab>
-
-                </p-accordion>
+                <p-fieldset legend="HTTP Headers" [toggleable]="true">
+                    <app-http-header [data]="httpKeywordObject"></app-http-header>
+                </p-fieldset><br>
+                <p-fieldset legend="Custom Data" [toggleable]="true" [collapsed]="true">
+                    <app-custom-data [data]="header"></app-custom-data>
+                </p-fieldset>
             </div>
         </p-panel>
     </div>

@@ -13,7 +13,7 @@
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}
-                            Click to open topology details"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a></span>
+Click to open topology details"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="topology" header="Topology Applied">
