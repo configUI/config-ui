@@ -162,7 +162,7 @@ export class SessionAttributeComponent implements OnInit {
         let index = this.getSessionAttributeIndex(this.sessionAttributeDetail.sessAttrId);
         this.selectedSessionAttributeList.length = 0;
         this.selectedSessionAttributeList.push(data);
-        console.log("data - - " , data)
+         this.selectedSessionAttributeList = [];
 
         this.sessionAttributeComponentInfo[index] = this.setDataSessionAttribute(data)[0];
       });

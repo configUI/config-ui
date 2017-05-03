@@ -9,42 +9,44 @@
     </div>
 
     <!--For showing application list -->
-    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
+    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15"
+        [pageLinks]="3">
 
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
         <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}
+                <span title="{{application[col.field]}}
 Click to open topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
-    </template>
+            </template>
         </p-column>
         <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-    </template>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
         </p-column>
         <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-    </template>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
         </p-column>
         <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-    </template>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
         </p-column>
         <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
-    </template>
+                <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+            </template>
         </p-column>
-    </p-dataTable>
+        </p-dataTable>
 
 </div>
 <!--Dialog for adding Application-->
 <div class="profile-dialog">
-    <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
+    <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog"
+        modal="modal" width="500" responsive="true">
         <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
             <div class="ui-g">
                 <div class="ui-g-4">
@@ -60,8 +62,10 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                     <label>Topology</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                    <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+                    <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required
+                        ngModel/>
+                    <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId"
+                        appendTo="body" required ngModel></p-dropdown>
                 </div>
             </div>
             <div class="ui-g">
@@ -69,7 +73,8 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                     <label>Description</label>
                 </div>
                 <div class="ui-g-8">
-                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" required ngModel></textarea>
+                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" required
+                        ngModel></textarea>
                 </div>
             </div>
             <!--<div class="ui-g">
@@ -88,5 +93,5 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                 </div>
             </footer>
         </form>
-    </p-dialog>
+        </p-dialog>
 </div>

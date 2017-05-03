@@ -37,5 +37,6 @@ export class Keywords{
 "ASTraceLevel": KeywordsInfo
 "logLevelOneFpMethod": KeywordsInfo
 "enableNDSession": KeywordsInfo
+"ASMethodHotspots" : KeywordsInfo
 }
 

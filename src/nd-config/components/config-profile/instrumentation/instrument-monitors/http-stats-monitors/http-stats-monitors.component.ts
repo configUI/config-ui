@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -67,40 +67,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.loadStringOP();
     this.loadNumericOP();
     this.loadOthersOP();
-    // this.keywordValue= this.configKeywordsService.keywordData;
-    //  this.HttpStatsCond = {};
-    // this.keywordList.forEach((key) => {
-    //   if (this.keywordValue.hasOwnProperty(key)) {
-    //     this.HttpStatsCond[key] = this.keywordValue[key];
-    //     if(this.HttpStatsCond[key].value == "true")
-    //     this.selectedValues = true;
-    //     else
-    //     this.selectedValues = false;
-    //   }
-    // });
   }
-
-  // saveKeywordData() {
-
-  //   for (let key in this.HttpStatsCond) {
-  //     if (key == 'HTTPStatsCondCfg') {
-
-  //       console.log("hi",this.selectedValues);
-  //       if (this.selectedValues == true)
-  //         this.HttpStatsCond[key]["value"] = "true";
-  //       else
-  //         this.HttpStatsCond[key]["value"] = "false";
-  //     }
-  //     this.configKeywordsService.keywordData[key] = this.HttpStatsCond[key];
-  //   }
-  //   this.configKeywordsService.saveProfileKeywords(this.profileId);
-
-  // }
 
   loadHttpStatsMonitorList() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-       this.saveDisable=this.profileId==1 ? true:false;
+      this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getHttpStatsMonitorList(this.profileId).subscribe(data => {
       //putting fpDumpMode values as labels instead of numbers
@@ -121,7 +93,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   loadFlowDumpData() {
     this.flowDumpData = [];
     var flowDumpLabel = ['--Select--', 'Disable', 'Enable', 'Enable Forcefully'];
-    var flowDumpVal = ['-1', '0', '1', '2' ];
+    var flowDumpVal = ['-1', '0', '1', '2'];
     this.flowDumpData = ConfigUiUtility.createListWithKeyValue(flowDumpLabel, flowDumpVal);
   }
   //This method loads Header Type values
@@ -353,17 +325,17 @@ export class HttpStatsMonitorsComponent implements OnInit {
 }
 
 //It will convert the values of flowpath dump from 0, 1 and 2 to Disable, Enable and Enable Forcefully respectively
-@Pipe({name: 'fpDumpVal'})
-export class PipeForFpDump implements PipeTransform{
+@Pipe({ name: 'fpDumpVal' })
+export class PipeForFpDump implements PipeTransform {
 
-   transform(value: string): string{
-     let label = "";
-    if(value == 'Enable' || value == '1')
-    label = 'Enable';
-    if(value == 'Disable' || value == '0')
-    label = 'Disable';
-    if(value == 'Enable Forcefully' || value == '2')
-    label = 'Enable Forcefully';
+  transform(value: string): string {
+    let label = "";
+    if (value == 'Enable' || value == '1')
+      label = 'Enable';
+    if (value == 'Disable' || value == '0')
+      label = 'Disable';
+    if (value == 'Enable Forcefully' || value == '2')
+      label = 'Enable Forcefully';
     return label;
   }
 }

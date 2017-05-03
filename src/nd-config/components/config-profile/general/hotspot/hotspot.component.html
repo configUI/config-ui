@@ -4,7 +4,7 @@
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
-                
+
             </div>
         </div>
         <p-panel class="hideheader">
@@ -75,19 +75,19 @@
 
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-4">
-                                        <p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" binary="true" ngModel label="Thread names to be included in hotspot"></p-checkbox>
+                                        <span>Thread names to be included in hotspot</span>
                                     </div>
                                     <div class="ui-g-5" style="margin-left:20px">
-                                        <p-chips [(ngModel)]="includedException" name="includedeException" [(ngModel)]="hotspot.ASPositiveThreadFilters.value" [disabled]="!includedExceptionChk" ngModel required></p-chips>
+                                        <p-chips [(ngModel)]="includedException" name="includedeException" [(ngModel)]="hotspot.ASPositiveThreadFilters.value" ngModel required></p-chips>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <div class="ui-g-1"></div>
                                     <div class="ui-g-4">
-                                        <p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" binary="true" ngModel label="Thread names to be excluded in hotspot"></p-checkbox>
+                                        <span>Thread names to be excluded in hotspot</span>
                                     </div>
                                     <div class="ui-g-5" style="margin-left:20px">
-                                        <p-chips [(ngModel)]="excludedException" name="excludedExcepion" [(ngModel)]="hotspot.ASNegativeThreadFilter.value" [disabled]="!excludedExceptionChk" ngModel required></p-chips>
+                                        <p-chips [(ngModel)]="excludedException" name="excludedExcepion" [(ngModel)]="hotspot.ASNegativeThreadFilter.value" ngModel required></p-chips>
                                     </div>
                                 </div>
                             </p-fieldset>

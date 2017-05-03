@@ -17,4 +17,4 @@ export const INTEGRATION_TYPE = {
     CUSTOM: 'CUSTOM'
 }
 
-export const Messages = "Saved Successfully !!!!"
+export const Messages = "Saved Successfully"

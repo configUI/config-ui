@@ -167,7 +167,7 @@ export class ConfigTreeDetailComponent implements OnInit {
      else if(this.currentEntity == CONS.TOPOLOGY.INSTANCE)
         this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => {this.updateTopo(data)})
 
-        this.configUtilityService.successMessage("Saved Successfully !!!");
+        this.configUtilityService.successMessage("Saved Successfully");
   }
 
 

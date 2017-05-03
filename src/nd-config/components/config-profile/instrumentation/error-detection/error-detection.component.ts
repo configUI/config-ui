@@ -61,12 +61,12 @@ export class ErrorDetectionComponent implements OnInit {
 
         if (this.selectedValues == true){
           this.errorDetection[key]["value"] = "true";
-          this.configUtilityService.successMessage("BTErrorRules is enabled");
+          this.configUtilityService.successMessage("Error Detection settings are enabled");
         }
         else
         {
           this.errorDetection[key]["value"] = "false";
-          this.configUtilityService.successMessage("BTErrorRules is disabled");
+          this.configUtilityService.successMessage("Error detection settings disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.errorDetection[key];

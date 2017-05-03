@@ -32,13 +32,13 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
 
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       let url = event["url"];
-
       if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
         if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
           this.isMetaDataDisplay = true;
           this.label = `Profile Name: ${this.profileName}`;
+   //below code handles the case of refreshing the page due to which profileName gets undefined 
           if(!this.profileName){
-            let profileId = url.substring(url.lastIndexOf("/") + 1, url.length);
+            let profileId = this.getProfileId(url);
             this.getProfileName(profileId);
           }
         }
@@ -60,15 +60,52 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
     });
   }
 
-  getProfileName(profileId: number){
-    return;
-    // this.configProfileService.getProfileName(profileId).
-    // subscribe(profileName => {
-    //   this.profileName = profileName;
-    //   this.label = `Profile Name: ${this.profileName}`;
-    //   console.log("this.label", this.label);
-    // });
+  /*
+  *  Here url can be of following types:
+  *  url1 = "/profile/advance/1024/3",
+  *  url2 = "/profile/congiguration/7999"
+  *  where aftr 3rd "/" number represents profileId
+  * 
+  */
+
+  getProfileId(url){
+    let arr = url.split('');
+    let startIndex = this.getStartIndexProfileId(arr);
+    let endIndex = this.getEndIndex(startIndex,arr);
+    let profileId = url.substring(startIndex+1,endIndex)
+    return profileId; 
   }
+
+  getEndIndex(startIndex,arr){
+    let endIndex = arr.length ;
+    for(let i = startIndex + 1 ; i <= arr.length ; i++){
+        if(arr[i] == "/"){
+          endIndex = i;
+        }
+    }
+    return endIndex;
+  }
+
+  getStartIndexProfileId(arr){
+    let counter = 0;
+    for(let i =0 ;i < arr.length; i++){
+	    if(arr[i] == "/"){
+		    counter++;
+		    if(counter == 3)
+          return i;	
+  	}
+  }
+}
+
+  getProfileName(profileId: number){
+    this.configProfileService.getProfileName(profileId).
+    subscribe(data => {
+      this.profileName = data["profileName"]
+      this.label = `Profile Name: ${this.profileName}`;
+      console.log("this.label", this.label);
+    });
+  }
+
   getAppName(appId: number){
 
   }
