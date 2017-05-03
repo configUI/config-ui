@@ -48,6 +48,7 @@ const routes: Routes = [
             { path: 'home', component: ConfigHomeComponent },
             { path: 'application-list', component: ConfigApplicationListComponent },
             { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
+            { path: 'tree-main/topology/:topoId', component: ConfigTreeMainComponent },
             {
                 path: 'profile', component: ConfigProfileRoutingComponent, children: [
                     { path: '', redirectTo: 'profile-list', pathMatch: 'full' },

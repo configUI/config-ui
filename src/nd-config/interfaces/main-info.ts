@@ -9,8 +9,8 @@ export interface MainInfo {
     agentData: NDAgentInfo[];
 }
 
-export interface TRData {
+export class TRData {
     status: string;
     trNo: string;
-    switch:boolean;
+    switch:boolean =false;
 }
