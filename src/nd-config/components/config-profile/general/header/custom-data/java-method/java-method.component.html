@@ -57,7 +57,7 @@
         <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
             <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedReturnRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
-                    <span>  Return Type Info </span>
+                    <span>  Return Type Settings </span>
                     <span style="float: right; margin-top:-5px">
                        <!--<button pButton type="add" title="Add" (click)="first=true" icon="fa-plus"></button>-->
                        <button pButton type="sumbit" title="Add" (click)="first=true" icon="fa-plus"></button>
@@ -154,7 +154,7 @@
 
 
 <!--Form for adding return Type Rules-->
-<p-dialog header="Add Return Type Info" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
+<p-dialog header="Add Return Type Settings" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
     <form (ngSubmit)="saveReturnRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -236,7 +236,7 @@
 
 
 <!--Form for adding Argument Type Rules-->
-<p-dialog header="Add Argument Type Info" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
+<p-dialog header="Add Argument Type Settings" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
