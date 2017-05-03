@@ -104,9 +104,10 @@ export class IntegrationPtDetectionComponent implements OnInit {
 
   /**This method is used to update Naming Rules & Exit Points data. */
   saveIntegrationDetail() {
-    console.log("this.integrationDetail", this.integrationDetail);
     this.namingRuleAndExitPoint = new NamingRuleAndExitPoint();
     this.namingRuleAndExitPoint.backendTypeId = this.integrationDetail.id;
+    this.namingRuleAndExitPoint.databaseProductName = this.integrationDetail.namingRule.databaseProductName;
+    this.namingRuleAndExitPoint.driverName = this.integrationDetail.namingRule.driverName;
     this.namingRuleAndExitPoint.databaseProductVersion = this.integrationDetail.namingRule.databaseProductVersion;
     this.namingRuleAndExitPoint.driverVersion = this.integrationDetail.namingRule.driverVersion;
     this.namingRuleAndExitPoint.host = this.integrationDetail.namingRule.host;
@@ -115,6 +116,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
     this.namingRuleAndExitPoint.tableName = this.integrationDetail.namingRule.tableName;
     this.namingRuleAndExitPoint.topicName = this.integrationDetail.namingRule.topicName;
     this.namingRuleAndExitPoint.url = this.integrationDetail.namingRule.url;
+    this.namingRuleAndExitPoint.userName = this.integrationDetail.namingRule.userName;
     this.namingRuleAndExitPoint.lstEndPoints = [];
     this.namingRuleAndExitPoint.query = this.integrationDetail.namingRule.query;
 

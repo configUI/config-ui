@@ -1,4 +1,4 @@
-import { Component, Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
 import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
 import { HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData } from '../../../../../../containers/instrumentation-data';
@@ -108,12 +108,11 @@ export class HttpRequestComponent implements OnInit {
   }
 
   saveADDEditHTTPReqHeader(): void {
-    if((this.httpRequestHdrDetail.complete==false && this.httpRequestHdrDetail.specific==false) || (!this.httpRequestHdrDetail.complete && !this.httpRequestHdrDetail.specific))
-      {
-        this.configUtilityService.errorMessage("Please select any of the checkbox");
-      }
+    if ((this.httpRequestHdrDetail.complete == false && this.httpRequestHdrDetail.specific == false) || (!this.httpRequestHdrDetail.complete && !this.httpRequestHdrDetail.specific)) {
+      this.configUtilityService.errorMessage("Please select any of the checkbox");
+    }
     //When add new Http Request header
-   else if (this.isNew) {
+    else if (this.isNew) {
       //Check for app name already exist or not
       if (!this.checkHttpReqNameAlreadyExist()) {
         this.saveHttpRequest();
@@ -157,11 +156,11 @@ export class HttpRequestComponent implements OnInit {
     let isComplete = false;
     this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedHTTPReqHeader.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
 
@@ -195,18 +194,11 @@ export class HttpRequestComponent implements OnInit {
   /* Method for Edit HTTP Req */
   editHTTPRequest() {
     this.setEditedNewValues("Edit");
-          console.log(" ======= ==== 2 === ==-- --  ==" , this.httpRequestHdrDetail)
-
-        console.log(" ======= ==== 4 === == ==" , this.selectedHTTPReqHeader )
     this.configKeywordsService.editHTTPReqHeaderData(this.httpRequestHdrDetail, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
       .subscribe(data => {
         let index = this.getMethodBusinessIndex(data.httpReqHdrBasedId);
         this.selectedHTTPReqHeader.length = 0;
         this.selectedHTTPReqHeader.push(data);
-       console.log(" 1 == " , this.httpRequestHdrDetail)
-       console.log("2  == " , data)
-
-
         this.httpRequestHdrComponentInfo[index] = this.addReqHeaderTableData(this.httpRequestHdrDetail)[0];
         this.closeDialog();
       });
@@ -214,10 +206,6 @@ export class HttpRequestComponent implements OnInit {
     // if (this.httpRequestHdrDetail.dumpMode == 1) {
     //   if (this.rulesDataInfo.length != 0) {
     //     this.setEditedNewValues("EditSpecific");
-    //     console.log(" ======= ==== === ==-- --  ==" , this.rulesDataInfo.length)
-    //      console.log(" ======= ==== === ==-- --  ==" , this.httpRequestHdrDetail.rules)
-    //     console.log(" ======= ==== === ==-- --  ==" , this.editSpecific )
-    //     console.log(" ======= ==== === == ==" , this.selectedHTTPReqHeader[0].httpReqHdrBasedId )
     //     this.configKeywordsService.editHTTPReqHeaderRulesData(this.editSpecific, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
     //       .subscribe(data => {
     //         // let index = this.getRulesIndex(this.editSpecific.valName);
@@ -266,17 +254,15 @@ export class HttpRequestComponent implements OnInit {
         this.httpRequestHdrDetail.attrValues = [];
         this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
         this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
- }
+      }
 
       if (opertionType == "NewAdd") {
-        console.log("new Add == ")
         this.httpRequestHdrDetail.rules = [];
         this.httpRequestHdrDetail.attrValues = [];
         this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
         this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
       }
       // if (opertionType == "EditSpecific") {
-      //   console.log("EditSpecific   == ")
       //   this.httpRequestHdrDetail.rules = [];
       //   this.httpRequestHdrDetail.attrValues = [];
       //   this.editSpecific = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
@@ -320,8 +306,6 @@ export class HttpRequestComponent implements OnInit {
     var arrTableData = [];
     let dumpModeTmp = "";
     let valueNames = "";
-
-    console.log("console log = ", data)
     if (data.rules != null) {
       for (var j = 0; j < data.rules.length; j++) {
         if (data.rules.length == 1)
@@ -353,20 +337,33 @@ export class HttpRequestComponent implements OnInit {
 
   // Method for saving rules information
   saveRules() {
-    if (this.checkRuleAlreadyExist())
-      return;
+
     this.rulesDataInfo.push(this.rulesDataDetail);
     this.closeRulesDialog();
   }
 
   // Method for delete rules information
   deleteRules() {
-    let selectedRules = this.selectedRulesData;
-    let arrRulesIndex = [];
-    for (let index in selectedRules) {
-      arrRulesIndex.push(selectedRules[index].valName);
+    if (!this.selectedRulesData || this.selectedRulesData.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
     }
-    this.deleteRulesFromTable(arrRulesIndex);
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        let selectedRules = this.selectedRulesData;
+        let arrRulesIndex = [];
+        for (let index in selectedRules) {
+          arrRulesIndex.push(selectedRules[index].valName);
+        }
+        this.deleteRulesFromTable(arrRulesIndex);
+        this.configUtilityService.infoMessage("Delete Successfully");
+        this.selectedHTTPReqHeader = [];
+      }
+    });
+
   }
 
   /**This method returns selected Rules row on the basis of selected row */
@@ -381,6 +378,7 @@ export class HttpRequestComponent implements OnInit {
 
   /**This method is used to delete Rules from Data Table */
   deleteRulesFromTable(arrRulesIndex: any[]): void {
+
     //For stores table row index
     let rowIndex: number[] = [];
 
@@ -392,21 +390,19 @@ export class HttpRequestComponent implements OnInit {
 
   deleteHTTPReqHeader(): void {
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
         //Get Selected Applications's AppId
         let selectedApp = this.selectedHTTPReqHeader;
-        console.log("===== === ", this.selectedHTTPReqHeader);
         let arrAppIndex = [];
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].httpReqHdrBasedId);
-          console.log("===== === ", arrAppIndex);
         }
         this.configKeywordsService.deleteHTTPReqHeaderData(arrAppIndex, this.profileId)
           .subscribe(data => {

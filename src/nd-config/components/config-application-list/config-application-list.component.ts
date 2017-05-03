@@ -78,11 +78,11 @@ export class ConfigApplicationListComponent implements OnInit {
   /**For showing edit application dialog */
   editAppDialog(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select an application to edit");
       return;
     }
     else if (this.selectedApplicationData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one application to edit");
       return;
     }
     this.isNewApp = false;
@@ -93,11 +93,11 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to delete application */
   deleteApp(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
-      this.configUtilityService.errorMessage("Select fields to delete");
+      this.configUtilityService.errorMessage("Select application(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete selected Application?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
@@ -217,22 +217,21 @@ export class ConfigApplicationListComponent implements OnInit {
     this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
   }
 
-  generateNDConfFile(){
+  generateNDConfFile() {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
-      this.configUtilityService.errorMessage("Select a row to generate nd.conf file");
+      this.configUtilityService.errorMessage("Select an application to generate Agent Configuration settings");
       return;
     }
     else if (this.selectedApplicationData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row to generate nd.conf file");
+      this.configUtilityService.errorMessage("Select only one application to generate Agent Configuration settings");
       return;
     }
     let selectedApp = this.selectedApplicationData;
-        let arrAppIndex = [];
-        for (let index in selectedApp) {
-          arrAppIndex.push(selectedApp[index].appId);
-        }
-        this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data =>
-            this.configUtilityService.infoMessage("Successfully generated nd.conf file at path : " + data));
-
+    let arrAppIndex = [];
+    for (let index in selectedApp) {
+      arrAppIndex.push(selectedApp[index].appId);
+    }
+    this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data =>
+      this.configUtilityService.infoMessage("Agent Configuration settings generated successfully at path : " + data));
   }
 }
