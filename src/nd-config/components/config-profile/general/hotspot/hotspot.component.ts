@@ -38,6 +38,8 @@ export class HotspotComponent implements OnInit, OnDestroy {
   includedException;
   excludedException;
   enableGroupKeyword: boolean = false;
+  includedExceptionChk: boolean = true;
+  excludedExceptionChk: boolean = true;
 
   /**Value for the keyword ASPositiveThreadFilters
    * Thread1&Thread2&Thread3
@@ -54,7 +56,10 @@ export class HotspotComponent implements OnInit, OnDestroy {
         })
 
         this.hotspot = keywordDataVal;
-        this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
+        if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
+          this.includedException = null;
+        else
+          this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
         // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == '1';
@@ -74,14 +79,14 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   saveKeywordData() {
     //Joining the values of ASNegativeThreadFilter and ASPositiveThreadFilters keywords with &.
-  /*
-  *  ASPositiveThreadFilters is given the defaultValue
-  *  so if there is a change in that default value it automatically refers to that value and we need to made the change in only one file
-  *  this is done to handle the case of writing keywords as:
-  *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
-  */
+    /*
+    *  ASPositiveThreadFilters is given the defaultValue
+    *  so if there is a change in that default value it automatically refers to that value and we need to made the change in only one file
+    *  this is done to handle the case of writing keywords as:
+    *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
+    */
 
-    if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 ) {
+      if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 ) {
       this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
     }
     else {
@@ -107,7 +112,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.subscription)
-   this.subscription.unsubscribe();
+      this.subscription.unsubscribe();
   }
 
 

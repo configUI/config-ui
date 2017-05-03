@@ -125,7 +125,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       colField = ["tierName", "tierDesc", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
-       colHeader = ["Display Name", " Name", "Profile Applied"];
+       colHeader = ["Display Name", "Actual Name", "Profile Applied"];
        colField = ["serverDisplayName", "serverName", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
