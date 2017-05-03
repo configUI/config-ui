@@ -1,15 +1,14 @@
-<p-checkbox name="captureCustomData" label="Capture Custom Data" [(ngModel)]="data.captureCustomData.value" binary="true">
-
+<p-checkbox name="captureCustomData" label="Capture Custom Data From" [(ngModel)]="data.captureCustomData.value" binary="true">
 </p-checkbox>
 
-<p-tabView>
-    <p-tabPanel header="From Java Method">
+<p-tabView class="sessionTab">
+    <p-tabPanel header="Java Method">
         <app-java-method></app-java-method>
     </p-tabPanel>
-    <p-tabPanel header="From Session Attribute">
+    <p-tabPanel header="Session Attribute">
         <app-session-attribute></app-session-attribute>
     </p-tabPanel>
-    <p-tabPanel header="From HTTP Request header">
+    <p-tabPanel header="HTTP Request header">
         <app-http-request></app-http-request>
     </p-tabPanel>
 </p-tabView>

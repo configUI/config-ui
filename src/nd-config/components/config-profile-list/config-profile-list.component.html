@@ -8,20 +8,20 @@
 
 
     <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3">
-        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true">
+        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
             <template let-col let-profile="rowData" pTemplate>
                 <span title="{{profile[col.field]}}
 Click to open profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
             </template>
         </p-column>
-        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true">
-            <template let-col let-profile="rowData" pTemplate>
-                <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
-            </template>
-        </p-column>
-        <p-column class="tableCss" field="timeStamp" header="Last Updated On" [sortable]="true">
+        <p-column class="tableCss" field="timeStamp" header="Last Updated On" [sortable]="true" [style]="{'width':'15%'}">
             <template let-col let-profile="rowData" pTemplate>
                 <span style="float:right" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'50%'}">
+            <template let-col let-profile="rowData" pTemplate>
+                <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
             </template>
         </p-column>
     </p-dataTable>

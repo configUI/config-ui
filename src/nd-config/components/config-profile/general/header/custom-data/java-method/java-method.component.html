@@ -15,7 +15,7 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-    <p-column class="col-overflow" field="fqm" header="Fully Qualified Name" [sortable]="true">
+    <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
@@ -154,59 +154,74 @@
 
 
 <!--Form for adding return Type Rules-->
-<p-dialog header="Add Return Type Info" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="400" responsive="true">
+<p-dialog header="Add Return Type Info" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
     <form (ngSubmit)="saveReturnRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
-                <div class="ui-g-4">
+                <div class="ui-g-2">
                     <label>Name</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="headerName" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <input name="headerName" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
+                </div>
+                <div class="ui-g-2">
+                    <label>Custom Type</label>
+                </div>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" --Select-- "></p-dropdown>
                 </div>
             </div>
-            <div class="ui-g-12">
+            <!--<div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Custom Value Type</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <p-dropdown name="type" [style]="{'width': '150px'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" --Select-- "></p-dropdown>
                 </div>
-            </div>
+            </div>-->
             <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label> Operation</label>
+                <div class="ui-g-2">
+                    <label>Operation</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [style]="{'width': '150px'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" appendTo="body" placeholder=" --Select-- "></p-dropdown>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" appendTo="body" placeholder=" --Select-- "></p-dropdown>
                 </div>
-            </div>
-            <div class="ui-g-12" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
-                <div class="ui-g-4">
+                <!--<div class="ui-g-6" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">-->
+                <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
                     <label>Operator Value</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="returnTypeRules.operatorValue" required ngModel/>
+                <div class="ui-g-4" style="margin-top: -5px" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
+                    <input name="operatorValue" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.operatorValue" required ngModel/>
+                </div>
+                <!--</div>-->
+            </div>
+            <div class="ui-g-12" *ngIf="(returnTypeRules.operation =='EXTRACT_SUBPART')">
+                <div class="ui-g-6">
+                    <div class="ui-g-4">
+                        <label>Left Bound</label>
+                    </div>
+                    <div class="ui-g-8" style="margin-top: -5px">
+                        <input name="leftBound" type="text" size="25" pInputText [(ngModel)]="leftBoundReturn" placeholder=" left bound" required ngModel/>
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4">
+                        <label>Right Bound</label>
+                    </div>
+                    <div class="ui-g-8" style="margin-top: -5px">
+                        <input name="rightBound" type="text" size="25" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
+                    </div>
                 </div>
             </div>
 
-            <div class="ui-g-12" *ngIf="(returnTypeRules.operation =='EXTRACT_SUBPART')">
-                <div class="ui-g-4">
-                    <label>Left Bound</label>
-                </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="leftBound" type="text" size="30" pInputText [(ngModel)]="leftBoundReturn" placeholder=" left bound" required ngModel/>
-                </div>
-            </div>
-
-            <div class="ui-g-12" *ngIf="(returnTypeRules.operation =='EXTRACT_SUBPART')">
+            <!--<div class="ui-g-12" *ngIf="(returnTypeRules.operation =='EXTRACT_SUBPART')">
                 <div class="ui-g-4">
                     <label>Right Bound</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
                 </div>
-            </div>
+            </div>-->
 
         </div>
         <footer>
@@ -221,15 +236,21 @@
 
 
 <!--Form for adding Argument Type Rules-->
-<p-dialog header="Add Argument Type Info" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="400" responsive="true">
+<p-dialog header="Add Argument Type Info" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
-                <div class="ui-g-4">
+                <div class="ui-g-2">
                     <label>Name</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="headerName" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <input name="headerName" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
+                </div>
+                <div class="ui-g-2">
+                    <label>Index</label>
+                </div>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <p-dropdown name="type" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
                 </div>
             </div>
 
@@ -243,39 +264,45 @@
                 </div>
             </div>-->
 
-            <div class="ui-g-12">
+            <!--<div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Index</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <p-dropdown name="type" [style]="{'width': '150px'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
                 </div>
-            </div>
+            </div>-->
 
 
             <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label>Custom Value Type</label>
+                <div class="ui-g-2">
+                    <label>Custom Type</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '150px'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="--Select--"></p-dropdown>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="--Select--"></p-dropdown>
+                </div>
+                <div class="ui-g-2">
+                    <label>Operation</label>
+                </div>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTO="body"></p-dropdown>
                 </div>
             </div>
-            <div class="ui-g-12">
+            <!--<div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <p-dropdown name="operationName" [style]="{'width': '150px'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
                 </div>
-            </div>
+            </div>-->
 
             <div class="ui-g-12">
-                <div class="ui-g-4">
+                <div class="ui-g-2">
                     <label>Operator Value</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="operatorValue" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.operatorValue" required ngModel/>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <input name="operatorValue" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.operatorValue" required ngModel/>
                 </div>
             </div>
 
@@ -289,23 +316,28 @@
             </div>-->
 
             <div class="ui-g-12" *ngIf="(argumentTypeRules.operation =='EXTRACT_SUBPART')">
-                <div class="ui-g-4">
+                <div class="ui-g-2">
                     <label>Left Bound</label>
                 </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="leftBound" type="text" size="30" pInputText [(ngModel)]="leftBoundArgument" placeholder=" left bound" required ngModel/>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <input name="leftBound" type="text" size="27" pInputText [(ngModel)]="leftBoundArgument" placeholder=" left bound" required ngModel/>
+                </div>
+                <div class="ui-g-2">
+                    <label>Right Bound</label>
+                </div>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <input name="rightBound" type="text" size="27" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" required ngModel/>
                 </div>
             </div>
 
-            <div class="ui-g-12" *ngIf="(argumentTypeRules.operation =='EXTRACT_SUBPART')">
+            <!--<div class="ui-g-12" *ngIf="(argumentTypeRules.operation =='EXTRACT_SUBPART')">
                 <div class="ui-g-4">
                     <label>Right Bound</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
                     <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" required ngModel/>
                 </div>
-            </div>
-
+            </div>-->
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ">

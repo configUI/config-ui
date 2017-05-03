@@ -24,8 +24,7 @@
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" placeholder="Enter Range Of Characters"
-                autofocus required ngModel/>
+            <input name="btName" style="text-align:right" type="text" size="10" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>
@@ -56,8 +55,7 @@
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
-            <input name="btName" type="text" size="25" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp"
-                placeholder="Enter Range Of Characters" autofocus required ngModel/>
+            <input name="btName" type="text" style="text-align:right" size="10" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
 </div>
