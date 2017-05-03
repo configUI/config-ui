@@ -11,31 +11,31 @@
     <!--For showing application list -->
     <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
 
-        <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
+        <p-column class="col-overflow" field="appName" header="Name" [sortable]="true" [style]="{'width':'18%'}">
             <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
     </template>
         </p-column>
-        <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true">
+        <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true" [style]="{'width':'18%'}">
             <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
         </p-column>
-        <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
+        <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true" [style]="{'width':'13%'}">
             <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
         </p-column>
-        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
-            <template let-col let-application="rowData" pTemplate>
-      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-    </template>
-        </p-column>
-        <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true">
+        <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true" [style]="{'width':'13%'}">
             <template let-col let-application="rowData" pTemplate>
       <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+    </template>
+        </p-column>
+        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'36%'}">
+            <template let-col let-application="rowData" pTemplate>
+      <span title="{{application[col.field]}}">{{application[col.field]}}</span>
     </template>
         </p-column>
     </p-dataTable>
