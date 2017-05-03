@@ -281,7 +281,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {

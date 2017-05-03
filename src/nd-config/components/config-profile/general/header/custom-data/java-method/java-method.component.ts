@@ -214,11 +214,11 @@ export class JavaMethodComponent implements OnInit {
     this.methodBasedCustomData = new MethodBasedCustomData();
 
     if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedJavaMethod.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
     else{
@@ -626,11 +626,11 @@ export class JavaMethodComponent implements OnInit {
   /**This method is used to delete  */
   deleteJavaMethod(): void {
     if (!this.selectedJavaMethod || this.selectedJavaMethod.length < 1) {
-      this.configUtilityService.errorMessage("Select row(s) to delete !!!");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {

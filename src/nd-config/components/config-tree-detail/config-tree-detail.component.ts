@@ -142,11 +142,11 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   editDialog(): void {
     if (!this.selectedTopologyData || this.selectedTopologyData.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit profile");
       return;
     }
     else if (this.selectedTopologyData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit profile");
       return;
     }
 
@@ -242,10 +242,10 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     this.configTopologyService.disableProfInstance(instanceId, flag).subscribe(data => {
         if(data.enabled == "true"){
-          this.configUtilityService.infoMessage("Enabled Profile Sucessfully.");
+          this.configUtilityService.infoMessage("Instance Enabled Sucessfully.");
         }
         else{
-          this.configUtilityService.infoMessage("Disabled Profile Sucessfully.");
+          this.configUtilityService.infoMessage("Instance Disabled Sucessfully.");
         }
     });
   }

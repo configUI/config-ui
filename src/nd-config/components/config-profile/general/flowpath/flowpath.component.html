@@ -1,6 +1,6 @@
 <form *ngIf="flowPath" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">FlowPath Settings
+        <div class="header">Flowpath Settings
 
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
@@ -49,10 +49,10 @@
                         <div class="ui-g-1">
                             <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
-                        <div class="ui-g-2">
-                            <p-radioButton name="enableCpuTime" value="1" label="Enable at FP/ BT level" [(ngModel)]="cpuTime"></p-radioButton>
+                        <div class="ui-g-3">
+                            <p-radioButton name="enableCpuTime" value="1" label="Enable at Flowpath/ Business Transaction level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
-                        <div class="ui-g-4">
+                        <div class="ui-g-3">
                             <p-radioButton name="enableCpuTime" value="2" label="Enable both method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
                         <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem" appendTo="body" required ngModel></p-dropdown>-->

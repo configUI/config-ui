@@ -122,11 +122,11 @@ export class MethodBTConfigurationComponent implements OnInit {
   editMethodTrans(): void {
     this.businessTransMethodDetail = new BusinessTransMethodData();
     if (!this.selectedbusinessTransMethod || this.selectedbusinessTransMethod.length < 1) {
-      this.configUtilityService.errorMessage("Select row for edit");
+      this.configUtilityService.errorMessage("Select a row to edit");
       return;
     }
     else if (this.selectedbusinessTransMethod.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row for edit");
+      this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
 
@@ -151,11 +151,11 @@ export class MethodBTConfigurationComponent implements OnInit {
   deleteMethodTrans(): void {
 
     if (!this.selectedbusinessTransMethod || this.selectedbusinessTransMethod.length < 1) {
-      this.configUtilityService.errorMessage("Please select for delete");
+      this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
     this.confirmationService.confirm({
-      message: 'Do you want to delete the selected record?',
+      message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
