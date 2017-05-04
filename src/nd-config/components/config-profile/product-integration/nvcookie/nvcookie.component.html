@@ -1,6 +1,6 @@
 <form *ngIf="ndSession" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Integrate with other Cavisson Products
+        <div class="header">Integrate with other Cavisson products
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
@@ -14,34 +14,34 @@
                         <!--<div class = "ui-g-6">-->
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-4">
-                            <p-checkbox name="methodEntry" binary="true" [(ngModel)]="ndSessionData.methodEntryDepth" label="Enable Cookie at Method Entry"></p-checkbox>
+                            <p-checkbox name="methodEntry" binary="true" [(ngModel)]="ndSessionData.methodEntryDepth" label="Enable cookie at method entry"></p-checkbox>
                         </div>
                         <div class="ui-g-3">
-                            <p-checkbox name="methodExit" binary="true" [(ngModel)]="ndSessionData.methodExitDepth" label="Enable Cookie at Method Exit"></p-checkbox>
+                            <p-checkbox name="methodExit" binary="true" [(ngModel)]="ndSessionData.methodExitDepth" label="Enable cookie at method exit"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <!--<div class = "ui-g-6">-->
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-4">
-                            <p-checkbox name="OnResponseCommitEvent" binary="true" [(ngModel)]="ndSessionData.onResponseCommit" label="Enable Cookie OnResponseCommitEvent"></p-checkbox>
+                            <p-checkbox name="OnResponseCommitEvent" binary="true" [(ngModel)]="ndSessionData.onResponseCommit" label="Enable cookie on response commit event"></p-checkbox>
                         </div>
                         <div class="ui-g-3">
-                            <p-checkbox name=" XCavNVHeader" binary="true" [(ngModel)]="ndSessionData.setResponseHeader" label="Enable X CavNV Header"></p-checkbox>
+                            <p-checkbox name=" XCavNVHeader" binary="true" [(ngModel)]="ndSessionData.setResponseHeader" label="Enable X CavNV header"></p-checkbox>
                         </div>
                     </div>
                     <div></div>
                     <div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-2">
-                            <label>ND Session Cookie Name</label>
+                            <label>ND session cookie name</label>
                         </div>
                         <div class="ui-g-1">
                             <input name="cookieName" [(ngModel)]="ndSessionData.cookieName" type="text" required />
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
-                            <label>Domain Name</label>
+                            <label>Domain name</label>
                         </div>
                         <div class="ui-g-1">
                             <input name="domainName" [(ngModel)]="ndSessionData.domain" type="text" required />
@@ -50,14 +50,14 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"> </div>
                         <div class="ui-g-2">
-                            <label>Idle Timeout</label>
+                            <label>Idle timeout</label>
                         </div>
                         <div class="ui-g-1">
                             <input name="timeout" [(ngModel)]="ndSessionData.idleTimeOut" type="number" required />
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
-                            <label>Maximum Flowpath in Session Count</label>
+                            <label>Maximum flowpath in session count</label>
                         </div>
                         <div class="ui-g-1">
                             <input name="sessionCount" [(ngModel)]="ndSessionData.maxFPAllowedInSession" type="number" required />
