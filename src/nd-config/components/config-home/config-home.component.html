@@ -5,23 +5,22 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">APPLICATION LIST {{applicationMsg}}</div>
                 <div class="header-button">
-                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" label="Configure" class="ui-button-info"></button></a>
+                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" title="Configure profile list" label="Configure" class="ui-button-info"></button></a>
                 </div>
             </md-card-subtitle>
             <div class="table-css">
                 <p-dataTable [value]="applicationInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}
-Click to open topology details"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a></span>
+                            <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
-                    <p-column rowStyleClass="col-overflow" field="topology" header="Topology Applied">
+                    <p-column rowStyleClass="col-overflow" field="topology" header="Topology applied">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
-                    <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
+                    <p-column rowStyleClass="col-overflow" field="timestamp" header="Last updated on">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
                         </template>
@@ -37,15 +36,14 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTreemain(ap
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">PROFILE LIST {{profileInfoMsg}}</div>
                 <div class="header-button">
-                    <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" label="Configure" class="ui-button-info "></button></a>
+                    <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" title="Configure application list" label="Configure" class="ui-button-info "></button></a>
                 </div>
             </md-card-subtitle>
             <div class="table-css">
                 <p-dataTable [value]="profileInfo">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-profile="rowData" pTemplate>
-                            <span title="{{profile[col.field]}}
-Click to open profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
+                            <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
                         </template>
                     </p-column>
                     <!--<p-column rowStyleClass="col-overflow" field="description" header="Description">
@@ -53,16 +51,16 @@ Click to open profile configuration"><a class="hyperlink" (click)="routeToConfig
                             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
                     </p-column>-->
-                    <p-column rowStyleClass="col-overflow" field="timestamp" header="Last Updated On">
+                    <p-column rowStyleClass="col-overflow" field="timestamp" header="Last updated on">
                         <template let-col let-profile="rowData" pTemplate>
                             <span title="{{profile[col.field]}}" style="float:right">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
-                    <p-column rowStyleClass="col-overflow" field="description" header="Description">
+                    <!--<p-column rowStyleClass="col-overflow" field="description" header="Description">
                         <template let-col let-profile="rowData" pTemplate>
                             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
                         </template>
-                    </p-column>
+                    </p-column>-->
                 </p-dataTable>
             </div>
         </md-card>
@@ -77,8 +75,8 @@ Click to open profile configuration"><a class="hyperlink" (click)="routeToConfig
 
                 <div class="header-Name">TOPOLOGY LIST {{topologyInfoMsg}}</div>
                 <div class="header-button">
-                    <a (click)="importTopologyDialog()"> <button pButton type="button" label="Import Topologies" class="button-color" icon="fa-download"></button></a>
-                    <a [routerLink]="[ ROUTING_PATH + '/topology-list']"><button pButton type="button" label="Show All" icon="fa-info" class="ui-button-info"></button></a>
+                    <a (click)="importTopologyDialog()"> <button pButton type="button" title="Import topologies" label="Import Topologies" class="button-color" icon="fa-download"></button></a>
+                    <a [routerLink]="[ ROUTING_PATH + '/topology-list']"><button pButton type="button" title="Show topology list" label="Show All" icon="fa-info" class="ui-button-info"></button></a>
                 </div>
             </md-card-subtitle>
             <div class="table-css">

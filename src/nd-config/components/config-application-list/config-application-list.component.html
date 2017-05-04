@@ -1,7 +1,7 @@
 <div class="widget">
-    <div class="header"><i aria-hidden="true"></i>Application(s)
+    <div class="header"><i aria-hidden="true"></i>Application List
         <span style="float: right; margin-top:-2px">
-            <button pButton type="button" title="Generate Agent Configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>
+            <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>
             <button pButton type="button" title="Add an application" (click)="openAppDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an application"(click)="editAppDialog()" icon="fa-pencil" ></button>
             <button pButton type="button"class="ui-button-danger" title="Delete application(s)" (click)="deleteApp()" icon="fa-trash"></button>
@@ -11,34 +11,32 @@
     <!--For showing application list -->
     <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
 
         <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
-                <span title="{{application[col.field]}}
-Click to open topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
+                <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true">
+        <p-column class="col-overflow" field="topoName" header="Topology applied" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true">
+        <p-column class="col-overflow" field="userName" header="User name" [sortable]="true"  [style]="{'width':'15%'}">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true">
-            <template let-col let-application="rowData" pTemplate>
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
-        </p-column>
-        <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true">
+        <p-column class="col-overflow" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
             <template let-col let-application="rowData" pTemplate>
 
+                <span title="{{application[col.field]}}" style="float: right">{{application[col.field]}}</span>
+            </template>
+        </p-column>
+         <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
+            <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-
             </template>
         </p-column>
     </p-dataTable>
@@ -53,7 +51,7 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                     <label>Name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Application name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                         autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
             </div>
@@ -81,7 +79,7 @@ Click to open topology details"><a class="hyperlink" (click)="routeToTree(applic
                     <label>Description</label>
                 </div>
                 <div class="ui-g-8">
-                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" required ngModel></textarea>
+                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
                 </div>
             </div>
             <footer>

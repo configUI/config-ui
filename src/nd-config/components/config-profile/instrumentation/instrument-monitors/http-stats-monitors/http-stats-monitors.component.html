@@ -8,7 +8,7 @@
             <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" [disabled]="saveDisable" (click)="deleteHTTPStats()" icon="fa-trash"></button>
         </span>
     </p-header>
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="conditionName" header="Condition name" [sortable]="true">
         <template let-col let-HttpStatsMonitor="rowData" pTemplate>
             <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
@@ -128,7 +128,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-3">
-                <textarea name="Description" rows="2" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
+                <textarea name="Description" rows="2" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
             </div>
         </div>
         <footer>

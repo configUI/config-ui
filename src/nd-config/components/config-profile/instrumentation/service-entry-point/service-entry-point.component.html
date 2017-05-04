@@ -2,7 +2,7 @@
     <p-header>
         <span style="float: left">  Service entry points list </span>
         <span style="float :right; margin-top:-5px">
-            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add service entry point"></button>
+            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
         </span>
     </p-header>
 
@@ -30,7 +30,7 @@
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog header="Add service entry point" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700" responsive="true">
+<p-dialog header="Add Service entry point" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700" responsive="true">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">

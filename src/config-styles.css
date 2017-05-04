@@ -411,3 +411,7 @@ input[type="number"] {
 .ui-widget-content {
     overflow: visible !important;
 }
+
+.ui-datatable .ui-datatable-header {
+    height: 25px;
+}

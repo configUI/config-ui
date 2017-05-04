@@ -1,7 +1,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params ,Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo } from '../../interfaces/topology-info';
 import * as CONS from '../../constants/config-constant';
@@ -27,7 +27,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     private configUtilityService: ConfigUtilityService,
     private configProfileService: ConfigProfileService,
     private router: Router,
-    
+
   ) { }
 
 
@@ -47,6 +47,10 @@ export class ConfigTreeDetailComponent implements OnInit {
   changeProf: boolean = false;
   topoData: any;
 
+  topologyName: string;
+  tierName: string;
+  serverName: string;
+
   /**SelectItem for Profile */
   profileSelectItem: SelectItem[];
 
@@ -55,10 +59,10 @@ export class ConfigTreeDetailComponent implements OnInit {
   ROUTING_PATH = ROUTING_PATH;
 
   //used when topology is screen comes from application
-  dcId:number
+  dcId: number
 
   //used when topology screen comes from its topology show All screen or home screen
-  topoId:number
+  topoId: number
 
   subscription: Subscription;
 
@@ -72,27 +76,28 @@ export class ConfigTreeDetailComponent implements OnInit {
   loadTopologyData(): void {
     this.getTableHeader();
     let url;
-    this.route.params.subscribe((params: Params) => {this.dcId = params['dcId']
-                                                     this.topoId = params['topoId']
-     });
+    this.route.params.subscribe((params: Params) => {
+    this.dcId = params['dcId']
+      this.topoId = params['topoId']
+    });
 
     /**below route function is always called whenever routing changes
      * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
      * 
      */
-   
-   this.subscription =  this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+
+    this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       url = event["url"];
       let arr = url.split("/");
-      if(arr.indexOf("tree-main") != -1){
-        if(arr.indexOf("topology") != -1){
-         this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);
+      if (arr.indexOf("tree-main") != -1) {
+        if (arr.indexOf("topology") != -1) {
+          this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);
         }
-        else{
-        this.configTopologyService.getTopologyDetail(this.dcId).subscribe(data => this.topologyData = data);
+        else {
+          this.configTopologyService.getTopologyDetail(this.dcId).subscribe(data => this.topologyData = data);
         }
       }
-  }) 
+    })
   }
 
   loadProfileList() {
@@ -113,26 +118,33 @@ export class ConfigTreeDetailComponent implements OnInit {
   getData(event): void {
     this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
     if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
+      this.topologyName = event.data.nodeLabel;
+      // this.selectedEntityArr = [event.data.nodeLabel];
       this.currentEntity = CONS.TOPOLOGY.TIER;
       this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
       this.configTopologyService.getTierDetail(event.data.nodeId, this.topologyEntity).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr.push(CONS.TOPOLOGY.TIER);
-    }
+      this.selectedEntityArr.splice(0, 1);
+      this.selectedEntityArr.push(event.data.nodeLabel, CONS.TOPOLOGY.TIER);
+     }
     else if (event.data.currentEntity == CONS.TOPOLOGY.TIER) {
       //this.selectedTopologyData :TierInfo[];
+      this.tierName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr.push(CONS.TOPOLOGY.TIER, CONS.TOPOLOGY.SERVER);
+      // this.selectedEntityArr.push(CONS.TOPOLOGY.TIER, CONS.TOPOLOGY.SERVER);
+      this.selectedEntityArr.splice(0, 1);
+      this.selectedEntityArr.push(this.topologyName, event.data.nodeLabel, CONS.TOPOLOGY.SERVER);
     }
     else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER) {
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr.push(CONS.TOPOLOGY.TIER, CONS.TOPOLOGY.SERVER, CONS.TOPOLOGY.INSTANCE);
+      this.selectedEntityArr.splice(0, 1);
+      this.selectedEntityArr.push(this.topologyName, this.tierName, event.data.nodeLabel, CONS.TOPOLOGY.INSTANCE);
     }
-    
-    this.selectedEntityArr = [this.selectedEntityArr.join("> ")];
+
+    this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
     //For Table header Name
     this.getTableHeader();
   }
@@ -143,23 +155,23 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //Default for topology detail
     let colField;
-    let colHeader = ["Name", "Description", "Profile Applied"];
+    let colHeader = ["Name", "Description", "Profile applied"];
     if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
-      colHeader = ["Name",  "Profile Applied"];
+      colHeader = ["Name", "Profile applied"];
       colField = ["topoName", "profileName"];
     }
 
     else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
-      colHeader = ["Name", "Description", "Profile Applied"];
+      colHeader = ["Name", "Description", "Profile applied"];
       colField = ["tierName", "tierDesc", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
-       colHeader = ["Display Name", "Actual Name", "Profile Applied"];
-       colField = ["serverDisplayName", "serverName", "profileName"];
+      colHeader = ["Display name", "Actual name", "Profile applied"];
+      colField = ["serverDisplayName", "serverName", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
-      colHeader = ["Display Name", " Name","Description", "Profile Applied","Enabled"];
-      colField = ["instanceDisplayName", "instanceName", "instanceDesc","profileName", "enabled"];
+      colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled"];
+      colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled"];
     }
 
     for (let i = 0; i < colField.length; i++) {
@@ -185,17 +197,17 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   }
 
-  saveEditProfile():void{
-     if(this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
-        this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => {this.updateTopo(data) })
-     else if(this.currentEntity == CONS.TOPOLOGY.TIER)
-        this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => {this.updateTopo(data)})
-     else if(this.currentEntity == CONS.TOPOLOGY.SERVER)
-        this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => {this.updateTopo(data)})
-     else if(this.currentEntity == CONS.TOPOLOGY.INSTANCE)
-        this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => {this.updateTopo(data)})
+  saveEditProfile(): void {
+    if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
+      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => { this.updateTopo(data) })
+    else if (this.currentEntity == CONS.TOPOLOGY.TIER)
+      this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => { this.updateTopo(data) })
+    else if (this.currentEntity == CONS.TOPOLOGY.SERVER)
+      this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => { this.updateTopo(data) })
+    else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE)
+      this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => { this.updateTopo(data) })
 
-        this.configUtilityService.successMessage("Saved Successfully");
+    this.configUtilityService.successMessage("Saved Successfully");
   }
 
 
@@ -266,20 +278,20 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', entity.profileId]);
   }
 
-  disableProfInstance(instanceId, flag){
+  disableProfInstance(instanceId, flag) {
 
     this.configTopologyService.disableProfInstance(instanceId, flag).subscribe(data => {
-        if(data.enabled == "true"){
-          this.configUtilityService.infoMessage("Instance Enabled Sucessfully.");
-        }
-        else{
-          this.configUtilityService.infoMessage("Instance Disabled Sucessfully.");
-        }
+      if (data.enabled == "true") {
+        this.configUtilityService.infoMessage("Instance Enabled Sucessfully.");
+      }
+      else {
+        this.configUtilityService.infoMessage("Instance Disabled Sucessfully.");
+      }
     });
   }
 
-  ngOnDestroy(){
-    if(this.subscription){
+  ngOnDestroy() {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
 

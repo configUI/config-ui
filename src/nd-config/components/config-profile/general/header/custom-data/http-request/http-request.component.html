@@ -1,7 +1,7 @@
 <!--For showing HTTP Request Header list -->
 <p-dataTable [value]="httpRequestHdrComponentInfo" [(selection)]="selectedHTTPReqHeader" [rows]="5" [paginator]="httpRequestHdrComponentInfo?.length > 5 " [pageLinks]="3">
     <p-header>
-        <span style="float: left"> HTTP Request Header (s) </span>
+        <span style="float: left"> HTTP request header (s) </span>
         <span style="float: right; margin-top:-5px">`
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
@@ -14,7 +14,7 @@
       <span></span>
     </template>
     </p-column>
-    <p-column class="col-overflow" field="dumpMode" header="Capture Mode" [sortable]="true">
+    <p-column class="col-overflow" field="dumpMode" header="Capture mode" [sortable]="true">
         <template let-col let-application="rowData">
       <span></span>
     </template>
@@ -27,12 +27,12 @@
 </p-dataTable>
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->
-<p-dialog header="{{isNew ? 'Add HTTP Request Header' : 'Edit HTTP Request Header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
+<p-dialog header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <label>Header Name</label>
+                    <label>Header name</label>
                 </div>
                 <div class="ui-g-5">
                     <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" autofocus required ngModel/>
@@ -56,7 +56,7 @@
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                    <p-column class="col-overflow" field="valName" header="Display Name" [sortable]="true">
+                    <p-column class="col-overflow" field="valName" header="Display name" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -66,12 +66,12 @@
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                     </p-column>
-                    <p-column class="col-overflow" field="lb" header="Left Bound" [sortable]="true">
+                    <p-column class="col-overflow" field="lb" header="Left bound" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                     </p-column>
-                    <p-column class="col-overflow" field="rb" header="Right Bound" [sortable]="true">
+                    <p-column class="col-overflow" field="rb" header="Right bound" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -89,7 +89,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog header="Add Custom Settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
+<p-dialog header="Add custom settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -100,22 +100,22 @@
                     <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" placeholder="Name" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-4">
-                    <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="Custom value Type"></p-dropdown>
+                    <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="Custom value type"></p-dropdown>
                 </div>
             </div>
 
             <div class="ui-g-12">
                 <div class="ui-g-2">
-                    <label>Left Bound</label>
+                    <label>Left bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" placeholder="Left Bound" autofocus required ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" placeholder="Left bound" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-2">
-                    <label>Right Bound</label>
+                    <label>Right bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" placeholder="Right Bound" autofocus required ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" placeholder="Right bound" autofocus required ngModel/>
                 </div>
             </div>
         </div>

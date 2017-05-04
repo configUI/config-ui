@@ -22,14 +22,14 @@ export class ExceptionComponent implements OnInit {
 
   /**These are those keyword which are used in current screen. */
   keywordList: string[] = ['instrExceptions'];
-   subscriptionEG: Subscription;
-  selectedValue: string = 'unhandled';
+  subscriptionEG: Subscription;
+  // selectedValue: string = 'unhandled';
 
   exception: Object;
   enableGroupKeyword: boolean
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
-     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
   }
 
   exceptionData: ExceptionData;
@@ -55,8 +55,14 @@ export class ExceptionComponent implements OnInit {
       let arr = (this.exception["instrExceptions"].value).split("%20")
       this.exceptionData = new ExceptionData();
 
-      if (arr[0] === "1")
+      if (arr[0] === "1") {
         this.exceptionData.instrumentException = true;
+        this.exceptionData.exceptionCapturing = "1";
+      }
+      else if (arr[0] === "2") {
+        this.exceptionData.instrumentException = true;
+        this.exceptionData.exceptionCapturing = "2";
+      }
       else
         this.exceptionData.instrumentException = false;
 
@@ -75,12 +81,14 @@ export class ExceptionComponent implements OnInit {
       this.exceptionData = new ExceptionData();
       if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
+        this.exceptionData.exceptionCapturing = "1";
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 999;
       }
       else if (this.exception["instrExceptions"].value == 1) {
         this.exceptionData.instrumentException = false;
+        this.exceptionData.exceptionCapturing = "1";
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 999;
@@ -118,7 +126,11 @@ export class ExceptionComponent implements OnInit {
       instrVal = "0";
     }
     else {
-      instrVal = "1";
+      if (this.exceptionData.exceptionCapturing == "1")
+        instrVal = "1";
+
+      if (this.exceptionData.exceptionCapturing == "2")
+        instrVal = "2";
 
       if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
         instrVal = instrVal + "%201";
