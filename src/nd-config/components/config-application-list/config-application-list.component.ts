@@ -232,6 +232,6 @@ export class ConfigApplicationListComponent implements OnInit {
       arrAppIndex.push(selectedApp[index].appId);
     }
     this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data =>
-      this.configUtilityService.infoMessage("Agent Configuration settings generated successfully at path : " + data));
+      this.configUtilityService.infoMessage("Agent configuration settings generated successfully at path : " + data));
   }
 }
