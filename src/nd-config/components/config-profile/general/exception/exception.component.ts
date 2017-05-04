@@ -105,7 +105,7 @@ export class ExceptionComponent implements OnInit {
 
   /**Value for this keyword is
    * 1%201%200%2012
-   * 1-  Enable instrumentException
+   * 1-  Enable instrumentException // It can be 1 or 2 [1- complete exceotion 2-L1 fp capturing]
    * 1- enable exceptionTrace
    * 0- false 3- true //for capture Exception type
    * 12- Trace limit for frames //dependent on 2nd value

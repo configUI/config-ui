@@ -20,6 +20,7 @@ export class ReturnTypeData{
      indexVal:number | string;
      type:number | string;
      typeName:string;
+     mode:string|number;
 
 }
 
@@ -32,4 +33,5 @@ export class ArgumentTypeData{
      type:number | string;
      indexVal:number | string;
      typeName:string;
+     mode:string|number;
 }

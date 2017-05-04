@@ -88,6 +88,15 @@
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
+
+                 <p-column ngIfclass="col-overflow" field="mode" header="Mode" [sortable]="true">
+                    <template let-col let-application="rowData">
+                       <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
+                    </template>
+                </p-column>
+                       
+               
+            
             </p-dataTable>
         </div>
 
@@ -134,6 +143,12 @@
                     </template>
                 </p-column>
                 <p-column class="col-overflow" field="operatorValue" header="Operator Value" [sortable]="true">
+                    <template let-col let-application="rowData">
+                       <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
+                    </template>
+                </p-column>
+
+                 <p-column ngIfclass="col-overflow" field="mode" header="Mode" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -222,6 +237,14 @@
                     <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
                 </div>
             </div>-->
+             <div class="ui-g-12">
+                    <div class="ui-g-5">
+                        <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="returnTypeRules.mode"></p-radioButton>
+                    </div>
+                <div class="ui-g-7">
+                    <p-radioButton name="BusinessTransaction" value="2" label="Capture custom data and also display the method in Method Sequence Calling Tree"  [(ngModel)]="returnTypeRules.mode"></p-radioButton>
+                </div>
+            </div>
 
         </div>
         <footer>
@@ -338,6 +361,15 @@
                     <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" required ngModel/>
                 </div>
             </div>-->
+
+             <div class="ui-g-12" >
+                    <div class="ui-g-5">
+                        <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="argumentTypeRules.mode"></p-radioButton>
+                    </div>
+                <div class="ui-g-7">
+                    <p-radioButton name="BusinessTransaction" value="1" label="Capture custom data and also display the method in method Sequence Calling Tree"  [(ngModel)]="argumentTypeRules.mode"></p-radioButton>
+                </div>
+            </div>
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ">
