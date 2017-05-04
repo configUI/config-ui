@@ -1,6 +1,6 @@
 <div class="ui-g">
     <div class="ui-g-6" style="margin-bottom:5px; font-weight: bold">
-        HTTP business transaction configuration
+        HTTP Business transaction configuration
     </div>
 
     <div class="ui-g-12" style="background: #ededf0">
@@ -91,8 +91,8 @@
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Bussiness Transaction Pattern(s) list -->
     <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
-        <p-header>
-            <span style="float: left;">  Bussiness transaction pattern list </span>
+        <p-header [style]="{'height':'25px'}">
+            <span style="float: left;">Bussiness transaction pattern list</span>
             <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add a bussiness transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a bussiness transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="ui-g-4">
                     <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
-                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select Mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
+                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
                 </div>
             </div>
 

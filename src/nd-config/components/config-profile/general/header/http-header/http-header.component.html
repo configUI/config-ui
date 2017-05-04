@@ -1,13 +1,13 @@
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-checkbox name="captureHttpRequestHeader" label="Capture HTTP Request Headers" [(ngModel)]="data[0].enableHttpReq" binary="true"></p-checkbox>
+        <p-checkbox name="captureHttpRequestHeader" label="Capture HTTP request headers" [(ngModel)]="data[0].enableHttpReq" binary="true"></p-checkbox>
     </div>
 </div>
 
 <div class="ui-g httpHeaderCss" *ngIf="data[0].enableHttpReq">
-    <div class="ui-g-12">
+    <div class="ui-g-12" style="margin-left:13px">
         <div class="ui-g-1">
-            <label>Header Type</label></div>
+            <label>Header type</label></div>
         <div class="ui-g-2">
             <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown>
         </div>
@@ -16,13 +16,13 @@
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
-    <div class="ui-g-12">
+    <div class="ui-g-12" style="margin-left:13px">
         <div class="ui-g-2">
-            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
+            <p-checkbox name="httpCaptureMode" label="Capture mode(brief)" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <label style="margin-right: 5px">Enter Range Of Characters</label>
+            <label style="margin-right: 5px">Enter range of characters</label>
             <input name="btName" style="text-align:right" type="text" size="10" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>
@@ -30,14 +30,14 @@
 
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-checkbox name="captureHTTPRespFullFp" label="Capture HTTP Response Headers" [(ngModel)]="data[1].enableHttpResp" binary="true"></p-checkbox>
+        <p-checkbox name="captureHTTPRespFullFp" label="Capture HTTP response headers" [(ngModel)]="data[1].enableHttpResp" binary="true"></p-checkbox>
     </div>
 </div>
 
 <div class="ui-g httpHeaderCss" *ngIf="data[1].enableHttpResp">
-    <div class="ui-g-12">
+    <div class="ui-g-12" style="margin-left:13px">
         <div class="ui-g-1">
-            <label>Header Type</label></div>
+            <label>Header type</label></div>
         <div class="ui-g-2">
             <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
         </div>
@@ -46,13 +46,14 @@
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
-    <div class="ui-g-12">
+    <div class="ui-g-12" style="margin-left:13px">
         <div class="ui-g-2">
-            <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="data[1].captureModeResp" binary="true"></p-checkbox>
+
+            <p-checkbox name="httpCaptureMode" label="Capture mode(brief)" [(ngModel)]="data[1].captureModeResp" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <label style="margin-right: 5px">Enter Range Of Characters</label>
+            <label style="margin-right: 5px">Enter range of characters</label>
             <input name="btName" type="text" style="text-align:right" size="10" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" placeholder="Enter Range Of Characters" autofocus required ngModel/>
         </div>
     </div>

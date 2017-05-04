@@ -128,7 +128,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-3">
-                <textarea name="Description" rows="2" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
+                <textarea name="Description" rows="2" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
             </div>
         </div>
         <footer>
