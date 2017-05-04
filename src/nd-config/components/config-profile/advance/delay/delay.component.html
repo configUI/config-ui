@@ -1,6 +1,6 @@
 <form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Put Delay in Method Settings
+        <div class="header">Put delay in method settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
@@ -13,7 +13,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2">
-                            <label>Fully Qualified Method Name</label>
+                            <label>Fully qualified method name</label>
                         </div>
                         <div class="ui-g-4">
                             <input name="fullyQualifiedName" type="text" size="30" [(ngModel)]="delayData.fullyQualifiedName" pInputText autofocus required ngModel/>
@@ -24,7 +24,7 @@
                         <div class="ui-g-1"></div>
 
                         <div class="ui-g-2">
-                            <label>Delay Time Range(in ms)</label>
+                            <label>Delay time range(in ms)</label>
                         </div>
 
                         <div class="ui-g-2">

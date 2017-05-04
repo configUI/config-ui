@@ -1,20 +1,17 @@
 <div class="widget">
-    <div class="header"><i aria-hidden="true"></i> Profile Detail (s)
+    <div class="header"><i aria-hidden="true"></i> Profile List
         <span style="float :right; margin-top:-2px">
             <button pButton type="button" title="Add Profile" (click)="openProfileDialog()" icon="fa-plus"></button>
         </span>
 
     </div>
-
-
     <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3">
         <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
             <template let-col let-profile="rowData" pTemplate>
-                <span title="{{profile[col.field]}}
-Click to open profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
+                <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
             </template>
         </p-column>
-        <p-column class="tableCss" field="timeStamp" header="Last Updated On" [sortable]="true" [style]="{'width':'15%'}">
+        <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
             <template let-col let-profile="rowData" pTemplate>
                 <span style="float:right" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
             </template>
@@ -29,7 +26,7 @@ Click to open profile configuration"><a class="hyperlink" (click)="routeToConfig
 <!--Dialog for Adding New Profile -->
 
 <div class="profile-dialog">
-    <p-dialog header="Add New Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
+    <p-dialog header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
         <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
             <div class="ui-g">
                 <div class="ui-g-4">
@@ -42,7 +39,7 @@ Click to open profile configuration"><a class="hyperlink" (click)="routeToConfig
             </div>
             <div class="ui-g">
                 <div class="ui-g-4">
-                    <label>Copy Profile</label>
+                    <label>Copy profile</label>
                 </div>
                 <div class="ui-g-8">
                     <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied" appendTo="body"></p-dropdown>

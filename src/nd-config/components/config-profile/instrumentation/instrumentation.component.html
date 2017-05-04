@@ -1,19 +1,19 @@
 <div class='tabs-all'>
     <p-tabView (onChange)="handleChange($event)">
-        <p-tabPanel header="Service entry point" [selected]="index == 0">
+        <p-tabPanel header="Service Entry Point" [selected]="index == 0">
             <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId"></app-service-entry-point>
         </p-tabPanel>
-        <p-tabPanel header="Integration point detection" [selected]="index == 1">
+        <p-tabPanel header="Integration Point Detection" [selected]="index == 1">
             <app-integration-pt-detection *ngIf="index == 1" [saveDisable]="saveDisable" [profileId]="profileId"></app-integration-pt-detection>
         </p-tabPanel>
 
-        <p-tabPanel header="Transaction configuration" [selected]="index == 2">
+        <p-tabPanel header="Transaction Configuration" [selected]="index == 2">
             <app-transaction-configuration *ngIf="index == 2" [profileId]=profileId></app-transaction-configuration>
         </p-tabPanel>
-        <p-tabPanel header="Instrument monitors" [selected]="index == 3">
+        <p-tabPanel header="Instrument Monitors" [selected]="index == 3">
             <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
         </p-tabPanel>
-        <p-tabPanel header="Error detection" [selected]="index == 4">
+        <p-tabPanel header="Error Detection" [selected]="index == 4">
             <app-error-detection *ngIf="index == 4" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
         </p-tabPanel>
     </p-tabView>

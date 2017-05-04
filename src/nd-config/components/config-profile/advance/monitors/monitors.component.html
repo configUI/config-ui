@@ -1,6 +1,6 @@
 <form *ngIf="monitor" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Monitors Settings
+        <div class="header">Monitors settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>

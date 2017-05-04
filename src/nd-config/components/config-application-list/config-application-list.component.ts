@@ -219,11 +219,11 @@ export class ConfigApplicationListComponent implements OnInit {
 
   generateNDConfFile() {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
-      this.configUtilityService.errorMessage("Select an application to generate Agent Configuration settings");
+      this.configUtilityService.errorMessage("Select an application to generate agent configuration settings");
       return;
     }
     else if (this.selectedApplicationData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one application to generate Agent Configuration settings");
+      this.configUtilityService.errorMessage("Select only one application to generate agent configuration settings");
       return;
     }
     let selectedApp = this.selectedApplicationData;

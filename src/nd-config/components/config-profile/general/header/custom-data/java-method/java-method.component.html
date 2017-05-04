@@ -5,7 +5,7 @@
 <!--For showing Method Based Custom Data-->
 <p-dataTable [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Java Method Based Custom Data</span>
+        <span style="float: left"> Java method based custom data</span>
         <span style="float: right; margin-top:-5px">
 
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
@@ -15,19 +15,19 @@
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-    <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
+    <p-column class="col-overflow" field="fqm" header="Fully qualified method name" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
     </p-column>
 
-    <p-column class="col-overflow" field="returnTypeValue" header="Return Type" [sortable]="true">
+    <p-column class="col-overflow" field="returnTypeValue" header="Return type" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
     </p-column>
 
-    <p-column class="col-overflow" field="argumentTypeValue" header="Argument Type" [sortable]="true">
+    <p-column class="col-overflow" field="argumentTypeValue" header="Argument type" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
@@ -36,11 +36,11 @@
 
 
 <!--Dialog for adding -->
-<p-dialog header="{{isNew ? 'Settings for Java Method Based Custom Data' : 'Edit Settings for Java Method Based Custom Data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
+<p-dialog header="{{isNew ? 'Settings for Java method based custom data' : 'Edit settings for Java method based custom data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveEditData(fqmField)" id="addMethodBasedForm" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Fully Qualified Name</label>
+                <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
                 <input name="fqm" disabled={{!isNew}} #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus required ngModel/>
@@ -48,7 +48,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-6">
-                <p-checkbox name="enableReturnType" label="Custom Data using Method Return Value" [(ngModel)]="methodBasedCustomData.enableReturnType" binary="true"></p-checkbox>
+                <p-checkbox name="enableReturnType" label="Custom data using method return value" [(ngModel)]="methodBasedCustomData.enableReturnType" binary="true"></p-checkbox>
             </div>
 
         </div>
@@ -57,7 +57,7 @@
         <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
             <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedReturnRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
-                    <span>  Return Type Settings </span>
+                    <span>  Return type settings </span>
                     <span style="float: right; margin-top:-5px">
                        <!--<button pButton type="add" title="Add" (click)="first=true" icon="fa-plus"></button>-->
                        <button pButton type="sumbit" title="Add" (click)="first=true" icon="fa-plus"></button>
@@ -83,7 +83,7 @@
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column ngIfclass="col-overflow" field="operatorValue" header="Operator Value" [sortable]="true">
+                <p-column ngIfclass="col-overflow" field="operatorValue" header="Operator value" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -95,7 +95,7 @@
 
         <div class="ui-g-12">
             <div class="ui-g-6">
-                <p-checkbox name="enableArgumentType" label="Custom Data using Method Argument Value" [(ngModel)]="methodBasedCustomData.enableArgumentType" binary="true"></p-checkbox>
+                <p-checkbox name="enableArgumentType" label="Custom data using method argument value" [(ngModel)]="methodBasedCustomData.enableArgumentType" binary="true"></p-checkbox>
             </div>
         </div>
 
@@ -103,7 +103,7 @@
         <div class="ui-g-12">
             <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedArgumentRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
-                    <span>  Argument Type Settings </span>
+                    <span>  Argument type settings </span>
                     <span style="float: right; margin-top:-5px">
                        <button pButton type="submit" title="Add" (click)="second=true" icon="fa-plus"></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
@@ -133,7 +133,7 @@
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column class="col-overflow" field="operatorValue" header="Operator Value" [sortable]="true">
+                <p-column class="col-overflow" field="operatorValue" header="Operator value" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -154,7 +154,7 @@
 
 
 <!--Form for adding return Type Rules-->
-<p-dialog header="Add Return Type Settings" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
+<p-dialog header="Add return type settings" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
     <form (ngSubmit)="saveReturnRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -165,7 +165,7 @@
                     <input name="headerName" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.headerName" placeholder="Value" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-2">
-                    <label>Custom Type</label>
+                    <label>Custom type</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
                     <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" --Select-- "></p-dropdown>
@@ -188,7 +188,7 @@
                 </div>
                 <!--<div class="ui-g-6" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">-->
                 <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
-                    <label>Operator Value</label>
+                    <label>Operator value</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
                     <input name="operatorValue" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.operatorValue" required ngModel/>
@@ -198,7 +198,7 @@
             <div class="ui-g-12" *ngIf="(returnTypeRules.operation =='EXTRACT_SUBPART')">
                 <div class="ui-g-6">
                     <div class="ui-g-4">
-                        <label>Left Bound</label>
+                        <label>Left bound</label>
                     </div>
                     <div class="ui-g-8" style="margin-top: -5px">
                         <input name="leftBound" type="text" size="25" pInputText [(ngModel)]="leftBoundReturn" placeholder=" left bound" required ngModel/>
@@ -206,7 +206,7 @@
                 </div>
                 <div class="ui-g-6">
                     <div class="ui-g-4">
-                        <label>Right Bound</label>
+                        <label>Right bound</label>
                     </div>
                     <div class="ui-g-8" style="margin-top: -5px">
                         <input name="rightBound" type="text" size="25" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
@@ -236,7 +236,7 @@
 
 
 <!--Form for adding Argument Type Rules-->
-<p-dialog header="Add Argument Type Settings" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
+<p-dialog header="Add argument type settings" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -276,7 +276,7 @@
 
             <div class="ui-g-12">
                 <div class="ui-g-2">
-                    <label>Custom Type</label>
+                    <label>Custom type</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
                     <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="--Select--"></p-dropdown>
@@ -299,7 +299,7 @@
 
             <div class="ui-g-12" *ngIf="!(argumentTypeRules.operationName =='CAPTURE')&&!(argumentTypeRules.operationName =='EXCEPTION')&&!(argumentTypeRules.operationName =='EXTRACT_SUBPART')">
                 <div class="ui-g-2">
-                    <label>Operator Value</label>
+                    <label>Operator value</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
                     <input name="operatorValue" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.operatorValue" required ngModel/>
@@ -317,13 +317,13 @@
 
             <div class="ui-g-12" *ngIf="(argumentTypeRules.operation =='EXTRACT_SUBPART')">
                 <div class="ui-g-2">
-                    <label>Left Bound</label>
+                    <label>Left bound</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
                     <input name="leftBound" type="text" size="27" pInputText [(ngModel)]="leftBoundArgument" placeholder=" left bound" required ngModel/>
                 </div>
                 <div class="ui-g-2">
-                    <label>Right Bound</label>
+                    <label>Right bound</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
                     <input name="rightBound" type="text" size="27" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" required ngModel/>

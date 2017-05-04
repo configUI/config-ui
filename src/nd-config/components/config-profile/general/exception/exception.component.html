@@ -18,14 +18,14 @@
                                 <div class="ui-g-12">
                                     <!--<div class="ui-g-1"></div>-->
                                     <div class="ui-g-3">
-                                        <p-checkbox label="Enable Exception Capturing" name="instrumentException" [(ngModel)]="exceptionData.instrumentException"
+                                        <p-checkbox label="Enable exception capturing" name="instrumentException" [(ngModel)]="exceptionData.instrumentException"
                                             binary="true"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <!--<div class="ui-g-1"></div>-->
                                     <div class="ui-g-5" style="margin-left: 16px">
-                                        <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture Exception Stack Trace upto " name="exceptionTrace"
+                                        <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception stack trace upto " name="exceptionTrace"
                                             [(ngModel)]="exceptionData.exceptionTrace" binary="true">
                                             </p-checkbox>
                                             <input type="number" disabled={{!exceptionData.exceptionTrace||!exceptionData.instrumentException}} [min]=0 [max]=999 name="exceptionTraceDepth"
@@ -39,7 +39,7 @@
                                 <div class="ui-g-12">
                                     <!--<div class="ui-g-1"></div>-->
                                     <div class="ui-g-7" style="margin-left: 16px">
-                                        <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture Exception logged using logging API (java.util.logging, log4j, ATG logger) "
+                                        <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using logging API (java.util.logging, log4j, ATG logger) "
                                             name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
                                             </p-checkbox>
                                     </div>

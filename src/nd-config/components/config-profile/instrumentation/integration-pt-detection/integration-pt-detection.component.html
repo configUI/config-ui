@@ -21,11 +21,11 @@
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog header="New Integration PT Detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="600" responsive="true">
+<p-dialog header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="600" responsive="true">
     <form (ngSubmit)="saveAddIntegrationPTDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Backend Type</label>
+                <label>Backend type</label>
             </div>
             <div class="ui-g-8">
                 <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.backendTypeId" required ngModel/>
@@ -42,7 +42,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Fully Qualified Method Name</label>
+                <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
                 <input name="fqm" type="text" size="30" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
@@ -90,10 +90,10 @@
             <div class="ui-g" *ngSwitchCase="IP.RMI">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service name </md-checkbox>
             </div>
             <div class="ui-g" *ngSwitchCase="IP.HADOOP">
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table Name </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table name </md-checkbox>
             </div>
             <div class="ui-g" *ngSwitchCase="IP.HTTP">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
@@ -105,11 +105,11 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database product name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database product version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User name </md-checkbox>
 
                 <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
             </div>
