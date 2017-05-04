@@ -174,7 +174,7 @@
                 </div>
                 <div class="ui-g-4">
                     <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
-                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select Mode" [(ngModel)]="businessTransPatternDetail.matchType" appendTo="body" required ngModel></p-dropdown>
+                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select Mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
                 </div>
             </div>
 
@@ -249,7 +249,7 @@
                         <label>Method type</label>
                     </div>
                     <div class="ui-g-7">
-                        <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
+                        <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
                     </div>
                 </div>
             </div>

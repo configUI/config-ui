@@ -168,7 +168,7 @@
                     <label>Custom Type</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" --Select-- "></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" placeholder=" --Select-- "></p-dropdown>
                 </div>
             </div>
             <!--<div class="ui-g-12">
@@ -176,7 +176,7 @@
                     <label>Custom Value Type</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '150px'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" appendTo="body" placeholder=" --Select-- "></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '150px'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type"  placeholder=" --Select-- "></p-dropdown>
                 </div>
             </div>-->
             <div class="ui-g-12">
@@ -184,7 +184,7 @@
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" appendTo="body" placeholder=" --Select-- "></p-dropdown>
+                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" placeholder=" --Select-- "></p-dropdown>
                 </div>
                 <!--<div class="ui-g-6" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">-->
                 <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
@@ -250,7 +250,7 @@
                     <label>Index</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal"></p-dropdown>
                 </div>
             </div>
 
@@ -269,7 +269,7 @@
                     <label>Index</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '150px'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '150px'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" ></p-dropdown>
                 </div>
             </div>-->
 
@@ -279,13 +279,13 @@
                     <label>Custom Type</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" appendTo="body" placeholder="--Select--"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--"></p-dropdown>
                 </div>
                 <div class="ui-g-2">
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTO="body"></p-dropdown>
+                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
                 </div>
             </div>
             <!--<div class="ui-g-12">

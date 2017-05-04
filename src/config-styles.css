@@ -407,3 +407,7 @@ input[type="number"] {
 .sessionTab .ui-tabview .ui-tabview-panel {
     min-height: 64px;
 }
+
+.ui-widget-content {
+    overflow: visible !important;
+}
