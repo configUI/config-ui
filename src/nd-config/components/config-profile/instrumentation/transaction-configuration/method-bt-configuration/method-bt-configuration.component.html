@@ -55,7 +55,7 @@
                 </div>
                 <div class="ui-g-3">
                     <input name="dropdown" type="text" size="22" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.returnType" required ngModel/>
-                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" appendTo="body" placeholder="--Select--" required ngModel></p-dropdown>
+                    <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType" placeholder="--Select--" required ngModel></p-dropdown>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" appendTo="body" placeholder="--Select--"></p-dropdown>
+                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">

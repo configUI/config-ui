@@ -9,18 +9,17 @@
         <div class="ui-g-1">
             <label>Header Type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode"
-                appendTo="body" required ngModel></p-dropdown>
+            <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[0].headerMode == 'Specified')">
             <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
-            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
+            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-2">
             <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
-            <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
+            <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
@@ -40,18 +39,17 @@
         <div class="ui-g-1">
             <label>Header Type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" appendTo="body"
-                required ngModel></p-dropdown>
+            <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[1].headerModeResp == 'Specified')">
             <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
-            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType" appendTo="body" required ngModel placeholder="Custom value Type"></p-dropdown>-->
+            <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-2">
             <p-checkbox name="httpCaptureMode" label="Capture Mode(brief)" [(ngModel)]="data[1].captureModeResp" binary="true"></p-checkbox>
-            <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode" appendTo="body" required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
+            <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
             <label style="margin-right: 5px">Enter Range Of Characters</label>
