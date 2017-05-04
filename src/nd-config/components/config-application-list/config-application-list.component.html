@@ -11,7 +11,7 @@
     <!--For showing application list -->
     <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
 
         <p-column class="col-overflow" field="appName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate>
@@ -51,7 +51,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Application name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                         autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     <label>Description</label>
                 </div>
                 <div class="ui-g-8">
-                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" required ngModel></textarea>
+                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
                 </div>
             </div>
             <footer>

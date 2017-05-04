@@ -8,7 +8,7 @@
             <button pButton type="button" class="ui-button-danger" title="Delete an error detection" [disabled]="saveDisable" (click)="deleteErrorDetection()" icon="fa-trash"></button>
         </span>
     </p-header>
-    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
       <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
