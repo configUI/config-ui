@@ -1,6 +1,6 @@
 <form *ngIf="genExceptionData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Generate Exception in Method Settings
+        <div class="header">Generate exception in method settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
@@ -13,7 +13,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2">
-                            <label>Fully Qualified Method Name</label>
+                            <label>Fully qualified method name</label>
                         </div>
 
                         <div class="ui-g-3">
@@ -24,7 +24,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2">
-                            <label>Exception Type</label>
+                            <label>Exception type</label>
                         </div>
                         <div class="ui-g-3">
                             <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="genExceptionData.exceptionType" required ngModel/>
@@ -34,7 +34,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2">
-                            <label>Exception Name</label>
+                            <label>Exception name</label>
                         </div>
 
                         <div class="ui-g-3">

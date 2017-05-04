@@ -35,7 +35,7 @@
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Entry Point Type</label>
+                <label>Entry point type</label>
             </div>
             <div class="ui-g-8">
                 <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
@@ -53,7 +53,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Fully Qualified Method Name</label>
+                <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
                 <input name="fqm" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>

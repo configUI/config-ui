@@ -37,12 +37,13 @@
 <p-dialog header="{{isNewHttpStatsMonitor ? 'Add  HTTP stats condition' : 'Edit HTTP stats condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true">
     <form (ngSubmit)="saveHttpStatsMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-2">
                 <label>Name</label>
             </div>
             <div class="ui-g-3">
                 <input name="httpStatsMonitorName" type="text" [(ngModel)]="httpStatsMonitorDetail.conditionName" style="width:177px;" pInputText autofocus required ngModel/>
             </div>
+            <div class="ui-g-1"></div>
             <div class="ui-g-3">
                 <label>Flowpath dump mode</label>
             </div>
@@ -52,14 +53,14 @@
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-2">
                 <label>Header type</label>
             </div>
             <div class="ui-g-3">
                 <input name="dropdown1" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="httpStatsMonitorDetail.htId" required ngModel/>
                 <p-dropdown name="headerTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="headerType" [(ngModel)]="httpStatsMonitorDetail.htId" appendTo="body" required ngModel></p-dropdown>
             </div>
-
+            <div class="ui-g-1"></div>
             <div class="ui-g-3" *ngIf="httpStatsMonitorDetail.htId!=3">
                 <label>Header</label>
             </div>
@@ -84,7 +85,7 @@
 
         </div>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-2">
                 <label>Value type</label>
             </div>
             <div class="ui-g-3">
@@ -92,6 +93,7 @@
                 <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body" required
                     ngModel></p-dropdown>
             </div>
+            <div class="ui-g-1"></div>
             <!--<div class="ui-g-3" *ngIf="selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3">
                 <p-dropdown name="ValueTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body" required ngModel></p-dropdown>
             </div>-->
@@ -116,18 +118,18 @@
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-2">
                 <label>Comparison  value</label>
             </div>
             <div class="ui-g-3">
                 <input name="ComparisonValue" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" type="text" style="width:177px;" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
             </div>
-
+            <div class="ui-g-1"></div>
             <div class="ui-g-3">
                 <label>Description</label>
             </div>
             <div class="ui-g-3">
-                <textarea name="Description" rows="2" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" required ngModel></textarea>
+                <textarea name="Description" rows="2" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
             </div>
         </div>
         <footer>

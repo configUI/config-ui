@@ -1,6 +1,6 @@
 <form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Put Delay in Method Settings
+        <div class="header">Put delay in method settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="!enableGroupKeyword && saveDisable" label="Save"></button>
@@ -13,7 +13,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2">
-                            <label>Fully Qualified Method Name</label>
+                            <label>Fully qualified method name</label>
                         </div>
                         <div class="ui-g-4">
                             <input name="fullyQualifiedName" type="text" size="30" [(ngModel)]="delayData.fullyQualifiedName" pInputText autofocus required ngModel/>
@@ -24,14 +24,14 @@
                         <div class="ui-g-1"></div>
 
                         <div class="ui-g-2">
-                            <label>Delay Time Range(in ms)</label>
+                            <label>Delay time range(ms)</label>
                         </div>
 
-                        <div class="ui-g-2">
-                            From: <input name="from" type="number" style="text-align: right" [(ngModel)]="delayData.from" pInputText required ngModel/>
+                        <div class="ui-g-1">
+                            from: <input name="from" type="number" style="text-align: right" [(ngModel)]="delayData.from" pInputText required ngModel/>
                         </div>
-                        <div class="ui-g-2">
-                            To: <input name="to" type="number" style="text-align: right" [(ngModel)]="delayData.to" pInputText required ngModel/>
+                        <div class="ui-g-1">
+                            to: <input name="to" type="number" style="text-align: right" [(ngModel)]="delayData.to" pInputText required ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -39,7 +39,7 @@
                         <!--<div class = "ui-g-6">-->
 
                         <div class="ui-g-2">
-                            <p-checkbox name="cpuHogg" label="Is CPU Hogg" [(ngModel)]="delayData.cpuHoggChk" binary="true"></p-checkbox>
+                            <p-checkbox name="cpuHogg" label="Is CPU hogg" [(ngModel)]="delayData.cpuHoggChk" binary="true"></p-checkbox>
                         </div>
 
                         <div class="ui-g-4">
@@ -51,7 +51,7 @@
                         <!--<div class = "ui-g-6">-->
 
                         <div class="ui-g-2">
-                            <p-checkbox name="autoInstrument" label="Is Auto Instrument" [(ngModel)]="delayData.autoInstrumentChk" binary="true"></p-checkbox>
+                            <p-checkbox name="autoInstrument" label="Is auto instrument" [(ngModel)]="delayData.autoInstrumentChk" binary="true"></p-checkbox>
                         </div>
 
                         <div class="ui-g-4">
