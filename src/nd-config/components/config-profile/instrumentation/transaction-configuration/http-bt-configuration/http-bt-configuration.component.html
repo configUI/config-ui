@@ -27,13 +27,13 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2 segment-type-css">
-                <p-radioButton name="partOfURI" label="Segment(s) of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
+                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
             <div class="ui-g-2">
                 <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'68%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2" style="margin-top:4px">
-                Segments of URI in transaction</div>
+                Segment(s) of URI in transaction</div>
             <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
             </div>
         </div>
@@ -70,7 +70,7 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="httpMethod" label="HTTP METHOD" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="httpMethod" label="HTTP method" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
                 Use the request method (GET/POST/PUT) in transaction names.
@@ -79,7 +79,7 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton disabled="{{!selectedDynamicRequestType}}" name="dynamicReqValue" value="requestHeader" label="HTTP HEADER" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton disabled="{{!selectedDynamicRequestType}}" name="dynamicReqValue" value="requestHeader" label="HTTP header" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
                 <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " placeholder="HTTP HEADER " required />
@@ -99,48 +99,48 @@
                        <button pButton type="button"class="ui-button-danger" title="Delete bussiness transaction pattern" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-        <p-column class="col-overflow" field="btName" header="Name" [sortable]="true">
+        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+        <p-column class="col-overflow" field="btName" header="Name" [sortable]="true" [style]="{'width':'19%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="matchType" header="Match type" [sortable]="true">
+        <p-column class="col-overflow" field="matchType" header="Match type" [sortable]="true" [style]="{'width':'8%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="urlName" header="URL" [sortable]="true">
+        <p-column class="col-overflow" field="urlName" header="URL" [sortable]="true" [style]="{'width':'23%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="include" header="BT included" [sortable]="true">
+        <p-column class="col-overflow" field="include" header="BT included" [sortable]="true" [style]="{'width':'6%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="slowTransaction" header="Slow transaction threshold(ms)" [sortable]="true">
+        <p-column class="col-overflow" field="slowTransaction" header="Slow transaction threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow transaction threshold(ms)" [sortable]="true">
+        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow transaction threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="paramKeyValue" header="Req param key value" [sortable]="true">
+        <p-column class="col-overflow" field="paramKeyValue" header="Req param key value" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="reqMethod" header="HTTP method" [sortable]="true">
+        <p-column class="col-overflow" field="reqMethod" header="HTTP method" [sortable]="true" [style]="{'width':'6%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="headerKeyValue" header="Req header key value" [sortable]="true">
+        <p-column class="col-overflow" field="headerKeyValue" header="Req header key value" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="ui-g-4">
                     <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
-                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select mode" [(ngModel)]="businessTransPatternDetail.matchType" appendTo="body" required ngModel></p-dropdown>
+                    <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
                 </div>
             </div>
 
@@ -249,7 +249,7 @@
                         <label>Method type</label>
                     </div>
                     <div class="ui-g-7">
-                        <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
+                        <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
                     </div>
                 </div>
             </div>

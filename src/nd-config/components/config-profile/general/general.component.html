@@ -9,10 +9,10 @@
         <p-tabPanel header="Exception" [selected]="index == 2">
             <app-exception *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-exception>
         </p-tabPanel>
-        <p-tabPanel header="Flowpath Header" [selected]="index == 3">
+        <p-tabPanel header="Flowpath header" [selected]="index == 3">
             <app-header *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
         </p-tabPanel>
-        <p-tabPanel header="Intrumentation Profiles" [selected]="index == 4">
+        <p-tabPanel header="Instrumentation profiles" [selected]="index == 4">
             <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
         </p-tabPanel>
     </p-tabView>
