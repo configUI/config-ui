@@ -16,7 +16,6 @@
                         <p-fieldset legend="Exception Settings">
                             <div class="ui-g">
                                 <div class="ui-g-12">
-                                    <!--<div class="ui-g-1"></div>-->
                                     <div class="ui-g-3">
                                         <p-checkbox label="Enable exception capturing" name="instrumentException" [(ngModel)]="exceptionData.instrumentException"
                                             binary="true"></p-checkbox>
@@ -25,10 +24,12 @@
                                 <div class="ui-g-12">
                                     <!--<div class="ui-g-1"></div>-->
                                     <div class="ui-g-4" style="margin-left: 16px">
-                                         <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="1" label="Enable complete exception capturing" [(ngModel)]="exceptionData.exceptionCapturing"></p-radioButton>
+                                        <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="1" label="Enable complete exception capturing"
+                                            [(ngModel)]="exceptionData.exceptionCapturing"></p-radioButton>
                                     </div>
                                     <div class="ui-g-5" style="margin-left: 16px">
-                                         <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="2" label="Enable complete and L1 flowpath exception capturing" [(ngModel)]="exceptionData.exceptionCapturing"></p-radioButton>
+                                        <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="2" label="Enable complete and L1 flowpath exception capturing"
+                                            [(ngModel)]="exceptionData.exceptionCapturing"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
@@ -62,6 +63,12 @@
                             <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
                         </div>
                     </div>-->
+                            </div>
+                            <div class="ui-g-12" style="margin-left: 5px;">
+                                <!--<div class="ui-g-1"></div>-->
+                                <div class="ui-g-5">
+                                    <p-checkbox name="enableExceptionInSeqBlob" binary ="false" label="Enable capturing of E records in sequence Blob" [(ngModel)]="exception.enableExceptionInSeqBlob.value" binary="true"></p-checkbox>
+                                </div>
                             </div>
                         </p-fieldset>
                     </div>

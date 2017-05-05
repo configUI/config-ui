@@ -21,7 +21,7 @@ export class ExceptionComponent implements OnInit {
   keywordData = new EventEmitter();
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['instrExceptions'];
+  keywordList: string[] = ['instrExceptions', 'enableExceptionInSeqBlob'];
   subscriptionEG: Subscription;
   // selectedValue: string = 'unhandled';
 
@@ -29,6 +29,8 @@ export class ExceptionComponent implements OnInit {
   enableGroupKeyword: boolean
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
+    this.getKeywordData();
+    this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == 0 ? false : true;
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
   }
 
@@ -37,7 +39,7 @@ export class ExceptionComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
-    this.getKeywordData();
+    
   }
 
 
@@ -102,6 +104,7 @@ export class ExceptionComponent implements OnInit {
       if (key == 'instrExceptions')
         this.exception[key]["value"] = instrValue;
     }
+    this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == true ? 1 : 0;
     this.keywordData.emit(this.exception);
 
   }

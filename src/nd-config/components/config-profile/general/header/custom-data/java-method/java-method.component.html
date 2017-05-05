@@ -237,19 +237,12 @@
                     <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
                 </div>
             </div>-->
-            <div class="ui-g-12">
-                <div class="ui-g-4">
+            <div class="ui-g-12" style="margin-left: 6px">
                     <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="returnTypeRules.mode"></p-radioButton>
-                </div>
-
-                <div class="ui-g-1" style="width:3%">
-                  <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode "></p-radioButton>
-                </div>
-                <div class="ui-g-7">
-                    <label>Capture custom data and also display the Method in method Sequence Calling Tree</label>
-                </div>
             </div>
-
+                <div class="ui-g-12" style="margin-left: 6px">
+                  <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode " label="Capture custom data and also display the method in method sequence calling tree"></p-radioButton>
+                </div>
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ">

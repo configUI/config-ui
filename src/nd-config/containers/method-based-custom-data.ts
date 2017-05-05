@@ -20,7 +20,7 @@ export class ReturnTypeData{
      indexVal:number | string;
      type:number | string;
      typeName:string;
-     mode:string|number;
+     mode:string|number = 0;
 
 }
 
