@@ -36,7 +36,10 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   tableHeaderInfo: any[];
   currentEntity: string = CONS.TOPOLOGY.TOPOLOGY;
-  selectedEntityArr: string[];
+
+  //for table header name
+  selectedEntityArr: string;
+
   topologyEntity: TopologyInfo;
   tierEntity: TierInfo;
   serverEntity: ServerInfo;
@@ -67,7 +70,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   subscription: Subscription;
 
   ngOnInit() {
-    this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
+    this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
     //no need to call when store used [TO DO's]
     this.loadProfileList();
     this.loadTopologyData();
@@ -116,15 +119,14 @@ export class ConfigTreeDetailComponent implements OnInit {
   /** For getting entity(Tier, Server, Instance) data  **/
 
   getData(event): void {
-    this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
+    //this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
     if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
       this.topologyName = event.data.nodeLabel;
       // this.selectedEntityArr = [event.data.nodeLabel];
       this.currentEntity = CONS.TOPOLOGY.TIER;
       this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
       this.configTopologyService.getTierDetail(event.data.nodeId, this.topologyEntity).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr.splice(0, 1);
-      this.selectedEntityArr.push(event.data.nodeLabel, CONS.TOPOLOGY.TIER);
+      this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
      }
     else if (event.data.currentEntity == CONS.TOPOLOGY.TIER) {
       //this.selectedTopologyData :TierInfo[];
@@ -132,19 +134,16 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);
-      // this.selectedEntityArr.push(CONS.TOPOLOGY.TIER, CONS.TOPOLOGY.SERVER);
-      this.selectedEntityArr.splice(0, 1);
-      this.selectedEntityArr.push(this.topologyName, event.data.nodeLabel, CONS.TOPOLOGY.SERVER);
+      this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " +  CONS.TOPOLOGY.SERVER;
     }
     else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER) {
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr.splice(0, 1);
-      this.selectedEntityArr.push(this.topologyName, this.tierName, event.data.nodeLabel, CONS.TOPOLOGY.INSTANCE);
+      this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
     }
 
-    this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
+    // this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
     //For Table header Name
     this.getTableHeader();
   }
