@@ -25,7 +25,13 @@ export class DebugComponent {
   className: string = "DebugComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  keywordList = ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel', 'ASDepthFilter'];
+  keywordList = ['enableBciDebug', 
+                  'enableBciError',
+                  'InstrTraceLevel',
+                  'ndMethodMonTraceLevel',
+                  'ASDepthFilter',
+                  'captureErrorLogs'  // its value = 0/1/2  related to capturing exception related logs
+                  ];
 
   /**It stores keyword data for showing in GUI */
   debug: Object;
