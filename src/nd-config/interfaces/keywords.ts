@@ -39,5 +39,6 @@ export class Keywords{
 "enableNDSession": KeywordsInfo
 "ASMethodHotspots" : KeywordsInfo
 "enableExceptionInSeqBlob" : KeywordsInfo
+"captureErrorlogs":KeywordsInfo
 }
 
