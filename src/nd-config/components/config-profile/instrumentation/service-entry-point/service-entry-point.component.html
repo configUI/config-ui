@@ -1,6 +1,6 @@
 <p-dataTable [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left">  Service entry points list </span>
+        <span style="float: left">  Enable/Disable Service entry points</span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
         </span>
@@ -61,7 +61,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Enabled</label>
+                <label>Enable</label>
             </div>
             <div class="ui-g-4">
                 <md-slide-toggle [(ngModel)]="serviceEntryPointDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
