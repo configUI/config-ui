@@ -30,50 +30,60 @@
 
 
 */
+
 #top-div {
-    background:rgba(255, 255, 255, 0.65);
-    padding:3px !important;
+    background: rgba(255, 255, 255, 0.65);
+    padding: 3px !important;
 }
 
 #top-div md-card {
     height: 200px;
-    margin:6px;
+    margin: 6px;
     padding: 20px;
 }
+
 .contents:hover {
     text-decoration: underline;
 }
+
 a {
     text-decoration: none;
     color: white;
 }
+
 #top-div .mat-slide-toggle {
-     margin: 4px 0 0;
+    margin: 4px 0 0;
 }
+
 #top-div .heading {
     margin-bottom: 12px;
     font-size: 16px;
-    border-bottom: 1px #777 solid;;
+    border-bottom: 1px #777 solid;
 }
+
 .card1 {
     background: #2B5797;
 }
-.card2{
-    background: #7CB342;
+
+.card2 {
+    background: #2B5797;
 }
-.card3{
-    background: #7CB342;
+
+.card3 {
+    background: #2B5797;
 }
-.card4{
-    background:  #2B5797;
+
+.card4 {
+    background: #2B5797;
 }
+
 .icon_big {
     font-size: 130px;
     color: white;
     margin-top: 25px;
 }
-#top-div .intrumentation li{
+
+#top-div .intrumentation li {
     padding: 5px;
     list-style-type: none;
 }
-

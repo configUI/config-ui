@@ -310,10 +310,10 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 }
 
 
-/* 
-hide it behind the dropdown component, the required 
+/*
+hide it behind the dropdown component, the required
   HTML5 pop up still shows which is good and the form
- is still marked as not valid 
+ is still marked as not valid
 */
 
 .hidden-validator {
@@ -329,7 +329,7 @@ hide it behind the dropdown component, the required
 }*/
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-    background-color: #FFEB3B;
+    background-color: #77d218 !important;
 }
 
 .mat-slide-toggle-thumb {
@@ -341,7 +341,7 @@ hide it behind the dropdown component, the required
 }
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(92, 136, 48) !important;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
