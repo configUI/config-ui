@@ -4,7 +4,7 @@
 
         <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoName" header="Name" [sortable]="true">
             <template let-col let-topology="rowData" pTemplate>
-      <span title="{{topology[col.field]}}">{{topology[col.field]}}</span>
+      <span title="Click to open '{{topology[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTreemain(topology['topoId'], topology['name'],'topology')">{{topology[col.field]}}</a></span>
     </template>
         </p-column>
         <p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoDesc" header="Description" [sortable]="true">
