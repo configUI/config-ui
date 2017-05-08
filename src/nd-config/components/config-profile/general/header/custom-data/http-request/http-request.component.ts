@@ -109,7 +109,7 @@ export class HttpRequestComponent implements OnInit {
 
   saveADDEditHTTPReqHeader(): void {
     if ((this.httpRequestHdrDetail.complete == false && this.httpRequestHdrDetail.specific == false) || (!this.httpRequestHdrDetail.complete && !this.httpRequestHdrDetail.specific)) {
-      this.configUtilityService.errorMessage("Please select any of the checkbox");
+      this.configUtilityService.errorMessage("Select HTTP request header type(s)");
     }
     //When add new Http Request header
     else if (this.isNew) {
