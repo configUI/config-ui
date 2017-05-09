@@ -9,28 +9,29 @@
     <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
     <p-column class="tableCss" field="entryType" header="Type" [sortable]="true" [style]="{'width':'15%'}">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
-    </template>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
     </p-column>
     <p-column class="tableCss" field="name" header="Name" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
-    </template>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
     </p-column>
     <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
         <template let-col let-service="rowData" pTemplate>
             <md-slide-toggle [disabled]="saveDisable" class="toggle-space" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
-    </template>
+        </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
         <template let-col let-service="rowData" pTemplate>
-      <span title="{{service[col.field]}}">{{service[col.field]}}</span>
-    </template>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
     </p-column>
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog header="Add Service entry point" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700" responsive="true">
+<p-dialog header="Add Service entry point" *ngIf="displayNewService" [(visible)]="displayNewService" modal="modal" width="700"
+    responsive="true">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -38,8 +39,10 @@
                 <label>Entry point type</label>
             </div>
             <div class="ui-g-8">
-                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
-                <p-dropdown [options]="entryPointType" [style]="{'width':'180px'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="--Select--"></p-dropdown>
+                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId"
+                    required ngModel/>
+                <p-dropdown [options]="entryPointType" [style]="{'width':'180px'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId"
+                    placeholder="--Select--"></p-dropdown>
             </div>
         </div>
 
@@ -70,10 +73,10 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Description</label>
+                <label>Description(Max. 300 characters)</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="desc" rows="2" cols="60" maxlength="200" pInputTextarea [(ngModel)]="serviceEntryPointDetail.desc" ngModel></textarea>
+                <textarea name="desc" rows="2" cols="60" pInputTextarea [(ngModel)]="serviceEntryPointDetail.desc" ngModel></textarea>
             </div>
         </div>
         <footer>
@@ -83,4 +86,4 @@
             </div>
         </footer>
     </form>
-</p-dialog>
+    </p-dialog>

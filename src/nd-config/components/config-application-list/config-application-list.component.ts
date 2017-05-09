@@ -16,7 +16,7 @@ import { deleteMany } from '../../utils/config-utility';
 
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 
-import { Messages } from '../../constants/config-constant';
+import { Messages, DescMsg } from '../../constants/config-constant';
 
 @Component({
   selector: 'app-config-application-list',
@@ -152,10 +152,15 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to add application detail */
   saveApp(): void {
     this.applicationDetail.userName = this.userName;
+    if (this.applicationDetail.appDesc.length > 300){
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configApplicationService.addApplicationData(this.applicationDetail)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         this.applicationData.push(data);
+
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
@@ -163,11 +168,16 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**This method is used to edit application detail */
   editApp(): void {
+     if (this.applicationDetail.appDesc.length > 300){
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {
         let index = this.getAppIndex(this.applicationDetail.appId);
         this.selectedApplicationData.length = 0;
         this.selectedApplicationData.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.applicationData[index] = data;
       });
     this.closeDialog();

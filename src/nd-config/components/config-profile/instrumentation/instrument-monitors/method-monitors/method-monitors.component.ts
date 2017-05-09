@@ -6,7 +6,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 
-import { Messages } from '../../../../../constants/config-constant'
+import { Messages, DescMsg } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-method-monitors',
@@ -146,12 +146,16 @@ export class MethodMonitorsComponent implements OnInit {
     if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
-
+    if (this.methodMonitorDetail.methodDesc.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getMethodMonitorIndex();
         this.selectedMethodMonitorData.length = 0;
         this.selectedMethodMonitorData.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.methodMonitorData[index] = data;
       });
     this.addEditMethodMonitorDialog = false;
@@ -175,7 +179,10 @@ export class MethodMonitorsComponent implements OnInit {
     if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
-
+    if (this.methodMonitorDetail.methodDesc.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Method Monitor in DB

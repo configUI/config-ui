@@ -1,4 +1,5 @@
-<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
+<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15"
+    [pageLinks]="3">
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span style="float: left">Error detection list </span>
@@ -11,59 +12,62 @@
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
     <p-column class="tableCss" field="errorFrom" header="Status code from" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
     <p-column class="tableCss" field="errorTo" header="Status code to" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
     <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
-    </template>
+            <md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
+        </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
-</p-dataTable>
+    </p-dataTable>
 
-<!--Dialog for Error  Detection-->
+    <!--Dialog for Error  Detection-->
 
-<p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Rule name</label>
-            </div>
-            <div class="ui-g-8">
-                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid rule name. &#013;Rule name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label>Status code</label>
+    <p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog"
+        [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
+        <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm" ngNativeValidate>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Rule name</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid rule name. &#013;Rule name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+                </div>
             </div>
 
-            <div class="ui-g-4">
-                from: <input name="errorfrom" type="number" style="text-align: right" #from (input)="checkFrom(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
-            </div>
-            <div class="ui-g-4">
-                to: <input name="errorto" type="number" style="text-align: right" #to (input)="checkTo(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
-            </div>
-        </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Status code</label>
+                </div>
 
-        <!--<div class="ui-g">
+                <div class="ui-g-4">
+                    from: <input name="errorfrom" type="number" style="text-align: right" #from (input)="checkFrom(from,to)"
+                        min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
+                </div>
+                <div class="ui-g-4">
+                    to: <input name="errorto" type="number" style="text-align: right" #to (input)="checkTo(from,to)" min="0"
+                        max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
+                </div>
+            </div>
+
+            <!--<div class="ui-g">
             <div class="ui-g-4">
                 <label>From Status Code</label>
             </div>
@@ -79,28 +83,28 @@
                 <input name="errorTo" type="number" style="min-width: 69%;text-align: right;" max="99999" pInputText [(ngModel)]="errorDetectionDetail.errorTo" required ngModel />
             </div>
         </div>-->
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Enabled</label>
-            </div>
-            <div class="ui-g-8">
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Enabled</label>
+                </div>
+                <div class="ui-g-8">
 
-                <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+                    <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+                </div>
             </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Description</label>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Description(Max. 300 characters)</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea name="ruleDesc" rows="2" cols="45" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel></textarea>
+                </div>
             </div>
-            <div class="ui-g-8">
-                <textarea name="ruleDesc" rows="2" cols="45" maxlength="200" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel></textarea>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-close" (click)="addEditErrorDetectionDialog=false" label="Cancel"></button>
+                </div>
+            </footer>
+        </form>
+        </p-dialog>

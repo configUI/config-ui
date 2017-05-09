@@ -8,7 +8,7 @@ import { ServiceEntryPoint } from '../../../../containers/instrumentation-data';
 import { ServiceEntryType } from '../../../../interfaces/instrumentation-info';
 
 
-import { Messages } from '../../../../constants/config-constant'
+import { Messages, DescMsg } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-service-entry-point',
@@ -66,6 +66,10 @@ export class ServiceEntryPointComponent implements OnInit {
 
   /**It stores the dialog data back to the backend */
   saveServiceEntryPointService(): void {
+    if (this.serviceEntryPointDetail.desc.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     for (let i = 0; i < this.entryPointType.length; i++) {
       if (this.serviceEntryPointDetail.entryTypeId == this.entryPointType[i].value) {
         this.serviceEntryPointDetail.entryType = this.entryPointType[i].label;
