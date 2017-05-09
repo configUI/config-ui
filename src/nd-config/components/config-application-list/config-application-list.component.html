@@ -9,7 +9,7 @@
     </div>
 
     <!--For showing application list -->
-    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
+    <p-dataTable class="nde-ui" [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
         <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
 
@@ -23,7 +23,7 @@
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="userName" header="User name" [sortable]="true"  [style]="{'width':'15%'}">
+        <p-column class="col-overflow" field="userName" header="User name" [sortable]="true" [style]="{'width':'15%'}">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
@@ -34,7 +34,7 @@
                 <span title="{{application[col.field]}}" style="float: right">{{application[col.field]}}</span>
             </template>
         </p-column>
-         <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
+        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
@@ -76,10 +76,10 @@
             </div>
             <div class="ui-g">
                 <div class="ui-g-4">
-                    <label>Description</label>
+                    <label>Description(Max. 300 characters)</label>
                 </div>
                 <div class="ui-g-8">
-                    <textarea name="appDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
+                    <textarea name="appDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
                 </div>
             </div>
             <footer>

@@ -5,7 +5,7 @@
         </span>
 
     </div>
-    <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3">
+    <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
         <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
             <template let-col let-profile="rowData" pTemplate>
                 <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
@@ -42,15 +42,16 @@
                     <label>Copy profile</label>
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
+                    <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId"
+                        placeholder="Select a Profile to be copied"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g">
                 <div class="ui-g-4">
-                    <label>Description</label>
+                    <label>Description(Max. 300 characters)</label>
                 </div>
                 <div class="ui-g-8">
-                    <textarea name="profileDesc" rows="2" cols="30" maxlength="200" pInputTextarea [(ngModel)]="profileDetail.profileDesc" required ngModel></textarea>
+                    <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
                 </div>
             </div>
             <footer>

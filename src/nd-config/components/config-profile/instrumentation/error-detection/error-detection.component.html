@@ -1,4 +1,5 @@
-<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
+
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span style="float: left">Error detection list </span>
@@ -11,28 +12,28 @@
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
     <p-column class="tableCss" field="errorFrom" header="Status code from" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
     <p-column class="tableCss" field="errorTo" header="Status code to" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
     <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
-    </template>
+            <md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
+        </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'30%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-      <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
-    </template>
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+        </template>
     </p-column>
 </p-dataTable>
 
@@ -90,10 +91,10 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Description</label>
+                <label>Description(Max. 300 characters)</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="ruleDesc" rows="2" cols="45" maxlength="200" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel></textarea>
+                <textarea name="ruleDesc" rows="2" cols="45" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel></textarea>
             </div>
         </div>
         <footer>

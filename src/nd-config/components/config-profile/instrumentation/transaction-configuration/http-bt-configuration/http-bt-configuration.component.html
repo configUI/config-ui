@@ -89,14 +89,14 @@
 </div>
 
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
-    <!--For showing Bussiness Transaction Pattern(s) list -->
-    <p-dataTable [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
+    <!--For showing Business Transaction Pattern(s) list -->
+    <p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
         <p-header [style]="{'height':'25px'}">
-            <span style="float: left;">Bussiness transaction pattern list</span>
+            <span style="float: left;">Business transaction pattern list</span>
             <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add a bussiness transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit a bussiness transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete bussiness transaction pattern" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a Business transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit a Business transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete Business transaction pattern" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -155,7 +155,7 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <label>Bussiness transaction name</label>
+                    <label>Business transaction name</label>
                 </div>
                 <div class="ui-g-5">
                     <input name="btName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>

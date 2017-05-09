@@ -1,4 +1,5 @@
-<p-dataTable [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="12" [paginator]="httpStatsMonitorData?.length > 12" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="12" [paginator]="httpStatsMonitorData?.length > 12" [pageLinks]="3">
+
     <p-header>
         <!--<span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>-->
         <span style="float: left">HTTP stats condition list </span>
@@ -89,7 +90,7 @@
                 <label>Value type</label>
             </div>
             <div class="ui-g-3">
-                <input name="dropdown5" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="selectedValueType" required ngModel/>
+                <input name="dropdown5" type="text" size="25" class='hidden-validator' [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" pInputText [(ngModel)]="selectedValueType" required ngModel/>
                 <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-1"></div>
@@ -125,10 +126,10 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-3">
-                <label>Description</label>
+                <label>Description(Max. 300 characters)</label>
             </div>
             <div class="ui-g-3">
-                <textarea name="Description" rows="2" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" cols="25" maxlength="200" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
+                <textarea name="Description" rows="2" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" cols="25" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
             </div>
         </div>
         <footer>

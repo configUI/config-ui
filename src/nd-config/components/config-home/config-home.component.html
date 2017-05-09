@@ -9,7 +9,7 @@
                 </div>
             </md-card-subtitle>
             <div class="table-css">
-                <p-dataTable [value]="applicationInfo">
+                <p-dataTable [value]="applicationInfo" class="nde-ui">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a></span>
@@ -40,7 +40,7 @@
                 </div>
             </md-card-subtitle>
             <div class="table-css">
-                <p-dataTable [value]="profileInfo">
+                <p-dataTable [value]="profileInfo" class="nde-ui">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-profile="rowData" pTemplate>
                             <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'])" >{{profile[col.field]}}</a></span>
@@ -80,11 +80,11 @@
                 </div>
             </md-card-subtitle>
             <div class="table-css">
-                <p-dataTable [value]="topologyInfo">
+                <p-dataTable [value]="topologyInfo" class="nde-ui">
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
                             <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
-                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['id'], application['name'],'topology')">{{application[col.field]}}</a></span>
+                            <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTreemain(application['id'], application['name'],'topology')">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -101,7 +101,7 @@
             </md-card-subtitle>
 
             <div class="table-css">
-                <p-dataTable [value]="agentsInfo">
+                <p-dataTable [value]="agentsInfo" class="nde-ui">
                     <p-column rowStyleClass="col-overflow" field="tier" header="Tier">
                         <template let-col let-application="rowData" pTemplate>
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>

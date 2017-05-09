@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+
+/*@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~https://fonts.googleapis.com/icon?family=Open+Sans';
-@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';*/
+
 
 /*---------------Fonts CSS---------------*/
 
@@ -98,24 +100,21 @@ body {
     background: url('assets/img/ocean.jpg') center #000000;
 }
 
-.ui-datatable .ui-datatable-thead>tr>th {
-    background: #3c8fe8;
-}
-
-.ui-datatable .ui-datatable-thead>tr>th,
-.ui-datatable .ui-datatable-tfoot>tr>td,
-.ui-datatable .ui-datatable-data>tr>td {
-    height: 24px;
-    text-overflow: ellipsis;
-}
-
-.ui-datatable .ui-datatable-thead>tr>th {
+.nde-ui .ui-datatable .ui-datatable-thead>tr>th {
+    background: #3c8fe8 !important;
     color: white;
     font-weight: 600;
 }
 
-.ui-tabview.ui-tabview-top>.ui-tabview-nav li {
-    /*min-width: 19%;*/
+.nde-ui .ui-datatable .ui-datatable-tfoot>tr>td,
+.ui-datatable .ui-datatable-data>tr>td {
+    height: 30px !important;
+    text-overflow: ellipsis !important;
+}
+
+.nde-ui .ui-datatable thead tr {
+    height: 24px;
+    /*background: #3c8fe8 !important;*/
 }
 
 .main .ui-g {
@@ -126,16 +125,18 @@ body {
 /*-----------------Cutom CSS---------------*/
 
 .ndegui-sidenav {
-    background: #282828;
+    background: #000;
     margin-right: 15px;
     min-width: 6%;
     overflow: initial;
     top: 30px;
-    min-height: 585px;
+    min-height: 580px;
 }
 
 .ndegui-sidenav .mat-sidenav {
     top: 30px;
+    background-color: black !important;
+    height: 580px;
 }
 
 button[md-icon-button] {
@@ -144,7 +145,7 @@ button[md-icon-button] {
 
 .top-nav-bar {
     font-size: 12px;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.75) !important;
     margin: 1px -15px;
     margin-bottom: 8px;
 }
@@ -329,7 +330,7 @@ hide it behind the dropdown component, the required
 }*/
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-    background-color: #FFEB3B;
+    background-color: #77d218 !important;
 }
 
 .mat-slide-toggle-thumb {
@@ -337,11 +338,11 @@ hide it behind the dropdown component, the required
 }
 
 .mat-slide-toggle-bar {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(92, 136, 48);
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
@@ -416,3 +417,6 @@ input[type="number"] {
     height: 25px;
 }
 
+.iconCss .icon {
+    float: initial !important;
+}

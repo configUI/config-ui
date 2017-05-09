@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/primeng';
@@ -39,7 +39,7 @@ export class NVCookieComponent implements OnInit {
       this.ndSession = keywordDataVal;
     });
     this.enableGroupKeyword = this.configKeywordsService.keywordGroup.product_integration.nvcookie.enable;
-    
+
   }
 
   ngOnInit() {
@@ -55,7 +55,8 @@ export class NVCookieComponent implements OnInit {
       this.ndSessionData.methodExitDepth = arr[1];
       this.ndSessionData.onResponseCommit = arr[2];
       this.ndSessionData.setResponseHeader = arr[3];
-      this.ndSessionData.cookieName = arr[4];
+      if (arr[4].startsWith("X-"))
+        this.ndSessionData.cookieName = arr[4].substring(2);
       this.ndSessionData.domain = arr[5];
       this.ndSessionData.idleTimeOut = arr[6];
       this.ndSessionData.maxFPAllowedInSession = arr[7];
@@ -74,7 +75,7 @@ export class NVCookieComponent implements OnInit {
         this.ndSessionData.methodExitDepth = 1;
         this.ndSessionData.onResponseCommit = 1;
         this.ndSessionData.setResponseHeader = 1;
-        this.ndSessionData.cookieName = "X-cavNV";
+        this.ndSessionData.cookieName = "CavNV";
         this.ndSessionData.domain = null;
         this.ndSessionData.idleTimeOut = 1800;
         this.ndSessionData.maxFPAllowedInSession = 1000;
@@ -86,7 +87,7 @@ export class NVCookieComponent implements OnInit {
         this.ndSessionData.methodExitDepth = 1;
         this.ndSessionData.onResponseCommit = 1;
         this.ndSessionData.setResponseHeader = 1;
-        this.ndSessionData.cookieName = "X-cavNV";
+        this.ndSessionData.cookieName = "CavNV";
         this.ndSessionData.domain = null;
         this.ndSessionData.idleTimeOut = 1800;
         this.ndSessionData.maxFPAllowedInSession = 1000;
@@ -112,21 +113,14 @@ export class NVCookieComponent implements OnInit {
     this.ndSessionData.methodExitDepth = this.ndSessionData.methodExitDepth ? 1 : 0;
     this.ndSessionData.onResponseCommit = this.ndSessionData.onResponseCommit ? 1 : 0;
     this.ndSessionData.setResponseHeader = this.ndSessionData.setResponseHeader ? 1 : 0;
-    if (this.ndSessionData.cookieName.includes("X-")) {
-      let keyVal = `${this.ndSessionData.methodEntryDepth}%20${this.ndSessionData.methodExitDepth}%20${this.ndSessionData.onResponseCommit}%20${this.ndSessionData.setResponseHeader}%20${this.ndSessionData.cookieName}%20${this.ndSessionData.domain}%20${this.ndSessionData.idleTimeOut}%20${this.ndSessionData.maxFPAllowedInSession}`;
-      return keyVal;
 
-    }
-    else {
-      this.ndSessionData.cookieName = "X-" + this.ndSessionData.cookieName;
-      let keyVal = `${this.ndSessionData.methodEntryDepth}%20${this.ndSessionData.methodExitDepth}%20${this.ndSessionData.onResponseCommit}%20${this.ndSessionData.setResponseHeader}%20${this.ndSessionData.cookieName}%20${this.ndSessionData.domain}%20${this.ndSessionData.idleTimeOut}%20${this.ndSessionData.maxFPAllowedInSession}`;
-      return keyVal;
-    }
+    let keyVal = `${this.ndSessionData.methodEntryDepth}%20${this.ndSessionData.methodExitDepth}%20${this.ndSessionData.onResponseCommit}%20${this.ndSessionData.setResponseHeader}%20X-${this.ndSessionData.cookieName}%20${this.ndSessionData.domain}%20${this.ndSessionData.idleTimeOut}%20${this.ndSessionData.maxFPAllowedInSession}`;
+    return keyVal;
   }
 
-   resetKeywordData(){
-     this.ndSession = cloneObject(this.configKeywordsService.keywordData);
-     this.splitNDSessionKeywordValue();
+  resetKeywordData() {
+    this.ndSession = cloneObject(this.configKeywordsService.keywordData);
+    this.splitNDSessionKeywordValue();
   }
 
 }

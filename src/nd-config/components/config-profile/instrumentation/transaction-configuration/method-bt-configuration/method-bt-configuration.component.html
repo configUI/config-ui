@@ -1,11 +1,11 @@
-<!--For showing Bussiness Transaction Pattern(s) list -->
-<p-dataTable [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
+<!--For showing Business Transaction Pattern(s) list -->
+<p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Method bussiness transaction list </span>
+        <span style="float: left"> Method Business transaction list </span>
         <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add a method bussiness transaction" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
-                        <button pButton type="button" title="Edit a method bussiness transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete method bussiness transaction" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a method Business transaction" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
+                        <button pButton type="button" title="Edit a method Business transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete method Business transaction" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -22,7 +22,7 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog header="{{isNewMethod ? 'Add bussiness transaction method' : 'Edit bussiness transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
+<p-dialog header="{{isNewMethod ? 'Add Business transaction method' : 'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveADDEditMethodTrans()" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
@@ -60,7 +60,7 @@
             </div>
 
             <div class="ui-g-12">
-                <p-dataTable [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
+                <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.returnType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                     <p-header>
                         <span style="float: left;">  Return type settings </span>
                         <span style="float: right; margin-top:-5px">

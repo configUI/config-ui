@@ -9,7 +9,7 @@
 
 <div class="ui-g" *ngIf="selectedSessionAttribute == 'Specific'" style="margin-bottom:10px; border: ridge;">
     <!--For showing Session Attribute(s) list -->
-    <p-dataTable [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4" [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
+    <p-dataTable class="nde-ui" [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4" [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
         <p-header>
             <span style="float: left"> Session attribute(s) </span>
             <span style="float: right; margin-top:-5px">
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="sessionAttributeDetail.specific">
-                <p-dataTable [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="customValueTypeInfo?.length > 5" [pageLinks]="3">
+                <p-dataTable class="nde-ui" [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="customValueTypeInfo?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Session attribute(s) </span>
                         <span style="float: right; margin-top:-5px">
@@ -98,7 +98,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog header="Value type info" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
+<p-dialog header="Value type settings" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
     <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
