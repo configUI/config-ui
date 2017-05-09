@@ -98,12 +98,17 @@
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Monitors</a></md-slide-toggle>
                             </div>
-                            <div *ngIf="adminMode == 'true'">
+                            <div *ngIf="adminMode" >
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Put Delay in Method</a></md-slide-toggle>
                             </div>
-                            <div *ngIf="adminMode == 'true'">
+                            <div *ngIf="adminMode" >
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Generate Exception in Method</a></md-slide-toggle>
                             </div>
+
+                            <div *ngIf="adminMode" >
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 5]" class="contents">Custom Keywords</a></md-slide-toggle>
+                            </div>
+                            
                         </div>
                         <div class="ui-g-4">
                             <i class="fa fa-cog icon_big"></i>

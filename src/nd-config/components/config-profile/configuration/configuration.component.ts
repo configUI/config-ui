@@ -39,7 +39,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   //This method is used to see whether it is admin mode or not
   loadAdminInfo(): void {
     this.configHomeService.getMainData()
-      .subscribe(data => {this.adminMode = data.adminMode;
+      .subscribe(data => {
+        this.adminMode = data.adminMode;
       }
       );
   }
