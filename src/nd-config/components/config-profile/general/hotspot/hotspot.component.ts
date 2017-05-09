@@ -85,8 +85,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
     *  this is done to handle the case of writing keywords as:
     *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
     */
-
-      if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 ) {
+      if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 && this.hotspot["ASPositiveThreadFilters"].value != "NA" ) {
       this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
     }
     else {

@@ -5,7 +5,7 @@ import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
-import { Messages } from '../../../constants/config-constant'
+import { Messages ,customKeywordMessage } from '../../../constants/config-constant'
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ConfigProfileService } from '../../../services/config-profile.service';
@@ -58,16 +58,19 @@ export class GeneralComponent implements OnInit {
       this.configKeywordsService.toggleKeywordData();
     }
   }
+/* for custom keywords ,
+*  keywordData = {'keywordName':'','value':'',description:''}
+*
+*
+*/
 
   saveKeywordData(keywordData) {
-    for (let key in keywordData) {
+    for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
     this.configUtilityService.successMessage(Messages);
-
     this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.triggerRunTimeChanges(keywordData);
-
   }
 
   handleChange(e) {

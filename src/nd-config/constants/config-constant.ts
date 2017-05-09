@@ -18,3 +18,5 @@ export const INTEGRATION_TYPE = {
 }
 
 export const Messages = "Saved Successfully"
+
+export const customKeywordMessage =  "Given keyword does not exist"

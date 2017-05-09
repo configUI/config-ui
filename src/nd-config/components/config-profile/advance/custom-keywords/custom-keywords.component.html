@@ -1,0 +1,64 @@
+<p-dataTable [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
+    <p-header>
+        <span style="float: left">Custom Keywords list </span>
+        <span style="float :right; margin-top:-5px">
+            <button pButton type="button" title="Add Custom Keywords" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit Custom Keywords" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
+            <!--<button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>-->
+        </span>
+    </p-header>
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+    <p-column class="tableCss" field="keywordName" header="Keyword" [sortable]="true">
+        <template let-col let-customKeywordsData="rowData" pTemplate>
+            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="value" header="Value" [sortable]="true">
+        <template let-col let-customKeywordsData="rowData" pTemplate>
+            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+        </template>
+    </p-column>
+     <p-column class="tableCss" field="description" header="Description" [sortable]="true">
+        <template let-col let-customKeywordsData="rowData" pTemplate>
+            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+        </template>
+    </p-column>
+
+</p-dataTable>
+
+<!--Dialog for method monitor-->
+
+<p-dialog header="{{isNew ? 'Add Custom Keywords' : 'Edit Custom Keywords'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Keyword</label>
+            </div>
+            <div class="ui-g-9" >
+                <input name="keywordName" [disabled]="!isNew" type="text" size="50" pInputText [(ngModel)]="customKeywords.keywordName" required autofocus ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Value</label>
+            </div>
+            <div class="ui-g-9">
+                <input name="value" type="text" size="50" pInputText [(ngModel)]="customKeywords.value" ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-9">
+                <textarea name="Desc" rows="2" cols="50" maxlength="200" pInputTextarea [(ngModel)]="customKeywords.description" ngModel></textarea>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="addEditDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

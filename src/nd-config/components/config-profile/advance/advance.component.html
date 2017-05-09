@@ -9,11 +9,17 @@
         <p-tabPanel header="Monitor" [selected]="index == 2">
             <app-monitors *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
         </p-tabPanel>
-        <p-tabPanel header="Put delay in method" *ngIf="adminMode == 'true'" [selected]="index == 3">
+        <!--<p-tabPanel header="Put delay in method" *ngIf="adminMode == 'true'" [selected]="index == 3">-->
+        <p-tabPanel header="Put delay in method"  [selected]="index == 3">
             <app-delay *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-delay>
         </p-tabPanel>
-        <p-tabPanel header="Generate exception" *ngIf="adminMode == 'true'" [selected]="index == 4">
+        <!--<p-tabPanel header="Generate exception" *ngIf="adminMode == 'true'" [selected]="index == 4">-->
+         <p-tabPanel header="Generate exception"  [selected]="index == 4">
             <app-generate-exception *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-generate-exception>
+        </p-tabPanel>
+
+        <p-tabPanel header="Custom Keywords"  [selected]="index == 5">
+            <app-custom-keywords *ngIf="index == 5" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-keywords>
         </p-tabPanel>
     </p-tabView>
 </div>
