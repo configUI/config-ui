@@ -16,7 +16,7 @@ import { deleteMany } from '../../utils/config-utility';
 
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 
-import { Messages, DescMsg } from '../../constants/config-constant';
+import { Messages, descMsg } from '../../constants/config-constant';
 
 @Component({
   selector: 'app-config-application-list',
@@ -153,7 +153,7 @@ export class ConfigApplicationListComponent implements OnInit {
   saveApp(): void {
     this.applicationDetail.userName = this.userName;
     if (this.applicationDetail.appDesc.length > 300){
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configApplicationService.addApplicationData(this.applicationDetail)
@@ -169,7 +169,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to edit application detail */
   editApp(): void {
      if (this.applicationDetail.appDesc.length > 300){
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configApplicationService.editApplicationData(this.applicationDetail)

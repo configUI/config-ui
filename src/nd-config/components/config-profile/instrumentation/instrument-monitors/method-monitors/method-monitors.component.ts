@@ -6,7 +6,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 
-import { Messages, DescMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-method-monitors',
@@ -147,7 +147,7 @@ export class MethodMonitorsComponent implements OnInit {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
     if (this.methodMonitorDetail.methodDesc.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
@@ -180,7 +180,7 @@ export class MethodMonitorsComponent implements OnInit {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
     if (this.methodMonitorDetail.methodDesc.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)

@@ -7,7 +7,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Messages, DescMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-http-stats-monitors',
@@ -225,7 +225,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   editHttpStatsMonitor(): void {
     if (this.httpStatsMonitorDetail.description.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
@@ -244,7 +244,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
     //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
     if (this.httpStatsMonitorDetail.description.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)

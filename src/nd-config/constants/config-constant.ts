@@ -18,4 +18,4 @@ export const INTEGRATION_TYPE = {
 }
 
 export const Messages = "Saved Successfully"
-export const DescMsg = "Description cannot be more than 300 characters"
+export const descMsg = "Description cannot be more than 300 characters"

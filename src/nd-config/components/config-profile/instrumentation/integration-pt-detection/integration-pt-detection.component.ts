@@ -9,7 +9,7 @@ import { BackendInfo } from '../../../../interfaces/instrumentation-info';
 
 import { cloneObject } from '../../../../utils/config-utility';
 
-import { Messages, DescMsg } from '../../../../constants/config-constant'
+import { Messages, descMsg } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-integration-pt-detection',
@@ -79,7 +79,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
   /**This method is called to save the Data Add New Integration Point Detection data */
   saveAddIntegrationPTDetection(): void {
     if (this.addIPDetectionDetail.desc.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { ApplicationInfo } from '../../interfaces/application-info';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigProfileService } from '../../services/config-profile.service'
@@ -67,8 +66,6 @@ export class ConfigHomeComponent implements OnInit {
         else
           this.topologyInfo = (data.homeData[2].value).splice(0, data.homeData[2].value.length).reverse();
 
-
-
         this.agentsInfo = data.agentData;
         data.trData.switch = data.trData.status == 'running';
         this.configHomeService.setTrData(data.trData);
@@ -82,20 +79,26 @@ export class ConfigHomeComponent implements OnInit {
 
   importTopology(): void {
     this.configHomeService.importTopology().subscribe(data => {
-      this.topologyInfo = data;
+      if (data.length > 5) {
+        this.topologyInfoMsg = "(Last 5 Updated)";
+        this.topologyInfo = (data).slice(data.length - 5, data.length).reverse();
+      }
+      else 
+        this.topologyInfo = (data).splice(0, data.length).reverse();
+
       this.configUtilityService.infoMessage("Topologies imported successfully");
     });
     this.importTopo = false;
   }
 
-  routeToTreemain(selectedTypeId, selectedName,type) {
+  routeToTreemain(selectedTypeId, selectedName, type) {
     //Observable application name
-    if(type == 'topology'){
+    if (type == 'topology') {
       //it routes to (independent) topology screen 
       this.configApplicationService.applicationNameObserver(selectedName);
       this.router.navigate([this.ROUTING_PATH + '/tree-main/topology', selectedTypeId]);
     }
-    else{
+    else {
       this.configApplicationService.applicationNameObserver(selectedName);
       this.router.navigate([this.ROUTING_PATH + '/tree-main', selectedTypeId]);
     }
@@ -106,5 +109,4 @@ export class ConfigHomeComponent implements OnInit {
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
   }
-
 }
