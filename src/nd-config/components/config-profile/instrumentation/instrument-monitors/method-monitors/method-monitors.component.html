@@ -29,14 +29,16 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog"
+    [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
                 <label>Method name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required autofocus ngModel/>
+                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required autofocus
+                    ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -49,10 +51,10 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-3">
-                <label>Description</label>
+                <label>Description(Max. 300 characters)</label>
             </div>
             <div class="ui-g-9">
-                <textarea name="methodDesc" rows="2" cols="50" maxlength="200" pInputTextarea [(ngModel)]="methodMonitorDetail.methodDesc" ngModel></textarea>
+                <textarea name="methodDesc" rows="2" cols="50" pInputTextarea [(ngModel)]="methodMonitorDetail.methodDesc" ngModel></textarea>
             </div>
         </div>
         <footer>
@@ -62,4 +64,4 @@
             </div>
         </footer>
     </form>
-</p-dialog>
+    </p-dialog>

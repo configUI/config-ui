@@ -7,7 +7,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Messages } from '../../../../../constants/config-constant'
+import { Messages, DescMsg } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-http-stats-monitors',
@@ -75,17 +75,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getHttpStatsMonitorList(this.profileId).subscribe(data => {
-      //putting fpDumpMode values as labels instead of numbers
-      for (var i = 0; i < data.length; i++) {
-        if (data[i].fpDumpMode == '0')
-          data[i].fpDumpMode = 'Disable';
-        if (data[i].fpDumpMode == '1')
-          data[i].fpDumpMode = 'Enable';
-        if (data[i].fpDumpMode == '2')
-          data[i].fpDumpMode = 'Enable Forcefully';
-      }
       this.httpStatsMonitorData = data;
-
     });
   }
 
@@ -234,11 +224,16 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
 
   editHttpStatsMonitor(): void {
+    if (this.httpStatsMonitorDetail.description.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getAppIndex(this.httpStatsMonitorDetail.hscid);
         this.selectedHttpStatsMonitorData.length = 0;
         this.selectedHttpStatsMonitorData.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.httpStatsMonitorData[index] = data;
       });
     this.addEditHttpStatsMonitorDialog = false;
@@ -248,6 +243,10 @@ export class HttpStatsMonitorsComponent implements OnInit {
   saveHttpStatsMonitorData(): void {
     //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
+    if (this.httpStatsMonitorDetail.description.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting HTTP Stats Condition in DB
@@ -312,6 +311,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
     }
 
     this.httpStatsMonitorData = deleteMany(this.httpStatsMonitorData, rowIndex);
+    this.selectedHttpStatsMonitorData = [];
   }
 
   /**This method returns selected application row on the basis of HsciD */

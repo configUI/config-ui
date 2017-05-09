@@ -62,7 +62,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
           this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
         // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
-        this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == '1';
+        this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
@@ -85,23 +85,22 @@ export class HotspotComponent implements OnInit, OnDestroy {
     *  this is done to handle the case of writing keywords as:
     *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
     */
-
-      if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 ) {
+    if (this.includedException != null && this.includedException.length != 0) {
       this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
     }
     else {
-      this.hotspot["ASPositiveThreadFilters"].value= this.hotspot["ASPositiveThreadFilters"].defaultValue;
+      this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].defaultValue;
     }
 
-    if (this.hotspot["ASNegativeThreadFilter"].value != null && this.hotspot["ASNegativeThreadFilter"].value.length != 0) {
+    if (this.excludedException != null && this.excludedException.length != 0) {
       this.hotspot["ASNegativeThreadFilter"].value = this.excludedException.join("&");
     }
 
-    else{
-      this.hotspot["ASNegativeThreadFilter"].value= this.hotspot["ASNegativeThreadFilter"].defaultValue ;
+    else {
+      this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].defaultValue;
     }
 
-    this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value ? '1' : '0';
+    this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
     this.keywordData.emit(this.hotspot);
   }
 

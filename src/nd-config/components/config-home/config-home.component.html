@@ -84,7 +84,7 @@
                     <p-column rowStyleClass="col-overflow" field="name" header="Name">
                         <template let-col let-application="rowData" pTemplate>
                             <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
-                            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="routeToTreemain(application['id'], application['name'],'topology')">{{application[col.field]}}</a></span>
+                            <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTreemain(application['id'], application['name'],'topology')">{{application[col.field]}}</a></span>
                         </template>
                     </p-column>
                 </p-dataTable>

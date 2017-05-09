@@ -5,7 +5,7 @@ import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { deleteMany } from '../../../../utils/config-utility';
 import { Keywords } from '../../../../interfaces/keywords';
-import { Messages } from '../../../../constants/config-constant'
+import { Messages, DescMsg } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-error-detection',
@@ -34,7 +34,7 @@ export class ErrorDetectionComponent implements OnInit {
   keywordList: string[] = ['BTErrorRules'];
   errorDetection: Object;
   selectedValues: boolean;
-  keywordValue:Object;
+  keywordValue: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) { }
 
@@ -42,15 +42,15 @@ export class ErrorDetectionComponent implements OnInit {
     this.loadErrorDetectionList();
     this.saveDisable = this.profileId == 1 ? true : false;
 
-    this.keywordValue= this.configKeywordsService.keywordData;
-     this.errorDetection = {};
+    this.keywordValue = this.configKeywordsService.keywordData;
+    this.errorDetection = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {
         this.errorDetection[key] = this.keywordValue[key];
-        if(this.errorDetection[key].value == "true")
-        this.selectedValues = true;
+        if (this.errorDetection[key].value == "true")
+          this.selectedValues = true;
         else
-        this.selectedValues = false;
+          this.selectedValues = false;
       }
     });
   }
@@ -59,12 +59,11 @@ export class ErrorDetectionComponent implements OnInit {
     for (let key in this.errorDetection) {
       if (key == 'BTErrorRules') {
 
-        if (this.selectedValues == true){
+        if (this.selectedValues == true) {
           this.errorDetection[key]["value"] = "true";
           this.configUtilityService.successMessage("Error Detection settings are enabled");
         }
-        else
-        {
+        else {
           this.errorDetection[key]["value"] = "false";
           this.configUtilityService.successMessage("Error detection settings disabled");
         }
@@ -136,11 +135,16 @@ export class ErrorDetectionComponent implements OnInit {
     }
   }
   editErrDetection(): void {
+    if (this.errorDetectionDetail.ruleDesc.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configKeywordsService.editErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
         let index = this.getErrorDetectionIndex();
         this.selectedErrorDetection.length = 0;
         this.selectedErrorDetection.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.errorDetectionData[index] = data;
       });
     this.addEditErrorDetectionDialog = false;
@@ -158,6 +162,10 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
   saveErrDetection(): void {
+    if (this.errorDetectionDetail.ruleDesc.length > 300) {
+      this.configUtilityService.errorMessage(DescMsg);
+      return;
+    }
     this.configKeywordsService.addErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Error detection in DB
