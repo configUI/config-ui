@@ -18,7 +18,7 @@ import { Messages } from '../../../../../constants/config-constant';
 })
 export class HTTPBTConfigurationComponent implements OnInit {
 
- /**This is to send data to parent component(General Screen Component) for save keyword data */
+  /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();
 
@@ -70,10 +70,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternDetail: BusinessTransPatternData;
 
   chkInclude: boolean = false;
-  saveDisable: boolean =false;
+  saveDisable: boolean = false;
 
-   keywordList: string[] = ['BTRuleConfig'];
-   BusinessTransGlobalPattern: Object;
+  keywordList: string[] = ['BTRuleConfig'];
+  BusinessTransGlobalPattern: Object;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
@@ -109,7 +109,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.globalBtDetail.segmentType = 'first';
 
-   // this.globalBtDetail.segmentURI = 'segmentOfURI';
+    // this.globalBtDetail.segmentURI = 'segmentOfURI';
 
     this.globalBtDetail.requestHeader = 'NA';
 
@@ -123,14 +123,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable=this.profileId==1 ? true:false;
+      this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
     this.getKeywordData();
     this.loadBTPatternData();
   }
 
-getKeywordData() {
+  getKeywordData() {
     let keywordData = this.configKeywordsService.keywordData;
     this.BusinessTransGlobalPattern = {};
     this.keywordList.forEach((key) => {
@@ -139,16 +139,16 @@ getKeywordData() {
         this.selectedQueryPattern = this.BusinessTransGlobalPattern[key].value;
       }
     });
-}
+  }
 
-setSelectedValueOfBT(value){
-   for (let key in this.BusinessTransGlobalPattern) {
+  setSelectedValueOfBT(value) {
+    for (let key in this.BusinessTransGlobalPattern) {
       if (key == 'BTRuleConfig')
         this.BusinessTransGlobalPattern[key]["value"] = value;
-        this.configKeywordsService.keywordData[key] = this.BusinessTransGlobalPattern[key];
+      this.configKeywordsService.keywordData[key] = this.BusinessTransGlobalPattern[key];
     }
-      this.configKeywordsService.saveProfileKeywords(this.profileId);
-}
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+  }
 
   loadBTPatternData(): void {
 
@@ -159,7 +159,7 @@ setSelectedValueOfBT(value){
 
     if (data._embedded.bussinessTransGlobal.length == 1) {
       this.globalBtDetail = data._embedded.bussinessTransGlobal[data._embedded.bussinessTransGlobal.length - 1];
-    
+
       if (this.globalBtDetail.segmentType == "true")
         this.segmentURI = 'segmentOfURI';
       else
@@ -256,6 +256,7 @@ setSelectedValueOfBT(value){
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
         this.selectedPatternData.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.businessTransPatternInfo[index] = data;
       });
     this.closeDialog();
