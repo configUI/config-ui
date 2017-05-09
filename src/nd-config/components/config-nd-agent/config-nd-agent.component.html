@@ -1,7 +1,7 @@
 <div class="widget">
     <div class="header"><i aria-hidden="true"></i> ND Agent Status</div>
 
-    <p-dataTable [value]="ndAgentStatusData" [rows]="15" [paginator]="ndAgentStatusData?.length > 15" [pageLinks]="3">
+    <p-dataTable [value]="ndAgentStatusData" class="nde-ui" [rows]="15" [paginator]="ndAgentStatusData?.length > 15" [pageLinks]="3">
         <p-column class="col-overflow" field="tier" header="Tier" [sortable]="true"></p-column>
         <p-column class="col-overflow" field="server" header="Server" [sortable]="true"></p-column>
         <p-column class="col-overflow" field="instance" header="Instance" [sortable]="true"></p-column>
