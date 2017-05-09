@@ -9,7 +9,7 @@
     </div>
 
     <!--For showing application list -->
-    <p-dataTable [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
+    <p-dataTable class="nde-ui" [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
 
         <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
 
@@ -23,7 +23,7 @@
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="userName" header="User name" [sortable]="true"  [style]="{'width':'15%'}">
+        <p-column class="col-overflow" field="userName" header="User name" [sortable]="true" [style]="{'width':'15%'}">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
@@ -34,7 +34,7 @@
                 <span title="{{application[col.field]}}" style="float: right">{{application[col.field]}}</span>
             </template>
         </p-column>
-         <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
+        <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>

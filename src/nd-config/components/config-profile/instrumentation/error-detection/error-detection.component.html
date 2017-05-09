@@ -1,4 +1,4 @@
-<p-dataTable [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span style="float: left">Error detection list </span>

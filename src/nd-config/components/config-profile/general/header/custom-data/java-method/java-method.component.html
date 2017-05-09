@@ -3,7 +3,7 @@
 </p>-->
 
 <!--For showing Method Based Custom Data-->
-<p-dataTable [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Java method based custom data</span>
         <span style="float: right; margin-top:-5px">
@@ -55,7 +55,7 @@
 
 
         <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
-            <p-dataTable [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedReturnRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
+            <p-dataTable class="nde-ui" [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedReturnRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
                     <span>  Return type settings </span>
                     <span style="float: right; margin-top:-5px">
@@ -110,7 +110,7 @@
 
 
         <div class="ui-g-12">
-            <p-dataTable [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedArgumentRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
+            <p-dataTable class="nde-ui" [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedArgumentRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
                     <span>  Argument type settings </span>
                     <span style="float: right; margin-top:-5px">
@@ -238,11 +238,11 @@
                 </div>
             </div>-->
             <div class="ui-g-12" style="margin-left: 6px">
-                    <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="returnTypeRules.mode"></p-radioButton>
+                <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="returnTypeRules.mode"></p-radioButton>
             </div>
-                <div class="ui-g-12" style="margin-left: 6px">
-                  <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode " label="Capture custom data and also display the method in method sequence calling tree"></p-radioButton>
-                </div>
+            <div class="ui-g-12" style="margin-left: 6px">
+                <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode " label="Capture custom data and also display the method in method sequence calling tree"></p-radioButton>
+            </div>
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ">
