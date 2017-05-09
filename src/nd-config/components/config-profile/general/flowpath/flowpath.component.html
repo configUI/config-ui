@@ -64,12 +64,14 @@
 
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
+                        <!--<div class="ui-g-3">
+                            <p-checkbox name="enableCaptureHeader" label="Enable correlation ID using HTTP header" [(ngModel)]="enableCaptureHeader" binary="true"></p-checkbox>
+                        </div>-->
                         <div class="ui-g-3">
-                            <p-checkbox name="enableCaptureHeader" label="Enable correlation ID using HTTP header" [(ngModel)]="flowPath.correlationIDHeader" binary="true"></p-checkbox>
+                            <label>Correlation ID using HTTP header</label>
                         </div>
                         <div class="ui-g-2">
-                            <input disabled="{{!flowPath.correlationIDHeader}}" name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="flowPath.correlationIDHeader.value" min={{flowPath.correlationIDHeader.min}}
-                                max={{flowPath.correlationIDHeader.max}} required ngModel/>
+                            <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} ngModel/>
                             <span></span>
                         </div>
 
