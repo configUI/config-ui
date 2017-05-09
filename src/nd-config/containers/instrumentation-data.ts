@@ -219,3 +219,13 @@ export class RulesHTTPRequestHdrComponentData {
     customValTypeName: string;
     type: number;
 }
+
+
+export class CustomKeywordsComponentData{
+    id:number;
+    keywordName :string;
+    value :string ;
+    description: string;
+    enabled:boolean;
+
+}

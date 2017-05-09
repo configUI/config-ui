@@ -199,6 +199,7 @@ export class HttpRequestComponent implements OnInit {
         let index = this.getMethodBusinessIndex(data.httpReqHdrBasedId);
         this.selectedHTTPReqHeader.length = 0;
         this.selectedHTTPReqHeader.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.httpRequestHdrComponentInfo[index] = this.addReqHeaderTableData(this.httpRequestHdrDetail)[0];
         this.closeDialog();
       });

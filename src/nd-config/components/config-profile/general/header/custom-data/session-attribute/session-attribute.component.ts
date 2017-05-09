@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
 import { SessionAtrributeComponentsData, SessionTypeValueData } from '../../../../../../containers/instrumentation-data';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
@@ -119,12 +119,11 @@ export class SessionAttributeComponent implements OnInit {
 
   saveADDEditSessionAttr() {
 
-     if((this.sessionAttributeDetail.complete==false && this.sessionAttributeDetail.specific==false) || (!this.sessionAttributeDetail.complete && !this.sessionAttributeDetail.specific))
-      {
-        this.configUtilityService.errorMessage("Select Attribute type(s)");
-      }
+    if ((this.sessionAttributeDetail.complete == false && this.sessionAttributeDetail.specific == false) || (!this.sessionAttributeDetail.complete && !this.sessionAttributeDetail.specific)) {
+      this.configUtilityService.errorMessage("Select Attribute type(s)");
+    }
     //When add new Session Attribute
-   else if (this.isNewSessionAttr) {
+    else if (this.isNewSessionAttr) {
       //Check for app name already exist or not
       if (!this.checkAppNameAlreadyExist()) {
         this.saveSessionAttr();
@@ -155,15 +154,15 @@ export class SessionAttributeComponent implements OnInit {
 
   editSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
-     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
+    this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
 
     this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
       .subscribe(data => {
         let index = this.getSessionAttributeIndex(this.sessionAttributeDetail.sessAttrId);
         this.selectedSessionAttributeList.length = 0;
         this.selectedSessionAttributeList.push(data);
-         this.selectedSessionAttributeList = [];
-
+        this.configUtilityService.successMessage(Messages);
+        this.selectedSessionAttributeList = [];
         this.sessionAttributeComponentInfo[index] = this.setDataSessionAttribute(data)[0];
       });
     this.closeDialog();
@@ -307,19 +306,19 @@ export class SessionAttributeComponent implements OnInit {
         let selectedRules = this.selectedSessionValueType;
         let arrRulesIndex = [];
         for (let index in selectedRules) {
-           arrRulesIndex.push(selectedRules[index]);
+          arrRulesIndex.push(selectedRules[index]);
         }
-            this.deleteTypeValuesFromTable(arrRulesIndex);
-            this.configUtilityService.infoMessage("Deleted Successfully");
-            this.selectedSessionValueType = [];
-          }
-    // let selectedRules = this.selectedSessionValueType;
-    // let arrRulesIndex = [];
-    // for (let index in selectedRules) {
-    //   arrRulesIndex.push(selectedRules[index]);
-    // }
-    // this.deleteTypeValuesFromTable(arrRulesIndex);
-  });
+        this.deleteTypeValuesFromTable(arrRulesIndex);
+        this.configUtilityService.infoMessage("Deleted Successfully");
+        this.selectedSessionValueType = [];
+      }
+      // let selectedRules = this.selectedSessionValueType;
+      // let arrRulesIndex = [];
+      // for (let index in selectedRules) {
+      //   arrRulesIndex.push(selectedRules[index]);
+      // }
+      // this.deleteTypeValuesFromTable(arrRulesIndex);
+    });
   }
 
   /**This method returns selected Session Attribute row on the basis of selected row */
@@ -365,7 +364,7 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   closeDialog() {
-     this.selectedSessionAttributeList = [];
+    this.selectedSessionAttributeList = [];
     this.addEditSessionAttrDialog = false;
   }
   closeValueInfoDialog(): void {

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Output, EventEmitter} from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
 import { Keywords } from '../../../interfaces/keywords';
 import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
-import { Messages } from '../../../constants/config-constant'
+import { Messages ,customKeywordMessage} from '../../../constants/config-constant'
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ConfigProfileService } from '../../../services/config-profile.service';
@@ -22,7 +22,9 @@ import * as URL from '../../../constants/config-url-constant';
 export class AdvanceComponent implements OnInit {
 
   profileId: number;
+
   index: number = 0;
+  
   subscriptionNodeData: Subscription;
   subscriptionTRData: Subscription;
 
@@ -67,7 +69,7 @@ export class AdvanceComponent implements OnInit {
   }
 
   saveKeywordData(keywordData){
-    for(let key in keywordData){
+     for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
     this.configUtilityService.successMessage(Messages);

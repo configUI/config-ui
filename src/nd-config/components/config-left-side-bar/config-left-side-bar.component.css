@@ -9,17 +9,17 @@ ul.cav-menu-ul {
 }
 
 button[md-icon-button] {
-    width: 70px;
-    height: 50px;
-    border-radius: 0%;
-    margin-bottom: 1px;
+    width: 70px !important;
+    height: 50px  !important;
+    border-radius: 0%  !important;
+    margin-bottom: 1px  !important;
     background: #000000;
 }
 
 .iconCss {
-    color: white;
-    border-radius: 0%;
-    display: inline-block;
-    overflow: hidden;
-    padding: 10px 0 0;
+    color: white  !important;
+    border-radius: 0%  !important;
+    display: inline-block  !important;
+    overflow: hidden  !important;
+    padding: 10px 0 0  !important;
 }

@@ -65,27 +65,27 @@ export class MethodBTConfigurationComponent implements OnInit {
   changeOpertionType() {
     if (this.businessTransMethodDetail.returnType == "Numeric") {
       this.operationList = [];
-      let arrLabel = ['Equals', 'Not equals', 'Less then', 'Greater then', 'Less then equals to', 'Greater then equals to', 'Eq', 'Ne', 'Exception'];
-       let arrValue = ['EQUAL', 'NOT EQUAL', 'LESS THEN', 'GREATER THEN', 'LESS THEN EQUAL TO', 'GREATER THEN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
+      let arrLabel = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Eq', 'Ne', 'Exception'];
+      let arrValue = ['EQUAL', 'NOT EQUAL', 'LESS THAN', 'GREATER THAN', 'LESS THAN EQUAL TO', 'GREATER THAN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
     }
     else if (this.businessTransMethodDetail.returnType == "String") {
       this.operationList = [];
       let arrLabel = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
       let arrValue = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
     }
     else if (this.businessTransMethodDetail.returnType == "Boolean") {
       this.operationList = [];
       let arrLabel = ['True', 'False', 'Exception'];
       let arrValue = ['TRUE', 'FALSE', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
     }
     else if (this.businessTransMethodDetail.returnType == "Char or Byte") {
       this.operationList = [];
       let arrLabel = ['Exception', 'Eq', 'Ne'];
       let arrValue = ['EXCEPTION', 'EQ', 'NE'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel,arrValue);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
     }
 
 
@@ -99,7 +99,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   loadBTMethodData(): void {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable=this.profileId==1 ? true:false;
+      this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => this.businessTransMethodInfo = data);
   }
@@ -146,6 +146,7 @@ export class MethodBTConfigurationComponent implements OnInit {
         let index = this.getMethodBusinessIndex(this.businessTransMethodDetail.btMethodId);
         this.selectedbusinessTransMethod.length = 0;
         this.selectedbusinessTransMethod.push(data);
+        this.configUtilityService.successMessage(Messages);
         this.businessTransMethodInfo[index] = data;
       });
     this.closeDialog();
@@ -234,7 +235,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   saveRules() {
     this.methodRulesInfo.push(this.btMethodRulesDetail);
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
     this.addRulesDialog = false;
   }
 
@@ -289,13 +290,13 @@ export class MethodBTConfigurationComponent implements OnInit {
       code = 7;
     if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NOT EQUAL"))
       code = 8;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THEN"))
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN"))
       code = 9;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THEN"))
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN"))
       code = 10;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THEN EQUAL TO"))
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN EQUAL TO"))
       code = 11;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THEN EQUAL TO"))
+    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN EQUAL TO"))
       code = 12;
     if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQ"))
       code = 13;
@@ -323,7 +324,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       this.businessTransMethodInfo.push(data)
-    this.configUtilityService.successMessage(Messages);
+      this.configUtilityService.successMessage(Messages);
     });
     this.addBusinessTransMethodDialog = false;
   }
@@ -334,7 +335,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   closeReturnDialog(): void {
-     this.addRulesDialog=false;
-     this.addBusinessTransMethodDialog = true;
+    this.addRulesDialog = false;
+    this.addBusinessTransMethodDialog = true;
   }
 }
