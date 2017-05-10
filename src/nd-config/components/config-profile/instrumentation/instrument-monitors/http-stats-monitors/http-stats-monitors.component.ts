@@ -224,9 +224,11 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
 
   editHttpStatsMonitor(): void {
-    if (this.httpStatsMonitorDetail.description.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.httpStatsMonitorDetail.description != null) {
+      if (this.httpStatsMonitorDetail.description.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
@@ -243,9 +245,11 @@ export class HttpStatsMonitorsComponent implements OnInit {
   saveHttpStatsMonitorData(): void {
     //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
-    if (this.httpStatsMonitorDetail.description.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.httpStatsMonitorDetail.description != null) {
+      if (this.httpStatsMonitorDetail.description.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {

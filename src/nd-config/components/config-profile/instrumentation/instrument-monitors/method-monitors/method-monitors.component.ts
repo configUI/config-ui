@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ActivatedRoute, Params } from '@angular/router';
 import { MethodMonitorData } from '../../../../../containers/instrumentation-data';
@@ -30,27 +30,27 @@ export class MethodMonitorsComponent implements OnInit {
   isNewMethodMonitor: boolean = false;
   /**For open/close add/edit method-monitor detail */
   addEditMethodMonitorDialog: boolean = false;
-  saveDisable: boolean= false;
+  saveDisable: boolean = false;
 
   keywordList: string[] = ['ndMethodMonFile'];
   methodMonitor: Object;
   selectedValues: boolean;
-  keywordValue:Object;
+  keywordValue: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadMethodMonitorList();
 
-    this.keywordValue= this.configKeywordsService.keywordData;
-     this. methodMonitor = {};
+    this.keywordValue = this.configKeywordsService.keywordData;
+    this.methodMonitor = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {
-        this. methodMonitor[key] = this.keywordValue[key];
-        if(this. methodMonitor[key].value == "true")
-        this.selectedValues = true;
+        this.methodMonitor[key] = this.keywordValue[key];
+        if (this.methodMonitor[key].value == "true")
+          this.selectedValues = true;
         else
-        this.selectedValues = false;
+          this.selectedValues = false;
       }
     });
   }
@@ -58,11 +58,11 @@ export class MethodMonitorsComponent implements OnInit {
 
     for (let key in this.methodMonitor) {
       if (key == 'ndMethodMonFile') {
-        if (this.selectedValues == true){
+        if (this.selectedValues == true) {
           this.methodMonitor[key]["value"] = "true";
-           this.configUtilityService.successMessage("Method Monitors settings are enabled");
+          this.configUtilityService.successMessage("Method Monitors settings are enabled");
         }
-        else{
+        else {
           this.methodMonitor[key]["value"] = "false";
           this.configUtilityService.successMessage("Method Monitors settings are disabled");
         }
@@ -77,7 +77,7 @@ export class MethodMonitorsComponent implements OnInit {
   loadMethodMonitorList() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable=this.profileId==1 ? true:false;
+      this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getMethodMonitorList(this.profileId).subscribe(data => {
       this.methodMonitorData = data;
@@ -146,9 +146,11 @@ export class MethodMonitorsComponent implements OnInit {
     if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
-    if (this.methodMonitorDetail.methodDesc.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.methodMonitorDetail.methodDesc != null) {
+      if (this.methodMonitorDetail.methodDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
@@ -179,9 +181,11 @@ export class MethodMonitorsComponent implements OnInit {
     if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
-    if (this.methodMonitorDetail.methodDesc.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.methodMonitorDetail.methodDesc != null) {
+      if (this.methodMonitorDetail.methodDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {

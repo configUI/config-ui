@@ -34,7 +34,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   ngOnInit() {
     this.loadServiceEntryPoint();
-    this.saveDisable=this.profileId==1 ? true:false;
+    this.saveDisable = this.profileId == 1 ? true : false;
   }
   /**It loads service entry data  */
   loadServiceEntryPoint() {
@@ -66,9 +66,11 @@ export class ServiceEntryPointComponent implements OnInit {
 
   /**It stores the dialog data back to the backend */
   saveServiceEntryPointService(): void {
-    if (this.serviceEntryPointDetail.desc.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.serviceEntryPointDetail.desc != null) {
+      if (this.serviceEntryPointDetail.desc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     for (let i = 0; i < this.entryPointType.length; i++) {
       if (this.serviceEntryPointDetail.entryTypeId == this.entryPointType[i].value) {
