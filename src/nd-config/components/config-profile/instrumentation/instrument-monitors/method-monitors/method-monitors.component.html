@@ -29,7 +29,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

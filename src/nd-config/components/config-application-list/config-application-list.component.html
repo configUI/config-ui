@@ -43,20 +43,20 @@
 
 </div>
 <!--Dialog for adding Application-->
-<div class="profile-dialog">
-    <p-dialog header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
-        <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Name</label>
-                </div>
-                <div class="ui-g-8">
-                    <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Application name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-                </div>
-            </div>
 
-            <!--<div class="ui-g">
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="appName" type="text" size="30" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Application name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+            </div>
+        </div>
+
+        <!--<div class="ui-g">
                 <div class="ui-g-4">
                     <label>User Name</label>
                 </div>
@@ -65,29 +65,28 @@
                         required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
             </div>-->
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Topology</label>
-                </div>
-                <div class="ui-g-8">
-                    <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                    <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" required ngModel></p-dropdown>
-                </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Topology</label>
             </div>
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Description</label>
-                </div>
-                <div class="ui-g-8">
-                    <textarea name="appDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
-                </div>
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                <p-dropdown name="topoId" [options]="topologySelectItem" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" required ngModel></p-dropdown>
             </div>
-            <footer>
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
-                    <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-                </div>
-            </footer>
-        </form>
-    </p-dialog>
-</div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <textarea name="appDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

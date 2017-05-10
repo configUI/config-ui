@@ -150,7 +150,7 @@
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
-<p-dialog header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
     <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

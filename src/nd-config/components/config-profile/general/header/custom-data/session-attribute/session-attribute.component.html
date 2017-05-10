@@ -39,7 +39,7 @@
 </div>
 
 <!--Dialog for ADD and Edit Session Attribute-->
-<p-dialog header="{{isNewSessionAttr ? 'Add session attribute(s)' : 'Edit session attribute(s)'}}" *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewSessionAttr ? 'Add session attribute(s)' : 'Edit session attribute(s)'}}" *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveADDEditSessionAttr()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -98,7 +98,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog header="Value type settings" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
+<p-dialog class="profile-dialog" header="Value type settings" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
     <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
