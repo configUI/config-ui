@@ -59,6 +59,7 @@ export class ProductIntegrationComponent implements OnInit {
   saveKeywordData(keywordData){
     for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
+      this.configKeywordsService.keywordData[key] = true;
     }
     this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
