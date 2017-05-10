@@ -5,7 +5,7 @@ import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { deleteMany } from '../../../../utils/config-utility';
 import { Keywords } from '../../../../interfaces/keywords';
-import { Messages, DescMsg } from '../../../../constants/config-constant'
+import { Messages, descMsg } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-error-detection',
@@ -135,8 +135,8 @@ export class ErrorDetectionComponent implements OnInit {
     }
   }
   editErrDetection(): void {
-    if (this.errorDetectionDetail.ruleDesc.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+    if (this.errorDetectionDetail.ruleDesc.length > 500) {
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.editErrorDetection(this.errorDetectionDetail, this.profileId)
@@ -162,8 +162,8 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
   saveErrDetection(): void {
-    if (this.errorDetectionDetail.ruleDesc.length > 300) {
-      this.configUtilityService.errorMessage(DescMsg);
+    if (this.errorDetectionDetail.ruleDesc.length > 500) {
+      this.configUtilityService.errorMessage(descMsg);
       return;
     }
     this.configKeywordsService.addErrorDetection(this.errorDetectionDetail, this.profileId)

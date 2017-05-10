@@ -27,11 +27,11 @@
                             <label>Delay time range(ms)</label>
                         </div>
 
-                        <div class="ui-g-1">
-                            from: <input name="from" type="number" style="text-align: right" [(ngModel)]="delayData.from" pInputText required ngModel/>
+                        <div class="ui-g-2">
+                            from: <input name="from" type="number" style="text-align: right; width:40%" [(ngModel)]="delayData.from" pInputText required ngModel/>
                         </div>
-                        <div class="ui-g-1">
-                            to: <input name="to" type="number" style="text-align: right" [(ngModel)]="delayData.to" pInputText required ngModel/>
+                        <div class="ui-g-2">
+                            to: <input name="to" type="number" style="text-align: right; width: 40%" [(ngModel)]="delayData.to" pInputText required ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="ui-g-4">
-                            <i>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</i>
+                            <i>(Forcefully delaying by auto-instrumenting the method if not mentioned in instrumentation profiles)</i>
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,6 @@ export const INTEGRATION_TYPE = {
 }
 
 export const Messages = "Saved Successfully"
-
+export const descMsg = "Description cannot be more than 500 characters"
 export const customKeywordMessage =  "Given keyword does not exist"
 
-export const DescMsg = "Description cannot be more than 300 characters"

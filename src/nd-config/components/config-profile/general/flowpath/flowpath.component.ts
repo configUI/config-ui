@@ -31,6 +31,8 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean = false;
+  // enableCaptureHeader: boolean = false;
+  correlationIDHeader: any;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -40,9 +42,12 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         keywordDataVal[key] = data[key];
       })
       this.flowPath = keywordDataVal;
+
       this.cpuTime = this.flowPath['enableCpuTime'].value;
+      // this.enableCaptureHeader = this.flowPath['correlationIDHeader'];
+      this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
     });
-     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
   }
 
   enableForcedFPChainSelectItem: SelectItem[];
@@ -63,6 +68,11 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   }
 
   saveKeywordData() {
+    if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
+      this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
+    else
+      this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
+
     this.flowPath['enableCpuTime'].value = this.cpuTime;
     this.keywordData.emit(this.flowPath);
   }
@@ -74,7 +84,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if(this.subscriptionEG)
+    if (this.subscriptionEG)
       this.subscriptionEG.unsubscribe();
   }
 }

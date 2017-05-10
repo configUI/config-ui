@@ -5,7 +5,7 @@
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add a method monitor" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit a method monitor" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
-            <button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
+            <button pButton class="ui-button-danger" type="button" title="Delete method monitor(s)" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -29,16 +29,14 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog"
-    [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
                 <label>Method name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required autofocus
-                    ngModel/>
+                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required autofocus ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -51,7 +49,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-3">
-                <label>Description(Max. 300 characters)</label>
+                <label>Description</label>
             </div>
             <div class="ui-g-9">
                 <textarea name="methodDesc" rows="2" cols="50" pInputTextarea [(ngModel)]="methodMonitorDetail.methodDesc" ngModel></textarea>
@@ -64,4 +62,4 @@
             </div>
         </footer>
     </form>
-    </p-dialog>
+</p-dialog>

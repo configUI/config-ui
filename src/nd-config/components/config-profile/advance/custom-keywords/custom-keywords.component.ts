@@ -6,7 +6,7 @@ import { ConfigUtilityService } from '../../../../services/config-utility.servic
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../utils/config-utility';
 
-import { Messages, customKeywordMessage } from '../../../../constants/config-constant';
+import { Messages, descMsg, customKeywordMessage } from '../../../../constants/config-constant';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
@@ -111,6 +111,10 @@ export class CustomKeywordsComponent implements OnInit {
     let keywordExistFlag = false;
     let data = [];
     var keywordDataVal = {}
+    if (this.customKeywords.description.length > 500){
+      this.configUtilityService.errorMessage(descMsg);
+      return;
+    }
     for (let key in this.configKeywordsService.keywordData) {
       if (key == this.customKeywords.keywordName) {
         this.configKeywordsService.keywordData[key].value = this.customKeywords.value;
@@ -121,7 +125,7 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
     if (!keywordExistFlag) {
-      this.configUtilityService.successMessage(customKeywordMessage);
+      this.configUtilityService.errorMessage(customKeywordMessage);
       return;
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
