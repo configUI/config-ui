@@ -255,6 +255,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
+        console.log(" edit ", data)
+        if (data.headerKeyValue = "null=null")
+          data.headerKeyValue = "-";
+        if (data.paramKeyValue = "null=null")
+          data.paramKeyValue = "-";
+
         this.selectedPatternData.push(data);
         this.configUtilityService.successMessage(Messages);
         this.businessTransPatternInfo[index] = data;
