@@ -58,11 +58,7 @@ export class GeneralComponent implements OnInit {
       this.configKeywordsService.toggleKeywordData();
     }
   }
-/* for custom keywords ,
-*  keywordData = {'keywordName':'','value':'',description:''}
-*
-*
-*/
+
 
   saveKeywordData(keywordData) {
     for(let key in keywordData){

@@ -61,6 +61,7 @@ export class CustomKeywordsComponent implements OnInit {
         this.customKeywords.keywordName = key;
         this.customKeywords.value = data[key]["value"];
         this.customKeywords.description = data[key]['desc'];
+        this.customKeywords.enable = data[key]['enable'];
         tableData.push(this.customKeywords);
       }
     }
@@ -93,6 +94,12 @@ export class CustomKeywordsComponent implements OnInit {
     this.addEditDialog = true;
     this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
   }
+  
+  //enabling /disabling keyword in ndsettings.txt
+  enableKeyword(keyword){
+    this.configKeywordsService.keywordData[keyword.keywordName].enable = !keyword.enable;
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+  }
 
   /* After saving custom keywords,store is updated and constructor of this component 
   * is called,where it created table data from the store which is now
@@ -109,6 +116,7 @@ export class CustomKeywordsComponent implements OnInit {
         this.configKeywordsService.keywordData[key].value = this.customKeywords.value;
         this.configKeywordsService.keywordData[key].desc = this.customKeywords.description;
         this.configKeywordsService.keywordData[key].type = "custom";
+        this.configKeywordsService.keywordData[key].enable = true;
         keywordExistFlag = true;
       }
     }
