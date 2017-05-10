@@ -35,6 +35,7 @@ export class InstrumentationComponent implements OnInit {
   saveKeywordData(keywordData) {
     for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
+      this.configKeywordsService.keywordData[key].enable = true
     }
     this.configUtilityService.successMessage(Messages);
 
