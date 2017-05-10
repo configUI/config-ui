@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->
-<p-dialog header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -89,7 +89,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog header="Add custom settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="Add custom settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

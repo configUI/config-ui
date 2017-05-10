@@ -86,7 +86,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
     *  this is done to handle the case of writing keywords as:
     *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
     */
-      if ( this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 && this.hotspot["ASPositiveThreadFilters"].value != "NA" ) {
+    if (this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 && this.hotspot["ASPositiveThreadFilters"].value != "NA") {
       this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
     }
     else {
@@ -106,9 +106,12 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   resetKeywordData() {
-    console.log("cloneObject--",cloneObject(this.configKeywordsService.keywordData))
-    this.hotspot = cloneObject(this.configKeywordsService.keywordData);
 
+    this.hotspot = cloneObject(this.configKeywordsService.keywordData);
+    if (this.hotspot["ASMethodHotspots"].value == 1)
+      this.hotspot["ASMethodHotspots"].value = true;
+    else
+      this.hotspot["ASMethodHotspots"].value = false;
   }
 
 
@@ -116,6 +119,4 @@ export class HotspotComponent implements OnInit, OnDestroy {
     if (this.subscription)
       this.subscription.unsubscribe();
   }
-
-
 }

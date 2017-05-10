@@ -25,42 +25,38 @@
 </div>
 <!--Dialog for Adding New Profile -->
 
-<div class="profile-dialog">
-    <p-dialog header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
-        <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Name</label>
-                </div>
-                <div class="ui-g-8">
-                    <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-                </div>
+<p-dialog class="profile-dialog" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
             </div>
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Copy profile</label>
-                </div>
-                <div class="ui-g-8">
-                    <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId"
-                        placeholder="Select a Profile to be copied"></p-dropdown>
-                </div>
+            <div class="ui-g-8">
+                <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <label>Description</label>
-                </div>
-                <div class="ui-g-8">
-                    <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
-                </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Copy profile</label>
             </div>
-            <footer>
-                <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
-                    <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
-                </div>
-            </footer>
-        </form>
-    </p-dialog>
-
-</div>
+            <div class="ui-g-8">
+                <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
