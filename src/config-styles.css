@@ -1,10 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-/*@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~https://fonts.googleapis.com/icon?family=Open+Sans';
-@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';*/
-
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
 
 /*---------------Fonts CSS---------------*/
 
@@ -342,7 +340,7 @@ hide it behind the dropdown component, the required
 }
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgb(92, 136, 48);
+    background-color: rgb(92, 136, 48) !important;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
