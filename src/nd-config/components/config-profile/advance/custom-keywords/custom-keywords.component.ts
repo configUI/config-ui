@@ -94,9 +94,9 @@ export class CustomKeywordsComponent implements OnInit {
     this.addEditDialog = true;
     this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
   }
-  
+
   //enabling /disabling keyword in ndsettings.txt
-  enableKeyword(keyword){
+  enableKeyword(keyword) {
     this.configKeywordsService.keywordData[keyword.keywordName].enable = !keyword.enable;
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
@@ -111,7 +111,17 @@ export class CustomKeywordsComponent implements OnInit {
     let keywordExistFlag = false;
     let data = [];
     var keywordDataVal = {}
-    if (this.customKeywords.description.length > 500){
+
+    //To check that keyword name already exists or not
+    for (var i = 0; i < this.customKeywordsDataList.length; i++) {
+      if (this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
+        this.configUtilityService.errorMessage("Keyword name already exists");
+        return true;
+      }
+    }
+
+    //  Description field should not contain more than 500 characters
+    if (this.customKeywords.description.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }
