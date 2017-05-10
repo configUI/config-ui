@@ -46,21 +46,21 @@ export class ConfigHomeComponent implements OnInit {
       .subscribe(data => {
 
         if (data.homeData[0].value.length > 5) {
-          this.applicationMsg = "(Last 5 Updated)";
+          this.applicationMsg = "(Last 5 Modified)";
           this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
         }
         else
           this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
 
         if (data.homeData[1].value.length > 5) {
-          this.profileInfoMsg = "(Last 5 Updated)";
+          this.profileInfoMsg = "(Last 5 Modified)";
           this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length - 5, data.homeData[1].value.length).reverse();
         }
         else
           this.profileInfo = (data.homeData[1].value).splice(0, data.homeData[1].value.length).reverse();
 
         if (data.homeData[2].value.length > 5) {
-          this.topologyInfoMsg = "(Last 5 Updated)";
+          this.topologyInfoMsg = "(Last 5 Modified)";
           this.topologyInfo = (data.homeData[2].value).slice(data.homeData[2].value.length - 5, data.homeData[2].value.length).reverse();
         }
         else
@@ -80,7 +80,7 @@ export class ConfigHomeComponent implements OnInit {
   importTopology(): void {
     this.configHomeService.importTopology().subscribe(data => {
       if (data.length > 5) {
-        this.topologyInfoMsg = "(Last 5 Updated)";
+        this.topologyInfoMsg = "(Last 5 Modified)";
         this.topologyInfo = (data).slice(data.length - 5, data.length).reverse();
       }
       else 
