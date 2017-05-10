@@ -224,7 +224,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
 
   editHttpStatsMonitor(): void {
-    if (this.httpStatsMonitorDetail.description.length > 300) {
+    if (this.httpStatsMonitorDetail.description.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }
@@ -243,7 +243,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   saveHttpStatsMonitorData(): void {
     //Calling method which will store values in httpStatsMonitorDetail object
     this.saveDataInObject();
-    if (this.httpStatsMonitorDetail.description.length > 300) {
+    if (this.httpStatsMonitorDetail.description.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }

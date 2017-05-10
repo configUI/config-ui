@@ -146,7 +146,7 @@ export class MethodMonitorsComponent implements OnInit {
     if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
-    if (this.methodMonitorDetail.methodDesc.length > 300) {
+    if (this.methodMonitorDetail.methodDesc.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }
@@ -179,7 +179,7 @@ export class MethodMonitorsComponent implements OnInit {
     if (this.methodMonitorDetail.methodDisplayName == undefined || this.methodMonitorDetail.methodDisplayName == "") {
       this.methodMonitorDetail.methodDisplayName = str.substring(str.lastIndexOf(".") + 1, str.lastIndexOf("("));
     }
-    if (this.methodMonitorDetail.methodDesc.length > 300) {
+    if (this.methodMonitorDetail.methodDesc.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }

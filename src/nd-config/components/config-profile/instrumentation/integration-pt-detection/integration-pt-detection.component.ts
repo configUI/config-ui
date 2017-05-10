@@ -78,7 +78,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
 
   /**This method is called to save the Data Add New Integration Point Detection data */
   saveAddIntegrationPTDetection(): void {
-    if (this.addIPDetectionDetail.desc.length > 300) {
+    if (this.addIPDetectionDetail.desc.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }

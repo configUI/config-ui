@@ -152,7 +152,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to add application detail */
   saveApp(): void {
     this.applicationDetail.userName = this.userName;
-    if (this.applicationDetail.appDesc.length > 300){
+    if (this.applicationDetail.appDesc.length > 500){
       this.configUtilityService.errorMessage(descMsg);
       return;
     }
@@ -168,7 +168,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**This method is used to edit application detail */
   editApp(): void {
-     if (this.applicationDetail.appDesc.length > 300){
+     if (this.applicationDetail.appDesc.length > 500){
       this.configUtilityService.errorMessage(descMsg);
       return;
     }

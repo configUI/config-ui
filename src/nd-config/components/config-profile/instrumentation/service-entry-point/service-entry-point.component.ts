@@ -66,7 +66,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   /**It stores the dialog data back to the backend */
   saveServiceEntryPointService(): void {
-    if (this.serviceEntryPointDetail.desc.length > 300) {
+    if (this.serviceEntryPointDetail.desc.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }

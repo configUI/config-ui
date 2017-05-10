@@ -135,7 +135,7 @@ export class ErrorDetectionComponent implements OnInit {
     }
   }
   editErrDetection(): void {
-    if (this.errorDetectionDetail.ruleDesc.length > 300) {
+    if (this.errorDetectionDetail.ruleDesc.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }
@@ -162,7 +162,7 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
   saveErrDetection(): void {
-    if (this.errorDetectionDetail.ruleDesc.length > 300) {
+    if (this.errorDetectionDetail.ruleDesc.length > 500) {
       this.configUtilityService.errorMessage(descMsg);
       return;
     }
