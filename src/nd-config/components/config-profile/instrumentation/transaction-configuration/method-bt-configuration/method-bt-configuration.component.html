@@ -22,7 +22,7 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog header="{{isNewMethod ? 'Add Business transaction method' : 'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' : 'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveADDEditMethodTrans()" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
@@ -98,7 +98,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog header="Add return type settings" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="400" responsive="true">
+<p-dialog class="profile-dialog" header="Add return type settings" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="400" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

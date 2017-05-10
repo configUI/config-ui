@@ -36,7 +36,7 @@
 
 
 <!--Dialog for adding -->
-<p-dialog header="{{isNew ? 'Settings for Java method based custom data' : 'Edit settings for Java method based custom data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Settings for Java method based custom data' : 'Edit settings for Java method based custom data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveEditData(fqmField)" id="addMethodBasedForm" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
@@ -169,7 +169,7 @@
 
 
 <!--Form for adding return Type Rules-->
-<p-dialog header="Add return type settings" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
+<p-dialog class="profile-dialog" header="Add return type settings" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
     <form (ngSubmit)="saveReturnRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -256,7 +256,7 @@
 
 
 <!--Form for adding Argument Type Rules-->
-<p-dialog header="Add argument type settings" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog" header="Add argument type settings" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

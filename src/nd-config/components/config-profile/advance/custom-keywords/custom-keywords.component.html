@@ -1,4 +1,4 @@
-<p-dataTable  class="nde-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
+<p-dataTable class="nde-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
     <p-header>
         <span style="float: left">Custom Keywords list </span>
         <span style="float :right; margin-top:-5px">
@@ -29,15 +29,15 @@
             <md-slide-toggle  class="toggle-space" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
         </template>
     </p-column>
-    
 
-    
+
+
 
 </p-dataTable>
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNew ? 'Add Custom keyword' : 'Edit Custom keyword'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom keyword' : 'Edit Custom keyword'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

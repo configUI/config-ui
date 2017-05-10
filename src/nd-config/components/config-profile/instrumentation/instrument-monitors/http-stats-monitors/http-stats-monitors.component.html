@@ -35,7 +35,7 @@
 
 <!--Dialog for http stats monitor-->
 
-<p-dialog header="{{isNewHttpStatsMonitor ? 'Add  HTTP stats condition' : 'Edit HTTP stats condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewHttpStatsMonitor ? 'Add  HTTP stats condition' : 'Edit HTTP stats condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true">
     <form (ngSubmit)="saveHttpStatsMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-2">
