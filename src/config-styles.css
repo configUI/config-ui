@@ -256,7 +256,7 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 
 .tabs-all .ui-tabview .ui-tabview-panel {
     border: 1px #2b5797 solid;
-    background: rgba(43, 87, 151, 0.15);
+    /*background: rgba(43, 87, 151, 0.15);*/
     /*#2b5797;*/
 }
 
