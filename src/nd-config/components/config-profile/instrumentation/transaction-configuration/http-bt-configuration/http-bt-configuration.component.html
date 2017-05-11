@@ -82,9 +82,8 @@
         </div>
     </form>
 </div>
-
+<!--For showing Business Transaction Pattern(s) list -->
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
-    <!--For showing Business Transaction Pattern(s) list -->
     <p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business transaction pattern list</span>
