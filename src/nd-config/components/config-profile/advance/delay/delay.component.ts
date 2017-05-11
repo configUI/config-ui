@@ -44,7 +44,7 @@ export class DelayComponent implements OnInit {
       console.log(this.className, "constructor", "this.delay", this.delay);
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.delay.enable);
-
+    this.configKeywordsService.toggleKeywordData();
   }
   ngOnInit() {
     //Calling splitDelayKeywordData method

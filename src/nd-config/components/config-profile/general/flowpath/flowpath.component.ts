@@ -48,6 +48,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+    this.configKeywordsService.toggleKeywordData();
   }
 
   enableForcedFPChainSelectItem: SelectItem[];

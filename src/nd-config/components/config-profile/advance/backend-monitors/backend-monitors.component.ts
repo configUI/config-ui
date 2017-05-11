@@ -45,7 +45,7 @@ export class BackendMonitorsComponent implements OnInit {
       console.log(this.className, "constructor", "this.backend", this.backend);
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.backend_monitors.enable);
-
+    this.configKeywordsService.toggleKeywordData();
   }
   saveKeywordData() {
     if (this.enableBackendMonitorChk) {

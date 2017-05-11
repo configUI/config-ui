@@ -44,6 +44,7 @@ export class MonitorsComponent implements OnInit {
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.debug", this.monitor);
       this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+      this.configKeywordsService.toggleKeywordData();
     });
   }
   saveKeywordData() {

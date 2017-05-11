@@ -54,6 +54,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         if (data){
           this.configKeywordsService.toggleKeywordData();
           this.subscriptionKeywordGroup = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.keywordGroup = data );
+          this.configKeywordsService.toggleKeywordData();
         }
 
       });

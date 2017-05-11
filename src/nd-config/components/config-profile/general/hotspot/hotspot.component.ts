@@ -66,6 +66,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
+    this.configKeywordsService.toggleKeywordData();
   }
 
 
