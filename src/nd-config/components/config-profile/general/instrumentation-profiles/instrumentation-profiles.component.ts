@@ -44,7 +44,7 @@ export class InstrumentationProfilesComponent implements OnInit {
     //   this.instrProfiles = data;
     //   console.log( "constructor", "this.debug", this.instrProfiles);
     // });
-   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.instrumentation_profiles.enable);
    this.configKeywordsService.toggleKeywordData();
   }
 

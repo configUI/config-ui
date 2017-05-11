@@ -31,7 +31,7 @@ export class ExceptionComponent implements OnInit {
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
     this.getKeywordData();
     this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == 0 ? false : true;
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
     this.configKeywordsService.toggleKeywordData();
   }
 
