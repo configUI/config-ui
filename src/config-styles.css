@@ -409,3 +409,7 @@ input[type="number"] {
 .iconCss .icon {
     float: initial !important;
 }
+
+.col-overflow {
+    text-overflow: ellipsis
+}

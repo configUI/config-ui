@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
       }
       this.header = data;
     });
-   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.header.enable);
    this.configKeywordsService.toggleKeywordData();
     this.httpKeywordObject = [];
   }
