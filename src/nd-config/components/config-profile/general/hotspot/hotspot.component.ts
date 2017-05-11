@@ -56,6 +56,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
         })
 
         this.hotspot = keywordDataVal;
+        console.log(" this.hotspot  at first time--",this.hotspot)
         if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
           this.includedException = null;
         else
@@ -105,12 +106,12 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   resetKeywordData() {
-    if (this.configKeywordsService.keywordData["ASMethodHotspots"].value == 1)
-      this.configKeywordsService.keywordData["ASMethodHotspots"].value = true;
-    else
-      this.configKeywordsService.keywordData["ASMethodHotspots"].value = false;
-   
+
     this.hotspot = cloneObject(this.configKeywordsService.keywordData);
+    if (this.hotspot["ASMethodHotspots"].value == 1)
+      this.hotspot["ASMethodHotspots"].value = true;
+    else
+      this.hotspot["ASMethodHotspots"].value = false;
   }
 
 
@@ -118,6 +119,4 @@ export class HotspotComponent implements OnInit, OnDestroy {
     if (this.subscription)
       this.subscription.unsubscribe();
   }
-
-
 }

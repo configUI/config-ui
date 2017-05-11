@@ -135,9 +135,11 @@ export class ErrorDetectionComponent implements OnInit {
     }
   }
   editErrDetection(): void {
-    if (this.errorDetectionDetail.ruleDesc.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.errorDetectionDetail.ruleDesc != null) {
+      if (this.errorDetectionDetail.ruleDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.editErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
@@ -162,9 +164,11 @@ export class ErrorDetectionComponent implements OnInit {
     return -1;
   }
   saveErrDetection(): void {
-    if (this.errorDetectionDetail.ruleDesc.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.errorDetectionDetail.ruleDesc != null) {
+      if (this.errorDetectionDetail.ruleDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.addErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
