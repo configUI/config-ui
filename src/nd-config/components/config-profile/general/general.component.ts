@@ -55,7 +55,7 @@ export class GeneralComponent implements OnInit {
   loadKeywordData() {
     if (!this.configKeywordsService.keywordData){
       this.configKeywordsService.getProfileKeywords(this.profileId);
-      this.configKeywordsService.toggleKeywordData();
+      // this.configKeywordsService.toggleKeywordData();
     }
   }
 

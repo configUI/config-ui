@@ -25,7 +25,7 @@ export class DebugComponent {
   className: string = "DebugComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  keywordList = ['enableBciDebug', 
+  keywordList = ['enableBciDebug',
                   'enableBciError',
                   'InstrTraceLevel',
                   'ndMethodMonTraceLevel',
@@ -50,7 +50,7 @@ export class DebugComponent {
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
-
+    this.configKeywordsService.toggleKeywordData();
   }
 
   ngOnInit() {

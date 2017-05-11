@@ -101,7 +101,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 
-  /* After saving custom keywords,store is updated and constructor of this component 
+  /* After saving custom keywords,store is updated and constructor of this component
   * is called,where it created table data from the store which is now
   * updated .There by increasing length of tabledata by 1.i.e updating tabledata
   */
@@ -112,6 +112,14 @@ export class CustomKeywordsComponent implements OnInit {
     let data = [];
     var keywordDataVal = {}
 
+       //  Description field should not contain more than 500 characters
+    if (this.customKeywords.description != null) {
+      if (this.customKeywords.description.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
+    }
+
     //To check that keyword name already exists or not
     for (var i = 0; i < this.customKeywordsDataList.length; i++) {
       if (this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
@@ -120,13 +128,7 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
 
-    //  Description field should not contain more than 500 characters
-    if (this.customKeywords.description != null) {
-      if (this.customKeywords.description.length > 500) {
-        this.configUtilityService.errorMessage(descMsg);
-        return;
-      }
-    }
+
     for (let key in this.configKeywordsService.keywordData) {
       if (key == this.customKeywords.keywordName) {
         this.configKeywordsService.keywordData[key].value = this.customKeywords.value;

@@ -57,6 +57,8 @@ export class ConfigKeywordsService {
     this._restApi.getDataByGetReq(`${URL.GET_KEYWORDS_DATA}/${profileId}`)
       .subscribe(data => {
         this.keywordData = data;
+        // Calling toggleKeywordData for set enable/disabled keyword group data.
+        this.toggleKeywordData();
         this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
   }
@@ -80,7 +82,7 @@ export class ConfigKeywordsService {
     //First time doesn't have keyword data then we return default keyword group data.
     if(!data)
       return this.keywordGroup;
-      
+
     //moduleName -> general, advance, product_integration
     for (let moduleName in this.keywordGroup) {
 
@@ -237,7 +239,7 @@ export class ConfigKeywordsService {
 
   /**
   *  Business Transaction Service
-  * 
+  *
   */
 
   /* Fetch  Business Trans Global Info */
