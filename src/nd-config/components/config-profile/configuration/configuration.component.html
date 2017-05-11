@@ -92,21 +92,21 @@
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
                             </div>
-                            <div>
+                            <!--<div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('backend_monitors')" [(ngModel)]="keywordGroup.advance.backend_monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Backend Monitor</a></md-slide-toggle>
-                            </div>
+                            </div>-->
                             <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Monitors</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
                             </div>
                             <div *ngIf="adminMode" >
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Put Delay in Method</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Put Delay in Method</a></md-slide-toggle>
                             </div>
                             <div *ngIf="adminMode" >
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Generate Exception in Method</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
                             </div>
 
                             <div *ngIf="adminMode" >
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 5]" class="contents">Custom Keywords</a></md-slide-toggle>
+                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Custom Keywords</a></md-slide-toggle>
                             </div>
                             
                         </div>

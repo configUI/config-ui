@@ -8,9 +8,20 @@
         </div>
         <p-panel class="hideheader">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-                <div class="ui-g-12" style="padding-left: 50px">
-                    <div class="ui-g-4">
+                <div class="ui-g">
+                    <div class="ui-g-1"></div>Monitors</div>
+                <div class="ui-g-12">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3" style="margin-left: 10px">
                         <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="Monitor business transactions" binary="true" ngModel></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g">
+                    <div class="ui-g-1"></div> Backend Monitors</div>
+                <div class="ui-g-12">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3" style="margin-left: 10px">
+                        <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend monitor"></p-checkbox>
                     </div>
                 </div>
             </div>
