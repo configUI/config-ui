@@ -1,7 +1,7 @@
 <p-dataTable class="nde-ui" [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData">
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Method monitors list </span>
+        <span style="float: left"> Apply method monitors </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add a method monitor" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit a method monitor" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
@@ -29,7 +29,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

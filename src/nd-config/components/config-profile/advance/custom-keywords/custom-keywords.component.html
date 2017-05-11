@@ -1,34 +1,41 @@
-<p-dataTable [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
-    <p-header>
-        <span style="float: left">Custom Keywords list </span>
-        <span style="float :right; margin-top:-5px">
+<div id=top-div>
+    <p-dataTable class="nde-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
+        <p-header>
+            <span style="float: left">Custom Keywords list </span>
+            <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add Custom Keywords" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit Custom Keywords" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
             <!--<button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>-->
         </span>
-    </p-header>
-    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="keywordName" header="Name" [sortable]="true">
-        <template let-col let-customKeywordsData="rowData" pTemplate>
+        </p-header>
+        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+        <p-column class="tableCss" field="keywordName" header="Name" [sortable]="true">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
             <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
         </template>
-    </p-column>
-    <p-column class="tableCss" field="value" header="Value" [sortable]="true">
-        <template let-col let-customKeywordsData="rowData" pTemplate>
+        </p-column>
+        <p-column class="tableCss" field="value" header="Value" [sortable]="true">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
             <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
         </template>
-    </p-column>
-    <p-column class="tableCss" field="description" header="Description" [sortable]="true">
-        <template let-col let-customKeywordsData="rowData" pTemplate>
+        </p-column>
+        <p-column class="tableCss" field="description" header="Description" [sortable]="true">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
             <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
         </template>
-    </p-column>
+        </p-column>
 
-</p-dataTable>
+        <p-column class="tableCss" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
+            <md-slide-toggle  class="toggle-space" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
+        </template>
+        </p-column>
+    </p-dataTable>
+</div>
 
 <!--Dialog for method monitor-->
 
-<p-dialog header="{{isNew ? 'Add Custom keyword' : 'Edit Custom keyword'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom keyword' : 'Edit Custom keyword'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

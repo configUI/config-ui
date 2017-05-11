@@ -2,7 +2,7 @@
 
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Error detection list </span>
+        <span style="float: left">Apply error rules </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add an error detection" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an error detection" [disabled]="saveDisable" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
@@ -40,7 +40,7 @@
 
 <!--Dialog for Error  Detection-->
 
-<p-dialog header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
@@ -85,8 +85,7 @@
             <div class="ui-g-4">
                 <label>Enabled</label>
             </div>
-            <div class="ui-g-8">
-
+            <div class="ui-g-1">
                 <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
             </div>
         </div>
@@ -95,7 +94,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="ruleDesc" rows="2" cols="45" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" required ngModel></textarea>
+                <textarea name="ruleDesc" rows="2" cols="45" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" ngModel></textarea>
             </div>
         </div>
         <footer>

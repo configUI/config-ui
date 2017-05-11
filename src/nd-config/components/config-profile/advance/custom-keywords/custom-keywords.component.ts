@@ -61,6 +61,7 @@ export class CustomKeywordsComponent implements OnInit {
         this.customKeywords.keywordName = key;
         this.customKeywords.value = data[key]["value"];
         this.customKeywords.description = data[key]['desc'];
+        this.customKeywords.enable = data[key]['enable'];
         tableData.push(this.customKeywords);
       }
     }
@@ -94,6 +95,12 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
   }
 
+  //enabling /disabling keyword in ndsettings.txt
+  enableKeyword(keyword) {
+    this.configKeywordsService.keywordData[keyword.keywordName].enable = !keyword.enable;
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+  }
+
   /* After saving custom keywords,store is updated and constructor of this component 
   * is called,where it created table data from the store which is now
   * updated .There by increasing length of tabledata by 1.i.e updating tabledata
@@ -104,15 +111,28 @@ export class CustomKeywordsComponent implements OnInit {
     let keywordExistFlag = false;
     let data = [];
     var keywordDataVal = {}
-    if (this.customKeywords.description.length > 500){
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+
+    //To check that keyword name already exists or not
+    for (var i = 0; i < this.customKeywordsDataList.length; i++) {
+      if (this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
+        this.configUtilityService.errorMessage("Keyword name already exists");
+        return true;
+      }
+    }
+
+    //  Description field should not contain more than 500 characters
+    if (this.customKeywords.description != null) {
+      if (this.customKeywords.description.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     for (let key in this.configKeywordsService.keywordData) {
       if (key == this.customKeywords.keywordName) {
         this.configKeywordsService.keywordData[key].value = this.customKeywords.value;
         this.configKeywordsService.keywordData[key].desc = this.customKeywords.description;
         this.configKeywordsService.keywordData[key].type = "custom";
+        this.configKeywordsService.keywordData[key].enable = true;
         keywordExistFlag = true;
       }
     }

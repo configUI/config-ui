@@ -29,6 +29,8 @@ export class ConfigProfileListComponent implements OnInit {
 
   ROUTING_PATH = ROUTING_PATH;
 
+  userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
+
   ngOnInit() {
     this.loadProfileList();
   }
@@ -59,10 +61,12 @@ export class ConfigProfileListComponent implements OnInit {
 
   /**For Saving Dialog Data when Save Button Is clicked */
   saveNewProfile(): void {
-    console.log("data is------>", this.profileDetail);
-     if (this.profileDetail.profileDesc.length > 500){
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    this.profileDetail.userName = this.userName;
+    if (this.profileDetail.profileDesc != null) {
+      if (this.profileDetail.profileDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configProfileService.addProfileData(this.profileDetail)
       .subscribe(data => {

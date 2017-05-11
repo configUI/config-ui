@@ -256,7 +256,7 @@ li.ui-breadcrumb-chevron.fa.fa-chevron-right {
 
 .tabs-all .ui-tabview .ui-tabview-panel {
     border: 1px #2b5797 solid;
-    background: rgba(43, 87, 151, 0.15);
+    /*background: rgba(43, 87, 151, 0.15);*/
     /*#2b5797;*/
 }
 
@@ -346,22 +346,13 @@ hide it behind the dropdown component, the required
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
     margin: 0 !important;
     padding: 5px !important;
-    background: #3ca8da !important;
+    background: #183D65 !important;
     color: #fff;
     font-size: 11px;
-    font-weight: 600;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
     color: #fff;
-}
-
-.profile-dialog .ui-g {
-    margin: 10px !important;
-}
-
-.profile-dialog label {
-    font-weight: 600;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-buttonpane {

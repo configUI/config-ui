@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->
-<p-dialog header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -89,7 +89,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog header="Add custom settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="Add custom settings" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -97,7 +97,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" placeholder="Name" autofocus required ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-4">
                     <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="Custom value type"></p-dropdown>
@@ -109,13 +109,13 @@
                     <label>Left bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" placeholder="Left bound" autofocus required ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" placeholder="Right bound" autofocus required ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" autofocus required ngModel/>
                 </div>
             </div>
         </div>

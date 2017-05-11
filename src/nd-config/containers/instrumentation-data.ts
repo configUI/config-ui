@@ -226,6 +226,6 @@ export class CustomKeywordsComponentData{
     keywordName :string;
     value :string ;
     description: string;
-    enabled:boolean;
+    enable:boolean;
 
 }

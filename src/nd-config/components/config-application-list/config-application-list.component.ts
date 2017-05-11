@@ -152,9 +152,11 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to add application detail */
   saveApp(): void {
     this.applicationDetail.userName = this.userName;
-    if (this.applicationDetail.appDesc.length > 500){
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.applicationDetail.appDesc != null) {
+      if (this.applicationDetail.appDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configApplicationService.addApplicationData(this.applicationDetail)
       .subscribe(data => {
@@ -168,9 +170,11 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**This method is used to edit application detail */
   editApp(): void {
-     if (this.applicationDetail.appDesc.length > 500){
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.applicationDetail.appDesc != null) {
+      if (this.applicationDetail.appDesc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {

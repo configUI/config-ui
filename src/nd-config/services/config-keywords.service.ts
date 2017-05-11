@@ -46,6 +46,8 @@ export class ConfigKeywordsService {
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
+
+
   constructor(private _restApi: ConfigRestApiService, private store: Store<Object>) {
 
   }

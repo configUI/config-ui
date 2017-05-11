@@ -255,6 +255,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
+    
+        if (data.headerKeyValue = "null=null")
+          data.headerKeyValue = "-";
+        if (data.paramKeyValue = "null=null")
+          data.paramKeyValue = "-";
+
         this.selectedPatternData.push(data);
         this.configUtilityService.successMessage(Messages);
         this.businessTransPatternInfo[index] = data;
@@ -345,6 +351,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**For close add/edit application dialog box */
   closeDialog(): void {
+    this.selectedPatternData = [];
     this.addEditPatternDialog = false;
   }
 
