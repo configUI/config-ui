@@ -4,10 +4,10 @@
     </div>
 
     <div class="ui-g-12" style="background: #ededf0">
-        <div class="ui-g-2">
+        <div class="ui-g-3">
             <p-radioButton name="BusinessTransaction" value="global" label="URI without query parameters" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
         </div>
-        <div class="ui-g-10">
+        <div class="ui-g-9">
             <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
         </div>
     </div>
@@ -69,12 +69,7 @@
         </div>
 
         <div class="ui-g-12 padding-left-css">
-            <div class="ui-g-2">
-                <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="httpMethod" label="HTTP method" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
-            </div>
-            <div class="ui-g-10">
-                Use the request method (GET/POST/PUT) in transaction names.
-            </div>
+            <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="httpMethod" label="Use HTTP request method(GET/POST/PUT) in transaction names" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
         </div>
 
         <div class="ui-g-12 padding-left-css">
