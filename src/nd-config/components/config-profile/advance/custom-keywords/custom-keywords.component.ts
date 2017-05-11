@@ -121,9 +121,11 @@ export class CustomKeywordsComponent implements OnInit {
     }
 
     //  Description field should not contain more than 500 characters
-    if (this.customKeywords.description.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
+    if (this.customKeywords.description != null) {
+      if (this.customKeywords.description.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     for (let key in this.configKeywordsService.keywordData) {
       if (key == this.customKeywords.keywordName) {

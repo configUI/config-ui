@@ -56,6 +56,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
         })
 
         this.hotspot = keywordDataVal;
+        console.log(" this.hotspot  at first time--",this.hotspot)
         if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
           this.includedException = null;
         else
@@ -118,6 +119,4 @@ export class HotspotComponent implements OnInit, OnDestroy {
     if (this.subscription)
       this.subscription.unsubscribe();
   }
-
-
 }
