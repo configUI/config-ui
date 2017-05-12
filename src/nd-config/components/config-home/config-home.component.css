@@ -3,13 +3,15 @@
     margin: 4px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    height: 250px;
+    height: 225px;
     background: rgba(255, 255, 255, 0.65);
     box-shadow: 0 0 8px 2px #2d2d2d;
 }
+
 .custom-pad {
     /*padding: 0.2em 0.4em;*/
 }
+
 .md-card-subtitle-css {
     background: #183D65;
 }
@@ -25,7 +27,8 @@
     color: white;
     padding-top: 10px;
     margin-left: 5px;
-    float: left; font-weight: 600;
+    float: left;
+    font-weight: 600;
 }
 
 .header-button {
@@ -39,6 +42,7 @@
     padding: 0px 8px 8px 8px;
     font-size: 12px
 }
+
 
 /*.body-Width {
     width: 93.6%;
@@ -61,6 +65,7 @@
 .ui-datatable .ui-datatable-thead>tr>th {
     background: red;
 }
+
 .btn-danger {
     background-color: #EB3C00 !important;
     border-color: #EB3C00 !important;
