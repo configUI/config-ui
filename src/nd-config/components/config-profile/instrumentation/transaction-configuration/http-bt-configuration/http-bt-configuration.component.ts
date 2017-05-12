@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
 import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../../containers/instrumentation-data';
@@ -7,8 +9,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
-import { KeywordData } from '../../../../../containers/keyword-data';
-
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { Messages } from '../../../../../constants/config-constant';
 
 @Component({
@@ -72,10 +73,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
   chkInclude: boolean = false;
   saveDisable: boolean = false;
 
+  subscription: Subscription;
+
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
 
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     this.segmentList = [];
     let arrLabel = ['First', 'Last', 'Segment Number'];
@@ -87,7 +90,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.matchModeList = ConfigUiUtility.createDropdown(arrLabel);
 
     this.methodTypeList = [];
-    arrLabel = ['--Select--','GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'TRACE', 'CONNECT', 'OPTIONS'];
+    arrLabel = ['--Select--', 'GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'TRACE', 'CONNECT', 'OPTIONS'];
     this.methodTypeList = ConfigUiUtility.createDropdown(arrLabel);
 
     this.initialBusinessTransaction();
@@ -131,7 +134,20 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   getKeywordData() {
-    let keywordData = this.configKeywordsService.keywordData;
+    let keywordData;
+    //hasOwnProperty is undefined on refreshing page, checking for keywordData if it is undefined or not 
+    if (this.configKeywordsService.keywordData != undefined) {
+      keywordData = this.configKeywordsService.keywordData;
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        keywordData = keywordDataVal;
+      });
+    }
     this.BusinessTransGlobalPattern = {};
     this.keywordList.forEach((key) => {
       if (keywordData.hasOwnProperty(key)) {
@@ -255,7 +271,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
-    
+
         if (data.headerKeyValue = "null=null")
           data.headerKeyValue = "-";
         if (data.paramKeyValue = "null=null")

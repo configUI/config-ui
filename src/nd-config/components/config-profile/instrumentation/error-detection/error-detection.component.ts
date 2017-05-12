@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 import { ErrorDetection } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { deleteMany } from '../../../../utils/config-utility';
+import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { Keywords } from '../../../../interfaces/keywords';
 import { Messages, descMsg } from '../../../../constants/config-constant'
 
@@ -26,6 +29,7 @@ export class ErrorDetectionComponent implements OnInit {
   /**It stores data for add/edit error detection */
   errorDetectionDetail: ErrorDetection;
 
+  subscription: Subscription;
   /**For add/edit error-detection flag */
   isNewErrorDetection: boolean;
   /**For open/close add/edit error detection detail */
@@ -36,13 +40,23 @@ export class ErrorDetectionComponent implements OnInit {
   selectedValues: boolean;
   keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) { }
 
   ngOnInit() {
     this.loadErrorDetectionList();
     this.saveDisable = this.profileId == 1 ? true : false;
-
+    if(this.configKeywordsService.keywordData!=undefined){
     this.keywordValue = this.configKeywordsService.keywordData;
+  }
+  else{
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.keywordValue = keywordDataVal;
+      });
+  }
     this.errorDetection = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {

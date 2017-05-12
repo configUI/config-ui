@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MethodMonitorData } from '../../../../../containers/instrumentation-data';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { deleteMany } from '../../../../../utils/config-utility';
 
 import { Messages, descMsg } from '../../../../../constants/config-constant'
@@ -26,6 +29,8 @@ export class MethodMonitorsComponent implements OnInit {
   /**It stores selected method monitor data */
   selectedMethodMonitorData: MethodMonitorData[];
 
+  subscription: Subscription;
+  
   /**For add/edit method-monitor flag */
   isNewMethodMonitor: boolean = false;
   /**For open/close add/edit method-monitor detail */
@@ -37,12 +42,23 @@ export class MethodMonitorsComponent implements OnInit {
   selectedValues: boolean;
   keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService,  private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadMethodMonitorList();
 
+    if(this.configKeywordsService.keywordData!=undefined){
     this.keywordValue = this.configKeywordsService.keywordData;
+  }
+  else{
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.keywordValue = keywordDataVal;
+      });
+  }
     this.methodMonitor = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {
