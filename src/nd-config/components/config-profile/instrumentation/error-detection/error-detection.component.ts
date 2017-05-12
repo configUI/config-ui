@@ -214,7 +214,7 @@ export class ErrorDetectionComponent implements OnInit {
           .subscribe(data => {
             this.deleteErrorDetectionFromTable(arrAppIndex);
             this.selectedErrorDetection = [];
-            this.configUtilityService.infoMessage("Deleted Successfully !!!");
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
       reject: () => {

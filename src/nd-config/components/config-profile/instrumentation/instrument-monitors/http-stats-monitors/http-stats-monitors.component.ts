@@ -298,7 +298,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
           .subscribe(data => {
             this.deleteApplications(arrAppIndex);
           })
-        this.configUtilityService.infoMessage("Deleted Successfully !!!");
+        this.configUtilityService.infoMessage("Deleted Successfully");
       },
       reject: () => {
 

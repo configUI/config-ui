@@ -360,7 +360,7 @@ export class HttpRequestComponent implements OnInit {
           arrRulesIndex.push(selectedRules[index].valName);
         }
         this.deleteRulesFromTable(arrRulesIndex);
-        this.configUtilityService.infoMessage("Delete Successfully");
+        this.configUtilityService.infoMessage("Deleted Successfully");
         this.selectedHTTPReqHeader = [];
       }
     });
