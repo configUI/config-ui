@@ -16,6 +16,7 @@ import { cloneObject } from '../../../../utils/config-utility';
   styleUrls: ['./debug.component.css']
 })
 export class DebugComponent {
+  
   @Output()
   keywordData = new EventEmitter();
 
