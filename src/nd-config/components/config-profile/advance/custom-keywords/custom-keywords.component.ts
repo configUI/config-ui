@@ -41,6 +41,9 @@ export class CustomKeywordsComponent implements OnInit {
   /**For open/close add/edit  */
   addEditDialog: boolean = false;
 
+//list holding keywordsNameList
+  customKeywordsList = [];
+
 
   subscription: Subscription;
 
@@ -52,8 +55,11 @@ export class CustomKeywordsComponent implements OnInit {
   }
 
   //constructing tableData for table [all custom keywords list]
+
   createDataForTable(data) {
     let tableData = [];
+    this.customKeywordsList = [];
+    this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
       if (data[key]['type'] == 'custom') {
         this.customKeywords = new CustomKeywordsComponentData();
@@ -63,6 +69,10 @@ export class CustomKeywordsComponent implements OnInit {
         this.customKeywords.description = data[key]['desc'];
         this.customKeywords.enable = data[key]['enable'];
         tableData.push(this.customKeywords);
+        this.customKeywordsList.push({ 'value': key, 'label': key});
+      }
+      else if(data[key]['type'] == 'pre-custom'){
+          this.customKeywordsList.push({ 'value': key, 'label': key});
       }
     }
     this.customKeywordsDataList = tableData
@@ -114,7 +124,8 @@ export class CustomKeywordsComponent implements OnInit {
 
     //To check that keyword name already exists or not
     for (var i = 0; i < this.customKeywordsDataList.length; i++) {
-      if (this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
+      //checking (isNew) for handling the case of edit functionality
+      if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
         this.configUtilityService.errorMessage("Keyword name already exists");
         return true;
       }
@@ -127,13 +138,14 @@ export class CustomKeywordsComponent implements OnInit {
         return;
       }
     }
+
     for (let key in this.configKeywordsService.keywordData) {
-      if (key == this.customKeywords.keywordName) {
-        this.configKeywordsService.keywordData[key].value = this.customKeywords.value;
-        this.configKeywordsService.keywordData[key].desc = this.customKeywords.description;
-        this.configKeywordsService.keywordData[key].type = "custom";
-        this.configKeywordsService.keywordData[key].enable = true;
-        keywordExistFlag = true;
+      if( key == this.customKeywords.keywordName){
+          this.configKeywordsService.keywordData[key].value = this.customKeywords.value;
+          this.configKeywordsService.keywordData[key].desc = this.customKeywords.description;
+          this.configKeywordsService.keywordData[key].type = "custom";
+          this.configKeywordsService.keywordData[key].enable = true;
+          keywordExistFlag = true;
       }
     }
     if (!keywordExistFlag) {

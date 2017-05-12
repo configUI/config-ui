@@ -94,8 +94,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (37,'ASMethodHotspots','0','1','1','-1','normal'),
 (38,'enableExceptionInSeqBlob','0','1','2','0','normal'),
 (39,'captureErrorLogs','0','2','2','0','normal'),
-(40,'customKeyword','0','2','2','0','normal'), //row added only for testing purpose
-(41,'customKeyword2','0','2','2','0','normal');
+(40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'), 
+(41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
