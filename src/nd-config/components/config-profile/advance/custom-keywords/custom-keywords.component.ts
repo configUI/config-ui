@@ -59,7 +59,7 @@ export class CustomKeywordsComponent implements OnInit {
   createDataForTable(data) {
     let tableData = [];
     this.customKeywordsList = [];
-    this.customKeywordsList.push({ value: -1, label: '--Select --' });
+    // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
       if (data[key]['type'] == 'custom') {
         this.customKeywords = new CustomKeywordsComponentData();
