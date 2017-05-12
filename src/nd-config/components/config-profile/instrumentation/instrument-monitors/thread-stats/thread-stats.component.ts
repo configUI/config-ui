@@ -1,5 +1,8 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { cloneObject } from '../../../../../utils/config-utility';
 
@@ -20,6 +23,7 @@ export class ThreadStatsComponent implements OnInit {
 
   jvmThreadStats: JVMThreadStats;
 
+ subscription: Subscription;
   /**These are those keyword which are used in current screen. */;
   keywordList: string[] = ['enableJVMThreadMonitor'];
 
@@ -27,7 +31,7 @@ export class ThreadStatsComponent implements OnInit {
   threadStats: Object;
   enableGroupKeyword: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
   }
 
   ngOnInit() {
@@ -61,7 +65,20 @@ export class ThreadStatsComponent implements OnInit {
   }
 
   getKeywordData() {
-    let keywordData = this.configKeywordsService.keywordData;
+     let keywordData;
+    //hasOwnProperty is undefined on refreshing page, checking for keywordData if it is undefined or not 
+    if (this.configKeywordsService.keywordData != undefined) {
+      keywordData = this.configKeywordsService.keywordData;
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        keywordData = keywordDataVal;
+      });
+    }
     this.threadStats = {}
     this.keywordList.forEach((key) => {
       if (keywordData.hasOwnProperty(key)) {

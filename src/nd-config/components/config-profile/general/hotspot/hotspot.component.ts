@@ -62,7 +62,9 @@ export class HotspotComponent implements OnInit, OnDestroy {
         else
           this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
         // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
-        this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
+        if(this.hotspot["ASNegativeThreadFilter"].value != null)
+           this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
+           
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
