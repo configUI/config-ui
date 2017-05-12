@@ -47,7 +47,7 @@
 
             <div class="ui-g-9">
                 <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
-                <p-dropdown [options]="customKeywordsList" [style]="{'width':'180px'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" placeholder="--Select--"></p-dropdown>
+                <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'180px'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" placeholder="--Select--"></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
