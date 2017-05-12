@@ -34,7 +34,8 @@
             </div>
             <div class="ui-g-2" style="margin-top:4px">
                 Segment(s) of URI in transaction</div>
-            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" required/>
+            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;Rule-2: Numeric characters separated by comma(,) are accepted.  &#013;For example 2 or 2,4"
+                    required pattern="[0-9]+(,[0-9]+)*" ngModel />
             </div>
         </div>
 
