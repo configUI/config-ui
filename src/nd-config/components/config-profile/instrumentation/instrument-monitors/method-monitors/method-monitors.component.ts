@@ -217,7 +217,7 @@ export class MethodMonitorsComponent implements OnInit {
           .subscribe(data => {
             this.deleteMethodMonitorFromTable(arrAppIndex);
             this.selectedMethodMonitorData = [];
-            this.configUtilityService.infoMessage("Deleted Successfully !!!");
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
       reject: () => {

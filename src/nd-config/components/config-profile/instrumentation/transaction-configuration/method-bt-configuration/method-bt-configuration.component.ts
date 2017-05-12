@@ -195,7 +195,7 @@ export class MethodBTConfigurationComponent implements OnInit {
           .subscribe(data => {
             this.deleteMethodsBusinessTransactions(arrAppIndex);
             this.selectedbusinessTransMethod = [];
-            this.configUtilityService.infoMessage("Deleted Successfully !!!");
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
       reject: () => {
