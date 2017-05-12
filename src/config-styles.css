@@ -128,13 +128,13 @@ body {
     min-width: 6%;
     overflow: initial;
     top: 30px;
-    min-height: 580px;
+    min-height: 620px;
 }
 
 .ndegui-sidenav .mat-sidenav {
     top: 30px;
     background-color: black !important;
-    height: 580px;
+    height: 620px;
 }
 
 button[md-icon-button] {
