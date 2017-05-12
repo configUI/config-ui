@@ -399,6 +399,7 @@ input[type="number"] {
 }
 
 .ui-widget-content {
+    width: 100%;
     overflow: visible !important;
 }
 
