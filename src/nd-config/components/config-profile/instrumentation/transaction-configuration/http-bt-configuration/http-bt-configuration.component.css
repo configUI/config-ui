@@ -29,6 +29,10 @@
     margin-top: -6px;
 }
 
+.label {
+    margin-top: 5px;
+}
+
 .padding-left-css {
     padding-left: 1.5em;
 }
@@ -40,4 +44,9 @@
 .segment-type-css {
     width: 12%;
     margin-top: 3px;
+}
+
+.pattern-dialog-border {
+    border: 1px solid #c0c0c0;
+    margin-bottom: 3px;
 }

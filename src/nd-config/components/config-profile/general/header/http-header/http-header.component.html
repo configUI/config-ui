@@ -18,14 +18,14 @@
         </div>
     </div>
     <div class="ui-g-12" style="margin-left:13px">
-        <div class="ui-g-2">
-            <p-checkbox name="httpCaptureMode" label="Capture mode(brief)" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
+        <div class="ui-g-2" style="width: 14.38%">
+            <p-checkbox name="httpCaptureMode" label="limit header values to" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <label style="margin-right: 5px">Enter range of characters</label>
-            <input name="btName" style="text-align:right" type="text" size="10" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal"
+            <input name="btName" style="text-align:right" type="text" size="5" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal"
                 autofocus required ngModel/>
+                <label style="margin-right: 5px"> characters</label>
         </div>
     </div>
 </div>
@@ -50,15 +50,15 @@
         </div>
     </div>
     <div class="ui-g-12" style="margin-left:13px">
-        <div class="ui-g-2">
+        <div class="ui-g-2" style="width: 14.38%">
 
-            <p-checkbox name="httpCaptureMode" label="Capture mode(brief)" [(ngModel)]="data[1].captureModeResp" binary="true"></p-checkbox>
+            <p-checkbox name="httpCaptureMode" label="limit header values to" [(ngModel)]="data[1].captureModeResp" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <label style="margin-right: 5px">Enter range of characters</label>
-            <input name="btName" type="text" style="text-align:right" size="10" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp"
+            <input name="btName" type="text" style="text-align:right" size="5" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp"
                 autofocus required ngModel/>
+                <label style="margin-right: 5px"> characters</label>
         </div>
     </div>
 </div>

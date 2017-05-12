@@ -2,7 +2,7 @@
 
     <p-header>
         <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Error detection list </span>
+        <span style="float: left">Apply error rules </span>
         <span style="float :right; margin-top:-5px">
             <button pButton type="button" title="Add an error detection" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an error detection" [disabled]="saveDisable" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
@@ -27,7 +27,8 @@
     </p-column>
     <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-            <md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>
+            <!--<md-slide-toggle class="toggle-space" onLabel="ON" offLabel="OFF" [(ngModel)]="errorDetection[col.field]"></md-slide-toggle>-->
+            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
         </template>
     </p-column>
     <p-column class="tableCss" field="ruleDesc" header="Description" [sortable]="true" [style]="{'width':'30%'}">
@@ -84,8 +85,7 @@
             <div class="ui-g-4">
                 <label>Enabled</label>
             </div>
-            <div class="ui-g-8">
-
+            <div class="ui-g-1">
                 <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
             </div>
         </div>

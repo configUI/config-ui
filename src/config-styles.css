@@ -128,13 +128,13 @@ body {
     min-width: 6%;
     overflow: initial;
     top: 30px;
-    min-height: 580px;
+    min-height: 620px;
 }
 
 .ndegui-sidenav .mat-sidenav {
     top: 30px;
     background-color: black !important;
-    height: 580px;
+    height: 620px;
 }
 
 button[md-icon-button] {
@@ -349,20 +349,10 @@ hide it behind the dropdown component, the required
     background: #183D65 !important;
     color: #fff;
     font-size: 11px;
-    font-weight: 600;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
     color: #fff;
-}
-
-
-/*.profile-dialog .ui-g {
-    margin: 10px !important;
-}*/
-
-.profile-dialog label {
-    font-weight: 600;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-buttonpane {
@@ -418,4 +408,8 @@ input[type="number"] {
 
 .iconCss .icon {
     float: initial !important;
+}
+
+.col-overflow {
+    text-overflow: ellipsis
 }

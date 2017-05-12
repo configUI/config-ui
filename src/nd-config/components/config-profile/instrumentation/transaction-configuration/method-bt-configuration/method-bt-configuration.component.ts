@@ -49,7 +49,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   isNewMethod: boolean = false;
 
   saveDisable: boolean = false;
-
+  indexList: SelectItem[];
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
@@ -61,6 +61,27 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.methodRulesInfo = [];
   }
+  DATA_TYPE = {
+    BOOLEAN: 'Z',
+    SHORT: 'S',
+    INTEGER: 'I',
+    STRING: 'Ljava/lang/String;',
+    BYTE: 'B',
+    FLOAT: 'F',
+    DOUBLE: 'D',
+    LONG: 'J'
+  };
+
+  DATA_TYPE_ARR = [
+    this.DATA_TYPE.BOOLEAN,
+    this.DATA_TYPE.SHORT,
+    this.DATA_TYPE.INTEGER,
+    this.DATA_TYPE.STRING,
+    this.DATA_TYPE.BYTE,
+    this.DATA_TYPE.FLOAT,
+    this.DATA_TYPE.DOUBLE,
+    this.DATA_TYPE.LONG
+  ];
 
   changeOpertionType() {
     if (this.businessTransMethodDetail.returnType == "Numeric") {
@@ -174,7 +195,7 @@ export class MethodBTConfigurationComponent implements OnInit {
           .subscribe(data => {
             this.deleteMethodsBusinessTransactions(arrAppIndex);
             this.selectedbusinessTransMethod = [];
-            this.configUtilityService.infoMessage("Deleted Successfully !!!");
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
       reject: () => {
@@ -267,6 +288,63 @@ export class MethodBTConfigurationComponent implements OnInit {
         return true;
       }
     }
+  }
+
+  //for creating list for index i.e arguments number list
+  validateArgAndGetArgumentsNumberList() {
+
+    if (this.businessTransMethodDetail.enableArgumentType == true && this.businessTransMethodDetail.fqm != null) {
+      let argStart = this.businessTransMethodDetail.fqm.indexOf("(");
+      let argEnd = this.businessTransMethodDetail.fqm.indexOf(")");
+      let args = this.businessTransMethodDetail.fqm.substring(argStart + 1, argEnd);
+
+      //flag used for creating string "Ljava/lang/String;"
+      let flag = false;
+      let length = 0;
+      let string = '';
+      for (let i = 0; i < args.length; i++) {
+        if (args[i] == "L") {
+          flag = true;
+          string = string + args[i];
+          continue;
+        }
+        else if (flag) {
+          if (args[i] == ";") {
+            string = string + args[i];
+
+            //here string = "Ljava/lang/String;"
+
+            if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
+              this.configUtilityService.errorMessage("Invalid Argument Data Type")
+              flag = false;
+              return;
+            }
+            else {
+              length++;
+            }
+          }
+          else
+            string = string + args[i];
+
+        }
+        else {
+          if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
+            this.configUtilityService.errorMessage("Invalid Argument Data Type")
+            return;
+          }
+          else {
+            length++;
+          }
+        }
+      }
+      this.indexList = [];
+      this.indexList.push({ value: -1, label: '--Select Index--' });
+      for (let i = 1; i <= length; i++) {
+        this.indexList.push({ 'value': i, 'label': i + '' });
+      }
+    }
+    // this.addArgumentRulesDialog = true;
+    // this.businessTransMethodDetail = new BusinessTransMethodData();
   }
 
   saveMethod() {

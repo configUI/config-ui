@@ -25,11 +25,12 @@ export class MonitorsComponent implements OnInit {
   className: string = "MonitorsComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  keywordList = ['enableBTMonitor'];
+  keywordList = ['enableBTMonitor','enableBackendMonitor'];
 
   /**It stores keyword data for showing in GUI */
   monitor: Object;
   enableBTMonitorChk: boolean;
+  enableBackendMonitorChk: boolean;
   subscription: Subscription;
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
@@ -41,9 +42,11 @@ export class MonitorsComponent implements OnInit {
         keywordDataVal[key] = data[key];
       })
       this.monitor = keywordDataVal;
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
-      console.log(this.className, "constructor", "this.debug", this.monitor);
+      console.log(this.className, "constructor", "this.monitors", this.monitor);
       this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+      this.configKeywordsService.toggleKeywordData();
     });
   }
   saveKeywordData() {
@@ -53,12 +56,20 @@ export class MonitorsComponent implements OnInit {
     else {
       this.monitor["enableBTMonitor"].value = 0;
     }
+    if (this.enableBackendMonitorChk) {
+      this.monitor["enableBackendMonitor"].value = 1;
+    }
+    else {
+      this.monitor["enableBackendMonitor"].value = 0;
+    }
     this.keywordData.emit(this.monitor);
   }
 
   resetKeywordData() {
     this.monitor = cloneObject(this.configKeywordsService.keywordData);
+    this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
     this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+    //  this.backend = cloneObject(this.configKeywordsService.keywordData);
 
   }
 

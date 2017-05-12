@@ -44,8 +44,8 @@ export class BackendMonitorsComponent implements OnInit {
       this.enableBackendMonitorChk = this.backend["enableBackendMonitor"].value == 0 ? false : true;
       console.log(this.className, "constructor", "this.backend", this.backend);
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.backend_monitors.enable);
-
+    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.backend_monitors.enable);
+    this.configKeywordsService.toggleKeywordData();
   }
   saveKeywordData() {
     if (this.enableBackendMonitorChk) {

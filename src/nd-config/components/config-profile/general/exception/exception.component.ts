@@ -26,12 +26,13 @@ export class ExceptionComponent implements OnInit {
   // selectedValue: string = 'unhandled';
 
   exception: Object;
-  enableGroupKeyword: boolean
+  enableGroupKeyword: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
     this.getKeywordData();
     this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == 0 ? false : true;
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
+    this.configKeywordsService.toggleKeywordData();
   }
 
   exceptionData: ExceptionData;
@@ -39,7 +40,7 @@ export class ExceptionComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
-    
+
   }
 
 
