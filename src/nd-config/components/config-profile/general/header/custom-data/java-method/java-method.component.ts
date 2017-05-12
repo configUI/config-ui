@@ -644,7 +644,7 @@ export class JavaMethodComponent implements OnInit {
           .subscribe(data => {
             this.deleteJavaMethodData(arrIndex);
           })
-        this.configUtilityService.infoMessage("Delete Successfully");
+        this.configUtilityService.infoMessage("Deleted Successfully");
       },
       reject: () => {
 
