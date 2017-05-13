@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransMethodInfo } from '../../../../../interfaces/business-trans-method-info';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
-import { BusinessTransMethodData, RulesData } from '../../../../../containers/instrumentation-data'
+import { BusinessTransMethodData, RulesData, ArgumentRulesData } from '../../../../../containers/instrumentation-data'
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
-
+import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../containers/method-based-custom-data';
 import { Messages } from '../../../../../constants/config-constant'
 
 @Component({
@@ -26,19 +26,34 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /* Assign data to Rules Business Transaction Data table */
   methodRulesInfo: RulesData[];
+  methodArgRulesInfo: ArgumentRulesData[];
   btMethodRulesDetail: RulesData;
-  selectedMethodRules: any;
 
+  selectedMethodRules: any;
+  selectedArgRules: any;
+
+  /* For holding form fields*/
+  returnTypeRules: ReturnTypeData;
+  argumentTypeRules: ArgumentTypeData;
+
+  selectedReturnRules: ReturnTypeData[];
+
+  selectedArgumentRules:ArgumentTypeData[];
 
   /* open dialog box */
   addBusinessTransMethodDialog: boolean = false;
   addRulesDialog: boolean = false;
+  addArgRulesDialog: boolean = false;
 
   /* Assign value to return type drop down */
   returnTypeList: SelectItem[];
 
   /*selected item from Return type list*/
   selectedReturnType: string;
+
+  /* to hold data to display in table of return type and argument type in table */
+  returnTypeData: ReturnTypeData[];
+  argumentTypeData: ArgumentTypeData[];
 
   /* Assign value to Return type drop down */
   operationList: SelectItem[];
@@ -47,6 +62,10 @@ export class MethodBTConfigurationComponent implements OnInit {
   selectedOperation: string;
 
   isNewMethod: boolean = false;
+
+  /*For cheking FQM */
+  first: boolean;
+  second: boolean;
 
   saveDisable: boolean = false;
   indexList: SelectItem[];
@@ -60,7 +79,22 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.returnTypeList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
 
     this.methodRulesInfo = [];
+    this.methodArgRulesInfo = [];
   }
+
+  arrStringLabel: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
+  arrStringValue: any[] = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
+
+
+  arrNumericLabel: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Eq', 'Ne', 'Exception'];
+  arrNumericValue: any[] = ['EQUAL', 'NOT EQUAL', 'LESS THAN', 'GREATER THAN', 'LESS THAN EQUAL TO', 'GREATER THAN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
+
+  arrCharLabel: any[] = ['Exception', 'Eq', 'Ne'];
+  arrCharValue: any[] = ['EXCEPTION', 'EQ', 'NE'];
+
+  arrBooleanLabel: any[] = ['True', 'False', 'Exception'];
+  arrBooleanValue: any[] = ['TRUE', 'FALSE', 'EXCEPTION'];
+
   DATA_TYPE = {
     BOOLEAN: 'Z',
     SHORT: 'S',
@@ -83,33 +117,45 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.DATA_TYPE.LONG
   ];
 
-  changeOpertionType() {
-    if (this.businessTransMethodDetail.returnType == "Numeric") {
-      this.operationList = [];
-      let arrLabel = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Eq', 'Ne', 'Exception'];
-      let arrValue = ['EQUAL', 'NOT EQUAL', 'LESS THAN', 'GREATER THAN', 'LESS THAN EQUAL TO', 'GREATER THAN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
-    }
-    else if (this.businessTransMethodDetail.returnType == "String") {
-      this.operationList = [];
-      let arrLabel = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
-      let arrValue = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
-    }
-    else if (this.businessTransMethodDetail.returnType == "Boolean") {
-      this.operationList = [];
-      let arrLabel = ['True', 'False', 'Exception'];
-      let arrValue = ['TRUE', 'FALSE', 'EXCEPTION'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
-    }
-    else if (this.businessTransMethodDetail.returnType == "Char or Byte") {
-      this.operationList = [];
-      let arrLabel = ['Exception', 'Eq', 'Ne'];
-      let arrValue = ['EXCEPTION', 'EQ', 'NE'];
-      this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
-    }
+  changeOpertionType(type) {
+    //     console.log("rrrrrrrr",type);
+    //     if (type == "Numeric") {
+    //       this.operationList = [];
+    //       let arrLabel = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Eq', 'Ne', 'Exception'];
+    //       let arrValue = ['EQUAL', 'NOT EQUAL', 'LESS THAN', 'GREATER THAN', 'LESS THAN EQUAL TO', 'GREATER THAN EQUAL TO', 'EQ', 'NE', 'EXCEPTION'];
+    //       this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
+    //     }
+    //     else if (type == "String") {
+    //       this.operationList = [];
+    //       let arrLabel = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
+    //       let arrValue = ['EQUALS', 'NOT EQUALS', 'CONTAINS', 'STARTS WITH', 'ENDS WITH', 'EXCEPTION'];
+    //       this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
+    //     }
+    //     else if (type == "boolean") {
+    //       this.operationList = [];
+    //       let arrLabel = ['True', 'False', 'Exception'];
+    //       let arrValue = ['TRUE', 'FALSE', 'EXCEPTION'];
+    //       this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
+    //     }
+    //     else if (type == "Char or Byte") {
+    //       this.operationList = [];
+    //       let arrLabel = ['Exception', 'Eq', 'Ne'];
+    //       let arrValue = ['EXCEPTION', 'EQ', 'NE'];
+    //       this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
+    //     }
+    // console.log("this.operationList----",this.operationList)
 
+    if (type == "object/string")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
 
+    else if (type == "int" || type == "short" || type == "float" || type == "long" || type == "double")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabel, this.arrNumericValue)
+
+    else if (type == "byte" || type == "char")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabel, this.arrCharValue)
+
+    else if (type == "boolean")
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabel, this.arrBooleanValue)
   }
 
   ngOnInit() {
@@ -137,10 +183,21 @@ export class MethodBTConfigurationComponent implements OnInit {
   /** This method is used to open a dialog for add Rules
    * Call a method for fill Operation drop down according Return Type
   */
-  openAddRulesDialog() {
+  openAddReturnRulesDialog() {
 
     this.addRulesDialog = true;
-    this.changeOpertionType();
+    this.returnTypeRules = new ReturnTypeData()
+    /*calling this function
+    * to know data type of return value of provided fqm
+    * and creating opertaion list a/c to return type
+    */
+    let type = this.getTypeReturnType(this.businessTransMethodDetail.fqm)
+    this.changeOpertionType(type)
+    // this.changeOpertionType();
+  }
+
+  openAddArgumentRulesDialog() {
+    this.validateArgAndGetArgumentsNumberList();
   }
 
   /** Edit BT Method */
@@ -213,10 +270,31 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.deleteRulesFromTable(arrRulesIndex);
   }
 
+  //deletimg Argument rules
+  deleteArgumentsRules():void{
+      let selectedRules = this.selectedArgRules;
+      let arrArgIndex = [];
+      for (let index in selectedRules) {
+          arrArgIndex.push(selectedRules[index].id);
+      }
+    this.deleteArgRulesFromTable(arrArgIndex);     
+    
+  }
+
   /**This method returns selected application row on the basis of selected row */
   getRulesIndex(appId: any): number {
     for (let i = 0; i < this.methodRulesInfo.length; i++) {
       if (this.methodRulesInfo[i] == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**This method returns selected argument row on the basis of selected row */
+  getArgRulesIndex(appId: any): number {
+    for (let i = 0; i < this.methodArgRulesInfo.length; i++) {
+      if (this.methodArgRulesInfo[i] == appId) {
         return i;
       }
     }
@@ -244,6 +322,17 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.methodRulesInfo = deleteMany(this.methodRulesInfo, rowIndex);
   }
 
+/**This method is used to delete  Argument Rules from Data Table */
+  deleteArgRulesFromTable(arrRulesIndex: any[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    for (let index in arrRulesIndex) {
+      rowIndex.push(this.getArgRulesIndex(arrRulesIndex[index]));
+    }
+    this.methodArgRulesInfo = deleteMany(this.methodArgRulesInfo, rowIndex);
+  }
+
   /**This method is used to delete Rules from Data Table */
   deleteMethodsBusinessTransactions(arrIndex) {
     let rowIndex: number[] = [];
@@ -254,32 +343,116 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.businessTransMethodInfo = deleteMany(this.businessTransMethodInfo, rowIndex);
   }
 
+  //For checking FQM 
+
+
   saveRules() {
+     console.log("this.btMethodRulesDetail--re",this.btMethodRulesDetail);
+    
     this.methodRulesInfo.push(this.btMethodRulesDetail);
     // this.configUtilityService.successMessage(Messages);
     this.addRulesDialog = false;
   }
 
-  /**This method is common method for save or edit BT Method */
-  saveADDEditMethodTrans(): void {
-    //When add new application
-    if (this.isNewMethod) {
-      //Check for app name already exist or not
-      if (!this.checkMethodNameAlreadyExist()) {
-        this.saveMethod();
-        return;
+   saveArgRules() {
+     console.log("this.btMethodRulesDetail--arg",this.btMethodRulesDetail);
+    this.methodArgRulesInfo.push(this.btMethodRulesDetail);
+    // this.configUtilityService.successMessage(Messages);
+    this.addArgRulesDialog = false;
+  }
+
+  getTypeReturnType(fqm) {
+    //for getting return Type
+    let returnType = "NA";
+    if (fqm != null) {
+      let li = fqm.indexOf(')');
+      let i = li + 1;
+
+      let pi = 1;
+      let charArr = fqm.split('');
+      //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
+      switch (charArr[i]) {
+        case 'Z':
+          returnType = "boolean";
+          break;
+        case 'B':
+          returnType = "byte";
+          break;
+        case 'C':
+          returnType = "char";
+          break;
+        case 'S':
+          returnType = "short";
+          break;
+        case 'I':
+          returnType = "int";
+          break;
+        case 'J':
+          returnType = "long";
+          break;
+        case 'F':
+          returnType = "float";
+          break;
+        case 'D':
+          returnType = "double";
+          break;
+        case 'L':
+        case '[':
+          while (charArr[i++] != ';')
+            ;
+          returnType = "object/string";
+          break;
+        default:
+          returnType = "void";
+          break;
       }
-    }
-    //When add edit Method
-    else {
-      if (this.businessTransMethodInfo[0].fqm != this.businessTransMethodDetail.fqm) {
-        if (this.checkMethodNameAlreadyExist())
-          return;
-      }
-      this.editMethod();
+
+      return returnType;
+      //let list = opData.opValList(returnType);
     }
   }
 
+  /**This method is common method for save or edit BT Method */
+  saveADDEditMethodTrans(fqmField): void {
+    //openAddReturnRulesDialog()
+    if (this.first) {
+      this.first = false;
+      let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
+      if (returnType == 'void') {
+        this.configUtilityService.errorMessage("FQM doesn't have any return type.");
+        //  fqmField.setCustomValidity("FQM doesn't have any return type.");
+      }
+      else if (returnType == 'null') {
+        this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
+      }
+      else {
+        this.openAddReturnRulesDialog();
+      }
+    }
+    else if (this.second) {
+      this.second = false;
+      this.openAddArgumentRulesDialog();
+    }
+    else {
+      //When add new application
+      if (this.isNewMethod) {
+        //Check for app name already exist or not
+        if (!this.checkMethodNameAlreadyExist()) {
+          this.saveMethod();
+          return;
+        }
+      }
+
+      //When add edit Method
+      else {
+        if (this.businessTransMethodInfo[0].fqm != this.businessTransMethodDetail.fqm) {
+          if (this.checkMethodNameAlreadyExist())
+            return;
+        }
+        this.editMethod();
+      }
+    }
+  }
   /**This method is used to validate the name of Method is already exists. */
   checkMethodNameAlreadyExist(): boolean {
     for (let i = 0; i < this.businessTransMethodInfo.length; i++) {
@@ -290,14 +463,83 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
   }
 
+  operationListArgumentType() {
+    let type = this.getTypeArgumentType(this.businessTransMethodDetail.fqm, this.argumentTypeRules.indexVal)
+    this.changeOpertionType(type)
+  }
+
+  getTypeArgumentType(fqm, index) {
+
+    //    let fqm = this.props.fqm;
+    if (fqm != null) {
+      if (index != -1) {
+        let li = fqm.indexOf(')');
+        let bi = fqm.indexOf('(');
+        let i = bi + 1;
+
+        let pi = 1;
+        let charArr = fqm.split('');
+
+        while (i < li) {
+          //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
+          switch (charArr[i]) {
+            case 'Z':
+              if (pi == index)
+                return "boolean";
+              break;
+            case 'B':
+              if (pi == index)
+                return "byte";
+              break;
+            case 'C':
+              if (pi == index)
+                return "char";
+              break;
+            case 'S':
+              if (pi == index)
+                return "short";
+              break;
+            case 'I':
+              if (pi == index)
+                return "int";
+              break;
+            case 'J':
+              if (pi == index)
+                return "long";
+              break;
+            case 'F':
+              if (pi == index)
+                return "float";
+              break;
+            case 'D':
+              if (pi == index)
+                return "double";
+              break;
+            case 'L':
+            case '[':
+              while (charArr[i++] != ';' && i < charArr[i].length)
+                ;
+              if (pi == index)
+                return "object/string";
+            default:
+              if (pi == index)
+                return "void";
+              break;
+          }
+          ++pi; i++;
+        }
+        //throw new InvalidOperationTypeException("Method argument index is not correct");
+        return "NA";
+      }
+    }
+  }
+
   //for creating list for index i.e arguments number list
   validateArgAndGetArgumentsNumberList() {
-
-    if (this.businessTransMethodDetail.enableArgumentType == true && this.businessTransMethodDetail.fqm != null) {
+    if (this.businessTransMethodDetail.fqm != null) {
       let argStart = this.businessTransMethodDetail.fqm.indexOf("(");
       let argEnd = this.businessTransMethodDetail.fqm.indexOf(")");
       let args = this.businessTransMethodDetail.fqm.substring(argStart + 1, argEnd);
-
       //flag used for creating string "Ljava/lang/String;"
       let flag = false;
       let length = 0;
@@ -338,11 +580,13 @@ export class MethodBTConfigurationComponent implements OnInit {
         }
       }
       this.indexList = [];
-      this.indexList.push({ value: -1, label: '--Select Index--' });
+      // this.indexList.push({ value: -1, label: '--Select Index--' });
       for (let i = 1; i <= length; i++) {
         this.indexList.push({ 'value': i, 'label': i + '' });
       }
     }
+    this.addArgRulesDialog = true;
+    this.argumentTypeRules = new ArgumentTypeData();
     // this.addArgumentRulesDialog = true;
     // this.businessTransMethodDetail = new BusinessTransMethodData();
   }
@@ -414,6 +658,11 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   closeReturnDialog(): void {
     this.addRulesDialog = false;
+    this.addBusinessTransMethodDialog = true;
+  }
+
+  closeArgDialog(): void {
+    this.addArgRulesDialog = false;
     this.addBusinessTransMethodDialog = true;
   }
 }

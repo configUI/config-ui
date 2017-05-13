@@ -139,6 +139,18 @@ export class RulesData {
 
 }
 
+export class ArgumentRulesData {
+    btMethodRuleId?: number;
+    opCode?: number;
+    parentBTMethodId?: number;
+    opCodeDropDown?: { dropDownVal: number };
+    previousBtMethodRulesIds?: any;
+    value: string;
+    btName: string;
+    operationName: string;
+
+}
+
 
 export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
 {
