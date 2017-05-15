@@ -6,7 +6,7 @@ BEGIN;
 
 INSERT INTO config.profile(profile_id,profile_name,profile_desc) 
 VALUES
-(1,'default','Default profile');
+(1,'default','Default profile','-','');
 
 INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail) VALUES
 (1,'HttpServletService','description'),
