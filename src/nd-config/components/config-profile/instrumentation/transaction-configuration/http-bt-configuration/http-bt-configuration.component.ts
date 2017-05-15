@@ -114,7 +114,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     // this.globalBtDetail.segmentURI = 'segmentOfURI';
 
-    this.globalBtDetail.requestHeader = 'NA';
+    this.globalBtDetail.requestHeader = '';
 
     this.globalBtDetail.requestParam = '';
 
@@ -172,7 +172,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   doAssignBusinessTransData(data) {
-
     if (data._embedded.bussinessTransGlobal.length == 1) {
       this.globalBtDetail = data._embedded.bussinessTransGlobal[data._embedded.bussinessTransGlobal.length - 1];
       if (String(this.globalBtDetail.complete) == "true")
