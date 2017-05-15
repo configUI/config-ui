@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
-            <p-radioButton name="partOfURI" label="Complete" value="complete" [(ngModel)]="segmentURI"></p-radioButton>
+            <p-radioButton name="partOfURI" label="Complete"  value="complete"  [(ngModel)]="segmentURI"></p-radioButton>
         </div>
 
         <div class="ui-g-12 padding-left-css">
@@ -30,7 +30,7 @@
                 <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
             <div class="ui-g-2">
-                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'68%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
+                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2" style="margin-top:4px">
                 Segment(s) of URI in transaction</div>

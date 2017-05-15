@@ -175,11 +175,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     if (data._embedded.bussinessTransGlobal.length == 1) {
       this.globalBtDetail = data._embedded.bussinessTransGlobal[data._embedded.bussinessTransGlobal.length - 1];
-
-      if (this.globalBtDetail.segmentType == "true")
-        this.segmentURI = 'segmentOfURI';
-      else
+      if (String(this.globalBtDetail.complete) == "true")
         this.segmentURI = 'complete';
+      else
+        this.segmentURI = 'segmentOfURI';
     }
     else {
       this.segmentURI = 'segmentOfURI';
