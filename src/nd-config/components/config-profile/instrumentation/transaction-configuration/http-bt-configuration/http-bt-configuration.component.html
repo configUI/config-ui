@@ -30,12 +30,14 @@
                 <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
             <div class="ui-g-2">
-                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'68%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
+                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2" style="margin-top:4px">
                 Segment(s) of URI in transaction</div>
-            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;Rule-2: Numeric characters separated by comma(,) are accepted.  &#013;For example 2 or 2,4"
-                    required pattern="[0-9]+(,[0-9]+)*" ngModel />
+            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'first'  || globalBtDetail.segmentType == 'last'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
+                    title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;For example 2 or 5" required pattern="[1-9]+[0-9]*" ngModel />
+                <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'segNo'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;Rule-2: Numeric characters separated by comma(,) are accepted.  &#013;For example 2 or 2,4"
+                    required pattern="[1-9]+(,[1-9]+)*" ngModel />
             </div>
         </div>
 
@@ -194,8 +196,8 @@
             </div>
 
             <div class="pattern-dialog-border">
-                <div class="ui-g-12 header-font-size">
-                    <p-checkbox name="dynamicPartReq" label="Dynamic part request  (Please select atleast one dynamic part)" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
+                <div class="ui-g-12">
+                    <p-checkbox name="dynamicPartReq" label="Dynamic part of request" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
                 </div>
 
                 <div class="ui-g-12">
@@ -212,7 +214,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqParamValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" />
+                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" />
                         </div>
                     </div>
 
@@ -232,7 +234,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqHeaderValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" />
+                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" />
                         </div>
                     </div>
                 </div>
