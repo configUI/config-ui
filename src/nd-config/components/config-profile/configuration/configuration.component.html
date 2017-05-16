@@ -105,8 +105,12 @@
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
                             </div>
 
-                            <div *ngIf="adminMode" >
+                            <!--<div *ngIf="adminMode" >
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Custom Keywords</a></md-slide-toggle>
+                            </div>-->
+                            <!--disabling of custom keywords-->
+                            <div *ngIf="adminMode" >
+                                <md-slide-toggle [disabled]="true"><a [routerLink]="['../../advance', profileId, 4]">Custom Keywords</a></md-slide-toggle>
                             </div>
                             
                         </div>
