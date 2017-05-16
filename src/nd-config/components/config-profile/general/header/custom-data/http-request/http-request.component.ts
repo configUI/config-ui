@@ -121,7 +121,7 @@ export class HttpRequestComponent implements OnInit {
     }
     //When add edit Method
     else {
-      if (this.httpRequestHdrComponentInfo[0].headerName != this.httpRequestHdrDetail.headerName) {
+      if (this.selectedHTTPReqHeader[0].headerName != this.httpRequestHdrDetail.headerName) {
         if (this.checkHttpReqNameAlreadyExist())
           return;
       }

@@ -38,7 +38,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   selectedReturnRules: ReturnTypeData[];
 
-  selectedArgumentRules:ArgumentTypeData[];
+  selectedArgumentRules: ArgumentTypeData[];
 
   /* open dialog box */
   addBusinessTransMethodDialog: boolean = false;
@@ -57,6 +57,12 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /* Assign value to Return type drop down */
   operationList: SelectItem[];
+
+  /**It stores selected data for edit or add functionality */
+  methodBasedCustomData: MethodBasedCustomData;
+
+  /* hold the data that needs to be displayed in table */
+  tableData: MethodBasedCustomData[];
 
   /*selected item from return type list*/
   selectedOperation: string;
@@ -118,7 +124,6 @@ export class MethodBTConfigurationComponent implements OnInit {
   ];
 
   changeOpertionType(type) {
-    //     console.log("rrrrrrrr",type);
     //     if (type == "Numeric") {
     //       this.operationList = [];
     //       let arrLabel = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Eq', 'Ne', 'Exception'];
@@ -143,7 +148,6 @@ export class MethodBTConfigurationComponent implements OnInit {
     //       let arrValue = ['EXCEPTION', 'EQ', 'NE'];
     //       this.operationList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
     //     }
-    // console.log("this.operationList----",this.operationList)
 
     if (type == "object/string")
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
@@ -177,6 +181,10 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.btMethodRulesDetail = new RulesData();
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
+    // this.methodRulesInfo = [];
+    // this.methodArgRulesInfo = [];
+    this.returnTypeData = [];
+    this.argumentTypeData = [];
 
   }
 
@@ -186,7 +194,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   openAddReturnRulesDialog() {
 
     this.addRulesDialog = true;
-    this.returnTypeRules = new ReturnTypeData()
+    this.btMethodRulesDetail = new RulesData();
     /*calling this function
     * to know data type of return value of provided fqm
     * and creating opertaion list a/c to return type
@@ -271,14 +279,14 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   //deletimg Argument rules
-  deleteArgumentsRules():void{
-      let selectedRules = this.selectedArgRules;
-      let arrArgIndex = [];
-      for (let index in selectedRules) {
-          arrArgIndex.push(selectedRules[index].id);
-      }
-    this.deleteArgRulesFromTable(arrArgIndex);     
-    
+  deleteArgumentsRules(): void {
+    let selectedRules = this.selectedArgRules;
+    let arrArgIndex = [];
+    for (let index in selectedRules) {
+      arrArgIndex.push(selectedRules[index]);
+    }
+    this.deleteArgRulesFromTable(arrArgIndex);
+
   }
 
   /**This method returns selected application row on the basis of selected row */
@@ -322,7 +330,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.methodRulesInfo = deleteMany(this.methodRulesInfo, rowIndex);
   }
 
-/**This method is used to delete  Argument Rules from Data Table */
+  /**This method is used to delete  Argument Rules from Data Table */
   deleteArgRulesFromTable(arrRulesIndex: any[]): void {
     //For stores table row index
     let rowIndex: number[] = [];
@@ -344,18 +352,14 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   //For checking FQM 
-
-
   saveRules() {
-     console.log("this.btMethodRulesDetail--re",this.btMethodRulesDetail);
-    
     this.methodRulesInfo.push(this.btMethodRulesDetail);
     // this.configUtilityService.successMessage(Messages);
     this.addRulesDialog = false;
+    this.returnTypeData = [];
   }
 
-   saveArgRules() {
-     console.log("this.btMethodRulesDetail--arg",this.btMethodRulesDetail);
+  saveArgRules() {
     this.methodArgRulesInfo.push(this.btMethodRulesDetail);
     // this.configUtilityService.successMessage(Messages);
     this.addArgRulesDialog = false;
@@ -417,6 +421,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     //openAddReturnRulesDialog()
     if (this.first) {
       this.first = false;
+
       let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
       if (returnType == 'void') {
         this.configUtilityService.errorMessage("FQM doesn't have any return type.");
@@ -587,6 +592,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.addArgRulesDialog = true;
     this.argumentTypeRules = new ArgumentTypeData();
+    this.btMethodRulesDetail = new RulesData();
     // this.addArgumentRulesDialog = true;
     // this.businessTransMethodDetail = new BusinessTransMethodData();
   }
