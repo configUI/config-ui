@@ -44,8 +44,8 @@ export class SessionAttributeComponent implements OnInit {
 
   customValueTypeInfo: SessionTypeValueData[];
 
- //holds the counter of attr Values i.e rules  for edit dialog [used in delrting rules in edit dialog]
-  counterEdit:number =0;
+  //holds the counter of attr Values i.e rules  for edit dialog [used in delrting rules in edit dialog]
+  counterEdit: number = 0;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) {
 
@@ -54,8 +54,8 @@ export class SessionAttributeComponent implements OnInit {
     let arrLabel = ['String', 'Integer', 'Decimal'];
     let arrValue = ['0', '1', '2'];
     this.customValueType = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
-  
-    console.log("this.customValueType--",this.customValueType)
+
+    console.log("this.customValueType--", this.customValueType)
     this.customValueTypeInfo = [];
   }
 
@@ -120,9 +120,13 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveTypesValues() {
-    console.log("this.customValueTypeDetail--",this.customValueTypeDetail)
-    this.customValueTypeDetail["id"] = this.counterEdit+1;
-    this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type)
+    console.log("this.customValueTypeDetail--", this.customValueTypeDetail)
+    this.customValueTypeDetail["id"] = this.counterEdit + 1;
+    this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
+  
+    if(this.sessionAttributeDetail.attrValues == undefined)
+    this.sessionAttributeDetail.attrValues = [];
+
     this.sessionAttributeDetail.attrValues.push(this.customValueTypeDetail);
     // this.configUtilityService.successMessage(Messages);
     this.closeValueInfoDialog();
@@ -155,7 +159,6 @@ export class SessionAttributeComponent implements OnInit {
 
   /**This method is used to validate the name of Session Attribute is already exists. */
   checkAppNameAlreadyExist(): boolean {
-    
     for (let i = 0; i < this.sessionAttributeComponentInfo.length; i++) {
       if (this.sessionAttributeComponentInfo[i].attrName == this.sessionAttributeDetail.attrName) {
         this.configUtilityService.errorMessage("Session Attribute Name already exist");
@@ -166,7 +169,7 @@ export class SessionAttributeComponent implements OnInit {
 
   editSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
-    console.log(" this.sessionAttributeDetail--",this.sessionAttributeDetail)
+   
     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
 
     this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
@@ -217,15 +220,20 @@ export class SessionAttributeComponent implements OnInit {
     if (data.attrValues == "")
       valueNames = "-";
 
-    for (var i = 0; i < data.attrValues.length; i++) {
-      if (data.attrValues.length == 1)
-        valueNames = data.attrValues[i].valName;
-      else
-        valueNames = valueNames + "," + data.attrValues[i].valName;
+    if (data.attrValues != null) {
+      for (var i = 0; i < data.attrValues.length; i++) {
+        if (data.attrValues.length == 1)
+          valueNames = data.attrValues[i].valName;
+        else
+          valueNames = valueNames + "," + data.attrValues[i].valName;
+      }
     }
 
     if (valueNames.indexOf(",") != -1)
       valueNames = valueNames.substr(1);
+
+    if (valueNames == "")
+      valueNames = "-";
 
     arrTestRunData.push({
       attrName: data.attrName, attrType: data.attrType, valName: valueNames, sessAttrId: data.sessAttrId,
@@ -256,26 +264,28 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.specific = true;
     else if (this.selectedSessionAttributeList[0].attrType == "complete")
       this.sessionAttributeDetail.complete = true;
-``
+    ``
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
 
     this.sessionAttributeDetail.attrValues = this.selectedSessionAttributeList[0].attrValues;
     let that = this;
-    this.sessionAttributeDetail.attrValues.map(function(val){
+    if (this.sessionAttributeDetail.attrValues != undefined) {
+      this.sessionAttributeDetail.attrValues.map(function (val) {
         val.id = that.counterEdit;
         that.counterEdit = that.counterEdit + 1;
         val.customValTypeName = that.getTypeName(val.type)
       })
+    }
   }
 
-//function used so that type = '0' can be dispalayed as type = 'String' in table
-  getTypeName(type){
+  //function used so that type = '0' can be dispalayed as type = 'String' in table
+  getTypeName(type) {
     let typeName = '';
-    if(type == 0)
+    if (type == 0)
       typeName = 'STRING'
-    else if(type == 1)
+    else if (type == 1)
       typeName = 'INTEGER'
-    else if(type == 2)
+    else if (type == 2)
       typeName = 'DECIMAL'
 
     return typeName;

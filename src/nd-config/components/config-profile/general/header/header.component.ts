@@ -103,7 +103,7 @@ export class HeaderComponent implements OnInit {
   }
 
   constructValHttpRespFullFp(httpRespKeyword) {
-    console.log("httpRespKeyword-headersNameResp-", httpRespKeyword.headersNameResp)
+    console.log("--httpRespKeyword-headersNameResp--", httpRespKeyword.headersNameResp)
     let httpRespFullFpVal = '0';
     if (httpRespKeyword.enableHttpResp) {
       httpRespFullFpVal = "3%20"
@@ -166,9 +166,10 @@ export class HeaderComponent implements OnInit {
       this.httpReqFullFp.briefVal = arr[2] == 1 ? arr[3] : '';
     }
 
-    if ((keywords["captureHTTPRespFullFp"].value).includes("%20")) {
+
+    if ((keywords["captureHTTPRespFullFp"].value).includes("%20") ) {
       let arr = (keywords["captureHTTPRespFullFp"].value).split("%20")
-      this.httpRespFullFp.enableHttpResp = arr[0] == 3;
+      this.httpRespFullFp.enableHttpResp = arr[0] == 3 ;
       this.httpRespFullFp.headerModeResp = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
       if (arr[1] != "ALL") {
@@ -177,6 +178,9 @@ export class HeaderComponent implements OnInit {
       this.httpRespFullFp.headersNameResp = arrVal;
       this.httpRespFullFp.captureModeResp = arr[2] == 1;
       this.httpRespFullFp.briefValResp = arr[2] == 1 ? arr[3] : '';
+    }
+    else if(keywords["captureHTTPRespFullFp"].value == '1'){
+      this.httpRespFullFp.enableHttpResp = true;
     }
 
 

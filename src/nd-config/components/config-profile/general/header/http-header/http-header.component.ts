@@ -26,7 +26,7 @@ export class HttpHeaderComponent implements OnInit {
   resHeaderTypes: SelectItem[];
   selectedResHeader: string;
 
-  
+
 
   constructor() {
     var reqHdrList = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
@@ -37,20 +37,20 @@ export class HttpHeaderComponent implements OnInit {
 
     this.specifiedReqHeaderType = ConfigUiUtility.createDropdown(reqHdrList);
 
-    var reqHdrType = ['ALL', 'Specified'];
+    var reqHdrType = ['--Select--', 'ALL', 'Specified'];
 
     this.reqHeaderTypes = ConfigUiUtility.createDropdown(reqHdrType);
 
     var resHdrList = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
       'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy',
-  
+
       'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified', 'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After',
       'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security', 'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning',
       'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
 
     this.specifiedResHeaderType = ConfigUiUtility.createDropdown(resHdrList);
 
-    var resHdrType = ['ALL', 'Specified'];
+    var resHdrType = ['--Select--', 'ALL', 'Specified'];
 
     this.resHeaderTypes = ConfigUiUtility.createDropdown(resHdrType);
   }
