@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="sessionAttributeDetail.specific">
-                <p-dataTable class="nde-ui" [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="customValueTypeInfo?.length > 5" [pageLinks]="3">
+                <p-dataTable class="nde-ui" [value]="this.sessionAttributeDetail.attrValues" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="this.sessionAttributeDetail.attrValues?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Session attribute(s) </span>
                         <span style="float: right; margin-top:-5px">
@@ -79,6 +79,14 @@
                     </template>
                     </p-column>
                     <p-column class="col-overflow" field="rb" header="Right bound" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
+                    </p-column>
+
+                    
+
+                    <p-column class="col-overflow" field="customValTypeName" header="Type" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -111,7 +119,7 @@
                     <label>Custom type</label>
                 </div>
                 <div class="ui-g-4">
-                    <p-dropdown name="customValueType" [style]="{'width':'87%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.customValTypeName" required ngModel placeholder="--Select--"></p-dropdown>
+                    <p-dropdown name="customValueType" [style]="{'width':'87%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.type" required ngModel placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
 

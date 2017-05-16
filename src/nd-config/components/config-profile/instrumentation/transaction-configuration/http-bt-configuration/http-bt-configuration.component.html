@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
-            <p-radioButton name="partOfURI" label="Complete"  value="complete"  [(ngModel)]="segmentURI"></p-radioButton>
+            <p-radioButton name="partOfURI" label="Complete" value="complete" [(ngModel)]="segmentURI"></p-radioButton>
         </div>
 
         <div class="ui-g-12 padding-left-css">
@@ -214,7 +214,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqParamValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" />
+                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" />
                         </div>
                     </div>
 
@@ -234,7 +234,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqHeaderValue" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" />
+                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" />
                         </div>
                     </div>
                 </div>

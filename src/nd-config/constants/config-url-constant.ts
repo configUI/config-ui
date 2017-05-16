@@ -1,5 +1,12 @@
 //  const  SERVICE_URL = 'http://10.10.50.6/configUI';
 // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+// const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
+//  const SERVICE_URL = 'http://localhost:8090';
+// const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+    
+
+// For Production use this SERVICE_URL
+// const SERVICE_URL = '/configUI';
  //const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
   // const SERVICE_URL = 'http://localhost:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
@@ -155,7 +162,7 @@ export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/upda
 export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`;
 
 export const DEL_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/delattrvalues`;
-export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionAttribute`;
+export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/editsessionattr`;
 export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delete`;
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
@@ -188,7 +195,8 @@ export const ADD_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/add
 export const FETCH_HTTPREQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/gethttpreqhdr`;
 export const ADD_RULES_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdrrules`;
 
-export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
+// export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
+ export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/edithttpreqhdr`;
 export const DEL_HTTP_CUSTOM_DATA = `${SERVICE_URL}/custom/httpreqbasedcapturing/httpCustomData/delete`;
 
 
