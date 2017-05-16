@@ -110,8 +110,9 @@ export class ConfigApplicationListComponent implements OnInit {
         this.configApplicationService.deleteApplicationData(arrAppIndex)
           .subscribe(data => {
             this.deleteApplications(arrAppIndex);
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
-        this.configUtilityService.infoMessage("Deleted Successfully");
+           // this.configUtilityService.infoMessage("Deleted Successfully");
       },
       reject: () => {
 
