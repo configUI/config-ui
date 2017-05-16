@@ -38,12 +38,11 @@ export class GenerateExceptionComponent implements OnInit {
     this.exceptionType = [];
     this.exceptionType.push(
       { value: -1, label: '--Select--' },
-      { value: 1, label: 'Null Pointer Exception' },
+      { value: 4, label: 'Arithematic Exception' },
       { value: 2, label: 'Array IndexOutOfBounds Exception' },
       { value: 3, label: 'Class Cast Exception' },
-      { value: 4, label: 'Arithematic Exception' },
-      { value: 5, label: 'Illegal Exception' });
-
+      { value: 5, label: 'Illegal Exception' },
+      { value: 1, label: 'Null Pointer Exception' }, );
   }
 
   /**
