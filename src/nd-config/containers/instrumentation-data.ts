@@ -199,7 +199,7 @@ export class SessionAtrributeComponentsData {
     complete?: boolean;
     sessAttrId?: number;
     valName?: string;
-    attrValues: SessionTypeValueData[];
+     attrValues: SessionTypeValueData[];
 }
 
 export class SessionTypeValueData {

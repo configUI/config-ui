@@ -4,7 +4,7 @@
 
 BEGIN;
 
-INSERT INTO config.profile(profile_id,profile_name,profile_desc) 
+INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name) 
 VALUES
 (1,'default','Default profile','-','');
 
@@ -15,7 +15,7 @@ INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail)
 (4,'jerseyCall','description'),
 (5,'glassFishJersey','description'),
 (6,'Generic','description'),
-(7,'JMSCall','description');
+(7,'JMSCall','description'),
 (8,'EntryForJBOSS','description');
 
 

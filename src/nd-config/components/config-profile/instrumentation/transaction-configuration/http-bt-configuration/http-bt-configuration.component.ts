@@ -135,7 +135,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   getKeywordData() {
     let keywordData;
-    //hasOwnProperty is undefined on refreshing page, checking for keywordData if it is undefined or not 
+    //hasOwnProperty is undefined on refreshing page, checking for keywordData if it is undefined or not
     if (this.configKeywordsService.keywordData != undefined) {
       keywordData = this.configKeywordsService.keywordData;
     }
@@ -160,8 +160,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
   setSelectedValueOfBT(value) {
     for (let key in this.BusinessTransGlobalPattern) {
       if (key == 'BTRuleConfig')
+      {
+      if(value != undefined){
         this.BusinessTransGlobalPattern[key]["value"] = value;
       this.configKeywordsService.keywordData[key] = this.BusinessTransGlobalPattern[key];
+    }
+      }
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
@@ -207,6 +211,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is used to add Pattern detail */
   savePattern(): void {
+    if(this.businessTransPatternDetail.dynamicPartReq == true &&  this.businessTransPatternDetail.reqParamKey == undefined && this.businessTransPatternDetail.reqHeaderKey == undefined && this.businessTransPatternDetail.reqMethod == undefined)
+  {
+       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
+       return;
+  }
     if (this.chkInclude == true)
       this.businessTransPatternDetail.include = "include"
     else
