@@ -281,10 +281,10 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     this.configTopologyService.disableProfInstance(instanceId, flag).subscribe(data => {
       if (data.enabled == "true") {
-        this.configUtilityService.infoMessage("Instance Enabled Sucessfully.");
+        this.configUtilityService.infoMessage("Instance enabled sucessfully.");
       }
       else {
-        this.configUtilityService.infoMessage("Instance Disabled Sucessfully.");
+        this.configUtilityService.infoMessage("Instance disabled sucessfully.");
       }
     });
   }
