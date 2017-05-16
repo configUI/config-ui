@@ -32,23 +32,31 @@ export class SessionAttributeComponent implements OnInit {
   selectedSessionValueType: any[];
 
   customValueType: SelectItem[];
+
   /* Assign selected dropdown values to selected method type */
   selectedCustomValueType: string;
 
   selectedSessionAttribute: string;
 
   sessionAttributeDetail: SessionAtrributeComponentsData;
+
   customValueTypeDetail: SessionTypeValueData;
+
   customValueTypeInfo: SessionTypeValueData[];
+
+ //holds the counter of attr Values i.e rules  for edit dialog [used in delrting rules in edit dialog]
+  counterEdit:number =0;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) {
 
     this.customValueType = [];
-    let arrLabel = ['String', 'Integer', 'Decimal'];
-    //  let arrValue = ['string', 'integer', 'decimal'];
-    this.customValueType = ConfigUiUtility.createDropdown(arrLabel);
-    this.customValueTypeInfo = [];
 
+    let arrLabel = ['String', 'Integer', 'Decimal'];
+    let arrValue = ['0', '1', '2'];
+    this.customValueType = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
+  
+    console.log("this.customValueType--",this.customValueType)
+    this.customValueTypeInfo = [];
   }
 
   ngOnInit() {
@@ -112,7 +120,10 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveTypesValues() {
-    this.customValueTypeInfo.push(this.customValueTypeDetail);
+    console.log("this.customValueTypeDetail--",this.customValueTypeDetail)
+    this.customValueTypeDetail["id"] = this.counterEdit+1;
+    this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type)
+    this.sessionAttributeDetail.attrValues.push(this.customValueTypeDetail);
     // this.configUtilityService.successMessage(Messages);
     this.closeValueInfoDialog();
   }
@@ -144,6 +155,7 @@ export class SessionAttributeComponent implements OnInit {
 
   /**This method is used to validate the name of Session Attribute is already exists. */
   checkAppNameAlreadyExist(): boolean {
+    
     for (let i = 0; i < this.sessionAttributeComponentInfo.length; i++) {
       if (this.sessionAttributeComponentInfo[i].attrName == this.sessionAttributeDetail.attrName) {
         this.configUtilityService.errorMessage("Session Attribute Name already exist");
@@ -154,6 +166,7 @@ export class SessionAttributeComponent implements OnInit {
 
   editSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
+    console.log(" this.sessionAttributeDetail--",this.sessionAttributeDetail)
     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
 
     this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
@@ -179,8 +192,10 @@ export class SessionAttributeComponent implements OnInit {
     this.closeDialog();
   }
 
+
+
   sessionAtrributeDetailSaveAndEdit() {
-    this.sessionAttributeDetail.attrValues = [];
+    // this.sessionAttributeDetail.attrValues = [];
     let type: number;
     if (this.sessionAttributeDetail.complete == true && this.sessionAttributeDetail.specific == true) {
       this.sessionAttributeDetail.attrType = "complete,specific";
@@ -193,18 +208,6 @@ export class SessionAttributeComponent implements OnInit {
     else if (this.sessionAttributeDetail.complete == true) {
       this.sessionAttributeDetail.attrType = "complete";
       this.sessionAttributeDetail.attrMode = 2;
-    }
-
-    for (let i = 0; i < this.customValueTypeInfo.length; i++) {
-
-      if (this.customValueTypeInfo[i].customValTypeName == "Integer")
-        type = 0;
-      else if (this.customValueTypeInfo[i].customValTypeName == "String")
-        type = 1;
-      else if (this.customValueTypeInfo[i].customValTypeName == "Decimal")
-        type = 2;
-
-      this.sessionAttributeDetail.attrValues[i] = { type: type, id: i, lb: this.customValueTypeInfo[i].lb, rb: this.customValueTypeInfo[i].rb, customValTypeName: this.customValueTypeInfo[i].customValTypeName, valName: this.customValueTypeInfo[i].valName };
     }
   }
 
@@ -230,7 +233,7 @@ export class SessionAttributeComponent implements OnInit {
     return arrTestRunData;
   }
 
-  /** Edit Session Attribute */
+  /**opening Edit Session Attribute Dialog */
   editSessionAttribute(): void {
     this.sessionAttributeDetail = new SessionAtrributeComponentsData();
     if (!this.selectedSessionAttributeList || this.selectedSessionAttributeList.length < 1) {
@@ -253,13 +256,29 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.specific = true;
     else if (this.selectedSessionAttributeList[0].attrType == "complete")
       this.sessionAttributeDetail.complete = true;
-
+``
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
-    // if (this.selectedSessionAttributeList[0].attrValues.length != 0) {
-    //   for (let i = 0; i < this.selectedSessionAttributeList[0].attrValues.length; i++) {
-    //     this.customValueTypeInfo[i] = this.selectedSessionAttributeList[0].attrValues[i];
-    //   }
-    // }
+
+    this.sessionAttributeDetail.attrValues = this.selectedSessionAttributeList[0].attrValues;
+    let that = this;
+    this.sessionAttributeDetail.attrValues.map(function(val){
+        val.id = that.counterEdit;
+        that.counterEdit = that.counterEdit + 1;
+        val.customValTypeName = that.getTypeName(val.type)
+      })
+  }
+
+//function used so that type = '0' can be dispalayed as type = 'String' in table
+  getTypeName(type){
+    let typeName = '';
+    if(type == 0)
+      typeName = 'STRING'
+    else if(type == 1)
+      typeName = 'INTEGER'
+    else if(type == 2)
+      typeName = 'DECIMAL'
+
+    return typeName;
   }
 
   /**This method is used to delete Session Attribute*/
