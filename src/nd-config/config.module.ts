@@ -184,7 +184,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     HttpModule,
     ConfigRoutingModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     PerfectScrollbarModule.forRoot(),
     StoreModule.provideStore({ keywordData: keywordReducer }),
     InputTextModule,
