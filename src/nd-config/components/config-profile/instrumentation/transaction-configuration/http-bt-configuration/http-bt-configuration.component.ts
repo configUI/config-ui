@@ -205,8 +205,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.globalBtDetail.verySlowTransaction = "" + this.globalBtDetail.verySlowTransaction;
     this.globalBtDetail.slowTransaction = "" + this.globalBtDetail.slowTransaction;
 
-    this.configUtilityService.successMessage(Messages);
-    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
+   
+    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data =>  this.configUtilityService.successMessage(Messages));
   }
 
   /**This method is used to add Pattern detail */

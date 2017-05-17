@@ -198,15 +198,15 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   saveEditProfile(): void {
     if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
-      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => { this.updateTopo(data) })
+      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => { this.updateTopo(data)  ;  this.configUtilityService.successMessage("Saved Successfully");})
     else if (this.currentEntity == CONS.TOPOLOGY.TIER)
-      this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => { this.updateTopo(data) })
+      this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => { this.updateTopo(data);  this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER)
-      this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => { this.updateTopo(data) })
+      this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => { this.updateTopo(data);  this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE)
-      this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => { this.updateTopo(data) })
+      this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => { this.updateTopo(data);  this.configUtilityService.successMessage("Saved Successfully"); })
 
-    this.configUtilityService.successMessage("Saved Successfully");
+   // this.configUtilityService.successMessage("Saved Successfully");
   }
 
 
@@ -281,10 +281,10 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     this.configTopologyService.disableProfInstance(instanceId, flag).subscribe(data => {
       if (data.enabled == "true") {
-        this.configUtilityService.infoMessage("Instance Enabled Sucessfully.");
+        this.configUtilityService.infoMessage("Instance enabled sucessfully.");
       }
       else {
-        this.configUtilityService.infoMessage("Instance Disabled Sucessfully.");
+        this.configUtilityService.infoMessage("Instance disabled sucessfully.");
       }
     });
   }

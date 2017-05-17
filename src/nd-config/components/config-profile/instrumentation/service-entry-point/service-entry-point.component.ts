@@ -90,6 +90,14 @@ export class ServiceEntryPointComponent implements OnInit {
   /**Used to enabled/Disabled Service Entry Points */
   enableToggle(rowData: ServiceEntryPoint) {
     this.configKeywordsService.enableServiceEntryPointList(rowData.id, !rowData.enabled).subscribe(
+      data => {
+      if (rowData.enabled == true) {
+        this.configUtilityService.infoMessage("Service entry point is enabled successfully.");
+      }
+      else {
+        this.configUtilityService.infoMessage("Service entry point is disabled successfully.");
+      }
+      }
     );
   }
 
