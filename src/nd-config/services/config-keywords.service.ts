@@ -71,11 +71,13 @@ export class ConfigKeywordsService {
   }
 
   /** For save all keywordData data */
-  saveProfileKeywords(profileId) {
+  saveProfileKeywords(profileId, toggle?: string) {
     this._restApi.getDataByPostReq(`${URL.UPDATE_KEYWORDS_DATA}/${profileId}`, this.keywordData)
       .subscribe(data => {
         this.keywordData = data;
+        if(toggle != "toggle")
         this.configUtilityService.successMessage(Messages);
+       
         this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
   }
