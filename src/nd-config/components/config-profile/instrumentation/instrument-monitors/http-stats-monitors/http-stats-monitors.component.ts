@@ -8,6 +8,9 @@ import { ConfigKeywordsService } from '../../../../../services/config-keywords.s
 import { deleteMany } from '../../../../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 
 @Component({
   selector: 'app-http-stats-monitors',
@@ -48,13 +51,14 @@ export class HttpStatsMonitorsComponent implements OnInit {
   selectedValueType: number;
   isDisableValueType: boolean = true;
   saveDisable: boolean = false;
+   subscription: Subscription;
 
-  // keywordList: string[] = ['HTTPStatsCondCfg'];
-  // HttpStatsCond: Object;
-  // selectedValues: boolean;
-  // keywordValue:Object;
+  keywordList: string[] = ['HTTPStatsCondCfg'];
+  HttpStatsCond: Object;
+  selectedValues: boolean;
+  keywordValue:Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
+  constructor(private configKeywordsService: ConfigKeywordsService,private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
   ngOnInit() {
@@ -67,6 +71,49 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.loadStringOP();
     this.loadNumericOP();
     this.loadOthersOP();
+     if(this.configKeywordsService.keywordData!=undefined){
+    this.keywordValue = this.configKeywordsService.keywordData;
+  }
+  else{
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.keywordValue = keywordDataVal;
+      });
+  }
+    this.HttpStatsCond = {};
+    this.keywordList.forEach((key) => {
+      if (this.keywordValue.hasOwnProperty(key)) {
+        this.HttpStatsCond[key] = this.keywordValue[key];
+        if (this.HttpStatsCond[key].value == "true")
+          this.selectedValues = true;
+        else
+          this.selectedValues = false;
+      }
+    });
+
+  }
+  saveKeywordData() {
+
+    for (let key in this.HttpStatsCond) {
+      if (key == 'HTTPStatsCondCfg') {
+        if (this.selectedValues == true) {
+          this.HttpStatsCond[key]["value"] = "true";
+          this.configUtilityService.successMessage("Http Stats monitors are enabled");
+          return;
+        }
+        else {
+          this.HttpStatsCond[key]["value"] = "false";
+          this.configUtilityService.successMessage("Http Stats Monitors are disabled");
+          return;
+        }
+      }
+      this.configKeywordsService.keywordData[key] = this.HttpStatsCond[key];
+    }
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+
   }
 
   loadHttpStatsMonitorList() {

@@ -132,7 +132,6 @@ export class JavaMethodComponent implements OnInit {
 
     this.returnTypeData = [];
     this.argumentTypeData = [];
-
   }
   profileId: number;
 
@@ -198,7 +197,6 @@ export class JavaMethodComponent implements OnInit {
     })
     return hdrNamesHref;
   }
-
 
   openAddDialog() {
     this.methodBasedCustomData = new MethodBasedCustomData();
@@ -498,6 +496,7 @@ export class JavaMethodComponent implements OnInit {
 
   openAddArgumentRulesDialog() {
     this.validateArgAndGetArgumentsNumberList();
+    this.argumentTypeRules.mode = 0;
   }
 
   operationListArgumentType() {
