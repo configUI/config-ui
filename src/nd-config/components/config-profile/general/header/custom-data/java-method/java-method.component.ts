@@ -450,6 +450,9 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveReturnRules() {
+     if(this.returnTypeRules.operatorValue == undefined){
+      this.returnTypeRules.operatorValue = "-" ;
+    }
     if(this.returnTypeRules.operation== 'EXTRACT_SUBPART'){
        this.returnTypeRules.operatorValue = this.leftBoundReturn + "-" + this.rightBoundReturn ;
     }
@@ -474,6 +477,9 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveArgumentRules() {
+    if(this.argumentTypeRules.operatorValue == undefined){
+      this.argumentTypeRules.operatorValue = "-" ;
+    }
      if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
        this.argumentTypeRules.operatorValue = this.leftBoundArgument + "-" + this.rightBoundArgument ;
     }
