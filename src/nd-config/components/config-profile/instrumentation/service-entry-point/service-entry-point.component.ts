@@ -92,10 +92,10 @@ export class ServiceEntryPointComponent implements OnInit {
     this.configKeywordsService.enableServiceEntryPointList(rowData.id, !rowData.enabled).subscribe(
       data => {
       if (rowData.enabled == true) {
-        this.configUtilityService.infoMessage("Service entry point is enabled sucessfully.");
+        this.configUtilityService.infoMessage("Service entry point is enabled successfully.");
       }
       else {
-        this.configUtilityService.infoMessage("Service entry point is disabled sucessfully.");
+        this.configUtilityService.infoMessage("Service entry point is disabled successfully.");
       }
       }
     );

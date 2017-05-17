@@ -297,8 +297,9 @@ export class HttpStatsMonitorsComponent implements OnInit {
         this.configKeywordsService.deleteHttpStatsMonitorData(arrAppIndex, this.profileId)
           .subscribe(data => {
             this.deleteApplications(arrAppIndex);
+            this.configUtilityService.infoMessage("Deleted Successfully");
           })
-        this.configUtilityService.infoMessage("Deleted Successfully");
+    //     this.configUtilityService.infoMessage("Deleted Successfully");
       },
       reject: () => {
 

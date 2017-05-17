@@ -155,7 +155,7 @@ export class CustomKeywordsComponent implements OnInit {
       return;
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
-    this.configUtilityService.successMessage(Messages);
+    // this.configUtilityService.successMessage(Messages);
     this.addEditDialog = false;
     this.isNew = false;
     this.selectedCustomKeywordsData = [];

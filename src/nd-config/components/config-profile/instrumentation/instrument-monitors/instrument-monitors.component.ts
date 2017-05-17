@@ -45,7 +45,7 @@ export class InstrumentMonitorsComponent implements OnInit {
    for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
-    this.configUtilityService.successMessage(Messages);
+  //  this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
    this.triggerRunTimeChanges(keywordData);
 
