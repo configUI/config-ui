@@ -7,6 +7,7 @@ import { ConfigUtilityService } from '../../../../services/config-utility.servic
 import { ServiceEntryPoint } from '../../../../containers/instrumentation-data';
 import { ServiceEntryType } from '../../../../interfaces/instrumentation-info';
 
+import { ImmutableArray } from '../../../../utils/immutable-array';
 
 import { Messages, descMsg } from '../../../../constants/config-constant'
 
@@ -81,7 +82,8 @@ export class ServiceEntryPointComponent implements OnInit {
     this.configKeywordsService.addServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting service in DB
-        this.serviceEntryData.push(data);
+        // this.serviceEntryData.push(data);
+        this.serviceEntryData = ImmutableArray.push(this.serviceEntryData, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.displayNewService = false;
@@ -90,6 +92,14 @@ export class ServiceEntryPointComponent implements OnInit {
   /**Used to enabled/Disabled Service Entry Points */
   enableToggle(rowData: ServiceEntryPoint) {
     this.configKeywordsService.enableServiceEntryPointList(rowData.id, !rowData.enabled).subscribe(
+      data => {
+        if (rowData.enabled == true) {
+          this.configUtilityService.infoMessage("Service entry point is enabled successfully.");
+        }
+        else {
+          this.configUtilityService.infoMessage("Service entry point is disabled successfully.");
+        }
+      }
     );
   }
 

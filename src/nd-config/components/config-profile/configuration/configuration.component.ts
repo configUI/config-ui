@@ -87,7 +87,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
       }
     }
     //saving keyword values
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    var toggle = "toggle"
+    this.configKeywordsService.saveProfileKeywords(this.profileId,toggle);
   }
 
   ngOnDestroy() {

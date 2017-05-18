@@ -9,6 +9,8 @@ import { ConfigUtilityService } from '../../../../../../services/config-utility.
 import { deleteMany } from '../../../../../../utils/config-utility';
 import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../../containers/method-based-custom-data';
 
+import { ImmutableArray } from '../../../../../../utils/immutable-array';
+
 import { Messages } from '../../../../../../constants/config-constant'
 
 @Component({
@@ -132,7 +134,6 @@ export class JavaMethodComponent implements OnInit {
 
     this.returnTypeData = [];
     this.argumentTypeData = [];
-
   }
   profileId: number;
 
@@ -198,7 +199,6 @@ export class JavaMethodComponent implements OnInit {
     })
     return hdrNamesHref;
   }
-
 
   openAddDialog() {
     this.methodBasedCustomData = new MethodBasedCustomData();
@@ -283,7 +283,8 @@ export class JavaMethodComponent implements OnInit {
       }
       else {
         this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
-        this.tableData.push(data);
+        // this.tableData.push(data);
+        this.tableData=ImmutableArray.push(this.tableData,data);
         this.configUtilityService.successMessage(Messages);
         this.modifyData(this.tableData)
       })
@@ -450,6 +451,9 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveReturnRules() {
+     if(this.returnTypeRules.operatorValue == undefined){
+      this.returnTypeRules.operatorValue = "-" ;
+    }
     if(this.returnTypeRules.operation== 'EXTRACT_SUBPART'){
        this.returnTypeRules.operatorValue = this.leftBoundReturn + "-" + this.rightBoundReturn ;
     }
@@ -457,14 +461,16 @@ export class JavaMethodComponent implements OnInit {
       //for edit form
       this.returnTypeRules["id"] = this.returnCounterEdit ;
       this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
-      this.returnTypeData.push(this.returnTypeRules)
+      // this.returnTypeData.push(this.returnTypeRules)
+      this.returnTypeData=ImmutableArray.push(this.returnTypeData,this.returnTypeRules);      
       this.returnCounterEdit  = this.returnCounterEdit  + 1;
     }
     else{
       // for add form
       this.returnTypeRules["id"] = this.returnCounter ;
       this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
-      this.returnTypeData.push(this.returnTypeRules);
+      // this.returnTypeData.push(this.returnTypeRules);
+      this.returnTypeData=ImmutableArray.push(this.returnTypeData,this.returnTypeRules);
       // this.configUtilityService.successMessage(Messages);
 
       this.returnCounter = this.returnCounter + 1;
@@ -474,24 +480,30 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveArgumentRules() {
+    if(this.argumentTypeRules.operatorValue == undefined){
+      this.argumentTypeRules.operatorValue = "-" ;
+    }
      if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
        this.argumentTypeRules.operatorValue = this.leftBoundArgument + "-" + this.rightBoundArgument ;
     }
     if(!this.isNew){
        this.argumentTypeRules["id"]=this.argumentCounterEdit ;
        this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
-       this.argumentTypeData.push(this.argumentTypeRules)
+       this.argumentTypeData=ImmutableArray.push(this.argumentTypeData,this.argumentTypeRules);
+      //  this.argumentTypeData.push(this.argumentTypeRules)
     }
     else{
         this.argumentTypeRules["id"]=this.argumentCounter ;
         this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
-        this.argumentTypeData.push(this.argumentTypeRules)
+        // this.argumentTypeData.push(this.argumentTypeRules)
+         this.argumentTypeData=ImmutableArray.push(this.argumentTypeData,this.argumentTypeRules);
       }
     this.addArgumentRulesDialog = false;
   }
 
   openAddArgumentRulesDialog() {
     this.validateArgAndGetArgumentsNumberList();
+    this.argumentTypeRules.mode = 0;
   }
 
   operationListArgumentType() {

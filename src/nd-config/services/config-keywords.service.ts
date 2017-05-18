@@ -17,6 +17,8 @@ import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
+import { ConfigUtilityService } from '../services/config-utility.service';
+import { Messages ,customKeywordMessage } from '../constants/config-constant'
 
 
 @Injectable()
@@ -35,23 +37,25 @@ export class ConfigKeywordsService {
 
   private keywordGroupSubject = new Subject<GroupKeyword>();
 
-  keywordGroupProvider$  = this.keywordGroupSubject.asObservable();
+  keywordGroupProvider$ = this.keywordGroupSubject.asObservable();
 
   /**For Configuration Screen-
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
     general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp", "captureHttpSessionAttr"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
-    advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] }, 
-    // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, 
-            generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] }, 
-            monitors: { enable: false, keywordList: ["enableBTMonitor","enableBackendMonitor"] } },
+    advance: {
+      debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
+      // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, 
+      generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] },
+      monitors: { enable: false, keywordList: ["enableBTMonitor", "enableBackendMonitor"] }
+    },
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
 
 
-  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>) {
+  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService :ConfigUtilityService) {
 
   }
 
@@ -67,23 +71,26 @@ export class ConfigKeywordsService {
   }
 
   /** For save all keywordData data */
-  saveProfileKeywords(profileId) {
+  saveProfileKeywords(profileId, toggle?: string) {
     this._restApi.getDataByPostReq(`${URL.UPDATE_KEYWORDS_DATA}/${profileId}`, this.keywordData)
       .subscribe(data => {
         this.keywordData = data;
+        if(toggle != "toggle")
+        this.configUtilityService.successMessage(Messages);
+       
         this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
   }
 
 
-    /**
-   * This method is used to enable/disable toggle button.
-   */
+  /**
+ * This method is used to enable/disable toggle button.
+ */
   toggleKeywordData() {
-    let data  = this.keywordData;
+    let data = this.keywordData;
 
     //First time doesn't have keyword data then we return default keyword group data.
-    if(!data)
+    if (!data)
       return this.keywordGroup;
 
     //moduleName -> general, advance, product_integration

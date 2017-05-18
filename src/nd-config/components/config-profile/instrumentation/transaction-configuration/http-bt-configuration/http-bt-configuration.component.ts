@@ -5,9 +5,12 @@ import { Store } from '@ngrx/store';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
 import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../../containers/instrumentation-data';
+
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
+import { ImmutableArray } from '../../../../../utils/immutable-array';
 import { deleteMany } from '../../../../../utils/config-utility';
+
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { Messages } from '../../../../../constants/config-constant';
@@ -159,12 +162,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   setSelectedValueOfBT(value) {
     for (let key in this.BusinessTransGlobalPattern) {
-      if (key == 'BTRuleConfig')
-      {
-      if(value != undefined){
-        this.BusinessTransGlobalPattern[key]["value"] = value;
-      this.configKeywordsService.keywordData[key] = this.BusinessTransGlobalPattern[key];
-    }
+      if (key == 'BTRuleConfig') {
+        if (value != undefined) {
+          this.BusinessTransGlobalPattern[key]["value"] = value;
+          this.configKeywordsService.keywordData[key] = this.BusinessTransGlobalPattern[key];
+        }
       }
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
@@ -205,17 +207,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.globalBtDetail.verySlowTransaction = "" + this.globalBtDetail.verySlowTransaction;
     this.globalBtDetail.slowTransaction = "" + this.globalBtDetail.slowTransaction;
 
-    this.configUtilityService.successMessage(Messages);
-    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => console.log(" === == ", data));
+
+    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => this.configUtilityService.successMessage(Messages));
   }
 
   /**This method is used to add Pattern detail */
   savePattern(): void {
-    if(this.businessTransPatternDetail.dynamicPartReq == true &&  this.businessTransPatternDetail.reqParamKey == undefined && this.businessTransPatternDetail.reqHeaderKey == undefined && this.businessTransPatternDetail.reqMethod == undefined)
-  {
-       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
-       return;
-  }
+    if (this.businessTransPatternDetail.dynamicPartReq == true && this.businessTransPatternDetail.reqParamKey == undefined && this.businessTransPatternDetail.reqHeaderKey == undefined && this.businessTransPatternDetail.reqMethod == undefined) {
+      this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
+      return;
+    }
     if (this.chkInclude == true)
       this.businessTransPatternDetail.include = "include"
     else
@@ -224,7 +225,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
-        this.businessTransPatternInfo.push(data);
+        // this.businessTransPatternInfo.push(data);
+        this.businessTransPatternInfo = ImmutableArray.push(this.businessTransPatternInfo, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
@@ -284,9 +286,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
         if (data.paramKeyValue = "null=null")
           data.paramKeyValue = "-";
 
-        this.selectedPatternData.push(data);
+        // this.selectedPatternData.push(data);
+        this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
         this.configUtilityService.successMessage(Messages);
-        this.businessTransPatternInfo[index] = data;
+        // this.businessTransPatternInfo[index] = data;
       });
     this.closeDialog();
   }
