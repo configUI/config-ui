@@ -134,7 +134,6 @@ export class JavaMethodComponent implements OnInit {
 
     this.returnTypeData = [];
     this.argumentTypeData = [];
-
   }
   profileId: number;
 
@@ -200,7 +199,6 @@ export class JavaMethodComponent implements OnInit {
     })
     return hdrNamesHref;
   }
-
 
   openAddDialog() {
     this.methodBasedCustomData = new MethodBasedCustomData();
@@ -453,6 +451,9 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveReturnRules() {
+     if(this.returnTypeRules.operatorValue == undefined){
+      this.returnTypeRules.operatorValue = "-" ;
+    }
     if(this.returnTypeRules.operation== 'EXTRACT_SUBPART'){
        this.returnTypeRules.operatorValue = this.leftBoundReturn + "-" + this.rightBoundReturn ;
     }
@@ -479,6 +480,9 @@ export class JavaMethodComponent implements OnInit {
 
 
   saveArgumentRules() {
+    if(this.argumentTypeRules.operatorValue == undefined){
+      this.argumentTypeRules.operatorValue = "-" ;
+    }
      if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
        this.argumentTypeRules.operatorValue = this.leftBoundArgument + "-" + this.rightBoundArgument ;
     }
@@ -499,6 +503,7 @@ export class JavaMethodComponent implements OnInit {
 
   openAddArgumentRulesDialog() {
     this.validateArgAndGetArgumentsNumberList();
+    this.argumentTypeRules.mode = 0;
   }
 
   operationListArgumentType() {

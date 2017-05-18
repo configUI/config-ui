@@ -36,7 +36,8 @@
                 <label>Method name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" required autofocus ngModel/>
+                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                    required pattern="[a-zA-Z0-9.]+(\(([^)\(\s]*)\))" ngModel/>
             </div>
         </div>
         <div class="ui-g">
