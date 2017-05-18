@@ -8,6 +8,8 @@ import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
 import { deleteMany } from '../../../../../../utils/config-utility';
 
+import { ImmutableArray } from '../../../../../../utils/immutable-array';
+
 import { Messages } from '../../../../../../constants/config-constant'
 
 @Component({
@@ -198,7 +200,8 @@ export class HttpRequestComponent implements OnInit {
       .subscribe(data => {
         let index = this.getMethodBusinessIndex(data.httpReqHdrBasedId);
         this.selectedHTTPReqHeader.length = 0;
-        this.selectedHTTPReqHeader.push(data);
+        // this.selectedHTTPReqHeader.push(data);
+        this.httpRequestHdrComponentInfo = ImmutableArray.replace(this.httpRequestHdrComponentInfo, data, index);
         this.configUtilityService.successMessage(Messages);
         this.httpRequestHdrComponentInfo[index] = this.addReqHeaderTableData(this.httpRequestHdrDetail)[0];
         this.closeDialog();
@@ -287,7 +290,8 @@ export class HttpRequestComponent implements OnInit {
     this.configKeywordsService.addHTTPReqHeaderData(this.httpRequestHdrDetail, this.profileId).subscribe(data => {
       let arrSessionAttr = this.addReqHeaderTableData(data);
 
-      this.httpRequestHdrComponentInfo.push(arrSessionAttr[0]);
+      // this.httpRequestHdrComponentInfo.push(arrSessionAttr[0]);
+      this.httpRequestHdrComponentInfo = ImmutableArray.push(this.httpRequestHdrComponentInfo, arrSessionAttr[0]);
       this.configUtilityService.successMessage(Messages);
     });
     this.rulesDataInfo = [];
@@ -339,7 +343,8 @@ export class HttpRequestComponent implements OnInit {
   // Method for saving rules information
   saveRules() {
 
-    this.rulesDataInfo.push(this.rulesDataDetail);
+    // this.rulesDataInfo.push(this.rulesDataDetail);
+    this.rulesDataInfo = ImmutableArray.push(this.rulesDataInfo, this.rulesDataDetail);
     this.closeRulesDialog();
   }
 

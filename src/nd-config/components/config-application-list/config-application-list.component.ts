@@ -16,6 +16,8 @@ import { deleteMany } from '../../utils/config-utility';
 
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 
+import { ImmutableArray } from '../../utils/immutable-array';
+
 import { Messages, descMsg } from '../../constants/config-constant';
 
 @Component({
@@ -162,8 +164,10 @@ export class ConfigApplicationListComponent implements OnInit {
     this.configApplicationService.addApplicationData(this.applicationDetail)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
-        this.applicationData.push(data);
+        // this.applicationData.push(data);
 
+        //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+        this.applicationData=ImmutableArray.push(this.applicationData,data);
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
@@ -182,8 +186,10 @@ export class ConfigApplicationListComponent implements OnInit {
         let index = this.getAppIndex(this.applicationDetail.appId);
         this.selectedApplicationData.length = 0;
         this.selectedApplicationData.push(data);
+        // this.applicationData[index] = data;
         this.configUtilityService.successMessage(Messages);
-        this.applicationData[index] = data;
+        //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
+        this.applicationData=ImmutableArray.replace(this.applicationData,data,index);
       });
     this.closeDialog();
   }

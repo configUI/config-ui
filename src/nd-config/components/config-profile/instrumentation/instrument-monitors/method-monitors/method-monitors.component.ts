@@ -7,7 +7,9 @@ import { MethodMonitorData } from '../../../../../containers/instrumentation-dat
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
+
 import { deleteMany } from '../../../../../utils/config-utility';
+import { ImmutableArray } from '../../../../../utils/immutable-array';
 
 import { Messages, descMsg } from '../../../../../constants/config-constant'
 
@@ -30,7 +32,7 @@ export class MethodMonitorsComponent implements OnInit {
   selectedMethodMonitorData: MethodMonitorData[];
 
   subscription: Subscription;
-  
+
   /**For add/edit method-monitor flag */
   isNewMethodMonitor: boolean = false;
   /**For open/close add/edit method-monitor detail */
@@ -42,23 +44,23 @@ export class MethodMonitorsComponent implements OnInit {
   selectedValues: boolean;
   keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService,  private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
     this.loadMethodMonitorList();
 
-    if(this.configKeywordsService.keywordData!=undefined){
-    this.keywordValue = this.configKeywordsService.keywordData;
-  }
-  else{
-    this.subscription = this.store.select("keywordData").subscribe(data => {
+    if (this.configKeywordsService.keywordData != undefined) {
+      this.keywordValue = this.configKeywordsService.keywordData;
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         this.keywordValue = keywordDataVal;
       });
-  }
+    }
     this.methodMonitor = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {
@@ -134,7 +136,7 @@ export class MethodMonitorsComponent implements OnInit {
     }
     /**When add edit Method Monitor */
     else {
-      if (this.selectedMethodMonitorData[0].methodName != this.methodMonitorDetail.methodName) {
+      if (this.selectedMethodMonitorData[0].methodName != this.methodMonitorDetail.methodName && this.selectedMethodMonitorData[0].methodDisplayName != this.methodMonitorDetail.methodDisplayName) {
         if (this.checkMethodMonitorNameAlreadyExist())
           return;
       }
@@ -172,9 +174,10 @@ export class MethodMonitorsComponent implements OnInit {
       .subscribe(data => {
         let index = this.getMethodMonitorIndex();
         this.selectedMethodMonitorData.length = 0;
-        this.selectedMethodMonitorData.push(data);
+        // this.selectedMethodMonitorData.push(data);
+        this.methodMonitorData = ImmutableArray.replace(this.methodMonitorData, data, index);
         this.configUtilityService.successMessage(Messages);
-        this.methodMonitorData[index] = data;
+        // this.methodMonitorData[index] = data;
       });
     this.addEditMethodMonitorDialog = false;
   }
@@ -206,7 +209,8 @@ export class MethodMonitorsComponent implements OnInit {
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Method Monitor in DB
-        this.methodMonitorData.push(data);
+        // this.methodMonitorData.push(data);
+        this.methodMonitorData = ImmutableArray.push(this.methodMonitorData, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.addEditMethodMonitorDialog = false;
