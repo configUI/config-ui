@@ -52,6 +52,7 @@ export class AdvanceComponent implements OnInit {
     this.loadKeywordData();
     this.loadAdminInfo();
   }
+
   /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
   loadKeywordData(){
     if(!this.configKeywordsService.keywordData){
