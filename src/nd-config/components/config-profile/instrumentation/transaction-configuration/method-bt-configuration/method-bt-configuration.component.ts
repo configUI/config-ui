@@ -613,7 +613,6 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   saveMethod() {
     this.businessTransMethodDetail.rules = [];
-<<<<<<< HEAD
     if(this.enableArgumentType == "returnType"){
       this.businessTransMethodDetail.enableArgumentType="false";
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
@@ -625,68 +624,11 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
 
     this.businessTransMethodDetail.returnType = this.type;
-      
-    this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
-      this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo,data);
-=======
+ 
     if (this.enableArgumentType == ""){
       this.configUtilityService.errorMessage("Select enable return/argument type capturing");
       return;
     }
-    // if (this.enableArgumentType == "returnType")
-    //   this.businessTransMethodDetail.enableArgumentType = "false";
-    // if (this.enableArgumentType == "argument")
-    //   this.businessTransMethodDetail.enableArgumentType = "true";
-    // var code: number;
-    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
-    //   code = 1;
-    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "NOT EQUALS"))
-    //   code = 2;
-    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "CONTAINS"))
-    //   code = 3;
-    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "STARTS WITH"))
-    //   code = 4;
-    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "ENDS WITH"))
-    //   code = 5;
-    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-    //   code = 6;
-
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQUAL"))
-    //   code = 7;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NOT EQUAL"))
-    //   code = 8;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN"))
-    //   code = 9;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN"))
-    //   code = 10;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN EQUAL TO"))
-    //   code = 11;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN EQUAL TO"))
-    //   code = 12;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQ"))
-    //   code = 13;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NE"))
-    //   code = 14;
-    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-    //   code = 15;
-
-    // if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "TRUE"))
-    //   code = 16;
-    // if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "FALSE"))
-    //   code = 17;
-    // if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-    //   code = 18;
-
-    // if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-    //   code = 19;
-    // if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EQ"))
-    //   code = 20;
-    // if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "NE"))
-    //   code = 21;
-
-    // for (let i = 0; i < this.methodRulesInfo.length; i++) {
-    //   this.businessTransMethodDetail.rules[i] = { btMethodRuleId: i, opCode: code, opCodeDropDown: { dropDownVal: code }, btName: this.methodRulesInfo[i].btName, value: this.methodRulesInfo[i].value, operationName: this.methodRulesInfo[i].operationName };
-    // }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
       this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
