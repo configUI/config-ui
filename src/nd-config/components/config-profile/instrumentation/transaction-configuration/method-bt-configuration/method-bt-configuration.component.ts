@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransMethodInfo } from '../../../../../interfaces/business-trans-method-info';
+import { ImmutableArray } from '../../../../../utils/immutable-array';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { BusinessTransMethodData, RulesData, ArgumentRulesData } from '../../../../../containers/instrumentation-data'
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
@@ -72,6 +73,8 @@ export class MethodBTConfigurationComponent implements OnInit {
   /*For cheking FQM */
   first: boolean;
   second: boolean;
+
+  enableArgumentType: string;
 
   saveDisable: boolean = false;
   indexList: SelectItem[];
@@ -179,6 +182,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   openMethodDialog() {
     this.businessTransMethodDetail = new BusinessTransMethodData();
     this.btMethodRulesDetail = new RulesData();
+    this.enableArgumentType="";
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
     // this.methodRulesInfo = [];
@@ -205,7 +209,9 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   openAddArgumentRulesDialog() {
-    this.validateArgAndGetArgumentsNumberList();
+    this.btMethodRulesDetail = new RulesData();
+    this.addArgRulesDialog = true;
+
   }
 
   /** Edit BT Method */
@@ -353,14 +359,16 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //For checking FQM 
   saveRules() {
-    this.methodRulesInfo.push(this.btMethodRulesDetail);
+    // this.methodRulesInfo.push(this.btMethodRulesDetail);
+    this.methodRulesInfo = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
     // this.configUtilityService.successMessage(Messages);
     this.addRulesDialog = false;
     this.returnTypeData = [];
   }
 
   saveArgRules() {
-    this.methodArgRulesInfo.push(this.btMethodRulesDetail);
+    this.methodArgRulesInfo = ImmutableArray.push(this.methodArgRulesInfo, this.btMethodRulesDetail);
+    // this.methodArgRulesInfo.push(this.btMethodRulesDetail);
     // this.configUtilityService.successMessage(Messages);
     this.addArgRulesDialog = false;
   }
@@ -436,7 +444,17 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     else if (this.second) {
       this.second = false;
-      this.openAddArgumentRulesDialog();
+      let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
+      if (returnType == 'void') {
+        this.configUtilityService.errorMessage("FQM doesn't have any return type.");
+        //  fqmField.setCustomValidity("FQM doesn't have any return type.");
+      }
+      else if (returnType == 'null') {
+        this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
+      }
+      else {
+        this.openAddArgumentRulesDialog();
+      }
     }
     else {
       //When add new application
@@ -469,7 +487,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   operationListArgumentType() {
-    let type = this.getTypeArgumentType(this.businessTransMethodDetail.fqm, this.argumentTypeRules.indexVal)
+    let type = this.getTypeArgumentType(this.businessTransMethodDetail.fqm, this.businessTransMethodDetail.argumentIndex)
     this.changeOpertionType(type)
   }
 
@@ -590,9 +608,9 @@ export class MethodBTConfigurationComponent implements OnInit {
         this.indexList.push({ 'value': i, 'label': i + '' });
       }
     }
-    this.addArgRulesDialog = true;
-    this.argumentTypeRules = new ArgumentTypeData();
-    this.btMethodRulesDetail = new RulesData();
+    // this.addArgRulesDialog = true;
+    // this.argumentTypeRules = new ArgumentTypeData();
+    // this.btMethodRulesDetail = new RulesData();
     // this.addArgumentRulesDialog = true;
     // this.businessTransMethodDetail = new BusinessTransMethodData();
   }
@@ -600,58 +618,63 @@ export class MethodBTConfigurationComponent implements OnInit {
   saveMethod() {
 
     this.businessTransMethodDetail.rules = [];
-    var code: number;
-    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
-      code = 1;
-    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "NOT EQUALS"))
-      code = 2;
-    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "CONTAINS"))
-      code = 3;
-    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "STARTS WITH"))
-      code = 4;
-    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "ENDS WITH"))
-      code = 5;
-    if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-      code = 6;
+    if(this.enableArgumentType=="returnType")
+      this.businessTransMethodDetail.enableArgumentType="false";
+    if(this.enableArgumentType=="argument")
+      this.businessTransMethodDetail.enableArgumentType="true";
+    // var code: number;
+    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
+    //   code = 1;
+    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "NOT EQUALS"))
+    //   code = 2;
+    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "CONTAINS"))
+    //   code = 3;
+    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "STARTS WITH"))
+    //   code = 4;
+    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "ENDS WITH"))
+    //   code = 5;
+    // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+    //   code = 6;
 
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQUAL"))
-      code = 7;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NOT EQUAL"))
-      code = 8;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN"))
-      code = 9;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN"))
-      code = 10;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN EQUAL TO"))
-      code = 11;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN EQUAL TO"))
-      code = 12;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQ"))
-      code = 13;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NE"))
-      code = 14;
-    if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-      code = 15;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQUAL"))
+    //   code = 7;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NOT EQUAL"))
+    //   code = 8;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN"))
+    //   code = 9;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN"))
+    //   code = 10;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "LESS THAN EQUAL TO"))
+    //   code = 11;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "GREATER THAN EQUAL TO"))
+    //   code = 12;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EQ"))
+    //   code = 13;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "NE"))
+    //   code = 14;
+    // if ((this.businessTransMethodDetail.returnType == "Numeric") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+    //   code = 15;
 
-    if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "TRUE"))
-      code = 16;
-    if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "FALSE"))
-      code = 17;
-    if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-      code = 18;
+    // if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "TRUE"))
+    //   code = 16;
+    // if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "FALSE"))
+    //   code = 17;
+    // if ((this.businessTransMethodDetail.returnType == "Boolean") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+    //   code = 18;
 
-    if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
-      code = 19;
-    if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EQ"))
-      code = 20;
-    if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "NE"))
-      code = 21;
+    // if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EXCEPTION"))
+    //   code = 19;
+    // if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "EQ"))
+    //   code = 20;
+    // if ((this.businessTransMethodDetail.returnType == "Char or Byte") && (this.btMethodRulesDetail.operationName == "NE"))
+    //   code = 21;
 
-    for (let i = 0; i < this.methodRulesInfo.length; i++) {
-      this.businessTransMethodDetail.rules[i] = { btMethodRuleId: i, opCode: code, opCodeDropDown: { dropDownVal: code }, btName: this.methodRulesInfo[i].btName, value: this.methodRulesInfo[i].value, operationName: this.methodRulesInfo[i].operationName };
-    }
+    // for (let i = 0; i < this.methodRulesInfo.length; i++) {
+    //   this.businessTransMethodDetail.rules[i] = { btMethodRuleId: i, opCode: code, opCodeDropDown: { dropDownVal: code }, btName: this.methodRulesInfo[i].btName, value: this.methodRulesInfo[i].value, operationName: this.methodRulesInfo[i].operationName };
+    // }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
-      this.businessTransMethodInfo.push(data)
+      // this.businessTransMethodInfo.push(data)
+      this.businessTransMethodInfo=ImmutableArray.push(this.businessTransMethodInfo,data);
       this.configUtilityService.successMessage(Messages);
     });
     this.addBusinessTransMethodDialog = false;
