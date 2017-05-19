@@ -84,7 +84,7 @@
                     </template>
                     </p-column>
 
-                    
+
 
                     <p-column class="col-overflow" field="customValTypeName" header="Type" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
@@ -113,7 +113,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.valName" autofocus required ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.valName" title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Custom type</label>
@@ -128,13 +128,13 @@
                     <label>Left bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.lb" autofocus required ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.lb" title="Please enter valid Left bound.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.rb" autofocus required ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.rb" title="Please enter valid Right bound.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
         </div>

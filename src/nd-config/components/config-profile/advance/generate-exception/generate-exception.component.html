@@ -17,7 +17,8 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="fullName" type="text" style="width: 150%" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText autofocus required ngModel/>
+                            <input name="fullName" type="text" style="width: 150%" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                                required pattern="[a-zA-Z0-9.]+(\(([^)\(\s]*)\))[^]*" ngModel/>
                         </div>
                     </div>
 
@@ -38,7 +39,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required ngModel/>
+                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required pattern="[^]{0,49}$" ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">

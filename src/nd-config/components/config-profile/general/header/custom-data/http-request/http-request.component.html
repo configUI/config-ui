@@ -35,7 +35,7 @@
                     <label>Header name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" autofocus required ngModel/>
+                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" title="Please enter valid Header name.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -97,7 +97,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus required ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-4">
                     <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="Custom value type"></p-dropdown>
@@ -109,13 +109,13 @@
                     <label>Left bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" autofocus required ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" autofocus title="Please enter valid Left bound.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" autofocus required ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" autofocus title="Please enter valid Right bound.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
 
 BEGIN;
 
-INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name) 
+INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name)
 VALUES
 (1,'default','Default profile','-','');
 
@@ -94,8 +94,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (37,'ASMethodHotspots','0','1','1','-1','normal'),
 (38,'enableExceptionInSeqBlob','0','1','2','0','normal'),
 (39,'captureErrorLogs','0','2','2','0','normal'),
-(40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'), 
-(41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom');
+(40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'),
+(41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom'),
+(42, 'HTTPStatsCondCfg','1','1024','5','false','normal');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
@@ -185,7 +186,7 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (31,true,31,1),
 (32,true,32,1);
 
-INSERT INTO config.headers_type(ht_id,header_type_name) VALUES 
+INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
 (1,'request'),
 (2,'response'),
 (3,'cookie');
@@ -276,7 +277,7 @@ INSERT INTO config.headers_meta_data(hmd_id,ht_id,header_name) VALUES
 (83,2,'X-XSS-Protection');
 
 
-INSERT INTO config.value_type(val_id,val_type) VALUES 
+INSERT INTO config.value_type(val_id,val_type) VALUES
 (1,'String'),
 (2,'Numeric'),
 (3,'Others');

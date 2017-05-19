@@ -51,14 +51,14 @@ export class HttpStatsMonitorsComponent implements OnInit {
   selectedValueType: number;
   isDisableValueType: boolean = true;
   saveDisable: boolean = false;
-   subscription: Subscription;
+  subscription: Subscription;
 
   keywordList: string[] = ['HTTPStatsCondCfg'];
-  HttpStatsCond: Object;
+  HttpStatsMonitor: Object;
   selectedValues: boolean;
-  keywordValue:Object;
+  keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService,private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
   ngOnInit() {
@@ -71,23 +71,23 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.loadStringOP();
     this.loadNumericOP();
     this.loadOthersOP();
-     if(this.configKeywordsService.keywordData!=undefined){
-    this.keywordValue = this.configKeywordsService.keywordData;
-  }
-  else{
-    this.subscription = this.store.select("keywordData").subscribe(data => {
+    if (this.configKeywordsService.keywordData != undefined) {
+      this.keywordValue = this.configKeywordsService.keywordData;
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         this.keywordValue = keywordDataVal;
       });
-  }
-    this.HttpStatsCond = {};
+    }
+    this.HttpStatsMonitor = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {
-        this.HttpStatsCond[key] = this.keywordValue[key];
-        if (this.HttpStatsCond[key].value == "true")
+        this.HttpStatsMonitor[key] = this.keywordValue[key];
+        if (this.HttpStatsMonitor[key].value == "true")
           this.selectedValues = true;
         else
           this.selectedValues = false;
@@ -97,23 +97,20 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
   saveKeywordData() {
 
-    for (let key in this.HttpStatsCond) {
+    for (let key in this.HttpStatsMonitor) {
       if (key == 'HTTPStatsCondCfg') {
         if (this.selectedValues == true) {
-          this.HttpStatsCond[key]["value"] = "true";
+          this.HttpStatsMonitor[key]["value"] = "true";
           this.configUtilityService.successMessage("Http Stats monitors are enabled");
-          return;
         }
         else {
-          this.HttpStatsCond[key]["value"] = "false";
+          this.HttpStatsMonitor[key]["value"] = "false";
           this.configUtilityService.successMessage("Http Stats Monitors are disabled");
-          return;
         }
       }
-      this.configKeywordsService.keywordData[key] = this.HttpStatsCond[key];
+      this.configKeywordsService.keywordData[key] = this.HttpStatsMonitor[key];
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
-
   }
 
   loadHttpStatsMonitorList() {
@@ -346,7 +343,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
             this.deleteApplications(arrAppIndex);
             this.configUtilityService.infoMessage("Deleted Successfully");
           })
-    //     this.configUtilityService.infoMessage("Deleted Successfully");
+        //     this.configUtilityService.infoMessage("Deleted Successfully");
       },
       reject: () => {
 

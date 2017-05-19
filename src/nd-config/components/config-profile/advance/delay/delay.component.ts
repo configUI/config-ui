@@ -129,6 +129,26 @@ export class DelayComponent implements OnInit {
     if (this.subscriptionEG)
       this.subscriptionEG.unsubscribe();
   }
+   checkFrom(from, to) {
+    if (this.delayData.from >= this.delayData.to) {
+      from.setCustomValidity('From value must be less than To value.');
+    }
+    else {
+      from.setCustomValidity('');
+    }
+    to.setCustomValidity('');
+
+  }
+
+  checkTo(from, to) {
+    if (this.delayData.from >= this.delayData.to) {
+      to.setCustomValidity('To value must be greater than from value.');
+    }
+    else {
+      to.setCustomValidity('');
+    }
+    from.setCustomValidity('');
+  }
 }
 //Contains putDelayInMethod Keyword variables
 class DelayData {

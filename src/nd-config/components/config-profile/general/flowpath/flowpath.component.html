@@ -71,7 +71,8 @@
                             <label>Correlation ID using HTTP header</label>
                         </div>
                         <div class="ui-g-2">
-                            <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} ngModel/>
+                            <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} title="Please enter valid correlation ID header.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed."
+                                pattern="[^\s]{0,49}$" ngModel/>
                             <span></span>
                         </div>
 

@@ -21,13 +21,13 @@
     </template>
     </p-column>
 
-    <p-column class="col-overflow"[style]="{'width':'25%'}" field="returnTypeValue" header="Return type" [sortable]="true">
+    <p-column class="col-overflow" [style]="{'width':'25%'}" field="returnTypeValue" header="Return type" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
     </p-column>
 
-    <p-column class="col-overflow" [style]="{'width':'25%'}"field="argumentTypeValue" header="Argument type" [sortable]="true">
+    <p-column class="col-overflow" [style]="{'width':'25%'}" field="argumentTypeValue" header="Argument type" [sortable]="true">
         <template let-col let-tableData="rowData" pTemplate>
       <span title="{{tableData[col.field]}}">{{tableData[col.field]}}</span>
     </template>
@@ -43,7 +43,8 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" disabled={{!isNew}} #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus required ngModel/>
+                <input name="fqm" disabled={{!isNew}} #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                    required pattern="[a-zA-Z0-9.]+(\(([^)\(\s]*)\))[^]*" ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -72,7 +73,7 @@
                 </template>
                 </p-column>
 
-                <p-column class="col-overflow"[style]="{'width':'15%'}" field="typeName" header="Type" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'width':'15%'}" field="typeName" header="Type" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -125,7 +126,7 @@
              </template>
                 </p-column>
 
-                <p-column class="col-overflow" [style]="{'text-align':'right','width':'10%'}"  field="indexVal" header="Index" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'text-align':'right','width':'10%'}" field="indexVal" header="Index" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -142,7 +143,7 @@
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column class="col-overflow"[style]="{'width':'15%'}" field="operatorValue" header="Operator value" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'width':'15%'}" field="operatorValue" header="Operator value" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -177,7 +178,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="headerName" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.headerName" autofocus required ngModel/>
+                    <input name="headerName" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.headerName" title="Please enter valid rule name.   &#013;Please enter maximum upto 50 characters." autofocus required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Custom type</label>
@@ -206,7 +207,8 @@
                     <label>Operator value</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
-                    <input name="operatorValue" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.operatorValue" required ngModel/>
+                    <input name="operatorValue" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.operatorValue" title="Please enter valid Operator value.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed." required pattern="[^\s]{0,49}$"
+                        ngModel/>
                 </div>
                 <!--</div>-->
             </div>
@@ -216,7 +218,7 @@
                         <label>Left bound</label>
                     </div>
                     <div class="ui-g-8" style="margin-top: -5px">
-                        <input name="leftBound" type="text" size="25" pInputText [(ngModel)]="leftBoundReturn" placeholder=" left bound" required ngModel/>
+                        <input name="leftBound" type="text" size="25" pInputText [(ngModel)]="leftBoundReturn" placeholder=" left bound" title="Please enter valid left bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                     </div>
                 </div>
                 <div class="ui-g-6">
@@ -224,7 +226,7 @@
                         <label>Right bound</label>
                     </div>
                     <div class="ui-g-8" style="margin-top: -5px">
-                        <input name="rightBound" type="text" size="25" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
+                        <input name="rightBound" type="text" size="25" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" title="Please enter valid right bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                     </div>
                 </div>
             </div>
@@ -264,7 +266,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="headerName" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.headerName" autofocus required ngModel/>
+                    <input name="headerName" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.headerName" title="Please enter valid rule name.  &#013;Please enter maximum upto 50 characters. " autofocus required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Index</label>
@@ -322,7 +324,7 @@
                     <label>Operator value</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="operatorValue" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.operatorValue" required ngModel/>
+                    <input name="operatorValue" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.operatorValue" title="Please enter valid Operator value.   &#013;Please enter maximum upto 50 characters. " required pattern="[^\s]{0,49}$" ngModel/>
                 </div>
             </div>
 
@@ -340,13 +342,13 @@
                     <label>Left bound</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="leftBound" type="text" size="27" pInputText [(ngModel)]="leftBoundArgument" placeholder=" left bound" required ngModel/>
+                    <input name="leftBound" type="text" size="27" pInputText [(ngModel)]="leftBoundArgument" placeholder=" left bound" title="Please enter valid left bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right bound</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="rightBound" type="text" size="27" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" required ngModel/>
+                    <input name="rightBound" type="text" size="27" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" title="Please enter valid right bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
 

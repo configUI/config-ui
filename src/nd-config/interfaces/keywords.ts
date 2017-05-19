@@ -40,5 +40,6 @@ export class Keywords{
 "ASMethodHotspots" : KeywordsInfo
 "enableExceptionInSeqBlob" : KeywordsInfo
 "captureErrorlogs":KeywordsInfo
+"HTTPStatsCondCfg":KeywordsInfo
 }
 
