@@ -5,7 +5,10 @@ import { ErrorDetection } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
+
+import { ImmutableArray } from '../../../../utils/immutable-array';
 import { deleteMany } from '../../../../utils/config-utility';
+
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { Keywords } from '../../../../interfaces/keywords';
 import { Messages, descMsg } from '../../../../constants/config-constant'
@@ -45,18 +48,18 @@ export class ErrorDetectionComponent implements OnInit {
   ngOnInit() {
     this.loadErrorDetectionList();
     this.saveDisable = this.profileId == 1 ? true : false;
-    if(this.configKeywordsService.keywordData!=undefined){
-    this.keywordValue = this.configKeywordsService.keywordData;
-  }
-  else{
-    this.subscription = this.store.select("keywordData").subscribe(data => {
+    if (this.configKeywordsService.keywordData != undefined) {
+      this.keywordValue = this.configKeywordsService.keywordData;
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         this.keywordValue = keywordDataVal;
       });
-  }
+    }
     this.errorDetection = {};
     this.keywordList.forEach((key) => {
       if (this.keywordValue.hasOwnProperty(key)) {
@@ -159,9 +162,12 @@ export class ErrorDetectionComponent implements OnInit {
       .subscribe(data => {
         let index = this.getErrorDetectionIndex();
         this.selectedErrorDetection.length = 0;
-        this.selectedErrorDetection.push(data);
+        // this.selectedErrorDetection.push(data);
+
+      //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
+        this.errorDetectionData = ImmutableArray.replace(this.errorDetectionData, data, index);
         this.configUtilityService.successMessage(Messages);
-        this.errorDetectionData[index] = data;
+        // this.errorDetectionData[index] = data;
       });
     this.addEditErrorDetectionDialog = false;
   }
@@ -187,7 +193,10 @@ export class ErrorDetectionComponent implements OnInit {
     this.configKeywordsService.addErrorDetection(this.errorDetectionDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Error detection in DB
-        this.errorDetectionData.push(data);
+        // this.errorDetectionData.push(data);
+
+      //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+        this.errorDetectionData = ImmutableArray.push(this.errorDetectionData, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.addEditErrorDetectionDialog = false;

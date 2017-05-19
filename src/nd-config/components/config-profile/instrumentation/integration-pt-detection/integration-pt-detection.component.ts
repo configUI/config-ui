@@ -8,6 +8,7 @@ import { INTEGRATION_TYPE } from '../../../../constants/config-constant';
 import { BackendInfo } from '../../../../interfaces/instrumentation-info';
 
 import { cloneObject } from '../../../../utils/config-utility';
+import { ImmutableArray } from '../../../../utils/immutable-array';
 
 import { Messages, descMsg } from '../../../../constants/config-constant'
 
@@ -78,11 +79,11 @@ export class IntegrationPtDetectionComponent implements OnInit {
 
   /**This method is called to save the Data Add New Integration Point Detection data */
   saveAddIntegrationPTDetection(): void {
-    if (this.addIPDetectionDetail.desc!=null){
-    if (this.addIPDetectionDetail.desc.length > 500) {
-      this.configUtilityService.errorMessage(descMsg);
-      return;
-    }
+    if (this.addIPDetectionDetail.desc != null) {
+      if (this.addIPDetectionDetail.desc.length > 500) {
+        this.configUtilityService.errorMessage(descMsg);
+        return;
+      }
     }
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)
       .subscribe(data => {
@@ -96,7 +97,8 @@ export class IntegrationPtDetectionComponent implements OnInit {
         endPointData.enabled = data.enabled;
         endPointData.fqm = data.fqm;
         endPointData.name = data.name;
-        this.ipDetectionData[index].lstEndPoints.push(endPointData);
+        // this.ipDetectionData[index].lstEndPoints.push(endPointData);
+        this.ipDetectionData[index].lstEndPoints = ImmutableArray.push(this.ipDetectionData[index].lstEndPoints, endPointData);
         this.configUtilityService.successMessage(Messages);
       });
     this.displayNewIPDetection = false;

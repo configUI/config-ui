@@ -18,7 +18,7 @@ import { GroupKeyword } from '../containers/group-keyword';
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 import { ConfigUtilityService } from '../services/config-utility.service';
-import { Messages ,customKeywordMessage } from '../constants/config-constant'
+import { Messages, customKeywordMessage } from '../constants/config-constant'
 
 
 @Injectable()
@@ -55,7 +55,7 @@ export class ConfigKeywordsService {
 
 
 
-  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService :ConfigUtilityService) {
+  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) {
 
   }
 
@@ -75,9 +75,9 @@ export class ConfigKeywordsService {
     this._restApi.getDataByPostReq(`${URL.UPDATE_KEYWORDS_DATA}/${profileId}`, this.keywordData)
       .subscribe(data => {
         this.keywordData = data;
-        if(toggle != "toggle")
-        this.configUtilityService.successMessage(Messages);
-       
+        if (toggle != "toggle")
+          this.configUtilityService.successMessage(Messages);
+
         this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
   }
@@ -329,8 +329,24 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(url, data);
   }
 
+//Need more testing.
   sendRunTimeChange(URL, data) {
-    this._restApi.getDataByPostReq(URL, data).subscribe();
+    this._restApi.getDataByPostReq(URL, data).subscribe(
+      data => {
+        //When runtime changes are applied
+        this.configUtilityService.infoMessage("Runtime changes applied");
+      },
+      error => {
+        //When runtime changes are not applied 
+        this.configUtilityService.errorMessage("Error : See the agent logs");
+      }
+    );
+  }
+
+  deleteSpecificAttrValues(id){
+    console.log("deleteSpecificAttrValues rules---",id)
+    let url = `${URL.DELETE_ATTR_RULES}/${id}`;
+    return this._restApi.getDataByPostReq(url);
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
+
+import { ImmutableArray } from '../../../../../utils/immutable-array';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpStatsMonitorData } from '../../../../../containers/instrumentation-data';
@@ -278,9 +280,10 @@ export class HttpStatsMonitorsComponent implements OnInit {
       .subscribe(data => {
         let index = this.getAppIndex(this.httpStatsMonitorDetail.hscid);
         this.selectedHttpStatsMonitorData.length = 0;
-        this.selectedHttpStatsMonitorData.push(data);
+        // this.selectedHttpStatsMonitorData.push(data);
+        this.httpStatsMonitorData = ImmutableArray.replace(this.httpStatsMonitorData, data, index);
         this.configUtilityService.successMessage(Messages);
-        this.httpStatsMonitorData[index] = data;
+        // this.httpStatsMonitorData[index] = data;
       });
     this.addEditHttpStatsMonitorDialog = false;
   }
@@ -298,7 +301,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting HTTP Stats Condition in DB
-        this.httpStatsMonitorData.push(data);
+        // this.httpStatsMonitorData.push(data);
+        this.httpStatsMonitorData = ImmutableArray.push(this.httpStatsMonitorData, data);
         this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
         this.configUtilityService.successMessage(Messages);
       });

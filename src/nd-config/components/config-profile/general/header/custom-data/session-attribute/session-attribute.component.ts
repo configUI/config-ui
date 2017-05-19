@@ -55,7 +55,6 @@ export class SessionAttributeComponent implements OnInit {
     let arrValue = ['0', '1', '2'];
     this.customValueType = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
 
-    console.log("this.customValueType--", this.customValueType)
     this.customValueTypeInfo = [];
   }
 
@@ -68,6 +67,7 @@ export class SessionAttributeComponent implements OnInit {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
+    // this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => this.doAssignSessionAttributeTableData(data));
     this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => this.doAssignSessionAttributeTableData(data));
   }
 
@@ -75,6 +75,7 @@ export class SessionAttributeComponent implements OnInit {
     this.selectedSessionAttribute = data.sessionType;
     this.sessionAttributeComponentInfo = this.filterTRData(data);
   }
+
   filterTRData(data): Array<SessionAtrributeComponentsData> {
     var arrTestRunData = [];
     if (data.attrList != null) {
@@ -92,9 +93,13 @@ export class SessionAttributeComponent implements OnInit {
 
         if (valueNames.indexOf(",") != -1)
           valueNames = valueNames.substr(1);
-
+        
         arrTestRunData.push({
-          attrName: data.attrList[i].attrName, attrType: data.attrList[i].attrType, valName: valueNames, sessAttrId: data.attrList[i].sessAttrId, attrValues: data.attrList[i].attrValues,
+          attrName: data.attrList[i].attrName,
+          attrType: data.attrList[i].attrType, 
+          valName: valueNames, 
+          sessAttrId: data.attrList[i].sessAttrId, 
+          attrValues: data.attrList[i].attrValues,
         });
       }
       return arrTestRunData;
@@ -120,7 +125,6 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveTypesValues() {
-    console.log("this.customValueTypeDetail--", this.customValueTypeDetail)
     this.customValueTypeDetail["id"] = this.counterEdit + 1;
     this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
   
@@ -168,9 +172,22 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   editSessionAttr() {
+
     this.sessionAtrributeDetailSaveAndEdit();
    
     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
+
+    /* first triggering the request to delete the rules of the session attribute
+    *  and then sending the request to add the Rules
+    *  due to some backend problem in triggering same request for two task
+    *  handling this case by triggering two different request until it is handled 
+    *  from backend side
+    */
+    
+    this.configKeywordsService.deleteSpecificAttrValues(this.sessionAttributeDetail.sessAttrId).
+                                subscribe(data =>console.log("data"))
+    
+    //now triggering the request to edit the session attr 
 
     this.configKeywordsService.editSessionAttributeData(this.sessionAttributeDetail)
       .subscribe(data => {
@@ -187,7 +204,6 @@ export class SessionAttributeComponent implements OnInit {
   saveSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
     this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
-
       let arrSessionAttr = this.setDataSessionAttribute(data);
       this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
       this.configUtilityService.successMessage(Messages);
@@ -236,7 +252,11 @@ export class SessionAttributeComponent implements OnInit {
       valueNames = "-";
 
     arrTestRunData.push({
-      attrName: data.attrName, attrType: data.attrType, valName: valueNames, sessAttrId: data.sessAttrId,
+      attrName: data.attrName,
+      attrType: data.attrType,
+      valName: valueNames, 
+      sessAttrId: data.sessAttrId,
+      attrValues:data.attrValues
     });
     return arrTestRunData;
   }
@@ -264,7 +284,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.specific = true;
     else if (this.selectedSessionAttributeList[0].attrType == "complete")
       this.sessionAttributeDetail.complete = true;
-    ``
+
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
 
     this.sessionAttributeDetail.attrValues = this.selectedSessionAttributeList[0].attrValues;
@@ -352,8 +372,8 @@ export class SessionAttributeComponent implements OnInit {
 
   /**This method returns selected Session Attribute row on the basis of selected row */
   getValuesTypeIndex(appId: any): number {
-    for (let i = 0; i < this.customValueTypeInfo.length; i++) {
-      if (this.customValueTypeInfo[i] == appId) {
+    for (let i = 0; i < this.sessionAttributeDetail.attrValues.length; i++) {
+      if (this.sessionAttributeDetail.attrValues[i] == appId) {
         return i;
       }
     }
@@ -379,7 +399,7 @@ export class SessionAttributeComponent implements OnInit {
     for (let index in arrRulesIndex) {
       rowIndex.push(this.getValuesTypeIndex(arrRulesIndex[index]));
     }
-    this.customValueTypeInfo = deleteMany(this.customValueTypeInfo, rowIndex);
+    this.sessionAttributeDetail.attrValues = deleteMany(this.sessionAttributeDetail.attrValues, rowIndex);
   }
 
   /**This method is used to delete Session Attribute from Data Table */

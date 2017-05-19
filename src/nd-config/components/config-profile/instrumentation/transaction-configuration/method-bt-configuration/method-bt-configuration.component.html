@@ -15,11 +15,11 @@
             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="col-overflow" field="returnType" header="Return type" [sortable]="true">
+    <!--<p-column class="col-overflow" field="returnType" header="Return type" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
-    </p-column>
+    </p-column>-->
     </p-dataTable>
 
     <!--Dialog for adding Business Transaction Method-->
@@ -39,12 +39,11 @@
                 </div>
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <p-checkbox name="enableReturnType" label="Enable return type capturing" [(ngModel)]="businessTransMethodDetail.enableReturnType"
-                            binary="false"></p-checkbox>
+                        <p-radioButton name="enableArgumentType" value="returnType" label="Enable return type capturing" [(ngModel)]="enableArgumentType"></p-radioButton>
                     </div>
-                    <div class="ui-g-12" *ngIf="businessTransMethodDetail.enableReturnType">
-                        <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="businessTransMethodDetail.enableReturnType" [(selection)]="selectedMethodRules"
-                            [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
+                    <div class="ui-g-12" *ngIf="enableArgumentType=='returnType'">
+                        <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4"
+                            [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                             <p-header>
                                 <span style="float: left;">  Return type settings </span>
                                 <span style="float: right; margin-top:-5px">
@@ -79,14 +78,20 @@
                 </div>
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <p-checkbox name="enableArgumentType" label="Enable argument type capturing" [(ngModel)]="businessTransMethodDetail.enableArgumentType"
-                            binary="false"></p-checkbox>
+                        <p-radioButton name="enableArgumentType" value="argument" label="Enable argument type capturing" [(ngModel)]="enableArgumentType"></p-radioButton>
                     </div>
-
+                    <!--<div class="ui-g-2">
+                        <label> Argument index</label>
+                    </div>-->
+                    <div class="ui-g-3" style="margin-top: -5px">
+                        <!--<input name="argumentIndexValidate" [disabled]="!(enableArgumentType=='argument')" type="text" size="15" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>-->
+                        <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList()"
+                            placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex" [options]="indexList"></p-dropdown>
+                    </div>
                 </div>
-                <div class="ui-g-12" *ngIf="businessTransMethodDetail.enableArgumentType">
-                    <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.enableArgumentType" [(selection)]="selectedArgRules"
-                        [rows]="4" [paginator]="methodArgRulesInfo?.length > 4" [pageLinks]="3">
+                <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
+                    <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'"
+                        [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
                         <p-header>
                             <span style="float: left;">  Argument type settings </span>
                             <span style="float: right; margin-top:-5px">
@@ -168,14 +173,9 @@
                 modal="modal" width="500" responsive="true">
                 <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
                     <div class="ui-g">
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label> Argument index</label>
-                            </div>
-                            <div class="ui-g-5" style="margin-top: -5px">
-                                <p-dropdown name="argumentIndex" [style]="{'width': '100%'}" placeholder="--Select argument index--" [(ngModel)]="argumentTypeRules.indexVal" [options]="indexList"></p-dropdown>
-                            </div>
-                        </div>
+                        <!--<div class="ui-g-12">
+                            
+                        </div>-->
                         <div class="ui-g-12">
                             <div class="ui-g-4">
                                 <label>Value</label>
@@ -189,8 +189,8 @@
                                 <label>Operation</label>
                             </div>
                             <div class="ui-g-4" style="margin-top: -5px">
-                                <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '100%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"
-                                    (click)="operationListArgumentType()"></p-dropdown>
+                                <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '100%'}" [(ngModel)]="btMethodRulesDetail.operationName"
+                                    placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
                             </div>
                         </div>
                         <div class="ui-g-12">

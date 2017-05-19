@@ -7,7 +7,7 @@ import { ConfigProfileService } from '../../services/config-profile.service'
 //  import { ProfileInfo } from '../../interfaces/profile-info';
 import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
-
+import { ImmutableArray } from '../../utils/immutable-array';
 import { Messages, descMsg } from '../../constants/config-constant'
 
 @Component({
@@ -71,7 +71,10 @@ export class ConfigProfileListComponent implements OnInit {
     this.configProfileService.addProfileData(this.profileDetail)
       .subscribe(data => {
         //Insert data in main table after inserting integration point detection in DB
-        this.profileData.push(data);
+        // this.profileData.push(data);
+
+      //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+        this.profileData=ImmutableArray.push(this.profileData, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.displayNewProfile = false;

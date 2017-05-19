@@ -10,15 +10,15 @@
             <app-monitors *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
         </p-tabPanel>
         <!--<p-tabPanel header="Put delay in method" *ngIf="adminMode == 'true'" [selected]="index == 3">-->
-        <p-tabPanel header="Put delay in method"  [selected]="index == 2">
+        <p-tabPanel header="Put delay in method" *ngIf="adminMode" [selected]="index == 2">
             <app-delay *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-delay>
         </p-tabPanel>
         <!--<p-tabPanel header="Generate exception" *ngIf="adminMode == 'true'" [selected]="index == 4">-->
-         <p-tabPanel header="Generate exception"  [selected]="index == 3">
+         <p-tabPanel header="Generate exception" *ngIf="adminMode"  [selected]="index == 3">
             <app-generate-exception *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-generate-exception>
         </p-tabPanel>
 
-        <p-tabPanel header="Custom Keywords"  [selected]="index == 4">
+        <p-tabPanel header="Custom Keywords" *ngIf="adminMode" [selected]="index == 4">
             <app-custom-keywords *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-keywords>
         </p-tabPanel>
     </p-tabView>

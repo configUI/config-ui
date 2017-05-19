@@ -164,6 +164,7 @@ export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttr
 export const DEL_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/delattrvalues`;
 export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/editsessionattr`;
 export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delete`;
+export const DELETE_ATTR_RULES  = `${SERVICE_URL}/custom/sessionattrmonitor/ngdelattrrules`;
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
