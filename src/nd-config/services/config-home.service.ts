@@ -12,7 +12,21 @@ export class ConfigHomeService {
 
   private trDataSource = new Subject<TRData>();
   
-  trData :TRData;
+  // private _trData: TRData;
+
+  private _trData: TRData;
+
+	public get trData(): TRData { 
+    if(sessionStorage.getItem("trData") != null) {
+      return JSON.parse(sessionStorage.getItem("trData"));
+    }
+		return this._trData;
+	}
+
+	public set trData(value: TRData) {
+    sessionStorage.setItem("trData", JSON.stringify(value));
+		this._trData = value;
+	}
   
   // Observable string streams
   trData$ = this.trDataSource.asObservable();

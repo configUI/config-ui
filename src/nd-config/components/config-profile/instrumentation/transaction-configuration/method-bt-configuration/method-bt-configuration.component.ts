@@ -182,7 +182,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   openMethodDialog() {
     this.businessTransMethodDetail = new BusinessTransMethodData();
     this.btMethodRulesDetail = new RulesData();
-    this.enableArgumentType="";
+    this.enableArgumentType = "";
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
     // this.methodRulesInfo = [];
@@ -480,7 +480,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   checkMethodNameAlreadyExist(): boolean {
     for (let i = 0; i < this.businessTransMethodInfo.length; i++) {
       if (this.businessTransMethodInfo[i].fqm == this.businessTransMethodDetail.fqm) {
-        this.configUtilityService.errorMessage("Application Name already exist");
+        this.configUtilityService.errorMessage("Fully qualified method name already exists");
         return true;
       }
     }
@@ -559,7 +559,12 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //for creating list for index i.e arguments number list
   validateArgAndGetArgumentsNumberList() {
-    if (this.businessTransMethodDetail.fqm != null) {
+    if(this.businessTransMethodDetail.fqm == null || this.businessTransMethodDetail.fqm == "") {
+      this.configUtilityService.errorMessage("Fill out fully qualified method name first");
+      this.indexList = [];
+      return;
+    }
+    else  {
       let argStart = this.businessTransMethodDetail.fqm.indexOf("(");
       let argEnd = this.businessTransMethodDetail.fqm.indexOf(")");
       let args = this.businessTransMethodDetail.fqm.substring(argStart + 1, argEnd);
@@ -618,10 +623,14 @@ export class MethodBTConfigurationComponent implements OnInit {
   saveMethod() {
 
     this.businessTransMethodDetail.rules = [];
-    if(this.enableArgumentType=="returnType")
-      this.businessTransMethodDetail.enableArgumentType="false";
-    if(this.enableArgumentType=="argument")
-      this.businessTransMethodDetail.enableArgumentType="true";
+    if (this.enableArgumentType == ""){
+      this.configUtilityService.errorMessage("Select enable return/argument type capturing");
+      return;
+    }
+    // if (this.enableArgumentType == "returnType")
+    //   this.businessTransMethodDetail.enableArgumentType = "false";
+    // if (this.enableArgumentType == "argument")
+    //   this.businessTransMethodDetail.enableArgumentType = "true";
     // var code: number;
     // if ((this.businessTransMethodDetail.returnType == "String") && (this.btMethodRulesDetail.operationName == "EQUALS"))
     //   code = 1;
@@ -674,7 +683,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     // }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
-      this.businessTransMethodInfo=ImmutableArray.push(this.businessTransMethodInfo,data);
+      this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
       this.configUtilityService.successMessage(Messages);
     });
     this.addBusinessTransMethodDialog = false;

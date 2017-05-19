@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { KeywordData } from '../../../../containers/keyword-data';
+import { Store } from '@ngrx/store';
+import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ExceptionData } from '../../../../containers/exception-capture-data';
@@ -28,7 +29,9 @@ export class ExceptionComponent implements OnInit {
   exception: Object;
   enableGroupKeyword: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
+   keywordValue: Object;
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
     this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == 0 ? false : true;
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
@@ -36,7 +39,7 @@ export class ExceptionComponent implements OnInit {
   }
 
   exceptionData: ExceptionData;
-
+  subscription: Subscription;
   exceptionForm: boolean = true;
 
   ngOnInit() {
@@ -45,12 +48,24 @@ export class ExceptionComponent implements OnInit {
 
 
   getKeywordData() {
-    let keywordData = this.configKeywordsService.keywordData;
+    // let keywordData = this.configKeywordsService.keywordData;
+    if (this.configKeywordsService.keywordData != undefined) {
+      this.keywordValue = this.configKeywordsService.keywordData;
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.keywordValue = keywordDataVal;
+      });
+    }
     this.exception = {};
 
     this.keywordList.forEach((key) => {
-      if (keywordData.hasOwnProperty(key)) {
-        this.exception[key] = keywordData[key];
+      if (this.keywordValue.hasOwnProperty(key)) {
+        this.exception[key] = this.keywordValue[key];
       }
     });
 
