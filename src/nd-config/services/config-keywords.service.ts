@@ -338,7 +338,7 @@ export class ConfigKeywordsService {
       },
       error => {
         //When runtime changes are not applied 
-        this.configUtilityService.errorMessage("Error : Runtime changes are not applied");
+        this.configUtilityService.errorMessage("Error : See the agent logs");
       }
     );
   }
