@@ -43,10 +43,10 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp", "captureHttpSessionAttr"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
-      // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, 
+      // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
       generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] },
       monitors: { enable: false, keywordList: ["enableBTMonitor", "enableBackendMonitor"] }
     },
@@ -337,7 +337,7 @@ export class ConfigKeywordsService {
         this.configUtilityService.infoMessage("Runtime changes applied");
       },
       error => {
-        //When runtime changes are not applied 
+        //When runtime changes are not applied
         this.configUtilityService.errorMessage("Error : See the agent logs");
       }
     );
