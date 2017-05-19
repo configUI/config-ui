@@ -349,10 +349,4 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(url);
   }
 
-  deleteSpecificAttrValues(id){
-    console.log("deleteSpecificAttrValues rules---",id)
-    let url = `${URL.DELETE_ATTR_RULES}/${id}`;
-    return this._restApi.getDataByPostReq(url);
-  }
-
 }
