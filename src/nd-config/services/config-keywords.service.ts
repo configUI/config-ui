@@ -338,15 +338,9 @@ export class ConfigKeywordsService {
       },
       error => {
         //When runtime changes are not applied 
-        this.configUtilityService.errorMessage("Error : Runtime changes are not applied");
+        this.configUtilityService.errorMessage("Error : See the agent logs");
       }
     );
-  }
-
-  deleteSpecificAttrValues(id){
-    console.log("deleteSpecificAttrValues rules---",id)
-    let url = `${URL.DELETE_ATTR_RULES}/${id}`;
-    return this._restApi.getDataByPostReq(url);
   }
 
   deleteSpecificAttrValues(id){
