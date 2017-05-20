@@ -79,8 +79,10 @@ export class MethodBTConfigurationComponent implements OnInit {
   saveDisable: boolean = false;
   indexList: SelectItem[];
 
-//used to hold value of "type " i.e data type of return value or argument value whichever is selected
-  type:string;
+  capturingType: string;
+
+  //used to hold value of "type " i.e data type of return value or argument value whichever is selected
+  type: string;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
@@ -94,8 +96,8 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.methodArgRulesInfo = [];
   }
 
-  arrStringLabel: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception','Eq'];
-  arrStringValue: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION','EQ'];
+  arrStringLabel: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception', 'Eq'];
+  arrStringValue: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION', 'EQ'];
 
 
   arrNumericLabel: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'LT', 'GT', 'Eq', 'Ne', 'Exception'];
@@ -131,20 +133,20 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   changeOpertionType(type) {
 
-    if (type == "object/string"){
+    if (type == "object/string") {
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
       this.type = '1';
     }
-    else if (type == "int" || type == "short" || type == "float" || type == "long" || type == "double"){
+    else if (type == "int" || type == "short" || type == "float" || type == "long" || type == "double") {
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabel, this.arrNumericValue)
       this.type = '0';
     }
-    else if (type == "byte" || type == "char"){
+    else if (type == "byte" || type == "char") {
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabel, this.arrCharValue)
       this.type = '3';
     }
 
-    else if (type == "boolean"){
+    else if (type == "boolean") {
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabel, this.arrBooleanValue)
       this.type = '2';
     }
@@ -160,7 +162,16 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
-    this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => this.businessTransMethodInfo = data);
+    //this.businessTransMethodInfo = data
+    this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data =>{ 
+    let that = this;
+    data.map(function(val){
+      that.modifyData(val);
+    })
+      this.businessTransMethodInfo = data;
+    }
+    
+    );
   }
 
   /** this method used for open dialog for add Method Business Transaction */
@@ -169,7 +180,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.btMethodRulesDetail = new RulesData();
     this.methodRulesInfo = [];
     this.methodArgRulesInfo = [];
-    this.enableArgumentType="";
+    this.enableArgumentType = "";
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
@@ -212,7 +223,27 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
+    console.log("this.selectedbusinessTransMethod[0]--",this.selectedbusinessTransMethod[0]);
     this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
+  }
+  
+//Open edit window on FQM name click
+  openEditMethodTrans(fqm){
+    this.businessTransMethodDetail = new BusinessTransMethodData();
+     this.addBusinessTransMethodDialog = true;
+    this.isNewMethod = false;
+    console.log("fwww",fqm);
+    var i= this.getIndex(fqm);
+   this.businessTransMethodDetail = Object.assign({}, this.businessTransMethodInfo[i]);
+  }
+
+  getIndex(fqm): number {
+    for (let i = 0; i < this.businessTransMethodInfo.length; i++) {
+      if (this.businessTransMethodInfo[i].fqm == fqm) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   /**This method is used to edit Method detail */
@@ -366,46 +397,46 @@ export class MethodBTConfigurationComponent implements OnInit {
 
       let pi = 1;
       let charArr = fqm.split('');
-      if(charArr[i] == ''){
+      if (charArr[i] == '') {
         return null;
       }
       //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
-      else{
-      switch (charArr[i]) {
-        case 'Z':
-          returnType = "boolean";
-          break;
-        case 'B':
-          returnType = "byte";
-          break;
-        case 'C':
-          returnType = "char";
-          break;
-        case 'S':
-          returnType = "short";
-          break;
-        case 'I':
-          returnType = "int";
-          break;
-        case 'J':
-          returnType = "long";
-          break;
-        case 'F':
-          returnType = "float";
-          break;
-        case 'D':
-          returnType = "double";
-          break;
-        case 'L':
-        case '[':
-          while (charArr[i++] != ';')
-            ;
-          returnType = "object/string";
-          break;
-        default:
-          returnType = "void";
-          break;
-       }
+      else {
+        switch (charArr[i]) {
+          case 'Z':
+            returnType = "boolean";
+            break;
+          case 'B':
+            returnType = "byte";
+            break;
+          case 'C':
+            returnType = "char";
+            break;
+          case 'S':
+            returnType = "short";
+            break;
+          case 'I':
+            returnType = "int";
+            break;
+          case 'J':
+            returnType = "long";
+            break;
+          case 'F':
+            returnType = "float";
+            break;
+          case 'D':
+            returnType = "double";
+            break;
+          case 'L':
+          case '[':
+            while (charArr[i++] != ';')
+              ;
+            returnType = "object/string";
+            break;
+          default:
+            returnType = "void";
+            break;
+        }
       }
 
       return returnType;
@@ -422,20 +453,20 @@ export class MethodBTConfigurationComponent implements OnInit {
       let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
 
       if (returnType == 'void') {
-         this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
+        this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
         //  fqmField.setCustomValidity("FQM doesn't have any return type.");
       }
       else if (returnType == 'null') {
-         this.configUtilityService.errorMessage("FQM doesn't have any return type.");
+        this.configUtilityService.errorMessage("FQM doesn't have any return type.");
       }
       else {
         this.openAddReturnRulesDialog();
       }
     }
     else if (this.second) {
-       this.second = false;
-       this.openAddArgumentRulesDialog();
-       //this.openAddArgumentRulesDialog();
+      this.second = false;
+      this.openAddArgumentRulesDialog();
+      //this.openAddArgumentRulesDialog();
       // let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
       // if (returnType == 'void') {
       //   this.configUtilityService.errorMessage("FQM doesn't have any return type.");
@@ -477,6 +508,29 @@ export class MethodBTConfigurationComponent implements OnInit {
         return true;
       }
     }
+  }
+
+  modifyData(val) {
+      if (val.enableArgumentType == true) {
+        val.capturingType = "Argument type ";
+      }
+      else {
+        val.capturingType = "Return type";
+      }
+    
+  }
+
+  getHdrNames(data) {
+    let hdrNamesHref = '';
+    data.map(function (val, index) {
+      if (index != (data.length - 1)) {
+        hdrNamesHref = hdrNamesHref + val.headerName + ",";
+      }
+      else {
+        hdrNamesHref = hdrNamesHref + val.headerName
+      }
+    })
+    return hdrNamesHref;
   }
 
   operationListArgumentType() {
@@ -552,12 +606,12 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //for creating list for index i.e arguments number list
   validateArgAndGetArgumentsNumberList() {
-    if(this.businessTransMethodDetail.fqm == null || this.businessTransMethodDetail.fqm == "") {
+    if (this.businessTransMethodDetail.fqm == null || this.businessTransMethodDetail.fqm == "") {
       this.configUtilityService.errorMessage("Fill out fully qualified method name first");
       this.indexList = [];
       return;
     }
-    else  {
+    else {
       let argStart = this.businessTransMethodDetail.fqm.indexOf("(");
       let argEnd = this.businessTransMethodDetail.fqm.indexOf(")");
       let args = this.businessTransMethodDetail.fqm.substring(argStart + 1, argEnd);
@@ -565,43 +619,43 @@ export class MethodBTConfigurationComponent implements OnInit {
       let flag = false;
       let length = 0;
       let string = '';
-      if(args.length == 0){
+      if (args.length == 0) {
         this.configUtilityService.errorMessage("No Arguments present in Fqm")
       }
-      else{
-      for (let i = 0; i < args.length; i++) {
-        if (args[i] == "L") {
-          flag = true;
-          string = string + args[i];
-          continue;
-        }
-        else if (flag) {
-          if (args[i] == ";") {
+      else {
+        for (let i = 0; i < args.length; i++) {
+          if (args[i] == "L") {
+            flag = true;
             string = string + args[i];
+            continue;
+          }
+          else if (flag) {
+            if (args[i] == ";") {
+              string = string + args[i];
 
+              if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
+                this.configUtilityService.errorMessage("Invalid Argument Data Type")
+                flag = false;
+                return;
+              }
+              else {
+                length++;
+              }
+            }
+            else
+              string = string + args[i];
+
+          }
+          else {
             if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
               this.configUtilityService.errorMessage("Invalid Argument Data Type")
-              flag = false;
               return;
             }
             else {
               length++;
             }
           }
-          else
-            string = string + args[i];
-
         }
-        else {
-          if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
-            this.configUtilityService.errorMessage("Invalid Argument Data Type")
-            return;
-          }
-          else {
-            length++;
-          }
-        }
-      }
       }
       this.indexList = [];
       // this.indexList.push({ value: -1, label: '--Select Index--' });
@@ -613,24 +667,25 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   saveMethod() {
     this.businessTransMethodDetail.rules = [];
-    if(this.enableArgumentType == "returnType"){
-      this.businessTransMethodDetail.enableArgumentType="false";
+    if (this.enableArgumentType == "returnType") {
+      this.businessTransMethodDetail.enableArgumentType = "false";
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
     }
 
-    if(this.enableArgumentType == "argument"){
-      this.businessTransMethodDetail.enableArgumentType="true";
+    if (this.enableArgumentType == "argument") {
+      this.businessTransMethodDetail.enableArgumentType = "true";
       this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
     }
 
     this.businessTransMethodDetail.returnType = this.type;
- 
-    if (this.enableArgumentType == ""){
+
+    if (this.enableArgumentType == "") {
       this.configUtilityService.errorMessage("Select enable return/argument type capturing");
       return;
     }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
+      this.modifyData(data);
       this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
       this.configUtilityService.successMessage(Messages);
     });

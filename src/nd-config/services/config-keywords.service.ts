@@ -43,7 +43,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp", "captureHttpSessionAttr"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
       // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] }, 
@@ -109,7 +109,7 @@ export class ConfigKeywordsService {
         let keywordList = keywordInfo.keywordList;
 
         for (let i = 0; i < keywordList.length; i++) {
-          //If group of keywords value is not 0 that's means groupkeyword is enabled.
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.              
           if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
             //Enabling groupkeyword
             keywordInfo.enable = true;

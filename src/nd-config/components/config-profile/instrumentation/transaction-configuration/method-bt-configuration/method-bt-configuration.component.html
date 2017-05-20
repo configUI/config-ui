@@ -12,6 +12,11 @@
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="col-overflow" field="fqm" header="Fully qualified method name" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
+            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="openEditMethodTrans(application[col.field])">{{application[col.field]}}</a></span>
+        </template>
+    </p-column>
+     <p-column class="col-overflow" field="capturingType" header="Capturing type" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
     </p-column>

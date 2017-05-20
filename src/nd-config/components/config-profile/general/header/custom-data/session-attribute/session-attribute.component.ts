@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
 import { SessionAtrributeComponentsData, SessionTypeValueData } from '../../../../../../containers/instrumentation-data';
+import { ImmutableArray } from '../../../../../../utils/immutable-array';
 import { ConfigUiUtility } from '../../../../../../utils/config-utility';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -130,8 +131,8 @@ export class SessionAttributeComponent implements OnInit {
   
     if(this.sessionAttributeDetail.attrValues == undefined)
     this.sessionAttributeDetail.attrValues = [];
-
-    this.sessionAttributeDetail.attrValues.push(this.customValueTypeDetail);
+        this.sessionAttributeDetail.attrValues = ImmutableArray.push(this.sessionAttributeDetail.attrValues, this.customValueTypeDetail);
+    // this.sessionAttributeDetail.attrValues.push(this.customValueTypeDetail);
     // this.configUtilityService.successMessage(Messages);
     this.closeValueInfoDialog();
   }
@@ -193,7 +194,8 @@ export class SessionAttributeComponent implements OnInit {
       .subscribe(data => {
         let index = this.getSessionAttributeIndex(this.sessionAttributeDetail.sessAttrId);
         this.selectedSessionAttributeList.length = 0;
-        this.selectedSessionAttributeList.push(data);
+        // this.selectedSessionAttributeList.push(data);
+        this.sessionAttributeDetail= ImmutableArray.replace(this.sessionAttributeDetail, data, index);
         this.configUtilityService.successMessage(Messages);
         this.selectedSessionAttributeList = [];
         this.sessionAttributeComponentInfo[index] = this.setDataSessionAttribute(data)[0];
@@ -205,7 +207,8 @@ export class SessionAttributeComponent implements OnInit {
     this.sessionAtrributeDetailSaveAndEdit();
     this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
       let arrSessionAttr = this.setDataSessionAttribute(data);
-      this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
+      this.sessionAttributeComponentInfo = ImmutableArray.push(this.sessionAttributeComponentInfo, arrSessionAttr[0]);
+      // this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
       this.configUtilityService.successMessage(Messages);
     });
     this.closeDialog();
