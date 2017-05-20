@@ -225,7 +225,6 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
-    console.log("this.selectedbusinessTransMethod[0]--",this.selectedbusinessTransMethod[0]);
     this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
   }
   
