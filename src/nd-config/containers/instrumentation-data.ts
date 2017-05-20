@@ -121,7 +121,7 @@ export class BusinessTransMethodData    // Business Transaction Method by Lucky
 {
     argumentIndex: number;
     btMethodId: number;
-    enableArgumentType: string;
+    enableArgumentType: boolean;
     fqm: string;
     returnType: string;
     rules: RulesData[];

@@ -12,7 +12,7 @@
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="col-overflow" field="fqm" header="Fully qualified method name" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
-            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="openEditMethodTrans(application[col.field])">{{application[col.field]}}</a></span>
+            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="openViewMethodTrans(application)">{{application[col.field]}}</a></span>
         </template>
     </p-column>
      <p-column class="col-overflow" field="capturingType" header="Capturing type" [sortable]="true">
@@ -28,7 +28,7 @@
     </p-dataTable>
 
     <!--Dialog for adding Business Transaction Method-->
-    <p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' : 'Edit Business transaction method'}}"
+    <p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' : isViewOnly?'Method based business transactions':'Edit Business transaction method'}}"
         *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
         <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
 
@@ -125,7 +125,7 @@
             </div>
             <footer>
                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="submit" pButton icon="fa-check" label="Save"  *ngIf="!isViewOnly"></button>
                     <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
                 </div>
             </footer>
@@ -165,7 +165,7 @@
                 </div>
                 <footer>
                     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                        <button type="submit" pButton icon="fa-check" label="Save"></button>
+                        <button type="submit" pButton icon="fa-check" label="Save" ></button>
                         <button type="submit" pButton icon="fa-close" (click)="closeReturnDialog()" label="Cancel"></button>
                     </div>
                 </footer>

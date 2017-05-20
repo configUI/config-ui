@@ -81,6 +81,8 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   capturingType: string;
 
+  isViewOnly:boolean = false;
+
   //used to hold value of "type " i.e data type of return value or argument value whichever is selected
   type: string;
 
@@ -227,14 +229,21 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
   }
   
-//Open edit window on FQM name click
-  openEditMethodTrans(fqm){
+//Open view window on FQM name click
+  openViewMethodTrans(data){
     this.businessTransMethodDetail = new BusinessTransMethodData();
-     this.addBusinessTransMethodDialog = true;
+    this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
-    console.log("fwww",fqm);
-    var i= this.getIndex(fqm);
-   this.businessTransMethodDetail = Object.assign({}, this.businessTransMethodInfo[i]);
+    this.isViewOnly = true;
+    this.businessTransMethodDetail = Object.assign({},data);
+    if (this.businessTransMethodDetail.enableArgumentType) {
+      this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
+      this.enableArgumentType = "argument";
+    }
+   else  {
+      this.methodRulesInfo = this.businessTransMethodDetail.rules ;
+      this.enableArgumentType = "returnType";
+    }
   }
 
   getIndex(fqm): number {
@@ -668,12 +677,12 @@ export class MethodBTConfigurationComponent implements OnInit {
   saveMethod() {
     this.businessTransMethodDetail.rules = [];
     if (this.enableArgumentType == "returnType") {
-      this.businessTransMethodDetail.enableArgumentType = "false";
+      this.businessTransMethodDetail.enableArgumentType = false ;
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
     }
 
-    if (this.enableArgumentType == "argument") {
-      this.businessTransMethodDetail.enableArgumentType = "true";
+   else if (this.enableArgumentType == "argument") {
+      this.businessTransMethodDetail.enableArgumentType = true;
       this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
     }
 
