@@ -1,19 +1,9 @@
-//  const  SERVICE_URL = 'http://10.10.50.6/configUI';
-// const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-// const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
-//  const SERVICE_URL = 'http://localhost:8090';
-// const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
-    
-
-// For Production use this SERVICE_URL
-// const SERVICE_URL = '/configUI';
- //const  SERVICE_URL = 'http://10.10.50.7:8001/configUI';
-  // const SERVICE_URL = 'http://localhost:8090';
 // const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
     
 
 //For Production use this SERVICE_URL
 const SERVICE_URL = '/configUI';
+
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
 
@@ -153,6 +143,7 @@ export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/inst
 
 /* URL for ND Agent Status */
 export const FETCH_ND_AGENT_TABLEDATA = `${SERVICE_URL}/ndagent`;
+export const FETCH_CMON_TABLEDATA = `${SERVICE_URL}/getcmondata`;
 
 /* URL for SessionAtrributeMonitor */
 export const FETCH_SESSION_ATTR_TABLEDATA = `${SERVICE_URL}/custom/sessionattrmonitor/getallsessionattrdata`;
