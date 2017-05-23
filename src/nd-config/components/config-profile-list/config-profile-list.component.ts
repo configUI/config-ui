@@ -61,6 +61,14 @@ export class ConfigProfileListComponent implements OnInit {
 
   /**For Saving Dialog Data when Save Button Is clicked */
   saveNewProfile(): void {
+    //to check if profile name already exists
+     for (let i = 0; i < this.profileData.length; i++) {
+      if (this.profileData[i].profileName == this.profileDetail.profileName) {
+        this.configUtilityService.errorMessage("Profile name already exist");
+        return ;
+      }
+    }
+    //to check if profile description is more than 500 characters
     this.profileDetail.userName = this.userName;
     if (this.profileDetail.profileDesc != null) {
       if (this.profileDetail.profileDesc.length > 500) {
