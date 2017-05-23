@@ -1,0 +1,16 @@
+.activeIconClass {
+    font-size: 13px;
+    color: green;
+    height: 12px;
+}
+
+.inActiveIconClass {
+    font-size: 13px;
+    color: rgba(255, 176, 0, 0.77);
+    height: 12px;
+}
+.blockerIconClass{
+     font-size: 13px;
+    color:red;
+    height: 12px;
+}

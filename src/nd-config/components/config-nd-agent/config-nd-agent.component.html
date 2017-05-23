@@ -9,9 +9,16 @@
         <p-column class="col-overflow" field="version" header="Version" [sortable]="true"></p-column>
         <p-column class="col-overflow" field="bciRunningSince" header="BCI Agent Start Time" [sortable]="true">
             <template let-col let-ndagent="rowData" pTemplate>
-         <span style="float:right">{{ndagent[col.field]}}</span>
-         </template>
+                <span style="float:right">{{ndagent[col.field]}}</span>
+            </template>
         </p-column>
-        <p-column class="col-overflow" field="state" header="State" [sortable]="true"></p-column>
+        <p-column class="col-overflow" field="state" [style]="{'text-align':'center','width':'6%'}" header="State" [sortable]="true">
+            <template let-col let-ndagent="rowData" pTemplate>
+                <span *ngIf="ndagent[col.field] == 'Active' || ndagent[col.field] == 'active'" title="{{ndagent[col.field]}}"><md-icon class="activeIconClass">fiber_manual_record</md-icon></span>
+                <span *ngIf="ndagent[col.field] == 'Inactive' || ndagent[col.field] == 'InActive'" title="{{ndagent[col.field]}}"><md-icon class="inActiveIconClass">fiber_manual_record</md-icon></span>
+                 <span *ngIf="ndagent[col.field] != 'Inactive' && ndagent[col.field] != 'InActive' && ndagent[col.field] != 'Active' && ndagent[col.field] != 'active'" title="{{ndagent[col.field]}}"><md-icon class="blockerIconClass">fiber_manual_record</md-icon></span>
+           
+              </template>
+        </p-column>
     </p-dataTable>
 </div>
