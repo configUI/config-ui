@@ -28,16 +28,18 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => this.profileName = data);
-    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => this.applicationName = data);
-
+    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => {
+    this.applicationName = data;
+      sessionStorage.setItem("selectedApplicationName", this.applicationName)
+    });
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       let url = event["url"];
       if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
         if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
           this.isMetaDataDisplay = true;
           this.label = `Profile Name: ${this.profileName}`;
-   //below code handles the case of refreshing the page due to which profileName gets undefined 
-          if(!this.profileName){
+          //below code handles the case of refreshing the page due to which profileName gets undefined 
+          if (!this.profileName) {
             let profileId = this.getProfileId(url);
             this.getProfileName(profileId);
           }
@@ -46,16 +48,21 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
           this.isMetaDataDisplay = false;
         }
       }
-      else if(url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)){
+      else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)) {
         this.isMetaDataDisplay = false;
       }
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
         this.isMetaDataDisplay = true;
-        this.label = `Application Name: ${this.applicationName}`;
-        if(!this.applicationName){
-            let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
-            this.getAppName(appId);
-          }
+    
+        if (this.applicationName == undefined)
+          this.applicationName = sessionStorage.getItem("selectedApplicationName");
+
+        this.label = `Application Name: ` + this.applicationName
+        
+        if (!this.applicationName) {
+          let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
+          this.getAppName(appId);
+        }
       }
       else {
         this.isMetaDataDisplay = false;
@@ -71,45 +78,45 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   * 
   */
 
-  getProfileId(url){
+  getProfileId(url) {
     let arr = url.split('');
     let startIndex = this.getStartIndexProfileId(arr);
-    let endIndex = this.getEndIndex(startIndex,arr);
-    let profileId = url.substring(startIndex+1,endIndex)
-    return profileId; 
+    let endIndex = this.getEndIndex(startIndex, arr);
+    let profileId = url.substring(startIndex + 1, endIndex)
+    return profileId;
   }
 
-  getEndIndex(startIndex,arr){
-    let endIndex = arr.length ;
-    for(let i = startIndex + 1 ; i <= arr.length ; i++){
-        if(arr[i] == "/"){
-          endIndex = i;
-        }
+  getEndIndex(startIndex, arr) {
+    let endIndex = arr.length;
+    for (let i = startIndex + 1; i <= arr.length; i++) {
+      if (arr[i] == "/") {
+        endIndex = i;
+      }
     }
     return endIndex;
   }
 
-  getStartIndexProfileId(arr){
+  getStartIndexProfileId(arr) {
     let counter = 0;
-    for(let i =0 ;i < arr.length; i++){
-	    if(arr[i] == "/"){
-		    counter++;
-		    if(counter == 3)
-          return i;	
-  	}
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] == "/") {
+        counter++;
+        if (counter == 3)
+          return i;
+      }
+    }
   }
-}
 
-  getProfileName(profileId: number){
+  getProfileName(profileId: number) {
     this.configProfileService.getProfileName(profileId).
-    subscribe(data => {
-      this.profileName = data["profileName"]
-      this.label = `Profile Name: ${this.profileName}`;
-      console.log("this.label", this.label);
-    });
+      subscribe(data => {
+        this.profileName = data["profileName"]
+        this.label = `Profile Name: ${this.profileName}`;
+      
+      });
   }
 
-  getAppName(appId: number){
+  getAppName(appId: number) {
 
   }
 
