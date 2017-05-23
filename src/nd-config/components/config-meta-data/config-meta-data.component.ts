@@ -25,11 +25,21 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   subscriptionProfile: Subscription;
   subscriptionApplication: Subscription;
 
-
   ngOnInit() {
-    this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => this.profileName = data);
-    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => {
-    this.applicationName = data;
+    //below line gets called as soon as link of profile is clicked which routes to its configuration screen
+    this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => {
+      this.profileName = data;
+      //storing profile name in a session
+      sessionStorage.setItem("proName", data);
+    });
+    
+    /*below code handles the case of refreshing the page due to which profileName gets undefined 
+     * thus retrieving profile name stored in sessionStorage with key "proName"
+     */
+    if (this.profileName == undefined)
+      this.profileName = sessionStorage.getItem("proName");
+
+    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => {this.applicationName = data;
       sessionStorage.setItem("selectedApplicationName", this.applicationName)
     });
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
@@ -37,12 +47,8 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
         if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
           this.isMetaDataDisplay = true;
+          
           this.label = `Profile Name: ${this.profileName}`;
-          //below code handles the case of refreshing the page due to which profileName gets undefined 
-          if (!this.profileName) {
-            let profileId = this.getProfileId(url);
-            this.getProfileName(profileId);
-          }
         }
         else {
           this.isMetaDataDisplay = false;
@@ -78,13 +84,14 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   * 
   */
 
-  getProfileId(url) {
-    let arr = url.split('');
-    let startIndex = this.getStartIndexProfileId(arr);
-    let endIndex = this.getEndIndex(startIndex, arr);
-    let profileId = url.substring(startIndex + 1, endIndex)
-    return profileId;
-  }
+
+  // getProfileId(url) {
+  //   let arr = url.split('');
+  //   let startIndex = this.getStartIndexProfileId(arr);
+  //   let endIndex = this.getEndIndex(startIndex, arr);
+  //   let profileId = url.substring(startIndex + 1, endIndex)
+  //   return profileId;
+  // }
 
   getEndIndex(startIndex, arr) {
     let endIndex = arr.length;
@@ -106,15 +113,16 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-  getProfileName(profileId: number) {
-    this.configProfileService.getProfileName(profileId).
-      subscribe(data => {
-        this.profileName = data["profileName"]
-        this.label = `Profile Name: ${this.profileName}`;
-      
-      });
-  }
+  
+  // getProfileName(profileId: number) {
+  //   this.configProfileService.getProfileName(profileId).
+  //     subscribe(data => {
+  //       sessionStorage.setItem("proName", data["profileName"]);
+  //       this.profileName = data["profileName"]
+  //       this.label = `Profile Name: ${this.profileName}`;
+  //       console.log("this.label", this.label);
+  //     });
+  // }
 
   getAppName(appId: number) {
 

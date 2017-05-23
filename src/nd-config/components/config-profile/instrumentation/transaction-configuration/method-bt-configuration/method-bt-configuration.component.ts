@@ -641,7 +641,7 @@ export class MethodBTConfigurationComponent implements OnInit {
             if (args[i] == ";") {
               string = string + args[i];
 
-              if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
+              if (this.DATA_TYPE_ARR.indexOf(string) == -1) {
                 this.configUtilityService.errorMessage("Invalid Argument Data Type")
                 flag = false;
                 return;
