@@ -534,7 +534,7 @@ export class JavaMethodComponent implements OnInit {
 
           //here string = "Ljava/lang/String;"
 
-          if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1){
+          if (this.DATA_TYPE_ARR.indexOf(string) == -1){
             this.configUtilityService.errorMessage("Invalid Argument Data Type")
             flag = false;
             return;
