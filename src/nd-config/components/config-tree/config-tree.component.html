@@ -1,2 +1,11 @@
-<p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeExpand)="loadNode($event)" (onNodeCollapse)="loadNode($event)" class="config-tree" [styleClass]="'config-tree'">
+<p-tree [value]="files" 
+        selectionMode="single" 
+        [(selection)]="selectedFiles" 
+        (onNodeExpand)="loadNode($event)" 
+        (onNodeCollapse)="loadNode($event)" 
+         class="config-tree"
+         [styleClass]="'config-tree'"
+         (onNodeSelect)="loadNode($event)" //for making tree node label clickable
+         
+         >
 </p-tree>
