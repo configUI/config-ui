@@ -186,6 +186,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
+    this.isViewOnly = false;
 
   }
 
