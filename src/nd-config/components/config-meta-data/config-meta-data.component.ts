@@ -26,7 +26,6 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   subscriptionApplication: Subscription;
 
   ngOnInit() {
-
     //below line gets called as soon as link of profile is clicked which routes to its configuration screen
     this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => {
       this.profileName = data;
@@ -40,8 +39,9 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
     if (this.profileName == undefined)
       this.profileName = sessionStorage.getItem("proName");
 
-    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => this.applicationName = data);
-
+    this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => {this.applicationName = data;
+      sessionStorage.setItem("selectedApplicationName", this.applicationName)
+    });
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       let url = event["url"];
       if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
@@ -59,7 +59,12 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       }
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
         this.isMetaDataDisplay = true;
-        this.label = `Application Name: ${this.applicationName}`;
+    
+        if (this.applicationName == undefined)
+          this.applicationName = sessionStorage.getItem("selectedApplicationName");
+
+        this.label = `Application Name: ` + this.applicationName
+        
         if (!this.applicationName) {
           let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
           this.getAppName(appId);
@@ -78,6 +83,7 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   *  where aftr 3rd "/" number represents profileId
   * 
   */
+
 
   // getProfileId(url) {
   //   let arr = url.split('');
@@ -107,7 +113,7 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+  
   // getProfileName(profileId: number) {
   //   this.configProfileService.getProfileName(profileId).
   //     subscribe(data => {
