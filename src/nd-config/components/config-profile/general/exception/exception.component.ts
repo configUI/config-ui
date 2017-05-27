@@ -126,8 +126,13 @@ export class ExceptionComponent implements OnInit {
   }
 
   resetKeywordData() {
-    this.exception = cloneObject(this.configKeywordsService.keywordData);
     this.getKeywordData();
+    this.exception = cloneObject(this.configKeywordsService.keywordData);
+    //to reset value of enableExceptionInSeqBlob keyword
+    if(this.exception['enableExceptionInSeqBlob'].value == 0)
+      this.exception['enableExceptionInSeqBlob'].value = false;
+    else
+     this.exception['enableExceptionInSeqBlob'].value = true;
   }
 
   /**Value for this keyword is

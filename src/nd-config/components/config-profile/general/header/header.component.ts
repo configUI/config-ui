@@ -165,7 +165,9 @@ export class HeaderComponent implements OnInit {
       this.httpReqFullFp.captureMode = arr[2] == 1;
       this.httpReqFullFp.briefVal = arr[2] == 1 ? arr[3] : '';
     }
-
+    else if(keywords["captureHTTPReqFullFp"].value == '2'){
+      this.httpReqFullFp.enableHttpReq = true;
+    }
 
     if ((keywords["captureHTTPRespFullFp"].value).includes("%20") ) {
       let arr = (keywords["captureHTTPRespFullFp"].value).split("%20")
