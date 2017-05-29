@@ -29,7 +29,8 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog"
+    [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
@@ -37,7 +38,7 @@
             </div>
             <div class="ui-g-9">
                 <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
-                    required pattern="[a-zA-Z0-9.]+(\(([^)\(\s]*)\))" ngModel/>
+                    required pattern="[a-zA-Z0-9_.]+[|.]+[<a-zA-Z0-9_.>]+(\(([^)\(\s]*)\))+[^)\(\s]+[|.]*" ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -63,4 +64,4 @@
             </div>
         </footer>
     </form>
-</p-dialog>
+    </p-dialog>
