@@ -12,6 +12,7 @@
             <p-dropdown name="customValueType" [style]="{'width':'60%'}" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[0].headerMode == 'Specified')">
+             <input type="text" size="30" class='hidden-validator' [(ngModel)]="data[0].headersName" pInputText required ngModel/>
             <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
@@ -22,7 +23,7 @@
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <input name="btName" style="text-align:right; width:15%" type="number" max="9999" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" autofocus required ngModel/>
+            <input name="btName" style="text-align:right; width:15%" type="number" min=0 max="9999" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" autofocus required ngModel/>
             <label style="margin-right: 5px"> characters</label>
         </div>
     </div>
@@ -42,6 +43,7 @@
             <p-dropdown name="headerMode" [style]="{'width':'60%'}" [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[1].headerModeResp == 'Specified')">
+             <input name="headerMode" type="text" size="30" class='hidden-validator' [(ngModel)]="data[1].headersNameResp" pInputText required ngModel/>
             <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
@@ -53,7 +55,7 @@
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <input name="btName" type="number" style="text-align:right; width:15%" max="9999" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" autofocus required ngModel/>
+            <input name="btName" type="number" style="text-align:right; width:15%" min=0 max="9999" [disabled]="!data[1].captureModeResp" pInputText [(ngModel)]="data[1].briefValResp" autofocus required ngModel/>
             <label style="margin-right: 5px"> characters</label>
         </div>
     </div>
