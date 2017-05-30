@@ -99,7 +99,8 @@
                 <div class="ui-g-4">
                     <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
-                <div class="ui-g-4">
+                <div class="ui-g-4">   
+                    <input name="customValueType" type="text" class='hidden-validator' pInputText [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel/>                    
                     <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="Custom value type"></p-dropdown>
                 </div>
             </div>
