@@ -36,5 +36,14 @@ export class ConfigCustomDataService {
     return this._restApi.getDataByPostReq(`${URL.EDIT_METHODBASED_CUSTOMDATA}/${data.methodBasedId}`,data)
   }
 
+  deleteReturnRules(data){
+    return this._restApi.getDataByPostReq(`${URL.DEL_CUSTOM_METHOD_RETURN_VALUE}`,data);
+  }
+
+  deleteArgumentRules(data){
+    return this._restApi.getDataByPostReq(`${URL.DEL_CUSTOM_METHOD_ARG_VALUE}`,data);
+  }
+
+  
 
 }

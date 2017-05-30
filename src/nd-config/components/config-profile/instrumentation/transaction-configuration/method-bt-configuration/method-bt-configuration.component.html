@@ -89,7 +89,7 @@
                         <label> Argument index</label>
                     </div>-->
                     <div class="ui-g-3" style="margin-top: -5px">
-                        <!--<input name="argumentIndexValidate" [disabled]="!(enableArgumentType=='argument')" type="text" size="15" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>-->
+                        <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
                         <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList()"
                             placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex" [options]="indexList"></p-dropdown>
                     </div>
@@ -151,6 +151,7 @@
                             <label>Operation</label>
                         </div>
                         <div class="ui-g-8" style="margin-top: -5px">
+                            <input name="operationName" type="text"size="10" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>                            
                             <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"></p-dropdown>
                         </div>
                     </div>
@@ -194,6 +195,7 @@
                                 <label>Operation</label>
                             </div>
                             <div class="ui-g-4" style="margin-top: -5px">
+                                <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>                                                            
                                 <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '100%'}" [(ngModel)]="btMethodRulesDetail.operationName"
                                     placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
                             </div>
