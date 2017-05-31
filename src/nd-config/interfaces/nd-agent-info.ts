@@ -11,6 +11,7 @@ export interface NDAgentInfo {
 	st:string;
 	at:string;
 	pid:string;
+	ch:string;
 }
 
 export interface CmonInfo{

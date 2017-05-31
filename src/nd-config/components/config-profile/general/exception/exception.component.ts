@@ -75,11 +75,11 @@ export class ExceptionComponent implements OnInit {
 
       if (arr[0] === "1") {
         this.exceptionData.instrumentException = true;
-        this.exceptionData.exceptionCapturing = "1";
+        this.exceptionData.exceptionCapturing = false;
       }
       else if (arr[0] === "2") {
         this.exceptionData.instrumentException = true;
-        this.exceptionData.exceptionCapturing = "2";
+        this.exceptionData.exceptionCapturing = true;
       }
       else
         this.exceptionData.instrumentException = false;
@@ -99,14 +99,14 @@ export class ExceptionComponent implements OnInit {
       this.exceptionData = new ExceptionData();
       if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
-        this.exceptionData.exceptionCapturing = "1";
+        this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 999;
       }
       else if (this.exception["instrExceptions"].value == 1) {
         this.exceptionData.instrumentException = false;
-        this.exceptionData.exceptionCapturing = "1";
+        this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 999;
@@ -150,10 +150,10 @@ export class ExceptionComponent implements OnInit {
       instrVal = "0";
     }
     else {
-      if (this.exceptionData.exceptionCapturing == "1")
+      if (this.exceptionData.exceptionCapturing == false)
         instrVal = "1";
 
-      if (this.exceptionData.exceptionCapturing == "2")
+      if (this.exceptionData.exceptionCapturing == true)
         instrVal = "2";
 
       if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
