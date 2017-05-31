@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit {
 
   constructValHttpReqFullFp(httpReqkeyword) {
     let httpReqFullFpVal = '0';
-    
+
     if (httpReqkeyword.enableHttpReq && httpReqkeyword.headerMode == 0)
       httpReqFullFpVal = '2';
     if (httpReqkeyword.enableHttpReq && httpReqkeyword.headerMode != 0) {
@@ -92,6 +92,7 @@ export class HeaderComponent implements OnInit {
       }
       else {
         httpReqFullFpVal = httpReqFullFpVal + "ALL%20";
+        httpReqkeyword.headersName = [];
       }
 
       if (httpReqkeyword.captureMode == 1)
@@ -122,6 +123,7 @@ export class HeaderComponent implements OnInit {
       }
       else {
         httpRespFullFpVal = httpRespFullFpVal + "ALL%20";
+        httpRespKeyword.headersNameResp = [];
       }
 
       if (httpRespKeyword.captureModeResp == 1)
