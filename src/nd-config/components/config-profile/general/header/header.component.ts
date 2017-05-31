@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfigUiUtility } from '../../../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   keywordData = new EventEmitter();
 
   @Input()
-  saveDisable:boolean;
+  saveDisable: boolean;
 
 
   HeaderForm: boolean = true;
@@ -47,17 +47,17 @@ export class HeaderComponent implements OnInit {
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
   *  to boolean value
   */
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>,private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>, private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      if(!data)
-      return;
+      if (!data)
+        return;
       for (let key in data) {
         data[key].value = (data[key].value == 'true' || data[key].value == 'false') ? data[key].value == 'true' : data[key].value
       }
       this.header = data;
     });
-   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.header.enable);
-   this.configKeywordsService.toggleKeywordData();
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.header.enable);
+    this.configKeywordsService.toggleKeywordData();
     this.httpKeywordObject = [];
   }
 
@@ -75,9 +75,11 @@ export class HeaderComponent implements OnInit {
 
   constructValHttpReqFullFp(httpReqkeyword) {
     let httpReqFullFpVal = '0';
-    if (httpReqkeyword.enableHttpReq) {
+    
+    if (httpReqkeyword.enableHttpReq && httpReqkeyword.headerMode == 0)
+      httpReqFullFpVal = '2';
+    if (httpReqkeyword.enableHttpReq && httpReqkeyword.headerMode != 0) {
       httpReqFullFpVal = "3%20"
-
       if (httpReqkeyword.headerMode != 'ALL') {
         let val = '';
         for (var i = 0; i < httpReqkeyword.headersName.length; i++) {
@@ -96,16 +98,16 @@ export class HeaderComponent implements OnInit {
         httpReqFullFpVal = httpReqFullFpVal + "1%20" + httpReqkeyword.briefVal;
       else
         httpReqFullFpVal = httpReqFullFpVal + "0";
-
-
     }
     return httpReqFullFpVal;
   }
 
   constructValHttpRespFullFp(httpRespKeyword) {
-    console.log("--httpRespKeyword-headersNameResp--", httpRespKeyword.headersNameResp)
     let httpRespFullFpVal = '0';
-    if (httpRespKeyword.enableHttpResp) {
+
+    if (httpRespKeyword.enableHttpResp && httpRespKeyword.headerModeResp == 0)
+      httpRespFullFpVal = '1';
+    if (httpRespKeyword.enableHttpResp && httpRespKeyword.headerModeResp != 0) {
       httpRespFullFpVal = "3%20"
 
       if (httpRespKeyword.headerModeResp != 'ALL') {
@@ -142,8 +144,6 @@ export class HeaderComponent implements OnInit {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
     this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
     this.keywordData.emit(this.header);
-
-
   }
 
   /*
@@ -165,23 +165,23 @@ export class HeaderComponent implements OnInit {
       this.httpReqFullFp.captureMode = arr[2] == 1;
       this.httpReqFullFp.briefVal = arr[2] == 1 ? arr[3] : '';
     }
-    else if(keywords["captureHTTPReqFullFp"].value == '2'){
+    else if (keywords["captureHTTPReqFullFp"].value == '2') {
       this.httpReqFullFp.enableHttpReq = true;
     }
 
-    if ((keywords["captureHTTPRespFullFp"].value).includes("%20") ) {
+    if ((keywords["captureHTTPRespFullFp"].value).includes("%20")) {
       let arr = (keywords["captureHTTPRespFullFp"].value).split("%20")
-      this.httpRespFullFp.enableHttpResp = arr[0] == 3 ;
+      this.httpRespFullFp.enableHttpResp = arr[0] == 3;
       this.httpRespFullFp.headerModeResp = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
-      if (arr[1] != "ALL") {
+      if (arr[1] != "ALL" && arr[1].includes(",")) {
         arrVal = arr[1].split(",")
       }
       this.httpRespFullFp.headersNameResp = arrVal;
       this.httpRespFullFp.captureModeResp = arr[2] == 1;
       this.httpRespFullFp.briefValResp = arr[2] == 1 ? arr[3] : '';
     }
-    else if(keywords["captureHTTPRespFullFp"].value == '1'){
+    else if (keywords["captureHTTPRespFullFp"].value == '1') {
       this.httpRespFullFp.enableHttpResp = true;
     }
 
@@ -193,9 +193,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
-   resetKeywordData(){
-     this.header = cloneObject(this.configKeywordsService.keywordData);
-     this.splitKeywordData(this.header);
+  resetKeywordData() {
+    this.header = cloneObject(this.configKeywordsService.keywordData);
+    this.splitKeywordData(this.header);
   }
 
 }
