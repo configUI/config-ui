@@ -105,16 +105,24 @@ export class HotspotComponent implements OnInit, OnDestroy {
     }
 
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
+    console.log(" this.hotspot--",this.hotspot)
     this.keywordData.emit(this.hotspot);
   }
 
   resetKeywordData() {
 
     this.hotspot = cloneObject(this.configKeywordsService.keywordData);
-    if (this.hotspot["ASMethodHotspots"].value == 1)
-      this.hotspot["ASMethodHotspots"].value = true;
-    else
-      this.hotspot["ASMethodHotspots"].value = false;
+     if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
+          this.includedException = null;
+      else
+        this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
+        // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
+        if (this.hotspot["ASNegativeThreadFilter"].value != null)
+          this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
+
+       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+
+    
   }
 
 
