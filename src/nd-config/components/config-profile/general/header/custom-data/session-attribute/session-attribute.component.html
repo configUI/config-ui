@@ -119,6 +119,7 @@
                     <label>Custom type</label>
                 </div>
                 <div class="ui-g-4">
+                    <input name="customValueType" type="text" class='hidden-validator' pInputText [(ngModel)]="customValueTypeDetail.type" required ngModel/>                    
                     <p-dropdown name="customValueType" [style]="{'width':'87%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.type" required ngModel placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
