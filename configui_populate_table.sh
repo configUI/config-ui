@@ -96,7 +96,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (39,'captureErrorLogs','0','2','2','0','normal'),
 (40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'),
 (41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom'),
-(42, 'HTTPStatsCondCfg','1','1024','5','false','normal');
+(42, 'HTTPStatsCondCfg','1','1024','5','false','normal'),
+(43,'enableExceptionsWithSourceAndVars','0','248','2','0','normal'),
+(44,'enableSourceCodeFilters','1','1024','5','false','normal');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),

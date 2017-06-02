@@ -1,4 +1,6 @@
-// const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+ //const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+
+// const  SERVICE_URL = 'http://localhost:8090';
     
 
 //For Production use this SERVICE_URL
@@ -195,3 +197,15 @@ export const DEL_HTTP_CUSTOM_DATA = `${SERVICE_URL}/custom/httpreqbasedcapturing
 /**** URL for independent topology structure *******/
 export const TOPOLOGY_TREE_STRUCTURE = `${SERVICE_URL}/custom/tree/ng/topostruct`;
 export const TOPOLOGY_STRUCT_TABLEDATA = `${SERVICE_URL}/custom/topology/topostruct`;
+
+
+
+/**** URL for exception filters *******/
+
+export const ADD_ADVANCE_EXCEPTION_FILTER=`${SERVICE_URL}/custom/exceptionfilters`;
+
+export const FETCH_EXCETION_FILTERS_MON_TABLEDATA=`${SERVICE_URL}/custom/exceptionfilters`;
+
+export const EDIT_ROW_EXCEPTION_FILTER_URL = `${SERVICE_URL}/custom/exceptionfilters/updateExceptionFilter`;
+
+export const DEL_EXCEPTION_FILTER = `${SERVICE_URL}/custom/exceptionfilters/delete`;

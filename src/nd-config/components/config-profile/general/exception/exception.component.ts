@@ -16,20 +16,20 @@ export class ExceptionComponent implements OnInit {
 
   @Input()
   saveDisable: boolean;
+  index: number = 1;
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['instrExceptions', 'enableExceptionInSeqBlob'];
+  keywordList: string[] = ['instrExceptions', 'enableExceptionInSeqBlob', 'enableExceptionsWithSourceAndVars'];
   subscriptionEG: Subscription;
   // selectedValue: string = 'unhandled';
 
   exception: Object;
   enableGroupKeyword: boolean;
-
-   keywordValue: Object;
+  keywordValue: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
@@ -44,6 +44,9 @@ export class ExceptionComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  handleChange(e) {
+    this.index = e.index;
   }
 
 
@@ -113,6 +116,7 @@ export class ExceptionComponent implements OnInit {
       }
     }
   }
+  
 
   saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
