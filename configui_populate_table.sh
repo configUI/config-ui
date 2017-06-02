@@ -78,7 +78,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (21,'NDEntryPointsFile','','','5','true','normal'),
 (22,'ndMethodMonTraceLevel','0','10','2','0','normal'),
 (23,'generateExceptionInMethod','0','10240','5','0','normal'),
-(24,'captureHTTPReqFullFp','1','10485760','5','0','normal'),
+(24,'captureHTTPReqFullFp','1','10485760','5','2','normal'),
 (25,'NDHTTPReqHdrCfgListFullFp','1','1024','6','NA','normal'),
 (26,'captureHTTPRespFullFp','1','1048576','5','1','normal'),
 (27,'enableBTMonitor','0','1','2','1','normal'),

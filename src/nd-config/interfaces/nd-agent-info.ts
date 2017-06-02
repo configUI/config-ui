@@ -1,29 +1,33 @@
 export interface NDAgentInfo {
-    agentId:number;
+    ai:number;
 	tier:string;
 	server:string;
 	instance:string;
-	installDir:string;
-	version:string;
-	bciRunningSince:string;
-	bciStartTime:string;
-	ndcStartTime :string;
-	state:string;
+	iD:string;
+	ver:string;
+	brs:string;
+	bst:string;
+	nst :string;
+	st:string;
+	at:string;
+	pid:string;
+	ch:string;
 }
 
 export interface CmonInfo{
-    activeorInActive: string;
-	appName:string;
-	cmonHome:string;
-	cmonJavaHome:string;
-	cmonPid:string;
-	cmonStartTime:string;
-	cmonVersion:string;
+   	cp:string;
+	tier: string;
+	sn:string;
+	mt:string;
+	cv:string;
+	aia: string;
+	cst:string;
 	id:number;
-	serverIp: string;
-	serverName:string;
-	testRunNo:string;
-	testRunning:boolean;
-	tierName: string;
-	topoName: string;
+	// serverIp: string;
+	// testRunNo:string;
+	// testRunning:boolean;
+	// topoName: string;
+	// appName:string;
+	// cmonHome:string;
+	// cmonJavaHome:string;
 }

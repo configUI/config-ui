@@ -105,7 +105,7 @@ body {
 }
 
 .nde-ui .ui-datatable .ui-datatable-tfoot>tr>td,
-.ui-datatable .ui-datatable-data>tr>td {
+.nde-ui .ui-datatable .ui-datatable-data>tr>td {
     height: 30px !important;
     text-overflow: ellipsis !important;
 }

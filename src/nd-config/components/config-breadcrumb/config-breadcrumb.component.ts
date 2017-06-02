@@ -24,15 +24,30 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
   breadcrumbSubscription: Subscription;
 
   ngOnInit() {
-
+    this.trData = new TRData();
     this.subscription = this.configHomeService.trData$.subscribe(data => {
-     this.trData = data;
-      if (data.trNo != null)
-        this.displaySessionLabel = true;
-      else
-        this.displaySessionLabel = false;
+      this.trData = data;
+      sessionStorage.setItem("isTrNumber", data.trNo);
+      sessionStorage.setItem("isSwitch", "" + data.switch);
+      sessionStorage.setItem("isStatus", "" + data.status)
     });
     this.items = [];
+    if (sessionStorage.getItem("isTrNumber") != null) {
+      if(sessionStorage.getItem("isTrNumber") != "null")
+      {
+      console.log("sessionStorage.getItem(isSwitch)---"+sessionStorage.getItem("isSwitch"))
+      this.trData.trNo = sessionStorage.getItem("isTrNumber");
+      this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
+      this.trData.status = sessionStorage.getItem("isStatus")
+      this.displaySessionLabel = true;
+      console.log(" this.trData.switch--", this.trData.switch)
+      }
+    }
+    else{
+      this.displaySessionLabel = false;
+    }
+
+
 
     this.breadcrumbSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.items = [{ routerLink: [BREADCRUMB.URL.HOME], label: BREADCRUMB.LABEL.HOME }];
@@ -85,8 +100,8 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
         this.items.push({ label: BREADCRUMB.LABEL.ND_AGENT })
       }
 
-      else if(url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)){
-        this.items.push({label: BREADCRUMB.LABEL.TREE_MAIN})
+      else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)) {
+        this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
       }
 
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
@@ -102,6 +117,13 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     //this.trData.status
     var that = this;
     setTimeout(function (this) {
+    
+      // if (that.trData.switch == true)
+      //   that.trData.switch = false;
+      // else if (that.trData.switch == false)
+      //   that.trData.switch = true;
+
+      sessionStorage.setItem("isSwitch", "" + that.trData.switch);
       that.configHomeService.trData.switch = that.trData.switch
     }, 100)
   }

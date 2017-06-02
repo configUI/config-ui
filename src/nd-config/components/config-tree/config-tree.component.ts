@@ -79,14 +79,17 @@ export class ConfigTreeComponent implements OnInit {
    */
 
   loadNode(event) {
+     console.log("ConfigTreeComponent", "constructor", "event.node",event.node);
     if (event.node.data == "Topology") {
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
     }
     else if (event.node.data == "Tier") {
-      this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
-      let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
-      this.getTableData.emit({ data })
+      if(event.node.leaf != true){
+        this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
+        let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
+        this.getTableData.emit({ data })
+      }
     }
     else if (event.node.data == "Server") {
       this.configTopologyService.getServerTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
@@ -160,8 +163,6 @@ export class ConfigTreeComponent implements OnInit {
   }
 
    ngOnDestroy(){
-
-
     if(this.subscription){
       this.subscription.unsubscribe();
     }

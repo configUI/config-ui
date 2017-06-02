@@ -64,6 +64,11 @@ export class JavaMethodComponent implements OnInit {
   second:boolean;
 
 
+  returnRulesDelete=[];
+  argumentRulesDelete=[];
+  
+
+
 //these counter varaiable are used for providing unique id to ruleas added so that we can use it for delete and edit purpose
   returnCounter:number =0;
   argumentCounter:number = 0;
@@ -239,6 +244,8 @@ export class JavaMethodComponent implements OnInit {
       })
       this.addEditDialog = true;
       this.isNew = false;
+      this.returnRulesDelete = [];
+      this.argumentRulesDelete = [];
     }
   }
 
@@ -269,17 +276,27 @@ export class JavaMethodComponent implements OnInit {
       this.methodBasedCustomData.returnTypeData = this.returnTypeData;
 
       if(!this.isNew){
-        //for edit case
-        this.configCustomDataService.editMethodBasedCustomData(this.methodBasedCustomData).subscribe(data => {
-        this.tableData.map(function(val){
-          if(val.methodBasedId == data.methodBasedId ){
-            val = data
-          }
-        })
+
+       /****for edit case
+        *  first triggering the request to delete the return rules and
+        *  when response comes then triggering request to delete argument rules
+        * and then  adding the new added rules
+        *
+        */
+      this.configCustomDataService.deleteReturnRules(this.returnRulesDelete).subscribe(data =>{
+        this.configCustomDataService.deleteArgumentRules(this.argumentRulesDelete).subscribe(data =>{
+           this.configCustomDataService.editMethodBasedCustomData(this.methodBasedCustomData).subscribe(data => {
+            this.tableData.map(function(val){
+              if(val.methodBasedId == data.methodBasedId ){
+                val = data
+              }
+            })
         this.configUtilityService.successMessage(Messages);
         this.modifyData(this.tableData)
       })
-
+      })
+    })
+       
       }
       else {
         this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
@@ -303,6 +320,7 @@ export class JavaMethodComponent implements OnInit {
 
     this.addReturnRulesDialog = true;
     this.returnTypeRules = new ReturnTypeData()
+  
     /*calling this function
     * to know data type of return value of provided fqm
     * and creating opertaion list a/c to return type
@@ -390,6 +408,9 @@ export class JavaMethodComponent implements OnInit {
       let arrAppIndex = [];
       for (let index in selectedRules) {
           arrAppIndex.push(selectedRules[index].id);
+          if(selectedRules[index].hasOwnProperty('returnTypeId')){
+             this.returnRulesDelete.push(selectedRules[index].returnTypeId)
+          }
       }
       this.returnTypeData = this.returnTypeData.filter(function(val){
                                return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
@@ -407,10 +428,14 @@ export class JavaMethodComponent implements OnInit {
       let arrAppIndex = [];
       for (let index in selectedRules) {
           arrAppIndex.push(selectedRules[index].id);
+           if(selectedRules[index].hasOwnProperty('argTypeId')){
+             this.argumentRulesDelete.push(selectedRules[index].argTypeId)
+          }
       }
       this.argumentTypeData = this.argumentTypeData.filter(function(val){
                                return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
+      
     }
   }
 

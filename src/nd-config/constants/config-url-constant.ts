@@ -1,7 +1,8 @@
+
  //const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
-    
+   
 
 //For Production use this SERVICE_URL
 const SERVICE_URL = '/configUI';
