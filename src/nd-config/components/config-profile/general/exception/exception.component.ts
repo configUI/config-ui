@@ -50,73 +50,72 @@ export class ExceptionComponent implements OnInit {
   }
 
 
-  getKeywordData() {
-    // let keywordData = this.configKeywordsService.keywordData;
-    if (this.configKeywordsService.keywordData != undefined) {
-      this.keywordValue = this.configKeywordsService.keywordData;
+   getKeywordData() {
+        // let keywordData = this.configKeywordsService.keywordData;
+        if (this.configKeywordsService.keywordData != undefined) {
+            this.keywordValue = this.configKeywordsService.keywordData;
+        }
+        else {
+            this.subscription = this.store.select("keywordData").subscribe(data => {
+                var keywordDataVal = {}
+                this.keywordList.map(function (key) {
+                    keywordDataVal[key] = data[key];
+                })
+                this.keywordValue = keywordDataVal;
+            });
+        }
+        this.exception = {};
+
+        this.keywordList.forEach((key) => {
+            if (this.keywordValue.hasOwnProperty(key)) {
+                this.exception[key] = this.keywordValue[key];
+            }
+        });
+
+        if ((this.exception["instrExceptions"].value).includes("%20")) {
+            let arr = (this.exception["instrExceptions"].value).split("%20")
+            this.exceptionData = new ExceptionData();
+
+            if (arr[0] === "1") {
+                this.exceptionData.instrumentException = true;
+                this.exceptionData.exceptionCapturing = false;
+            }
+            else if (arr[0] === "2") {
+                this.exceptionData.instrumentException = true;
+                this.exceptionData.exceptionCapturing = true;
+            }
+            else
+                this.exceptionData.instrumentException = false;
+
+            if (arr[1] === "1")
+                this.exceptionData.exceptionTrace = true;
+            else
+                this.exceptionData.exceptionTrace = false;
+
+            this.exceptionData.exceptionType = arr[2] == 0 ? false : true;
+            if (arr.length > 3)
+                this.exceptionData.exceptionTraceDepth = arr[3];
+            else
+                this.exceptionData.exceptionTraceDepth = 999;
+        }
+        else {
+            this.exceptionData = new ExceptionData();
+            if (this.exception["instrExceptions"].value == 0) {
+                this.exceptionData.instrumentException = false;
+                this.exceptionData.exceptionCapturing = false;
+                this.exceptionData.exceptionTrace = false;
+                this.exceptionData.exceptionType = false;
+                this.exceptionData.exceptionTraceDepth = 999;
+            }
+            else if (this.exception["instrExceptions"].value == 1) {
+                this.exceptionData.instrumentException = false;
+                this.exceptionData.exceptionCapturing = false;
+                this.exceptionData.exceptionTrace = false;
+                this.exceptionData.exceptionType = false;
+                this.exceptionData.exceptionTraceDepth = 999;
+            }
+        }
     }
-    else {
-      this.subscription = this.store.select("keywordData").subscribe(data => {
-        var keywordDataVal = {}
-        this.keywordList.map(function (key) {
-          keywordDataVal[key] = data[key];
-        })
-        this.keywordValue = keywordDataVal;
-      });
-    }
-    this.exception = {};
-
-    this.keywordList.forEach((key) => {
-      if (this.keywordValue.hasOwnProperty(key)) {
-        this.exception[key] = this.keywordValue[key];
-      }
-    });
-
-    if ((this.exception["instrExceptions"].value).includes("%20")) {
-      let arr = (this.exception["instrExceptions"].value).split("%20")
-      this.exceptionData = new ExceptionData();
-
-      if (arr[0] === "1") {
-        this.exceptionData.instrumentException = true;
-        this.exceptionData.exceptionCapturing = false;
-      }
-      else if (arr[0] === "2") {
-        this.exceptionData.instrumentException = true;
-        this.exceptionData.exceptionCapturing = true;
-      }
-      else
-        this.exceptionData.instrumentException = false;
-
-      if (arr[1] === "1")
-        this.exceptionData.exceptionTrace = true;
-      else
-        this.exceptionData.exceptionTrace = false;
-
-      this.exceptionData.exceptionType = arr[2] == 0 ? false : true;
-      if (arr.length > 3)
-        this.exceptionData.exceptionTraceDepth = arr[3];
-      else
-        this.exceptionData.exceptionTraceDepth = 999;
-    }
-    else {
-      this.exceptionData = new ExceptionData();
-      if (this.exception["instrExceptions"].value == 0) {
-        this.exceptionData.instrumentException = false;
-        this.exceptionData.exceptionCapturing = false;
-        this.exceptionData.exceptionTrace = false;
-        this.exceptionData.exceptionType = false;
-        this.exceptionData.exceptionTraceDepth = 999;
-      }
-      else if (this.exception["instrExceptions"].value == 1) {
-        this.exceptionData.instrumentException = false;
-        this.exceptionData.exceptionCapturing = false;
-        this.exceptionData.exceptionTrace = false;
-        this.exceptionData.exceptionType = false;
-        this.exceptionData.exceptionTraceDepth = 999;
-      }
-    }
-  }
-  
 
   saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
@@ -148,31 +147,31 @@ export class ExceptionComponent implements OnInit {
    */
 
   // Method used to construct the value of instrException keyword.
-  instrExceptionValue(data) {
-    var instrVal = {};
-    if (data.form._value.instrumentException === "false" || data.form._value.instrumentException === false) {
-      instrVal = "0";
+   instrExceptionValue(data) {
+        var instrVal = {};
+        if (data.form._value.instrumentException === "false" || data.form._value.instrumentException === false) {
+            instrVal = "0";
+        }
+        else {
+            if (this.exceptionData.exceptionCapturing == false)
+                instrVal = "1";
+
+            if (this.exceptionData.exceptionCapturing == true)
+                instrVal = "2";
+
+            if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
+                instrVal = instrVal + "%201";
+            else
+                instrVal = instrVal + "%200";
+
+            if (data.form._value.exceptionType === false || data.form._value.exceptionType === "false")
+                instrVal = instrVal + "%200";
+            else
+                instrVal = instrVal + "%203"
+
+            if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
+                instrVal = instrVal + "%20" + data.form._value.exceptionTraceDepth;
+        }
+        return instrVal;
     }
-    else {
-      if (this.exceptionData.exceptionCapturing == false)
-        instrVal = "1";
-
-      if (this.exceptionData.exceptionCapturing == true)
-        instrVal = "2";
-
-      if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
-        instrVal = instrVal + "%201";
-      else
-        instrVal = instrVal + "%200";
-
-      if (data.form._value.exceptionType === false || data.form._value.exceptionType === "false")
-        instrVal = instrVal + "%200";
-      else
-        instrVal = instrVal + "%203"
-
-      if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
-        instrVal = instrVal + "%20" + data.form._value.exceptionTraceDepth;
-    }
-    return instrVal;
-  }
 }
