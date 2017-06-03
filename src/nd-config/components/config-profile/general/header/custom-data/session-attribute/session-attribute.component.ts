@@ -77,6 +77,7 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   doAssignSessionAttributeTableData(data) {
+    this.sessionAttributeComponentInfo = [];
     this.selectedSessionAttribute = data.sessionType;
     // this.sessionAttributeComponentInfo = this.filterTRData(data);
     this.filterTRData(data);
@@ -84,6 +85,7 @@ export class SessionAttributeComponent implements OnInit {
 
   filterTRData(data) {
     this.arrTestRunData = [];
+    console.log("data.attrList--",data.attrList)
     if (data.attrList != null) {
       for (var i = 0; i < data.attrList.length; i++) {
         let valueNames = "";
@@ -182,6 +184,7 @@ export class SessionAttributeComponent implements OnInit {
 
   /**This method is used to validate the name of Session Attribute is already exists. */
   checkAppNameAlreadyExist(): boolean {
+
     for (let i = 0; i < this.sessionAttributeComponentInfo.length; i++) {
       if (this.sessionAttributeComponentInfo[i].attrName == this.sessionAttributeDetail.attrName) {
         this.configUtilityService.errorMessage("Session Attribute Name already exist");
