@@ -223,7 +223,7 @@ export class ConfigKeywordsService {
   }
 
   editSessionAttributeData(data): Observable<SessionAtrributeComponentsData> {
-    return this._restApi.getDataByPostReq(`${URL.UPDATE_SESSION_ATTR}`, data)
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_SESSION_ATTR}/${data.sessAttrId}`, data)
   }
 
 
@@ -343,10 +343,10 @@ export class ConfigKeywordsService {
     );
   }
 
-  deleteSpecificAttrValues(id){
-    console.log("deleteSpecificAttrValues rules---",id)
-    let url = `${URL.DELETE_ATTR_RULES}/${id}`;
-    return this._restApi.getDataByPostReq(url);
+  deleteSpecificAttrValues(listOfIDs){
+    console.log("deleteSpecificAttrValues rules---",listOfIDs)
+    let url = `${URL.DELETE_ATTR_RULES}`;
+    return this._restApi.getDataByPostReq(url, listOfIDs);
   }
 
 }

@@ -204,6 +204,7 @@ export class SessionAtrributeComponentsData {
 
 export class SessionTypeValueData {
     customValTypeName: string;
+    specAttrValId: number;
     id?: number;
     lb?: string;
     rb?: string;
