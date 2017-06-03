@@ -108,6 +108,7 @@ export class NVCookieComponent implements OnInit {
   //To create the value of the keyword "enableNDSession" by joining them with %20
   ndSessionValueMethod(data) {
 
+
     //Converting values of checkboxes from true/false to 1/0
     this.ndSessionData.methodEntryDepth = this.ndSessionData.methodEntryDepth ? 1 : 0;
     this.ndSessionData.methodExitDepth = this.ndSessionData.methodExitDepth ? 1 : 0;

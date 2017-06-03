@@ -244,6 +244,8 @@ export class JavaMethodComponent implements OnInit {
       })
       this.addEditDialog = true;
       this.isNew = false;
+      this.returnRulesDelete = [];
+      this.argumentRulesDelete = [];
     }
   }
 
@@ -318,6 +320,7 @@ export class JavaMethodComponent implements OnInit {
 
     this.addReturnRulesDialog = true;
     this.returnTypeRules = new ReturnTypeData()
+  
     /*calling this function
     * to know data type of return value of provided fqm
     * and creating opertaion list a/c to return type

@@ -1,0 +1,67 @@
+<p-dataTable class="nde-ui" [value]="enableSourceCodeFiltersTableData" [(selection)]="selectedExceptionFilterData" [rows]="10" [paginator]="enableSourceCodeFiltersTableData?.length > 12" [pageLinks]="3">
+    <p-header>
+        <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
+        <span style="float: left"> Apply Exception Filter </span>
+
+        <span style="float :right; margin-top:-5px">
+            <button pButton type="button" title="Add exception filter" [disabled]="saveDisable" (click)="openAddExceptionFilterDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit exception filter" [disabled]="saveDisable" (click)="openEditExceptionFilterrDialog()" icon="fa-pencil"></button>
+            <button pButton class="ui-button-danger" type="button" title="Delete exception filter(s)" [disabled]="saveDisable" (click)="deleteExceptionFilter()" icon="fa-trash"></button>
+        </span>
+    </p-header>
+    <p-column [style]="{'width':'3%'}" selectionMode="multiple"></p-column>
+    <p-column class="tableCss" field="advanceExceptionFilterPattern" header="Pattern" [sortable]="true">
+        <template let-col let-ExceptionFilter="rowData" pTemplate>
+            <span title="{{ExceptionFilter[col.field]}}">{{ExceptionFilter[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="advanceExceptionFilterMode" header="Mode" [sortable]="true">
+        <template let-col let-ExceptionFilter="rowData" pTemplate>
+            <span title="{{ExceptionFilter[col.field]}}">{{ExceptionFilter[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="advanceExceptionFilterOperation" header="Operation" [sortable]="true">
+        <template let-col let-ExceptionFilter="rowData" pTemplate>
+            <span title="{{ExceptionFilter[col.field]}}">{{ExceptionFilter[col.field]}}</span>
+        </template>
+    </p-column>
+
+</p-dataTable>
+
+<!--Dialog for exception filter-->
+
+<p-dialog class="profile-dialog" header="{{isNewExceptionFilter ? 'Add Exception Filter' : 'Edit Exception Filter'}}" *ngIf="addEditExceptionFilterDialog"
+    [(visible)]="addEditExceptionFilterDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveExceptionFilter()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Pattern</label>
+            </div>
+            <div class="ui-g-9">
+                <input name="advanceExceptionFilterPattern" type="text" size="50" pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterPattern" title="Please enter valid exception filter pattern. &#013;Rule 1: Exception filter pattern can include package,class separated by dot(.) . &#013;Rule 2: Exception filter pattern cannot include special character and whitespaces."
+                  autofocus required pattern = "[a-zA-Z]+[$.]*([a-zA-Z0-9\d_-]+)*[.]*" ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Operation</label>
+            </div>
+            <div class="ui-g-4">
+                <input name="dropdown1" type="text" size="14" class='hidden-validator' pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterOperation" required ngModel/>
+                <p-dropdown name="advanceExceptionFilterOperation"   placeholder="--Choose--" [options]="exceptionFilter"
+                    [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterOperation" required ngModel></p-dropdown>
+            </div>
+            <div class="ui-g-2">
+                <p-checkbox name="advanceExceptionFilterMode" label="Mode" [(ngModel)]="exceptionfiltermode" binary="true"></p-checkbox>
+            </div>
+            <div class="ui-g-3">
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="addEditExceptionFilterDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

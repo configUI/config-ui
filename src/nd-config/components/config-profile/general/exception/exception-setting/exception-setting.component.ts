@@ -1,56 +1,50 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
-import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
-import { ConfigUtilityService } from '../../../../services/config-utility.service';
-import { ExceptionData } from '../../../../containers/exception-capture-data';
-import { cloneObject } from '../../../../utils/config-utility';
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
+import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { ConfigUtilityService } from '../../../../../services/config-utility.service';
+import { ExceptionData } from '../../../../../containers/exception-capture-data';
+import { cloneObject } from '../../../../../utils/config-utility';
 
 @Component({
-  selector: 'app-exception',
-  templateUrl: './exception.component.html',
-  styleUrls: ['./exception.component.css']
+    selector: 'app-exception-setting',
+    templateUrl: './exception-setting.component.html',
+    styleUrls: ['./exception-setting.component.css']
 })
-export class ExceptionComponent implements OnInit {
+export class ExceptionSettingComponent implements OnInit {
 
-  @Input()
-  saveDisable: boolean;
-  index: number = 1;
+    @Input()
+    data;
+    saveDisable: boolean;
 
-  /**This is to send data to parent component(General Screen Component) for save keyword data */
-  @Output()
-  keywordData = new EventEmitter();
+    /**This is to send data to parent component(General Screen Component) for save keyword data */
+    @Output()
+    keywordData = new EventEmitter();
+    exception: Object;
+    /**These are those keyword which are used in current screen. */
+    keywordList: string[] = ['instrExceptions', 'enableExceptionInSeqBlob', 'enableExceptionsWithSourceAndVars'];
+    subscriptionEG: Subscription;
+    // selectedValue: string = 'unhandled';
+    enableGroupKeyword: boolean;
 
-  /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['instrExceptions', 'enableExceptionInSeqBlob', 'enableExceptionsWithSourceAndVars'];
-  subscriptionEG: Subscription;
-  // selectedValue: string = 'unhandled';
+    keywordValue: Object;
 
-  exception: Object;
-  enableGroupKeyword: boolean;
-  keywordValue: Object;
+    constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+        this.getKeywordData();
+        configKeywordsService.toggleKeywordData();
+    }
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-    this.getKeywordData();
-    this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == 0 ? false : true;
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
-    this.configKeywordsService.toggleKeywordData();
-  }
+    exceptionData: ExceptionData;
+    subscription: Subscription;
+    exceptionForm: boolean = true;
 
-  exceptionData: ExceptionData;
-  subscription: Subscription;
-  exceptionForm: boolean = true;
+    ngOnInit() {
 
-  ngOnInit() {
-
-  }
-  handleChange(e) {
-    this.index = e.index;
-  }
+    }
 
 
-   getKeywordData() {
+    getKeywordData() {
         // let keywordData = this.configKeywordsService.keywordData;
         if (this.configKeywordsService.keywordData != undefined) {
             this.keywordValue = this.configKeywordsService.keywordData;
@@ -117,37 +111,17 @@ export class ExceptionComponent implements OnInit {
         }
     }
 
-  saveKeywordData(data) {
-    let instrValue = this.instrExceptionValue(data);
-    for (let key in this.exception) {
-      if (key == 'instrExceptions')
-        this.exception[key]["value"] = instrValue;
-    }
-    this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == true ? 1 : 0;
-    this.keywordData.emit(this.exception);
+    /**Value for this keyword is
+     * 1%201%200%2012
+     * 1-  Enable instrumentException // It can be 1 or 2 [1- complete exceotion 2-L1 fp capturing]
+     * 1- enable exceptionTrace
+     * 0- false 3- true //for capture Exception type
+     * 12- Trace limit for frames //dependent on 2nd value
+     */
 
-  }
-
-  resetKeywordData() {
-    this.getKeywordData();
-    this.exception = cloneObject(this.configKeywordsService.keywordData);
-    //to reset value of enableExceptionInSeqBlob keyword
-    if(this.exception['enableExceptionInSeqBlob'].value == 0)
-      this.exception['enableExceptionInSeqBlob'].value = false;
-    else
-     this.exception['enableExceptionInSeqBlob'].value = true;
-  }
-
-  /**Value for this keyword is
-   * 1%201%200%2012
-   * 1-  Enable instrumentException // It can be 1 or 2 [1- complete exceotion 2-L1 fp capturing]
-   * 1- enable exceptionTrace
-   * 0- false 3- true //for capture Exception type
-   * 12- Trace limit for frames //dependent on 2nd value
-   */
-
-  // Method used to construct the value of instrException keyword.
-   instrExceptionValue(data) {
+    // Method used to construct the value of instrException keyword.
+    instrExceptionValue(data) {
+        console.log("inside instr filter----------->");
         var instrVal = {};
         if (data.form._value.instrumentException === "false" || data.form._value.instrumentException === false) {
             instrVal = "0";

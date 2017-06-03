@@ -1,78 +1,19 @@
-<form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-    <div class="tabsincontent">
+  <form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
+  <div class="tabsincontent">
         <div class="header">Exception settings
             <div class="pull-right">
-
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
 
             </div>
         </div>
-        <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-                <div class="ui-g">
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-10">
-                        <p-fieldset legend="Exception Settings">
-                            <div class="ui-g">
-                                <div class="ui-g-12">
-                                    <div class="ui-g-3">
-                                        <p-checkbox label="Enable exception capturing" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="true"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="ui-g-12">
-                                    <!--<div class="ui-g-1"></div>-->
-                                    <!--<div class="ui-g-4" style="margin-left: 16px">
-                                        <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="1" label="Enable complete exception capturing" [(ngModel)]="exceptionData.exceptionCapturing"></p-radioButton>
-                                    </div>
-                                    <div class="ui-g-5" style="margin-left: 16px">
-                                        <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="2" label="Enable complete and L1 flowpath exception capturing" [(ngModel)]="exceptionData.exceptionCapturing"></p-radioButton>
-                                    </div>-->
-                                    <div class="ui-g-7" style="margin-left: 16px">
-                                        <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using logging API (java.util.logging, log4j, ATG logger) " name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
-                                        </p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="ui-g-12">
-                                    <!--<div class="ui-g-1"></div>-->
-                                    <div class="ui-g-5" style="margin-left: 16px">
-                                        <!--<p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception stack trace upto " name="exceptionTrace" [(ngModel)]="exceptionData.exceptionTrace" binary="true">
-                                        </p-checkbox>-->
-                                        <label>Capture exception stack trace upto </label>
-                                        <input type="number" disabled={{!exceptionData.instrumentException}} [min]=0 [max]=999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/> frames
-                                    </div>
-                                </div>
-                                <div class="ui-g-12">
-                                    <!--<div class="ui-g-1"></div>-->
-                                    <div class="ui-g-7" style="margin-left: 16px">
-                                        <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception from not instrumented session also." name="exceptionType" [(ngModel)]="exceptionData.exceptionCapturing" binary="true">
-                                        </p-checkbox>
-                                    </div>
-                                </div>
-                                <!--<div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-2" style="margin-left: 34px">Capture Exceptions</div>
-                    </div>
-                    <div class="ui-g-12" style="margin-left: 16px">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-2" style="margin-left: 16px">
-                            <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="unhandled" label="Unhandled Exceptions" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
-                        </div>
-                        <div class="ui-g-2">
-                            <p-radioButton name="CaptureException" [disabled]="!exceptionData.instrumentException" value="all" label="All" [(ngModel)]="exceptionData.exceptionType"></p-radioButton>
-                        </div>
-                    </div>-->
-                            </div>
-                            <div class="ui-g-12" style="margin-left: 5px;">
-                                <!--<div class="ui-g-1"></div>-->
-                                <div class="ui-g-5">
-                                    <p-checkbox name="enableExceptionInSeqBlob" binary="false" label="Enable exception capturing in sequence Blob" [(ngModel)]="exception.enableExceptionInSeqBlob.value" binary="true"></p-checkbox>
-                                </div>
-                            </div>
-                        </p-fieldset>
-                    </div>
-                </div>
             </div>
-        </p-panel>
-    </div>
-</form>
+<p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Exception" [style]="{'width':'800px'}">
+        <app-exception-setting [data]="exception"></app-exception-setting>
+    </p-tabPanel>
+    <p-tabPanel header="Filter">
+        <app-exception-filter></app-exception-filter>
+    </p-tabPanel>
+</p-tabView>
+  </form>

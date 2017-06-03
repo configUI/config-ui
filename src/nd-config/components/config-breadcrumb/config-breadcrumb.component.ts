@@ -29,21 +29,24 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       this.trData = data;
       sessionStorage.setItem("isTrNumber", data.trNo);
       sessionStorage.setItem("isSwitch", "" + data.switch);
-       sessionStorage.setItem("isStatus", "" + data.status)
+      sessionStorage.setItem("isStatus", "" + data.status)
     });
     this.items = [];
-  console.log(" = = = " ,sessionStorage.getItem("isTrNumber")  )
     if (sessionStorage.getItem("isTrNumber") != null) {
       if(sessionStorage.getItem("isTrNumber") != "null")
       {
+      console.log("sessionStorage.getItem(isSwitch)---"+sessionStorage.getItem("isSwitch"))
       this.trData.trNo = sessionStorage.getItem("isTrNumber");
-      this.trData.switch = Boolean(sessionStorage.getItem("isSwitch"));
+      this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
       this.trData.status = sessionStorage.getItem("isStatus")
       this.displaySessionLabel = true;
+      console.log(" this.trData.switch--", this.trData.switch)
       }
     }
-    else
+    else{
       this.displaySessionLabel = false;
+    }
+
 
 
     this.breadcrumbSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {

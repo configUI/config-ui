@@ -6,3 +6,11 @@ export class ExceptionData
     exceptionTraceDepth : number = 999;
     exceptionType : boolean;
 }
+
+//Contains exception filter Keyword variables
+export class EnableSourceCodeFilters {
+  advanceExceptionFilterId:number;
+  advanceExceptionFilterPattern: string;
+  advanceExceptionFilterMode:number;
+  advanceExceptionFilterOperation:string;
+}
