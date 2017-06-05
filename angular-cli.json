@@ -18,11 +18,13 @@
         "testTsconfig": "tsconfig.spec.json",
         "prefix": "app",
         "styles": [
+            "resources/themes/omega/theme.css",
+            "../node_modules/font-awesome/css/font-awesome.min.css",
             "../node_modules/primeng/resources/primeng.min.css",
-            "../node_modules/primeng/resources/themes/omega/theme.css",
-            "../node_modules/font-awesome/css/font-awesome.css",
-            "config-styles.css",
-            "assets/css/main.css"
+            "resources/themes/default/theme.css",
+            "resources/themes/default/default.scss",
+            "resources/css/main.css",
+            "config-styles.css"
         ],
         "scripts": [],
         "environmentSource": "environments/environment.ts",
