@@ -1,0 +1,572 @@
+@import '~@angular/material/_theming.scss';
+// Plus imports for other components in your app.
+// Include the base styles for Angular Material core. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$candy-app-primary: mat-palette($mat-indigo);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$candy-app-warn: mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+.mat-sidenav {
+    background: black;
+}
+
+.mat-sidenav mat-icon {
+    color: white;
+}
+
+.mat-sidenav div {
+    color: white;
+}
+
+.dashboard-panel-header-color {
+    color: black;
+    border-color: black;
+    background: rgba(121, 121, 185, 0.12);
+}
+
+.dashboard-panel-color {
+    background: rgb(223, 234, 232);
+}
+
+.dashboard-panel-selected-color {
+    border-color: black;
+}
+
+.ui-panelmenu-content {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-header {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu div {
+    color: black;
+}
+
+
+/*First level node css.*/
+
+.dashboard-tree-input-icon {
+    background: transparent;
+}
+
+.mat-select-value {
+    color: white;
+}
+
+.mat-select-trigger {
+    color: white;
+}
+
+.mat-select-arrow {
+    color: white;
+}
+
+
+/*For Single Prime UI panel.*/
+
+.ui-panel .ui-panel-content {
+    background: rgb(223, 234, 232);
+}
+
+.mat-sidenav {
+    background: transparent;
+}
+
+.mat-sidenav-container {
+    background: transparent;
+}
+
+.mat-card {
+    background: transparent;
+}
+
+
+/*For navigation link on top panel.*/
+
+.top-panel-nav-icon {
+    color: black;
+}
+
+.product-nav-bar .mat-ink-bar {
+    background: red;
+}
+
+
+/*for md select color lable*/
+
+.mat-select-value-text {
+    color: #1d1919;
+}
+
+.dashboard-sidenav {
+    background: rgb(185, 234, 243);
+}
+
+.dashboard-tree-input-icon {
+    color: black;
+}
+
+.dashboard-sub-menu .ui-menuitem-link:hover {
+    color: white;
+    font-weight: bold;
+    background: #778cf5;
+}
+
+.dashboard-panel-context-menu .ui-menuitem-active .ui-menuitem-link:hover {
+    color: white;
+    font-weight: bold;
+    background: #778cf5;
+}
+
+
+/*for layout selection icon*/
+
+.layoutFocus {
+    background: #56c5f2 !important;
+}
+
+.layoutNotFocus {
+    background: transparent;
+}
+
+.customTitleBar .ui-accordion {
+    background: #56c5f2;
+}
+
+.customTitleBar .ui-accordion-header {
+    background: #56c5f2;
+}
+
+
+/*------------------- Tree component css start-------------------*/
+
+.dashboard-tree-input-icon {
+    background: transparent;
+}
+
+.dashboard-tree-component .mat-tab-label {
+    background-color: lightblue;
+}
+
+.dashboard-tree-component .mat-select-trigger {
+    color: grey;
+    background-color: ghostwhite;
+}
+
+.dashboard-tree-component .ui-menuitem-active .ui-menuitem-link:hover {
+    color: white;
+    font-weight: bold;
+    background: #778cf5;
+}
+
+.dashboard-tree-component .ui-state-highlight {
+    background: wheat;
+}
+
+.mat-sidenav div {
+    color: black;
+}
+
+.mat-select-value-text {
+    color: #1d1919;
+}
+
+.mat-select-arrow {
+    color: black;
+}
+
+.dashboard-tree-graph-node {
+    color: blue;
+}
+
+.dashboard-tree-group-node {
+    color: #800080;
+}
+
+.dashboard-tree-metrics-node {
+    color: #d35b37;
+}
+
+.dashboard-tree-tier-node {
+    color: #7ABB15;
+}
+
+.dashboard-tree-server-node {
+    color: #FFA500;
+}
+
+.dashboard-tree-instance-node {
+    color: #FF6347;
+}
+
+.dashboard-tree-interface-node {
+    color: blue;
+}
+
+.dashboard-tree-search-select .mat-select-underline {
+    background: black;
+}
+
+.dashboard-show-inTree {
+    color: chartreuse;
+    font-style: italic;
+    background-color: chocolate;
+}
+
+
+/*------------------- Tree component css End-------------------*/
+
+.ui-panelmenu-content {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-header {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu div {
+    color: black;
+}
+
+.ui-panelmenu-header {
+    background: rgb(53, 56, 55);
+}
+
+
+/*-----------Start Configuration css------------*/
+
+.dashboard-setting-win-fieldSets {
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-perconfigcheckbox .ui-chkbox .ui-chkbox-box {
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-configModuleName .ui-dropdown label.ui-dropdown-label {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-configdropdown .ui-dropdown label.ui-dropdown-label {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-permultiselect .ui-multiselect .ui-multiselect-label-container {
+    color: black;
+}
+
+.dashboard-setting-win-perTxtcheckbox .ui-chkbox .ui-chkbox-box {
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-configdialog {
+    background: black;
+    color: white;
+}
+
+.dashboard-setting-win-tabs {
+    color: black;
+}
+
+
+/*-----------End Configuration css------------*/
+
+
+/*This is the CSS for the Highlight lower panel row*/
+
+.ui-widget-content .lower-panel-table-selected-row {
+    background-color: #96c3eb;
+    color: black;
+}
+
+.ui-widget-content .lower-panel-table-row-even {
+    border: 1px solid #D5D5D5;
+    background: #ffffff;
+    color: #222222;
+}
+
+.ui-widget-content .lower-panel-table-row-odd {
+    border: 1px solid #D5D5D5;
+    background: #fafafb;
+    color: #222222;
+}
+
+
+/*------------------- Custom Tree component css start-------------------*/
+
+.dashboard-custom-tree-graph-node {
+    color: khaki;
+}
+
+.dashboard-custom-tree-metrics-node {
+    color: blanchedalmond;
+}
+
+.dashboard-custom-tree-report-node {
+    color: gold;
+}
+
+.dashboard-open-CustomDialog h2 {
+    color: white;
+}
+
+.dashboard-open-CustomDialog .dialogclose {
+    background: #3f51b5
+}
+
+.dashboard-open-CustomDialog .mat-dialog-title {
+    background-color: #3f51b5;
+    color: white;
+}
+
+
+/*-------------------Custom Tree component css End-------------------*/
+
+
+/*------------------------  graph time window css-------------- */
+
+.graph-dialog-title {
+    background: black;
+}
+
+.graph-icon {
+    color: white;
+}
+
+.graphOption {
+    background-color: #f2f5f9;
+}
+
+
+/*--------------- end graph time window css -------------*/
+
+
+/*--------------Derived Component Css Start ------------------------*/
+
+.dashboard-open-derivedDialog .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-open-derivedDialog .mat-select-value {
+    color: #1d1919;
+}
+
+.dashboard-open-derivedDialog .mat-dialog-title {
+    background-color: #673ab7;
+    color: white;
+}
+
+.dashboard-open-derivedDialog .deriveddialogclose {
+    background: #673ab7;
+}
+
+.dashboard-open-derivedDialog1 .mat-dialog-title {
+    background-color: #673ab7;
+    color: white;
+}
+
+.dashboard-open-derivedDialog1 .deriveddialogclose {
+    background: #673ab7;
+}
+
+.dashboard-open-derivedDialog1 .dashboard-open-derivedDialog h2 {
+    color: white;
+}
+
+.dashboard-open-derivedDialog1 .derivedadvanced {
+    border: 1px solid black;
+}
+
+.dashboard-open-derivedDialog1 .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-gdf-advanced .derivedadvanced {
+    border: 1px solid black;
+}
+
+.dashboard-gdf-advanced .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-gdf-advanced .legendLbl2 {
+    color: #399394;
+}
+
+.dashboard-gdf-selection .deriveddialogclose {
+    background: #673ab7;
+}
+
+.dashboard-gdf-selection .dashboard-open-derivedDialog .mat-select-placeholder {
+    color: black;
+}
+
+.dashboard-gdf-selection .derivedadvanced {
+    border: 1px solid black;
+}
+
+.dashboard-gdf-selection .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-gdf-selection .dashboardspecified {
+    border: 1px solid black;
+}
+
+
+/*-----------------Derived Component Css End -----*/
+
+
+/*This is the CSS for the Highlight compare window table row*/
+
+.ui-widget-content .compare-table-selected-row {
+    background-color: #96c3eb;
+    color: black;
+}
+
+.ui-widget-content .compare-table-row-even {
+    border: 1px solid #D5D5D5;
+    background: #ffffff;
+    color: #222222;
+}
+
+.ui-widget-content .compare-table-row-odd {
+    border: 1px solid #D5D5D5;
+    background: #fafafb;
+    color: #222222;
+}
+
+
+/* For compare window */
+
+.dashboard-compare-Dialog .mat-dialog-title {
+    background-color: #282828;
+    color: white;
+}
+
+.dashboard-compare-Dialog h2 {
+    color: white;
+}
+
+.dashboard-compare-Dialog .mat-select-trigger {
+    color: black;
+}
+
+
+/*-----------------Compare Compoment Css ---------*/
+
+.dashboard-data-load-spinner path {
+    stroke: white;
+}
+
+
+/*----------------widget setting ---------------*/
+
+.dashboard-widget-setting-dialog {
+    color: white;
+    background-color: black;
+}
+
+
+/*-----------Start Open Merge css------------*/
+
+.dashboard-open-mergeDialog .mat-dialog-title {
+    color: white;
+    background-color: #282828;
+}
+
+.dashboard-open-mergeDialog h2 {
+    color: white;
+}
+
+.selected-hirarchy {
+    background-color: #71b4ea;
+}
+
+.dashboard-open-mergehelpDialog .mat-dialog-title {
+    background-color: #282828;
+    color: white;
+}
+
+.dashboard-open-mergehelpDialog h2 {
+    color: white;
+}
+
+.contentHelpMerge tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.contentHelpMerge th {
+    background-color: #2e7a78;
+    color: #fff;
+}
+
+.contentHelpMerge .heading {
+    background: #3d7170;
+    color: #fff;
+    border-bottom: 1px #ccc solid;
+}
+
+.contentHelpMerge .td {
+    border: 1px solid #dddddd;
+}
+
+.contentHelpMerge .td a {
+    color: #505050;
+}
+
+.openMerge .ui-state-default a {
+    color: black;
+    background: #71b4ea;
+}
+
+.selected-hirarchy {
+    color: white;
+}
+
+
+/*-----------End Open Merge css------------*/
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-trigger .fa {
+    color: transparent;
+    background: transparent;
+}
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-panel ul li label {
+    color: black;
+}
+
+/*----------Scenario Difference GUI START---------*/
+.dashboard-scenario-HeadingDiv{
+    background-color: black;
+    color: white;
+}
+.dashboard-scenario-InnerDiv-Single{
+    background-color: #dcecfd;
+}
+.dashboard-scenario-InnerDiv{
+    background-color: #dcecfd;
+}
+/*----------Scenario Difference GUI END---------*/
+
+/*----------Server Signature Difference GUI START---------*/
+.dashboard-server-diff-HeadingDiv{
+    background-color: black;
+    color: white;
+}
+.dashboard-server-diff-InnerDiv{
+    background-color: #dcecfd;
+}
+/*----------Server Signature Difference GUI END---------*/
