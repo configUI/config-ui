@@ -21,7 +21,8 @@
             "../node_modules/primeng/resources/primeng.min.css",
             "../node_modules/primeng/resources/themes/omega/theme.css",
             "../node_modules/font-awesome/css/font-awesome.css",
-            "config-styles.css"
+            "config-styles.css",
+            "assets/css/main.css"
         ],
         "scripts": [],
         "environmentSource": "environments/environment.ts",
