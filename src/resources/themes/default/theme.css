@@ -1,0 +1,315 @@
+/*Scenario---------*/
+
+.scenario .ui-widget {
+    font-family: 'Open Sans', sans-serif !important;
+    /*background: rgba(0, 0, 0, 0.32);*/
+}
+
+.scenario-left .ui-panelmenu .ui-widget{
+    background: transparent;
+}
+
+.scenario .ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #fff !important;
+}
+
+.scenario .ui-widget-header {
+    background: rgba(249, 165, 165, 0) !important;
+}
+
+.scenario .ui-breadcrumb {
+    background: rgba(255, 255, 255, 0.34) !important;
+}
+
+.scenario .ui-widget-content {
+    background: rgba(255, 255, 255, 1);
+}
+
+.scenario .ui-widget-content a {
+    color: #040404 !important;
+}
+
+.scenario .ui-grid {
+    background: rgba(255, 255, 255, 0.68) !important;
+}
+
+.scenario .ui-datatable th.ui-state-default {
+    background: rgba(3, 18, 35, 0.94) !important;
+    color: #fff !important;
+}
+
+.scenario .ui-button{
+    background: rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid #4e4e4e !important;
+}
+
+.scenario>table .ui-widget-content ui-datatable-odd {
+    background: transparent !important;
+}
+
+.scenario .ui-datatable-odd {
+    background: #34608e !important;
+    color: #fff !important;
+}
+
+.scenario tr.ui-widget-content.ui-datatable-even {
+    background: rgb(176, 211, 247);
+    color: #2b2828 !important;
+}
+
+.scenmodal .ui-dialog .ui-dialog-titlebar {
+    background: #282828 !important;
+    color: #dcdcdc !important;
+}
+
+.scenmodal .ui-dialog .ui-dialog-title {
+    color: #dcdcdc !important;
+}
+
+.glblschtxt {
+    background: hsla(0, 0%, 10%, 0.8);
+    color: #fff;
+}
+
+.glblschtxt-header {
+    background: rgba(16, 16, 16, 0.35);
+    color: #fff;
+}
+
+.glblschtxt .ui-widget-header {
+    color: white;
+}
+
+.accordHeader .ui-accordion .ui-accordion-header a {
+    background: hsla(0, 0%, 15%, 0.8) !important;
+}
+
+.accordHeader .ui-accordion .ui-accordion-header .fa {
+    color: white;
+}
+
+.scenmodal .ui-widget-content a {
+    color: #dad2d2;
+}
+
+.scenTab .ui-tabview .ui-tabview-nav > li.ui-state-default{
+    background: #7294b7;
+}
+
+.scenTab .ui-tabview .ui-tabview-panel{
+    background: rgba(16, 16, 16, 0);
+}
+
+.scenTab .ui-tabview.ui-widget-content{
+    background: rgba(16, 16, 16, 0.19)
+}
+
+.scenario-left .ui-panelmenu .ui-panelmenu-content{
+    background: rgba(49, 70, 78, 0.55);
+}
+
+.scenario-left .ui-panelmenu .ui-menuitem-link{
+    color: #fff;
+} 
+
+.scenario-left .ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a{
+    background: #282828;
+}
+.accordHeader .ui-accordion .ui-accordion-content {
+    overflow: inherit !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.scen-gui-backg {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.ui-dialog .ui-dialog-content {
+    background: #fff !important;
+}
+
+.scenario-left .ui-panelmenu .ui-menuitem-link:hover {
+    background: rgba(40, 40, 40, 0.28) !important;
+}
+.open-total-scen-btn button {
+    padding: .2em 0.1em;
+}
+
+.open-total-scen-table .ui-datatable-odd {
+    background: #dfefff;
+}
+
+.ui-widget {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.open-total-scen-table .ui-datatable th.ui-state-default {
+    background: #92c1e8 !important;
+    color: #fff !important;
+}
+
+.open-total-scen-table .ui-datatable-header {
+    background: #1b313e !important;
+    font-size: 1.2em !important;
+    color: #fff !important;
+    text-align: left !important;
+}
+
+.open-total-scen-table .ui-state-highlight {
+    background: #186ba0 !important;
+}
+
+.accordHeaderLogsReport .ui-accordion .ui-accordion-header a {
+    background: hsla(0, 0%, 15%, 0.8) !important;
+}
+
+.accordHeaderLogsReport .ui-accordion .ui-accordion-header .fa {
+    color: white;
+}
+
+.accordHeaderLogsReport .ui-accordion .ui-accordion-content {
+    overflow: inherit !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.contentClass{
+    background: rgba(255, 255, 255, 0.6) !important;
+    color: #000 !important;
+    border: none !important;
+    padding: 1em;
+}
+.pannelHeader .ui-panel-content-wrapper {
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.pannelHeader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    background: hsla(0, 0%, 15%, 0.8) !important;
+    color: #fff !important;
+}
+
+
+.pickListClass .ui-picklist-caption.ui-widget-header.ui-corner-tl.ui-corner-tr{
+    background: hsla(0, 0%, 15%, 0.8) !important;
+    color: #fff  !important;
+    text-align: left  !important;
+}
+
+.pickListClass .ui-picklist-list.ui-picklist-source, .ui-picklist-list.ui-picklist-target{
+  background: rgba(0, 0, 0, 0.12) !important;
+  color: #000 !important;
+}
+
+.scenario .ui-state-highlight {
+    background: #08c1b0 !important;
+}
+.scenProfileButton .ui-button {
+    background: #2399e5 !important;
+}
+
+.dashboard-layout-accordion-header{
+    color:black;
+    
+}
+
+.layoutFocus{
+
+background:#56c5f2 !important;
+}
+
+.layoutNotFocus{
+
+ background:transparent;
+}
+.customTitleBar .ui-accordion{
+    background:#56c5f2;
+    }
+.customTitleBar  .ui-accordion-header{
+      background:#56c5f2;
+  }
+  
+.dbReplayInputSwitchClass .ui-inputswitch .ui-inputswitch-on{
+    background: rgba(255, 0, 0, 0.82) !important;
+}
+
+.dbReplayInputSwitchClass .ui-inputswitch .ui-inputswitch-off{
+    background: green !important;
+    color: #fff;
+}
+.dialogHeight .ui-dialog {
+    height: 300px !important;
+}
+
+/*For health monitor*/
+.scenTab .ui-tabview .ui-tabview-nav > li.ui-state-active{
+    background: #282828 !important;
+}
+
+.viewByFocus
+{
+    color: #3a4e98 !important;
+}
+
+.viewByNotFocus
+{
+    color:black;
+}
+
+/*Dashboard Update User session Css*/
+/*----------------- PrimeNg Tab and Data Table CSS------------------*/
+
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-default{
+    background: #7294b7;
+}
+
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-panel{
+    background: rgba(16, 16, 16, 0);
+}
+
+.dashboard-update-user-session-rate-tab .ui-tabview.ui-widget-content{
+    background: rgba(16, 16, 16, 0.19)
+}
+
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-active{
+    background: #282828;
+}
+
+.dashboard-update-user-session-text-header {
+    background: hsla(0, 0%, 10%, 0.8);
+    color: #fff;
+}
+
+.dashboard-update-user-session-text-header .ui-widget-header {
+    color: white;
+}
+
+.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
+    background: rgba(3, 18, 35, 0.94);
+    color: #fff;
+}
+
+.dashboard-update-user-session-dataTable>table .ui-widget-content ui-datatable-odd {
+    background: transparent;
+}
+
+.dashboard-update-user-session-dataTable .ui-datatable-odd {
+    background: #34608e;
+    color: #fff;
+}
+
+.dashboard-update-user-session-dataTable tr.ui-widget-content.ui-datatable-even {
+    background: rgb(176, 211, 247);
+    color: #2b2828;
+}
+
+/*Scenario Scheduler Dialog*/
+.scenScheduleDialog .ui-dialog .ui-dialog-titlebar {
+    margin: 0 0 9px 0px !important;
+    background: #475A67 !important;
+    color: #fff;
+}
+
+.scenScheduleDialog .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title{
+    padding: 0 0 0 10px;
+}

@@ -50,33 +50,33 @@
 
     <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true">
         <div class="ui-g-12">
-            <span style="font-weight: bold">Exception Source Code Capturing</span>
+            <span style="font-weight: bold">Source Code Capturing</span>
         </div>
         <div class="ui-g-12">
             <p-radioButton name="enable" value=0 label="disable" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=1 label="enable ( only stack trace)" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
+            <p-radioButton name="enable" value=1 label="Stack trace only" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=2 label="enable with only source code" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
+            <p-radioButton name="enable" value=2 label="Source code only" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=3 label="enable with source code and class variables" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
+            <p-radioButton name="enable" value=3 label="Source code and class variables only" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=4 label="enable with source code, class variables and method parameters" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
+            <p-radioButton name="enable" value=4 label="Source code,class variables and method parameters only" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=5 label="enable with source code, class variables, method parameters and local variables"
+            <p-radioButton name="enable" value=5 label="Source code, class variables, method parameters and local variables only"
                 [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=6 label="enable with source code, class variables, method parameters, local variables and threadLocal variables"
+            <p-radioButton name="enable" value=6 label="Source code, class variables, method parameters, local variables and threadLocal variables only"
                 [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
         <div class="ui-g-12">
-            <p-radioButton name="enable" value=7 label="enable with source code, class variables, method parameters, local variables , threadLocal variables and variables inside Objects"
+            <p-radioButton name="enable" value=7 label="Source code, class variables, method parameters, local variables , threadLocal variables and variables inside Objects only"
                 [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
     </p-fieldset>
