@@ -85,7 +85,6 @@ export class SessionAttributeComponent implements OnInit {
 
   filterTRData(data) {
     this.arrTestRunData = [];
-    console.log("data.attrList--",data.attrList)
     if (data.attrList != null) {
       for (var i = 0; i < data.attrList.length; i++) {
         let valueNames = "";
@@ -204,6 +203,7 @@ export class SessionAttributeComponent implements OnInit {
     *  handling this case by triggering two different request until it is handled 
     *  from backend side
     */
+
     this.arrTestRunData = [];
     this.configKeywordsService.deleteSpecificAttrValues(this.sessionAtrributeDelete).subscribe(data => {
       let that = this;
@@ -431,12 +431,13 @@ export class SessionAttributeComponent implements OnInit {
 
   closeDialog() {
     this.selectedSessionAttributeList = [];
+    this.sessionAtrributeDelete = [];
     this.addEditSessionAttrDialog = false;
   }
   closeValueInfoDialog(): void {
 
     this.sessionAttrTypeValueDialog = false;
-    this.sessionAtrributeDelete = [];
+    // this.sessionAtrributeDelete = [];
 
   }
 
