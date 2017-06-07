@@ -1,0 +1,739 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/roboto-v15-latin-regular.eot');
+    /* IE9 Compat Modes */
+    src: local('Roboto'), local('Roboto-Regular'), url('../fonts/roboto-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/roboto-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../fonts/roboto-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/roboto-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/roboto-v15-latin-regular.svg#Roboto') format('svg');
+    /* Legacy iOS */
+}
+
+
+/* --------------------------------------- ScrollBar CSS -----------------------------------*/
+
+.scroll {
+    width: 20px;
+    height: 200px;
+    overflow: auto;
+    float: left;
+}
+
+.scroll_content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scroll_content::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 20px;
+}
+
+.scroll_content::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
+}
+
+
+/* Let's get this party started */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #ddd;
+    box-shadow: inset 0 0 6px #ddd;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #ddd;
+    -webkit-box-shadow: inset 0 0 6px #666;
+    box-shadow: inset 0 0 6px #ddd;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #ddd;
+}
+
+
+/* -------------------------------------- Common CSS for font-size ----------------------------------*/
+
+.label-font {
+    font-size: 12px;
+}
+
+
+/* ---------------------------------------------------- UI Grid CSS --------------------------------------------------------- */
+
+.grid {
+    position: relative;
+}
+
+.grid-item {
+    position: absolute;
+}
+
+.grid-item.moving {
+    z-index: z-index + 1;
+}
+
+.placeholder {
+    position: absolute;
+}
+
+
+/*  ----------------------------------------------------Prime NG Global CSS ------------------------------------------------- */
+
+body {
+    margin: 0px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    color: #404C51;
+    -webkit-font-smoothing: antialiased;
+    font-size: 0.8em;
+}
+
+
+/*Prime NG components CSS. Please don't include color here.*/
+
+
+/** MegaMenu and TieredMenus **/
+
+.ui-menuitem-active>.ui-submenu>div {
+    display: block !important;
+}
+
+.ui-widget .ui-widget {
+    font-size: 12px;
+}
+
+.ui-menu .ui-menuitem-link {
+    line-height: 12px;
+}
+
+.ui-menu {
+    width: 8.5em;
+}
+
+.ui-panel .ui-panel-titlebar {
+    padding: 0px;
+}
+
+.progressBarHeader .ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: 1px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.dashboard-sub-menu .ui-slidemenu-backward {
+    padding: 0px;
+    margin: 0px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.dashboard-sub-menu .ui-slidemenu {
+    margin-left: 52px;
+    margin-top: 30px;
+}
+
+.dashboard-nav-panel-menu {}
+
+.dashboard-nav-panel-menu .ui-panelmenu-header>a {
+    padding: 1.25em .5em;
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-content {
+    font-size: 14px;
+}
+
+.dashboard-nav-panel-menu .ui-menuitem {
+    box-shadow: 0px 0px 1px;
+}
+
+.dashboard-nav-panel-menu .ui-menuitem-icon {
+    font-size: 22px;
+    width: 30px;
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-icon {
+    font-size: 20px;
+}
+
+.dashboard-nav-panel-menu .ui-menuitem-text {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-panel {
+    box-shadow: 2px 3px 2px;
+    margin: 2px;
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-content .ui-menuitem-text {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-content .ui-panelmenu-icon {
+    font-size: 12px;
+}
+
+.dashboard-tree-component .dashboard-tree-context-menu {
+    width: 180px;
+}
+
+.ui-tree {
+    background: transparent;
+    border: 0px;
+    width: 100%;
+}
+
+.ui-datatable-emptymessage {
+    text-align: center;
+}
+
+.dashboard-lower-panel-table {
+    min-height: 100px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.dashboard-lower-section .dashboard-lower-table table .ui-datatable-data tr td {
+    height: 18px;
+    padding: 2px;
+}
+
+.table-text-align-right {
+    padding-right: 2px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.table-text-align-left {
+    padding-left: 2px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.table-text-align-center {
+    text-align: center;
+    overflow: hidden;
+}
+
+
+/*  ---------------------------------------------------- Material Global CSS ------------------------------------------------- */
+
+md-sidenav .ui-menu .ui-menu-parent .ui-menu-child {
+    max-height: 400px;
+}
+
+md-card-title-text {
+    font-size: 18px;
+}
+
+.dashboard-tree-component .mat-tab-label {
+    min-width: 50px;
+}
+
+.dashboard-tree-search-select .mat-select-value {
+    margin-left: 5px;
+}
+
+.dashboard-tree-search-select .mat-select-arrow {
+    margin-bottom: 6px;
+}
+
+.dashboard-tree-search-select .mat-select-underline {
+    margin-bottom: 0px;
+    height: 3px;
+}
+
+md-option {
+    height: 30px
+}
+
+.cdk-overlay-pane md-option {
+    height: 25px;
+    overflow: hidden;
+    line-height: 25px;
+    min-width: 10px;
+    font-size: 13px;
+}
+
+
+/*..................Layout icons CSS............................*/
+
+@font-face {
+    font-family: "webdashboard-layout-icon";
+    src: url("../fonts/webdashboard-layout-icon.eot");
+    src: url("../fonts/webdashboard-layout-icon.eot?#iefix") format("embedded-opentype"), url("../fonts/webdashboard-layout-icon.woff") format("woff"), url("../fonts/webdashboard-layout-icon.ttf") format("truetype"), url("../fonts/webdashboard-layout-icon.svg#webdashboard-layout-icon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "webdashboard-layout-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="layout-"]:before,
+[class*=" layout-"]:before {
+    font-family: "webdashboard-layout-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.layout-default:before {
+    content: "\e018";
+}
+
+.layout-2x1-tabularwidget:before {
+    content: "\e000";
+}
+
+.layout-4x5-graphwidget:before {
+    content: "\e001";
+}
+
+.layout-4x8-graphwidget:before {
+    content: "\e002";
+}
+
+.layout-mixedwidget-1:before {
+    content: "\e003";
+}
+
+.layout-mixedwidget-2:before {
+    content: "\e004";
+}
+
+.layout-mixedwidget-3:before {
+    content: "\e005";
+}
+
+.layout-mixedwidget-ncdefault:before {
+    content: "\e006";
+}
+
+.layout-mixedwidget-ndedefault:before {
+    content: "\e007";
+}
+
+.layout-mixedwidget-nsdefault:before {
+    content: "\e008";
+}
+
+.layout-3x3-min-datawidget:before {
+    content: "\e009";
+}
+
+.layout-3x3-max-datawidget:before {
+    content: "\e00a";
+}
+
+.layout-3x3-lastsample-datawidget:before {
+    content: "\e00b";
+}
+
+.layout-3x3-graphwidget:before {
+    content: "\e00c";
+}
+
+.layout-3x3-avg-datawidget:before {
+    content: "\e00d";
+}
+
+.layout-2x2-tabularwidget:before {
+    content: "\e00e";
+}
+
+.layout-2x2-graphwidget:before {
+    content: "\e00f";
+}
+
+.layout-3x3-samplecount-datawidget:before {
+    content: "\e010";
+}
+
+.layout-3x3-stddev-datawidget:before {
+    content: "\e011";
+}
+
+.layout-3x6-graphwidget:before {
+    content: "\e012";
+}
+
+.layout-4x4-graphwidget:before {
+    content: "\e013";
+}
+
+.layout-3x3-tabularwidget:before {
+    content: "\e014";
+}
+
+.layout-1x1-graphwidget:before {
+    content: "\e015";
+}
+
+.layout-1x2-graphwidget:before {
+    content: "\e016";
+}
+
+.layout-1x3-graphwidget:before {
+    content: "\e017";
+}
+
+
+/*..............layout button CSS.............*/
+
+.layout-menu-bar {
+    width: 172px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.layout-scrollbar {
+    max-height: 150px;
+    min-height: 100px;
+}
+
+
+/*--------------- Tree Component CSS Start --------------*/
+
+.dashboard-tree-component .mat-tab-label {
+    line-height: 45px;
+    height: 40px;
+    font-size: 15px;
+    min-width: 150px;
+    font-family: Roboto, "Helvetica Neue", sans serif;
+}
+
+.mat-tab-body-content .ui-menu.ui-menu-dynamic {
+    top: 220px;
+    left: 105px;
+}
+
+.ui-tree .ui-tree-container {
+    width: 110%;
+}
+
+.mat-tab-body-wrapper {
+    overflow: inherit;
+}
+
+.mat-tab-body-wrapper .mat-tab-body.mat-tab-body-active {
+    overflow: inherit;
+}
+
+.dashboard-tree-component md-tab-body .mat-tab-body-content {
+    height: auto;
+}
+
+.ui-tree.ui-tree-selectable .ui-treenode-content {
+    padding: 3px;
+}
+
+.dashboard-tree-component .mat-select-trigger {
+    margin-left: 5px;
+    height: 27px;
+    min-width: 60px;
+    padding-top: 7px;
+}
+
+
+/*Top Nav Bar.*/
+
+.product-nav-bar .mat-ink-bar {
+    margin-bottom: 13px;
+}
+
+
+/*--------------- Tree Component CSS End --------------*/
+
+
+/*CSS for color picker.*/
+
+.ui-cell-data .color-picker-selector {
+    padding: 0px;
+}
+
+.ui-cell-data .color-picker-selector .color-div {
+    width: 100%;
+    border-radius: initial;
+    position: initial;
+    height: 16px;
+    border: none;
+}
+
+.ui-cell-data .md2-colorpicker-input {
+    display: none;
+}
+
+
+/*------------------ Start configuration css -------------*/
+
+.dashboard-setting-win-logsettingbox .mat-select-trigger {
+    min-width: 20px;
+}
+
+.dashboard-setting-win-configdropdown .ui-dropdown .ui-dropdown-trigger {
+    width: 0em;
+}
+
+.dashboard-setting-win-configdropdown .ui-dropdown {
+    margin-left: 10px;
+    border: 0px;
+}
+
+.dashboard-setting-win-configModuleName .ui-dropdown {
+    margin-left: 10px;
+    border: 0px;
+}
+
+.dashboard-setting-win-perconfigcheckbox .ui-chkbox .ui-chkbox-box {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.dashboard-setting-win-graphsettingbox .ui-chkbox .ui-chkbox-box,
+.dashboard-setting-win-favsettingbox .ui-chkbox .ui-chkbox-box,
+.dashboard-setting-win-footerDiv .ui-chkbox .ui-chkbox-box,
+.percentileDiv .ui-chkbox .ui-chkbox-box {
+    width: 2.125em;
+    height: 2.125em;
+}
+
+.dashboard-setting-win-chechboxbuttonspace .ui-chkbox .ui-chkbox-icon {
+    padding: 5px;
+}
+
+.dashboard-setting-win-tabs .mat-tab-body.mat-tab-body-active {
+    height: 230px;
+}
+
+.dashboard-setting-win-permultiselect .ui-multiselect {
+    width: 183px;
+}
+
+.dashboard-setting-win-permultiselect .ui-multiselect-panel .ui-multiselect-items-wrapper {
+    height: 106px;
+}
+
+.dashboard-setting-win-perconfigcheckbox .ui-chkbox .ui-chkbox-icon {
+    padding-top: 0.5em;
+}
+
+.dashboard-setting-win-permultiselect .ui-multiselect .ui-multiselect-label-container {
+    height: 21px;
+}
+
+.dashboard-setting-win-perTxtcheckbox .ui-chkbox .ui-chkbox-box {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+/*------------------ End configuration css -------------*/
+
+
+/*------------------ compare css ------------------*/
+
+.dashboard-compare-Dialog .md2-colorpicker-input {
+    border-bottom: 0px solid rgba(0, 0, 0, .12);
+}
+
+.dashboard-compare-Dialog .color-picker-selector .md2-colorpicker-value {
+    visibility: hidden;
+}
+
+.dashboard-compare-Dialog .color-clear {
+    visibility: hidden;
+}
+
+.dashboard-compare-Dialog .ui-button-text-icon-left .ui-button-text {
+    padding: 0.25em 0.25em .25em 0.75em;
+}
+
+
+/* calender settings for compare */
+
+.cdk-overlay-pane .md2-datepicker-header {
+    padding: 6px;
+}
+
+.md2-datepicker-header .md2-datepicker-header-year {
+    font-size: 11px;
+}
+
+.md2-datepicker-header .md2-datepicker-header-date-time {
+    font-size: 14px;
+}
+
+.cdk-overlay-pane .md2-datepicker-panel {
+    width: 206px;
+}
+
+.md2-calendar-month .md2-calendar-dates {
+    margin: 0px;
+}
+
+td .md2-calendar-day {
+    width: 25px;
+    height: 25px;
+    line-height: 26px;
+}
+
+.md2-datepicker-content .md2-datepicker-actions .md2-button {
+    margin: 0px;
+    font-size: 13px;
+}
+
+.md2-datepicker-panel .md2-datepicker-content {
+    padding-top: 227px;
+}
+
+.md2-datepicker-content .md2-datepicker-calendar {
+    height: 229px;
+}
+
+.dashboard-compare-Dialog .mat-select .mat-select-trigger {
+    font-size: 13px;
+}
+
+
+/*------------------- Compare Window Css ---------------*/
+
+.dashboard-lower-panel-table-cell {
+    cursor: pointer;
+}
+
+
+/*---------------- Start widget setting css ------------*/
+
+
+/*For Bug Id: 25542, improper l&f of dropdown issue*/
+
+.ui-dropdown .ui-dropdown-trigger {
+    height: 100% !important;
+    width: initial !important;
+}
+
+.ui-multiselect .ui-multiselect-trigger {
+    border-right: 1px solid gray;
+    border-top-right-radius: 2px;
+    /* margin-left: -28px; */
+    margin-right: -1px;
+    background: transparent;
+    border-bottom-right-radius: 2px;
+}
+
+.my-multiselect .ui-multiselect {
+    width: 100%;
+    height: 18px;
+    border: 1px solid gray;
+}
+
+.my-multiselect-padding .ui-multiselect .ui-multiselect-label {
+    color: black;
+    font-weight: 650;
+}
+
+.my-multiselect-padding .ui-multiselect .ui-multiselect-label {
+    padding: 0px;
+}
+
+.showTabularDiv {
+    margin-top: -10px;
+}
+
+
+/*------------------- End widget Setting css -----------------*/
+
+
+/*Open Merge Css */
+
+.openMergegraphOperation .mat-select-trigger {
+    min-width: 65px;
+    /*padding-top: 7px;*/
+}
+
+.openMergeFilter .mat-select-trigger {
+    min-width: 80px;
+}
+
+.configurationWindow .mat-select-trigger {
+    min-width: 30px;
+}
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect-header {
+    display: none;
+}
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-label-container {
+    display: none;
+}
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-trigger .fa {
+    padding-bottom: 2px;
+    padding-top: 6px;
+    width: 23px;
+    padding-left: 5px;
+    border-radius: 3px;
+}
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-trigger {
+    cursor: pointer;
+    width: 1.5em;
+    height: 100%;
+    position: absolute;
+    left: 7px;
+    top: -16px;
+    padding: 0px .25em;
+    z-index: 12;
+}
+
+.dashboard-open-merge-ui-g {
+    margin: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.dashboard-open-mergeDialog .mat-select-disabled .mat-select-trigger {
+    background: #f0f3f2;
+}

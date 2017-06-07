@@ -1,0 +1,405 @@
+@charset "UTF-8";
+.alert-nav-item {
+    color: #fff;
+}
+
+.alert-nav-item:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.md-button-toggle-checked {
+    color: #000;
+}
+
+
+/*History left panel accordion styling start*/
+
+.ui-accordion .ui-accordion-header {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.ui-accordion .ui-accordion-header:hover {
+    background: #00aacc;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+    background: #dadada;
+}
+
+.ui-accordion .ui-accordion-header a {
+    text-decoration: none;
+}
+
+
+/*History left panel accordion styling end*/
+
+.ui-datatable thead tr {
+    height: 30px;
+    font-size: 12px;
+}
+
+.table-header-icon {
+    margin: -7px -6px;
+}
+
+
+/*.ui-datatable th span.ui-column-title
+{
+  color:#2f2f2f
+}
+*/
+
+.ui-datatable th.ui-state-default {
+    background-color: #bbdefb !important;
+    font-weight: 600 !important;
+}
+
+.active-alert .ui-datatable-odd {
+    background: #f0f8ff !important;
+}
+
+.active-alert .ui-state-highlight {
+    background: #104263 !important;
+    /*#156090 !important;*/
+}
+
+.alert .ui-widget-header {
+    background: #bbccff;
+    border: 0px;
+}
+
+.ui-paginator .ui-paginator-page,
+.ui-paginator .ui-paginator-pages,
+.ui-paginator .ui-paginator-next,
+.ui-paginator .ui-paginator-last,
+.ui-paginator .ui-paginator-first,
+.ui-paginator .ui-paginator-prev,
+.ui-paginator .ui-paginator-current {
+    margin-top: 0.3em !important;
+}
+
+.ui-tooltip {
+    max-width: 30%;
+}
+
+.ui-tooltip-text.ui-shadow.ui-corner-all {
+    white-space: pre-wrap;
+}
+
+
+/* History components styling */
+
+.selectRule .ui-multiselect-label-container {
+    width: 200px !important;
+    height: 20px !important;
+}
+
+.select-topology .ui-multiselect-label-container {
+    width: 150px !important;
+}
+
+
+/*History Table pane*/
+
+.detailTable .ui-datatable-thead>tr>th {
+    background: #082648 !important;
+    color: #fff;
+}
+
+
+/*history preset dropdown */
+
+.ui-dropdown-items-wrapper {
+    max-height: 202px !important;
+}
+
+.history-calendar .ui-datepicker .ui-datepicker-calendar {
+    font-size: 0.8em;
+}
+
+.ui-growl {
+    position: absolute;
+    width: initial;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    /*border-radius: 10px;*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(40, 40, 40)), color-stop(0.72, rgb(40, 40, 40)), color-stop(0.86, rgb(40, 40, 40)));
+}
+
+
+/*--------------New Style------------------*/
+
+.mat-button-toggle-checked {
+    padding: 11px;
+}
+
+.mat-button-toggle {
+    color: #fff;
+}
+
+.mat-button-toggle-checked {
+    color: #000 !important;
+}
+
+.mat-sidenav-container {
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.mat-sidenav {
+    background-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.mat-sidenav.mat-sidenav-opened,
+.mat-sidenav.mat-sidenav-opening {
+    box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2), 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12);
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 10px 4px !important;
+}
+
+.ui-fieldset,
+.ui-fieldset .ui-fieldset-legend {
+    background: #f9f9f9 !important;
+}
+
+.margin-right-20 {
+    color: #fff;
+}
+
+.md-button-toggle-checked .md-button-toggle-label-content {
+    background-color: rgba(148, 197, 230, 0.91);
+}
+
+.ui-widget-header .ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-state-default {
+    border: 1px solid #8e8e8e;
+}
+
+.alertSeverity .ui-widget-header .ui-state-default,
+.alertSeverity .ui-widget-content .ui-state-default {
+    border: 1px solid rgba(142, 142, 142, 0);
+}
+
+.ui-widget-header .ui-button,
+.ui-widget-content .ui-button,
+.ui-button {
+    border: 1px solid #0b2138 !important;
+    background: #0b2a3e;
+}
+
+
+/*************hidtory table styles**************************/
+
+
+/*.historyTable .ui-datatable thead tr
+{
+  height: 30px;
+  font-size: 12px;
+}
+.historyTable .ui-datatable th.ui-state-default
+{
+  background-color: #90CAF9 !important;
+  font-weight: 600 !important;
+}*/
+
+.ui-widget-content .history-table-double-selected-row {
+    background: #156090 !important;
+    color: black;
+}
+
+.ui-widget-content .history-table-row-even {
+    background: #ffffff !important;
+    color: #222222 !important;
+}
+
+.ui-widget-content .history-table-row-odd {
+    background: #f0f8ff !important;
+    color: #222222 !important;
+}
+
+.detailTable .ui-datatable th span.ui-column-title {
+    color: #fff
+}
+
+.detailTable .ui-datatable thead tr {
+    height: 22px;
+    font-size: 12px;
+}
+
+.detailTable .ui-datatable th.ui-state-default {
+    font-weight: 100 !important;
+}
+
+
+/*************alert faunts icons defnitions**************/
+
+.alertgui-word {
+    color: #0055cc;
+}
+
+.alertgui-excel {
+    color: #00aa77;
+}
+
+.alertgui-pdf {
+    color: #ff4040;
+}
+
+.alertgui-type {
+    color: #ff2020;
+}
+
+.alertgui-capacity {
+    color: #000;
+}
+
+.alertgui-behavior {
+    color: #f3d809;
+}
+
+.alertgui-critical-event {
+    color: #B60308;
+}
+
+.alertgui-major-event {
+    color: #fe5400;
+}
+
+.alertgui-minor-event {
+    color: #ffbb00;
+}
+
+.alertgui-tomcat {
+    color: #ef1818;
+}
+
+.normal {
+    color: #00aacc !important;
+}
+
+.icon {
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    float: left;
+    font-size: 1.5em;
+}
+
+@font-face {
+    font-family: "alert-icon";
+    src: url("../fonts/alert-icon.eot");
+    src: url("../fonts/alert-icon.eot?#iefix") format("embedded-opentype"), url("../fonts/alert-icon.woff") format("woff"), url("../fonts/alert-icon.ttf") format("truetype"), url("../fonts/alert-icon.svg#alert-icon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "alert-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="alertgui-"]:before,
+[class*=" alertgui-"]:before {
+    font-family: "alert-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.alertgui-all-alert:before {
+    content: "\e001";
+}
+
+.alertgui-archive:before {
+    content: "\e002";
+}
+
+.alertgui-severity:before {
+    content: "\e003";
+}
+
+.alertgui-tomcat:before {
+    content: "\e004";
+}
+
+.alertgui-type:before {
+    content: "\e005";
+}
+
+.alertgui-word:before {
+    content: "\e006";
+}
+
+.alertgui-play:before {
+    content: "\e007";
+}
+
+.alertgui-behavior:before {
+    content: "\e008";
+}
+
+.alertgui-capacity:before {
+    content: "\e009";
+}
+
+.alertgui-excel:before {
+    content: "\e00b";
+}
+
+.alertgui-graphical:before {
+    content: "\e00c";
+}
+
+.alertgui-lateraltringle:before {
+    content: "\e00d";
+}
+
+.alertgui-lock-tr:before {
+    content: "\e00e";
+}
+
+.alertgui-major-event:before {
+    content: "\e00f";
+}
+
+.alertgui-pdf:before {
+    content: "\e012";
+}
+
+.alertgui-critical-event:before {
+    content: "\e000";
+}
+
+.alertgui-minor-event:before {
+    content: "\e00a";
+}
