@@ -67,7 +67,8 @@ export class ConfigHomeComponent implements OnInit {
           this.topologyInfo = (data.homeData[2].value).splice(0, data.homeData[2].value.length).reverse();
 
         this.agentsInfo = data.agentData;
-        data.trData.switch = data.trData.status == 'running';
+        // data.trData.switch = data.trData.status == 'running';
+        data.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
         this.configHomeService.setTrData(data.trData);
         this.configHomeService.trData = data.trData;
       })

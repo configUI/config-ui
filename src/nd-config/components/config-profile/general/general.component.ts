@@ -82,6 +82,7 @@ export class GeneralComponent implements OnInit {
       keyWordDataList.push(key + "=" + data[key].value);
     }
      console.log(this.className, "constructor", "this.configHomeService.trData.switch",this.configHomeService.trData);
+      console.log(this.className, "constructor", "this.configProfileService.nodeData",this.configProfileService.nodeData);
 
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
