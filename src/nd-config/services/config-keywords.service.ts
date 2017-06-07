@@ -317,17 +317,17 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
   }
 
-  /* Edit  Business Trans Method Info */
-  editHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
-    let url = `${URL.UPDATE_HTTPREQHDR}/${profileId}`;
-    return this._restApi.getDataByPostReq(url, data);
-  }
+  // /* Edit  Business Trans Method Info */
+  // editHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
+  //   let url = `${URL.UPDATE_HTTPREQHDR}/${profileId}`;
+  //   return this._restApi.getDataByPostReq(url, data);
+  // }
 
-  /* Edit  Business Trans Method Info */
-  editHTTPReqHeaderRulesData(data, ReqId): Observable<RulesHTTPRequestHdrComponentData> {
-    let url = `${URL.ADD_RULES_HTTPREQHDR}/${ReqId}`;
-    return this._restApi.getDataByPostReq(url, data);
-  }
+  // /* Edit  Business Trans Method Info */
+  // editHTTPReqHeaderRulesData(data, ReqId): Observable<RulesHTTPRequestHdrComponentData> {
+  //   let url = `${URL.ADD_RULES_HTTPREQHDR}/${ReqId}`;
+  //   return this._restApi.getDataByPostReq(url, data);
+  // }
 
 //Need more testing.
   sendRunTimeChange(URL, data) {
@@ -344,9 +344,19 @@ export class ConfigKeywordsService {
   }
 
   deleteSpecificAttrValues(listOfIDs){
-    console.log("deleteSpecificAttrValues rules---",listOfIDs)
     let url = `${URL.DELETE_ATTR_RULES}`;
     return this._restApi.getDataByPostReq(url, listOfIDs);
+  }
+
+  /* Delete Http Request Header Rules  */
+  deleteHttpRules(data) {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREQHDR_RULES}`, data);
+  }
+
+   /* Edit Http Request Header Info */
+  editHTTPReqHeaderData(data): Observable<HTTPRequestHdrComponentData> {
+    let url = `${URL.UPDATE_HTTPREQHDR}/${data.httpAttrId}`;
+    return this._restApi.getDataByPostReq(url, data);
   }
 
 }

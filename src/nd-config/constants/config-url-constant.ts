@@ -1,7 +1,7 @@
 
-//  const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+ //  const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
 
-// const  SERVICE_URL = 'http://localhost:8090';
+//  const  SERVICE_URL = 'http://localhost:8090';
    
 
 //For Production use this SERVICE_URL
@@ -193,7 +193,7 @@ export const ADD_RULES_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing
 // export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
  export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/edithttpreqhdr`;
 export const DEL_HTTP_CUSTOM_DATA = `${SERVICE_URL}/custom/httpreqbasedcapturing/httpCustomData/delete`;
-
+export const DELETE_HTTPREQHDR_RULES =  `${SERVICE_URL}/custom/httpreqbasedcapturing/deletehttpreqrules`;
 
 /**** URL for independent topology structure *******/
 export const TOPOLOGY_TREE_STRUCTURE = `${SERVICE_URL}/custom/tree/ng/topostruct`;

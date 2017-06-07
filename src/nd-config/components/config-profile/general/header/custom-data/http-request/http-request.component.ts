@@ -7,9 +7,7 @@ import { ConfigUtilityService } from '../../../../../../services/config-utility.
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
 import { deleteMany } from '../../../../../../utils/config-utility';
-
 import { ImmutableArray } from '../../../../../../utils/immutable-array';
-
 import { Messages } from '../../../../../../constants/config-constant'
 
 @Component({
@@ -21,6 +19,8 @@ export class HttpRequestComponent implements OnInit {
   @Input()
   saveDisable: boolean;
 
+  profileId: number;
+
   httpRequestHdrComponentInfo: HTTPRequestHdrComponentData[];
 
   /* Add and Edit HTTP Request Dialog open */
@@ -28,12 +28,8 @@ export class HttpRequestComponent implements OnInit {
 
   /* Add and edit http request custom settings dialog */
   rulesDialog: boolean = false;
-
   isNew: boolean = false;
-
   editSpecific: RulesHTTPRequestHdrComponentData;
-
-  profileId: number;
 
   httpRequestHdrDetail: HTTPRequestHdrComponentData;
   httpRequestHdrInfo: HTTPRequestHdrComponentData[];
@@ -44,6 +40,13 @@ export class HttpRequestComponent implements OnInit {
   selectedRulesData: any[];
 
   customValueType: SelectItem[];
+
+  //holding table data
+  arrTestRunData = [];
+
+  counterEdit: number = 0;
+
+  httpAtrributeDelete = [];
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     this.customValueType = [];
@@ -62,51 +65,124 @@ export class HttpRequestComponent implements OnInit {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
-    this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => this.doAssignSessionAttributeTableData(data));
+    this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => this.doAssignHttpAttributeTableData(data));
   }
 
-  doAssignSessionAttributeTableData(data) {
-    this.httpRequestHdrComponentInfo = this.filterTRData(data);
+  doAssignHttpAttributeTableData(data) {
+    this.httpRequestHdrComponentInfo = [];
+    //this.httpRequestHdrComponentInfo = this.filterTRData(data);
+    this.filterTRData(data);
   }
-  filterTRData(data): Array<HTTPRequestHdrComponentData> {
-    var arrTableData = [];
-    let dumpModeTmp = "";
-    for (var i = 0; i < data.length; i++) {
-      let valueNames = "";
-      if (data[i].rules.length == 0)
-        valueNames = "-";
 
-      for (var j = 0; j < data[i].rules.length; j++) {
-        if (data[i].rules.length == 1)
-          valueNames = valueNames + data[i].rules[j].valName;
-        else {
-          valueNames = valueNames + "," + data[i].rules[j].valName;
-        }
+  filterTRData(data) {
+    this.arrTestRunData = [];
+    if (data != null) {
+      for (var i = 0; i < data.length; i++) {
+           this.modifyData(data[i]);
       }
-      if (valueNames.indexOf(",") != -1)
-        valueNames = valueNames.substr(1);
-
-      if (data[i].dumpMode == 1)
-        dumpModeTmp = "Specific";
-      else if (data[i].dumpMode == 3)
-        dumpModeTmp = "Complete,Specific";
-      else
-        dumpModeTmp = "Complete"
-
-      arrTableData.push({
-        headerName: data[i].headerName, dumpMode: dumpModeTmp, valueNames: valueNames, httpReqHdrBasedId: data[i].httpReqHdrBasedId, rules: data[i].rules,
-      });
     }
-    return arrTableData;
+  }
+
+  /***common function that is used to create the row with required keys
+   *  that is to be dispalyed in the table
+   * 
+   * 
+   */
+  modifyData(row) {
+    console.log(" == === == ", row)
+    let valueNames = "";
+    if (row.rules == "") {
+      valueNames = "-";
+    }
+    for (var j = 0; j < row.rules.length; j++) {
+      if (row.rules.length == 1)
+        valueNames = valueNames + row.rules[j].valName;
+      else
+        valueNames = valueNames + "," + row.rules[j].valName;
+    }
+
+    if (valueNames.indexOf(",") != -1)
+      valueNames = valueNames.substr(1);
+
+    if (row.attrType == "complete") {
+      valueNames = "-";
+    }
+    let dumpModeTmp = '';
+    if (row.dumpMode == 1)
+      dumpModeTmp = "Specific";
+    else if (row.dumpMode == 3)
+      dumpModeTmp = "Complete,Specific";
+    else if(row.dumpMode == 2)
+      dumpModeTmp = "Complete";
+    else if (row.dumpMode == "Specific")
+      dumpModeTmp = "Specific";
+    else if (row.dumpMode == "Complete,Specific")
+      dumpModeTmp = "Complete,Specific";
+    else if(row.dumpMode == "Complete")
+      dumpModeTmp = "Complete";
+
+    // return valueNames;
+    this.arrTestRunData.push({
+      headerName: row.headerName,
+      dumpMode: dumpModeTmp,
+      valueNames: valueNames,
+      httpReqHdrBasedId: row.httpReqHdrBasedId,
+      rules: row.rules,
+    });
+    this.httpRequestHdrComponentInfo = this.arrTestRunData;
   }
 
   /* Open Dialog for Add HTTP Req */
   openAddHTTPReqDialog() {
     this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
-    this.rulesDataDetail = new RulesHTTPRequestHdrComponentData();
-
+    // this.rulesDataDetail = new RulesHTTPRequestHdrComponentData();
+    this.rulesDataInfo = [];
     this.isNew = true;
     this.httpRequestCustomDialog = true;
+  }
+
+  /** This method is used to open a dialog for add Type Values
+  */
+  openHTTPReqTypeValueDialog() {
+    this.rulesDataDetail = new RulesHTTPRequestHdrComponentData();
+    this.rulesDialog = true;
+  }
+
+  // Method for saving rules information
+  saveRules() {
+    this.counterEdit = this.counterEdit + 1;
+    this.rulesDataDetail.id = this.counterEdit;
+    this.rulesDataDetail.type = this.getTypeNumber(this.rulesDataDetail.customValTypeName);
+    if (this.httpRequestHdrDetail.rules == undefined)
+      this.httpRequestHdrDetail.rules = [];
+    this.httpRequestHdrDetail.rules = ImmutableArray.push(this.httpRequestHdrDetail.rules, this.rulesDataDetail);
+    this.rulesDataInfo = this.httpRequestHdrDetail.rules;
+    this.closeRulesDialog();
+  }
+
+  getTypeNumber(type): number {
+    let typeName = 0;
+    if (type == 'String')
+      typeName = 0;
+    else if (type == 'Integer')
+      typeName = 1;
+    else if (type == 'Decimal')
+      typeName = 2;
+
+    return typeName;
+  }
+
+  //function used so that type = '0' can be dispalayed as type = 'String' in table
+  getTypeName(type) {
+    let typeName = '';
+    if (type == 0)
+      typeName = 'String'
+    else if (type == 1)
+      typeName = 'Integer'
+    else if (type == 2)
+      typeName = 'Decimal'
+
+    return typeName;
   }
 
   saveADDEditHTTPReqHeader(): void {
@@ -141,6 +217,56 @@ export class HttpRequestComponent implements OnInit {
     }
   }
 
+  /* Open Dialog for Edit HTTP Req */
+  editHTTPRequest() {
+    this.HttpReqDetailSaveAndEdit();
+    this.httpRequestHdrDetail.httpAttrId = this.selectedHTTPReqHeader[0].httpReqHdrBasedId;
+ 
+    /* first triggering the request to delete the rules of the Http Req
+    *  and then sending the request to add the Rules
+    *  due to some backend problem in triggering same request for two task
+    *  handling this case by triggering two different request until it is handled 
+    *  from backend side
+    */
+    this.arrTestRunData = [];
+    this.configKeywordsService.deleteHttpRules(this.httpAtrributeDelete).subscribe(data => {
+      let that = this;
+    this.httpAtrributeDelete = [];
+      //Edit call, sending row data to service
+      this.configKeywordsService.editHTTPReqHeaderData(this.httpRequestHdrDetail).subscribe(data => {
+        // this.modifyData(data);
+        this.httpRequestHdrComponentInfo.map(function (val) {
+          if (val.httpReqHdrBasedId == data.httpReqHdrBasedId) {
+            // val = data
+            val = data;
+           }
+         that.modifyData(val);
+        })
+        this.configUtilityService.successMessage(Messages);
+      });
+    })
+    this.closeDialog();
+  }
+
+  HttpReqDetailSaveAndEdit() {
+    // this.sessionAttributeDetail.attrValues = [];
+    let type: number;
+    if (this.httpRequestHdrDetail.complete == true && this.httpRequestHdrDetail.specific == true) {
+      this.httpRequestHdrDetail.attrType = "complete,specific";
+      this.httpRequestHdrDetail.dumpMode = 3;
+    }
+      else if (this.httpRequestHdrDetail.specific == true) {
+      this.httpRequestHdrDetail.attrType = "specific";
+      this.httpRequestHdrDetail.dumpMode = 1;
+    }
+    else if (this.httpRequestHdrDetail.complete == true) {
+      this.httpRequestHdrDetail.attrType = "complete";
+      this.httpRequestHdrDetail.dumpMode = 2;
+    }
+  }
+
+
+
   /**This method is used to validate the name of Method is already exists. */
   checkRuleAlreadyExist(): boolean {
     for (let i = 0; i < this.rulesDataInfo.length; i++) {
@@ -151,12 +277,10 @@ export class HttpRequestComponent implements OnInit {
     }
   }
 
-  /* Open Dialog for Edit HTTP Req */
-  editHTTPReqDialog() {
-    let selectedHTTPReq = [];
-    let isSpecific = false;
-    let isComplete = false;
+  /**opening Edit Session Attribute Dialog */
+  editHTTPReqDialog(): void {
     this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
+    console.log(" == " , this.selectedHTTPReqHeader)
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
       this.configUtilityService.errorMessage("Select a row to edit");
       return;
@@ -166,63 +290,31 @@ export class HttpRequestComponent implements OnInit {
       return;
     }
 
-    if (this.selectedHTTPReqHeader[0].dumpMode == "Specific")
-      isSpecific = true;
-    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete")
-      isComplete = true;
-    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete,Specific") {
-      isComplete = true;
-      isSpecific = true;
-    }
-    selectedHTTPReq[0] = { headerName: this.selectedHTTPReqHeader[0].headerName, complete: isComplete, specific: isSpecific, rules: this.selectedHTTPReqHeader[0].rules };
-
-    this.httpRequestHdrDetail = Object.assign({}, selectedHTTPReq[0]);
-    if (this.selectedHTTPReqHeader[0].rules.length != 0) {
-      for (let i = 0; i < this.selectedHTTPReqHeader[0].rules.length; i++) {
-        if (this.selectedHTTPReqHeader[0].rules[i].type == 0)
-          this.selectedHTTPReqHeader[0].rules[i].customValTypeName = "Integer";
-        if (this.selectedHTTPReqHeader[0].rules[i].type == 1)
-          this.selectedHTTPReqHeader[0].rules[i].customValTypeName = "String";
-        if (this.selectedHTTPReqHeader[0].rules[i].type == 2)
-          this.selectedHTTPReqHeader[0].rules[i].customValTypeName = "Decimal";
-        this.rulesDataInfo[i] = this.selectedHTTPReqHeader[0].rules[i];
-      }
-    }
-
     this.httpRequestCustomDialog = true;
     this.isNew = false;
+
+    if (this.selectedHTTPReqHeader[0].dumpMode == "Complete,Specific") {
+      this.httpRequestHdrDetail.complete = true;
+      this.httpRequestHdrDetail.specific = true;
+    }
+    else if (this.selectedHTTPReqHeader[0].dumpMode == "Specific")
+      this.httpRequestHdrDetail.specific = true;
+    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete")
+      this.httpRequestHdrDetail.complete = true;
+
+    this.httpRequestHdrDetail.headerName = this.selectedHTTPReqHeader[0].headerName;
+
+    this.httpRequestHdrDetail.rules = this.selectedHTTPReqHeader[0].rules;
+    this.rulesDataInfo = this.httpRequestHdrDetail.rules;
+    let that = this;
+    if (this.httpRequestHdrDetail.rules != undefined) {
+      this.httpRequestHdrDetail.rules.map(function (val) {
+        val.id = that.counterEdit;
+        that.counterEdit = that.counterEdit + 1;
+        val.customValTypeName = that.getTypeName(val.type)
+      })
+    }
   }
-
-  /* Method for Edit HTTP Req */
-  editHTTPRequest() {
-    this.setEditedNewValues("Edit");
-    this.configKeywordsService.editHTTPReqHeaderData(this.httpRequestHdrDetail, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
-      .subscribe(data => {
-        let index = this.getMethodBusinessIndex(data.httpReqHdrBasedId);
-        this.selectedHTTPReqHeader.length = 0;
-        // this.selectedHTTPReqHeader.push(data);
-        this.httpRequestHdrComponentInfo = ImmutableArray.replace(this.httpRequestHdrComponentInfo, data, index);
-        this.configUtilityService.successMessage(Messages);
-        this.httpRequestHdrComponentInfo[index] = this.addReqHeaderTableData(this.httpRequestHdrDetail)[0];
-        this.closeDialog();
-      });
-
-    // if (this.httpRequestHdrDetail.dumpMode == 1) {
-    //   if (this.rulesDataInfo.length != 0) {
-    //     this.setEditedNewValues("EditSpecific");
-    //     this.configKeywordsService.editHTTPReqHeaderRulesData(this.editSpecific, this.selectedHTTPReqHeader[0].httpReqHdrBasedId)
-    //       .subscribe(data => {
-    //         // let index = this.getRulesIndex(this.editSpecific.valName);
-    //         // this.selectedHTTPReqHeader.length = 0;
-    //         // this.httpRequestHdrComponentInfo[index].valueNames = this.addReqHeaderTableData(this.editSpecific)[0].valueNames;
-    //         // this.selectedHTTPReqHeader.push(data);
-    //         //this.rulesDataDetail[index] = data;
-    //       });
-    //   }
-    // }
-    this.closeDialog();
-  }
-
 
   /**This method returns selected application row on the basis of selected row */
   getMethodBusinessIndex(appId: any): number {
@@ -234,78 +326,54 @@ export class HttpRequestComponent implements OnInit {
     return -1;
   }
 
-  /** This method is used to open a dialog for add Type Values
-   */
-  openHTTPReqTypeValueDialog() {
-    this.rulesDataDetail = new RulesHTTPRequestHdrComponentData();
-    this.rulesDialog = true;
-  }
-
-  /*set format of Edit and add new Http Request */
-  setEditedNewValues(opertionType: string) {
-    let type: number;
-    this.httpRequestHdrDetail.rules = [];
-    for (let i = 0; i < this.rulesDataInfo.length; i++) {
-      if (this.rulesDataInfo[i].customValTypeName == "Integer")
-        type = 0;
-      else if (this.rulesDataInfo[i].customValTypeName == "String")
-        type = 1;
-      else if (this.rulesDataInfo[i].customValTypeName == "Decimal")
-        type = 2;
-
-      if (opertionType == "Edit") {
-        this.httpRequestHdrDetail.rules = [];
-        this.httpRequestHdrDetail.attrValues = [];
-        this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-        this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-      }
-
-      if (opertionType == "NewAdd") {
-        this.httpRequestHdrDetail.rules = [];
-        this.httpRequestHdrDetail.attrValues = [];
-        this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-        this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-      }
-      // if (opertionType == "EditSpecific") {
-      //   this.httpRequestHdrDetail.rules = [];
-      //   this.httpRequestHdrDetail.attrValues = [];
-      //   this.editSpecific = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-      //   this.httpRequestHdrDetail.attrValues[i] = { type: type, id: i, lb: this.rulesDataInfo[i].lb, rb: this.rulesDataInfo[i].rb, customValTypeName: this.rulesDataInfo[i].customValTypeName, valName: this.rulesDataInfo[i].valName };
-      // }
-    }
-
-    //  this.httpRequestHdrDetail.rules[i] = { type: type, id: i, lb: this.customValueTypeInfo[i].lb, rb: this.customValueTypeInfo[i].rb, customValTypeName: this.customValueTypeInfo[i].customValTypeName, valName: this.customValueTypeInfo[i].valName };
-    if (this.httpRequestHdrDetail.complete == true && this.httpRequestHdrDetail.specific == true)
-      this.httpRequestHdrDetail.dumpMode = 3;
-    else if (this.httpRequestHdrDetail.complete == true)
-      this.httpRequestHdrDetail.dumpMode = 2;
-    else
-      this.httpRequestHdrDetail.dumpMode = 1;
-  }
-
-  /* Method for Add new HTTP Req */
   saveHttpRequest() {
-    this.setEditedNewValues("NewAdd");
-
+    this.HttpReqDetailSaveAndEdit();
     this.configKeywordsService.addHTTPReqHeaderData(this.httpRequestHdrDetail, this.profileId).subscribe(data => {
-      let arrSessionAttr = this.addReqHeaderTableData(data);
-
-      // this.httpRequestHdrComponentInfo.push(arrSessionAttr[0]);
-      this.httpRequestHdrComponentInfo = ImmutableArray.push(this.httpRequestHdrComponentInfo, arrSessionAttr[0]);
+      let arrhttpAttr = this.setDataHttpAttribute(data);
+      this.httpRequestHdrComponentInfo = ImmutableArray.push(this.httpRequestHdrComponentInfo, arrhttpAttr[0]);
+      // this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
       this.configUtilityService.successMessage(Messages);
     });
-    this.rulesDataInfo = [];
     this.closeDialog();
   }
 
-  /* these functions are used in order to form the data as per requiremet of data to be
-  *  is table screen i,e.
-  * adding an extra key -value pair in each object.
-  *  returnTypeValue = "aa,bb",
-  *  argumentTypeValue = "bb,cc"
-  *
-  *
-  */
+  setDataHttpAttribute(data): Array<HTTPRequestHdrComponentData> {
+    var arrTestRunData = [];
+    let valueNames = "";
+    if (data.rules == "")
+      valueNames = "-";
+    if (data.rules != null) {
+      for (var i = 0; i < data.rules.length; i++) {
+        if (data.rules.length == 1)
+          valueNames = data.rules[i].valName;
+        else
+          valueNames = valueNames + "," + data.rules[i].valName;
+      }
+    }
+
+    if (valueNames.indexOf(",") != -1)
+      valueNames = valueNames.substr(1);
+
+    if (valueNames == "")
+      valueNames = "-";
+
+    let dumpModeTmp = '';
+    if (data.dumpMode == 1)
+      dumpModeTmp = "Specific";
+    else if (data.dumpMode == 3)
+      dumpModeTmp = "Complete,Specific";
+    else
+      dumpModeTmp = "Complete";
+
+    arrTestRunData.push({
+      headerName: data.headerName,
+      dumpMode: dumpModeTmp,
+      valueNames: valueNames,
+      httpReqHdrBasedId: data.httpReqHdrBasedId,
+      rules: data.rules,
+    });
+    return arrTestRunData;
+  }
 
   addReqHeaderTableData(data): Array<HTTPRequestHdrComponentData> {
     var arrTableData = [];
@@ -340,42 +408,31 @@ export class HttpRequestComponent implements OnInit {
     return arrTableData;
   }
 
-  // Method for saving rules information
-  saveRules() {
-
-    // this.rulesDataInfo.push(this.rulesDataDetail);
-    this.rulesDataInfo = ImmutableArray.push(this.rulesDataInfo, this.rulesDataDetail);
-    this.closeRulesDialog();
-  }
-
-  // Method for delete rules information
   deleteRules() {
     if (!this.selectedRulesData || this.selectedRulesData.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
-    this.confirmationService.confirm({
-      message: 'Do you want to delete the selected row?',
-      header: 'Delete Confirmation',
-      icon: 'fa fa-trash',
-      accept: () => {
-        let selectedRules = this.selectedRulesData;
-        let arrRulesIndex = [];
-        for (let index in selectedRules) {
-          arrRulesIndex.push(selectedRules[index].valName);
+    else {
+      //Get Selected Applications's AppId
+      let selectedRules = this.selectedRulesData;
+      let arrRulesIndex = [];
+      for (let index in selectedRules) {
+        arrRulesIndex.push(selectedRules[index]);
+        if (selectedRules[index].hasOwnProperty('ruleId')) {
+          this.httpAtrributeDelete.push(selectedRules[index].ruleId);
         }
-        this.deleteRulesFromTable(arrRulesIndex);
-        this.configUtilityService.infoMessage("Deleted Successfully");
-        this.selectedHTTPReqHeader = [];
       }
-    });
-
+      this.deleteRulesFromTable(arrRulesIndex);
+      this.selectedRulesData = [];
+      
+    }
   }
 
   /**This method returns selected Rules row on the basis of selected row */
   getRulesIndex(appId: any): number {
     for (let i = 0; i < this.rulesDataInfo.length; i++) {
-      if (this.rulesDataInfo[i].valName == appId) {
+      if (this.rulesDataInfo[i].id == appId.id) {
         return i;
       }
     }
@@ -384,14 +441,15 @@ export class HttpRequestComponent implements OnInit {
 
   /**This method is used to delete Rules from Data Table */
   deleteRulesFromTable(arrRulesIndex: any[]): void {
-
     //For stores table row index
     let rowIndex: number[] = [];
 
     for (let index in arrRulesIndex) {
       rowIndex.push(this.getRulesIndex(arrRulesIndex[index]));
     }
-    this.rulesDataInfo = deleteMany(this.rulesDataInfo, rowIndex);
+    this.httpRequestHdrDetail.rules = deleteMany(this.httpRequestHdrDetail.rules, rowIndex);
+    this.rulesDataInfo = this.httpRequestHdrDetail.rules;
+    // this.rulesDataInfo = deleteMany(this.rulesDataInfo, rowIndex);
   }
 
   deleteHTTPReqHeader(): void {
@@ -450,7 +508,6 @@ export class HttpRequestComponent implements OnInit {
   }
 
   closeRulesDialog() {
-
     this.rulesDialog = false;
   }
 }
