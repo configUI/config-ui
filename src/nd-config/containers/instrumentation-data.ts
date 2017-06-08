@@ -213,6 +213,7 @@ export class SessionTypeValueData {
 }
 
 export class HTTPRequestHdrComponentData {
+    attrMode?: number;
     attrValues?: RulesHTTPRequestHdrComponentData[];
     httpReqHdrBasedId: number;
     headerName: string;
@@ -220,11 +221,13 @@ export class HTTPRequestHdrComponentData {
     specific?: boolean;
     complete?: boolean;
     valueNames?:string;
+    attrType: string;
+    httpAttrId?: number;
     rules?: RulesHTTPRequestHdrComponentData[];
 }
 
 export class RulesHTTPRequestHdrComponentData {
-  //  ruleId: number;
+    ruleId: number;
     valName: string;
     lb: string;
     rb: string;
