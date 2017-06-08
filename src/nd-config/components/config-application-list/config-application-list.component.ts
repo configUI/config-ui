@@ -213,7 +213,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**This method is used to creating topology select item object */
   createTopologySelectItem() {
     this.topologySelectItem = [];
-    this.topologySelectItem.push({ value: -1, label: '--Select Topology--' });
+   // this.topologySelectItem.push({ value: -1, label: '--Select Topology--' });
     for (let i = 0; i < this.topologyInfo.length; i++) {
       this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
     }
