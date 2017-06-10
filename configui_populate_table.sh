@@ -1,11 +1,8 @@
 #! /bin/sh
 
-
-
 BEGIN;
 
-INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name)
-VALUES
+INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name) VALUES
 (1,'default','Default profile','-','');
 
 INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail) VALUES
@@ -16,9 +13,8 @@ INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail)
 (5,'glassFishJersey','description'),
 (6,'Generic','description'),
 (7,'JMSCall','description'),
-(8,'EntryForJBOSS','description');
-
-
+(8,'EntryForJBOSS','description'),
+(9,'ErrorPageEntry','description');
 
 INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name,entry_type_id) VALUES
 (1,'Fully qualified name for the service method for HttpServlet Class','javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V', 'HttpServlet.service', 1),
@@ -31,7 +27,8 @@ INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name
 (8,' ','org.glassfish.jersey.servlet.ServletContainer.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletContainer.service', 5),
 (9,' ','com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','WebAppFilterChain.doFilter', 2),
 (10,' ','org.apache.activemq.ActiveMQMessageConsumer.dispatch(Lorg/apache/activemq/command/MessageDispatch;)V','ActiveMQMessageConsumer.dispatch',7),
-(11,' ','com.ibm.mq.jms.MQMessageConsumer$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer$FacadeMessageListener.onMessage',7);
+(11,' ','com.ibm.mq.jms.MQMessageConsumer$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer$FacadeMessageListener.onMessage',7),
+(12,' ','weblogic.servlet.internal.RequestDispatcherImpl.forward(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','RequestDispatcherImpl.forward',9);
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
 (1, true, 1, 1),
@@ -44,7 +41,8 @@ INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, ent
 (8, true, 8, 1),
 (9, true, 9, 1),
 (10,false, 10, 1),
-(11,false, 11, 1);
+(11,false, 11, 1),
+(12,true, 12, 1);
 
 INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 (1,'char','0'),
@@ -109,7 +107,10 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (6,'MEM CACHE backend','MEM CACHE','HttpCallout','None'),
 (7,'CLOUDANT backend','CLOUDANT','HttpCallout','None'),
 (8,'HADOOP backend','HADOOP','HttpCallout','HBASE'),
-(9,'CUSTOM  backend','CUSTOM','CustomCallout:','None');
+(9,'CUSTOM  backend','CUSTOM','CustomCallout:','None'),
+(10,'REDIS backend','REDIS','redis','REDIS'),
+(11,'MONGO backend','MONGO','mongodb','MONGO');
+
 
 INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id ) VALUES
 (1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)V','Apace HTTP Client',1),
@@ -121,7 +122,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (7,'HTTP end point','org.springframework.web.client.RestTemplate.doExecute(Ljava/net/URI;Lorg/springframework/http/HttpMethod;Lorg/springframework/web/client/RequestCallback;Lorg/springframework/web/client/ResponseExtractor;)Ljava/lang/Object;','Spring REST Template Client',1),
 (8,'HTTP end point','org.springframework.web.client.RestTemplate$HttpEntityRequestCallback.doWithRequest(Lorg/springframework/http/client/ClientHttpRequest;)V','Spring add Header in REST Callback Template Client',1),
 (9,'HTTP end point','org.springframework.http.client.support.HttpAccessor.createRequest(Ljava/net/URI;Lorg/springframework/http/HttpMethod;)Lorg/springframework/http/client/ClientHttpRequest;','Spring add Header in REST Client Template Client',1),
-(10,'HTTP end point','org.apache.http.impl.client.InternalHttpClient.doExecute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/client/methods/CloseableHttpResponse;','Apache Internal HTTP Client','1'),
+(10,'HTTP end point','org.apache.http.impl.client.InternalHttpClient.doExecute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/client/methods/CloseableHttpResponse;','Apache Internal HTTP Client',1),
 (11,'WS end point','org.glassfish.jersey.client.JerseyInvocation.invoke()Ljavax/ws/rs/core/Response;','Jersey Webservice Client',2),
 (12,'WS end point','com.sun.xml.messaging.saaj.client.p2p.HttpSOAPConnection.post(Ljavax/xml/soap/SOAPMessage;Ljava/net/URL;)Ljavax/xml/soap/SOAPMessage;','HTTP SOAP connection',2),
 (13,'WS end point','com.sun.xml.ws.transport.http.client.HttpClientTransport.<init>(Lcom/sun/xml/ws/api/message/Packet;Ljava/util/Map;)V','HTTP Client Transport',2),
@@ -142,7 +143,22 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (29,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.get0(Ljava/lang/String;JLnet/rubyeye/xmemcached/command/CommandType;Lnet/rubyeye/xmemcached/transcoders/Transcoder;)Ljava/lang/Object;','Mem Cache get',6),
 (30,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.delete0(Ljava/lang/String;IJZJ);','Mem Cache delete',6),
 (31,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.replace(Ljava/lang/String;ILjava/lang/Object;Lnet/rubyeye/xmemcached/transcoders/Transcoder;J)Z','Mem Cache replace',6),
-(32,'CLOUDANT end point','org.lightcouch.CouchDbClientBase.executeRequest(Lorg/apache/http/client/methods/HttpRequestBase;)Lorg/apache/http/HttpResponse;','Cloudant executeRequest',7);
+(32,'CLOUDANT end point','org.lightcouch.CouchDbClientBase.executeRequest(Lorg/apache/http/client/methods/HttpRequestBase;)Lorg/apache/http/HttpResponse;','Cloudant executeRequest',7),
+(33,'HTTP end point','javax.naming.ldap.InitialLdapContext.<init>(Ljava/util/Hashtable;[Ljavax/naming/ldap/Control;)V','Initial LDAP Context',1),
+(34,'HTTP end point','weblogic.servlet.internal.ServletResponseImpl.writeHeaders()V','Weblogic Servlet Response headers',1),
+(35,'HTTP end point','com.hazelcast.client.spi.ClientProxy.invoke(Lcom/hazelcast/client/impl/protocol/ClientMessage;)Ljava/lang/Object;','Hazelcast client proxy',1),
+(36,'JDBC end point','com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement','ibmDB',3),
+(37,'JDBC end point','com.ibm.ws.rsadapter.jdbc.WSJdbcStatement','ibmDB',3),
+(38,'JDBC end point','com.mysql.jdbc.PreparedStatement','mysqlDB',3),
+(39,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute()Ljava/lang/Object;','openJPADB',3),
+(40,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute(Ljava/util/Map;)Ljava/lang/Object;','openJPADB',3),
+(41,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute([Ljava/lang/Object;)Ljava/lang/Object;','openJPADB',3),
+(42,'REDIS end point','redis.clients.jedis.Jedis','redisDB',10),
+(43,'REDIS end point','redis.clients.jedis.BinaryJedis','redisDB',10),
+(44,'MONGO end point','com.mongodb.DBCollection','mongoDB',11),
+(45,'MONGO end point','com.mongodb.DB','mongoDB',11);
+
+
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
 (1,true,false,false,false,false,false,false,false,false,false,false,false,false,1,1),
@@ -153,7 +169,9 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (6,true,false,false,false,false,false,false,false,false,false,false,false,false,6,1),
 (7,true,false,false,false,false,false,false,false,false,false,false,false,false,7,1),
 (8,true,false,false,false,false,false,false,false,false,false,false,false,false,8,1),
-(9,true,false,false,false,false,false,false,false,false,false,false,false,false,9,1);
+(9,true,false,false,false,false,false,false,false,false,false,false,false,false,9,1),
+(10,true,false,false,false,false,false,false,false,false,false,false,false,false,10,1),
+(11,true,false,false,false,false,false,false,false,false,false,false,false,false,11,1);
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
 (1,true,1,1),
@@ -186,7 +204,21 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (29,true,29,1),
 (30,true,30,1),
 (31,true,31,1),
-(32,true,32,1);
+(32,true,32,1),
+(33,false,33,1),
+(34,true,34,1),
+(35,false,35,1),
+(36,true,36,1),
+(37,true,37,1),
+(38,true,38,1),
+(39,false,39,1),
+(40,false,40,1),
+(41,false,41,1),
+(42,true,42,1),
+(43,true,43,1),
+(44,true,44,1),
+(45,true,45,1);
+
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
 (1,'request'),
@@ -276,7 +308,36 @@ INSERT INTO config.headers_meta_data(hmd_id,ht_id,header_name) VALUES
 (80,2,'X-Powered-By'),
 (81,2,'X-UA-Compatible'),
 (82,2,'X-WebKit-CSP'),
-(83,2,'X-XSS-Protection');
+(83,2,'X-XSS-Protection'),
+(84,2,'Accept-Charset'),
+(85,2,'Accept-Datetime'),
+(86,2,'Accept-Encoding'),
+(87,2,'Accept'),
+(88,2,'Authorization'),
+(89,2,'Cookie'),
+(90,2,'DNT'),
+(91,2,'Expect'),
+(92,2,'Front-End-Https'),
+(93,2,'Host'),
+(94,2,'If-Match'),
+(95,2,'If-Modified-Since'),
+(96,2,'If-None-Match'),
+(97,2,'If-Range'),
+(98,2,'If-Unmodified-Since'),
+(99,2,'Max-Forwards'),
+(100,2,'Origin'),
+(101,2,'Proxy-Authorization'),
+(102,2,'Proxy-Connection'),
+(103,2,'CavNDFPInstance'),
+(104,2,'TE'),
+(105,2,'Upgrade'),
+(106,2,'User-Agent'),
+(107,2,'X-ATT-DeviceId'),
+(108,2,'X-Forwarded-For'),
+(109,2,'X-Forwarded-Proto'),
+(110,2,'X-Requested-With'),
+(111,2,'X-Wap-Profile'),
+(112,1,'CavNDFPInstance');
 
 
 INSERT INTO config.value_type(val_id,val_type) VALUES
