@@ -113,6 +113,15 @@
 
                 <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
             </div>
+             <div class="ui-g" *ngSwitchCase="IP.REDIS">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.MONGO">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+            </div>
             <div class="ui-g" *ngSwitchDefault>
             </div>
         </div>
