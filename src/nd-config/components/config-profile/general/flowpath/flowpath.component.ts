@@ -80,6 +80,8 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   resetKeywordData() {
     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
+    this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
+    this.cpuTime =  this.flowPath['enableCpuTime'].value;
   }
 
   ngOnDestroy() {
