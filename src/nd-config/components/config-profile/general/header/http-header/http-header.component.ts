@@ -55,6 +55,16 @@ export class HttpHeaderComponent implements OnInit {
     this.resHeaderTypes = ConfigUiUtility.createDropdown(resHdrType);
   }
 
+//To reset the values of selected header names to blank if ALL is selected
+changeSpecificResp(){
+  if(this.data[1].headerModeResp == 'ALL')
+    this.data[1].headersNameResp = [];  
+}
+
+changeSpecificReq(){
+  if(this.data[0].headerMode == 'ALL')
+  this.data[0].headersName = [];
+}
 
   ngOnInit() {
   }
