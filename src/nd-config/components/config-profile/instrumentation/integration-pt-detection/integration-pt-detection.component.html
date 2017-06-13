@@ -45,7 +45,7 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
+                <input name="fqm" type="text" size="60" pattern=".*(\((.*)\))+.*" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
             </div>
         </div>
         <div class="ui-g">
