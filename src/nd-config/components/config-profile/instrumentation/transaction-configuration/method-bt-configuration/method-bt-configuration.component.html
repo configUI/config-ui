@@ -38,7 +38,7 @@
                         <label>Fully qualified method name</label>
                     </div>
                     <div class="ui-g-8">
-                        <input name="fqm" type="text" size="65" #fqmField [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm"
+                        <input name="fqm" type="text" size="65" #fqmField pattern=".*(\((.*)\))+.*" [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm"
                             autofocus required ngModel/>
                     </div>
                 </div>

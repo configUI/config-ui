@@ -37,7 +37,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
+                <input name="name" pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
             </div>
         </div>
         <div class="ui-g">

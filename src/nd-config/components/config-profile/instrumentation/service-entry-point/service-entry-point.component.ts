@@ -78,7 +78,7 @@ export class ServiceEntryPointComponent implements OnInit {
         this.serviceEntryPointDetail.entryType = this.entryPointType[i].label;
       }
     }
-
+    this.serviceEntryPointDetail.fqm = this.serviceEntryPointDetail.fqm.trim();
     this.configKeywordsService.addServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting service in DB

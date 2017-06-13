@@ -692,6 +692,7 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.configUtilityService.errorMessage("Select enable return/argument type capturing");
       return;
     }
+    this.businessTransMethodDetail.fqm = this.businessTransMethodDetail.fqm.trim();
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
       this.modifyData(data);
