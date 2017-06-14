@@ -85,6 +85,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
         return;
       }
     }
+    this.addIPDetectionDetail.fqm = this.addIPDetectionDetail.fqm.trim();
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)
       .subscribe(data => {
         //Getting index for set data in main array table data.

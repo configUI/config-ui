@@ -156,7 +156,7 @@
                         <label>Business transaction name</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="btName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
+                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                     </div>
                     <div class="ui-g-5">
                         <p-checkbox name="include" label="Include this business transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
@@ -168,7 +168,7 @@
                         <label>URL pattern</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="urlName" type="text" size="40" pInputText [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
+                        <input name="urlName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#:\/@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
                     <div class="ui-g-5">
                         <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>

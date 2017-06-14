@@ -206,6 +206,8 @@ export class MethodMonitorsComponent implements OnInit {
         return;
       }
     }
+    this.methodMonitorDetail.methodName = this.methodMonitorDetail.methodName.trim();
+    this.methodMonitorDetail.methodDisplayName = this.methodMonitorDetail.methodDisplayName.trim();
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Method Monitor in DB
