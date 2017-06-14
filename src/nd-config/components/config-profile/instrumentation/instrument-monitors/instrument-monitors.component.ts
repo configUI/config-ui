@@ -44,6 +44,7 @@ export class InstrumentMonitorsComponent implements OnInit {
  saveKeywordData(keywordData) {
    for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
+      this.configKeywordsService.keywordData[key].enable = true;
     }
   //  this.configUtilityService.successMessage(Messages);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
@@ -77,7 +78,6 @@ export class InstrumentMonitorsComponent implements OnInit {
     for (let key in data) {
       keyWordDataList.push(key + "=" + data[key].value);
     }
-        console.log("keyWordDataList;;;;;;",keyWordDataList);
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
