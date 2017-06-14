@@ -109,7 +109,7 @@ export class HeaderComponent implements OnInit {
     if (httpRespKeyword.enableHttpResp && httpRespKeyword.headerModeResp == 0)
       httpRespFullFpVal = '1';
     if (httpRespKeyword.enableHttpResp && httpRespKeyword.headerModeResp != 0) {
-      httpRespFullFpVal = "3%20"
+      httpRespFullFpVal = "2%20"
 
       if (httpRespKeyword.headerModeResp != 'ALL') {
         let val = '';

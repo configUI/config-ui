@@ -713,7 +713,7 @@ export class JavaMethodComponent implements OnInit {
       }
     }
     this.indexList = [];
-    this.indexList.push({ value: -1, label: '--Select Index--' });
+    // this.indexList.push({ value: -1, label: '--Select Index--' });
     for (let i = 1; i <= length; i++) {
       this.indexList.push({ 'value': i, 'label': i+''});
     }
