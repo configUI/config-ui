@@ -66,6 +66,12 @@ export class JavaMethodComponent implements OnInit {
 
   returnRulesDelete=[];
   argumentRulesDelete=[];
+
+
+
+//flag used for titles in edit dialog of rules
+  editReturnRules :boolean = false;
+  editArgumentRules:boolean = false;
   
 
 
@@ -239,9 +245,11 @@ export class JavaMethodComponent implements OnInit {
       this.argumentTypeData = this.selectedJavaMethod[0].argumentTypeData;
       this.argumentTypeData.map(function(val){
         val.id = that.argumentCounterEdit;
-        that.argumentCounterEdit = that.argumentCounterEdit + 1;
         val.typeName = that.getTypeName(val.type)
+        that.argumentCounterEdit = that.argumentCounterEdit + 1;
       })
+      this.selectedArgumentRules = [];
+      this.selectedReturnRules = []
       this.addEditDialog = true;
       this.isNew = false;
       this.returnRulesDelete = [];
@@ -301,7 +309,7 @@ export class JavaMethodComponent implements OnInit {
       else {
         this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
         // this.tableData.push(data);
-        this.tableData=ImmutableArray.push(this.tableData,data);
+        this.tableData = ImmutableArray.push(this.tableData,data);
         this.configUtilityService.successMessage(Messages);
         this.modifyData(this.tableData)
       })
@@ -319,6 +327,7 @@ export class JavaMethodComponent implements OnInit {
   openAddReturnRulesDialog() {
 
     this.addReturnRulesDialog = true;
+    this.editReturnRules = false;
     this.returnTypeRules = new ReturnTypeData()
   
     /*calling this function
@@ -416,6 +425,7 @@ export class JavaMethodComponent implements OnInit {
                                return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
     }
+    this.selectedReturnRules = [];
   }
 
 //deletimg Argument rules
@@ -435,8 +445,8 @@ export class JavaMethodComponent implements OnInit {
       this.argumentTypeData = this.argumentTypeData.filter(function(val){
                                return arrAppIndex.indexOf(val.id) == -1 //here if it returns -1 dt row is deleted
                             })
-      
-    }
+      }
+      this.selectedArgumentRules = [];
   }
 
 
@@ -473,9 +483,7 @@ export class JavaMethodComponent implements OnInit {
     return typeName;
   }
 
-
-
-  saveReturnRules() {
+   saveReturnRules() {
      if(this.returnTypeRules.operatorValue == undefined){
       this.returnTypeRules.operatorValue = "-" ;
     }
@@ -483,15 +491,75 @@ export class JavaMethodComponent implements OnInit {
        this.returnTypeRules.operatorValue = this.leftBoundReturn + "-" + this.rightBoundReturn ;
     }
     if(!this.isNew){
-      //for edit form
+
+      /*****************for EDIT form  ********************/
+
+      /*  In edit form,
+       *    for edit functionality
+       */
+      if(this.editReturnRules){
+        this.editReturnRules = false
+
+        if(this.returnTypeRules.operation =='CAPTURE'||this.returnTypeRules.operation =='EXCEPTION'||this.returnTypeRules.operation =='EXTRACT_SUBPART'){
+            this.returnTypeRules.operatorValue = '-';
+        }
+        let that = this
+        this.returnTypeData.map(function(each){
+          if(each.id == that.returnTypeRules.id){
+            each.headerName = that.returnTypeRules.headerName;
+            each.operation = that.returnTypeRules.operation;
+            each.operatorValue = that.returnTypeRules.operatorValue;
+            each.typeName = that.getTypeName(that.returnTypeRules.type);
+            each.indexVal = that.returnTypeRules.indexVal;
+            each.type = that.returnTypeRules.type;
+            each.mode = that.returnTypeRules.mode;
+          }
+        })
+        this.selectedReturnRules = [];
+      }
+      else{
+      
       this.returnTypeRules["id"] = this.returnCounterEdit ;
       this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
       // this.returnTypeData.push(this.returnTypeRules)
       this.returnTypeData=ImmutableArray.push(this.returnTypeData,this.returnTypeRules);      
       this.returnCounterEdit  = this.returnCounterEdit  + 1;
+      }
     }
+
     else{
-      // for add form
+
+      /*********** for ADD form *******************/
+
+       /*  In add form,
+        *  for edit functionality
+        */
+     
+      if(this.editReturnRules){
+        this.editReturnRules = false
+
+        if(this.returnTypeRules.operation =='CAPTURE'||this.returnTypeRules.operation =='EXCEPTION'||this.returnTypeRules.operation =='EXTRACT_SUBPART'){
+            this.returnTypeRules.operatorValue = '-';
+        }
+        let that = this
+        this.returnTypeData.map(function(each){
+          if(each.id == that.returnTypeRules.id){
+            each.headerName = that.returnTypeRules.headerName;
+            each.operation = that.returnTypeRules.operation;
+            each.operatorValue = that.returnTypeRules.operatorValue;
+            each.typeName = that.getTypeName(that.returnTypeRules.type);
+            each.indexVal = that.returnTypeRules.indexVal;
+            each.type = that.returnTypeRules.type;
+            each.mode = that.returnTypeRules.mode;
+          }
+        })
+        this.selectedReturnRules = [];
+      }
+      else{
+
+        /* In add form,
+        *    for add functinality
+        */
       this.returnTypeRules["id"] = this.returnCounter ;
       this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
       // this.returnTypeData.push(this.returnTypeRules);
@@ -499,6 +567,7 @@ export class JavaMethodComponent implements OnInit {
       // this.configUtilityService.successMessage(Messages);
 
       this.returnCounter = this.returnCounter + 1;
+      }
     }
      this.addReturnRulesDialog = false;
   }
@@ -511,24 +580,85 @@ export class JavaMethodComponent implements OnInit {
      if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
        this.argumentTypeRules.operatorValue = this.leftBoundArgument + "-" + this.rightBoundArgument ;
     }
+
+
     if(!this.isNew){
-       this.argumentTypeRules["id"]=this.argumentCounterEdit ;
+
+      /************* For Edit form *************** */
+       /* In edit form,
+       * edit functionality for argument rules
+       */
+      if(this.editArgumentRules){
+        this.editArgumentRules  = false
+        let that = this
+        this.argumentTypeData.map(function(each){
+          console.log("each--argument---",each)
+          console.log("that.argumentTypeRules--",that.argumentTypeRules)
+          if(each.id == that.argumentTypeRules.id){
+            each.headerName = that.argumentTypeRules.headerName
+            each.indexVal = that.argumentTypeRules.indexVal
+            each.mode  = that.argumentTypeRules.mode
+            each.operationName = that.argumentTypeRules.operationName
+            each.operatorValue = that.argumentTypeRules.operatorValue
+            each.type = that.argumentTypeRules.type
+            each.typeName = that.getTypeName(that.argumentTypeRules.type) ;
+          }
+        })
+        console.log("selectedArgumentRules--",this.selectedArgumentRules)
+        this.selectedArgumentRules = [];
+      }
+      else{
+
+       this.argumentTypeRules["id"] = this.argumentCounterEdit ;
        this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
        this.argumentTypeData=ImmutableArray.push(this.argumentTypeData,this.argumentTypeRules);
+       this.argumentCounterEdit = this.argumentCounterEdit + 1;
+      }
       //  this.argumentTypeData.push(this.argumentTypeRules)
     }
     else{
-        this.argumentTypeRules["id"]=this.argumentCounter ;
+
+      /**************** for Add form *****************/
+      /* In add form,
+       * edit functionality for argument rules
+       */
+      if(this.editArgumentRules){
+        this.editArgumentRules  = false
+        let that = this
+        this.argumentTypeData.map(function(each){
+          if(each.id == that.argumentTypeRules.id){
+            each.headerName = that.argumentTypeRules.headerName
+            each.indexVal = that.argumentTypeRules.indexVal
+            each.mode  = that.argumentTypeRules.mode
+            each.operationName = that.argumentTypeRules.operationName
+            each.operatorValue = that.argumentTypeRules.operatorValue
+            each.type = that.argumentTypeRules.type
+            each.typeName = that.getTypeName(that.argumentTypeRules.type) ;
+          }
+        })
+        this.selectedArgumentRules = [];
+      }
+      else{
+      /* In add form,
+       * add functionality for argument rules
+       */
+        this.argumentTypeRules["id"] = this.argumentCounter ;
         this.argumentTypeRules["typeName"] = this.getTypeName(this.argumentTypeRules.type) ;
         // this.argumentTypeData.push(this.argumentTypeRules)
-         this.argumentTypeData=ImmutableArray.push(this.argumentTypeData,this.argumentTypeRules);
+        this.argumentTypeData=ImmutableArray.push(this.argumentTypeData,this.argumentTypeRules);
+        this.argumentCounter = this.argumentCounter + 1;
+       }
       }
     this.addArgumentRulesDialog = false;
   }
 
   openAddArgumentRulesDialog() {
     this.validateArgAndGetArgumentsNumberList();
+    this.addArgumentRulesDialog = true;
+    this.editArgumentRules = false;
+    this.argumentTypeRules = new ArgumentTypeData();
     this.argumentTypeRules.mode = 0;
+
   }
 
   operationListArgumentType() {
@@ -587,8 +717,8 @@ export class JavaMethodComponent implements OnInit {
     for (let i = 1; i <= length; i++) {
       this.indexList.push({ 'value': i, 'label': i+''});
     }
-    this.addArgumentRulesDialog = true;
-    this.argumentTypeRules = new ArgumentTypeData();
+    // this.addArgumentRulesDialog = true;
+    // this.argumentTypeRules = new ArgumentTypeData();
   }
 
 
@@ -712,9 +842,66 @@ export class JavaMethodComponent implements OnInit {
 
   closeArgumentDialog(): void {
     this.addArgumentRulesDialog = false;
+    this.selectedArgumentRules = [];
   }
 
   closeReturnDialog(): void {
     this.addReturnRulesDialog = false;
+    this.selectedReturnRules = [];
   }
+
+  openEditReturnRulesDialog(){
+
+    console.log("this.selectedReturnRules --",this.selectedReturnRules)
+    if (!this.selectedReturnRules || this.selectedReturnRules.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to edit");
+    }
+    else if(this.selectedReturnRules.length > 1){
+      this.configUtilityService.errorMessage("Select only single row to edit")
+    }
+    else{
+     this.addReturnRulesDialog = true;
+     this.editReturnRules = true;
+     let selectedRules = this.selectedReturnRules;
+     this.returnTypeRules= this.selectedReturnRules[0];
+
+     /*Check to handle list only be created when it is needed i.e 
+     * in case of editing parent form ,when user directs go to edit the rules,
+     * at that time oplist is not created as that of in add form(parent),
+     * so it needs to created.
+     *
+     */
+     if(!this.isNew){
+       console.log("this.methodBasedCustomData.fqm--",this.methodBasedCustomData.fqm)
+       let type = this.getTypeReturnType(this.methodBasedCustomData.fqm)
+       console.log("type--",type)
+       this.opValList(type)
+     }   
+    }
+  }
+
+  openEditArgumentRulesDialog(){
+    if (!this.selectedArgumentRules || this.selectedArgumentRules.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to edit");
+    }
+    else if(this.selectedArgumentRules.length > 1){
+      this.configUtilityService.errorMessage("Select only single row to edit")
+    }
+    else{
+      this.addArgumentRulesDialog = true;
+      this.editArgumentRules = true;
+      let selectedRules = this.selectedArgumentRules;
+      this.argumentTypeRules = this.selectedArgumentRules[0];
+
+      if(!this.isNew){
+          this.validateArgAndGetArgumentsNumberList();
+      }
+
+      if(!this.isNew){
+        this.operationListArgumentType();
+      }
+    }
+  
+  }
+
 }

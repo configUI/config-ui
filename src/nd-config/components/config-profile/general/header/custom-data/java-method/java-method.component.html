@@ -11,7 +11,7 @@
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
-                   </span>
+         </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -62,7 +62,7 @@
                     <span style="float: right; margin-top:-5px">
                        <!--<button pButton type="add" title="Add" (click)="first=true" icon="fa-plus"></button>-->
                        <button pButton type="sumbit" title="Add" (click)="first=true" icon="fa-plus"></button>
-
+                        <button pButton type="button" title="Edit"  (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" (click)="deleteReturnRules()" icon="fa-trash"></button>
                     </span>
                 </p-header>
@@ -116,6 +116,7 @@
                     <span style="float: left">  Argument type settings </span>
                     <span style="float: right; margin-top:-5px">
                        <button pButton type="submit" title="Add" (click)="second=true" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit"  (click)="openEditArgumentRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
                     </span>
                 </p-header>
@@ -170,7 +171,7 @@
 
 
 <!--Form for adding return Type Rules-->
-<p-dialog class="profile-dialog" header="Add return type settings" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
+<p-dialog class="profile-dialog" header="{{editReturnRules ?'Edit return type settings' :'Add return type settings'}}" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
     <form (ngSubmit)="saveReturnRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -260,7 +261,7 @@
 
 
 <!--Form for adding Argument Type Rules-->
-<p-dialog class="profile-dialog" header="Add argument type settings" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog" header="{{editArgumentRules ?'Edit argument type settings':'Add argument type settings'}}" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
