@@ -592,8 +592,6 @@ export class JavaMethodComponent implements OnInit {
         this.editArgumentRules  = false
         let that = this
         this.argumentTypeData.map(function(each){
-          console.log("each--argument---",each)
-          console.log("that.argumentTypeRules--",that.argumentTypeRules)
           if(each.id == that.argumentTypeRules.id){
             each.headerName = that.argumentTypeRules.headerName
             each.indexVal = that.argumentTypeRules.indexVal
@@ -604,7 +602,6 @@ export class JavaMethodComponent implements OnInit {
             each.typeName = that.getTypeName(that.argumentTypeRules.type) ;
           }
         })
-        console.log("selectedArgumentRules--",this.selectedArgumentRules)
         this.selectedArgumentRules = [];
       }
       else{
@@ -852,7 +849,6 @@ export class JavaMethodComponent implements OnInit {
 
   openEditReturnRulesDialog(){
 
-    console.log("this.selectedReturnRules --",this.selectedReturnRules)
     if (!this.selectedReturnRules || this.selectedReturnRules.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to edit");
     }
@@ -872,9 +868,7 @@ export class JavaMethodComponent implements OnInit {
      *
      */
      if(!this.isNew){
-       console.log("this.methodBasedCustomData.fqm--",this.methodBasedCustomData.fqm)
        let type = this.getTypeReturnType(this.methodBasedCustomData.fqm)
-       console.log("type--",type)
        this.opValList(type)
      }   
     }
