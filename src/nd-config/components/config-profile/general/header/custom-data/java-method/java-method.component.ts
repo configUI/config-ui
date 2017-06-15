@@ -504,15 +504,15 @@ export class JavaMethodComponent implements OnInit {
             this.returnTypeRules.operatorValue = '-';
         }
         let that = this
-        this.returnTypeData.map(function(each){
-          if(each.id == that.returnTypeRules.id){
-            each.headerName = that.returnTypeRules.headerName;
-            each.operation = that.returnTypeRules.operation;
-            each.operatorValue = that.returnTypeRules.operatorValue;
-            each.typeName = that.getTypeName(that.returnTypeRules.type);
-            each.indexVal = that.returnTypeRules.indexVal;
-            each.type = that.returnTypeRules.type;
-            each.mode = that.returnTypeRules.mode;
+        this.returnTypeData.map(function(val){
+          if(val.id == that.returnTypeRules.id){
+            val.headerName = that.returnTypeRules.headerName;
+            val.operation = that.returnTypeRules.operation;
+            val.operatorValue = that.returnTypeRules.operatorValue;
+            val.typeName = that.getTypeName(that.returnTypeRules.type);
+            val.indexVal = that.returnTypeRules.indexVal;
+            val.type = that.returnTypeRules.type;
+            val.mode = that.returnTypeRules.mode;
           }
         })
         this.selectedReturnRules = [];
@@ -542,15 +542,15 @@ export class JavaMethodComponent implements OnInit {
             this.returnTypeRules.operatorValue = '-';
         }
         let that = this
-        this.returnTypeData.map(function(each){
-          if(each.id == that.returnTypeRules.id){
-            each.headerName = that.returnTypeRules.headerName;
-            each.operation = that.returnTypeRules.operation;
-            each.operatorValue = that.returnTypeRules.operatorValue;
-            each.typeName = that.getTypeName(that.returnTypeRules.type);
-            each.indexVal = that.returnTypeRules.indexVal;
-            each.type = that.returnTypeRules.type;
-            each.mode = that.returnTypeRules.mode;
+        this.returnTypeData.map(function(val){
+          if(val.id == that.returnTypeRules.id){
+            val.headerName = that.returnTypeRules.headerName;
+            val.operation = that.returnTypeRules.operation;
+            val.operatorValue = that.returnTypeRules.operatorValue;
+            val.typeName = that.getTypeName(that.returnTypeRules.type);
+            val.indexVal = that.returnTypeRules.indexVal;
+            val.type = that.returnTypeRules.type;
+            val.mode = that.returnTypeRules.mode;
           }
         })
         this.selectedReturnRules = [];
@@ -622,15 +622,15 @@ export class JavaMethodComponent implements OnInit {
       if(this.editArgumentRules){
         this.editArgumentRules  = false
         let that = this
-        this.argumentTypeData.map(function(each){
-          if(each.id == that.argumentTypeRules.id){
-            each.headerName = that.argumentTypeRules.headerName
-            each.indexVal = that.argumentTypeRules.indexVal
-            each.mode  = that.argumentTypeRules.mode
-            each.operationName = that.argumentTypeRules.operationName
-            each.operatorValue = that.argumentTypeRules.operatorValue
-            each.type = that.argumentTypeRules.type
-            each.typeName = that.getTypeName(that.argumentTypeRules.type) ;
+        this.argumentTypeData.map(function(val){
+          if(val.id == that.argumentTypeRules.id){
+            val.headerName = that.argumentTypeRules.headerName
+            val.indexVal = that.argumentTypeRules.indexVal
+            val.mode  = that.argumentTypeRules.mode
+            val.operationName = that.argumentTypeRules.operationName
+            val.operatorValue = that.argumentTypeRules.operatorValue
+            val.type = that.argumentTypeRules.type
+            val.typeName = that.getTypeName(that.argumentTypeRules.type) ;
           }
         })
         this.selectedArgumentRules = [];
