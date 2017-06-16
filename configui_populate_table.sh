@@ -53,7 +53,7 @@ INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 (6,'file','5');
 
 INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value,type) VALUES
-(1,'bciInstrSessionPct','0','100','2','5','normal'),
+(1,'bciInstrSessionPct','0','100','2','0','normal'),
 (2,'logLevelOneFpMethod','0','1','1','0','normal'),
 (3,'enableBciDebug','0','6','1','1','normal'),
 (4,'enableBciError','1','100','5','1','normal'),
@@ -382,6 +382,11 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 (10,2,'>='),
 (11,3,'PRESENT'),
 (12,3,'!PRESENT');
+
+
+INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri, 
+segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id)VALUES
+(1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1);
 
 
 COMMIT;
