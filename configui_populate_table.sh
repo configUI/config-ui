@@ -156,7 +156,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (42,'REDIS end point','redis.clients.jedis.Jedis','redisDB',10),
 (43,'REDIS end point','redis.clients.jedis.BinaryJedis','redisDB',10),
 (44,'MONGO end point','com.mongodb.DBCollection','mongoDB',11),
-(45,'MONGO end point','com.mongodb.DB','mongoDB',11);''
+(45,'MONGO end point','com.mongodb.DB','mongoDB',11);
 
 
 
