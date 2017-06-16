@@ -591,15 +591,15 @@ export class JavaMethodComponent implements OnInit {
       if(this.editArgumentRules){
         this.editArgumentRules  = false
         let that = this
-        this.argumentTypeData.map(function(each){
-          if(each.id == that.argumentTypeRules.id){
-            each.headerName = that.argumentTypeRules.headerName
-            each.indexVal = that.argumentTypeRules.indexVal
-            each.mode  = that.argumentTypeRules.mode
-            each.operationName = that.argumentTypeRules.operationName
-            each.operatorValue = that.argumentTypeRules.operatorValue
-            each.type = that.argumentTypeRules.type
-            each.typeName = that.getTypeName(that.argumentTypeRules.type) ;
+        this.argumentTypeData.map(function(val){
+          if(val.id == that.argumentTypeRules.id){
+            val.headerName = that.argumentTypeRules.headerName
+            val.indexVal = that.argumentTypeRules.indexVal
+            val.mode  = that.argumentTypeRules.mode
+            val.operationName = that.argumentTypeRules.operationName
+            val.operatorValue = that.argumentTypeRules.operatorValue
+            val.type = that.argumentTypeRules.type
+            val.typeName = that.getTypeName(that.argumentTypeRules.type) ;
           }
         })
         this.selectedArgumentRules = [];
