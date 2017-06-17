@@ -77,7 +77,7 @@
 <p-dialog class="profile-dialog" *ngIf="detailDialog" header="{{integrationDetail.type}} details" [(visible)]="detailDialog" modal="modal" width="500" responsive="true">
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
-        <div class="ui-g" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC">
+        <div class="ui-g" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO">
             <label style="font-weight: bolder;font-size: larger">Naming rules</label>
         </div>
         <div class="ui-g" [ngSwitch]="integrationDetail.type">
@@ -93,6 +93,7 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service name </md-checkbox>
             </div>
             <div class="ui-g" *ngSwitchCase="IP.HADOOP">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table name </md-checkbox>
             </div>
             <div class="ui-g" *ngSwitchCase="IP.HTTP">
