@@ -44,7 +44,12 @@ export class HttpRequestComponent implements OnInit {
   //holding table data
   arrTestRunData = [];
 
+  editCustomSettings: boolean = false;
+
   counterEdit: number = 0;
+  counterAdd: number = 0;
+
+  isNewRule: boolean;
 
   httpAtrributeDelete = [];
 
@@ -78,7 +83,7 @@ export class HttpRequestComponent implements OnInit {
     this.arrTestRunData = [];
     if (data != null) {
       for (var i = 0; i < data.length; i++) {
-           this.modifyData(data[i]);
+        this.modifyData(data[i]);
       }
     }
   }
@@ -89,7 +94,6 @@ export class HttpRequestComponent implements OnInit {
    * 
    */
   modifyData(row) {
-    console.log(" == === == ", row)
     let valueNames = "";
     if (row.rules == "") {
       valueNames = "-";
@@ -112,14 +116,19 @@ export class HttpRequestComponent implements OnInit {
       dumpModeTmp = "Specific";
     else if (row.dumpMode == 3)
       dumpModeTmp = "Complete,Specific";
-    else if(row.dumpMode == 2)
+    else if (row.dumpMode == 2) {
       dumpModeTmp = "Complete";
+      row.rules = [];   
+      valueNames = "-";  
+    }
     else if (row.dumpMode == "Specific")
       dumpModeTmp = "Specific";
     else if (row.dumpMode == "Complete,Specific")
       dumpModeTmp = "Complete,Specific";
-    else if(row.dumpMode == "Complete")
+    else if (row.dumpMode == "Complete") {
       dumpModeTmp = "Complete";
+      row.rules = [];
+    }
 
     // return valueNames;
     this.arrTestRunData.push({
@@ -146,17 +155,88 @@ export class HttpRequestComponent implements OnInit {
   openHTTPReqTypeValueDialog() {
     this.rulesDataDetail = new RulesHTTPRequestHdrComponentData();
     this.rulesDialog = true;
+    this.isNewRule = false;
+  }
+
+  openEditHTTPReqTypeDialog() {
+    if (!this.selectedRulesData || this.selectedRulesData.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+      return;
+    }
+    else if (this.selectedRulesData.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit");
+      return;
+    }
+    this.editCustomSettings = true;
+    this.rulesDialog = true;
+    this.isNewRule = true;
+    this.rulesDataDetail = Object.assign({}, this.selectedRulesData[0]);
   }
 
   // Method for saving rules information
   saveRules() {
-    this.counterEdit = this.counterEdit + 1;
-    this.rulesDataDetail.id = this.counterEdit;
-    this.rulesDataDetail.type = this.getTypeNumber(this.rulesDataDetail.customValTypeName);
-    if (this.httpRequestHdrDetail.rules == undefined)
-      this.httpRequestHdrDetail.rules = [];
-    this.httpRequestHdrDetail.rules = ImmutableArray.push(this.httpRequestHdrDetail.rules, this.rulesDataDetail);
-    this.rulesDataInfo = this.httpRequestHdrDetail.rules;
+
+    //Edit fucntionality.
+    //To edit rules in edit form
+    if (this.isNewRule) {
+      if (this.editCustomSettings) {
+        this.editCustomSettings = false;
+        let that = this;
+        this.rulesDataInfo.map(function (val) {
+          if (val.id == that.rulesDataDetail.id) {
+            val.customValTypeName = that.rulesDataDetail.customValTypeName;
+            val.lb = that.rulesDataDetail.lb;
+            val.rb = that.rulesDataDetail.rb;
+            val.ruleId = that.rulesDataDetail.ruleId;
+            val.type = that.rulesDataDetail.type;
+            val.valName = that.rulesDataDetail.valName;
+          }
+        });
+        this.selectedRulesData = [];
+
+      }
+      else {
+        //to add rules in edit form
+        this.counterEdit = this.counterEdit + 1;
+        this.rulesDataDetail.id = this.counterEdit;
+        this.rulesDataDetail.type = this.getTypeNumber(this.rulesDataDetail.customValTypeName);
+        if (this.httpRequestHdrDetail.rules == undefined)
+          this.httpRequestHdrDetail.rules = [];
+        this.httpRequestHdrDetail.rules = ImmutableArray.push(this.httpRequestHdrDetail.rules, this.rulesDataDetail);
+        this.rulesDataInfo = this.httpRequestHdrDetail.rules;
+      }
+    }
+    else {
+      //ADD fucntionality.
+      //To edit rules in add form
+      if (this.editCustomSettings) {
+        this.editCustomSettings = false;
+        let that = this;
+        this.rulesDataInfo.map(function (val) {
+          if (val.id == that.rulesDataDetail.id) {
+            val.customValTypeName = that.rulesDataDetail.customValTypeName;
+            val.lb = that.rulesDataDetail.lb;
+            val.rb = that.rulesDataDetail.rb;
+            val.ruleId = that.rulesDataDetail.ruleId;
+            val.type = that.rulesDataDetail.type;
+            val.valName = that.rulesDataDetail.valName;
+          }
+        });
+        this.selectedRulesData = [];
+
+      }
+      else {
+        //to add rules in add form
+        this.counterAdd = this.counterAdd + 1;
+        this.rulesDataDetail.id = this.counterAdd;
+        this.rulesDataDetail.type = this.getTypeNumber(this.rulesDataDetail.customValTypeName);
+        if (this.httpRequestHdrDetail.rules == undefined)
+          this.httpRequestHdrDetail.rules = [];
+        this.httpRequestHdrDetail.rules = ImmutableArray.push(this.httpRequestHdrDetail.rules, this.rulesDataDetail);
+        this.rulesDataInfo = this.httpRequestHdrDetail.rules;
+      }
+    }
+
     this.closeRulesDialog();
   }
 
@@ -221,7 +301,7 @@ export class HttpRequestComponent implements OnInit {
   editHTTPRequest() {
     this.HttpReqDetailSaveAndEdit();
     this.httpRequestHdrDetail.httpAttrId = this.selectedHTTPReqHeader[0].httpReqHdrBasedId;
- 
+
     /* first triggering the request to delete the rules of the Http Req
     *  and then sending the request to add the Rules
     *  due to some backend problem in triggering same request for two task
@@ -231,7 +311,7 @@ export class HttpRequestComponent implements OnInit {
     this.arrTestRunData = [];
     this.configKeywordsService.deleteHttpRules(this.httpAtrributeDelete).subscribe(data => {
       let that = this;
-    this.httpAtrributeDelete = [];
+      this.httpAtrributeDelete = [];
       //Edit call, sending row data to service
       this.configKeywordsService.editHTTPReqHeaderData(this.httpRequestHdrDetail).subscribe(data => {
         // this.modifyData(data);
@@ -239,8 +319,8 @@ export class HttpRequestComponent implements OnInit {
           if (val.httpReqHdrBasedId == data.httpReqHdrBasedId) {
             // val = data
             val = data;
-           }
-         that.modifyData(val);
+          }
+          that.modifyData(val);
         })
         this.configUtilityService.successMessage(Messages);
       });
@@ -255,16 +335,16 @@ export class HttpRequestComponent implements OnInit {
       this.httpRequestHdrDetail.attrType = "complete,specific";
       this.httpRequestHdrDetail.dumpMode = 3;
     }
-      else if (this.httpRequestHdrDetail.specific == true) {
+    else if (this.httpRequestHdrDetail.specific == true) {
       this.httpRequestHdrDetail.attrType = "specific";
       this.httpRequestHdrDetail.dumpMode = 1;
     }
     else if (this.httpRequestHdrDetail.complete == true) {
       this.httpRequestHdrDetail.attrType = "complete";
       this.httpRequestHdrDetail.dumpMode = 2;
+      this.httpRequestHdrDetail.rules = [];
     }
   }
-
 
 
   /**This method is used to validate the name of Method is already exists. */
@@ -280,7 +360,6 @@ export class HttpRequestComponent implements OnInit {
   /**opening Edit Session Attribute Dialog */
   editHTTPReqDialog(): void {
     this.httpRequestHdrDetail = new HTTPRequestHdrComponentData();
-    console.log(" == " , this.selectedHTTPReqHeader)
     if (!this.selectedHTTPReqHeader || this.selectedHTTPReqHeader.length < 1) {
       this.configUtilityService.errorMessage("Select a row to edit");
       return;
@@ -299,8 +378,9 @@ export class HttpRequestComponent implements OnInit {
     }
     else if (this.selectedHTTPReqHeader[0].dumpMode == "Specific")
       this.httpRequestHdrDetail.specific = true;
-    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete")
+    else if (this.selectedHTTPReqHeader[0].dumpMode == "Complete") {
       this.httpRequestHdrDetail.complete = true;
+    }
 
     this.httpRequestHdrDetail.headerName = this.selectedHTTPReqHeader[0].headerName;
 
@@ -309,8 +389,8 @@ export class HttpRequestComponent implements OnInit {
     let that = this;
     if (this.httpRequestHdrDetail.rules != undefined) {
       this.httpRequestHdrDetail.rules.map(function (val) {
-        val.id = that.counterEdit;
-        that.counterEdit = that.counterEdit + 1;
+        val.id = that.counterAdd;
+        that.counterAdd = that.counterAdd + 1;
         val.customValTypeName = that.getTypeName(val.type)
       })
     }
@@ -425,7 +505,7 @@ export class HttpRequestComponent implements OnInit {
       }
       this.deleteRulesFromTable(arrRulesIndex);
       this.selectedRulesData = [];
-      
+
     }
   }
 
