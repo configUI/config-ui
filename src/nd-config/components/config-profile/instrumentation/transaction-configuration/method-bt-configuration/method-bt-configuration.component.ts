@@ -23,15 +23,15 @@ export class MethodBTConfigurationComponent implements OnInit {
   /* Assign data to Method Business Transaction Data table */
   businessTransMethodInfo: BusinessTransMethodData[];
   businessTransMethodDetail: BusinessTransMethodData;
-  selectedbusinessTransMethod: any;
+  selectedbusinessTransMethod: any[];
 
   /* Assign data to Rules Business Transaction Data table */
   methodRulesInfo: RulesData[];
   methodArgRulesInfo: ArgumentRulesData[];
   btMethodRulesDetail: RulesData;
 
-  selectedMethodRules: any;
-  selectedArgRules: any;
+  selectedMethodRules: any[];
+  selectedArgRules: any[];
 
   /* For holding form fields*/
   returnTypeRules: ReturnTypeData;
@@ -81,7 +81,9 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   capturingType: string;
 
-  isViewOnly:boolean = false;
+  isViewOnly: boolean = false;
+
+  methodBtTypeDelete = [];
 
   //used to hold value of "type " i.e data type of return value or argument value whichever is selected
   type: string;
@@ -160,19 +162,20 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /** Fetch BT Mehtod Data and Assign on Loading */
   loadBTMethodData(): void {
+    this.businessTransMethodDetail = new BusinessTransMethodData();
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
     //this.businessTransMethodInfo = data
-    this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data =>{ 
-    let that = this;
-    data.map(function(val){
-      that.modifyData(val);
-    })
+    this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => {
+      let that = this;
+      data.map(function (val) {
+        that.modifyData(val);
+      })
       this.businessTransMethodInfo = data;
     }
-    
+
     );
   }
 
@@ -194,7 +197,6 @@ export class MethodBTConfigurationComponent implements OnInit {
    * Call a method for fill Operation drop down according Return Type
   */
   openAddReturnRulesDialog() {
-
     this.addRulesDialog = true;
     this.btMethodRulesDetail = new RulesData();
     /*calling this function
@@ -209,12 +211,10 @@ export class MethodBTConfigurationComponent implements OnInit {
   openAddArgumentRulesDialog() {
     this.btMethodRulesDetail = new RulesData();
     this.addArgRulesDialog = true;
-
   }
 
   /** Edit BT Method */
   editMethodTrans(): void {
-    this.businessTransMethodDetail = new BusinessTransMethodData();
     if (!this.selectedbusinessTransMethod || this.selectedbusinessTransMethod.length < 1) {
       this.configUtilityService.errorMessage("Select a row to edit");
       return;
@@ -226,22 +226,36 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
+    //  this.businessTransMethodDetail.argumentIndex = Number(this.businessTransMethodDetail.argumentIndex);
+
     this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
+
+    if (this.businessTransMethodDetail.enableArgumentType) {
+      this.validateArgAndGetArgumentsNumberList();
+      this.methodArgRulesInfo = this.selectedbusinessTransMethod[0].rules;
+      this.methodRulesInfo = [];
+      this.enableArgumentType = "argument";
+    }
+    else {
+      this.methodRulesInfo = this.selectedbusinessTransMethod[0].rules;
+      this.methodArgRulesInfo = [];
+      this.enableArgumentType = "returnType";
+    }
   }
-  
-//Open view window on FQM name click
-  openViewMethodTrans(data){
+
+  //Open view window on FQM name click
+  openViewMethodTrans(data) {
     this.businessTransMethodDetail = new BusinessTransMethodData();
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
     this.isViewOnly = true;
-    this.businessTransMethodDetail = Object.assign({},data);
+    this.businessTransMethodDetail = Object.assign({}, data);
     if (this.businessTransMethodDetail.enableArgumentType) {
       this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
       this.enableArgumentType = "argument";
     }
-   else  {
-      this.methodRulesInfo = this.businessTransMethodDetail.rules ;
+    else {
+      this.methodRulesInfo = this.businessTransMethodDetail.rules;
       this.enableArgumentType = "returnType";
     }
   }
@@ -257,14 +271,58 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /**This method is used to edit Method detail */
   editMethod(): void {
-    this.configKeywordsService.editBusinessTransMethod(this.businessTransMethodDetail, this.profileId)
-      .subscribe(data => {
-        let index = this.getMethodBusinessIndex(this.businessTransMethodDetail.btMethodId);
-        this.selectedbusinessTransMethod.length = 0;
-        this.selectedbusinessTransMethod.push(data);
+    if (this.enableArgumentType == "returnType") {
+      this.businessTransMethodDetail.enableArgumentType = false;
+      this.businessTransMethodDetail.rules = this.methodRulesInfo;
+      
+      //If return type is selected then, to delete all the rules from argument table
+      if (this.methodRulesInfo != []) {
+        for (let index in this.methodArgRulesInfo) {
+          if (this.methodArgRulesInfo[index].btMethodRuleId != null)
+            this.methodBtTypeDelete.push(this.methodArgRulesInfo[index].btMethodRuleId);
+        }
+        this.methodArgRulesInfo = [];
+      }
+    }
+    else if (this.enableArgumentType == "argument") {
+      this.businessTransMethodDetail.enableArgumentType = true;
+      this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
+
+      //If argument type is selected then, to delete all the rules from return table
+      if (this.methodRulesInfo != []) {
+        for (let index in this.methodRulesInfo) {
+          if (this.methodRulesInfo[index].btMethodRuleId != null)
+            this.methodBtTypeDelete.push(this.methodRulesInfo[index].btMethodRuleId)
+        }
+        this.methodRulesInfo = [];
+      }
+    }
+    this.businessTransMethodDetail.btMethodId = this.selectedbusinessTransMethod[0].btMethodId;
+    this.selectedbusinessTransMethod = [];
+     /****for edit case
+        *  first triggering the request to delete the  rules and
+        *  when response comes then triggering request to add the new added rules
+        *
+        */
+    this.configKeywordsService.deleteMethodBtRules(this.methodBtTypeDelete).subscribe(data => {
+      let that = this;
+      //Edit call, sending row data to service
+      this.configKeywordsService.editBusinessTransMethod(this.businessTransMethodDetail).subscribe(data => {
+
+        this.businessTransMethodInfo.map(function (val) {
+          if (val.btMethodId == data.btMethodId) {
+            val.argumentIndex = data.argumentIndex;
+            val.btMethodId = data.btMethodId;
+            val.enableArgumentType = data.enableArgumentType;
+            val.fqm = data.fqm;
+            val.returnType = data.returnType;
+            val.rules = data.rules;
+          }
+          that.modifyData(val);
+        })
         this.configUtilityService.successMessage(Messages);
-        this.businessTransMethodInfo[index] = data;
       });
+    })
     this.closeDialog();
   }
 
@@ -304,6 +362,9 @@ export class MethodBTConfigurationComponent implements OnInit {
     let arrRulesIndex = [];
     for (let index in selectedRules) {
       arrRulesIndex.push(selectedRules[index]);
+      if (selectedRules[index].hasOwnProperty('btMethodRuleId')) {
+        this.methodBtTypeDelete.push(selectedRules[index].btMethodRuleId);
+      }
     }
     this.deleteRulesFromTable(arrRulesIndex);
   }
@@ -314,6 +375,9 @@ export class MethodBTConfigurationComponent implements OnInit {
     let arrArgIndex = [];
     for (let index in selectedRules) {
       arrArgIndex.push(selectedRules[index]);
+      if (selectedRules[index].hasOwnProperty('btMethodRuleId')) {
+        this.methodBtTypeDelete.push(selectedRules[index].btMethodRuleId);
+      }
     }
     this.deleteArgRulesFromTable(arrArgIndex);
 
@@ -384,14 +448,16 @@ export class MethodBTConfigurationComponent implements OnInit {
   //For checking FQM 
   saveRules() {
     // this.methodRulesInfo.push(this.btMethodRulesDetail);
-    this.methodRulesInfo = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
+    this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
+    this.methodRulesInfo = this.businessTransMethodDetail.rules;
     // this.configUtilityService.successMessage(Messages);
     this.addRulesDialog = false;
     this.returnTypeData = [];
   }
 
   saveArgRules() {
-    this.methodArgRulesInfo = ImmutableArray.push(this.methodArgRulesInfo, this.btMethodRulesDetail);
+    this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodArgRulesInfo, this.btMethodRulesDetail);
+    this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
     // this.methodArgRulesInfo.push(this.btMethodRulesDetail);
     // this.configUtilityService.successMessage(Messages);
     this.addArgRulesDialog = false;
@@ -501,13 +567,14 @@ export class MethodBTConfigurationComponent implements OnInit {
 
       //When add edit Method
       else {
-        if (this.businessTransMethodInfo[0].fqm != this.businessTransMethodDetail.fqm) {
+        if (this.selectedbusinessTransMethod[0].fqm != this.businessTransMethodDetail.fqm) {
           if (this.checkMethodNameAlreadyExist())
             return;
         }
         this.editMethod();
       }
     }
+
   }
   /**This method is used to validate the name of Method is already exists. */
   checkMethodNameAlreadyExist(): boolean {
@@ -520,13 +587,14 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   modifyData(val) {
-      if (val.enableArgumentType == true) {
-        val.capturingType = "Argument type ";
-      }
-      else {
-        val.capturingType = "Return type";
-      }
-    
+    if (val.enableArgumentType == true) {
+      val.capturingType = "Argument type ";
+      // this.methodArgRulesInfo = val.rules;
+    }
+    else {
+      val.capturingType = "Return type";
+    }
+
   }
 
   getHdrNames(data) {
@@ -677,11 +745,11 @@ export class MethodBTConfigurationComponent implements OnInit {
   saveMethod() {
     this.businessTransMethodDetail.rules = [];
     if (this.enableArgumentType == "returnType") {
-      this.businessTransMethodDetail.enableArgumentType = false ;
+      this.businessTransMethodDetail.enableArgumentType = false;
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
     }
 
-   else if (this.enableArgumentType == "argument") {
+    else if (this.enableArgumentType == "argument") {
       this.businessTransMethodDetail.enableArgumentType = true;
       this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
     }
@@ -692,7 +760,6 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.configUtilityService.errorMessage("Select enable return/argument type capturing");
       return;
     }
-    this.businessTransMethodDetail.fqm = this.businessTransMethodDetail.fqm.trim();
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
       this.modifyData(data);
@@ -700,21 +767,30 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.configUtilityService.successMessage(Messages);
     });
     this.addBusinessTransMethodDialog = false;
+    this.selectedbusinessTransMethod = [];
   }
 
   /**For close add/edit Method dialog box */
   closeDialog(): void {
     this.addBusinessTransMethodDialog = false;
+    this.selectedbusinessTransMethod = [];
+    this.selectedMethodRules = [];
+    this.methodBtTypeDelete = [];
+    this.selectedArgRules = [];
     // this.btMethodRulesDetail = new RulesData();
   }
 
   closeReturnDialog(): void {
     this.addRulesDialog = false;
+    this.selectedbusinessTransMethod = [];
+    this.selectedMethodRules = [];
     this.addBusinessTransMethodDialog = true;
   }
 
   closeArgDialog(): void {
     this.addArgRulesDialog = false;
+    this.selectedbusinessTransMethod = [];
+    this.selectedArgRules = [];
     this.addBusinessTransMethodDialog = true;
   }
 }

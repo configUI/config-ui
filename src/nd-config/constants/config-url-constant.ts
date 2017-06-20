@@ -1,5 +1,5 @@
 
- //  const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
 //  const  SERVICE_URL = 'http://localhost:8090';
    
@@ -167,9 +167,11 @@ export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
 export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
 export const EDIT_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern/updateBTPattern`;
 export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
+export const EDIT_BTMETHOD = `${SERVICE_URL}/custom/btmethod/editbtmethod`;
 export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
 export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
+export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
 
 /* URL for methodBasedCapturingData */
 export const ADD_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapturing/addcustomdata`;
