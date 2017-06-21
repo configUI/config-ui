@@ -27,19 +27,15 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /* Assign data to Rules Business Transaction Data table */
   methodRulesInfo: RulesData[];
-  methodArgRulesInfo: ArgumentRulesData[];
+  methodArgRulesInfo: RulesData[];
   btMethodRulesDetail: RulesData;
 
-  selectedMethodRules: any[];
-  selectedArgRules: any[];
+  selectedMethodRules: RulesData[];
+  selectedArgRules: RulesData[];
 
-  /* For holding form fields*/
-  returnTypeRules: ReturnTypeData;
-  argumentTypeRules: ArgumentTypeData;
-
-  selectedReturnRules: ReturnTypeData[];
-
-  selectedArgumentRules: ArgumentTypeData[];
+  // /* For holding form fields*/
+  // returnTypeRules: ReturnTypeData;
+  // argumentTypeRules: ArgumentTypeData;
 
   /* open dialog box */
   addBusinessTransMethodDialog: boolean = false;
@@ -53,7 +49,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   selectedReturnType: string;
 
   /* to hold data to display in table of return type and argument type in table */
-  returnTypeData: ReturnTypeData[];
+  // returnTypeData: ReturnTypeData[];
   argumentTypeData: ArgumentTypeData[];
 
   /* Assign value to Return type drop down */
@@ -69,6 +65,12 @@ export class MethodBTConfigurationComponent implements OnInit {
   selectedOperation: string;
 
   isNewMethod: boolean = false;
+  isNewReturn: boolean = false;
+  isNewArg: boolean = false;
+
+  //flag used for titles in edit dialog of rules
+  editReturnRules: boolean = false;
+  editArgumentRules: boolean = false;
 
   /*For cheking FQM */
   first: boolean;
@@ -81,7 +83,10 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   capturingType: string;
 
-  isViewOnly: boolean = false;
+  argCount: number = 0;
+  returnCount: number = 0;
+  returnCountEdit: number = 0;
+  argCountEdit: number = 0;
 
   methodBtTypeDelete = [];
 
@@ -189,7 +194,6 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
-    this.isViewOnly = false;
 
   }
 
@@ -227,7 +231,6 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
     //  this.businessTransMethodDetail.argumentIndex = Number(this.businessTransMethodDetail.argumentIndex);
-
     this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
 
     if (this.businessTransMethodDetail.enableArgumentType) {
@@ -241,6 +244,8 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.methodArgRulesInfo = [];
       this.enableArgumentType = "returnType";
     }
+    this.selectedArgRules = [];
+    this.selectedMethodRules = [];
   }
 
   //Open view window on FQM name click
@@ -248,7 +253,6 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.businessTransMethodDetail = new BusinessTransMethodData();
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = false;
-    this.isViewOnly = true;
     this.businessTransMethodDetail = Object.assign({}, data);
     if (this.businessTransMethodDetail.enableArgumentType) {
       this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
@@ -274,7 +278,6 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.enableArgumentType == "returnType") {
       this.businessTransMethodDetail.enableArgumentType = false;
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
-      
       //If return type is selected then, to delete all the rules from argument table
       if (this.methodRulesInfo != []) {
         for (let index in this.methodArgRulesInfo) {
@@ -299,11 +302,11 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.businessTransMethodDetail.btMethodId = this.selectedbusinessTransMethod[0].btMethodId;
     this.selectedbusinessTransMethod = [];
-     /****for edit case
-        *  first triggering the request to delete the  rules and
-        *  when response comes then triggering request to add the new added rules
-        *
-        */
+    /****for edit case
+       *  first triggering the request to delete the  rules and
+       *  when response comes then triggering request to add the new added rules
+       *
+       */
     this.configKeywordsService.deleteMethodBtRules(this.methodBtTypeDelete).subscribe(data => {
       let that = this;
       //Edit call, sending row data to service
@@ -367,6 +370,7 @@ export class MethodBTConfigurationComponent implements OnInit {
       }
     }
     this.deleteRulesFromTable(arrRulesIndex);
+    this.selectedMethodRules = [];
   }
 
   //deletimg Argument rules
@@ -380,6 +384,7 @@ export class MethodBTConfigurationComponent implements OnInit {
       }
     }
     this.deleteArgRulesFromTable(arrArgIndex);
+    this.selectedArgRules = [];
 
   }
 
@@ -447,20 +452,117 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //For checking FQM 
   saveRules() {
-    // this.methodRulesInfo.push(this.btMethodRulesDetail);
-    this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
-    this.methodRulesInfo = this.businessTransMethodDetail.rules;
-    // this.configUtilityService.successMessage(Messages);
+    //in edit form, to edit return rules
+    if (!this.isNewMethod) {
+      if (this.editReturnRules) {
+        this.editReturnRules = false;
+        let that = this;
+        this.methodRulesInfo.map(function (val) {
+          if (val.id == that.btMethodRulesDetail.id) {
+            val.btName = that.btMethodRulesDetail.btName;
+            val.opCode = that.btMethodRulesDetail.opCode;
+            val.opCodeDropDown = that.btMethodRulesDetail.opCodeDropDown;
+            val.operationName = that.btMethodRulesDetail.operationName;
+            val.previousBtMethodRulesIds = that.btMethodRulesDetail.previousBtMethodRulesIds;
+            val.value = that.btMethodRulesDetail.value;
+          }
+        })
+          this.selectedMethodRules = [];
+      }
+      else {
+        //In edit form, to add new return rule
+        this.btMethodRulesDetail["id"] = this.returnCountEdit;
+        this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
+        this.methodRulesInfo = this.businessTransMethodDetail.rules;
+        this.returnCountEdit = this.returnCountEdit + 1;
+      }
+
+
+    }
+    else {
+    //in add form, to edit return rules
+      if (this.editReturnRules) {
+        this.editReturnRules = false;
+        let that = this;
+        this.methodRulesInfo.map(function (val) {
+          if (val.id == that.btMethodRulesDetail.id) {
+            val.btName = that.btMethodRulesDetail.btName;
+            val.opCode = that.btMethodRulesDetail.opCode;
+            val.opCodeDropDown = that.btMethodRulesDetail.opCodeDropDown;
+            val.operationName = that.btMethodRulesDetail.operationName;
+            val.previousBtMethodRulesIds = that.btMethodRulesDetail.previousBtMethodRulesIds;
+            val.value = that.btMethodRulesDetail.value;
+          }
+        })
+        this.selectedMethodRules = [];
+      }
+      else {
+        //In add form, to add new return rule
+
+        this.btMethodRulesDetail["id"] = this.returnCount;
+        this.methodRulesInfo = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
+        this.returnCount = this.returnCount + 1;
+      }
+    }
+    this.selectedMethodRules = [];
     this.addRulesDialog = false;
-    this.returnTypeData = [];
   }
 
   saveArgRules() {
-    this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodArgRulesInfo, this.btMethodRulesDetail);
-    this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
-    // this.methodArgRulesInfo.push(this.btMethodRulesDetail);
-    // this.configUtilityService.successMessage(Messages);
+//in edit form, to edit Argument rules
+    if (!this.isNewMethod) {
+      if (this.editArgumentRules) {
+        this.editArgumentRules = false;
+        let that = this;
+        this.methodArgRulesInfo.map(function (val) {
+          if (val.id == that.btMethodRulesDetail.id) {
+            val.btName = that.btMethodRulesDetail.btName;
+            val.opCode = that.btMethodRulesDetail.opCode;
+            val.opCodeDropDown = that.btMethodRulesDetail.opCodeDropDown;
+            val.operationName = that.btMethodRulesDetail.operationName;
+            val.previousBtMethodRulesIds = that.btMethodRulesDetail.previousBtMethodRulesIds;
+            val.value = that.btMethodRulesDetail.value;
+          }
+        })
+          this.selectedArgRules = [];
+      }
+      else {
+        //In edit form, to add new argument rule
+        this.btMethodRulesDetail["id"] = this.argCountEdit;
+        this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodArgRulesInfo, this.btMethodRulesDetail);
+        this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
+        this.argCountEdit = this.argCountEdit + 1;
+      }
+
+
+    }
+    else {
+    //in add form, to edit return rules
+      if (this.editArgumentRules) {
+        this.editArgumentRules = false;
+        let that = this;
+        this.methodArgRulesInfo.map(function (val) {
+          if (val.id == that.btMethodRulesDetail.id) {
+            val.btName = that.btMethodRulesDetail.btName;
+            val.opCode = that.btMethodRulesDetail.opCode;
+            val.opCodeDropDown = that.btMethodRulesDetail.opCodeDropDown;
+            val.operationName = that.btMethodRulesDetail.operationName;
+            val.previousBtMethodRulesIds = that.btMethodRulesDetail.previousBtMethodRulesIds;
+            val.value = that.btMethodRulesDetail.value;
+          }
+        })
+        this.selectedArgRules = [];
+      }
+      else {
+        //In add form, to add new return rule
+
+        this.btMethodRulesDetail["id"] = this.argCount;
+        this.methodArgRulesInfo = ImmutableArray.push(this.methodArgRulesInfo, this.btMethodRulesDetail);
+        this.argCount = this.argCount + 1;
+      }
+    }
     this.addArgRulesDialog = false;
+    this.selectedArgRules = [];
   }
 
   getTypeReturnType(fqm) {
@@ -524,6 +626,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     //openAddReturnRulesDialog()
     if (this.first) {
       this.first = false;
+      this.isNewReturn = true;
 
       let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
 
@@ -540,6 +643,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     else if (this.second) {
       this.second = false;
+      this.isNewArg = true;
       this.openAddArgumentRulesDialog();
       //this.openAddArgumentRulesDialog();
       // let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
@@ -770,6 +874,52 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.selectedbusinessTransMethod = [];
   }
 
+  //For openong edit form of return type rules
+  openEditReturnRulesDialog() {
+    if (!this.selectedMethodRules || this.selectedMethodRules.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+    }
+    else if (this.selectedMethodRules.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit")
+    }
+    else {
+      this.isNewReturn = false;
+      this.editReturnRules = true;
+      let selectedRules = this.selectedMethodRules;
+      this.addRulesDialog = true;
+       let that = this;
+     this.methodRulesInfo.map(function(val){
+        val.id =that.returnCount;
+        that.returnCount = that.returnCount + 1;
+        // val.typeName = that.getTypeName(val.type)
+      })
+      this.btMethodRulesDetail = Object.assign({}, this.selectedMethodRules[0]);
+    }
+  }
+
+  //For openong edit form of argument type rules
+  openEditArgRulesDialog() {
+    if (!this.selectedArgRules || this.selectedArgRules.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+    }
+    else if (this.selectedArgRules.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit")
+    }
+    else {
+      this.isNewArg = false;
+      this.editArgumentRules = true;
+      let selectedRules = this.selectedArgRules;
+         let that = this;
+     this.methodArgRulesInfo.map(function(val){
+        val.id =that.argCount;
+        that.argCount = that.argCount + 1;
+        // val.typeName = that.getTypeName(val.type)
+      })
+      this.addArgRulesDialog = true;
+      this.btMethodRulesDetail = Object.assign({}, this.selectedArgRules[0]);
+    }
+  }
+
   /**For close add/edit Method dialog box */
   closeDialog(): void {
     this.addBusinessTransMethodDialog = false;
@@ -782,14 +932,12 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   closeReturnDialog(): void {
     this.addRulesDialog = false;
-    this.selectedbusinessTransMethod = [];
     this.selectedMethodRules = [];
     this.addBusinessTransMethodDialog = true;
   }
 
   closeArgDialog(): void {
     this.addArgRulesDialog = false;
-    this.selectedbusinessTransMethod = [];
     this.selectedArgRules = [];
     this.addBusinessTransMethodDialog = true;
   }

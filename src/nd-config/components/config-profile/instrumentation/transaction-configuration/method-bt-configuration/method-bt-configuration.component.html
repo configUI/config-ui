@@ -11,7 +11,7 @@
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="col-overflow" field="fqm" header="Fully qualified method name" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
-            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="openViewMethodTrans(application)">{{application[col.field]}}</a></span>
+            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
     </p-column>
     <p-column class="col-overflow" field="capturingType" header="Capturing type" [sortable]="true">
@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' : isViewOnly?'Method based business transactions':'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
+<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
     modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
 
@@ -50,6 +50,7 @@
                             <span style="float: left;">  Return type settings </span>
                             <span style="float: right; margin-top:-5px">
                        <button pButton type="submit" title="Add a return type settings" (click)="first=true" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete return type setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
                     </span>
                         </p-header>
@@ -97,6 +98,7 @@
                         <span style="float: left;">  Argument type settings </span>
                         <span style="float: right; margin-top:-5px">
                        <button pButton type="submit" title="Add a argument type settings" (click)="second=true" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" (click)="openEditArgRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete argument type setting(s)" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
                     </span>
                     </p-header>
@@ -121,7 +123,7 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save" *ngIf="!isViewOnly"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
             </div>
         </footer>
@@ -130,7 +132,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog class="profile-dialog" header="Add return type settings" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -170,7 +172,7 @@
 
 <!-- Add new Argument type info -->
 
-<p-dialog class="profile-dialog" header="Add argument type settings" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add argument type settings' :'Edit argument type settings'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <!--<div class="ui-g-12">

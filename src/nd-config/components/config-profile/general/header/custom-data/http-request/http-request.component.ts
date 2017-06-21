@@ -118,8 +118,8 @@ export class HttpRequestComponent implements OnInit {
       dumpModeTmp = "Complete,Specific";
     else if (row.dumpMode == 2) {
       dumpModeTmp = "Complete";
-      row.rules = [];   
-      valueNames = "-";  
+      row.rules = [];
+      valueNames = "-";
     }
     else if (row.dumpMode == "Specific")
       dumpModeTmp = "Specific";
@@ -301,7 +301,14 @@ export class HttpRequestComponent implements OnInit {
   editHTTPRequest() {
     this.HttpReqDetailSaveAndEdit();
     this.httpRequestHdrDetail.httpAttrId = this.selectedHTTPReqHeader[0].httpReqHdrBasedId;
-
+    if (this.rulesDataInfo != []) {
+      if (this.httpRequestHdrDetail.dumpMode == 2) {
+        for (let index in this.rulesDataInfo) {
+          this.httpAtrributeDelete.push(this.rulesDataInfo[index].ruleId)
+        }
+        this.rulesDataInfo = [];
+      }
+    }
     /* first triggering the request to delete the rules of the Http Req
     *  and then sending the request to add the Rules
     *  due to some backend problem in triggering same request for two task
