@@ -165,15 +165,20 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttrTypeValueDialog = true;
       this.isNewValueType = true;
       this.editAttrValues = true;
-      this.customValueTypeDetail = this.selectedSessionValueType[0];
+      // this.customValueTypeDetail = this.selectedSessionValueType[0];
+      this.customValueTypeDetail = Object.assign({},this.selectedSessionValueType[0]);
 
     }
   }
 
   saveTypesValues() {
+
     this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
-    //In edit form, to edit
+
+    //Edit functionality form
     if (!this.isNewSessionAttr) {
+      
+      //In edit form, to edit rules
       if (this.editAttrValues) {
         this.isNewValueType = false;
         this.editAttrValues = false;
@@ -191,7 +196,7 @@ export class SessionAttributeComponent implements OnInit {
         this.selectedSessionValueType = [];
       }
 
-      //In edit form, to add child
+      //In edit form, to add rules
       else {
         this.isNewValueType = true;
         this.customValueTypeDetail["id"] = this.counterEdit;
@@ -203,8 +208,9 @@ export class SessionAttributeComponent implements OnInit {
       }
     }
     else {
-      //In add form, to edit child
+      //Add functionality form
       if (this.editAttrValues) {
+        //In add form, to edit rules
         this.isNewValueType = false;
         this.editAttrValues = false;
         let that = this;
@@ -221,8 +227,8 @@ export class SessionAttributeComponent implements OnInit {
         this.selectedSessionValueType = [];
       }
 
-      //In add form, to add child
       else {
+      //In add form, to add rules
         this.isNewValueType = true;
         this.customValueTypeDetail["id"] = this.counterAttrAdd;
         this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
