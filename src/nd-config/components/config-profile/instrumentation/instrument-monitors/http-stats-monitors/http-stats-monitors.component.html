@@ -1,9 +1,9 @@
 <p-dataTable class="nde-ui" [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="12" [paginator]="httpStatsMonitorData?.length > 12" [pageLinks]="3">
 
     <p-header>
-        <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Apply HTTP stats monitors</span>
-        <span style="float :right; margin-top:-5px">
+        <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
+        <span class="configui-float-css">Apply HTTP stats monitors</span>
+        <span class="configui-float">
             <button pButton type="button" title="Add a HTTP stats condition" [disabled]="saveDisable" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit a HTTP stats Condition" [disabled]="saveDisable" (click)="openEditHTTPStatsDialog()" icon="fa-pencil"></button>
             <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" [disabled]="saveDisable" (click)="deleteHTTPStats()" icon="fa-trash"></button>
@@ -42,7 +42,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-3">
-                <input name="httpStatsMonitorName" type="text" pattern="[A-Za-z0-9]{1,99}" [(ngModel)]="httpStatsMonitorDetail.conditionName" style="width:177px;" pInputText autofocus required ngModel/>
+                <input name="httpStatsMonitorName" type="text" pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="httpStatsMonitorDetail.conditionName" class="configui-stats-css" pInputText autofocus required ngModel/>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-3">
@@ -50,7 +50,7 @@
             </div>
             <div class="ui-g-3">
                 <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="httpStatsMonitorDetail.fpDumpMode" required ngModel/>
-                <p-dropdown name="flowDump" [style]="{'width': '100%'}" placeholder="--Select--" scrollHeight="150px" [autoWidth]="true" [options]="flowDumpData" placeholder="--Select--" [(ngModel)]="httpStatsMonitorDetail.fpDumpMode" required ngModel></p-dropdown>
+                <p-dropdown name="flowDump" [style]="{'width': '100%'}" placeholder="--Select--" scrollHeight="150px" [autoWidth]="true" [options]="flowDumpData" [(ngModel)]="httpStatsMonitorDetail.fpDumpMode" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -59,7 +59,7 @@
             </div>
             <div class="ui-g-3">
                 <input name="dropdown1" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="httpStatsMonitorDetail.htId" required ngModel/>
-                <p-dropdown name="headerTypeName" [style]="{'width': '100%'}" [autoWidth]="true" [options]="headerType" placeholder="--Select--" [(ngModel)]="httpStatsMonitorDetail.htId" required ngModel></p-dropdown>
+                <p-dropdown name="headerTypeName" [style]="{'width': '100%'}" placeholder="--Select--" [autoWidth]="true" [options]="headerType" [(ngModel)]="httpStatsMonitorDetail.htId" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-3" *ngIf="httpStatsMonitorDetail.htId!=3">
@@ -67,21 +67,21 @@
             </div>
             <div class="ui-g-3" *ngIf="!(httpStatsMonitorDetail.htId==1)&&!(httpStatsMonitorDetail.htId==2)&&!(httpStatsMonitorDetail.htId==3)">
                 <input name="dropdown2" type="text" size="25" class='hidden-validator' pInputText required ngModel/>
-                <p-dropdown name="requestHeader" [style]="{'width': '100%'}" placeholder="--Select--" disabled="true" [autoWidth]="true" placeholder="--Select--" [options]="requestHeader" required ngModel></p-dropdown>
+                <p-dropdown name="requestHeader" [style]="{'width': '100%'}" disabled="true" placeholder="--Select--" [autoWidth]="true" [options]="requestHeader" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="httpStatsMonitorDetail.htId==1">
                 <input name="dropdown3" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="selectedRequestHeader" required ngModel/>
-                <p-dropdown name="requestHeader" [style]="{'width': '100%'}" [autoWidth]="true" [options]="requestHeader" placeholder="--Select--" [(ngModel)]="selectedRequestHeader" required ngModel></p-dropdown>
+                <p-dropdown name="requestHeader" [style]="{'width': '100%'}" [autoWidth]="true" placeholder="--Select--" [options]="requestHeader" [(ngModel)]="selectedRequestHeader" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="httpStatsMonitorDetail.htId==2">
                 <input name="dropdown4" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="selectedResponseHeader" required ngModel/>
-                <p-dropdown name="responseHeader" [style]="{'width': '100%'}" [autoWidth]="true" [options]="responseHeader" placeholder="--Select--" [(ngModel)]="selectedResponseHeader" required ngModel></p-dropdown>
+                <p-dropdown name="responseHeader" [style]="{'width': '100%'}" placeholder="--Select--" [autoWidth]="true" [options]="responseHeader" [(ngModel)]="selectedResponseHeader" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="httpStatsMonitorDetail.htId==3">
                 <label>Cookie name</label>
             </div>
             <div class="ui-g-3" *ngIf="httpStatsMonitorDetail.htId==3">
-                <input name="cookieName" type="text" style="width:177px;" [(ngModel)]="httpStatsMonitorDetail.cookieName" pInputText autofocus required ngModel/>
+                <input name="cookieName" type="text" class="configui-stats-css" [(ngModel)]="httpStatsMonitorDetail.cookieName" pInputText autofocus required ngModel/>
             </div>
 
         </div>
@@ -91,7 +91,8 @@
             </div>
             <div class="ui-g-3">
                 <input name="dropdown5" type="text" size="25" class='hidden-validator' *ngIf="(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" pInputText [(ngModel)]="selectedValueType" required ngModel/>
-                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" placeholder="--Select--" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType" required ngModel></p-dropdown>
+                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" placeholder="--Select--" [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType"
+                    required ngModel></p-dropdown>
             </div>
             <div class="ui-g-1"></div>
             <!--<div class="ui-g-3" *ngIf="selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3">
@@ -102,7 +103,7 @@
             </div>
             <div class="ui-g-3" *ngIf="!(selectedValueType==1)&&!(selectedValueType==2)&&!(selectedValueType==3)">
                 <input name="dropdown6" type="text" size="25" class='hidden-validator' pInputText required ngModel/>
-                <p-dropdown name="StringOPTypeName" [style]="{ 'width': '100%'}" disabled="true" [autoWidth]="true" placeholder="--Select--" [options]="stringOP" required ngModel></p-dropdown>
+                <p-dropdown name="StringOPTypeName" [style]="{ 'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP" placeholder="--Select--" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="selectedValueType==1">
                 <input name="dropdown7" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="selectedStringOp" required ngModel/>
@@ -122,7 +123,7 @@
                 <label>Comparison  value</label>
             </div>
             <div class="ui-g-3">
-                <input name="ComparisonValue" pattern="[A-Za-z0-9]{1,99}" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" type="text" style="width:177px;" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
+                <input name="ComparisonValue" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" type="text" class="configui-stats-css" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-3">

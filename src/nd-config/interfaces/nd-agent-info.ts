@@ -23,6 +23,7 @@ export interface CmonInfo{
 	aia: string;
 	cst:string;
 	id:number;
+        si:any;
 	// serverIp: string;
 	// testRunNo:string;
 	// testRunning:boolean;

@@ -277,8 +277,8 @@ export class ConfigKeywordsService {
   }
 
   /* Edit  Business Trans Method Info */
-  editBusinessTransMethod(data): Observable<BusinessTransMethodData> {
-    return this._restApi.getDataByPostReq(`${URL.EDIT_BTMETHOD}/${data.btMethodId}`, data);
+  editBusinessTransMethod(data, profileId): Observable<BusinessTransMethodData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BTMETHOD}/${data.btMethodId}`, data);
   }
 
   /*Add Pattern Bt Data*/
@@ -358,11 +358,5 @@ export class ConfigKeywordsService {
     let url = `${URL.UPDATE_HTTPREQHDR}/${data.httpAttrId}`;
     return this._restApi.getDataByPostReq(url, data);
   }
-
-  //  / Delete Method Bt Rules  /
-  deleteMethodBtRules(listOfIds) {
-    return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_RULES_BT}`, listOfIds);
-  }
-
 
 }

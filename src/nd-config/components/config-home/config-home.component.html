@@ -1,7 +1,7 @@
 <!-- table for APPLICATION Detail -->
-<div class="ui-g custom-pad">
+<div class="ui-g md-card-css">
     <div class="ui-g-6">
-        <md-card class="md-card-css">
+        <md-card>
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">APPLICATION LIST {{applicationMsg}}</div>
                 <div class="header-button">
@@ -22,7 +22,7 @@
                     </p-column>
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last updated on">
                         <template let-col let-application="rowData" pTemplate>
-                            <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+                            <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
                         </template>
                     </p-column>
                 </p-dataTable>
@@ -32,7 +32,7 @@
 
     <!-- table for PROFILE Detail -->
     <div class="ui-g-6">
-        <md-card class="md-card-css">
+        <md-card>
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">PROFILE LIST {{profileInfoMsg}}</div>
                 <div class="header-button">
@@ -53,7 +53,7 @@
                     </p-column>-->
                     <p-column rowStyleClass="col-overflow" field="timestamp" header="Last updated on">
                         <template let-col let-profile="rowData" pTemplate>
-                            <span title="{{profile[col.field]}}" style="float:right">{{profile[col.field]}}</span>
+                            <span title="{{profile[col.field]}}" class="timpStamp-float-css">{{profile[col.field]}}</span>
                         </template>
                     </p-column>
                     <!--<p-column rowStyleClass="col-overflow" field="description" header="Description">
@@ -68,9 +68,9 @@
 </div>
 
 <!-- table for TOPOLOGY INFO -->
-<div class="ui-g custom-pad">
-    <div class="ui-g-5">
-        <md-card class="md-card-css">
+<div class="ui-g md-card-css">
+    <div class="ui-g-5 ">
+        <md-card>
             <md-card-subtitle class="md-card-subtitle-css">
 
                 <div class="header-Name">TOPOLOGY LIST {{topologyInfoMsg}}</div>

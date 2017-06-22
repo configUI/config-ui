@@ -859,8 +859,7 @@ export class JavaMethodComponent implements OnInit {
      this.addReturnRulesDialog = true;
      this.editReturnRules = true;
      let selectedRules = this.selectedReturnRules;
-    //  this.returnTypeRules= this.selectedReturnRules[0];
-    this.returnTypeRules =Object.assign({}, this.selectedReturnRules[0]);
+     this.returnTypeRules= this.selectedReturnRules[0];
 
      /*Check to handle list only be created when it is needed i.e 
      * in case of editing parent form ,when user directs go to edit the rules,
@@ -886,8 +885,7 @@ export class JavaMethodComponent implements OnInit {
       this.addArgumentRulesDialog = true;
       this.editArgumentRules = true;
       let selectedRules = this.selectedArgumentRules;
-      // this.argumentTypeRules = this.selectedArgumentRules[0];
-      this.argumentTypeRules =Object.assign({},this.selectedArgumentRules[0]);
+      this.argumentTypeRules = this.selectedArgumentRules[0];
 
       if(!this.isNew){
           this.validateArgAndGetArgumentsNumberList();

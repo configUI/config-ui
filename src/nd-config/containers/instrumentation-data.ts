@@ -128,7 +128,6 @@ export class BusinessTransMethodData    // Business Transaction Method by Lucky
 }
 
 export class RulesData {
-    id: number;
     btMethodRuleId?: number;
     opCode?: number;
     parentBTMethodId?: number;
@@ -141,7 +140,6 @@ export class RulesData {
 }
 
 export class ArgumentRulesData {
-    id: number;
     btMethodRuleId?: number;
     opCode?: number;
     parentBTMethodId?: number;

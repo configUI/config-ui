@@ -1,4 +1,4 @@
-<p-dataTable class="nde-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3">
+<p-dataTable class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left">  Enable/Disable Service entry points</span>
         <span style="float :right; margin-top:-5px">
@@ -17,9 +17,9 @@
             <span title="{{service[col.field]}}">{{service[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
-        <template let-col let-service="rowData" pTemplate>
-            <md-slide-toggle [disabled]="saveDisable" class="toggle-space" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
+    <p-column class="tableCss config-ui" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
+        <template class="config-ui" let-col let-service="rowData" pTemplate>
+            <md-slide-toggle [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
         </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'45%'}">
@@ -57,10 +57,10 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pattern=".*(\((.*)\))+.*" (keydown.space)="$event.preventDefault()" pInputText  [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+                <input name="fqm" type="text" size="60" pInputText pattern=".*(\((.*)\))+.*" [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
             </div>
         </div>
-        <div class="ui-g">
+        <div class="ui-g config-ui">
             <div class="ui-g-4">
                 <label>Enable</label>
             </div>
