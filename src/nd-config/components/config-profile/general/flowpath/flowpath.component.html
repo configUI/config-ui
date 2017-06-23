@@ -9,7 +9,7 @@
             </div>
         </div>
         <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
                 <div class="ui-g">
 
                     <div class="ui-g-12">
@@ -52,7 +52,7 @@
                         <div class="ui-g-3 radioButtoncss">
                             <p-radioButton name="enableCpuTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
-                        <div class="ui-g-3" style="margin-left:20px">
+                        <div class="ui-g-3 configui-flowpath-css">
                             <p-radioButton name="enableCpuTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
                         <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem"  required ngModel></p-dropdown>-->

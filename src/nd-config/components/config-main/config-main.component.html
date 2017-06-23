@@ -1,26 +1,26 @@
 <div class="main">
-    <div class="ui-g">
-        <div class="ui-g-12">
+    <!--<div class="ui-g">
+        <div class="ui-g-12" style="height:50px">
             <app-config-header-top-nav-bar></app-config-header-top-nav-bar>
         </div>
-    </div>
+    </div>-->
     <div class="ui-g">
         <div class="ui-g-1" class="ndegui-sidenav">
             <app-config-left-side-bar></app-config-left-side-bar>
         </div>
-        <div class="ui-g-11" style='padding:0;'>
+        <div class="ui-g-11 configui-top-nav-css">
             <div class="top-nav-bar">
                 <app-config-top-nav-bar></app-config-top-nav-bar>
 
-                <div style="height:1px">
+                <div class="configui-progressbar">
                     <md-progress-bar *ngIf="isProgressBar" mode="indeterminate" [color]="color"></md-progress-bar>
                 </div>
 
             </div>
             <div class="main">
-                <div class="ui-g" style="height: 540px">
+                <div class="ui-g configui-scrollbar">
                     <div class="ui-g-12">
-                        <perfect-scrollbar style="height: 540px">
+                        <perfect-scrollbar class="configui-scrollbar">
                             <!--<div class="content">Scrollable content</div>-->
                             <app-config-right-content></app-config-right-content>
                         </perfect-scrollbar>

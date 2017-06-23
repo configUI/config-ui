@@ -1,8 +1,8 @@
 <!--For showing HTTP Request Header list -->
 <p-dataTable [value]="httpRequestHdrComponentInfo" class="nde-ui" [(selection)]="selectedHTTPReqHeader" [rows]="5" [paginator]="httpRequestHdrComponentInfo?.length > 5 " [pageLinks]="3">
     <p-header>
-        <span style="float: left"> HTTP request header (s) </span>
-        <span style="float: right; margin-top:-5px">`
+        <span class="configui-float-css"> HTTP request header (s) </span>
+        <span class="configui-float">`
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
@@ -50,7 +50,7 @@
                 <p-dataTable class="nde-ui" [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="5" [paginator]="rulesDataInfo?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Detail(s) </span>
-                        <span style="float: right; margin-top:-5px">
+                        <span class="configui-float">
                        <button pButton type="button" title="Add" (click)="openHTTPReqTypeValueDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" (click)="openEditHTTPReqTypeDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>

@@ -1,27 +1,29 @@
-<div class="widget">
+<div class="configUI">
     <div class="header"><i aria-hidden="true"></i> Profile List
-        <span style="float :right; margin-top:-2px">
+        <span class="appIcon-css">
             <button pButton type="button" title="Add Profile" (click)="openProfileDialog()" icon="fa-plus"></button>
         </span>
 
     </div>
-    <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
-        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
-            <template let-col let-profile="rowData" pTemplate>
+    <div class="config-ui-table-margin">
+        <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
+            <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
+                <template let-col let-profile="rowData" pTemplate>
                 <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
             </template>
-        </p-column>
-        <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
-            <template let-col let-profile="rowData" pTemplate>
-                <span style="float:right" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+            </p-column>
+            <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
+                <template let-col let-profile="rowData" pTemplate>
+                <span class="timpStamp-float-css" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
             </template>
-        </p-column>
-        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'50%'}">
-            <template let-col let-profile="rowData" pTemplate>
+            </p-column>
+            <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'50%'}">
+                <template let-col let-profile="rowData" pTemplate>
                 <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
             </template>
-        </p-column>
-    </p-dataTable>
+            </p-column>
+        </p-dataTable>
+    </div>
 </div>
 <!--Dialog for Adding New Profile -->
 

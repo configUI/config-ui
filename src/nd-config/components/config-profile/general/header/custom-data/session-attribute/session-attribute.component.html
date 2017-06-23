@@ -1,4 +1,4 @@
-<div class="ui-g-12" style="background: #f6f7f9">
+<div class="ui-g-12 configui-session-css">
     <div class="ui-g-2">
         <p-radioButton name="sessionAttribute" label="All" value="All" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
@@ -7,13 +7,12 @@
     </div>
 </div>
 
-<div class="ui-g" *ngIf="selectedSessionAttribute == 'Specific'" style="margin-bottom:10px; border: ridge;">
+<div class="ui-g configui-session-css-2" *ngIf="selectedSessionAttribute == 'Specific'">
     <!--For showing Session Attribute(s) list -->
-    <p-dataTable class="nde-ui" [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4"
-        [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
+    <p-dataTable class="nde-ui" [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4" [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
         <p-header>
-            <span style="float: left"> Session attribute(s) </span>
-            <span style="float: right; margin-top:-5px">
+            <span class="configui-float-css"> Session attribute(s) </span>
+            <span class="configui-float">
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="opensSessionAttributeDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"[disabled]="saveDisable" (click)="editSessionAttribute()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable"  (click)="deleteSessionAttribute()" icon="fa-trash"></button>
@@ -22,26 +21,25 @@
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
         <p-column class="col-overflow" field="attrName" header="Name" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
         </p-column>
         <p-column class="col-overflow" field="attrType" header="Attribute type" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
         </p-column>
         <p-column class="col-overflow" field="valName" header="Values" [sortable]="true">
             <template let-col let-application="rowData" pTemplate type="body">
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
         </p-column>
 
     </p-dataTable>
 </div>
 
 <!--Dialog for ADD and Edit Session Attribute-->
-<p-dialog class="profile-dialog" header="{{isNewSessionAttr ? 'Add session attribute(s)' : 'Edit session attribute(s)'}}"
-    *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewSessionAttr ? 'Add session attribute(s)' : 'Edit session attribute(s)'}}" *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true">
     <form (ngSubmit)="saveADDEditSessionAttr()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -49,8 +47,7 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="attrName" type="text" size="40" pInputText [(ngModel)]="sessionAttributeDetail.attrName" title="Please enter valid name.   &#013;Please enter alphabets and numeric values only."
-                        required pattern="^[0-9a-zA-Z][a-zA-Z0-9]{0,31}$" ngModel/>
+                    <input name="attrName" type="text" size="40" pInputText [(ngModel)]="sessionAttributeDetail.attrName" title="Please enter valid name.   &#013;Please enter alphabets and numeric values only." required pattern="^[0-9a-zA-Z][a-zA-Z0-9]{0,31}$" ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -62,11 +59,10 @@
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="sessionAttributeDetail.specific">
-                <p-dataTable class="nde-ui" [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="customValueTypeInfo?.length > 5"
-                    [pageLinks]="3">
+                <p-dataTable class="nde-ui" [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="this.sessionAttributeDetail.attrValues?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Session attribute(s) </span>
-                        <span style="float: right; margin-top:-5px">
+                        <span class="configui-float">
                        <button pButton type="button" title="Add" (click)="openSessionAttrTypeValueDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" (click)="openEditSessionAttrTypeValueDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteSessionValueType()" icon="fa-trash"></button>
@@ -75,26 +71,26 @@
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
                     <p-column class="col-overflow" field="valName" header="Value name" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                        </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
                     </p-column>
                     <p-column class="col-overflow" field="lb" header="Left bound" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                        </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
                     </p-column>
                     <p-column class="col-overflow" field="rb" header="Right bound" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                        </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
                     </p-column>
 
 
 
                     <p-column class="col-overflow" field="customValTypeName" header="Type" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
-                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                        </template>
+                       <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    </template>
                     </p-column>
 
                 </p-dataTable>
@@ -110,8 +106,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog class="profile-dialog" header="{{!isNewValueType ? 'Add value type settings' : 'Edit value type settings'}}" *ngIf="sessionAttrTypeValueDialog"
-    [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
+<p-dialog class="profile-dialog" header="{{!isNewValueType ? 'Add value type settings' : 'Edit value type settings'}}" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
     <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -119,17 +114,14 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.valName" title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters."
-                        required pattern="[^]{0,49}$" ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.valName" title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Custom type</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="customValueType" type="text" class='hidden-validator' pInputText [(ngModel)]="customValueTypeDetail.type" required
-                        ngModel/>
-                    <p-dropdown name="customValueType" [style]="{'width':'87%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.type"
-                        required ngModel placeholder="--Select--"></p-dropdown>
+                    <input name="customValueType" type="text" class='hidden-validator' pInputText [(ngModel)]="customValueTypeDetail.type" required ngModel/>                    
+                    <p-dropdown name="customValueType" [style]="{'width':'87%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.type" required ngModel placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
 
@@ -138,15 +130,13 @@
                     <label>Left bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.lb" title="Please enter valid Left bound.  &#013;Please enter maximum upto 50 characters."
-                        required pattern="[^]{0,49}$" ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.lb" title="Please enter valid Left bound.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.rb" title="Please enter valid Right bound.  &#013;Please enter maximum upto 50 characters."
-                        required pattern="[^]{0,49}$" ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="customValueTypeDetail.rb" title="Please enter valid Right bound.  &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
         </div>

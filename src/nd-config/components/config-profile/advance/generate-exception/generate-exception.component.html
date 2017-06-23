@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
                 <div class="ui-g">
 
                     <div class="ui-g-12">
@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="fullName" type="text" style="width: 150%" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                            <input name="fullName" type="text" class="configui-fqm-css" [(ngModel)]="genExceptionData.fullyqualifiedName" pInputText title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
                                 required pattern="[a-zA-Z0-9.]+(\(([^)\(\s]*)\))[^]*" ngModel/>
                         </div>
                     </div>

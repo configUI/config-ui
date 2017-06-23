@@ -1,11 +1,13 @@
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+
+  // const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+
 
 //  const  SERVICE_URL = 'http://localhost:8090';
    
 
 //For Production use this SERVICE_URL
-const SERVICE_URL = '/configUI';
+ const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
@@ -194,7 +196,7 @@ export const ADD_RULES_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing
 
 // export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
  export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/edithttpreqhdr`;
-export const DEL_HTTP_CUSTOM_DATA = `${SERVICE_URL}/custom/httpreqbasedcapturing/httpCustomData/delete`;
+// export const DEL_HTTP_CUSTOM_DATA = `${SERVICE_URL}/custom/httpreqbasedcapturing/httpCustomData/delete`;
 export const DELETE_HTTPREQHDR_RULES =  `${SERVICE_URL}/custom/httpreqbasedcapturing/deletehttpreqrules`;
 
 /**** URL for independent topology structure *******/
