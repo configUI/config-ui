@@ -1,9 +1,9 @@
 <p-dataTable class="nde-ui" [value]="errorDetectionData" [(selection)]="selectedErrorDetection" [rows]="15" [paginator]="errorDetectionData?.length > 15" [pageLinks]="3">
 
     <p-header>
-        <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span style="float: left">Apply error rules </span>
-        <span style="float :right; margin-top:-5px">
+        <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
+        <span class="configui-float-css">Apply error rules </span>
+        <span class="configui-float">
             <button pButton type="button" title="Add an error detection" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an error detection" [disabled]="saveDisable" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
             <button pButton type="button" class="ui-button-danger" title="Delete an error detection" [disabled]="saveDisable" (click)="deleteErrorDetection()" icon="fa-trash"></button>
@@ -58,10 +58,10 @@
             </div>
 
             <div class="ui-g-4">
-                from: <input name="errorfrom" type="number" style="text-align: right" #from (input)="checkFrom(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
+                from: <input name="errorfrom" type="number" class="configui-error-css-1" #from (input)="checkFrom(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorFrom" pInputText required ngModel/>
             </div>
             <div class="ui-g-4">
-                to: <input name="errorto" type="number" style="text-align: right" #to (input)="checkTo(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
+                to: <input name="errorto" type="number" class="configui-error-css-1" #to (input)="checkTo(from,to)" min="0" max="600" [(ngModel)]="errorDetectionDetail.errorTo" pInputText required ngModel/>
             </div>
         </div>
 
@@ -81,12 +81,12 @@
                 <input name="errorTo" type="number" style="min-width: 69%;text-align: right;" max="99999" pInputText [(ngModel)]="errorDetectionDetail.errorTo" required ngModel />
             </div>
         </div>-->
-        <div class="ui-g">
+        <div class="ui-g config-ui">
             <div class="ui-g-4">
                 <label>Enabled</label>
             </div>
             <div class="ui-g-1">
-                <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+                <md-slide-toggle [(ngModel)]="errorDetectionDetail.enabled" name="enabled" class="configui-error-css-2"></md-slide-toggle>
             </div>
         </div>
         <div class="ui-g">

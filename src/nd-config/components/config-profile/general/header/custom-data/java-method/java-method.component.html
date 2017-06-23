@@ -5,13 +5,13 @@
 <!--For showing Method Based Custom Data-->
 <p-dataTable class="nde-ui" [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Java method based custom data</span>
-        <span style="float: right; margin-top:-5px">
+        <span class="configui-float-css"> Java method based custom data</span>
+        <span class="configui-float">
 
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
-         </span>
+                   </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -58,8 +58,8 @@
         <div class="ui-g-12" *ngIf="methodBasedCustomData.enableReturnType">
             <p-dataTable class="nde-ui" [value]="returnTypeData" *ngIf="methodBasedCustomData.enableReturnType" [(selection)]="selectedReturnRules" [rows]="3" [paginator]="returnTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
-                    <span style="float: left">  Return type settings </span>
-                    <span style="float: right; margin-top:-5px">
+                    <span class="configui-float-css">  Return type settings </span>
+                    <span class="configui-float">
                        <!--<button pButton type="add" title="Add" (click)="first=true" icon="fa-plus"></button>-->
                        <button pButton type="sumbit" title="Add" (click)="first=true" icon="fa-plus"></button>
                         <button pButton type="button" title="Edit"  (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
@@ -113,8 +113,8 @@
         <div class="ui-g-12">
             <p-dataTable class="nde-ui" [value]="argumentTypeData" *ngIf="methodBasedCustomData.enableArgumentType" [(selection)]="selectedArgumentRules" [rows]="3" [paginator]="argumentTypeData?.length > 3" [pageLinks]="3">
                 <p-header>
-                    <span style="float: left">  Argument type settings </span>
-                    <span style="float: right; margin-top:-5px">
+                    <span class="configui-float-css">  Argument type settings </span>
+                    <span class="configui-float">
                        <button pButton type="submit" title="Add" (click)="second=true" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"  (click)="openEditArgumentRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
@@ -178,13 +178,13 @@
                 <div class="ui-g-2">
                     <label>Name</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
+                <div class="ui-g-4 configui-java-css">
                     <input name="headerName" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.headerName" title="Please enter valid rule name.   &#013;Please enter maximum upto 50 characters." autofocus required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Custom type</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
+                <div class="ui-g-4 configui-java-css">
                     <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="returnTypeRules.type" required ngModel/>
                     <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" placeholder=" --Select-- "></p-dropdown>
                 </div>
@@ -201,15 +201,15 @@
                 <div class="ui-g-2">
                     <label>Operation</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="operationName" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="returnTypeRules.operation" required ngModel/>                    
+                <div class="ui-g-4 configui-java-css">
+                    <input name="operationName" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="returnTypeRules.operation" required ngModel/>
                     <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" placeholder=" --Select-- "></p-dropdown>
                 </div>
                 <!--<div class="ui-g-6" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">-->
                 <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
                     <label>Operator value</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
+                <div class="ui-g-4 configui-java-css" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
                     <input name="operatorValue" type="text" size="25" pInputText [(ngModel)]="returnTypeRules.operatorValue" title="Please enter valid Operator value.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed." required pattern="[^\s]{0,49}$"
                         ngModel/>
                 </div>
@@ -220,7 +220,7 @@
                     <div class="ui-g-4">
                         <label>Left bound</label>
                     </div>
-                    <div class="ui-g-8" style="margin-top: -5px">
+                    <div class="ui-g-8 configui-java-css">
                         <input name="leftBound" type="text" size="25" pInputText [(ngModel)]="leftBoundReturn" placeholder=" left bound" title="Please enter valid left bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
                     <div class="ui-g-4">
                         <label>Right bound</label>
                     </div>
-                    <div class="ui-g-8" style="margin-top: -5px">
+                    <div class="ui-g-8 configui-java-css">
                         <input name="rightBound" type="text" size="25" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" title="Please enter valid right bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                     </div>
                 </div>
@@ -242,10 +242,10 @@
                     <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundReturn" placeholder=" Operation" required ngModel/>
                 </div>
             </div>-->
-            <div class="ui-g-12" style="margin-left: 6px">
+            <div class="ui-g-12 configui-java-css-2">
                 <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="returnTypeRules.mode"></p-radioButton>
             </div>
-            <div class="ui-g-12" style="margin-left: 6px">
+            <div class="ui-g-12 configui-java-css-2">
                 <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode " label="Capture custom data and also display the method in method sequence calling tree"></p-radioButton>
             </div>
         </div>
@@ -268,14 +268,14 @@
                 <div class="ui-g-2">
                     <label>Name</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
+                <div class="ui-g-4 configui-java-css">
                     <input name="headerName" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.headerName" title="Please enter valid rule name.  &#013;Please enter maximum upto 50 characters. " autofocus required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Index</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="indexVal" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.indexVal" required ngModel/>                    
+                <div class="ui-g-4 configui-java-css">
+                    <input name="indexVal" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.indexVal" required ngModel/>
                     <p-dropdown name="indexVal" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal"></p-dropdown>
                 </div>
             </div>
@@ -304,15 +304,15 @@
                 <div class="ui-g-2">
                     <label>Custom type</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>                    
+                <div class="ui-g-4 configui-java-css">
+                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
                     <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--"></p-dropdown>
                 </div>
                 <div class="ui-g-2">
                     <label>Operation</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="operationName" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.operationName" required ngModel/>                    
+                <div class="ui-g-4 configui-java-css">
+                    <input name="operationName" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.operationName" required ngModel/>
                     <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
                 </div>
             </div>
@@ -329,7 +329,7 @@
                 <div class="ui-g-2">
                     <label>Operator value</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
+                <div class="ui-g-4 configui-java-css">
                     <input name="operatorValue" type="text" size="27" pInputText [(ngModel)]="argumentTypeRules.operatorValue" title="Please enter valid Operator value.   &#013;Please enter maximum upto 50 characters. " required pattern="[^\s]{0,49}$" ngModel/>
                 </div>
             </div>
@@ -347,13 +347,13 @@
                 <div class="ui-g-2">
                     <label>Left bound</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
+                <div class="ui-g-4 configui-java-css">
                     <input name="leftBound" type="text" size="27" pInputText [(ngModel)]="leftBoundArgument" placeholder=" left bound" title="Please enter valid left bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right bound</label>
                 </div>
-                <div class="ui-g-4" style="margin-top: -5px">
+                <div class="ui-g-4 configui-java-css">
                     <input name="rightBound" type="text" size="27" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" title="Please enter valid right bound.   &#013;Please enter maximum upto 50 characters." required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
@@ -371,7 +371,7 @@
                 <div class="ui-g-4">
                     <p-radioButton name="BusinessTransaction" value="0" label="Capture custom data only" [(ngModel)]="argumentTypeRules.mode"></p-radioButton>
                 </div>
-                <div class="ui-g-1" style="width:3%">
+                <div class="ui-g-1 configui-java-css-3">
                     <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="argumentTypeRules.mode "></p-radioButton>
                 </div>
                 <div class="ui-g-7">

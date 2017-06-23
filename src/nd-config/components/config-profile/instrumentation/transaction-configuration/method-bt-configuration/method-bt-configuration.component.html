@@ -28,6 +28,7 @@
 
 <!--Dialog for adding Business Transaction Method-->
 <p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
+
     modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
 
@@ -37,7 +38,7 @@
                     <label>Fully qualified method name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="fqm" type="text" size="65" #fqmField [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
+                    <input name="fqm" type="text" size="65" #fqmField pattern=".*(\((.*)\))+.*" [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -212,3 +213,4 @@
         </footer>
     </form>
 </p-dialog>
+
