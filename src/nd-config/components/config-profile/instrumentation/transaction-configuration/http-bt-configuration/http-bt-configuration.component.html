@@ -47,14 +47,14 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"><label>Slow</label></div>
-            <div class="ui-g-10 text-box-Css">
+            <div class="ui-g-10">
                 <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
             </div>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"> <label>Very slow</label> </div>
-            <div class="ui-g-10 text-box-Css">
+            <div class="ui-g-10">
                 <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
             </div>
         </div>
@@ -245,7 +245,7 @@
                             <label>Method type</label>
                         </div>
                         <div class="ui-g-7">
-                            <p-dropdown name="reqMethod" placeholder="--Select--" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
+                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
                         </div>
                     </div>
                 </div>

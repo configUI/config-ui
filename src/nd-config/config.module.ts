@@ -7,9 +7,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 //Added for Preventing 404 error while reloading
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-
-import {ConfigExceptionFilterService} from './services/config-exceptionfilter.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
@@ -125,12 +123,15 @@ import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-p
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
 
+
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
   declarations: [
+    ExceptionFilterComponent,
+    ExceptionSettingComponent,
     AppComponentForConfig,
     ConfigMainComponent,
     ConfigLeftSideBarComponent,
@@ -180,9 +181,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpStatsMonitorsComponent,
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
-    CustomKeywordsComponent,
-    ExceptionFilterComponent,
-    ExceptionSettingComponent
+    CustomKeywordsComponent
   ],
   imports: [
     // CommonModule,
@@ -221,7 +220,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SplitButtonModule
   ],
 
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService, {provide: LocationStrategy, useClass: HashLocationStrategy},],
+  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService, ConfigCustomDataService, { provide: LocationStrategy, useClass: HashLocationStrategy },],
   bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }

@@ -31,7 +31,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   keywordData = new EventEmitter();
 
   /**  stores xmlFilesList **/
-  xmlFilesList: string[]
+  xmlFilesList: Object;
 
   /** SelectItem for instrProfiles */
   instrProfileSelectItem: SelectItem[];
@@ -96,7 +96,11 @@ export class InstrumentationProfilesComponent implements OnInit {
   }
 
   resetKeywordData() {
+
     this.xmlFilesList = cloneObject(this.configKeywordsService.keywordData);
+    if(this.xmlFilesList["instrProfile"].value == "0" || this.xmlFilesList["instrProfile"].value == ""){
+      this.instrProfiles = [];
+    }
     this.loadListOfXmlFiles();
   }
 

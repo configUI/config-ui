@@ -41,7 +41,5 @@ export class Keywords{
 "enableExceptionInSeqBlob" : KeywordsInfo
 "captureErrorlogs":KeywordsInfo
 "HTTPStatsCondCfg":KeywordsInfo
-"enableExceptionsWithSourceAndVars":KeywordsInfo
-"enableSourceCodeFilters":KeywordsInfo
 }
 

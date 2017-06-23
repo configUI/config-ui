@@ -25,6 +25,7 @@ export class SessionAttributeComponent implements OnInit {
   sessionAttributeComponentInfo: SessionAtrributeComponentsData[];
 
   /* Add new Session Attribute Dialog open */
+  isNewValueType: boolean = false;
   isNewSessionAttr: boolean = false;
   addEditSessionAttrDialog: boolean = false;
   sessionAttrTypeValueDialog: boolean = false;
@@ -50,8 +51,12 @@ export class SessionAttributeComponent implements OnInit {
   //holding table data
   arrTestRunData = [];
 
+
+  editAttrValues: boolean = false;
+
   //holds the counter of attr Values i.e rules  for edit dialog [used in delrting rules in edit dialog]
   counterEdit: number = 0;
+  counterAttrAdd: number = 0;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) {
 
@@ -141,19 +146,98 @@ export class SessionAttributeComponent implements OnInit {
   /** This method is used to open a dialog for add Type Values
     */
   openSessionAttrTypeValueDialog() {
+    this.isNewValueType = false;
     this.customValueTypeDetail = new SessionTypeValueData();
     this.sessionAttrTypeValueDialog = true;
   }
 
+  //Method to open child session attribute edit dialog
+  openEditSessionAttrTypeValueDialog() {
+    if (!this.selectedSessionValueType || this.selectedSessionValueType.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+      return;
+    }
+    else if (this.selectedSessionValueType.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit");
+      return;
+    }
+    else {
+      this.sessionAttrTypeValueDialog = true;
+      this.isNewValueType = true;
+      this.editAttrValues = true;
+      // this.customValueTypeDetail = this.selectedSessionValueType[0];
+      this.customValueTypeDetail = Object.assign({},this.selectedSessionValueType[0]);
+
+    }
+  }
+
   saveTypesValues() {
-    this.customValueTypeDetail["id"] = this.counterEdit + 1;
+
     this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
 
-    if (this.sessionAttributeDetail.attrValues == undefined)
-      this.sessionAttributeDetail.attrValues = [];
-    this.sessionAttributeDetail.attrValues = ImmutableArray.push(this.sessionAttributeDetail.attrValues, this.customValueTypeDetail);
-    // this.sessionAttributeDetail.attrValues.push(this.customValueTypeDetail);
-    // this.configUtilityService.successMessage(Messages);
+    //Edit functionality form
+    if (!this.isNewSessionAttr) {
+      
+      //In edit form, to edit rules
+      if (this.editAttrValues) {
+        this.isNewValueType = false;
+        this.editAttrValues = false;
+        let that = this;
+        this.customValueTypeInfo.map(function (each) {
+          if (each.id == that.customValueTypeDetail.id) {
+            each.customValTypeName = that.customValueTypeDetail.customValTypeName;
+            each.lb = that.customValueTypeDetail.lb;
+            each.rb = that.customValueTypeDetail.rb;
+            each.specAttrValId = that.customValueTypeDetail.specAttrValId;
+            each.type = that.customValueTypeDetail.type;
+            each.valName = that.customValueTypeDetail.valName;
+          }
+        })
+        this.selectedSessionValueType = [];
+      }
+
+      //In edit form, to add rules
+      else {
+        this.isNewValueType = true;
+        this.customValueTypeDetail["id"] = this.counterEdit;
+        this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
+        if (this.customValueTypeInfo == undefined)
+          this.customValueTypeInfo = [];
+        this.customValueTypeInfo = ImmutableArray.push(this.customValueTypeInfo, this.customValueTypeDetail);
+        this.counterEdit = this.counterEdit + 1;
+      }
+    }
+    else {
+      //Add functionality form
+      if (this.editAttrValues) {
+        //In add form, to edit rules
+        this.isNewValueType = false;
+        this.editAttrValues = false;
+        let that = this;
+        this.customValueTypeInfo.map(function (each) {
+          if (each.id == that.customValueTypeDetail.id) {
+            each.customValTypeName = that.customValueTypeDetail.customValTypeName;
+            each.lb = that.customValueTypeDetail.lb;
+            each.rb = that.customValueTypeDetail.rb;
+            each.specAttrValId = that.customValueTypeDetail.specAttrValId;
+            each.type = that.customValueTypeDetail.type;
+            each.valName = that.customValueTypeDetail.valName;
+          }
+        })
+        this.selectedSessionValueType = [];
+      }
+
+      else {
+      //In add form, to add rules
+        this.isNewValueType = true;
+        this.customValueTypeDetail["id"] = this.counterAttrAdd;
+        this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
+        if (this.customValueTypeInfo == undefined)
+          this.customValueTypeInfo = [];
+        this.customValueTypeInfo = ImmutableArray.push(this.customValueTypeInfo, this.customValueTypeDetail);
+        this.counterAttrAdd = this.counterAttrAdd + 1;
+      }
+    }
     this.closeValueInfoDialog();
   }
 
@@ -193,7 +277,7 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   editSessionAttr() {
-
+    this.sessionAttributeDetail.attrValues = this.customValueTypeInfo;
     this.sessionAtrributeDetailSaveAndEdit();
     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
 
@@ -230,17 +314,19 @@ export class SessionAttributeComponent implements OnInit {
 
   saveSessionAttr() {
     this.sessionAtrributeDetailSaveAndEdit();
+    this.sessionAttributeDetail.attrValues = this.customValueTypeInfo;
     this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
       let arrSessionAttr = this.setDataSessionAttribute(data);
       this.sessionAttributeComponentInfo = ImmutableArray.push(this.sessionAttributeComponentInfo, arrSessionAttr[0]);
       // this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
       this.configUtilityService.successMessage(Messages);
     });
+    this.selectedSessionValueType = [];
     this.closeDialog();
   }
 
   sessionAtrributeDetailSaveAndEdit() {
-    // this.sessionAttributeDetail.attrValues = [];
+    // this.customValueTypeInfo = [];
     let type: number;
     if (this.sessionAttributeDetail.complete == true && this.sessionAttributeDetail.specific == true) {
       this.sessionAttributeDetail.attrType = "complete,specific";
@@ -254,6 +340,7 @@ export class SessionAttributeComponent implements OnInit {
       this.sessionAttributeDetail.attrType = "complete";
       this.sessionAttributeDetail.attrMode = 2;
     }
+    // this.sessionAttributeDetail.attrValues = ImmutableArray.push(this.sessionAttributeDetail.attrValues, this.customValueTypeInfo);
   }
 
   setDataSessionAttribute(data): Array<SessionAtrributeComponentsData> {
@@ -276,7 +363,6 @@ export class SessionAttributeComponent implements OnInit {
 
     if (valueNames == "")
       valueNames = "-";
-
     arrTestRunData.push({
       attrName: data.attrName,
       attrType: data.attrType,
@@ -313,10 +399,10 @@ export class SessionAttributeComponent implements OnInit {
 
     this.sessionAttributeDetail.attrName = this.selectedSessionAttributeList[0].attrName;
 
-    this.sessionAttributeDetail.attrValues = this.selectedSessionAttributeList[0].attrValues;
+    this.customValueTypeInfo = this.selectedSessionAttributeList[0].attrValues;
     let that = this;
-    if (this.sessionAttributeDetail.attrValues != undefined) {
-      this.sessionAttributeDetail.attrValues.map(function (val) {
+    if (this.customValueTypeInfo != undefined) {
+      this.customValueTypeInfo.map(function (val) {
         val.id = that.counterEdit;
         that.counterEdit = that.counterEdit + 1;
         val.customValTypeName = that.getTypeName(val.type)
@@ -389,8 +475,8 @@ export class SessionAttributeComponent implements OnInit {
 
   /**This method returns selected Session Attribute row on the basis of selected row */
   getValuesTypeIndex(appId: any): number {
-    for (let i = 0; i < this.sessionAttributeDetail.attrValues.length; i++) {
-      if (this.sessionAttributeDetail.attrValues[i] == appId) {
+    for (let i = 0; i < this.customValueTypeInfo.length; i++) {
+      if (this.customValueTypeInfo[i] == appId) {
         return i;
       }
     }
@@ -416,7 +502,7 @@ export class SessionAttributeComponent implements OnInit {
     for (let index in arrRulesIndex) {
       rowIndex.push(this.getValuesTypeIndex(arrRulesIndex[index]));
     }
-    this.sessionAttributeDetail.attrValues = deleteMany(this.sessionAttributeDetail.attrValues, rowIndex);
+    this.customValueTypeInfo = deleteMany(this.customValueTypeInfo, rowIndex);
   }
 
   /**This method is used to delete Session Attribute from Data Table */
@@ -431,6 +517,7 @@ export class SessionAttributeComponent implements OnInit {
 
   closeDialog() {
     this.selectedSessionAttributeList = [];
+    this.selectedSessionValueType = [];
     this.sessionAtrributeDelete = [];
     this.addEditSessionAttrDialog = false;
   }

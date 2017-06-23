@@ -1,10 +1,10 @@
 <div class="ui-g-12" id=top-div>
-    <div class="ui-g">
+    <div class="ui-g configUI_card-css">
         <div class="ui-g-6">
-            <md-card class="card1">
+            <md-card>
                 <md-card-content>
                     <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL SETTINGS</a></div>
-                    <div class="ui-g">
+                    <div class="ui-g config-ui">
                         <div class="ui-g-8 card-toggle">
                             <div>
                                 <!--keywordGroup {{keywordGroup.general | json}}-->
@@ -35,7 +35,7 @@
             </md-card>
         </div>
         <div class="ui-g-6">
-            <md-card class="card2">
+            <md-card>
                 <md-card-content>
                     <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION SETTINGS</a></div>
                     <div class="ui-g">
@@ -82,12 +82,12 @@
         </div>
 
     </div>
-    <div class="ui-g">
+    <div class="ui-g configUI_card-css">
         <div class="ui-g-6">
-            <md-card class="card3">
+            <md-card>
                 <md-card-content>
                     <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
-                    <div class="ui-g">
+                    <div class="ui-g config-ui">
                         <div class="ui-g-8 card-toggle">
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
@@ -98,10 +98,10 @@
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
                             </div>
-                            <div *ngIf="adminMode" >
+                            <div *ngIf="adminMode">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Put Delay in Method</a></md-slide-toggle>
                             </div>
-                            <div *ngIf="adminMode" >
+                            <div *ngIf="adminMode">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
                             </div>
 
@@ -109,10 +109,10 @@
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Custom Keywords</a></md-slide-toggle>
                             </div>-->
                             <!--disabling of custom keywords-->
-                            <div *ngIf="adminMode" >
+                            <div *ngIf="adminMode">
                                 <md-slide-toggle [disabled]="true"><a [routerLink]="['../../advance', profileId, 4]">Custom Keywords</a></md-slide-toggle>
                             </div>
-                            
+
                         </div>
                         <div class="ui-g-4">
                             <i class="fa fa-cog icon_big"></i>
@@ -122,11 +122,11 @@
             </md-card>
         </div>
         <div class="ui-g-6">
-            <md-card class="card4">
-                <md-card-content>   
+            <md-card>
+                <md-card-content>
 
                     <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION SETTINGS</a></div>
-                    <div class="ui-g">
+                    <div class="ui-g config-ui">
                         <div class="ui-g-8 card-toggle">
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('nvcookie')" [(ngModel)]="keywordGroup.product_integration.nvcookie.enable"><a [routerLink]="['../../integration', profileId, 0]" class="contents">NV-ND Sessions</a></md-slide-toggle>

@@ -1,4 +1,4 @@
-<div class="ui-g-12" style="background: #f6f7f9">
+<div class="ui-g-12 configui-session-css">
     <div class="ui-g-2">
         <p-radioButton name="sessionAttribute" label="All" value="All" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
@@ -7,12 +7,12 @@
     </div>
 </div>
 
-<div class="ui-g" *ngIf="selectedSessionAttribute == 'Specific'" style="margin-bottom:10px; border: ridge;">
+<div class="ui-g configui-session-css-2" *ngIf="selectedSessionAttribute == 'Specific'">
     <!--For showing Session Attribute(s) list -->
     <p-dataTable class="nde-ui" [value]="sessionAttributeComponentInfo" [(selection)]="selectedSessionAttributeList" [rows]="4" [paginator]="sessionAttributeComponentInfo?.length >4" [pageLinks]="3">
         <p-header>
-            <span style="float: left"> Session attribute(s) </span>
-            <span style="float: right; margin-top:-5px">
+            <span class="configui-float-css"> Session attribute(s) </span>
+            <span class="configui-float">
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="opensSessionAttributeDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit"[disabled]="saveDisable" (click)="editSessionAttribute()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" [disabled]="saveDisable"  (click)="deleteSessionAttribute()" icon="fa-trash"></button>
@@ -59,11 +59,12 @@
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="sessionAttributeDetail.specific">
-                <p-dataTable class="nde-ui" [value]="this.sessionAttributeDetail.attrValues" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="this.sessionAttributeDetail.attrValues?.length > 5" [pageLinks]="3">
+                <p-dataTable class="nde-ui" [value]="customValueTypeInfo" [(selection)]="selectedSessionValueType" [rows]="5" [paginator]="this.sessionAttributeDetail.attrValues?.length > 5" [pageLinks]="3">
                     <p-header>
                         <span> Session attribute(s) </span>
-                        <span style="float: right; margin-top:-5px">
+                        <span class="configui-float">
                        <button pButton type="button" title="Add" (click)="openSessionAttrTypeValueDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" (click)="openEditSessionAttrTypeValueDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteSessionValueType()" icon="fa-trash"></button>
                     </span>
                     </p-header>
@@ -105,7 +106,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog class="profile-dialog" header="Value type settings" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
+<p-dialog class="profile-dialog" header="{{!isNewValueType ? 'Add value type settings' : 'Edit value type settings'}}" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
     <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

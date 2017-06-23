@@ -109,7 +109,10 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (8,'HADOOP backend','HADOOP','HttpCallout','HBASE'),
 (9,'CUSTOM  backend','CUSTOM','CustomCallout:','None'),
 (10,'REDIS backend','REDIS','redis','REDIS'),
-(11,'MONGO backend','MONGO','mongodb','MONGO');
+(11,'MONGO backend','MONGO','mongodb','MONGO'),
+(12,'Cassandra backend','CASSANDRA','cassandra','None'),
+(13,'Custom log backend','CUSTOM LOG','CustomLog','None'),
+(14,'Custom Error log backend','CUSTOM ERROR LOG','CustomErrorlog','None');
 
 
 INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id ) VALUES
@@ -147,16 +150,25 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (33,'HTTP end point','javax.naming.ldap.InitialLdapContext.<init>(Ljava/util/Hashtable;[Ljavax/naming/ldap/Control;)V','Initial LDAP Context',1),
 (34,'HTTP end point','weblogic.servlet.internal.ServletResponseImpl.writeHeaders()V','Weblogic Servlet Response headers',1),
 (35,'HTTP end point','com.hazelcast.client.spi.ClientProxy.invoke(Lcom/hazelcast/client/impl/protocol/ClientMessage;)Ljava/lang/Object;','Hazelcast client proxy',1),
-(36,'JDBC end point','com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement','ibmDB',3),
-(37,'JDBC end point','com.ibm.ws.rsadapter.jdbc.WSJdbcStatement','ibmDB',3),
-(38,'JDBC end point','com.mysql.jdbc.PreparedStatement','mysqlDB',3),
-(39,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute()Ljava/lang/Object;','openJPADB',3),
-(40,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute(Ljava/util/Map;)Ljava/lang/Object;','openJPADB',3),
-(41,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute([Ljava/lang/Object;)Ljava/lang/Object;','openJPADB',3),
-(42,'REDIS end point','redis.clients.jedis.Jedis','redisDB',10),
-(43,'REDIS end point','redis.clients.jedis.BinaryJedis','redisDB',10),
-(44,'MONGO end point','com.mongodb.DBCollection','mongoDB',11),
-(45,'MONGO end point','com.mongodb.DB','mongoDB',11);''
+(36,'JDBC end point','com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement','Prepared Statement : ibmDB',3),
+(37,'JDBC end point','com.ibm.ws.rsadapter.jdbc.WSJdbcStatement','Statement : ibmDB',3),
+(38,'JDBC end point','com.mysql.jdbc.PreparedStatement','Prepared Statement : mysqlDB',3),
+(39,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute()Ljava/lang/Object;','execute()Ljava/lang/Object : openJPADB',3),
+(40,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute(Ljava/util/Map;)Ljava/lang/Object;','execute(Ljava/util/Map;)Ljava/lang/Object : openJPADB',3),
+(41,'JDBC end point','org.apache.openjpa.kernel.DelegatingQuery.execute([Ljava/lang/Object;)Ljava/lang/Object;','execute([Ljava/lang/Object;)Ljava/lang/Object : openJPADB',3),
+(42,'REDIS end point','redis.clients.jedis.Jedis','Jedis : redisDB',10),
+(43,'REDIS end point','redis.clients.jedis.BinaryJedis','Binary Jedis : redisDB',10),
+(44,'MONGO end point','com.mongodb.DBCollection','DB Collection : mongoDB',11),
+(45,'MONGO end point','com.mongodb.DB',' DB : mongoDB',11),
+(46,'CASSANDRA end point','com.datastax.driver.core.SessionManager',' SessionManager : cassandraDB',12),
+(47,'CASSANDRA end point','com.datastax.driver.core.RequestHandler',' RequestHandler : cassandraDB',12),
+(48,'CUSTOM LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/Throwable;)V','LogEvent.<init>(String,Throwable)',13),
+(49,'CUSTOM LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/String;)V','LogEvent.<init>(String,String)',13),
+(50,'CUSTOM LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V','LogEvent.<init>(String,String,Throwable)',13),
+(51,'CUSTOM LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;)V','LogEvent.<init>(String)',13),
+(52,'CUSTOM ERROR LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/Throwable;)V','LogEvent.<init>(String,Throwable)',14),
+(53,'CUSTOM ERROR LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V','LogEvent.<init>(String,String,Throwable)',14),
+(54,'CUSTOM ERROR LOG end point','ch.qos.logback.classic.spi.LoggingEvent.<init>(Ljava/lang/String;Lch/qos/logback/classic/Logger;Lch/qos/logback/classic/Level;Ljava/lang/String;Ljava/lang/Throwable;[Ljava/lang/Object;)V','LoggingEvent.<init>(String,Logger,Level,String,Throwable,Object)',14);
 
 
 
@@ -171,7 +183,10 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (8,true,false,false,false,false,false,false,false,false,false,false,false,false,8,1),
 (9,true,false,false,false,false,false,false,false,false,false,false,false,false,9,1),
 (10,true,false,false,false,false,false,false,false,false,false,false,false,false,10,1),
-(11,true,false,false,false,false,false,false,false,false,false,false,false,false,11,1);
+(11,true,false,false,false,false,false,false,false,false,false,false,false,false,11,1),
+(12,false,false,false,false,false,false,false,false,false,false,false,false,false,12,1),
+(13,false,false,false,false,false,false,false,false,false,false,false,false,false,13,1),
+(14,false,false,false,false,false,false,false,false,false,false,false,false,false,14,1);
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
 (1,true,1,1),
@@ -217,8 +232,16 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (42,true,42,1),
 (43,true,43,1),
 (44,true,44,1),
-(45,true,45,1);
-
+(45,true,45,1),
+(46,false,46,1),
+(47,false,47,1),
+(48,false,48,1),
+(49,false,49,1),
+(50,false,50,1),
+(51,false,51,1),
+(52,true,52,1),
+(53,true,53,1),
+(54,false,54,1);
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
 (1,'request'),

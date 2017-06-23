@@ -1,8 +1,8 @@
 <div id=top-div>
-    <p-dataTable class="nde-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
+    <p-dataTable class="nde-ui config-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
         <p-header>
-            <span style="float: left">Custom Keywords list </span>
-            <span style="float :right; margin-top:-5px">
+            <span class="configui-float-css">Custom Keywords list </span>
+            <span class="configui-float">
             <button pButton type="button" title="Add Custom Keywords" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit Custom Keywords" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
             <!--<button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>-->
@@ -25,9 +25,9 @@
         </template>
         </p-column>
 
-        <p-column class="tableCss" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
-            <template let-col let-customKeywordsData="rowData" pTemplate>
-            <md-slide-toggle  class="toggle-space" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
+        <p-column class="tableCss config-ui" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
+            <template class="config-ui" let-col let-customKeywordsData="rowData" pTemplate>
+            <md-slide-toggle  class="toggle-space config-ui" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
         </template>
         </p-column>
     </p-dataTable>

@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
                 <div class="ui-g">
 
                     <div class="ui-g-12">
@@ -29,10 +29,10 @@
                         </div>
 
                         <div class="ui-g-2">
-                            from: <input name="from" type="number" min="0" max="99999999" #from (input)="checkFrom(from,to)" style="text-align: right; width:40%" [(ngModel)]="delayData.from" pInputText required ngModel/>
+                            from: <input name="from" type="number" min="0" max="99999999" #from (input)="checkFrom(from,to)" class="configui-delay-css-2" [(ngModel)]="delayData.from" pInputText required ngModel/>
                         </div>
                         <div class="ui-g-2">
-                            to: <input name="to" type="number" min="1" max="99999999" #to (input)="checkTo(from,to)" style="text-align: right; width: 40%" [(ngModel)]="delayData.to" pInputText required ngModel/>
+                            to: <input name="to" type="number" min="1" max="99999999" #to (input)="checkTo(from,to)" class="configui-delay-css-3" [(ngModel)]="delayData.to" pInputText required ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">

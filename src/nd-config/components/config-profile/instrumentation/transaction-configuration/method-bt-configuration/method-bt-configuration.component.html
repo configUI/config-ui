@@ -1,21 +1,20 @@
 <!--For showing Business Transaction Pattern(s) list -->
-<p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12"
-    [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Method Business transaction list </span>
         <span style="float: right; margin-top:-5px">
                        <button pButton type="button" title="Add a method Business transaction" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
-                        <!--<button pButton type="button" title="Edit a method Business transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>-->
+                       <button pButton type="button" title="Edit a method Business transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete method business transaction(s)" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="col-overflow" field="fqm" header="Fully qualified method name" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
-            <span title="{{application[col.field]}}"><a class="hyperlink" (click)="openViewMethodTrans(application)">{{application[col.field]}}</a></span>
+            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
     </p-column>
-     <p-column class="col-overflow" field="capturingType" header="Capturing type" [sortable]="true">
+    <p-column class="col-overflow" field="capturingType" header="Capturing type" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
@@ -25,195 +24,193 @@
             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
         </template>
     </p-column>-->
-    </p-dataTable>
+</p-dataTable>
 
-    <!--Dialog for adding Business Transaction Method-->
-    <p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' : isViewOnly?'Method based business transactions':'Edit Business transaction method'}}"
-        *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true">
-        <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
+<!--Dialog for adding Business Transaction Method-->
+<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
 
-            <div class="ui-g">
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Fully qualified method name</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input name="fqm" type="text" size="65" #fqmField pattern=".*(\((.*)\))+.*" [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm"
-                            autofocus required ngModel/>
-                    </div>
+    modal="modal" width="700" responsive="true">
+    <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Fully qualified method name</label>
                 </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <p-radioButton name="enableArgumentType" value="returnType" label="Enable return type capturing" [(ngModel)]="enableArgumentType"></p-radioButton>
-                    </div>
-                    <div class="ui-g-12" *ngIf="enableArgumentType=='returnType'">
-                        <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4"
-                            [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
-                            <p-header>
-                                <span style="float: left;">  Return type settings </span>
-                                <span style="float: right; margin-top:-5px">
-                       <button pButton type="submit" title="Add a return type settings" (click)="first=true" icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete return type setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
-                    </span>
-                            </p-header>
-                            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                            <p-column class="col-overflow" field="value" header="Value" [sortable]="true">
-                                <template let-col let-application="rowData">
-                                    <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
-                                </template>
-                            </p-column>
-                            <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
-                                <template let-col let-application="rowData">
-                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                                </template>
-                            </p-column>
-                            <p-column class="col-overflow" field="btName" header="BT name" [sortable]="true">
-                                <template let-col let-application="rowData">
-                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                                </template>
-                            </p-column>
-                            </p-dataTable>
-                    </div>
-                    <!--<div class="ui-g-3">
-                        <input name="dropdown" type="text" size="22" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.returnType"
-                            required ngModel/>
-                        <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType"
-                            placeholder="--Select--" required ngModel></p-dropdown>
-                    </div>-->
+                <div class="ui-g-8">
+                    <input name="fqm" type="text" size="65" #fqmField pattern=".*(\((.*)\))+.*" [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
                 </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <p-radioButton name="enableArgumentType" value="argument" label="Enable argument type capturing" [(ngModel)]="enableArgumentType"></p-radioButton>
-                    </div>
-                    <!--<div class="ui-g-2">
-                        <label> Argument index</label>
-                    </div>-->
-                    <div class="ui-g-3" style="margin-top: -5px">
-                        <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
-                        <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList()"
-                            placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex" [options]="indexList"></p-dropdown>
-                    </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-radioButton name="enableArgumentType" value="returnType" label="Enable return type capturing" [(ngModel)]="enableArgumentType"></p-radioButton>
                 </div>
-                <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
-                    <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'"
-                        [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
+                <div class="ui-g-12" *ngIf="enableArgumentType=='returnType'">
+                    <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                         <p-header>
-                            <span style="float: left;">  Argument type settings </span>
+                            <span style="float: left;">  Return type settings </span>
                             <span style="float: right; margin-top:-5px">
-                       <button pButton type="submit" title="Add a argument type settings" (click)="second=true" icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete argument type setting(s)" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
+                       <button pButton type="submit" title="Add a return type settings" (click)="first=true" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete return type setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
                     </span>
                         </p-header>
                         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
                         <p-column class="col-overflow" field="value" header="Value" [sortable]="true">
                             <template let-col let-application="rowData">
-                                <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
-                            </template>
+                                    <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                                </template>
                         </p-column>
                         <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
                             <template let-col let-application="rowData">
-                                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                            </template>
+                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                                </template>
                         </p-column>
                         <p-column class="col-overflow" field="btName" header="BT name" [sortable]="true">
                             <template let-col let-application="rowData">
-                                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                            </template>
+                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                                </template>
                         </p-column>
-                        </p-dataTable>
+                    </p-dataTable>
+                </div>
+                <!--<div class="ui-g-3">
+                        <input name="dropdown" type="text" size="22" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.returnType"
+                            required ngModel/>
+                        <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType"
+                            placeholder="--Select--" required ngModel></p-dropdown>
+                    </div>-->
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-radioButton name="enableArgumentType" value="argument" label="Enable argument type capturing" [(ngModel)]="enableArgumentType"></p-radioButton>
+                </div>
+                <!--<div class="ui-g-2">
+                        <label> Argument index</label>
+                    </div>-->
+                <div class="ui-g-3" style="margin-top: -5px">
+                    <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
+                    <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList()" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
+                        [options]="indexList"></p-dropdown>
                 </div>
             </div>
-            <footer>
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button type="submit" pButton icon="fa-check" label="Save"  *ngIf="!isViewOnly"></button>
-                    <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
+                <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'" [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
+                    <p-header>
+                        <span style="float: left;">  Argument type settings </span>
+                        <span style="float: right; margin-top:-5px">
+                       <button pButton type="submit" title="Add a argument type settings" (click)="second=true" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" (click)="openEditArgRulesDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete argument type setting(s)" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
+                    </span>
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column class="col-overflow" field="value" header="Value" [sortable]="true">
+                        <template let-col let-application="rowData">
+                                <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                            </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
+                        <template let-col let-application="rowData">
+                                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="btName" header="BT name" [sortable]="true">
+                        <template let-col let-application="rowData">
+                                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                            </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!-- Add new Return type info -->
+
+<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Value</label>
                 </div>
-            </footer>
-        </form>
-        </p-dialog>
-
-        <!-- Add new Return type info -->
-
-        <p-dialog class="profile-dialog" header="Add return type settings" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal"
-            width="500" responsive="true">
-            <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
-                <div class="ui-g">
-                    <div class="ui-g-12">
-                        <div class="ui-g-4">
-                            <label>Value</label>
-                        </div>
-                        <div class="ui-g-8" style="margin-top: -5px">
-                            <input name="value" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required ngModel/>
-                        </div>
-                    </div>
-                    <div class="ui-g-12">
-                        <div class="ui-g-4">
-                            <label>Operation</label>
-                        </div>
-                        <div class="ui-g-8" style="margin-top: -5px">
-                            <input name="operationName" type="text"size="10" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>                            
-                            <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"></p-dropdown>
-                        </div>
-                    </div>
-                    <div class="ui-g-12">
-                        <div class="ui-g-4">
-                            <label>Bt name</label>
-                        </div>
-                        <div class="ui-g-8" style="margin-top: -5px">
-                            <input name="btName" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.btName" required ngModel/>
-                        </div>
-                    </div>
+                <div class="ui-g-8" style="margin-top: -5px">
+                    <input name="value" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required ngModel/>
                 </div>
-                <footer>
-                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                        <button type="submit" pButton icon="fa-check" label="Save" ></button>
-                        <button type="submit" pButton icon="fa-close" (click)="closeReturnDialog()" label="Cancel"></button>
-                    </div>
-                </footer>
-            </form>
-            </p-dialog>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Operation</label>
+                </div>
+                <div class="ui-g-8" style="margin-top: -5px">
+                    <input name="operationName" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                    <p-dropdown name="operationName" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Bt name</label>
+                </div>
+                <div class="ui-g-8" style="margin-top: -5px">
+                    <input name="btName" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.btName" required ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-close" (click)="closeReturnDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
 
-            <!-- Add new Argument type info -->
+<!-- Add new Argument type info -->
 
-            <p-dialog class="profile-dialog" header="Add argument type settings" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog"
-                modal="modal" width="500" responsive="true">
-                <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
-                    <div class="ui-g">
-                        <!--<div class="ui-g-12">
+<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add argument type settings' :'Edit argument type settings'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <!--<div class="ui-g-12">
                             
                         </div>-->
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Value</label>
-                            </div>
-                            <div class="ui-g-8" style="margin-top: -5px">
-                                <input name="value" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required ngModel/>
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Operation</label>
-                            </div>
-                            <div class="ui-g-4" style="margin-top: -5px">
-                                <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>                                                            
-                                <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '100%'}" [(ngModel)]="btMethodRulesDetail.operationName"
-                                    placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
-                            <div class="ui-g-4">
-                                <label>Bt name</label>
-                            </div>
-                            <div class="ui-g-8" style="margin-top: -5px">
-                                <input name="btName" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.btName" required ngModel/>
-                            </div>
-                        </div>
-                    </div>
-                    <footer>
-                        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                            <button type="submit" pButton icon="fa-check" label="Save"></button>
-                            <button type="submit" pButton icon="fa-close" (click)="closeArgDialog()" label="Cancel"></button>
-                        </div>
-                    </footer>
-                </form>
-                </p-dialog>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Value</label>
+                </div>
+                <div class="ui-g-8" style="margin-top: -5px">
+                    <input name="value" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required ngModel/>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Operation</label>
+                </div>
+                <div class="ui-g-4" style="margin-top: -5px">
+                    <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                    <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '100%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Bt name</label>
+                </div>
+                <div class="ui-g-8" style="margin-top: -5px">
+                    <input name="btName" type="text" size="30" pInputText [(ngModel)]="btMethodRulesDetail.btName" required ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-close" (click)="closeArgDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+

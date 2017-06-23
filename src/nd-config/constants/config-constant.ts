@@ -14,7 +14,9 @@ export const INTEGRATION_TYPE = {
     MEM_CACHE: 'MEM CACHE',
     CLOUDANT: 'CLOUDANT',
     HADOOP: 'HADOOP',
-    CUSTOM: 'CUSTOM'
+    CUSTOM: 'CUSTOM',
+    REDIS:'REDIS',
+    MONGO:'MONGO'
 }
 
 export const Messages = "Saved Successfully"

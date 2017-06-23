@@ -7,6 +7,7 @@ export class ExceptionData
     exceptionType : boolean;
 }
 
+
 //Contains exception filter Keyword variables
 export class EnableSourceCodeFilters {
   advanceExceptionFilterId:number;

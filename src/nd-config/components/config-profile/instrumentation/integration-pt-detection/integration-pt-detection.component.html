@@ -45,7 +45,7 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pattern=".*(\((.*)\))+.*" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
+                <input name="fqm" type="text" size="60" pattern=".*(\((.*)\))+.*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
             </div>
         </div>
         <div class="ui-g">
@@ -77,25 +77,26 @@
 <p-dialog class="profile-dialog" *ngIf="detailDialog" header="{{integrationDetail.type}} details" [(visible)]="detailDialog" modal="modal" width="500" responsive="true">
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
-        <div class="ui-g" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC">
+        <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO">
             <label style="font-weight: bolder;font-size: larger">Naming rules</label>
         </div>
-        <div class="ui-g" [ngSwitch]="integrationDetail.type">
+        <div class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
             <div class="ui-g" *ngSwitchCase="IP.WS">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
             </div>
-            <div class="ui-g" *ngSwitchCase="IP.RMI">
+            <div class="ui-g config-ui" *ngSwitchCase="IP.RMI">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service name </md-checkbox>
             </div>
-            <div class="ui-g" *ngSwitchCase="IP.HADOOP">
+            <div class="ui-g config-ui" *ngSwitchCase="IP.HADOOP">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table name </md-checkbox>
             </div>
-            <div class="ui-g" *ngSwitchCase="IP.HTTP">
+            <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
@@ -113,7 +114,7 @@
 
                 <!--Host Port URL, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
             </div>
-             <div class="ui-g" *ngSwitchCase="IP.REDIS">
+            <div class="ui-g" *ngSwitchCase="IP.REDIS">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
@@ -126,7 +127,7 @@
             </div>
         </div>
 
-        <div class="ui-g">
+        <div class="ui-g config-ui">
             <div class="ui-g-12">
                 <label style="font-weight: bolder;font-size: larger">Integration points</label>
                 <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstEndPoints">

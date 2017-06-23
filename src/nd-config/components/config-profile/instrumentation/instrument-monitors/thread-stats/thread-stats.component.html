@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
 
 
                 <div class="ui-g">
@@ -16,11 +16,11 @@
                         <p-checkbox name="enableJVMMonitor" label="Enable JVM thread CPU monitor" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
                     </div>
 
-                    <div class="ui-g-12" style="padding-left: 20px">
+                    <div class="ui-g-12 configui-thread-css-1">
                         <div class="ui-g-1"></div>
-                        <div class="ui-g-6" style="margin-left: 16px">
+                        <div class="ui-g-6 configui-exception-css">
                             <label>Do not report thread with CPU utilization less than or equal to </label>
-                            <input disabled="{{!jvmThreadStats.jvm}}" style="width: 10%" [min]=0 [max]=100 name="cpuFilter" type="number" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/> %
+                            <input disabled="{{!jvmThreadStats.jvm}}" class="configui-thread-css" [min]=0 [max]=100 name="cpuFilter" type="number" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/> %
                         </div>
                     </div>
                     <!--<div class="ui-g-12">
