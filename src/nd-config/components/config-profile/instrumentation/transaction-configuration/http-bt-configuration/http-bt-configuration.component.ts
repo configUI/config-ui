@@ -93,7 +93,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.matchModeList = ConfigUiUtility.createDropdown(arrLabel);
 
     this.methodTypeList = [];
-    arrLabel = ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'TRACE', 'CONNECT', 'OPTIONS'];
+    arrLabel = ['--Select--', 'GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'TRACE', 'CONNECT', 'OPTIONS'];
     this.methodTypeList = ConfigUiUtility.createDropdown(arrLabel);
 
     this.initialBusinessTransaction();
@@ -269,7 +269,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is used to edit Pattern detail */
   editPattern(): void {
-
     if (this.chkInclude == true)
       this.businessTransPatternDetail.include = "include";
     else

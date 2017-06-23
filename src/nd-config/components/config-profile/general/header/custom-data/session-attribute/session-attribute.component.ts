@@ -313,8 +313,8 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveSessionAttr() {
-    this.sessionAtrributeDetailSaveAndEdit();
     this.sessionAttributeDetail.attrValues = this.customValueTypeInfo;
+    this.sessionAtrributeDetailSaveAndEdit();
     this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
       let arrSessionAttr = this.setDataSessionAttribute(data);
       this.sessionAttributeComponentInfo = ImmutableArray.push(this.sessionAttributeComponentInfo, arrSessionAttr[0]);
@@ -339,6 +339,7 @@ export class SessionAttributeComponent implements OnInit {
     else if (this.sessionAttributeDetail.complete == true) {
       this.sessionAttributeDetail.attrType = "complete";
       this.sessionAttributeDetail.attrMode = 2;
+      this.sessionAttributeDetail.attrValues = [];
     }
     // this.sessionAttributeDetail.attrValues = ImmutableArray.push(this.sessionAttributeDetail.attrValues, this.customValueTypeInfo);
   }

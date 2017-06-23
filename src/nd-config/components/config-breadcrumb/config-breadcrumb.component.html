@@ -1,10 +1,10 @@
 <div class="custom-breadcrumb">
-    <div class="ui-g">
+    <div class="ui-g config-ui">
         <div class="ui-g-9">
             <p-breadcrumb [model]="items"></p-breadcrumb>
         </div>
         <div class="ui-g-3 togglebtn" *ngIf="displaySessionLabel">
-            <md-slide-toggle class='breadcrumb-toggle' (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null">
+            <md-slide-toggle class=' breadcrumb-toggle' (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null">
                 Apply changes on Session no: {{ trData.trNo == null ? 'NA' : trData.trNo }}
             </md-slide-toggle>
         </div>

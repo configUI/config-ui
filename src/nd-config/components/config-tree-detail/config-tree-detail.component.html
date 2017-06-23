@@ -1,19 +1,19 @@
 <div class="">
     <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
-        <span style="float: right; margin-top:-2px">
+        <span class="appIcon-css">
             <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
         </span>
     </div>
 
-    <p-dataTable class="nde-ui" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
+    <p-dataTable class="nde-ui config-ui" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-        <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="col-overflow" [sortable]="true">
+        <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui" [sortable]="true">
             <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
           <a class="hyperlink" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
         </template>
             <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
-                <md-slide-toggle class="toggle-space" (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
+                <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
         </template>
         </p-column>
     </p-dataTable>

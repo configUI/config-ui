@@ -1,16 +1,24 @@
+.accordian-css {
+    margin: 8px;
+    background: rgba(255, 255, 255, 0.68);
+    min-height: 550px;
+    padding: 6px;
+}
+
 .activeIconClass {
-    font-size: 13px;
-    color: green;
+    font-size: 20px;
+    color: rgba(4, 153, 4, 0.67);
     height: 12px;
 }
 
 .inActiveIconClass {
-    font-size: 13px;
+    font-size: 20px;
     color: rgba(255, 176, 0, 0.77);
     height: 12px;
 }
-.blockerIconClass{
-     font-size: 13px;
-    color:red;
+
+.blockerIconClass {
+    font-size: 20px;
+    color: red;
     height: 12px;
 }

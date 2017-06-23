@@ -1,24 +1,55 @@
-<div class="widget">
+<div class="configUI">
     <div class="header"><i aria-hidden="true"></i> ND Agent Status</div>
+    <div class="config-ui-table-margin">
+        <p-dataTable [value]="ndAgentStatusData" id=accordion [rows]="15" class="nde-ui" resizableColumns="true" selectionMode="multiple" [paginator]="ndAgentStatusData?.length > 12" [rowsPerPageOptions]="[50,100,150]" [pageLinks]="3">
+            <p-column field="pid" header="Pid" [sortable]="true" [style]="{'width':'5%'}" [filter]="true">
+                <template let-col let-ndagent="rowData" pTemplate>
+                        <span style="float:right"  title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                    </template>
+            </p-column>
+            <p-column field="tier" header="Tier" [sortable]="true" [style]="{'width':'15%'}" [filter]="true">
+                <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+            </p-column>
+            <p-column field="server" header="Server" [sortable]="true" [filter]="true" [style]="{'width':'15%'}">
+                <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+            </p-column>
+            <p-column field="instance" header="Instance" [sortable]="true" [filter]="true" [style]="{'width':'15%'}">
+                <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+            </p-column>
+            <p-column field="iD" header="Installation Dir" [sortable]="true" [filter]="true" [style]="{'width':'15%'}">
+                <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+            </p-column>
+            <p-column field="at" header="Agent Type" [sortable]="true" [filter]="true" [style]="{'width':'8%'}">
+                <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+            </p-column>
+            <p-column field="ver" header="Version" [sortable]="true" [filter]="true" [style]="{'width':'12%'}">
+                <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+            </p-column>
+            <p-column field="brs" header="Last Active Time" [sortable]="true" [filter]="true" [style]="{'width':'10%'}">
+                <template let-col let-ndagent="rowData" pTemplate>
+         <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+         </template>
+            </p-column>
 
-    <p-dataTable [value]="ndAgentStatusData" class="nde-ui" [rows]="15" [paginator]="ndAgentStatusData?.length > 15" [pageLinks]="3">
-        <p-column class="col-overflow" field="tier" header="Tier" [sortable]="true"></p-column>
-        <p-column class="col-overflow" field="server" header="Server" [sortable]="true"></p-column>
-        <p-column class="col-overflow" field="instance" header="Instance" [sortable]="true"></p-column>
-        <p-column class="col-overflow" field="installDir" header="Installation Dir" [sortable]="true"></p-column>
-        <p-column class="col-overflow" field="version" header="Version" [sortable]="true"></p-column>
-        <p-column class="col-overflow" field="bciRunningSince" header="BCI Agent Start Time" [sortable]="true">
-            <template let-col let-ndagent="rowData" pTemplate>
-                <span style="float:right">{{ndagent[col.field]}}</span>
-            </template>
-        </p-column>
-        <p-column class="col-overflow" field="state" [style]="{'text-align':'center','width':'6%'}" header="State" [sortable]="true">
-            <template let-col let-ndagent="rowData" pTemplate>
-                <span *ngIf="ndagent[col.field] == 'Active' || ndagent[col.field] == 'active'" title="{{ndagent[col.field]}}"><md-icon class="activeIconClass">fiber_manual_record</md-icon></span>
-                <span *ngIf="ndagent[col.field] == 'Inactive' || ndagent[col.field] == 'InActive'" title="{{ndagent[col.field]}}"><md-icon class="inActiveIconClass">fiber_manual_record</md-icon></span>
-                 <span *ngIf="ndagent[col.field] != 'Inactive' && ndagent[col.field] != 'InActive' && ndagent[col.field] != 'Active' && ndagent[col.field] != 'active'" title="{{ndagent[col.field]}}"><md-icon class="blockerIconClass">fiber_manual_record</md-icon></span>
-           
-              </template>
-        </p-column>
-    </p-dataTable>
+            <p-column field="st" header="Status" [style]="{'text-align':'center','width':'6%'}" [sortable]="true">
+                <template let-col let-ndagent="rowData" pTemplate>
+                        <span *ngIf="ndagent[col.field] == 'Active' || ndagent[col.field] == 'active'" title="{{ndagent[col.field]}}"><md-icon class="activeIconClass">fiber_manual_record</md-icon></span> 
+                          <span *ngIf="ndagent[col.field] == 'Inactive' || ndagent[col.field] == 'InActive'" title="{{ndagent[col.field]}}"><md-icon class="inActiveIconClass">fiber_manual_record</md-icon></span>           
+                            <span *ngIf="ndagent[col.field] != 'Active' && ndagent[col.field] != 'active' && ndagent[col.field] != 'Inactive' && ndagent[col.field] != 'InActive'" title="{{ndagent[col.field]}}"><md-icon class="blockerIconClass">fiber_manual_record</md-icon></span>
+                    </template>
+            </p-column>
+        </p-dataTable>
+    </div>
 </div>

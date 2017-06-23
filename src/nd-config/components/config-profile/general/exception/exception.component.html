@@ -1,5 +1,5 @@
-  <form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-  <div class="tabsincontent">
+<form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
+    <div class="tabsincontent">
         <div class="header">Exception settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
@@ -7,13 +7,13 @@
 
             </div>
         </div>
-            </div>
-<p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="Exception" [style]="{'width':'800px'}">
-        <app-exception-setting [data]="exception"></app-exception-setting>
-    </p-tabPanel>
-    <p-tabPanel header="Filter">
-        <app-exception-filter></app-exception-filter>
-    </p-tabPanel>
-</p-tabView>
-  </form>
+    </div>
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="Exception" [style]="{'width':'800px'}">
+            <app-exception-setting [data]="exception"></app-exception-setting>
+        </p-tabPanel>
+        <p-tabPanel header="Filter">
+            <app-exception-filter></app-exception-filter>
+        </p-tabPanel>
+    </p-tabView>
+</form>
