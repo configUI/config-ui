@@ -213,7 +213,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is used to add Pattern detail */
   savePattern(): void {
-    if (this.businessTransPatternDetail.dynamicPartReq == true && this.businessTransPatternDetail.reqParamKey == undefined && this.businessTransPatternDetail.reqHeaderKey == undefined && this.businessTransPatternDetail.reqMethod == undefined) {
+    if (this.businessTransPatternDetail.dynamicPartReq == true && ((this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-"))) {
       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
       return;
     }
@@ -221,7 +221,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "include"
     else
       this.businessTransPatternDetail.include = "exclude"
-
+    this.checkForDynamicBTPattern();
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
@@ -239,7 +239,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.businessTransPatternDetail.slowTransaction = "3000";
     this.businessTransPatternDetail.verySlowTransaction = "5000";
-
+    this.chkInclude = false;
     this.isNewApp = true;
     this.addEditPatternDialog = true;
   }
@@ -273,27 +273,66 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "include";
     else
       this.businessTransPatternDetail.include = "exclude";
+
+    if (this.businessTransPatternDetail.dynamicPartReq == true && ((this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-"))) {
+      this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
+      return;
+    }
+
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
     this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
 
+    this.checkForDynamicBTPattern();
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
-
-        if (data.headerKeyValue = "null=null")
+        if ((data.reqHeaderValue == null || data.reqHeaderValue == "") && data.reqHeaderKey != null)
+          data.headerKeyValue = data.reqHeaderKey;
+        else if (data.reqHeaderValue != null && data.reqHeaderKey != null)
+          data.headerKeyValue = data.headerKeyValue;
+        else
           data.headerKeyValue = "-";
-        if (data.paramKeyValue = "null=null")
+        if ((data.reqParamValue == null || data.reqParamValue == "") && data.reqParamKey != null)
+          data.paramKeyValue = data.reqParamKey;
+        else if (data.reqParamValue != null && data.reqParamKey != null)
+          data.paramKeyValue = data.paramKeyValue;
+        else
           data.paramKeyValue = "-";
-
         // this.selectedPatternData.push(data);
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
         this.configUtilityService.successMessage(Messages);
-        // this.businessTransPatternInfo[index] = data;
       });
     this.closeDialog();
-  }
 
+  }
+  /**
+   * This method is used to set the values of dynamic part components
+   */
+  checkForDynamicBTPattern(): void {
+    if (this.businessTransPatternDetail.dynamicPartReq == false) {
+      this.businessTransPatternDetail.reqParamKey = null;
+      this.businessTransPatternDetail.reqParamValue = null;
+      this.businessTransPatternDetail.reqHeaderKey = null;
+      this.businessTransPatternDetail.reqHeaderValue = null;
+      this.businessTransPatternDetail.reqMethod = "-";
+      this.businessTransPatternDetail.paramKeyValue = "-";
+      this.businessTransPatternDetail.headerKeyValue = "-";
+    }
+    if (this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == null) {
+      this.businessTransPatternDetail.reqHeaderValue = null;
+      this.businessTransPatternDetail.reqHeaderKey = null;
+      this.businessTransPatternDetail.headerKeyValue = "-";
+    }
+    if (this.businessTransPatternDetail.reqParamKey == "" || this.businessTransPatternDetail.reqParamKey == null) {
+      this.businessTransPatternDetail.reqParamValue = null;
+      this.businessTransPatternDetail.reqParamKey = null;
+      this.businessTransPatternDetail.paramKeyValue = "-";
+    }
+    if (this.businessTransPatternDetail.reqMethod == null)
+      this.businessTransPatternDetail.reqMethod = "-";
+
+  }
   /**This method is common method for save or edit BT Pattern */
   saveADDEditBTPatternTrans(): void {
     //When add new application
