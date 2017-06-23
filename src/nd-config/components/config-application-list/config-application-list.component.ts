@@ -30,7 +30,7 @@ export class ConfigApplicationListComponent implements OnInit {
   constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router) { }
 
   /**It stores application-list data */
-  applicationData: ApplicationData[];
+  applicationData: ApplicationData[] = [];
   /**It stores selected application data */
   selectedApplicationData: ApplicationData[];
   /**It stores selected application data for edit or add application */
@@ -51,13 +51,16 @@ export class ConfigApplicationListComponent implements OnInit {
 
   ngOnInit() {
     this.loadApplicationData();
-    this.loadTopologyData();
+    // this.loadTopologyData();
   }
 
 
   /**Getting application list data */
   loadApplicationData(): void {
-    this.configApplicationService.getApplicationList().subscribe(data => this.applicationData = data);
+    this.configApplicationService.getApplicationList().subscribe(data => {
+        this.applicationData = data
+        this.loadTopologyData();
+  });
   }
 
   /**Getting topology list. further we will optimize. */
@@ -76,7 +79,9 @@ export class ConfigApplicationListComponent implements OnInit {
     this.applicationDetail = new ApplicationData();
     this.isNewApp = true;
     this.addEditAppDialog = true;
+    this.createTopologySelectItem();
   }
+
   /**For showing edit application dialog */
   editAppDialog(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
@@ -209,13 +214,20 @@ export class ConfigApplicationListComponent implements OnInit {
     return -1;
   }
 
-  /**This method is used to creating topology select item object */
+  /***** This method is used to creating topology select item object *****/
   createTopologySelectItem() {
+    let appTopoIdArr = [];
+    this.applicationData.map(function(val){
+        appTopoIdArr.push(+val.topoId)
+    })
     this.topologySelectItem = [];
-   // this.topologySelectItem.push({ value: -1, label: '--Select Topology--' });
+   if(this.topologyInfo != null){
     for (let i = 0; i < this.topologyInfo.length; i++) {
-      this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
+      if((appTopoIdArr.indexOf(+this.topologyInfo[i].id) == -1)){
+        this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
+      }
     }
+   }
   }
 
   /**This method is used to delete application */
