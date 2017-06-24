@@ -15,7 +15,7 @@ import { KeywordData, KeywordList } from '../../../containers/keyword-data';
 export class ConfigurationComponent implements OnInit, OnDestroy {
   keywordGroup: any;
   profileId: number;
-  toggleDisable: boolean = false;
+  toggleDisable: boolean;
 
   subscription: Subscription;
   subscriptionKeywordGroup: Subscription;
@@ -34,8 +34,13 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     });
     this.loadAdminInfo();
     this.loadKeywordData();
-  }
+    let isTrue = false;
+    if( this.keywordGroup.general.exception.enable == false)
+     isTrue = true;
 
+    console.log(" toggle value  ", this.keywordGroup.general.exception.enable);
+    sessionStorage.setItem("toggleDisable", "" + isTrue);
+  }
   //This method is used to see whether it is admin mode or not
   loadAdminInfo(): void {
     this.configHomeService.getMainData()
@@ -61,6 +66,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
   /**This is used to enable/disable groupkeyword values. */
   change(selectedKeywordGroup) {
+    sessionStorage.setItem("toggleDisable", this.keywordGroup.general.exception.enable);
+    console.log("toggleDisable value " , this.keywordGroup.general.exception.enable);
     for (let moduleName in this.keywordGroup) {
       let keywordGroupList = this.keywordGroup[moduleName];
 
