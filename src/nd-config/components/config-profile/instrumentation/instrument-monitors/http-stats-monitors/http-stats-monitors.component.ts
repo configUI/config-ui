@@ -274,7 +274,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   editHttpStatsMonitor(): void {
     if(this.httpStatsMonitorDetail.fpDumpMode == "-1")
     {
-     this.configUtilityService.errorMessage("Please select flowpath dump");
+     this.configUtilityService.errorMessage("Please select flowpath dump mode");
      return ;
     }
     if (this.httpStatsMonitorDetail.description != null) {
