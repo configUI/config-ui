@@ -206,7 +206,7 @@
                             <label>Request parameter key</label>
                         </div>
                         <div class="ui-g-7">
-                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey"/>
+                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
                     <div class="ui-g-6">
@@ -214,7 +214,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue"/>
+                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
 
@@ -226,7 +226,7 @@
                             <label>Request header key</label>
                         </div>
                         <div class="ui-g-7">
-                            <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey"/>
+                            <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
                     <div class="ui-g-6">
@@ -234,7 +234,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue"/>
+                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
                             <label>Method type</label>
                         </div>
                         <div class="ui-g-7">
-                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
+                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
                         </div>
                     </div>
                 </div>
