@@ -36,7 +36,7 @@
                 <label>Method name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                <input name="methodName" type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
                     required pattern=".*(\((.*)\))+.*" ngModel/>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <label>Display name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodDisplayName" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
+                <input name="methodDisplayName" pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
             </div>
         </div>
         <div class="ui-g">

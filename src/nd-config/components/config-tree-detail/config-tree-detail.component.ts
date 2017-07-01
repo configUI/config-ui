@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ConfigTopologyService } from '../../services/config-topology.service';
@@ -28,7 +26,10 @@ export class ConfigTreeDetailComponent implements OnInit {
     private configProfileService: ConfigProfileService,
     private router: Router,
 
-  ) { }
+  ) {
+     this.loadProfileList();
+    this.loadTopologyData();
+  }
 
 
   /* holds current topo data [either topo data /tier /server /instance data a/c to the screen] */
@@ -72,8 +73,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   ngOnInit() {
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
     //no need to call when store used [TO DO's]
-    this.loadProfileList();
-    this.loadTopologyData();
+
   }
 
   loadTopologyData(): void {
@@ -86,7 +86,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     /**below route function is always called whenever routing changes
      * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
-     * 
+     *
      */
 
     this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {

@@ -195,7 +195,6 @@ export class HttpStatsMonitorsComponent implements OnInit {
     var othersOPLabel = ['PRESENT', '!PRESENT'];
     var othersOPVal = [ '1', '2'];
     this.othersOP = ConfigUiUtility.createListWithKeyValue(othersOPLabel, othersOPVal);
-
   }
 
   /**For showing add HTTP Stats Condition dialog */
@@ -207,6 +206,9 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.selectedRequestHeader = 0;
     this.selectedResponseHeader = 0;
     this.selectedHeaderType = 0;
+    this.selectedStringOp = 0;
+    this.selectedNumericOp = 0;
+    this.selectedOthersOp = 0;
     this.isNewHttpStatsMonitor = true;
     this.addEditHttpStatsMonitorDialog = true;
   }
@@ -270,6 +272,11 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
 
   editHttpStatsMonitor(): void {
+    if(this.httpStatsMonitorDetail.fpDumpMode == "-1")
+    {
+     this.configUtilityService.errorMessage("Please select flowpath dump mode");
+     return ;
+    }
     if (this.httpStatsMonitorDetail.description != null) {
       if (this.httpStatsMonitorDetail.description.length > 500) {
         this.configUtilityService.errorMessage(descMsg);
