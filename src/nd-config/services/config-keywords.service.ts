@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -364,5 +364,30 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_RULES_BT}`, listOfIds);
   }
 
+  
+
+  /** Add BT HTTP REQUEST HEADERS */
+  addBtHttpHeaders(data, profileId){
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
+  }
+  /** Get all BT Http header data */
+  getBTHttpHdrData(profileId): Observable<BTHTTPHeaderData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BTHTTP_HDR_URL}/${profileId}`);
+  }
+
+  /** Delete BT HTTP headers Info */
+  deleteBTHTTPHeaders(data, profileId): Observable<BTHTTPHeaderData> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_BT_HDR}/${profileId}`, data);
+  }
+
+ /** Delete HTTP Headers Conditions  */
+  deleteHTTPHdrConditions(listOfIds) {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_HDR_COND}`, listOfIds);
+  }
+
+  /* Edit  BT HTTP Headers Info */
+  editBTHTTPHeaders(data): Observable<BTHTTPHeaderData> {
+    return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
+  }
 
 }

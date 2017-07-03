@@ -214,3 +214,12 @@ export const FETCH_EXCETION_FILTERS_MON_TABLEDATA=`${SERVICE_URL}/custom/excepti
 export const EDIT_ROW_EXCEPTION_FILTER_URL = `${SERVICE_URL}/custom/exceptionfilters/updateExceptionFilter`;
 
 export const DEL_EXCEPTION_FILTER = `${SERVICE_URL}/custom/exceptionfilters/delete`;
+
+/**** URL for BT HTTP Headers */
+export const BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader`;
+export const ADD_BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/addbthttpheader`;
+export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbthttphdrdata`;
+export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
+export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
+export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+
