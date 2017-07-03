@@ -110,6 +110,7 @@ import { MonitorsComponent } from './components/config-profile/advance/monitors/
 import { DelayComponent } from './components/config-profile/advance/delay/delay.component';
 import { GenerateExceptionComponent } from './components/config-profile/advance/generate-exception/generate-exception.component';
 import { CustomKeywordsComponent } from './components/config-profile/advance/custom-keywords/custom-keywords.component';
+import { BTHTTPHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-http-headers/bt-http-headers.component';
 
 import { HttpHeaderComponent } from './components/config-profile/general/header/http-header/http-header.component';
 import { CustomDataComponent } from './components/config-profile/general/header/custom-data/custom-data.component';
@@ -184,7 +185,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
     CustomKeywordsComponent,
-    ExceptionMonitorsComponent
+    ExceptionMonitorsComponent,
+    BTHTTPHeadersComponent
   ],
   imports: [
     // CommonModule,

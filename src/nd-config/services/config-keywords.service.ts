@@ -382,4 +382,29 @@ export class ConfigKeywordsService {
   }
 
 
+
+  /** Add BT HTTP REQUEST HEADERS */
+  addBtHttpHeaders(data, profileId){
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
+  }
+  /** Get all BT Http header data */
+  getBTHttpHdrData(profileId): Observable<BTHTTPHeaderData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BTHTTP_HDR_URL}/${profileId}`);
+  }
+
+  /** Delete BT HTTP headers Info */
+  deleteBTHTTPHeaders(data, profileId): Observable<BTHTTPHeaderData> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_BT_HDR}/${profileId}`, data);
+  }
+
+ /** Delete HTTP Headers Conditions  */
+  deleteHTTPHdrConditions(listOfIds) {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_HDR_COND}`, listOfIds);
+  }
+
+  /* Edit  BT HTTP Headers Info */
+  editBTHTTPHeaders(data): Observable<BTHTTPHeaderData> {
+    return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
+  }
+
 }
