@@ -103,6 +103,21 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
+export class ExceptionMonitor {
+    exceptionId: number;
+    exceptionName: string;
+    exceptionDisplayName: string;
+    exceptionDesc: string;
+}
+
+/**It stores exception-list data */
+export class ExceptionMonitorData {
+    exceptionId: number;
+    exceptionName: string;
+    exceptionDisplayName: string;
+    exceptionDesc: string;
+}
+
 export class HttpStatsMonitorData {  //Http stats monitors by Surbhi
     compValue: string;
     condition?: string;

@@ -96,7 +96,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom'),
 (42, 'HTTPStatsCondCfg','1','1024','5','false','normal'),
 (43,'enableExceptionsWithSourceAndVars','0','248','2','0','normal'),
-(44,'enableSourceCodeFilters','1','1024','5','false','normal');
+(44,'enableSourceCodeFilters','1','1024','5','false','normal'),
+(45,'ndExceptionMonFile','','','5','false','normal');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
@@ -384,7 +385,7 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 (12,3,'!PRESENT');
 
 
-INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri, 
+INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri,
 segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id)VALUES
 (1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1);
 

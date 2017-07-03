@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData,ExceptionMonitor,ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -109,7 +109,7 @@ export class ConfigKeywordsService {
         let keywordList = keywordInfo.keywordList;
 
         for (let i = 0; i < keywordList.length; i++) {
-          //If group of keywords value is not 0 that's means groupkeyword is enabled.              
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.
           if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
             //Enabling groupkeyword
             keywordInfo.enable = true;
@@ -181,6 +181,23 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_ERROR_DETECTION}/${profileId}`, data);
   }
 
+
+  getExceptionMonitorList(profileId): Observable<ExceptionMonitorData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_EXCEPTION_MON_TABLEDATA}/${profileId}`);
+  }
+
+  editExceptionMonitorData(data, profileId): Observable<ExceptionMonitorData> {
+    let url = `${URL.EDIT_ROW_EXCEPTION_MONITOR_URL}/${profileId}/${data.exceptionId}`
+    return this._restApi.getDataByPutReq(url, data);
+  }
+
+  addExceptionMonitorData(data, profileId): Observable<ExceptionMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_EXCEPTION_MONITOR}/${profileId}`, data);
+  }
+
+  deleteExceptionMonitorData(data, profileId): Observable<ExceptionMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_EXCEPTION_MONITOR}/${profileId}`, data);
+  }
 
   getMethodMonitorList(profileId): Observable<MethodMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_METHOD_MON_TABLEDATA}/${profileId}`);

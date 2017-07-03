@@ -118,6 +118,7 @@ import { SessionAttributeComponent } from './components/config-profile/general/h
 import { JavaMethodComponent } from './components/config-profile/general/header/custom-data/java-method/java-method.component';
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
+import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
@@ -182,7 +183,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpStatsMonitorsComponent,
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
-    CustomKeywordsComponent
+    CustomKeywordsComponent,
+    ExceptionMonitorsComponent
   ],
   imports: [
     // CommonModule,
