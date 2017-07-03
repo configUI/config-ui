@@ -37,8 +37,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     let isTrue = false;
     if( this.keywordGroup.general.exception.enable == false)
      isTrue = true;
-
-    console.log(" toggle value  ", this.keywordGroup.general.exception.enable);
     sessionStorage.setItem("toggleDisable", "" + isTrue);
   }
   //This method is used to see whether it is admin mode or not
@@ -67,7 +65,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   /**This is used to enable/disable groupkeyword values. */
   change(selectedKeywordGroup) {
     sessionStorage.setItem("toggleDisable", this.keywordGroup.general.exception.enable);
-    console.log("toggleDisable value " , this.keywordGroup.general.exception.enable);
     for (let moduleName in this.keywordGroup) {
       let keywordGroupList = this.keywordGroup[moduleName];
 
