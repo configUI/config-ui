@@ -3,7 +3,7 @@
   // const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
 
 
- // const  SERVICE_URL = 'http://localhost:8090';
+//  const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -41,9 +41,9 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist`
-//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
-export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
-export const GET_PROFILE_NAME = ` ${SERVICE_URL}/custom/profile`;
+//export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/profiles`
+export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
+export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -77,7 +77,7 @@ export const ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileservice
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
 
 /*Url for Toggle */
-export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso`;
+export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;
 
 
 /* Url fot BussinessTransaction */
