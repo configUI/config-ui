@@ -41,9 +41,9 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist`
-//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
-export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
-export const GET_PROFILE_NAME = ` ${SERVICE_URL}/custom/profile`;
+//export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/profiles`
+export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
+export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -88,6 +88,7 @@ export const FETCH_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
+export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 
 /* Url fot BussinessTransactionGlobal */
 export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;

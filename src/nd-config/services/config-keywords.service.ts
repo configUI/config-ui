@@ -390,4 +390,9 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
 
+    /** Method to upload file */
+  uploadFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
+  }
+
 }

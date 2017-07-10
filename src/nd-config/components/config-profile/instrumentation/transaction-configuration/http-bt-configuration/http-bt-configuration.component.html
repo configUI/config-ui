@@ -91,6 +91,8 @@
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business transaction pattern list</span>
             <span style="float: right; margin-top:-5px">
+                        
+                       <button pButton type="button" title="Browse" (click)="uploadFile()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add a Business transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a Business transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
@@ -258,4 +260,12 @@
             </div>
         </footer>
     </form>
+</p-dialog>
+<!--Dialog to open file explorer dialog -->
+<p-dialog  class="profile-dialog" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+   
+    <!-- This will look for this component in the ProductUI at this path -
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+    
+    <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
 </p-dialog>
