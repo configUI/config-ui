@@ -389,7 +389,7 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 (12,3,'!PRESENT');
 
 
-INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri, 
+INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri,
 segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id)VALUES
 (1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1);
 
