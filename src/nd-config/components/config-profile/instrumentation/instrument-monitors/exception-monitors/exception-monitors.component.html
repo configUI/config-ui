@@ -1,0 +1,65 @@
+<p-dataTable class="nde-ui" [value]="exceptionMonitorData" [(selection)]="selectedExceptionMonitorData">
+    <p-header>
+        <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
+        <span class="configui-float-css"> Apply exception monitors </span>
+        <span class="configui-float">
+            <button pButton type="button" title="Add an exception monitor" [disabled]="saveDisable" (click)="openAddExceptionMonitorDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit an exception monitor" [disabled]="saveDisable" (click)="openEditExceptionMonitorDialog()" icon="fa-pencil"></button>
+            <button pButton class="ui-button-danger" type="button" title="Delete exception monitor(s)" [disabled]="saveDisable" (click)="deleteExceptionMonitor()" icon="fa-trash"></button>
+        </span>
+    </p-header>
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+    <p-column class="tableCss" [style]="{'width':'35%'}" field="exceptionName" header="Exception name" [sortable]="true">
+        <template let-col let-ExceptionMonitor="rowData" pTemplate>
+            <span title="{{ExceptionMonitor[col.field]}}">{{ExceptionMonitor[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" [style]="{'width':'23%'}" field="exceptionDisplayName" header="Display name" [sortable]="true">
+        <template let-col let-ExceptionMonitor="rowData" pTemplate>
+            <span title="{{ExceptionMonitor[col.field]}}">{{ExceptionMonitor[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" [style]="{'width':'40%'}" field="exceptionDesc" header="Description" [sortable]="true">
+        <template let-col let-ExceptionMonitor="rowData" pTemplate>
+            <span title="{{ExceptionMonitor[col.field]}}">{{ExceptionMonitor[col.field]}}</span>
+        </template>
+    </p-column>
+
+</p-dataTable>
+
+<!--Dialog for exception monitor-->
+
+<p-dialog class="profile-dialog" header="{{isNewExceptionMonitor ? 'Add exception monitor' : 'Edit exception monitor'}}" *ngIf="addEditExceptionMonitorDialog" [(visible)]="addEditExceptionMonitorDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveExceptionMonitor()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Exception name</label>
+            </div>
+            <div class="ui-g-9">
+                <input name="exceptionName" pattern="^[\S]{0,99}$" type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Display name</label>
+            </div>
+            <div class="ui-g-9">
+                <input name="exceptionDisplayName" pattern="^[a-zA-Z0-9_.]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionDisplayName" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-9">
+                <textarea name="exceptionDesc" rows="2" cols="50" pInputTextarea [(ngModel)]="exceptionMonitorDetail.exceptionDesc" ngModel></textarea>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="addEditExceptionMonitorDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

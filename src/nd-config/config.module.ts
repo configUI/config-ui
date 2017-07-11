@@ -110,6 +110,7 @@ import { MonitorsComponent } from './components/config-profile/advance/monitors/
 import { DelayComponent } from './components/config-profile/advance/delay/delay.component';
 import { GenerateExceptionComponent } from './components/config-profile/advance/generate-exception/generate-exception.component';
 import { CustomKeywordsComponent } from './components/config-profile/advance/custom-keywords/custom-keywords.component';
+import { BTHTTPHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-http-headers/bt-http-headers.component';
 
 import { HttpHeaderComponent } from './components/config-profile/general/header/http-header/http-header.component';
 import { CustomDataComponent } from './components/config-profile/general/header/custom-data/custom-data.component';
@@ -118,6 +119,7 @@ import { SessionAttributeComponent } from './components/config-profile/general/h
 import { JavaMethodComponent } from './components/config-profile/general/header/custom-data/java-method/java-method.component';
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
+import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
@@ -182,7 +184,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpStatsMonitorsComponent,
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
-    CustomKeywordsComponent
+    CustomKeywordsComponent,
+    ExceptionMonitorsComponent,
+    BTHTTPHeadersComponent
   ],
   imports: [
     // CommonModule,

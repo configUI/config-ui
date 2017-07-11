@@ -73,6 +73,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternInfo: BusinessTransPatternData[];
   businessTransPatternDetail: BusinessTransPatternData;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+
   chkInclude: boolean = false;
   saveDisable: boolean = false;
 
@@ -80,6 +83,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
+
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
@@ -438,5 +442,32 @@ export class HTTPBTConfigurationComponent implements OnInit {
       vslow.setCustomValidity('');
     }
     slow.setCustomValidity('');
+  }
+
+  /**used to open file manager
+  */
+  openFileManager() {
+
+    this.openFileExplorerDialog = true;
+
+  }
+
+ /** This method is called form ProductUI config-nd-file-explorer component with the path
+..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+
+    this.openFileExplorerDialog = false;
+    //Temporary path of the BT Pattern file to run locally,independently from Product UI
+    // let filepath = "";
+    this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
+      if (data.length == this.businessTransPatternInfo.length) {
+        this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+        return;
+      }
+      this.businessTransPatternInfo = data;
+      this.configUtilityService.successMessage("File uploaded successfully");
+    });
   }
 }

@@ -300,6 +300,14 @@ export class MethodBTConfigurationComponent implements OnInit {
         this.methodRulesInfo = [];
       }
     }
+     if(this.enableArgumentType == "returnType" && this.methodRulesInfo.length == 0){
+      this.configUtilityService.errorMessage("Provide return type settings");
+      return;
+    }
+    if(this.enableArgumentType == "argument" && this.methodArgRulesInfo.length == 0){
+      this.configUtilityService.errorMessage("Provide argument type settings");
+      return;
+    }
     this.businessTransMethodDetail.btMethodId = this.selectedbusinessTransMethod[0].btMethodId;
     this.selectedbusinessTransMethod = [];
     /****for edit case
@@ -498,7 +506,6 @@ export class MethodBTConfigurationComponent implements OnInit {
       }
       else {
         //In add form, to add new return rule
-
         this.btMethodRulesDetail["id"] = this.returnCount;
         this.methodRulesInfo = ImmutableArray.push(this.methodRulesInfo, this.btMethodRulesDetail);
         this.returnCount = this.returnCount + 1;
@@ -862,6 +869,14 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     if (this.enableArgumentType == "") {
       this.configUtilityService.errorMessage("Select enable return/argument type capturing");
+      return;
+    }
+    if(this.enableArgumentType == "returnType" && this.methodRulesInfo.length == 0){
+      this.configUtilityService.errorMessage("Provide return type settings");
+      return;
+    }
+    if(this.enableArgumentType == "argument" && this.methodArgRulesInfo.length == 0){
+      this.configUtilityService.errorMessage("Provide argument type settings");
       return;
     }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {

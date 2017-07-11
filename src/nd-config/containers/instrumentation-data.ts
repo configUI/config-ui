@@ -104,6 +104,21 @@ export class MethodMonitorData {
     methodDesc: string;
 }
 
+export class ExceptionMonitor {
+    exceptionId: number;
+    exceptionName: string;
+    exceptionDisplayName: string;
+    exceptionDesc: string;
+}
+
+/**It stores exception-list data */
+export class ExceptionMonitorData {
+    exceptionId: number;
+    exceptionName: string;
+    exceptionDisplayName: string;
+    exceptionDesc: string;
+}
+
 export class HttpStatsMonitorData {  //Http stats monitors by Surbhi
     compValue: string;
     condition?: string;
@@ -120,7 +135,7 @@ export class HttpStatsMonitorData {  //Http stats monitors by Surbhi
 
 export class BusinessTransMethodData    // Business Transaction Method by Lucky
 {
-    argumentIndex: number;
+    argumentIndex: number = -1;
     btMethodId: number;
     enableArgumentType: boolean;
     fqm: string;
@@ -248,3 +263,24 @@ export class CustomKeywordsComponentData{
     enable:boolean;
 
 }
+
+/** BT HTTP HEADERS  */
+export class BTHTTPHeaderData{
+    id: number = 0;
+    headerId: number;
+    headerName: string;
+    headerValType: string;
+    hdrBtNames: string;
+    conditions: BTHTTPHeaderConditions[];
+}
+
+/** BT HTTP HEADERS CONDITIONS */
+export class BTHTTPHeaderConditions{
+    id: number = 0;
+    hdrCondId: number;
+    btName: string;
+    operation: string;
+    hdrValue: string;
+
+}
+

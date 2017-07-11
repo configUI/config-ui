@@ -40,9 +40,9 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist`
-//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
-export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
-export const GET_PROFILE_NAME = ` ${SERVICE_URL}/custom/profile`;
+//export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/profiles`
+export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
+export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -76,7 +76,7 @@ export const ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileservice
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/delete`;
 
 /*Url for Toggle */
-export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso`;
+export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;
 
 
 /* Url fot BussinessTransaction */
@@ -87,6 +87,7 @@ export const FETCH_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
+export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 
 /* Url fot BussinessTransactionGlobal */
 export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;
@@ -120,6 +121,12 @@ export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
 export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
 export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
 export const EDIT_ROW_METHOD_MONITOR_URL = `${SERVICE_URL}/custom/methodmonitor/updateMethodMonitor`;
+
+/* URL for exception monitors  */
+export const FETCH_EXCEPTION_MON_TABLEDATA = `${SERVICE_URL}/custom/exceptionmonitor`;
+export const ADD_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor`;
+export const DEL_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor/delete`;
+export const EDIT_ROW_EXCEPTION_MONITOR_URL = `${SERVICE_URL}/custom/exceptionmonitor/updateExceptionMonitor`;
 
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
@@ -213,3 +220,12 @@ export const FETCH_EXCETION_FILTERS_MON_TABLEDATA=`${SERVICE_URL}/custom/excepti
 export const EDIT_ROW_EXCEPTION_FILTER_URL = `${SERVICE_URL}/custom/exceptionfilters/updateExceptionFilter`;
 
 export const DEL_EXCEPTION_FILTER = `${SERVICE_URL}/custom/exceptionfilters/delete`;
+
+/**** URL for BT HTTP Headers */
+export const BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader`;
+export const ADD_BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/addbthttpheader`;
+export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbthttphdrdata`;
+export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
+export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
+export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+

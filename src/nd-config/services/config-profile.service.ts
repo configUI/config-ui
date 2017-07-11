@@ -25,8 +25,8 @@ export class ConfigProfileService {
   //  */
   // nodeDataProvider$ = this._nodeData.asObservable();
 
-  // /***this function is called from tree-detail component whenever from any node profile is navigated to 
-  //  * 
+  // /***this function is called from tree-detail component whenever from any node profile is navigated to
+  //  *
   // */
   // nodeDataObserver(nodeData:NodeData){
   //   console.log("nodeData--",nodeData)
@@ -37,12 +37,12 @@ export class ConfigProfileService {
     this._profileName.next(profileName);
   }
 
-  getProfileList(): Observable<ProfileData[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_PROFILE_TABLEDATA);
+   getProfileList(): Observable<ProfileData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_PROFILE_TABLEDATA}`);
   }
 
   addProfileData(data): Observable<ProfileData> {
-    return this._restApi.getDataByPostReq(URL.UPDATE_PROFILE_TABLE, data);
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_PROFILE_TABLE}`, data);
   }
 
   getProfileName(profileId: number): Observable<string> {
