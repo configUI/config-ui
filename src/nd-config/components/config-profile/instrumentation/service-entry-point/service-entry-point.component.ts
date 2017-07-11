@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
+import { ConfirmationService, SelectItem } from 'primeng/primeng'
 
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
@@ -9,7 +9,9 @@ import { ServiceEntryType } from '../../../../interfaces/instrumentation-info';
 
 import { ImmutableArray } from '../../../../utils/immutable-array';
 
-import { Messages, descMsg } from '../../../../constants/config-constant'
+import { Messages, descMsg } from '../../../../constants/config-constant';
+
+import { deleteMany } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-service-entry-point',
@@ -22,6 +24,11 @@ export class ServiceEntryPointComponent implements OnInit {
   profileId: number;
   /**It store service entry data */
   serviceEntryData: ServiceEntryPoint[];
+  selectedServiceEntryData:ServiceEntryPoint[];
+
+ /**It stores table data for showing in GUI */
+  serviceEntrypointTableData:ServiceEntryPoint[];
+
   /**It store service entry data for add*/
   serviceEntryPointDetail: ServiceEntryPoint;
   entryPointType: SelectItem[];
@@ -31,7 +38,7 @@ export class ServiceEntryPointComponent implements OnInit {
   /**It is used as flag to open or close dialog */
   displayNewService: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.loadServiceEntryPoint();
@@ -102,5 +109,69 @@ export class ServiceEntryPointComponent implements OnInit {
       }
     );
   }
+deleteServiceEntryPoint():void{
+   if (!this.selectedServiceEntryData || this.selectedServiceEntryData.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+/**
+ * Check if selected row(s) contain pre-defined Service Entry Point(s)
+ */
+      let selectedEntry = this.selectedServiceEntryData;
+        let arrAppIndex = [];
+         for (let index in selectedEntry) {
+          arrAppIndex.push(selectedEntry[index].isCustomEntry);
+        }
+        let i:number;
+   for( i=0;i<11;i++){
+          if(arrAppIndex[i]==false){
+            this.configUtilityService.errorMessage("Predefined Service Entry Point(s) can't be deleted");
+             return;
+          }
+		 }
+
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let selectedApp = this.selectedServiceEntryData;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].id);
+        }
+      
+        this.configKeywordsService.deleteServiceEntryData(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteServiceEntryData(arrAppIndex);
+            this.selectedServiceEntryData = [];
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }  
+  /**This method is used to delete  from Data Table */
+  deleteServiceEntryData(arrAppIndex) {
+    let rowIndex: number[] = [];
+
+    for (let index in arrAppIndex) {
+      rowIndex.push(this.getServiceEntry(arrAppIndex[index]));
+    }
+    this.serviceEntryData = deleteMany(this.serviceEntryData, rowIndex);
+  }
+
+  /**This method returns selected application row on the basis of selected row */
+  getServiceEntry(appId: any): number {
+    for (let i = 0; i < this.serviceEntryData.length; i++) {
+      if (this.serviceEntryData[i].id == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
 
 }
