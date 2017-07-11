@@ -7,6 +7,7 @@ export class ServiceEntryPoint {
     id: number;
     name: string;
     tableType: string;
+    isCustomEntry:boolean=true;
 }
 
 export class ErrorDetection {

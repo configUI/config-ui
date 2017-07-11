@@ -1,10 +1,9 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
-
-//  const  SERVICE_URL = 'http://localhost:8090';
-
+  // const  SERVICE_URL = 'http://localhost:8090';
+   
 
 //For Production use this SERVICE_URL
  const SERVICE_URL = '/configUI';
@@ -74,7 +73,7 @@ export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserv
 export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/custom/profileserviceentryasso/getentrytypes`;
 export const ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
-export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
+export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/delete`;
 
 /*Url for Toggle */
 export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;

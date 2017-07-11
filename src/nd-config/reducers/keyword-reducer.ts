@@ -41,12 +41,14 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "ASTraceLevel":{"defaultValue":"1","min":"0","max":"20","assocId":-1,"value":"1","keyId":11},
 "logLevelOneFpMethod":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":2},
 "correlationIDHeader":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":17},
- "enableExceptionInSeqBlob":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":2},
- "captureErrorLogs": {"defaultValue":"0","min":"0","max":"2","assocId":-1,"value":"0","keyId":2},
- "HTTPStatsCondCfg": {"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"0","keyId":5},
+"enableExceptionInSeqBlob":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":2},
+"captureErrorLogs": {"defaultValue":"0","min":"0","max":"2","assocId":-1,"value":"0","keyId":2},
+"HTTPStatsCondCfg": {"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"0","keyId":5},
 "enableExceptionsWithSourceAndVars":{"defaultValue":"0","min":"0","max":"2048","assocId":-1,"value":"0","keyId":43},
-"enableSourceCodeFilters":{defaultValue: "false", min: "1", max: "1024", assocId: -1, value: "false", keyId: 44},
-"ndExceptionMonFile":{"defaultValue":"false","min":"","max":"","assocId":-1,"value":"false","keyId":45}};
+"enableSourceCodeFilters":{"defaultValue": "false", "min": "1", "max": "1024", "assocId": -1, "value": "false", "keyId": 44},
+"ndExceptionMonFile":{"defaultValue": "false", "min": "", "max": "", "assocId": -1, "value": "false", "keyId": 45},
+"maxQueryDetailsmapSize":{"defaultValue": "1000000", "min": "0", "max": "10000000", "assocId": -1, "value": "1000000", "keyId": 46}};
+
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
     switch (action.type) {
         case KEYWORD_DATA:

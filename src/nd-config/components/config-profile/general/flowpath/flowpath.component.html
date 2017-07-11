@@ -77,6 +77,17 @@
                         </div>
 
                     </div>
+                                   <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-3">
+                            <label>Set maximum cached queries to</label>
+                        </div>
+                        <div class="ui-g-2">
+                             <input type="number" name="maxQueryDetailsmapSize" [(ngModel)]="flowPath.maxQueryDetailsmapSize.value" min={{flowPath.maxQueryDetailsmapSize.min}} max={{flowPath.maxQueryDetailsmapSize.max}} required ngModel>
+                            <span></span>
+                        </div>
+
+                    </div>
                     <!--<div class="ui-g-12" style="padding-left: 20px">
                             <div class="ui-g-1"></div>
                             <div class="ui-g-3" style="margin-left: 16px">
