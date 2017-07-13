@@ -23,7 +23,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   @Output()
   keywordData = new EventEmitter();
 
-  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader'];
+  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader','maxQueryDetailsmapSize'];
 
   flowPath: Object;
   cpuTime: string = '1';

@@ -91,12 +91,14 @@
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business transaction pattern list</span>
             <span style="float: right; margin-top:-5px">
+                        
+                       <button pButton type="button" title="Browse" (click)="uploadFile()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add a Business transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a Business transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
-        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+        <p-column [style]="{'width':'3%'}" selectionMode="multiple"></p-column>
         <p-column class="col-overflow" field="btName" header="Name" [sortable]="true" [style]="{'width':'19%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
@@ -206,7 +208,7 @@
                             <label>Request parameter key</label>
                         </div>
                         <div class="ui-g-7">
-                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" (keydown.space)="$event.preventDefault()"/>
+                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric" pattern="[a-zA-Z_]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
                     <div class="ui-g-6">
@@ -214,7 +216,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" (keydown.space)="$event.preventDefault()"/>
+                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" title="Please enter valid value. &#013;Rule : Cannot include whitespaces & special characters ." pattern="[a-zA-Z0-9]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
 
@@ -226,7 +228,7 @@
                             <label>Request header key</label>
                         </div>
                         <div class="ui-g-7">
-                            <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" (keydown.space)="$event.preventDefault()"/>
+                            <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric" pattern="[a-zA-Z_]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
                     <div class="ui-g-6">
@@ -234,7 +236,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" (keydown.space)="$event.preventDefault()"/>
+                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule : Cannot include whitespaces & special characters ." pattern="[a-zA-Z0-9]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()"/>
                         </div>
                     </div>
                 </div>
@@ -258,4 +260,12 @@
             </div>
         </footer>
     </form>
+</p-dialog>
+<!--Dialog to open file explorer dialog -->
+<p-dialog  class="profile-dialog" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+   
+    <!-- This will look for this component in the ProductUI at this path -
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+    
+    <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
 </p-dialog>

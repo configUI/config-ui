@@ -1,10 +1,9 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8008/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
-
-//  const  SERVICE_URL = 'http://localhost:8090';
-
+  // const  SERVICE_URL = 'http://localhost:8090';
+   
 
 //For Production use this SERVICE_URL
  const SERVICE_URL = '/configUI';
@@ -74,7 +73,7 @@ export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserv
 export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/custom/profileserviceentryasso/getentrytypes`;
 export const ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
-export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/profileserviceentryasso`;
+export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/delete`;
 
 /*Url for Toggle */
 export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;
@@ -88,6 +87,7 @@ export const FETCH_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
+export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 
 /* Url fot BussinessTransactionGlobal */
 export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;

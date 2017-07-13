@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+// import { Logger } from '../../../../../../../../vendors/angular2-logger/core';
+
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
 import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../../containers/instrumentation-data';
@@ -14,6 +16,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { Messages } from '../../../../../constants/config-constant';
+// import { ConfigNdFileExplorerComponent } from "../../../../../../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component";
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -23,6 +26,7 @@ import { Messages } from '../../../../../constants/config-constant';
 export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
+
   @Output()
   keywordData = new EventEmitter();
 
@@ -65,6 +69,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /* Add and Edit Pattern Dialog open */
   addEditPatternDialog: boolean = false;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+
   /* Add new Pattern Dialog open */
   isNewApp: boolean = false;
 
@@ -81,7 +88,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
 
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private route: ActivatedRoute, 
+      private configKeywordsService: ConfigKeywordsService,
+      private store: Store<KeywordList>, 
+      private configUtilityService: ConfigUtilityService, 
+      private confirmationService: ConfirmationService,
+      // private log: Logger,
+   ) {
 
     this.segmentList = [];
     let arrLabel = ['First', 'Last', 'Segment Number'];
@@ -221,7 +234,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "include"
     else
       this.businessTransPatternDetail.include = "exclude"
-    this.checkForDynamicBTPattern();
+    this.isDynamicBTPattern();
+    if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
+      this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
+      return;
+    }
+    if ((this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "") && this.businessTransPatternDetail.reqHeaderKey == "") {
+      this.configUtilityService.errorMessage("Please provide header key of the dynamic part of request");
+      return;
+    }
+    this.setValuesForDynamicBTPattern();
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
@@ -281,8 +303,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
     this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+    this.isDynamicBTPattern();
+    if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
+      this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
+      return;
+    }
+    if ((this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "") && this.businessTransPatternDetail.reqHeaderKey == "") {
+      this.configUtilityService.errorMessage("Please provide header key of the dynamic part of request");
+      return;
+    }
+    this.setValuesForDynamicBTPattern();
 
-    this.checkForDynamicBTPattern();
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -307,9 +338,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   }
   /**
-   * This method is used to set the values of dynamic part components
+   * Method to set values when Dynamic part of request is disabled  
    */
-  checkForDynamicBTPattern(): void {
+  isDynamicBTPattern(): void {
     if (this.businessTransPatternDetail.dynamicPartReq == false) {
       this.businessTransPatternDetail.reqParamKey = null;
       this.businessTransPatternDetail.reqParamValue = null;
@@ -319,6 +350,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.paramKeyValue = "-";
       this.businessTransPatternDetail.headerKeyValue = "-";
     }
+  }
+  /**
+   * This method is used to set the values of dynamic part components
+   */
+  setValuesForDynamicBTPattern(): void {
     if (this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == null) {
       this.businessTransPatternDetail.reqHeaderValue = null;
       this.businessTransPatternDetail.reqHeaderKey = null;
@@ -439,4 +475,32 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     slow.setCustomValidity('');
   }
+
+  /**used to open file manager
+  */
+   openFileManager() {
+
+    this.openFileExplorerDialog = true;
+
+   }
+
+
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+    uploadFile(filepath){
+    this.openFileExplorerDialog = false;
+    //Temporary path of the BT Pattern file to run locally,independently from Product UI
+    // let filepath = "";
+    this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
+      if(data.length == this.businessTransPatternInfo.length){
+        this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+        return;
+      }
+      this.businessTransPatternInfo = data; 
+      this.configUtilityService.successMessage("File uploaded successfully");
+    });
+  }
+
 }

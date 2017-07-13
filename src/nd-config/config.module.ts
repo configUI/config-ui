@@ -7,7 +7,9 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 //Added for Preventing 404 error while reloading
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
+import {ConfigExceptionFilterService} from './services/config-exceptionfilter.service';
 
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
@@ -66,6 +68,7 @@ import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigCustomDataService } from './services/config-customdata.service';
+// import { ApiService } from '../file-explorer/services/api.service';
 
 
 /**Config UI Component */
@@ -124,18 +127,17 @@ import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-p
 
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
-import { ConfigExceptionFilterService } from "./services/config-exceptionfilter.service";
-
+// import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
+// import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
   declarations: [
-    ExceptionFilterComponent,
-    ExceptionSettingComponent,
     AppComponentForConfig,
     ConfigMainComponent,
     ConfigLeftSideBarComponent,
@@ -186,6 +188,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
     CustomKeywordsComponent,
+    ExceptionFilterComponent,
+    ExceptionSettingComponent,
+    // ConfigNdFileExplorerComponent,
     ExceptionMonitorsComponent,
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
@@ -228,8 +233,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SplitButtonModule
   ],
 
-  providers: [ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService, ConfigCustomDataService, ConfigExceptionFilterService, { provide: LocationStrategy, useClass: HashLocationStrategy },],
-  bootstrap: [AppComponentForConfig]
+  providers: [
+    // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+    ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
+    // ApiService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy},],
+    bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }
 

@@ -44,14 +44,14 @@ export class InstrumentationProfilesComponent implements OnInit {
     //   this.instrProfiles = data;
     //   console.log( "constructor", "this.debug", this.instrProfiles);
     // });
-   this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.instrumentation_profiles.enable);
-   this.configKeywordsService.toggleKeywordData();
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.instrumentation_profiles.enable);
+    this.configKeywordsService.toggleKeywordData();
   }
 
-/**
- * value for instrProfile keyword is
- * abc.xml,exception.xml
- */
+  /**
+   * value for instrProfile keyword is
+   * abc.xml,exception.xml
+   */
 
   ngOnInit() {
     this.loadListOfXmlFiles();
@@ -73,11 +73,15 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   }
 
-//It will load the saved list of instrument Profiles
+  //It will load the saved list of instrument Profiles
   loadInstrData() {
-    if ((this.configKeywordsService.keywordData["instrProfile"].value).includes(",")) {
+    if ((this.configKeywordsService.keywordData["instrProfile"].value)){
+      if ((this.configKeywordsService.keywordData["instrProfile"].value).includes(",")){
       let arrVal = (this.configKeywordsService.keywordData["instrProfile"].value).split(",");
       this.instrProfiles = arrVal;
+      }
+    else
+        this.instrProfiles[0] = this.configKeywordsService.keywordData["instrProfile"].value;
     }
   }
 
@@ -98,7 +102,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   resetKeywordData() {
 
     this.xmlFilesList = cloneObject(this.configKeywordsService.keywordData);
-    if(this.xmlFilesList["instrProfile"].value == "0" || this.xmlFilesList["instrProfile"].value == ""){
+    if (this.xmlFilesList["instrProfile"].value == "0" || this.xmlFilesList["instrProfile"].value == "") {
       this.instrProfiles = [];
     }
     this.loadListOfXmlFiles();
