@@ -27,7 +27,7 @@ INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name
 (8,' ','org.glassfish.jersey.servlet.ServletContainer.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletContainer.service', 5,false),
 (9,' ','com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','WebAppFilterChain.doFilter', 2,false),
 (10,' ','org.apache.activemq.ActiveMQMessageConsumer.dispatch(Lorg/apache/activemq/command/MessageDispatch;)V','ActiveMQMessageConsumer.dispatch',7,false),
-(11,' ','com.ibm.mq.jms.MQMessageConsumer\$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer\$FacadeMessageListener.onMessage',7,false);
+(11,' ','com.ibm.mq.jms.MQMessageConsumer\$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer\$FacadeMessageListener.onMessage',7,false),
 (12,' ','weblogic.servlet.internal.RequestDispatcherImpl.forward(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','RequestDispatcherImpl.forward',9,false);
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
