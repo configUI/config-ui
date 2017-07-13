@@ -126,7 +126,8 @@ import { ExceptionFilterComponent } from './components/config-profile/general/ex
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
 import { ConfigExceptionFilterService } from "./services/config-exceptionfilter.service";
 
-
+import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
+import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -186,7 +187,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PipeForFpDump,
     CustomKeywordsComponent,
     ExceptionMonitorsComponent,
-    BTHTTPHeadersComponent
+    BTHTTPHeadersComponent,
+    IntegrationPtComponent,
+    UrlCapturingComponent
   ],
   imports: [
     // CommonModule,

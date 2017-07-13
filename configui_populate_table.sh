@@ -97,7 +97,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (42, 'HTTPStatsCondCfg','1','1024','5','false','normal'),
 (43,'enableExceptionsWithSourceAndVars','0','248','2','0','normal'),
 (44,'enableSourceCodeFilters','1','1024','5','false','normal'),
-(45,'ndExceptionMonFile','','','5','false','normal');
+(45,'ndExceptionMonFile','','','5','false','normal'),
+(47,'formatIPResourceURL','0','512','5','0','normal');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),

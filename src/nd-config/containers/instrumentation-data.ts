@@ -50,8 +50,16 @@ export class NamingRule {
     url: boolean;
     userName: boolean;
 }
-
 export class IntegrationPTDetection {
+    type: string;
+    detail: string;
+    enabled: boolean;
+    id: number;
+    lstEndPoints: EndPoint[];
+    namingRule: NamingRuleAndExitPoint;
+}
+
+export class IntegrationPT {
     type: string;
     detail: string;
     enabled: boolean;
@@ -283,3 +291,8 @@ export class BTHTTPHeaderConditions{
 
 }
 
+export class UrlCapturingData{
+    includeParameter: boolean;
+    urlOffset: number;
+    maxChar: number;
+}

@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData,BTHTTPHeaderData,ExceptionMonitor,ExceptionMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData,BTHTTPHeaderData,ExceptionMonitor,ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -142,7 +142,7 @@ export class ConfigKeywordsService {
   }
 
   /**For Integration PT Detection */
-  getIntegrationPTDetectionList(profileId): Observable<IntegrationPTDetection[]> {
+  getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
   }
 
