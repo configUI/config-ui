@@ -23,17 +23,12 @@
             <md-slide-toggle [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
         </template>
     </p-column>
-    <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
+    <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
         <template let-col let-service="rowData" pTemplate>
             <span title="{{service[col.field]}}">{{service[col.field]}}</span>
         </template>
     </p-column>
-        <!--<p-column class="tableCss" field="isCustom" header="isCustom" [sortable]="true" [style]="{'width':'25%'}">
-        <template let-col let-service="rowData" pTemplate>
-            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
-        </template>
-    </p-column>-->
-   <p-column field="isCustomEntry" header="Category" [style]="{'text-align':'center','width':'20%'}">
+   <p-column field="isCustomEntry" header="Category" [style]="{'text-align':'center','width':'7%'}">
                 <template let-col let-service="rowData" pTemplate>
         <span *ngIf="service[col.field]==true" title="Custom Service Entry Point"> <md-icon class="activeIconClass">border_color</md-icon></span>
         <span *ngIf="service[col.field]==false " title="Predefined Service Entry Point"><md-icon class="inActiveIconClass">enhanced_encryption</md-icon></span>
