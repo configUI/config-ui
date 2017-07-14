@@ -82,7 +82,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   chkInclude: boolean = false;
   saveDisable: boolean = false;
 
-  isHTTPBrowse: boolean = false;
+  isBTPatternBrowse: boolean = false;
 
   subscription: Subscription;
 
@@ -495,7 +495,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   openFileManager() {
 
     this.openFileExplorerDialog = true;
-    this.isHTTPBrowse = true;
+    this.isBTPatternBrowse = true;
 
   }
 
@@ -505,8 +505,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /* dialog window & set relative path */
   uploadFile(filepath) {
-    if (this.isHTTPBrowse == true) {
-      this.isHTTPBrowse = false;
+    if (this.isBTPatternBrowse == true) {
+      this.isBTPatternBrowse = false;
       this.openFileExplorerDialog = false;
       //Temporary path of the BT Pattern file to run locally,independently from Product UI
       // let filepath = "";
