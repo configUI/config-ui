@@ -59,9 +59,8 @@ export class ExceptionSettingComponent implements OnInit {
 
   }
 
-
+    /*This method is used to save the keyword data in backend */
     saveKeywordData(data) {
-      console.log("---inside saveKeywordData---")
     let instrValue = this.instrExceptionValue(data);
     for (let key in this.exception) {
       if (key == 'instrExceptions')
@@ -71,7 +70,7 @@ export class ExceptionSettingComponent implements OnInit {
     this.keywordData.emit(this.exception);
 
   }
-
+  /* This method is used to reset the keyword data */
   resetKeywordData() {
     this.getKeywordData();
     this.exception = cloneObject(this.configKeywordsService.keywordData);
@@ -81,7 +80,7 @@ export class ExceptionSettingComponent implements OnInit {
     else
      this.exception['enableExceptionInSeqBlob'].value = true;
   }
-
+  /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
     // let keywordData = this.configKeywordsService.keywordData;
     if (this.configKeywordsService.keywordData != undefined) {
@@ -159,7 +158,6 @@ export class ExceptionSettingComponent implements OnInit {
 
   // Method used to construct the value of instrException keyword.
   instrExceptionValue(data) {
-     console.log("inside instr filter----------->");
     var instrVal = {};
     if (data.form._value.instrumentException === "false" || data.form._value.instrumentException === false) {
       instrVal = "0";

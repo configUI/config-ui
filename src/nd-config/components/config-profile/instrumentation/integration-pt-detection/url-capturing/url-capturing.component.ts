@@ -51,6 +51,7 @@ export class UrlCapturingComponent implements OnInit {
     this.urlCapturingData = new UrlCapturingData();
   }
 
+  /* This method is used to save the formatIPResourceURL data in the backend*/
   saveKeywordData(data) {
     let formatIPVal = this.formatIPResourceURLValue(data);
     for (let key in this.urlCapturing) {
@@ -60,6 +61,13 @@ export class UrlCapturingComponent implements OnInit {
     this.keywordData.emit(this.urlCapturing);
   }
 
+   /* This method is used to reset the keyword data*/
+   resetKeywordData() {
+    this.getKeywordData();
+    this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
+   }
+
+  /* This method is used to get the existing value of keyword from the backend*/
   getKeywordData() {
     let keywordData = this.configKeywordsService.keywordData;
     if (this.configKeywordsService.keywordData != undefined) {
@@ -105,7 +113,16 @@ export class UrlCapturingComponent implements OnInit {
       else
         this.urlCapturingData.maxChar = arr[2];
     }
-    }
+  }
+
+   /**Value for this keyword is
+   * 1%205%2010
+   * 1-  Enable includeParameter // It can be 0 or 1 [0 - disable , 1 - enable]
+   * 5- url offset
+   * 10- maximum characters
+   */
+
+  // Method used to construct the value of instrException keyword.
 
   // Method used to construct the value of formatIPResourceURL keyword.
   formatIPResourceURLValue(data) {
