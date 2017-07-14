@@ -16,7 +16,6 @@ import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { Messages } from '../../../../../constants/config-constant';
-// import { ConfigNdFileExplorerComponent } from "../../../../../../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component";
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -83,6 +82,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
   chkInclude: boolean = false;
   saveDisable: boolean = false;
 
+  isHTTPBrowse: boolean = false;
+
   subscription: Subscription;
 
   keywordList: string[] = ['BTRuleConfig'];
@@ -147,6 +148,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
     this.getKeywordData();
     this.loadBTPatternData();
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
+    });
   }
 
   getKeywordData() {
@@ -491,6 +495,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   openFileManager() {
 
     this.openFileExplorerDialog = true;
+    this.isHTTPBrowse = true;
 
   }
 
@@ -500,17 +505,19 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /* dialog window & set relative path */
   uploadFile(filepath) {
-    this.openFileExplorerDialog = false;
-    //Temporary path of the BT Pattern file to run locally,independently from Product UI
-    // let filepath = "";
-    this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
-      if (data.length == this.businessTransPatternInfo.length) {
-        this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-        return;
-      }
-      this.businessTransPatternInfo = data;
-      this.configUtilityService.successMessage("File uploaded successfully");
-    });
+    if (this.isHTTPBrowse == true) {
+      this.isHTTPBrowse = false;
+      this.openFileExplorerDialog = false;
+      //Temporary path of the BT Pattern file to run locally,independently from Product UI
+      // let filepath = "";
+      this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
+        if (data.length == this.businessTransPatternInfo.length) {
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
+        }
+        this.businessTransPatternInfo = data;
+        this.configUtilityService.successMessage("File uploaded successfully");
+      });
+    }
   }
-
 }

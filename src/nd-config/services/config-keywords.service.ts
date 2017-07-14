@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPTDetection, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData,BTHTTPHeaderData,ExceptionMonitor,ExceptionMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData,BTHTTPHeaderData,ExceptionMonitor,ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -122,6 +122,14 @@ export class ConfigKeywordsService {
     //this.keywordGroup = this.configKeywordsService.keywordGroup;
   }
 
+/** Config-nd File explorer */
+  private fileList = new Subject();
+  fileListProvider = this.fileList.asObservable();
+  
+  updateFileList(fileList){
+    this.fileList.next(fileList);
+  }
+  
   /**Service Entry Point */
   getServiceEntryPointList(profileId): Observable<ServiceEntryPoint[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`);
@@ -146,7 +154,7 @@ export class ConfigKeywordsService {
   }
 
   /**For Integration PT Detection */
-  getIntegrationPTDetectionList(profileId): Observable<IntegrationPTDetection[]> {
+  getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
   }
 
@@ -414,6 +422,11 @@ export class ConfigKeywordsService {
     /** Method to upload file */
   uploadFile(filePath, profileId){
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
+  }
+
+  /** Method to copy selected xml files in instrProfiles */
+  copyXmlFiles(filesWithPath, profileId): Observable<string[]>{
+    return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
   }
 
 }

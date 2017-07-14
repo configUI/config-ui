@@ -128,7 +128,8 @@ import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-p
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
 // import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
-
+import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
+import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
 // import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -191,7 +192,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ExceptionSettingComponent,
     // ConfigNdFileExplorerComponent,
     ExceptionMonitorsComponent,
-    BTHTTPHeadersComponent
+    BTHTTPHeadersComponent,
+    IntegrationPtComponent,
+    UrlCapturingComponent
   ],
   imports: [
     // CommonModule,

@@ -102,7 +102,6 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (47,'formatIPResourceURL','0','512','5','0','normal');
 
 
-
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
 (2,'WS backend','WEB SERVICE','HttpCallout','WS'),
