@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+// import { Logger } from '../../../../../../../../vendors/angular2-logger/core';
+
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
 import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../../containers/instrumentation-data';
@@ -14,6 +16,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { Messages } from '../../../../../constants/config-constant';
+// import { ConfigNdFileExplorerComponent } from "../../../../../../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component";
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -23,6 +26,7 @@ import { Messages } from '../../../../../constants/config-constant';
 export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
+
   @Output()
   keywordData = new EventEmitter();
 
@@ -65,6 +69,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /* Add and Edit Pattern Dialog open */
   addEditPatternDialog: boolean = false;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+
   /* Add new Pattern Dialog open */
   isNewApp: boolean = false;
 
@@ -72,9 +79,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
   selectedPatternData: any;
   businessTransPatternInfo: BusinessTransPatternData[];
   businessTransPatternDetail: BusinessTransPatternData;
-
-  /** To open file explorer dialog */
-  openFileExplorerDialog: boolean = false;
 
   chkInclude: boolean = false;
   saveDisable: boolean = false;
@@ -84,8 +88,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
 
-
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private route: ActivatedRoute, 
+      private configKeywordsService: ConfigKeywordsService,
+      private store: Store<KeywordList>, 
+      private configUtilityService: ConfigUtilityService, 
+      private confirmationService: ConfirmationService,
+      // private log: Logger,
+   ) {
 
     this.segmentList = [];
     let arrLabel = ['First', 'Last', 'Segment Number'];
@@ -469,28 +478,29 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**used to open file manager
   */
-  openFileManager() {
+   openFileManager() {
 
     this.openFileExplorerDialog = true;
 
-  }
+   }
+
 
   /** This method is called form ProductUI config-nd-file-explorer component with the path
  ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
 
   /* dialog window & set relative path */
-  uploadFile(filepath) {
-
+    uploadFile(filepath){
     this.openFileExplorerDialog = false;
     //Temporary path of the BT Pattern file to run locally,independently from Product UI
     // let filepath = "";
     this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
-      if (data.length == this.businessTransPatternInfo.length) {
+      if(data.length == this.businessTransPatternInfo.length){
         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
         return;
       }
-      this.businessTransPatternInfo = data;
+      this.businessTransPatternInfo = data; 
       this.configUtilityService.successMessage("File uploaded successfully");
     });
   }
+
 }
