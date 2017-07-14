@@ -7,6 +7,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ExceptionData } from '../../../../../containers/exception-capture-data';
 import { cloneObject } from '../../../../../utils/config-utility';
 import { ConfigurationComponent } from '../../../configuration/configuration.component';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-exception-setting',
@@ -17,6 +18,8 @@ export class ExceptionSettingComponent implements OnInit {
 
   @Input()
   data;
+   profileId: number;
+   index: number = 0;
   saveDisable: boolean;
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
@@ -30,7 +33,7 @@ export class ExceptionSettingComponent implements OnInit {
   enableGroupKeyword: boolean;
   keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService,private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
     configKeywordsService.toggleKeywordData();
   }
@@ -48,6 +51,35 @@ export class ExceptionSettingComponent implements OnInit {
       this.exceptionData.instrumentException = false;
     }
 
+    this.route.params.subscribe((params: Params) =>{
+      this.profileId = params['profileId'];
+      this.saveDisable=this.profileId==1? true:false;
+      this.index = params['tabId'];
+      });
+
+  }
+
+
+    saveKeywordData(data) {
+      console.log("---inside saveKeywordData---")
+    let instrValue = this.instrExceptionValue(data);
+    for (let key in this.exception) {
+      if (key == 'instrExceptions')
+        this.exception[key]["value"] = instrValue;
+    }
+    this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == true ? 1 : 0;
+    this.keywordData.emit(this.exception);
+
+  }
+
+  resetKeywordData() {
+    this.getKeywordData();
+    this.exception = cloneObject(this.configKeywordsService.keywordData);
+    //to reset value of enableExceptionInSeqBlob keyword
+    if(this.exception['enableExceptionInSeqBlob'].value == 0)
+      this.exception['enableExceptionInSeqBlob'].value = false;
+    else
+     this.exception['enableExceptionInSeqBlob'].value = true;
   }
 
   getKeywordData() {

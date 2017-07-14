@@ -109,6 +109,9 @@ export class ServiceEntryPointComponent implements OnInit {
       }
     );
   }
+  /**
+   * Method to delete custom service entry points
+   */
 deleteServiceEntryPoint():void{
    if (!this.selectedServiceEntryData || this.selectedServiceEntryData.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");

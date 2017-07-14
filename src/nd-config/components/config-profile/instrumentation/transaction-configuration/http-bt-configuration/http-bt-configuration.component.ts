@@ -238,7 +238,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "include"
     else
       this.businessTransPatternDetail.include = "exclude"
-    this.checkForDynamicBTPattern();
+    this.isDynamicBTPattern();
+    if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
+      this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
+      return;
+    }
+    if ((this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "") && this.businessTransPatternDetail.reqHeaderKey == "") {
+      this.configUtilityService.errorMessage("Please provide header key of the dynamic part of request");
+      return;
+    }
+    this.setValuesForDynamicBTPattern();
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
@@ -298,8 +307,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
     this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+    this.isDynamicBTPattern();
+    if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
+      this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
+      return;
+    }
+    if ((this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "") && this.businessTransPatternDetail.reqHeaderKey == "") {
+      this.configUtilityService.errorMessage("Please provide header key of the dynamic part of request");
+      return;
+    }
+    this.setValuesForDynamicBTPattern();
 
-    this.checkForDynamicBTPattern();
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -324,9 +342,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   }
   /**
-   * This method is used to set the values of dynamic part components
+   * Method to set values when Dynamic part of request is disabled  
    */
-  checkForDynamicBTPattern(): void {
+  isDynamicBTPattern(): void {
     if (this.businessTransPatternDetail.dynamicPartReq == false) {
       this.businessTransPatternDetail.reqParamKey = null;
       this.businessTransPatternDetail.reqParamValue = null;
@@ -336,6 +354,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.paramKeyValue = "-";
       this.businessTransPatternDetail.headerKeyValue = "-";
     }
+  }
+  /**
+   * This method is used to set the values of dynamic part components
+   */
+  setValuesForDynamicBTPattern(): void {
     if (this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == null) {
       this.businessTransPatternDetail.reqHeaderValue = null;
       this.businessTransPatternDetail.reqHeaderKey = null;

@@ -1,0 +1,38 @@
+<!--<form *ngIf="url-capturing" #form="ngForm" ngNativeValidate>-->
+<div class="header">URL capturing
+    <div class="pull-right">
+        <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+        <button type="submit" pButton icon="fa-check" (click)="saveKeywordData()" label="Save"></button>
+    </div>
+</div>
+<p-panel class="hideheader">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-1"> </div>
+                <div class="ui-g-5">
+                    <p-checkbox name="includeParameter" label="Include parameter" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-1"> </div>
+                <div class="ui-g-2">
+                    <label>URL offset</label>
+                </div>
+                <div class="ui-g-1">
+                    <input name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="256" [(ngModel)]="urlCapturingData.urlOffset" pInputText required ngModel/>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-1"></div>
+                <div class="ui-g-2">
+                    <label>Maximum characters</label>
+                </div>
+                <div class="ui-g-1">
+                    <input name="maxChar" title="" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="256" [(ngModel)]="urlCapturingData.maxChar" pInputText required ngModel/>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-panel>
+<!--</form>-->

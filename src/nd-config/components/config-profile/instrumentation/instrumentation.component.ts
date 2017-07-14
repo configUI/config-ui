@@ -28,7 +28,6 @@ export class InstrumentationComponent implements OnInit {
       this.saveDisable=this.profileId==1? true:false;
       this.index = params['tabId'];
 
-
     });
   }
 

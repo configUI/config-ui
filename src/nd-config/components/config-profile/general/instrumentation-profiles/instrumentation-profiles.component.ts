@@ -85,9 +85,13 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   //It will load the saved list of instrument Profiles
   loadInstrData() {
-    if ((this.configKeywordsService.keywordData["instrProfile"].value).includes(",")) {
+    if ((this.configKeywordsService.keywordData["instrProfile"].value)){
+      if ((this.configKeywordsService.keywordData["instrProfile"].value).includes(",")){
       let arrVal = (this.configKeywordsService.keywordData["instrProfile"].value).split(",");
       this.instrProfiles = arrVal;
+      }
+    else
+        this.instrProfiles[0] = this.configKeywordsService.keywordData["instrProfile"].value;
     }
   }
 
