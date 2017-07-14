@@ -11,6 +11,8 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 //import { XmlFilesList } from '../../../../interfaces/keywords-info';
 import { cloneObject } from '../../../../utils/config-utility';
 
+
+
 @Component({
   selector: 'app-instrumentation-profiles',
   templateUrl: './instrumentation-profiles.component.html',
@@ -38,6 +40,8 @@ export class InstrumentationProfilesComponent implements OnInit {
   instrProfiles: any = [];
   subscription: Subscription;
   subscriptionEG: Subscription;
+  openFileExplorerDialog: boolean = false;
+  isInstrBrowse: boolean = false;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     // this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -55,6 +59,9 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   ngOnInit() {
     this.loadListOfXmlFiles();
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.browseXmlFiles(data);
+    });
   }
 
   /** This method is used to creating instrProfile select item object **/
@@ -69,7 +76,10 @@ export class InstrumentationProfilesComponent implements OnInit {
   loadListOfXmlFiles() {
     this.configKeywordsService.getListOfXmlFiles(this.profileId).subscribe(data => {
       this.createInstrProfileSelectItem(data)
-    });
+    },
+      error => {
+        console.error("Error in getting xml files");
+      });
 
   }
 
@@ -107,5 +117,37 @@ export class InstrumentationProfilesComponent implements OnInit {
     }
     this.loadListOfXmlFiles();
   }
+
+  /**used to open file manager
+  */
+  openFileManager() {
+
+    this.openFileExplorerDialog = true;
+    this.isInstrBrowse = true;
+
+  }
+
+  //Method to get the xml file path and upload them
+  browseXmlFiles(filesWithPath) {
+    if (this.isInstrBrowse == true) {
+      this.isInstrBrowse = false;
+      this.openFileExplorerDialog = false;
+      // let filesWithPath = "";
+      this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
+        if (data.length < 1) {
+          this.configUtilityService.successMessage("Files imported successfully");
+        }
+        else
+          this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
+
+        this.loadListOfXmlFiles();
+      },
+        error => {
+          console.error("Error in browsing xml files");
+        }
+      );
+    }
+  }
+
 
 }

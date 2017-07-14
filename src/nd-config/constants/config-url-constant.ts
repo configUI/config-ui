@@ -114,7 +114,7 @@ export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 
 /*Instrumentation Profile List*/
 export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles`;
-
+export const COPY_XML_FILES = `${SERVICE_URL}/custom/profilekeywords/copyxmlfiles`;
 
 /* URL for monitors  */
 export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
