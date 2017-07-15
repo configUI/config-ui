@@ -179,7 +179,7 @@ export class ExceptionSettingComponent implements OnInit {
       else
         instrVal = instrVal + "%203"
 
-      if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
+      // if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
         instrVal = instrVal + "%20" + data.form._value.exceptionTraceDepth;
     }
     return instrVal;
