@@ -197,6 +197,10 @@ export class HeaderComponent implements OnInit {
 
   resetKeywordData() {
     this.header = cloneObject(this.configKeywordsService.keywordData);
+    if (this.header['captureCustomData'].value == "false")
+      this.header['captureCustomData'].value = false;
+    else
+      this.header['captureCustomData'].value = true;
     this.splitKeywordData(this.header);
   }
 
