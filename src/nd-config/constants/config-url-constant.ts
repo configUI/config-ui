@@ -1,12 +1,12 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+  const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
   // const  SERVICE_URL = 'http://localhost:8090';
    
 
 //For Production use this SERVICE_URL
- const SERVICE_URL = '/configUI';
+ //const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
@@ -228,4 +228,10 @@ export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbt
 export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+
+/*Import Instrumentation Profile*/
+export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
+export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
+export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
+
 

@@ -429,4 +429,21 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
   }
 
+  /*this method is used for get selected text instrumnetation profile in xml format*/
+  getInstrumentationProfileXMLData(data)
+  {
+       return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
+  }
+
+  /*this method is used for get all xml files for a particular path*/
+  getInstrumentationProfileXMLFileList()
+  {
+       return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
+  }
+
+  /*this method is used for get selected xml instrumnetation profile in xml format*/
+  getXMLDataFromSelectedXMLFile(data)
+  {
+      return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
+  }
 }

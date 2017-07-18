@@ -12,7 +12,8 @@ export const LABEL = {
     ADVANCE: 'Advance Settings',
     INTEGRATION:'Product Integration',
     TREE_MAIN: 'Topology Details',
-    ND_AGENT: 'ND Agent Status'
+    ND_AGENT: 'ND Agent Status',
+    INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker'
 } 
 
 export const URL = {
@@ -31,5 +32,6 @@ export const URL = {
     INTEGRATION: `${ROUTING_PATH}/profile/integration`,
 
     TREE_MAIN: `${ROUTING_PATH}/tree-main/`,
-    TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`
+    TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`,
+     INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`
 };  
