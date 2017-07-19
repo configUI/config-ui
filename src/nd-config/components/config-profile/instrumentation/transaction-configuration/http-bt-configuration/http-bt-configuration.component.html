@@ -5,8 +5,7 @@
 
     <div class="ui-g-12" style="background: #ededf0">
         <div class="ui-g-3">
-            <p-radioButton name="BusinessTransaction" value="global" label="URI without query parameters" (click)="setSelectedValueOfBT('global')"
-                [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="URI without query parameters" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
         </div>
         <div class="ui-g-9">
             <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
@@ -31,16 +30,13 @@
                 <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
             <div class="ui-g-2">
-                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList"
-                    [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
+                <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2" style="margin-top:4px">
                 Segment(s) of URI in transaction</div>
-            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'first'  || globalBtDetail.segmentType == 'last'"
-                    type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;For example 2 or 5"
-                    required pattern="[1-9]+[0-9]*" ngModel />
-                <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'segNo'"
-                    type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;Rule-2: Numeric characters separated by comma(,) are accepted.  &#013;For example 2 or 2,4"
+            <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'first'  || globalBtDetail.segmentType == 'last'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
+                    title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;For example 2 or 5" required pattern="[1-9]+[0-9]*" ngModel />
+                <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'segNo'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;Rule-2: Numeric characters separated by comma(,) are accepted.  &#013;For example 2 or 2,4"
                     required pattern="[1-9]+(,[1-9]+)*" ngModel />
             </div>
         </div>
@@ -52,16 +48,14 @@
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"><label>Slow</label></div>
             <div class="ui-g-10">
-                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number"
-                    min=1 pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
+                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
             </div>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"> <label>Very slow</label> </div>
             <div class="ui-g-10">
-                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number"
-                    min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
+                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
             </div>
         </div>
         <div class="ui-g-12 header-font-size">
@@ -70,41 +64,34 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="requestParam" label="Query parameter"
-                    [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue1" value="requestParam" label="Query parameter" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10 ">
-                <input name="requestParam" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) "
-                    type="text" size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" required />
+                <input name="requestParam" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) " type="text" size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" required />
             </div>
         </div>
 
         <div class="ui-g-12 padding-left-css">
-            <p-radioButton disabled="{{!globalBtDetail.dynamicReqType}}" name="dynamicReqValue" value="httpMethod" label="Use HTTP request method(GET/POST/PUT) in transaction names"
-                [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+            <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue2" value="httpMethod" label="Use HTTP request method(GET/POST/PUT) in transaction names" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton disabled="{{!selectedDynamicRequestType}}" name="dynamicReqValue" value="requestHeader" label="HTTP header"
-                    [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue3" value="requestHeader" label="HTTP header" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
-                <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)"
-                    type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " placeholder="HTTP HEADER "
-                    required />
+                <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " placeholder="HTTP HEADER " required />
             </div>
         </div>
     </form>
 </div>
 <!--For showing Business Transaction Pattern(s) list -->
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
-    <p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10"
-        [pageLinks]="3">
+    <p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3">
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business transaction pattern list</span>
             <span style="float: right; margin-top:-5px">
-                        
+
                        <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add a Business transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a Business transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
@@ -137,8 +124,7 @@
                 <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow transaction threshold(ms)" [sortable]="true"
-            [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow transaction threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
                 <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
             </template>
@@ -163,8 +149,7 @@
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
-<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}"
-    *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
     <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="pattern-dialog-border">
@@ -173,8 +158,7 @@
                         <label>Business transaction name</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName"
-                            autofocus required ngModel/>
+                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                     </div>
                     <div class="ui-g-5">
                         <p-checkbox name="include" label="Include this business transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
@@ -186,14 +170,11 @@
                         <label>URL pattern</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="urlName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#:\/@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.urlName"
-                            required ngModel />
+                        <input name="urlName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#:\/@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
                     <div class="ui-g-5">
-                        <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType"
-                            required ngModel/>
-                        <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select mode" [(ngModel)]="businessTransPatternDetail.matchType"
-                            required ngModel></p-dropdown>
+                        <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
+                        <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
                     </div>
                 </div>
             </div>
@@ -206,22 +187,19 @@
                     <label>Slow</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="slowTransaction" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction"
-                        required ngModel />(ms)
+                    <input name="slowTransaction" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />(ms)
                 </div>
                 <div class="ui-g-1 label">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="verySlowTransaction" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction"
-                        required ngModel />(ms)
+                    <input name="verySlowTransaction" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />(ms)
                 </div>
             </div>
 
             <div class="pattern-dialog-border">
                 <div class="ui-g-12">
-                    <p-checkbox name="dynamicPartReq" label="Dynamic part of request" [(ngModel)]="businessTransPatternDetail.dynamicPartReq"
-                        binary="false"></p-checkbox>
+                    <p-checkbox name="dynamicPartReq" label="Dynamic part of request" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
                 </div>
 
                 <div class="ui-g-12">
@@ -230,8 +208,7 @@
                             <label>Request parameter key</label>
                         </div>
                         <div class="ui-g-7">
-                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey"
-                                title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
+                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
                                 pattern="[a-zA-Z_]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                         </div>
                     </div>
@@ -240,8 +217,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))"
-                                type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" title="Please enter valid value. &#013;Rule : Cannot include whitespaces & special characters ."
+                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" title="Please enter valid value. &#013;Rule : Cannot include whitespaces & special characters ."
                                 pattern="[a-zA-Z0-9]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                         </div>
                     </div>
@@ -254,8 +230,7 @@
                             <label>Request header key</label>
                         </div>
                         <div class="ui-g-7">
-                            <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey"
-                                title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
+                            <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
                                 pattern="[a-zA-Z_]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                         </div>
                     </div>
@@ -264,8 +239,7 @@
                             <label>Value</label>
                         </div>
                         <div class="ui-g-8">
-                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))"
-                                type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule : Cannot include whitespaces & special characters ."
+                            <input name="reqHeaderValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqHeaderKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule : Cannot include whitespaces & special characters ."
                                 pattern="[a-zA-Z0-9]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                         </div>
                     </div>
@@ -277,8 +251,7 @@
                             <label>Method type</label>
                         </div>
                         <div class="ui-g-7">
-                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList"
-                                placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
+                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -293,8 +266,7 @@
     </form>
 </p-dialog>
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
-    modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
 
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
