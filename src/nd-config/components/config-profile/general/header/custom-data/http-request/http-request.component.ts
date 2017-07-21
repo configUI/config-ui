@@ -299,6 +299,10 @@ export class HttpRequestComponent implements OnInit {
 
   /* Open Dialog for Edit HTTP Req */
   editHTTPRequest() {
+    if (this.httpRequestHdrDetail.specific == true && this.rulesDataInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide HTTP request header detail(s)");
+      return;
+    }
     this.HttpReqDetailSaveAndEdit();
     this.httpRequestHdrDetail.httpAttrId = this.selectedHTTPReqHeader[0].httpReqHdrBasedId;
     if (this.rulesDataInfo != []) {
@@ -414,6 +418,10 @@ export class HttpRequestComponent implements OnInit {
   }
 
   saveHttpRequest() {
+    if (this.httpRequestHdrDetail.specific == true && this.rulesDataInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide HTTP request header detail(s)");
+      return;
+    }
     this.HttpReqDetailSaveAndEdit();
     this.configKeywordsService.addHTTPReqHeaderData(this.httpRequestHdrDetail, this.profileId).subscribe(data => {
       let arrhttpAttr = this.setDataHttpAttribute(data);

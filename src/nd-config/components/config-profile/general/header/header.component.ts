@@ -182,6 +182,7 @@ export class HeaderComponent implements OnInit {
       this.httpRespFullFp.headersNameResp = arrVal;
       this.httpRespFullFp.captureModeResp = arr[2] == 1;
       this.httpRespFullFp.briefValResp = arr[2] == 1 ? arr[3] : '';
+      this.httpRespFullFp.enableHttpResp = true;
     }
     else if (keywords["captureHTTPRespFullFp"].value == '1') {
       this.httpRespFullFp.enableHttpResp = true;
