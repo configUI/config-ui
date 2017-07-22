@@ -2,8 +2,8 @@
 export  class MethodBasedCustomData {
     methodBasedId: number;
     fqm: string;
-    enableReturnType: boolean;
-    enableArgumentType: boolean;
+    enableReturnType: boolean = false;
+    enableArgumentType: boolean = false;
     returnTypeValue : string;
     argumentTypeValue:string;
     returnTypeData: ReturnTypeData[];
