@@ -72,8 +72,8 @@
                 <label>Topology</label>
             </div>
             <div class="ui-g-8">
-                <input name="dropdown" type="text" size="29" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                <p-dropdown name="topoId" [options]="topologySelectItem" placeholder="--Select Topology--" [style]="{'width':'70%'}" [(ngModel)]="applicationDetail.topoId" required ngModel></p-dropdown>
+                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                <p-dropdown name="topoId" [options]="topologySelectItem" placeholder="--Select Topology--" [style]="{'width':'72%'}" [(ngModel)]="applicationDetail.topoId" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -81,7 +81,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="appDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
+                <textarea name="appDesc" rows="2" cols="31" style="width:72%" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
             </div>
         </div>
         <footer>
