@@ -83,15 +83,17 @@ export class HttpRequestComponent implements OnInit {
 
   doAssignHttpAttributeTableData(data) {
     this.httpRequestHdrComponentInfo = [];
+    this.selectedHTTPReqHdrType = data.httpReqHdrType;
     //this.httpRequestHdrComponentInfo = this.filterTRData(data);
     this.filterTRData(data);
   }
 
   filterTRData(data) {
     this.arrTestRunData = [];
-    if (data != null) {
-      for (var i = 0; i < data.length; i++) {
-        this.modifyData(data[i]);
+    if (data.attrList != null) {
+      for (var i = 0; i < data.attrList.length; i++) {
+        let valueNames = "";
+        this.modifyData(data.attrList[i]);
       }
     }
   }

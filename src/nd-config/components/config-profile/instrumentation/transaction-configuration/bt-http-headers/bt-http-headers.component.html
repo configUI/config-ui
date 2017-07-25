@@ -138,7 +138,7 @@
                     <label>BT name</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="btname" type="text" size="20" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
+                    <input name="btname" type="text" size="20" pattern="[a-zA-Z0-9-_]" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                     <label>Header value</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="hdrValue" type="text" size="20" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
+                    <input name="hdrValue" type="text" size="20" pattern="[a-zA-Z0-9-%_./&]" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
             </div>
