@@ -258,6 +258,7 @@ export class JavaMethodComponent implements OnInit {
   }
 
 
+  
   saveEditData(fqmField) {
 
     //openAddReturnRulesDialog()
@@ -283,37 +284,60 @@ export class JavaMethodComponent implements OnInit {
       this.methodBasedCustomData.argumentTypeData = this.argumentTypeData;
       this.methodBasedCustomData.returnTypeData = this.returnTypeData;
 
-      if(!this.isNew){
-
-       /****for edit case
-        *  first triggering the request to delete the return rules and
-        *  when response comes then triggering request to delete argument rules
-        * and then  adding the new added rules
-        *
-        */
-      this.configCustomDataService.deleteReturnRules(this.returnRulesDelete).subscribe(data =>{
-        this.configCustomDataService.deleteArgumentRules(this.argumentRulesDelete).subscribe(data =>{
-           this.configCustomDataService.editMethodBasedCustomData(this.methodBasedCustomData).subscribe(data => {
-            this.tableData.map(function(val){
-              if(val.methodBasedId == data.methodBasedId ){
-                val = data
-              }
+      if (!this.isNew) {
+        if (this.methodBasedCustomData.enableArgumentType == false && this.methodBasedCustomData.enableReturnType == false) {
+          this.configUtilityService.errorMessage("Choose atleast one capturing type");
+          return;
+        }
+        if (this.methodBasedCustomData.enableArgumentType == true && this.argumentTypeData.length == 0) {
+          this.configUtilityService.errorMessage("Provide argument type setting(s)");
+          return;
+        }
+        if (this.methodBasedCustomData.enableReturnType == true && this.returnTypeData.length == 0) {
+          this.configUtilityService.errorMessage("Provide return type setting(s)");
+          return;
+        }
+        /****for edit case
+         *  first triggering the request to delete the return rules and
+         *  when response comes then triggering request to delete argument rules
+         * and then  adding the new added rules
+         *
+         */
+        this.configCustomDataService.deleteReturnRules(this.returnRulesDelete).subscribe(data => {
+          this.configCustomDataService.deleteArgumentRules(this.argumentRulesDelete).subscribe(data => {
+            this.configCustomDataService.editMethodBasedCustomData(this.methodBasedCustomData).subscribe(data => {
+              this.tableData.map(function (val) {
+                if (val.methodBasedId == data.methodBasedId) {
+                  val = data
+                }
+              })
+              this.configUtilityService.successMessage(Messages);
+              this.modifyData(this.tableData)
             })
-        this.configUtilityService.successMessage(Messages);
-        this.modifyData(this.tableData)
-      })
-      })
-    })
-       
+          })
+        })
+
       }
       else {
+        if (this.methodBasedCustomData.enableArgumentType == false && this.methodBasedCustomData.enableReturnType == false) {
+          this.configUtilityService.errorMessage("Choose atleast one capturing type");
+          return;
+        }
+        if (this.methodBasedCustomData.enableArgumentType == true && this.argumentTypeData.length == 0) {
+          this.configUtilityService.errorMessage("Provide argument type setting(s)");
+          return;
+        }
+        if (this.methodBasedCustomData.enableReturnType == true && this.returnTypeData.length == 0) {
+          this.configUtilityService.errorMessage("Provide return type setting(s)");
+          return;
+        }
         this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
-        // this.tableData.push(data);
-        this.tableData = ImmutableArray.push(this.tableData,data);
-        this.configUtilityService.successMessage(Messages);
-        this.modifyData(this.tableData)
-      })
-    }
+          // this.tableData.push(data);
+          this.tableData = ImmutableArray.push(this.tableData, data);
+          this.configUtilityService.successMessage(Messages);
+          this.modifyData(this.tableData)
+        })
+      }
       this.addEditDialog = false;
     }
   }

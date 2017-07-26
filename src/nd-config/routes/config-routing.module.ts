@@ -16,6 +16,7 @@ import { GeneralComponent } from '../components/config-profile/general/general.c
 import { AdvanceComponent } from '../components/config-profile/advance/advance.component';
 import { InstrumentationComponent } from '../components/config-profile/instrumentation/instrumentation.component';
 import { ProductIntegrationComponent } from '../components/config-profile/product-integration/product-integration.component';
+import { ConfigImportInstrProfileComponent } from '../components/config-import-instr-profile/config-import-instr-profile.component';
 
 /**For ProductUI */
 // const routes: Routes = [
@@ -63,6 +64,7 @@ const routes: Routes = [
             },
             { path: 'topology-list', component: ConfigTopologyListComponent },
             { path: 'nd-agent', component: ConfigNdAgentComponent },
+            { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
 ];
 
 @NgModule({

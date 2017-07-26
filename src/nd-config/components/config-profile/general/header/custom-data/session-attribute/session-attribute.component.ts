@@ -78,8 +78,16 @@ export class SessionAttributeComponent implements OnInit {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
-    this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => this.doAssignSessionAttributeTableData(data));
+    this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
+      this.doAssignSessionAttributeTableData(data)
+      if (data["sessionType"] == "specific") {
+        this.selectedSessionAttribute = "Specific";
+      }
+      else if (data["sessionType"] == "All")
+        this.selectedSessionAttribute = "All";
+    });
   }
+
 
   doAssignSessionAttributeTableData(data) {
     this.sessionAttributeComponentInfo = [];
@@ -166,7 +174,7 @@ export class SessionAttributeComponent implements OnInit {
       this.isNewValueType = true;
       this.editAttrValues = true;
       // this.customValueTypeDetail = this.selectedSessionValueType[0];
-      this.customValueTypeDetail = Object.assign({},this.selectedSessionValueType[0]);
+      this.customValueTypeDetail = Object.assign({}, this.selectedSessionValueType[0]);
 
     }
   }
@@ -177,7 +185,7 @@ export class SessionAttributeComponent implements OnInit {
 
     //Edit functionality form
     if (!this.isNewSessionAttr) {
-      
+
       //In edit form, to edit rules
       if (this.editAttrValues) {
         this.isNewValueType = false;
@@ -228,7 +236,7 @@ export class SessionAttributeComponent implements OnInit {
       }
 
       else {
-      //In add form, to add rules
+        //In add form, to add rules
         this.isNewValueType = true;
         this.customValueTypeDetail["id"] = this.counterAttrAdd;
         this.customValueTypeDetail["customValTypeName"] = this.getTypeName(this.customValueTypeDetail.type);
@@ -277,6 +285,10 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   editSessionAttr() {
+    if (this.sessionAttributeDetail.specific == true && this.customValueTypeInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide specific session attribute(s)");
+      return;
+    }
     this.sessionAttributeDetail.attrValues = this.customValueTypeInfo;
     this.sessionAtrributeDetailSaveAndEdit();
     this.sessionAttributeDetail.sessAttrId = this.selectedSessionAttributeList[0].sessAttrId;
@@ -313,6 +325,10 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   saveSessionAttr() {
+    if (this.sessionAttributeDetail.specific == true && this.customValueTypeInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide specific session attribute(s)");
+      return;
+    }
     this.sessionAttributeDetail.attrValues = this.customValueTypeInfo;
     this.sessionAtrributeDetailSaveAndEdit();
     this.configKeywordsService.addSessionAttributeData(this.sessionAttributeDetail, this.profileId).subscribe(data => {
