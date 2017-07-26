@@ -61,6 +61,10 @@ export class BTHTTPHeadersComponent implements OnInit {
     condCount: number = 0;
     condCountEdit: number = 0;
 
+    //To provide custom header name
+    customHeaderName: string;
+    customHeaderCheck: boolean = false;
+
     constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     }
     ngOnInit() {
@@ -94,6 +98,10 @@ export class BTHTTPHeadersComponent implements OnInit {
         this.isNewHeader = true;
         this.addResReqHeaderDialog = true;
         this.headerConditionInfo = [];
+
+        //Initializing custom header name when add dialog opens
+        this.customHeaderName = '';
+        this.customHeaderCheck = false;
         if (this.btHttpHeadersInfo == undefined)
             this.btHttpHeadersInfo = [];
         this.loadRequestHeader();
@@ -120,17 +128,29 @@ export class BTHTTPHeadersComponent implements OnInit {
     //This method loads Header request drop-down values
     loadRequestHeader() {
         this.requestHeader = [];
-        var reqHdrLabel = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
-            'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
-            'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
-            'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
-            'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
+        var reqHdrLabel = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
+            'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect', 'Front-End-Https',
+            'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma',
+            'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer', 'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning',
+            'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto', 'X-Requested-With', 'X-Wap-Profile', 'Accept-Ranges',
+            'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
+            'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type',
+            'Date', 'ETag', 'Expires', 'Last-Modified', 'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After',
+            'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security', 'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate',
+            'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible',
+            'X-WebKit-CSPX-XSS-Protection'];
 
-        var reqHdrVal = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
-            'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
-            'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
-            'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
-            'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
+        var reqHdrVal = ['Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
+            'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect', 'Front-End-Https',
+            'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma',
+            'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer', 'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning',
+            'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto', 'X-Requested-With', 'X-Wap-Profile', 'Accept-Ranges',
+            'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
+            'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type',
+            'Date', 'ETag', 'Expires', 'Last-Modified', 'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After',
+            'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security', 'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate',
+            'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible',
+            'X-WebKit-CSPX-XSS-Protection'];
 
         this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
     }
@@ -140,7 +160,7 @@ export class BTHTTPHeadersComponent implements OnInit {
         this.headerType = [];
         var index = ['String'];
         var type = ['String'];
-        this.btHttpHeadersDetail.headerValType = 'String';        
+        this.btHttpHeadersDetail.headerValType = 'String';
         this.headerType = ConfigUiUtility.createListWithKeyValue(type, index);
     }
 
@@ -170,6 +190,12 @@ export class BTHTTPHeadersComponent implements OnInit {
     //Method to save new HTTP Headers
     saveHttpHeaders() {
         this.btHttpHeadersDetail.conditions = [];
+
+        //Assigning custom header name
+        if (this.customHeaderCheck) {
+            this.btHttpHeadersDetail.headerName = this.customHeaderName;
+        }
+
         this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
         if (this.headerConditionInfo.length == 0) {
             this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
@@ -189,6 +215,9 @@ export class BTHTTPHeadersComponent implements OnInit {
         if (this.headerConditionInfo.length == 0) {
             this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
             return;
+        }
+        if (this.customHeaderCheck) {
+            this.btHttpHeadersDetail.headerName = this.customHeaderName;
         }
         this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
         this.btHttpHeadersDetail.headerId = this.selectedHTTPHeaders[0].headerId;
@@ -249,6 +278,23 @@ export class BTHTTPHeadersComponent implements OnInit {
             this.loadHeaderType();
             this.loadRequestHeader();
             this.loadOperationName();
+
+            //Checking whether the provided header name is custom or not
+            let flag;
+            for (let i = 0; i < this.requestHeader.length; i++) {
+                if (this.requestHeader[i].value == this.btHttpHeadersDetail.headerName) {
+                    flag = true;
+                }
+            }
+            if(!flag){
+                this.customHeaderName = this.btHttpHeadersDetail.headerName;
+                this.customHeaderCheck =true;
+            }
+            else{
+                this.customHeaderName = '';
+                this.customHeaderCheck = false;
+            }
+
             this.headerConditionInfo = this.selectedHTTPHeaders[0].conditions;
             //providing Id for editing conditions in edit header form
             this.headerConditionInfo.map(function (val) {
@@ -446,7 +492,7 @@ export class BTHTTPHeadersComponent implements OnInit {
         return -1;
     }
 
-//Opens Edit conditions window
+    //Opens Edit conditions window
     openEditReqDialog() {
         if (!this.selectedRequestHeader || this.selectedRequestHeader.length < 1) {
             this.configUtilityService.errorMessage("Select a row to edit");

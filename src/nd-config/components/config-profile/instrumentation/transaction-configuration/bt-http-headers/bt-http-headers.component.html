@@ -65,19 +65,27 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
+                    <input name="type" type="text" [disabled]="customHeaderCheck==true" size="25" class='hidden-validator' pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
                         required ngModel/>
-                    <p-dropdown name="requestHeader" [style]="{'width': '100%'}" placeholder="--Select--" [(ngModel)]="btHttpHeadersDetail.headerName"
+                    <p-dropdown name="requestHeader" [disabled]="customHeaderCheck==true" [style]="{'width': '100%'}" placeholder="--Select--" [(ngModel)]="btHttpHeadersDetail.headerName"
                         size="20" [autoWidth]="true" [options]="requestHeader" required ngModel></p-dropdown>
                 </div>
-                <div class="ui-g-1"></div>
-                <div class="ui-g-1">
+                 <div class="ui-g-1">
+                </div> 
+                <div class="ui-g-5" style="margin-top: -5px">
+                    <p-checkbox style= "float:left;margin-right:5px;margin-top: 3px" name="customHeaderCheck" [(ngModel)]="customHeaderCheck" binary="true" ></p-checkbox>
+                    <input name="customHeader" type="text" size="25" placeholder="Custom header name" pInputText [disabled]="customHeaderCheck==false" [(ngModel)]="customHeaderName"
+                        required ngModel/>
+                </div>
+            </div>
+            <div class="ui-g-12">            
+                <div class="ui-g-2">
                     <label>Type</label>
                 </div>
-                <div class="ui-g-3" style="margin-top: -5px">
+                <div class="ui-g-4" style="margin-top: -5px">
                     <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="btHttpHeadersDetail.headerValType"
                         required ngModel/>
-                    <p-dropdown name="headerValType" [options]="headerType" [(ngModel)]="btHttpHeadersDetail.headerValType" size="20" placeholder="--Select--"></p-dropdown>
+                    <p-dropdown name="headerValType" [style]="{'width': '100%'}" [options]="headerType" [autoWidth]="true" [(ngModel)]="btHttpHeadersDetail.headerValType" size="20" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -138,7 +146,7 @@
                     <label>BT name</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="btname" type="text" size="20" pattern="[a-zA-Z0-9-_]" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
+                    <input name="btname" type="text" size="20" pattern="[a-zA-Z0-9-_]*" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
             </div>
@@ -147,7 +155,7 @@
                     <label>Header value</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="hdrValue" type="text" size="20" pattern="[a-zA-Z0-9-%_./&]" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
+                    <input name="hdrValue" type="text" size="20" pattern="[a-zA-Z0-9-%_./&]*" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
             </div>
