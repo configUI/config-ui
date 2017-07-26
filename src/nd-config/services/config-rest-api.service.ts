@@ -27,6 +27,19 @@ export class ConfigRestApiService {
       .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error')})
   }
 
+    // Fetch data
+  getDataByGetReqWithNoJson(url: string): Observable<any> {
+    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+    // ...using get request
+    return this.http.get(url)
+      .map((res: Response) => {
+        this.configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        return res;
+      })
+      //...errors if any
+      .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error')})
+  }
+
   getDataByPostReq(url: string, body?: any): Observable<any> {
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
