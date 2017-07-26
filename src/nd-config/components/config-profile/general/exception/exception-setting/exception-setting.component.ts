@@ -18,8 +18,8 @@ export class ExceptionSettingComponent implements OnInit {
 
   @Input()
   data;
-   profileId: number;
-   index: number = 0;
+  profileId: number;
+  index: number = 0;
   saveDisable: boolean;
 
   /**This is to send data to parent component(General Screen Component) for save keyword data */
@@ -33,7 +33,7 @@ export class ExceptionSettingComponent implements OnInit {
   enableGroupKeyword: boolean;
   keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService,private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
     configKeywordsService.toggleKeywordData();
   }
@@ -51,16 +51,16 @@ export class ExceptionSettingComponent implements OnInit {
       this.exceptionData.instrumentException = false;
     }
 
-    this.route.params.subscribe((params: Params) =>{
+    this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable=this.profileId==1? true:false;
+      this.saveDisable = this.profileId == 1 ? true : false;
       this.index = params['tabId'];
-      });
+    });
 
   }
 
-    /*This method is used to save the keyword data in backend */
-    saveKeywordData(data) {
+  /*This method is used to save the keyword data in backend */
+  saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
     for (let key in this.exception) {
       if (key == 'instrExceptions')
@@ -75,10 +75,10 @@ export class ExceptionSettingComponent implements OnInit {
     this.getKeywordData();
     this.exception = cloneObject(this.configKeywordsService.keywordData);
     //to reset value of enableExceptionInSeqBlob keyword
-    if(this.exception['enableExceptionInSeqBlob'].value == 0)
+    if (this.exception['enableExceptionInSeqBlob'].value == 0)
       this.exception['enableExceptionInSeqBlob'].value = false;
     else
-     this.exception['enableExceptionInSeqBlob'].value = true;
+      this.exception['enableExceptionInSeqBlob'].value = true;
   }
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
@@ -180,8 +180,17 @@ export class ExceptionSettingComponent implements OnInit {
         instrVal = instrVal + "%203"
 
       // if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
-        instrVal = instrVal + "%20" + data.form._value.exceptionTraceDepth;
+      instrVal = instrVal + "%20" + data.form._value.exceptionTraceDepth;
     }
     return instrVal;
   }
+
+  ngOnDestroy() {
+    this.exception['enableExceptionInSeqBlob'].value = this.exception['enableExceptionInSeqBlob'].value == true ? 1 : 0;
+    if (this.subscription)
+      this.subscription.unsubscribe();
+    if (this.subscriptionEG)
+      this.subscriptionEG.unsubscribe();
+  }
+
 }
