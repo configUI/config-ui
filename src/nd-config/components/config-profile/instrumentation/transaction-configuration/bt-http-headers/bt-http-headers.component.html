@@ -74,7 +74,7 @@
                 </div> 
                 <div class="ui-g-5" style="margin-top: -5px">
                     <p-checkbox style= "float:left;margin-right:5px;margin-top: 3px" name="customHeaderCheck" [(ngModel)]="customHeaderCheck" binary="true" ></p-checkbox>
-                    <input name="customHeader" type="text" size="25" placeholder="Custom header name" pInputText [disabled]="customHeaderCheck==false" [(ngModel)]="customHeaderName"
+                    <input name="customHeader" type="text" size="25" placeholder="Custom header name" pattern="[a-zA-Z0-9_-]*" pInputText [disabled]="customHeaderCheck==false" [(ngModel)]="customHeaderName"
                         required ngModel/>
                 </div>
             </div>
