@@ -182,7 +182,7 @@ export class HeaderComponent implements OnInit {
       this.httpReqFullFp.enableHttpReq = arr[0] == 3;
       this.httpReqFullFp.headerMode = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
-      if (arr[1].includes(",") && arr[1] != "ALL") {
+      if (arr[1].includes(",") || arr[1] != "ALL") {
         arrVal = arr[1].split(",")
       }
       this.httpReqFullFp.headersName = arrVal;
@@ -198,7 +198,7 @@ export class HeaderComponent implements OnInit {
       this.httpRespFullFp.enableHttpResp = arr[0] == 3;
       this.httpRespFullFp.headerModeResp = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
-      if (arr[1] != "ALL" && arr[1].includes(",")) {
+      if (arr[1] != "ALL" || arr[1].includes(",")) {
         arrVal = arr[1].split(",")
       }
       this.httpRespFullFp.headersNameResp = arrVal;
