@@ -364,7 +364,9 @@ INSERT INTO config.headers_meta_data(hmd_id,ht_id,header_name) VALUES
 (109,2,'X-Forwarded-Proto'),
 (110,2,'X-Requested-With'),
 (111,2,'X-Wap-Profile'),
-(112,1,'CavNDFPInstance');
+(112,1,'CavNDFPInstance'),
+(113,2,'Referer'),
+(114,2,'Range');
 
 
 INSERT INTO config.value_type(val_id,val_type) VALUES

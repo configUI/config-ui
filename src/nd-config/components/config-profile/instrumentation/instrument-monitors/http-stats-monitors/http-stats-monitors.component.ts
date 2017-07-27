@@ -142,29 +142,34 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Header request drop-down values
   loadResponseHeader() {
     this.responseHeader = [];
-    var resHdrLabel = [ 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
-      'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect',
-      'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'If-Unmodified-Since',
-      'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer',
-      'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
-      'X-Requested-With', 'X-Wap-Profile'];
+    var resHdrLabel = [ 'Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection',
+      'Content-Disposition', 'Content-Encoding', 'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type',
+      'Date', 'ETag', 'Expires', 'Last-Modified', 'Link', 'Location', 'P3P','Pragma','Proxy-Authenticate',
+      'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security', 'Trailer', 'Transfer-Encoding',
+      'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Frame-Options', 'X-Powered-By',
+      'X-UA-Compatible', 'X-WebKit-CSP','X-XSS-Protection','Accept-Charset','Accept-Datetime','Accept-Encoding','Accept','Authorization',
+    'Cookie','DNT','Expect','Front-End-Https','Host','If-Match','If-Modified-Since','If-None-Match','If-Range','If-Unmodified-Since',
+  'Max-Forwards','Origin','Proxy-Authorization','Proxy-Connection','CavNDFPInstance','TE','Upgrade','User-Agent','X-ATT-DeviceId','X-Forwarded-For',
+'X-Forwarded-Proto','X-Requested-With','X-Wap-Profile','Referer','Range'];
 
     var resHdrVal = [ '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58',
-      '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83'];
+      '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79','80', '81', '82', '83',
+    '84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100','101','102','103','104','105','106','107','108',
+  '109','110','111','113','114'];
 
     this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
   }
   //This method loads Header request drop-down values
   loadRequestHeader() {
     this.requestHeader = [];
-    var reqHdrLabel = [ 'Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
-      'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
-      'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
-      'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
-      'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
+    var reqHdrLabel = [ 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization', 'Cache-Control', 'Connection',
+      'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect', 'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since',
+      'If-None-Match', 'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer',
+      'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
+      'X-Requested-With', 'X-Wap-Profile','CavNDFPInstance'];
 
     var reqHdrVal = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
-      '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'];
+      '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40','112'];
 
     this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
   }
