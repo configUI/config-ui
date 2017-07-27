@@ -53,6 +53,8 @@ export class HttpRequestComponent implements OnInit {
 
   httpAtrributeDelete = [];
 
+   selectedHTTPReqHdrType: string;
+
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     this.customValueType = [];
     this.rulesDataInfo = [];
@@ -70,20 +72,28 @@ export class HttpRequestComponent implements OnInit {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
-    this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => this.doAssignHttpAttributeTableData(data));
+    this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => {this.doAssignHttpAttributeTableData(data);
+      if (data["httpReqHdrType"] == "Specific") {
+        this.selectedHTTPReqHdrType = "Specific";
+      }
+      else if (data["httpReqHdrType"] == "All")
+        this.selectedHTTPReqHdrType = "All";
+    });
   }
 
   doAssignHttpAttributeTableData(data) {
     this.httpRequestHdrComponentInfo = [];
+    this.selectedHTTPReqHdrType = data.httpReqHdrType;
     //this.httpRequestHdrComponentInfo = this.filterTRData(data);
     this.filterTRData(data);
   }
 
   filterTRData(data) {
     this.arrTestRunData = [];
-    if (data != null) {
-      for (var i = 0; i < data.length; i++) {
-        this.modifyData(data[i]);
+    if (data.attrList != null) {
+      for (var i = 0; i < data.attrList.length; i++) {
+        let valueNames = "";
+        this.modifyData(data.attrList[i]);
       }
     }
   }
@@ -595,6 +605,14 @@ export class HttpRequestComponent implements OnInit {
     }
     return -1;
   }
+
+  /* set Value of All or Specific which Selected */
+  getSelectedHTTPReqHdr() {
+    let httpReqHdrType = { httpReqHdrType: this.selectedHTTPReqHdrType };
+    this.configKeywordsService.getHTTPRequestValue(httpReqHdrType, this.profileId).subscribe(data => this.selectedHTTPReqHdrType = data["httpReqHdrType"]);
+
+  }
+
 
   /* Close Dialog */
   closeDialog() {

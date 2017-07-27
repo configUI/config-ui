@@ -29,7 +29,7 @@ export class ConfigCustomDataService {
   }
 
   updateCaptureCustomDataFile(profileId){
-    this._restApi.getDataByGetReq(`${URL.UPDATE_CUSTOM_CAPTURE_DATA_FILE}/${profileId}`).subscribe();
+    this._restApi.getDataByGetReqWithNoJson(`${URL.UPDATE_CUSTOM_CAPTURE_DATA_FILE}/${profileId}`).subscribe();
   }
 
   editMethodBasedCustomData(data):Observable<MethodBasedCustomData>{

@@ -346,6 +346,11 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
   }
 
+  /** get the HTTP Request Header Type */
+  getHTTPRequestValue(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_HTTP_REQ_TYPE}/${profileId}`, data);
+  }
+
   // /* Edit  Business Trans Method Info */
   // editHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
   //   let url = `${URL.UPDATE_HTTPREQHDR}/${profileId}`;
