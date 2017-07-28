@@ -1,12 +1,12 @@
 
 
-  const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
   // const  SERVICE_URL = 'http://localhost:8090';
    
 
 //For Production use this SERVICE_URL
-//  const SERVICE_URL = '/configUI';
+ const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
