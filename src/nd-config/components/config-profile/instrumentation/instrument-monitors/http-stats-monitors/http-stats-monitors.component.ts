@@ -142,29 +142,34 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Header request drop-down values
   loadResponseHeader() {
     this.responseHeader = [];
-    var resHdrLabel = [ 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
-      'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect',
-      'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'If-Unmodified-Since',
-      'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer',
-      'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
-      'X-Requested-With', 'X-Wap-Profile'];
+    var resHdrLabel = [ 'Accept', 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Ranges', 'Access-Control-Allow-Origin',
+      'Age', 'Allow', 'Authorization', 'Cache-Control', 'CavNDFPInstance', 'Connection', 'Content-Disposition', 'Content-Encoding', 'Content-Language',
+      'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Cookie','Date','DNT',
+      'ETag', 'Expect', 'Expires', 'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range',
+      'If-Unmodified-Since', 'Last-Modified', 'Link', 'Location', 'Max-Forwards', 'Origin', 'P3P', 'Pragma', 'Proxy-Authenticate',
+      'Proxy-Authorization', 'Proxy-Connection','Range','Referer','Refresh','Retry-After','Server','Set-Cookie', 'Status',
+    'Strict-Transport-Security','TE','Trailer','Transfer-Encoding','Upgrade','User-Agent','Vary','Via','WWW-Authenticate','Warning',
+  'X-ATT-DeviceId','X-Content-Security-Policy','X-Content-Type-Options','X-Forwarded-For','X-Forwarded-Proto','X-Frame-Options','X-Powered-By','X-Requested-With',
+  'X-UA-Compatible','X-Wap-Profile', 'X-WebKit-CSP', 'X-XSS-Protection'];
 
-    var resHdrVal = [ '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58',
-      '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83'];
+    var resHdrVal = [ '87', '84', '85', '86', '41', '42', '43', '44', '88', '45', '103', '46', '47', '48', '49', '50', '51', '52',
+      '53', '54', '55', '89', '56', '90', '57', '91', '58', '92', '93', '94', '95', '96', '97', '98', '59', '60', '61', '99', '100','62', '63', '64', '101',
+    '114','113','65','66','67','68','69','70','104','71','72','105','106','73','74','75','76','107','77','78','108','109','79','80','110',
+  '81','111','82','83'];
 
     this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
   }
   //This method loads Header request drop-down values
   loadRequestHeader() {
     this.requestHeader = [];
-    var reqHdrLabel = [ 'Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
-      'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
-      'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
-      'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
-      'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
+    var reqHdrLabel = [ 'Accept','Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language','Authorization', 'Cache-Control', 'CavNDFPInstance','Connection',
+      'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'Date', 'DNT', 'Expect', 'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since',
+      'If-None-Match', 'If-Range', 'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'Proxy-Connection', 'Range', 'Referer',
+      'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
+      'X-Requested-With', 'X-Wap-Profile'];
 
-    var reqHdrVal = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
-      '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'];
+    var reqHdrVal = [ '5', '1' ,'2', '3', '4' , '6', '7', '112', '8', '9', '10', '11', '12', '14', '13', '15', '16', '17', '18',
+      '19', '20', '21', '27', '22', '23', '24', '25', '26', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'];
 
     this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
   }
