@@ -263,10 +263,10 @@ body {
 }
 
 
-/* 
-hide it behind the dropdown component, the required 
+/*
+hide it behind the dropdown component, the required
   HTML5 pop up still shows which is good and the form
- is still marked as not valid 
+ is still marked as not valid
 */
 
 .hidden-validator {
@@ -614,7 +614,9 @@ a {
 .configui-thread-css-2 {
     padding-left: 16px;
 }
-
+configui-thread-css{
+    width: 20%;
+}
 
 /* Error-detection.css*/
 
@@ -983,4 +985,8 @@ a {
 .config_textarea {
     min-width: 99%;
     min-height: 395px;
+}
+
+.config_app {
+    width: 72%;
 }
