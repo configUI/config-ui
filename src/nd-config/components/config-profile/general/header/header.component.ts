@@ -140,14 +140,14 @@ export class HeaderComponent implements OnInit {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
     let flag;
     this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
-      if (data["attrList"].length == 0 && data["sessionType"] == "Specific") {
+      if (data["sessionType"] == "Specific" && data["attrList"].length == 0) {
         this.configUtilityService.errorMessage("Provide session attribute(s) ");
         flag = true;
         return;
       }
       if (!flag) {
         this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => {
-          if (data["attrList"].length == 0 && data["httpReqHdrType"] == "Specific") {
+          if (data["httpReqHdrType"] == "Specific" && data["attrList"].length == 0) {
             this.configUtilityService.errorMessage("Provide HTTP request header(s)");
             return;
           }
