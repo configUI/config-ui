@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for adding BT HTTP headers-->
-<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add HTTP header' : 'Edit HTTP header'}}" *ngIf="addResReqHeaderDialog"
+<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT HTTP header' : 'Edit BT HTTP header'}}" *ngIf="addResReqHeaderDialog"
     [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true">
     <form #groupForm="ngForm" (ngSubmit)="saveAddEditHttpheaders()" ngNativeValidate>
 
@@ -61,31 +61,12 @@
                     </div>
                 </div>-->
             <div class="ui-g-12">
-                <div class="ui-g-2">
+                <div class="ui-g-1">
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="requestHeader" type="text" [disabled]="customHeaderCheck==true" size="25" class='hidden-validator' placeholder="--Select--" pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
+                    <input name="header" type="text" size="35" pattern="[a-zA-Z0-9_-]*" pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
                         required ngModel/>
-                    <p-dropdown name="requestHeader" [disabled]="customHeaderCheck==true" [style]="{'width': '100%'}" placeholder="--Select--" [(ngModel)]="btHttpHeadersDetail.headerName"
-                        size="20" [autoWidth]="true" [options]="requestHeader" required ngModel></p-dropdown>
-                </div>
-                 <div class="ui-g-1">
-                </div> 
-                <div class="ui-g-5" style="margin-top: -5px">
-                    <p-checkbox style= "float:left;margin-right:5px;margin-top: 3px" name="customHeaderCheck" [(ngModel)]="customHeaderCheck" binary="true" ></p-checkbox>
-                    <input name="customHeader" type="text" size="25" placeholder="Custom header name" pattern="[a-zA-Z0-9_-]" pInputText [disabled]="customHeaderCheck==false" [(ngModel)]="customHeaderName"
-                        required ngModel/>
-                </div>
-            </div>
-            <div class="ui-g-12">            
-                <div class="ui-g-2">
-                    <label>Type</label>
-                </div>
-                <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="btHttpHeadersDetail.headerValType"
-                        required ngModel/>
-                    <p-dropdown name="headerValType" [style]="{'width': '100%'}" [options]="headerType" [autoWidth]="true" [(ngModel)]="btHttpHeadersDetail.headerValType" size="20" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">

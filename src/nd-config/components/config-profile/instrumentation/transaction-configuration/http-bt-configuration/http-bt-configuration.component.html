@@ -80,7 +80,7 @@
                 <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue3" value="requestHeader" label="HTTP header" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
-                <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " placeholder="HTTP HEADER " required />
+                <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " required />
             </div>
         </div>
     </form>
@@ -266,7 +266,7 @@
     </form>
 </p-dialog>
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
 
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->

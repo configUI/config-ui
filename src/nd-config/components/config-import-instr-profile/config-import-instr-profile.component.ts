@@ -24,7 +24,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     /* create Dropdown for xml files */
     this.createDropDown("filename");
     this.xmlFormat = "No file selected";
-   
+
     this._configKeywordsService.fileListProvider.subscribe(data => {
       this.getFileList(data);
     });
@@ -50,9 +50,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configUtilityService.errorMessage("Multiple files cannot be imported");
       return;
     }
+     if(!path.includes(".txt"))
+      {
+       this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
+         return;
+      }
     if (this.isMakeXMLFile == true) {
       this.isMakeXMLFile = false;
-      let path = "C:\\Users\\compass-357\\Desktop\\Autodiscover\\fileReader.txt"
       let filename = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
       filename = filename + ".xml";
       path = path + "@" + this.userName;
@@ -86,3 +90,4 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.selectedXMLFile = "";
   }
 }
+                                  
