@@ -34,10 +34,13 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     });
     this.loadAdminInfo();
     this.loadKeywordData();
-    let isTrue = false;
-    if( this.keywordGroup.general.exception.enable == false)
-     isTrue = true;
-    sessionStorage.setItem("toggleDisable", "" + isTrue);
+    // This is done because if all the three keywords in the exception capturing are disabled/default values the toggle in the configuration screen will also be disabled
+    if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
+      this.keywordGroup.general.exception.enable = false;
+    }
+    else {
+      this.keywordGroup.general.exception.enable = true;
+    }
   }
   //This method is used to see whether it is admin mode or not
   loadAdminInfo(): void {
@@ -60,11 +63,11 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           this.configKeywordsService.toggleKeywordData();
         }
       });
+
   }
 
   /**This is used to enable/disable groupkeyword values. */
   change(selectedKeywordGroup) {
-    sessionStorage.setItem("toggleDisable", this.keywordGroup.general.exception.enable);
     for (let moduleName in this.keywordGroup) {
       let keywordGroupList = this.keywordGroup[moduleName];
 

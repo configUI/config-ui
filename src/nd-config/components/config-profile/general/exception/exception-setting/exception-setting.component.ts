@@ -43,14 +43,10 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
-
-    if (sessionStorage.getItem('toggleDisable') == 'false') {
-      this.exceptionData.instrumentException = true;
-    }
-    else {
-      this.exceptionData.instrumentException = false;
-    }
-
+    if(this.exception["enableExceptionInSeqBlob"].value == "0")
+      {
+        this.exception["enableExceptionInSeqBlob"].value = false;
+      }
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
@@ -68,6 +64,9 @@ export class ExceptionSettingComponent implements OnInit {
     }
     this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == true ? 1 : 0;
     this.keywordData.emit(this.exception);
+    sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
+    sessionStorage.setItem("exceptionCapturingSeqBlob", String(this.exception["enableExceptionInSeqBlob"].value));
+    sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
 
   }
   /* This method is used to reset the keyword data */
@@ -169,7 +168,7 @@ export class ExceptionSettingComponent implements OnInit {
       if (this.exceptionData.exceptionCapturing == true)
         instrVal = "2";
 
-      if (data.form._value.exceptionTrace === "true" || data.form._value.exceptionTrace === true)
+      if (data.form._value.exceptionTraceDepth != null || data.form._value.exceptionTraceDepth != undefined)
         instrVal = instrVal + "%201";
       else
         instrVal = instrVal + "%200";

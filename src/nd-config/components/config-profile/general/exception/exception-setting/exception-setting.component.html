@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <p-fieldset legend="Exception Settings">
+    <p-fieldset legend="Exception Settings" [toggleable]="true" [collapsed]="false">
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
@@ -39,7 +39,7 @@
         <div class="ui-g-12" style="margin-left: 5px;">
             <!--<div class="ui-g-1"></div>-->
             <div class="ui-g-5">
-                <p-checkbox name="enableExceptionInSeqBlob" binary="false" label="Enable exception capturing in sequence Blob" [(ngModel)]="exception.enableExceptionInSeqBlob.value" binary="true"></p-checkbox>
+                <p-checkbox name="enableExceptionInSeqBlob" binary="true" label="Enable exception capturing in sequence Blob" [(ngModel)]="exception.enableExceptionInSeqBlob.value"></p-checkbox>
             </div>
         </div>
     </p-fieldset>
