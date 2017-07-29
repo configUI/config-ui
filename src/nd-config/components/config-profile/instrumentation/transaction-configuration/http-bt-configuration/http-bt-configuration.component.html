@@ -67,7 +67,7 @@
                 <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue1" value="requestParam" label="Query parameter" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10 ">
-                <input name="requestParam" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) " type="text" size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" required />
+                <input name="requestParam" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) " type="text" size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" title="Please enter valid parameter value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric" (keydown.space)="$event.preventDefault()" pattern="[a-zA-Z]+[a-zA-Z0-9]*$" required />
             </div>
         </div>
 
@@ -80,7 +80,7 @@
                 <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue3" value="requestHeader" label="HTTP header" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
-                <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " placeholder="HTTP HEADER " required />
+                <input name="requestHeader" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" type="text " size="32 " pInputText [(ngModel)]="globalBtDetail.requestHeader " title="Please enter valid header value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric" (keydown.space)="$event.preventDefault()" pattern="[a-zA-Z]+[a-zA-Z0-9]*$" required />
             </div>
         </div>
     </form>
@@ -266,10 +266,10 @@
     </form>
 </p-dialog>
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
 
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-    <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
