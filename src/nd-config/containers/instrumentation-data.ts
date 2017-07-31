@@ -293,7 +293,7 @@ export class BTHTTPHeaderConditions{
 }
 
 export class UrlCapturingData{
-    includeParameter: boolean;
+    includeParameter: boolean = false;
     urlOffset: number;
     maxChar: number;
 }

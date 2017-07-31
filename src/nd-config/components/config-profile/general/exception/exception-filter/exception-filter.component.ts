@@ -93,6 +93,7 @@ export class ExceptionFilterComponent implements OnInit {
 
 
   saveKeywordData() {
+    let filePath = '';
     for (let key in this.exceptionfilter) {
       if (key == 'enableSourceCodeFilters') {
         if (this.selectedValues == true) {
@@ -106,8 +107,13 @@ export class ExceptionFilterComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.exceptionfilter[key];
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
-
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      filePath = data["_body"];
+    filePath = filePath + "/enableSourceCodeFilters.ecf";
+    this.exceptionfilter['enableSourceCodeFilters'].path = filePath;
+    this.keywordData.emit(this.exceptionfilter);
+    });
 
   }
 

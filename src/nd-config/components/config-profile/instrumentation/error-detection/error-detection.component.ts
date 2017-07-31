@@ -42,8 +42,12 @@ export class ErrorDetectionComponent implements OnInit {
   errorDetection: Object;
   selectedValues: boolean;
   keywordValue: Object;
+  subscriptionEG: Subscription;
+  enableGroupKeyword: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) { }
+  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+    this.configKeywordsService.toggleKeywordData();
+  }
 
   ngOnInit() {
     this.loadErrorDetectionList();
@@ -71,11 +75,11 @@ export class ErrorDetectionComponent implements OnInit {
       }
     });
   }
-  saveKeywordData() {
 
+  saveKeywordData() {
+    let filePath = '';
     for (let key in this.errorDetection) {
       if (key == 'BTErrorRules') {
-
         if (this.selectedValues == true) {
           this.errorDetection[key]["value"] = "true";
           this.configUtilityService.successMessage("Error Detection settings are enabled");
@@ -87,8 +91,14 @@ export class ErrorDetectionComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.errorDetection[key];
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      filePath = data["_body"];
+      filePath = filePath + "/btErrorRule.err";
 
+     this.errorDetection['BTErrorRules'].path = filePath;
+    this.keywordData.emit(this.errorDetection);
+    });
   }
 
   /**This method is called to load data */
@@ -164,7 +174,7 @@ export class ErrorDetectionComponent implements OnInit {
         this.selectedErrorDetection.length = 0;
         // this.selectedErrorDetection.push(data);
 
-      //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
+        //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.errorDetectionData = ImmutableArray.replace(this.errorDetectionData, data, index);
         this.configUtilityService.successMessage(Messages);
         // this.errorDetectionData[index] = data;
@@ -195,7 +205,7 @@ export class ErrorDetectionComponent implements OnInit {
         //Insert data in main table after inserting Error detection in DB
         // this.errorDetectionData.push(data);
 
-      //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+        //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
         this.errorDetectionData = ImmutableArray.push(this.errorDetectionData, data);
         this.configUtilityService.successMessage(Messages);
       });

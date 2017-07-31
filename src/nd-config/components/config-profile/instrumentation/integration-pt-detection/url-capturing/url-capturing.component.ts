@@ -33,8 +33,8 @@ export class UrlCapturingComponent implements OnInit {
   keywordValue: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService,private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-    this.getKeywordData();
-    configKeywordsService.toggleKeywordData();
+    this.getKeywordData(); 
+    this.configKeywordsService.toggleKeywordData();
   }
 
   urlCapturingData: UrlCapturingData;
@@ -52,8 +52,8 @@ export class UrlCapturingComponent implements OnInit {
   }
 
   /* This method is used to save the formatIPResourceURL data in the backend*/
-  saveKeywordData(data) {
-    let formatIPVal = this.formatIPResourceURLValue(data);
+  saveKeywordData() {
+    let formatIPVal = this.formatIPResourceURLValue();
     for (let key in this.urlCapturing) {
       if (key == 'formatIPResourceURL')
         this.urlCapturing[key]["value"] = formatIPVal;
@@ -125,8 +125,7 @@ export class UrlCapturingComponent implements OnInit {
   // Method used to construct the value of instrException keyword.
 
   // Method used to construct the value of formatIPResourceURL keyword.
-  formatIPResourceURLValue(data) {
-     console.log("inside formatIPResourceURLValue function--------->");
+  formatIPResourceURLValue() {
     var formatIPVal = {};
       if (this.urlCapturingData.includeParameter == false)
         formatIPVal = "0";
