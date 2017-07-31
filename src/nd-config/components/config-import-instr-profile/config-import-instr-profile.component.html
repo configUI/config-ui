@@ -1,0 +1,42 @@
+<div class="ui-g configUI">
+    <div class="ui-g-12">
+        <div class="ui-g-6">
+            <div class="ui-g-4 label">
+                <label>Import file</label>
+            </div>
+            <div class="ui-g-4">
+                <button pButton type="button" title="Browse" (click)="openFileManager()" label="Browse"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-6">
+            <div class="ui-g-4 label">
+                <label>View Instrumentation Profile</label>
+            </div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'95%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--"></p-dropdown>
+            </div>
+            <div class="ui-g-1" style="margin-right:5px">
+                <button pButton type="button" label="View" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
+            </div>
+            <div class="ui-g-1">
+                <button pButton type="button" label="Clear" (click)="clearWindow()" title="Clear all data from window"></button>
+            </div>
+        </div>
+
+    </div>
+    <div class="ui-g-12">
+        <div>
+            <textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>
+        </div>
+    </div>
+</div>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+    <!-- This will look for this component in the ProductUI at this path -
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+
+    <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
+</p-dialog>

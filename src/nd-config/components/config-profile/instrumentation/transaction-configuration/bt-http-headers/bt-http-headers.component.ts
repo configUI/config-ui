@@ -96,8 +96,6 @@ export class BTHTTPHeadersComponent implements OnInit {
         this.headerConditionInfo = [];
         if (this.btHttpHeadersInfo == undefined)
             this.btHttpHeadersInfo = [];
-        this.loadRequestHeader();
-        this.loadHeaderType();
     }
 
     //This method loads Header request drop-down values
@@ -115,34 +113,6 @@ export class BTHTTPHeadersComponent implements OnInit {
 
     //     this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
     // }
-
-
-    //This method loads Header request drop-down values
-    loadRequestHeader() {
-        this.requestHeader = [];
-        var reqHdrLabel = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
-            'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
-            'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
-            'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
-            'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
-
-        var reqHdrVal = ['Accept-Ranges', 'Access-Control-Allow-Origin', 'Age', 'Allow', 'Cache-Control', 'Connection', 'Content-Disposition', 'Content-Encoding',
-            'Content-Language', 'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Date', 'ETag', 'Expires', 'Last-Modified',
-            'Link', 'Location', 'P3P', 'Pragma', 'Proxy-Authenticate', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status', 'Strict-Transport-Security',
-            'Trailer', 'Transfer-Encoding', 'Vary', 'Via', 'WWW-Authenticate', 'Warning', 'X-Content-Security-Policy', 'X-Content-Type-Options',
-            'X-Frame-Options', 'X-Powered-By', 'X-UA-Compatible', 'X-WebKit-CSP', 'X-XSS-Protection'];
-
-        this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
-    }
-
-    //To load header types
-    loadHeaderType() {
-        this.headerType = [];
-        var index = ['String'];
-        var type = ['String'];
-        this.btHttpHeadersDetail.headerValType = 'String';        
-        this.headerType = ConfigUiUtility.createListWithKeyValue(type, index);
-    }
 
     //To load opeartion operationName
     loadOperationName() {
@@ -170,6 +140,7 @@ export class BTHTTPHeadersComponent implements OnInit {
     //Method to save new HTTP Headers
     saveHttpHeaders() {
         this.btHttpHeadersDetail.conditions = [];
+
         this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
         if (this.headerConditionInfo.length == 0) {
             this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
@@ -246,8 +217,6 @@ export class BTHTTPHeadersComponent implements OnInit {
             let that = this;
             this.httpHdrDelete = [];
             this.btHttpHeadersDetail = Object.assign({}, this.selectedHTTPHeaders[0]);
-            this.loadHeaderType();
-            this.loadRequestHeader();
             this.loadOperationName();
             this.headerConditionInfo = this.selectedHTTPHeaders[0].conditions;
             //providing Id for editing conditions in edit header form
@@ -446,7 +415,7 @@ export class BTHTTPHeadersComponent implements OnInit {
         return -1;
     }
 
-//Opens Edit conditions window
+    //Opens Edit conditions window
     openEditReqDialog() {
         if (!this.selectedRequestHeader || this.selectedRequestHeader.length < 1) {
             this.configUtilityService.errorMessage("Select a row to edit");

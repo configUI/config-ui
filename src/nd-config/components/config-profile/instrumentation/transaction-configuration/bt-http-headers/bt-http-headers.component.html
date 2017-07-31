@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for adding BT HTTP headers-->
-<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add HTTP header' : 'Edit HTTP header'}}" *ngIf="addResReqHeaderDialog"
+<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT HTTP header' : 'Edit BT HTTP header'}}" *ngIf="addResReqHeaderDialog"
     [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true">
     <form #groupForm="ngForm" (ngSubmit)="saveAddEditHttpheaders()" ngNativeValidate>
 
@@ -61,23 +61,12 @@
                     </div>
                 </div>-->
             <div class="ui-g-12">
-                <div class="ui-g-2">
+                <div class="ui-g-1">
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
+                    <input name="header" type="text" size="35" pattern="[a-zA-Z0-9_-]*" pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
                         required ngModel/>
-                    <p-dropdown name="requestHeader" [style]="{'width': '100%'}" placeholder="--Select--" [(ngModel)]="btHttpHeadersDetail.headerName"
-                        size="20" [autoWidth]="true" [options]="requestHeader" required ngModel></p-dropdown>
-                </div>
-                <div class="ui-g-1"></div>
-                <div class="ui-g-1">
-                    <label>Type</label>
-                </div>
-                <div class="ui-g-3" style="margin-top: -5px">
-                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="btHttpHeadersDetail.headerValType"
-                        required ngModel/>
-                    <p-dropdown name="headerValType" [options]="headerType" [(ngModel)]="btHttpHeadersDetail.headerValType" size="20" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -128,7 +117,7 @@
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="type" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="headerConditionDetail.operation"
+                    <input name="type" type="text" size="14" class='hidden-validator' pInputText [(ngModel)]="headerConditionDetail.operation"
                         required ngModel/>
                     <p-dropdown name="operationName" [options]="operationName" size="20" [(ngModel)]="headerConditionDetail.operation" placeholder="--Select--"></p-dropdown>
                 </div>
@@ -138,7 +127,7 @@
                     <label>BT name</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="btname" type="text" size="20" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
+                    <input name="btname" type="text" size="20" pattern="[a-zA-Z0-9-_]*" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
             </div>
@@ -147,7 +136,7 @@
                     <label>Header value</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="hdrValue" type="text" size="20" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
+                    <input name="hdrValue" type="text" size="20" pattern="[a-zA-Z0-9-%_./&]*" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
             </div>

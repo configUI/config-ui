@@ -342,6 +342,11 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
   }
 
+  /** get the HTTP Request Header Type */
+  getHTTPRequestValue(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_HTTP_REQ_TYPE}/${profileId}`, data);
+  }
+
   // /* Edit  Business Trans Method Info */
   // editHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
   //   let url = `${URL.UPDATE_HTTPREQHDR}/${profileId}`;
@@ -425,8 +430,27 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
   }
 
+<<<<<<< HEAD
   /** Get file path */
   getFilePath(profileId): Observable<string> {
     return this._restApi.getDataByGetReq(`${URL.GET_FILE_PATH}/${profileId}`);
+=======
+  /*this method is used for get selected text instrumnetation profile in xml format*/
+  getInstrumentationProfileXMLData(data)
+  {
+       return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
+  }
+
+  /*this method is used for get all xml files for a particular path*/
+  getInstrumentationProfileXMLFileList()
+  {
+       return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
+  }
+
+  /*this method is used for get selected xml instrumnetation profile in xml format*/
+  getXMLDataFromSelectedXMLFile(data)
+  {
+      return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
+>>>>>>> abc698a42a74cea48872f8fb30392a4d8df08592
   }
 }

@@ -1,0 +1,64 @@
+----------------------------------------------------------------
+New features in 4.1.9
+----------------------------------------------------------------
+
+BT HTTP Headers
+URL capturing
+Advanced Exception
+Exception Monitors
+
+-----------------------------------------------------------------
+For MultiDC in 4.1.9
+-----------------------------------------------------------------
+
+config-rest-api.service.ts ->
+#Add this line after in each service when committing in CVS
+[url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url; ]
+
+
+
+------------------------------------------------------------------
+Comment and uncomment code in these files in both 4.1.9 and 4.1.8
+------------------------------------------------------------------
+
+config.module.ts ->
+#Comment these line when committing in GIT
+
+// import { ApiService } from '../file-explorer/services/api.service';
+// import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+
+  providers: [
+    // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+    ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
+    // ApiService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy},],
+    bootstrap: [AppComponentForConfig]
+})
+
+#Uncomment these lines when committing in CVS
+
+import { ApiService } from '../file-explorer/services/api.service';
+import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+
+  providers: [
+    { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+    ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
+    ApiService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy},],
+    bootstrap: [AppComponentForConfig]
+})
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+http-bt-configuration.component.html  and instrumentation-profiles.component.html ->
+#Comment this line when committing in GIT
+<!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
+
+#Uncomment this line when committing in CVS
+<app-config-nd-file-explorer></app-config-nd-file-explorer>
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+

@@ -42,7 +42,8 @@ import {
   FieldsetModule,
   ChipsModule,
   ToolbarModule,
-  SliderModule
+  SliderModule,
+  InputTextareaModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -131,6 +132,7 @@ import { ExceptionSettingComponent } from './components/config-profile/general/e
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
 // import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -194,7 +196,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ExceptionMonitorsComponent,
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
-    UrlCapturingComponent
+    UrlCapturingComponent,
+    ConfigImportInstrProfileComponent
   ],
   imports: [
     // CommonModule,
@@ -230,7 +233,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FieldsetModule,
     ToolbarModule,
     SliderModule,
-    SplitButtonModule
+    SplitButtonModule,
+    InputTextareaModule
   ],
 
   providers: [

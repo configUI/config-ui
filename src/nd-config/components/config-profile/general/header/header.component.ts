@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { cloneObject } from '../../../../utils/config-utility';
 import { ConfigCustomDataService } from '../../../../services/config-customdata.service';
+import { ConfigUtilityService } from '../../../../services/config-utility.service';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class HeaderComponent implements OnInit {
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
   *  to boolean value
   */
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>, private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>, private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       if (!data)
         return;
@@ -136,14 +137,35 @@ export class HeaderComponent implements OnInit {
 
 
   saveKeywordData() {
+    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
+    let flag;
+    this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
+      if (data["sessionType"] == "Specific" && data["attrList"].length == 0) {
+        this.configUtilityService.errorMessage("Provide session attribute(s) ");
+        flag = true;
+        return;
+      }
+      if (!flag) {
+        this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => {
+          if (data["httpReqHdrType"] == "Specific" && data["attrList"].length == 0) {
+            this.configUtilityService.errorMessage("Provide HTTP request header(s)");
+            return;
+          }
+          else {
+            this.getHeaderValues();
+          }
+        });
+      }
+    });
+  }
+
+  getHeaderValues() {
     let captureHttpReqFullFpVal = this.constructValHttpReqFullFp(this.httpKeywordObject[0]);
     let captureHttpRespFullFpVal = this.constructValHttpRespFullFp(this.httpKeywordObject[1]);
 
     this.header["captureHTTPReqFullFp"].value = captureHttpReqFullFpVal;
     this.header["captureHTTPRespFullFp"].value = captureHttpRespFullFpVal;
     this.header["captureCustomData"].value = String(this.header["captureCustomData"].value == '1');
-
-    this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
     this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
     this.keywordData.emit(this.header);
   }
@@ -160,7 +182,7 @@ export class HeaderComponent implements OnInit {
       this.httpReqFullFp.enableHttpReq = arr[0] == 3;
       this.httpReqFullFp.headerMode = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
-      if (arr[1].includes(",") && arr[1] != "ALL") {
+      if (arr[1].includes(",") || arr[1] != "ALL") {
         arrVal = arr[1].split(",")
       }
       this.httpReqFullFp.headersName = arrVal;
@@ -176,12 +198,13 @@ export class HeaderComponent implements OnInit {
       this.httpRespFullFp.enableHttpResp = arr[0] == 3;
       this.httpRespFullFp.headerModeResp = arr[1] == "ALL" ? "ALL" : "Specified";
       let arrVal = [];
-      if (arr[1] != "ALL" && arr[1].includes(",")) {
+      if (arr[1] != "ALL" || arr[1].includes(",")) {
         arrVal = arr[1].split(",")
       }
       this.httpRespFullFp.headersNameResp = arrVal;
       this.httpRespFullFp.captureModeResp = arr[2] == 1;
       this.httpRespFullFp.briefValResp = arr[2] == 1 ? arr[3] : '';
+      this.httpRespFullFp.enableHttpResp = true;
     }
     else if (keywords["captureHTTPRespFullFp"].value == '1') {
       this.httpRespFullFp.enableHttpResp = true;
@@ -197,6 +220,10 @@ export class HeaderComponent implements OnInit {
 
   resetKeywordData() {
     this.header = cloneObject(this.configKeywordsService.keywordData);
+    if (this.header['captureCustomData'].value == "false")
+      this.header['captureCustomData'].value = false;
+    else
+      this.header['captureCustomData'].value = true;
     this.splitKeywordData(this.header);
   }
 
