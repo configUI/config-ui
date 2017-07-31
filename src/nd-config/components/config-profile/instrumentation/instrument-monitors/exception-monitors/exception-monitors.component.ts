@@ -104,7 +104,6 @@ export class ExceptionMonitorsComponent implements OnInit {
       this.saveDisable = this.profileId == 1 ? true : false;
     });
     this.configKeywordsService.getExceptionMonitorList(this.profileId).subscribe(data => {
-        console.log("value of this.exceptionMonitorDetail.exceptionName=======ng",data);
       this.exceptionMonitorData = data;
     });
   }

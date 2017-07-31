@@ -430,11 +430,11 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
   }
 
-<<<<<<< HEAD
   /** Get file path */
   getFilePath(profileId): Observable<string> {
-    return this._restApi.getDataByGetReq(`${URL.GET_FILE_PATH}/${profileId}`);
-=======
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_FILE_PATH}/${profileId}`);
+
+  }
   /*this method is used for get selected text instrumnetation profile in xml format*/
   getInstrumentationProfileXMLData(data)
   {
@@ -451,6 +451,5 @@ export class ConfigKeywordsService {
   getXMLDataFromSelectedXMLFile(data)
   {
       return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
->>>>>>> abc698a42a74cea48872f8fb30392a4d8df08592
   }
 }

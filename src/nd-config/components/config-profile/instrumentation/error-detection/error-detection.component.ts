@@ -205,7 +205,11 @@ export class ErrorDetectionComponent implements OnInit {
         //Insert data in main table after inserting Error detection in DB
         // this.errorDetectionData.push(data);
 
+<<<<<<< HEAD
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+=======
+      //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line
+>>>>>>> abc698a42a74cea48872f8fb30392a4d8df08592
         this.errorDetectionData = ImmutableArray.push(this.errorDetectionData, data);
         this.configUtilityService.successMessage(Messages);
       });
@@ -260,8 +264,11 @@ export class ErrorDetectionComponent implements OnInit {
   }
 
   checkFrom(from, to) {
-    if (this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo) {
-      from.setCustomValidity('From value should be less than To value.');
+    if (this.errorDetectionDetail.errorFrom > this.errorDetectionDetail.errorTo) {
+      from.setCustomValidity('From value ranges from 400 to 504 and must be smaller than To value.');
+    }
+    else if(this.errorDetectionDetail.errorFrom == this.errorDetectionDetail.errorTo) {
+      from.setCustomValidity('Both From and To status code values cannot be same.');
     }
     else {
       from.setCustomValidity('');
@@ -271,8 +278,11 @@ export class ErrorDetectionComponent implements OnInit {
   }
 
   checkTo(from, to) {
-    if (this.errorDetectionDetail.errorFrom >= this.errorDetectionDetail.errorTo) {
-      to.setCustomValidity('To value should be greater than from value.');
+    if (this.errorDetectionDetail.errorFrom > this.errorDetectionDetail.errorTo) {
+      to.setCustomValidity('To value ranges from 401 to 505 and must be greater than From value.');
+    }
+    else if(this.errorDetectionDetail.errorFrom == this.errorDetectionDetail.errorTo) {
+      to.setCustomValidity('Both From and To status code values cannot be same.');
     }
     else {
       to.setCustomValidity('');

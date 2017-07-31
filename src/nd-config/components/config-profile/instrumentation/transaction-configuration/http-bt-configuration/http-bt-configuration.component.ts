@@ -212,6 +212,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.segmentURI = 'complete';
       else
         this.segmentURI = 'segmentOfURI';
+
+      if (this.globalBtDetail.requestParam == 'false')
+        this.globalBtDetail.requestParam = "";
+      if (this.globalBtDetail.requestHeader == 'false')
+        this.globalBtDetail.requestHeader = "";
+
     }
     else {
       this.segmentURI = 'segmentOfURI';

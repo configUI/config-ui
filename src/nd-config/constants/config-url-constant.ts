@@ -200,6 +200,7 @@ export const DEL_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/del
 export const ADD_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdr`;
 export const FETCH_HTTPREQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/gethttpreqhdr`;
 export const ADD_RULES_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdrrules`;
+export const UPDATE_HTTP_REQ_TYPE = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqtype`;
 
 // export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
  export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/edithttpreqhdr`;
@@ -229,4 +230,10 @@ export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbt
 export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+
+/*Import Instrumentation Profile*/
+export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
+export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
+export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
+
 
