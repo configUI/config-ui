@@ -205,11 +205,7 @@ export class ErrorDetectionComponent implements OnInit {
         //Insert data in main table after inserting Error detection in DB
         // this.errorDetectionData.push(data);
 
-<<<<<<< HEAD
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
-=======
-      //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line
->>>>>>> abc698a42a74cea48872f8fb30392a4d8df08592
         this.errorDetectionData = ImmutableArray.push(this.errorDetectionData, data);
         this.configUtilityService.successMessage(Messages);
       });
