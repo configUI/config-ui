@@ -1,10 +1,10 @@
 <div id=top-div>
     <p-dataTable class="nde-ui config-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
         <p-header>
-            <span class="configui-float-css">Custom Keywords list </span>
+            <span class="configui-float-css">Custom configuration list </span>
             <span class="configui-float">
-            <button pButton type="button" title="Add Custom Keywords" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit Custom Keywords" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
+            <button pButton type="button" title="Add Custom configuration" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit Custom configuration" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
             <!--<button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>-->
         </span>
         </p-header>
@@ -35,7 +35,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom keyword' : 'Edit Custom keyword'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom configuration' : 'Edit Custom configuration'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

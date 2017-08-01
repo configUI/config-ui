@@ -90,7 +90,7 @@
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
-                    <p-column class="col-overflow" field="hdrValue" header="Header value" [sortable]="true">
+                    <p-column class="col-overflow" field="hdrValue" header="Pattern" [sortable]="true">
                         <template let-col let-application="rowData">
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
@@ -133,7 +133,7 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <label>Header value</label>
+                    <label>Pattern</label>
                 </div>
                 <div class="ui-g-3">
                     <input name="hdrValue" type="text" size="20" pattern="[a-zA-Z0-9-%_./&]*" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"

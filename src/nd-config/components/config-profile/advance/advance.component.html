@@ -18,7 +18,7 @@
             <app-generate-exception *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-generate-exception>
         </p-tabPanel>
 
-        <p-tabPanel header="Custom Keywords" *ngIf="adminMode" [selected]="index == 4">
+        <p-tabPanel header="Custom configuration" *ngIf="adminMode" [selected]="index == 4">
             <app-custom-keywords *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-keywords>
         </p-tabPanel>
     </p-tabView>

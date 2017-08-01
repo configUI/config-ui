@@ -44,7 +44,6 @@ export class ConfigHomeComponent implements OnInit {
   loadHomeData(): void {
     this.configHomeService.getMainData()
       .subscribe(data => {
-
         if (data.homeData[0].value.length > 5) {
           this.applicationMsg = "(Last 5 Modified)";
           this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
