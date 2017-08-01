@@ -1,11 +1,11 @@
 <p-tabView>
     <p-tabPanel header="HTTP BT Configuration">
-        <app-http-bt-configuration></app-http-bt-configuration>
+        <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
     </p-tabPanel>
     <p-tabPanel header="Method BT Configuration">
-        <app-method-bt-configuration></app-method-bt-configuration>
+        <app-method-bt-configuration (keywordData)="saveKeywordData($event)"></app-method-bt-configuration>
     </p-tabPanel>
     <p-tabPanel header="BT HTTP Headers">
-        <bt-http-headers></bt-http-headers>
+        <bt-http-headers (keywordData)="saveKeywordData($event)"></bt-http-headers>
     </p-tabPanel>
 </p-tabView>

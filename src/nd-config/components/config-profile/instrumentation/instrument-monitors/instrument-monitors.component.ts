@@ -76,7 +76,11 @@ export class InstrumentMonitorsComponent implements OnInit {
 
     let keyWordDataList = [];
     for (let key in data) {
-      keyWordDataList.push(key + "=" + data[key].value);
+      if(data[key].path){
+        keyWordDataList.push(key + "=" + data[key].path);
+      }
+      else
+        keyWordDataList.push(key + "=" + data[key].value);
     }
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {

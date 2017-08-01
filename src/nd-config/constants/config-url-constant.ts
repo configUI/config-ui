@@ -1,6 +1,6 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
   // const  SERVICE_URL = 'http://localhost:8090';
    
@@ -110,6 +110,7 @@ export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 /* Url for General Keywords Screen*/
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
+export const GET_FILE_PATH = `${SERVICE_URL}/custom/profilekeywords/getfilepath`;
 //export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
 
 /*Instrumentation Profile List*/

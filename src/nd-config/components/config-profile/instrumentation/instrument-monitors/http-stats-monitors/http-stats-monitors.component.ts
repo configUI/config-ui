@@ -23,8 +23,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   @Input()
   profileId: number;
-  // @Output()
-  // keywordData = new EventEmitter();
+  @Output()
+  keywordData = new EventEmitter();
   /**It stores HTTP Stats Condition-list data */
   httpStatsMonitorData: HttpStatsMonitorData[];
   /**It stores selected HTTP Stats Condition data for edit or add method-monitor */
@@ -59,6 +59,9 @@ export class HttpStatsMonitorsComponent implements OnInit {
   HttpStatsMonitor: Object;
   selectedValues: boolean;
   keywordValue: Object;
+
+  subscriptionEG: Subscription;
+  enableGroupKeyword: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
@@ -95,10 +98,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
           this.selectedValues = false;
       }
     });
-
+  //  this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.instrumentation.monitors.enable);
+    this.configKeywordsService.toggleKeywordData();
   }
   saveKeywordData() {
 
+   let filePath = '';
     for (let key in this.HttpStatsMonitor) {
       if (key == 'HTTPStatsCondCfg') {
         if (this.selectedValues == true) {
@@ -112,7 +117,13 @@ export class HttpStatsMonitorsComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.HttpStatsMonitor[key];
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+       this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+    filePath = data["_body"];
+    filePath = filePath + "/HttpStatsCondConfig.hmc";
+    this.HttpStatsMonitor['HTTPStatsCondCfg'].path = filePath;
+    this.keywordData.emit(this.HttpStatsMonitor)
+    });
   }
 
   loadHttpStatsMonitorList() {

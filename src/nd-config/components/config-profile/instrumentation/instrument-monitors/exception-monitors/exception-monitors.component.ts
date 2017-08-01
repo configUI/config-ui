@@ -73,6 +73,7 @@ export class ExceptionMonitorsComponent implements OnInit {
 
   }
   saveKeywordData() {
+    let filePath = '';
     for (let key in this.exceptionMonitor) {
       if (key == 'ndExceptionMonFile') {
         if (this.selectedValues == true) {
@@ -87,6 +88,12 @@ export class ExceptionMonitorsComponent implements OnInit {
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
     }
     this.configKeywordsService.saveProfileKeywords(this.profileId);
+      this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      filePath = data["_body"];
+    filePath = filePath + "/exceptionMonitors.txt";
+    this.exceptionMonitor['ndExceptionMonFile'].path = filePath;
+    this.keywordData.emit(this.exceptionMonitor);
+    });
 
   }
   /**This method is called to load data */
