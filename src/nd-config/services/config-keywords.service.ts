@@ -425,6 +425,11 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
   }
 
+    /** Method to upload file method monitors file */
+  uploadMethodMonitorFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
+  }
+
   /** Method to copy selected xml files in instrProfiles */
   copyXmlFiles(filesWithPath, profileId): Observable<string[]> {
     return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);

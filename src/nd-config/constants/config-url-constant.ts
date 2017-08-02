@@ -3,10 +3,10 @@
   // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
   // const  SERVICE_URL = 'http://localhost:8090';
-   
+
 
 //For Production use this SERVICE_URL
- const SERVICE_URL = '/configUI';
+  const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 export const ROUTING_PATH: string = "";
@@ -122,6 +122,7 @@ export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
 export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
 export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
 export const EDIT_ROW_METHOD_MONITOR_URL = `${SERVICE_URL}/custom/methodmonitor/updateMethodMonitor`;
+export const UPLOAD_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/uploadfile`;
 
 /* URL for exception monitors  */
 export const FETCH_EXCEPTION_MON_TABLEDATA = `${SERVICE_URL}/custom/exceptionmonitor`;
