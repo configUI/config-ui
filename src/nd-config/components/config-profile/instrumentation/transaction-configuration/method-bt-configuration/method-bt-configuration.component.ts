@@ -369,6 +369,10 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /**This method is used to delete Method Rules */
   deleteRules() {
+    if (!this.selectedMethodRules || this.selectedMethodRules.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
     let selectedRules = this.selectedMethodRules;
     let arrRulesIndex = [];
     for (let index in selectedRules) {
@@ -383,6 +387,10 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //deletimg Argument rules
   deleteArgumentsRules(): void {
+    if (!this.selectedArgRules || this.selectedArgRules.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
     let selectedRules = this.selectedArgRules;
     let arrArgIndex = [];
     for (let index in selectedRules) {

@@ -282,6 +282,7 @@ hide it behind the dropdown component, the required
 
 .profile-dialog .ui-dialog .ui-dialog-buttonpane {
     padding: 0px;
+    border: 0;
 }
 
 input[type="number"] {

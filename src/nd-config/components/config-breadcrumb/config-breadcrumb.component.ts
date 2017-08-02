@@ -99,6 +99,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       }
 
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)) {
+        this.items.push({ label: BREADCRUMB.LABEL.TOPOLOGY_DETAIL, routerLink: [BREADCRUMB.URL.TOPOLOGY_DETAIL] })
         this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
       }
 
