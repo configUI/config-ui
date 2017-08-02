@@ -87,12 +87,17 @@ export class ExceptionMonitorsComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
-      this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      filePath = data["_body"];
-    filePath = filePath + "/exceptionMonitors.txt";
-    this.exceptionMonitor['ndExceptionMonFile'].path = filePath;
-    this.keywordData.emit(this.exceptionMonitor);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      if (this.selectedValues == false) {
+        filePath = "NA";
+      }
+      else {
+        filePath = data["_body"];
+        filePath = filePath + "/exceptionMonitors.txt";
+      }
+      this.exceptionMonitor['ndExceptionMonFile'].path = filePath;
+      this.keywordData.emit(this.exceptionMonitor);
     });
 
   }

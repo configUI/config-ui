@@ -93,11 +93,15 @@ export class ErrorDetectionComponent implements OnInit {
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      filePath = data["_body"];
-      filePath = filePath + "/btErrorRule.err";
-
-     this.errorDetection['BTErrorRules'].path = filePath;
-    this.keywordData.emit(this.errorDetection);
+      if (this.selectedValues == false) {
+        filePath = "NA";
+      }
+      else {
+        filePath = data["_body"];
+        filePath = filePath + "/btErrorRule.err";
+      }
+      this.errorDetection['BTErrorRules'].path = filePath;
+      this.keywordData.emit(this.errorDetection);
     });
   }
 
@@ -263,7 +267,7 @@ export class ErrorDetectionComponent implements OnInit {
     if (this.errorDetectionDetail.errorFrom > this.errorDetectionDetail.errorTo) {
       from.setCustomValidity('From value ranges from 400 to 504 and must be smaller than To value.');
     }
-    else if(this.errorDetectionDetail.errorFrom == this.errorDetectionDetail.errorTo) {
+    else if (this.errorDetectionDetail.errorFrom == this.errorDetectionDetail.errorTo) {
       from.setCustomValidity('Both From and To status code values cannot be same.');
     }
     else {
@@ -277,7 +281,7 @@ export class ErrorDetectionComponent implements OnInit {
     if (this.errorDetectionDetail.errorFrom > this.errorDetectionDetail.errorTo) {
       to.setCustomValidity('To value ranges from 401 to 505 and must be greater than From value.');
     }
-    else if(this.errorDetectionDetail.errorFrom == this.errorDetectionDetail.errorTo) {
+    else if (this.errorDetectionDetail.errorFrom == this.errorDetectionDetail.errorTo) {
       to.setCustomValidity('Both From and To status code values cannot be same.');
     }
     else {
