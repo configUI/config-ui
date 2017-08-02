@@ -63,6 +63,8 @@ export class MonitorsComponent implements OnInit {
       this.monitor["enableBackendMonitor"].value = 0;
     }
     this.keywordData.emit(this.monitor);
+    sessionStorage.setItem("enableBTMonitor", String(this.monitor["enableBTMonitor"].value));
+    sessionStorage.setItem("enableBackendMonitor", String(this.monitor["enableBackendMonitor"].value));
   }
 
   resetKeywordData() {

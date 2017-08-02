@@ -178,6 +178,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   setSelectedValueOfBT(value) {
+    let filePath = '';
     for (let key in this.BusinessTransGlobalPattern) {
       if (key == 'BTRuleConfig') {
         if (value != undefined) {
@@ -186,7 +187,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
         }
       }
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      filePath = data["_body"];
+      if (value == 'pattern') {
+        filePath = filePath + "/btPattern.btr";
+      }
+      else
+        filePath = filePath + "/btGlobal.btr"
+      this.BusinessTransGlobalPattern['BTRuleConfig'].path = filePath;
+      this.keywordData.emit(this.BusinessTransGlobalPattern);
+    });
   }
 
   loadBTPatternData(): void {
@@ -514,6 +525,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
     if (this.isBTPatternBrowse == true) {
       this.isBTPatternBrowse = false;
       this.openFileExplorerDialog = false;
+
+      if (filepath.includes(";")) {
+        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+        return;
+      }
       //Temporary path of the BT Pattern file to run locally,independently from Product UI
       // let filepath = "";
       this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {

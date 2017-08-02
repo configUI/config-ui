@@ -43,6 +43,8 @@ export class MethodMonitorsComponent implements OnInit {
   methodMonitor: Object;
   selectedValues: boolean;
   keywordValue: Object;
+  subscriptionEG: Subscription;
+  enableGroupKeyword: boolean;
 
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;
@@ -81,7 +83,7 @@ export class MethodMonitorsComponent implements OnInit {
     });
   }
   saveKeywordData() {
-
+    let filePath = '';
     for (let key in this.methodMonitor) {
       if (key == 'ndMethodMonFile') {
         if (this.selectedValues == true) {
@@ -95,7 +97,13 @@ export class MethodMonitorsComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.methodMonitor[key];
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      filePath = data["_body"];
+      filePath = filePath + "/methodmonitors.mml";
+      this.methodMonitor['ndMethodMonFile'].path = filePath;
+      this.keywordData.emit(this.methodMonitor);
+    });
 
   }
   /**This method is called to load data */

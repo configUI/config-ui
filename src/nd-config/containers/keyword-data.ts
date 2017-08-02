@@ -5,6 +5,7 @@ export class KeywordData {
     max: number;
     min: number;
     value: number | string;
+    path?: string;
 }
 
 export class KeywordList{

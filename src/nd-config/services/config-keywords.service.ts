@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData,BTHTTPHeaderData,ExceptionMonitor,ExceptionMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -43,7 +43,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ['instrExceptions'] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
       // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
@@ -53,11 +53,7 @@ export class ConfigKeywordsService {
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
-
-
-  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) {
-
-  }
+  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) { }
 
   /** For Getting all keywordData data */
   getProfileKeywords(profileId) {
@@ -93,7 +89,7 @@ export class ConfigKeywordsService {
     if (!data)
       return this.keywordGroup;
 
-    //moduleName -> general, advance, product_integration
+    //moduleName -> general, advance, product_integration, instrumentation
     for (let moduleName in this.keywordGroup) {
 
       //keywordGroupList -> { flowpath: { enable: false, keywordList: ["k1", "k2"]}, hotspot: { enable: false, keywordList: ["k1", "k2"] }, ....}
@@ -109,20 +105,20 @@ export class ConfigKeywordsService {
         let keywordList = keywordInfo.keywordList;
 
         for (let i = 0; i < keywordList.length; i++) {
-          //If group of keywords value is not 0 that's means groupkeyword is enabled.
-          if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
-            //Enabling groupkeyword
-            keywordInfo.enable = true;
+            //If group of keywords value is not 0 that's means groupkeyword is enabled.
+            if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
+              //Enabling groupkeyword
+              keywordInfo.enable = true;
+            }
           }
         }
       }
-    }
     this.keywordGroupSubject.next(this.keywordGroup);
     //Updating groupkeyword values after reading keyword data object.
     //this.keywordGroup = this.configKeywordsService.keywordGroup;
   }
 
-/** Config-nd File explorer */
+  /** Config-nd File explorer */
   private fileList = new Subject();
   fileListProvider = this.fileList.asObservable();
 
@@ -149,7 +145,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
-   deleteServiceEntryData(data, profileId): Observable<ServiceEntryPoint> {
+  deleteServiceEntryData(data, profileId): Observable<ServiceEntryPoint> {
     return this._restApi.getDataByPostReq(`${URL.DEL_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
@@ -363,7 +359,7 @@ export class ConfigKeywordsService {
   //   return this._restApi.getDataByPostReq(url, data);
   // }
 
-//Need more testing.
+  //Need more testing.
   sendRunTimeChange(URL, data) {
     this._restApi.getDataByPostReq(URL, data).subscribe(
       data => {
@@ -387,7 +383,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREQHDR_RULES}`, data);
   }
 
-   /* Edit Http Request Header Info */
+  /* Edit Http Request Header Info */
   editHTTPReqHeaderData(data): Observable<HTTPRequestHdrComponentData> {
     let url = `${URL.UPDATE_HTTPREQHDR}/${data.httpAttrId}`;
     return this._restApi.getDataByPostReq(url, data);
@@ -414,7 +410,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DELETE_BT_HDR}/${profileId}`, data);
   }
 
- /** Delete HTTP Headers Conditions  */
+  /** Delete HTTP Headers Conditions  */
   deleteHTTPHdrConditions(listOfIds) {
     return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_HDR_COND}`, listOfIds);
   }
@@ -424,8 +420,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
 
-    /** Method to upload file */
-  uploadFile(filePath, profileId){
+  /** Method to upload file */
+  uploadFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
   }
 
@@ -435,10 +431,15 @@ export class ConfigKeywordsService {
   }
 
   /** Method to copy selected xml files in instrProfiles */
-  copyXmlFiles(filesWithPath, profileId): Observable<string[]>{
+  copyXmlFiles(filesWithPath, profileId): Observable<string[]> {
     return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
   }
 
+  /** Get file path */
+  getFilePath(profileId): Observable<string> {
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_FILE_PATH}/${profileId}`);
+
+  }
   /*this method is used for get selected text instrumnetation profile in xml format*/
   getInstrumentationProfileXMLData(data)
   {

@@ -3,6 +3,6 @@
         <app-exception-setting [data]="exception" (keywordData)="saveKeywordData($event)"></app-exception-setting>
     </p-tabPanel>
     <p-tabPanel header="Filter">
-        <app-exception-filter></app-exception-filter>
+        <app-exception-filter (keywordData)="saveKeywordData($event)"></app-exception-filter>
     </p-tabPanel>
 </p-tabView>

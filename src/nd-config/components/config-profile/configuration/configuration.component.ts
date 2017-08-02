@@ -41,6 +41,10 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     else {
       this.keywordGroup.general.exception.enable = true;
     }
+    // This is done because if all the two keywords of monitor are disabled then the toggle in the configuration screen will also be disabled 
+    if (sessionStorage.getItem('enableBTMonitor') != "1" && sessionStorage.getItem('enableBackendMonitor') != "1") {
+      this.keywordGroup.advance.monitors.enable=false;
+    }
   }
   //This method is used to see whether it is admin mode or not
   loadAdminInfo(): void {
