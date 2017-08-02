@@ -108,11 +108,16 @@ export class ExceptionFilterComponent implements OnInit {
       this.configKeywordsService.keywordData[key] = this.exceptionfilter[key];
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
-     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      filePath = data["_body"];
-    filePath = filePath + "/enableSourceCodeFilters.ecf";
-    this.exceptionfilter['enableSourceCodeFilters'].path = filePath;
-    this.keywordData.emit(this.exceptionfilter);
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      if (this.selectedValues == false) {
+        filePath = "NA";
+      }
+      else {
+        filePath = data["_body"];
+        filePath = filePath + "/enableSourceCodeFilters.ecf";
+      }
+      this.exceptionfilter['enableSourceCodeFilters'].path = filePath;
+      this.keywordData.emit(this.exceptionfilter);
     });
 
   }
@@ -241,7 +246,7 @@ export class ExceptionFilterComponent implements OnInit {
             // this.enableSourceCodeFilter.push(data);
             this.configUtilityService.successMessage(Messages);
           });
-          this.exceptionfiltermode = false;
+        this.exceptionfiltermode = false;
         this.addEditExceptionFilterDialog = false;
       }
     }

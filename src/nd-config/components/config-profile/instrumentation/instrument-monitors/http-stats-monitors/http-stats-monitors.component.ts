@@ -98,12 +98,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
           this.selectedValues = false;
       }
     });
-  //  this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.instrumentation.monitors.enable);
+    //  this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.instrumentation.monitors.enable);
     this.configKeywordsService.toggleKeywordData();
   }
   saveKeywordData() {
 
-   let filePath = '';
+    let filePath = '';
     for (let key in this.HttpStatsMonitor) {
       if (key == 'HTTPStatsCondCfg') {
         if (this.selectedValues == true) {
@@ -118,11 +118,16 @@ export class HttpStatsMonitorsComponent implements OnInit {
       this.configKeywordsService.keywordData[key] = this.HttpStatsMonitor[key];
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
-       this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-    filePath = data["_body"];
-    filePath = filePath + "/HttpStatsCondConfig.hmc";
-    this.HttpStatsMonitor['HTTPStatsCondCfg'].path = filePath;
-    this.keywordData.emit(this.HttpStatsMonitor)
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      if (this.selectedValues == false) {
+        filePath = "NA";
+      }
+      else {
+        filePath = data["_body"];
+        filePath = filePath + "/HttpStatsCondConfig.hmc";
+      }
+      this.HttpStatsMonitor['HTTPStatsCondCfg'].path = filePath;
+      this.keywordData.emit(this.HttpStatsMonitor)
     });
   }
 
@@ -139,29 +144,29 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Flow dump Mode values
   loadFlowDumpData() {
     this.flowDumpData = [];
-    var flowDumpLabel = [ 'Disable', 'Enable', 'Enable Forcefully'];
-    var flowDumpVal = [ '0', '1', '2'];
+    var flowDumpLabel = ['Disable', 'Enable', 'Enable Forcefully'];
+    var flowDumpVal = ['0', '1', '2'];
     this.flowDumpData = ConfigUiUtility.createListWithKeyValue(flowDumpLabel, flowDumpVal);
   }
   //This method loads Header Type values
   loadHeaderType() {
     this.headerType = [];
-    var headerTypeLabel = [ 'Request', 'Response', 'Cookie'];
-    var headerTypeVal = [ '1', '2', '3'];
+    var headerTypeLabel = ['Request', 'Response', 'Cookie'];
+    var headerTypeVal = ['1', '2', '3'];
     this.headerType = ConfigUiUtility.createListWithKeyValue(headerTypeLabel, headerTypeVal);
   }
   //This method loads Header request drop-down values
   loadResponseHeader() {
     this.responseHeader = [];
-    var resHdrLabel = [ 'Accept', 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Ranges', 'Access-Control-Allow-Origin',
+    var resHdrLabel = ['Accept', 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Ranges', 'Access-Control-Allow-Origin',
       'Age', 'Allow', 'Authorization', 'Cache-Control', 'CavNDFPInstance', 'Connection', 'Content-Disposition', 'Content-Encoding', 'Content-Language',
-      'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Cookie','Date','DNT',
+      'Content-Length', 'Content-Location', 'Content-MD5', 'Content-Range', 'Content-Security-Policy', 'Content-Type', 'Cookie', 'Date', 'DNT',
       'ETag', 'Expect', 'Expires', 'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range',
       'If-Unmodified-Since', 'Last-Modified', 'Link', 'Location', 'Max-Forwards', 'Origin', 'P3P', 'Pragma', 'Proxy-Authenticate',
-      'Proxy-Authorization', 'Proxy-Connection','Range','Referer','Refresh','Retry-After','Server','Set-Cookie', 'Status',
-    'Strict-Transport-Security','TE','Trailer','Transfer-Encoding','Upgrade','User-Agent','Vary','Via','WWW-Authenticate','Warning',
-  'X-ATT-DeviceId','X-Content-Security-Policy','X-Content-Type-Options','X-Forwarded-For','X-Forwarded-Proto','X-Frame-Options','X-Powered-By','X-Requested-With',
-  'X-UA-Compatible','X-Wap-Profile', 'X-WebKit-CSP', 'X-XSS-Protection'];
+      'Proxy-Authorization', 'Proxy-Connection', 'Range', 'Referer', 'Refresh', 'Retry-After', 'Server', 'Set-Cookie', 'Status',
+      'Strict-Transport-Security', 'TE', 'Trailer', 'Transfer-Encoding', 'Upgrade', 'User-Agent', 'Vary', 'Via', 'WWW-Authenticate', 'Warning',
+      'X-ATT-DeviceId', 'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Forwarded-For', 'X-Forwarded-Proto', 'X-Frame-Options', 'X-Powered-By', 'X-Requested-With',
+      'X-UA-Compatible', 'X-Wap-Profile', 'X-WebKit-CSP', 'X-XSS-Protection'];
 
     var resHdrVal = [ '87', '84', '85', '86', '41', '42', '43', '44', '88', '45', '103', '46', '47', '48', '49', '50', '51', '52',
       '53', '54', '55', '89', '56', '90', '57', '91', '58', '92', '93', '94', '95', '96', '97', '98', '59', '60', '61', '99', '100','62', '63', '64', '101',
@@ -173,13 +178,13 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Header request drop-down values
   loadRequestHeader() {
     this.requestHeader = [];
-    var reqHdrLabel = [ 'Accept','Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language','Authorization', 'Cache-Control', 'CavNDFPInstance','Connection',
+    var reqHdrLabel = ['Accept', 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Authorization', 'Cache-Control', 'CavNDFPInstance', 'Connection',
       'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'Date', 'DNT', 'Expect', 'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since',
       'If-None-Match', 'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'Proxy-Connection', 'Range', 'Referer',
       'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
       'X-Requested-With', 'X-Wap-Profile'];
 
-    var reqHdrVal = [ '5', '1' ,'2', '3', '4' , '6', '7', '112', '8', '9', '10', '11', '12', '14', '13', '15', '16', '17', '18',
+    var reqHdrVal = ['5', '1', '2', '3', '4', '6', '7', '112', '8', '9', '10', '11', '12', '14', '13', '15', '16', '17', '18',
       '19', '20', '21', '22', '23', '24', '25', '26', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'];
 
     this.requestHeader = ConfigUiUtility.createListWithKeyValue(reqHdrLabel, reqHdrVal);
@@ -187,29 +192,29 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Value types in drop-down menu
   loadValueType() {
     this.valueType = [];
-    var valueTypeLabel = [ 'String', 'Numeric', 'Others'];
-    var valueTypeVal = [ '1', '2', '3'];
+    var valueTypeLabel = ['String', 'Numeric', 'Others'];
+    var valueTypeVal = ['1', '2', '3'];
     this.valueType = ConfigUiUtility.createListWithKeyValue(valueTypeLabel, valueTypeVal);
   }
   //This method loads operators for String values
   loadStringOP() {
     this.stringOP = [];
-    var stringOPLabel = [ '=', '!=', 'contains', '!contains'];
-    var stringOPVal = [ '1', '2', '3', '4'];
+    var stringOPLabel = ['=', '!=', 'contains', '!contains'];
+    var stringOPVal = ['1', '2', '3', '4'];
     this.stringOP = ConfigUiUtility.createListWithKeyValue(stringOPLabel, stringOPVal);
   }
 
   loadNumericOP() {
     this.numericOP = [];
-    var numericOPLabel = [ '=', '!=', '<', '<=', '>', '>='];
-    var numericOPVal = [ '1', '2', '3', '4', '5', '6'];
+    var numericOPLabel = ['=', '!=', '<', '<=', '>', '>='];
+    var numericOPVal = ['1', '2', '3', '4', '5', '6'];
     this.numericOP = ConfigUiUtility.createListWithKeyValue(numericOPLabel, numericOPVal);
   }
 
   loadOthersOP() {
     this.othersOP = [];
     var othersOPLabel = ['PRESENT', '!PRESENT'];
-    var othersOPVal = [ '1', '2'];
+    var othersOPVal = ['1', '2'];
     this.othersOP = ConfigUiUtility.createListWithKeyValue(othersOPLabel, othersOPVal);
   }
 
@@ -288,10 +293,9 @@ export class HttpStatsMonitorsComponent implements OnInit {
   }
 
   editHttpStatsMonitor(): void {
-    if(this.httpStatsMonitorDetail.fpDumpMode == "-1")
-    {
-     this.configUtilityService.errorMessage("Please select flowpath dump mode");
-     return ;
+    if (this.httpStatsMonitorDetail.fpDumpMode == "-1") {
+      this.configUtilityService.errorMessage("Please select flowpath dump mode");
+      return;
     }
     if (this.httpStatsMonitorDetail.description != null) {
       if (this.httpStatsMonitorDetail.description.length > 500) {

@@ -31,7 +31,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       sessionStorage.setItem("isSwitch", "" + data.switch);
       sessionStorage.setItem("isStatus", "" + data.status)
     });
-    this.items = [];
+    // this.items = [];
     if (sessionStorage.getItem("isTrNumber") != null) {
       if(sessionStorage.getItem("isTrNumber") != "null")
       {
@@ -108,7 +108,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
         this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
       }
-    
+
       else if (url == BREADCRUMB.URL.INSTRUMENTATION_PROFILE_MAKER) {
         this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION_PROFILE_MAKER})
       }
@@ -120,7 +120,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     //this.trData.status
     var that = this;
     setTimeout(function (this) {
-    
+
       // if (that.trData.switch == true)
       //   that.trData.switch = false;
       // else if (that.trData.switch == false)

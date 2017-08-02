@@ -46,6 +46,11 @@ export class MethodMonitorsComponent implements OnInit {
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+
+  isMethodMonitorBrowse: boolean = false;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
@@ -73,6 +78,9 @@ export class MethodMonitorsComponent implements OnInit {
           this.selectedValues = false;
       }
     });
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
+    });
   }
   saveKeywordData() {
     let filePath = '';
@@ -91,8 +99,13 @@ export class MethodMonitorsComponent implements OnInit {
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      filePath = data["_body"];
-      filePath = filePath + "/methodmonitors.mml";
+      if (this.selectedValues == false) {
+        filePath = "NA";
+      }
+      else {
+        filePath = data["_body"];
+        filePath = filePath + "/methodmonitors.mml";
+      }
       this.methodMonitor['ndMethodMonFile'].path = filePath;
       this.keywordData.emit(this.methodMonitor);
     });
@@ -272,4 +285,40 @@ export class MethodMonitorsComponent implements OnInit {
     }
     return -1;
   }
+
+ /**used to open file manager
+  */
+  openFileManager() {
+
+    this.openFileExplorerDialog = true;
+    this.isMethodMonitorBrowse = true;
+
+  }
+
+
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isMethodMonitorBrowse == true) {
+      this.isMethodMonitorBrowse = false;
+    //Temporary path of the Method Monitor file to run locally,independently from Product UI
+    //  let filepath = "C:\\Users\\Naman\\Desktop\\methodmonitors.mml";
+     this.openFileExplorerDialog = false;
+
+      this.configKeywordsService.uploadMethodMonitorFile(filepath, this.profileId).subscribe(data => {
+        if (data.length == this.methodMonitorData.length) {
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
+        }
+        this.configUtilityService.successMessage("File uploaded successfully");
+       });
+    }
+  }
 }
+
+
+
+
+
