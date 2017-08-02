@@ -44,6 +44,11 @@ export class MethodMonitorsComponent implements OnInit {
   selectedValues: boolean;
   keywordValue: Object;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+
+  isMethodMonitorBrowse: boolean = false;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
@@ -70,6 +75,9 @@ export class MethodMonitorsComponent implements OnInit {
         else
           this.selectedValues = false;
       }
+    });
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
     });
   }
   saveKeywordData() {
@@ -264,4 +272,40 @@ export class MethodMonitorsComponent implements OnInit {
     }
     return -1;
   }
+
+ /**used to open file manager
+  */
+  openFileManager() {
+
+    this.openFileExplorerDialog = true;
+    this.isMethodMonitorBrowse = true;
+
+  }
+
+
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isMethodMonitorBrowse == true) {
+      this.isMethodMonitorBrowse = false;
+    //Temporary path of the Method Monitor file to run locally,independently from Product UI
+    //  let filepath = "C:\\Users\\Naman\\Desktop\\methodmonitors.mml";
+     this.openFileExplorerDialog = false;
+
+      this.configKeywordsService.uploadMethodMonitorFile(filepath, this.profileId).subscribe(data => {
+        if (data.length == this.methodMonitorData.length) {
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
+        }
+        this.configUtilityService.successMessage("File uploaded successfully");
+       });
+    }
+  }
 }
+
+
+
+
+

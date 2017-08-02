@@ -3,6 +3,7 @@
         <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span class="configui-float-css"> Apply method monitors </span>
         <span class="configui-float">
+            <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Add a method monitor" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit a method monitor" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
             <button pButton class="ui-button-danger" type="button" title="Delete method monitor(s)" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
@@ -63,4 +64,13 @@
             </div>
         </footer>
     </form>
+</p-dialog>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+
+    <!-- This will look for this component in the ProductUI at this path -
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
