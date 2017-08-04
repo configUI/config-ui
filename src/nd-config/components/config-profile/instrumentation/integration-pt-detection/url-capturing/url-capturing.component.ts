@@ -33,7 +33,6 @@ export class UrlCapturingComponent implements OnInit {
   keywordValue: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService,private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-    this.getKeywordData(); 
     this.configKeywordsService.toggleKeywordData();
   }
 
@@ -49,6 +48,7 @@ export class UrlCapturingComponent implements OnInit {
       this.index = params['tabId'];
       });
     this.urlCapturingData = new UrlCapturingData();
+    this.getKeywordData();
   }
 
   /* This method is used to save the formatIPResourceURL data in the backend*/
@@ -64,6 +64,13 @@ export class UrlCapturingComponent implements OnInit {
    /* This method is used to reset the keyword data*/
    resetKeywordData() {
     this.getKeywordData();
+    if (this.urlCapturing["formatIPResourceURL"].value == "0")
+      {
+        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.urlOffset = null;
+        this.urlCapturingData.maxChar = null;
+      }
+   else
     this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
    }
 
