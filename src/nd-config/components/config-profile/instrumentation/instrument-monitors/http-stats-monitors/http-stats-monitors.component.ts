@@ -199,15 +199,15 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads operators for String values
   loadStringOP() {
     this.stringOP = [];
-    var stringOPLabel = ['=', '!=', 'contains', '!contains'];
-    var stringOPVal = ['1', '2', '3', '4'];
+    var stringOPLabel = ['=', '!=', 'contains', '!contains','present', '!present'];
+    var stringOPVal = ['1', '2', '3', '4', '13', '14'];
     this.stringOP = ConfigUiUtility.createListWithKeyValue(stringOPLabel, stringOPVal);
   }
 
   loadNumericOP() {
     this.numericOP = [];
-    var numericOPLabel = ['=', '!=', '<', '<=', '>', '>='];
-    var numericOPVal = ['1', '2', '3', '4', '5', '6'];
+    var numericOPLabel = ['=', '!=', '<', '<=', '>', '>=', 'present', '!present'];
+    var numericOPVal = ['1', '2', '3', '4', '5', '6', '15', '16'];
     this.numericOP = ConfigUiUtility.createListWithKeyValue(numericOPLabel, numericOPVal);
   }
 

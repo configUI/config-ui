@@ -387,7 +387,11 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 (9,2,'>'),
 (10,2,'>='),
 (11,3,'PRESENT'),
-(12,3,'!PRESENT');
+(12,3,'!PRESENT'),
+(13,1,'PRESENT'),
+(14,1,'!PRESENT'),
+(15,2,'PRESENT'),
+(16,2,'!PRESENT');
 
 
 INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri,
