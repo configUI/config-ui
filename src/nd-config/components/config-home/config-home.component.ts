@@ -44,6 +44,7 @@ export class ConfigHomeComponent implements OnInit {
   loadHomeData(): void {
     this.configHomeService.getMainData()
       .subscribe(data => {
+
         if (data.homeData[0].value.length > 5) {
           this.applicationMsg = "(Last 5 Modified)";
           this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
@@ -53,10 +54,12 @@ export class ConfigHomeComponent implements OnInit {
 
         if (data.homeData[1].value.length > 5) {
           this.profileInfoMsg = "(Last 5 Modified)";
-          this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length - 5, data.homeData[1].value.length).reverse();
+	        this.profileInfo = (data.homeData[1].value).splice(0, 5);
+	       //  Commenting below line as we are reciecing profiles in descending order from backend.
+         // this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length - 5, data.homeData[1].value.length).reverse();
         }
         else
-          this.profileInfo = (data.homeData[1].value).splice(0, data.homeData[1].value.length).reverse();
+          this.profileInfo = (data.homeData[1].value).splice(0, data.homeData[1].value.length);
 
         if (data.homeData[2].value.length > 5) {
           this.topologyInfoMsg = "(Last 5 Modified)";
@@ -67,7 +70,10 @@ export class ConfigHomeComponent implements OnInit {
 
         this.agentsInfo = data.agentData;
         // data.trData.switch = data.trData.status == 'running';
-        data.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
+        // data.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
+        data.trData.switch = true;
+        if(sessionStorage.getItem("isSwitch") === 'false')
+          data.trData.switch = false;
         this.configHomeService.setTrData(data.trData);
         this.configHomeService.trData = data.trData;
       })
@@ -83,7 +89,7 @@ export class ConfigHomeComponent implements OnInit {
         this.topologyInfoMsg = "(Last 5 Modified)";
         this.topologyInfo = (data).slice(data.length - 5, data.length).reverse();
       }
-      else 
+      else
         this.topologyInfo = (data).splice(0, data.length).reverse();
 
       this.configUtilityService.infoMessage("Topologies imported successfully");
@@ -94,7 +100,7 @@ export class ConfigHomeComponent implements OnInit {
   routeToTreemain(selectedTypeId, selectedName, type) {
     //Observable application name
     if (type == 'topology') {
-      //it routes to (independent) topology screen 
+      //it routes to (independent) topology screen
       this.configApplicationService.applicationNameObserver(selectedName);
       this.router.navigate([this.ROUTING_PATH + '/tree-main/topology', selectedTypeId]);
     }
