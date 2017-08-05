@@ -50,11 +50,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configUtilityService.errorMessage("Multiple files cannot be imported");
       return;
     }
-     if(!path.includes(".txt"))
-      {
-       this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
-         return;
-      }
+    if (!path.includes(".txt")) {
+      this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
+      return;
+    }
     if (this.isMakeXMLFile == true) {
       this.isMakeXMLFile = false;
       let filename = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
@@ -63,7 +62,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configKeywordsService.getInstrumentationProfileXMLData(path).subscribe(data => {
         // const xml = beautify(data._body);
         this.xmlFormat = data._body;
-        this._configUtilityService.successMessage("File imported successfully");
+        if (this.xmlFormat == "")
+          this._configUtilityService.errorMessage("Files contains no data");
+        else
+          this._configUtilityService.successMessage("File imported successfully");
         this.createDropDown(filename);
       });
     }
@@ -80,14 +82,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     this._configKeywordsService.getXMLDataFromSelectedXMLFile(this.selectedXMLFile).subscribe(data => {
       // const xml = beautify(data._body);
       this.xmlFormat = data._body;
-   });
+    });
   }
 
   /* this method is used for remove xml data from gui*/
   clearWindow() {
     this.xmlFormat = "";
-     this.xmlFormat = "No file selected";
-      this.selectedXMLFile = "";
+    this.xmlFormat = "No file selected";
+    this.selectedXMLFile = "";
   }
 }
-                                  
