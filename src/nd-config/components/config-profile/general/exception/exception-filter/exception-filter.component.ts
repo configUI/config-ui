@@ -102,7 +102,7 @@ export class ExceptionFilterComponent implements OnInit {
         }
         else {
           this.exceptionfilter[key]["value"] = "false";
-          this.configUtilityService.successMessage("Exception Filter settings are disabled");
+          this.configUtilityService.infoMessage("Exception Filter settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.exceptionfilter[key];

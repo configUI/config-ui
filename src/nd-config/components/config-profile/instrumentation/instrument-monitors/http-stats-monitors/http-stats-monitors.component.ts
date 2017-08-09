@@ -112,7 +112,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         }
         else {
           this.HttpStatsMonitor[key]["value"] = "false";
-          this.configUtilityService.successMessage("Http Stats Monitors are disabled");
+          this.configUtilityService.infoMessage("Http Stats Monitors are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.HttpStatsMonitor[key];

@@ -86,7 +86,7 @@ export class ErrorDetectionComponent implements OnInit {
         }
         else {
           this.errorDetection[key]["value"] = "false";
-          this.configUtilityService.successMessage("Error detection settings disabled");
+          this.configUtilityService.infoMessage("Error detection settings disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.errorDetection[key];

@@ -92,7 +92,7 @@ export class MethodMonitorsComponent implements OnInit {
         }
         else {
           this.methodMonitor[key]["value"] = "false";
-          this.configUtilityService.successMessage("Method Monitors settings are disabled");
+          this.configUtilityService.infoMessage("Method Monitors settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.methodMonitor[key];

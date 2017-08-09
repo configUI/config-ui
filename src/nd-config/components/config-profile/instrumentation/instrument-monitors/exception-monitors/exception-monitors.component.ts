@@ -82,7 +82,7 @@ export class ExceptionMonitorsComponent implements OnInit {
         }
         else {
           this.exceptionMonitor[key]["value"] = "false";
-          this.configUtilityService.successMessage("Exception Monitors settings are disabled");
+          this.configUtilityService.infoMessage("Exception Monitors settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
