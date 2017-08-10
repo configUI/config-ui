@@ -242,7 +242,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   /**This method is used to creating topology select item object */
   createProfileSelectItem(data) {
     this.profileSelectItem = [];
-    this.profileSelectItem.push({ value: -1, label: '--Select Profile--' });
+    //this.profileSelectItem.push({ value: -1, label: '--Select Profile--' });
     console.log("this.profileData---", data)
     let that = this;
     data.forEach(function (val) {

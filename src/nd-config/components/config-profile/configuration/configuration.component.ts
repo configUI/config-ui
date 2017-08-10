@@ -35,13 +35,16 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     this.loadAdminInfo();
     this.loadKeywordData();
     // This is done because if all the three keywords in the exception capturing are disabled/default values the toggle in the configuration screen will also be disabled
-    if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
+     if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
+      this.keywordGroup.general.exception.enable = false;
+    }
+    else if (sessionStorage.getItem('exceptionCapturing') == null && sessionStorage.getItem('exceptionCapturingSeqBlob') == null && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == null) {
       this.keywordGroup.general.exception.enable = false;
     }
     else {
       this.keywordGroup.general.exception.enable = true;
     }
-    // This is done because if all the two keywords of monitor are disabled then the toggle in the configuration screen will also be disabled 
+    // This is done because if all the two keywords of monitor are disabled then the toggle in the configuration screen will also be disabled
     if (sessionStorage.getItem('enableBTMonitor') != "1" && sessionStorage.getItem('enableBackendMonitor') != "1") {
       this.keywordGroup.advance.monitors.enable=false;
     }

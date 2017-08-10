@@ -134,23 +134,25 @@ export class UrlCapturingComponent implements OnInit {
   // Method used to construct the value of formatIPResourceURL keyword.
   formatIPResourceURLValue() {
     var formatIPVal = {};
-      if (this.urlCapturingData.includeParameter == false)
+      if (this.urlCapturingData.includeParameter == false) {
         formatIPVal = "0";
+      }
+      else{
+        if (this.urlCapturingData.includeParameter == true)
+           formatIPVal = "1";
 
-      if (this.urlCapturingData.includeParameter == true)
-        formatIPVal = "1";
+        if (this.urlCapturingData.urlOffset != null)
+           formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
+        else
+           formatIPVal = formatIPVal + "%200";
 
-      if (this.urlCapturingData.urlOffset != null)
-        formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
-      else
-        formatIPVal = formatIPVal + "%200";
-
-      if (this.urlCapturingData.maxChar != null)
-        formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
-      else
-        formatIPVal = formatIPVal + "%20256"
-    return formatIPVal;
-  }
+        if (this.urlCapturingData.maxChar != null)
+           formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
+        else
+           formatIPVal = formatIPVal + "%20256"
+      }
+        return formatIPVal;
+     }
 
 
    checkOffset(offset, maxChar) {
