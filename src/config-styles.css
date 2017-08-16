@@ -991,3 +991,7 @@ a {
 .config_app {
     width: 72%;
 }
+
+.config_align_dialog{
+    width:177px;
+}
