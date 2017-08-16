@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
+import { ConfirmationService, SelectItem } from 'primeng/primeng';
 
 import { IntegrationPTDetection, BackendTableInfo, AddIPDetection, NamingRuleAndExitPoint, EndPointInfo, EndPoint, NamingRule } from '../../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
@@ -44,10 +44,12 @@ export class IntegrationPtComponent implements OnInit {
   backendTypeSelecetItem: SelectItem[] = [];
   IP = INTEGRATION_TYPE;
 
-  constructor(private route: ActivatedRoute,private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
-     this.loadIntegrationPTDetectionList();
+  endPoint: EndPoint[];
+
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+    this.loadIntegrationPTDetectionList();
     this.loadBackendInfoList();
-   }
+  }
 
   ngOnInit() {
     this.loadIntegrationPTDetectionList();
@@ -60,7 +62,7 @@ export class IntegrationPtComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
-     });
+    });
     this.configKeywordsService.getIntegrationPTDetectionList(this.profileId).subscribe(data => {
       this.ipDetectionData = data["backendDetail"];
     });
@@ -115,6 +117,7 @@ export class IntegrationPtComponent implements OnInit {
         endPointData.name = data.name;
         // this.ipDetectionData[index].lstEndPoints.push(endPointData);
         this.ipDetectionData[index].lstEndPoints = ImmutableArray.push(this.ipDetectionData[index].lstEndPoints, endPointData);
+        this.loadIntegrationPTDetectionList();
         this.configUtilityService.successMessage(Messages);
       });
     this.displayNewIPDetection = false;
@@ -155,7 +158,7 @@ export class IntegrationPtComponent implements OnInit {
 
         this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
         this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
-
+        this.loadIntegrationPTDetectionList();
         this.configUtilityService.successMessage(Messages);
       }
       );
@@ -210,6 +213,34 @@ export class IntegrationPtComponent implements OnInit {
       }
     }
   }
+
+  /**This method is used to delete the Integration point
+   * This method will also check if the integration point is pre-Defined or custom type.
+   */
+  deleteIP(event) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let ipID = event["id"];
+        this.configKeywordsService.deleteIntegrationPointData(ipID, this.profileId)
+          .subscribe(data => {
+            for (let i = 0; i < this.integrationDetail.lstEndPoints.length; i++) {
+              if (this.integrationDetail.lstEndPoints[i] == event) {
+                this.integrationDetail.lstEndPoints.splice(i, 1);
+              }
+            }
+            this.loadIntegrationPTDetectionList();
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+
 
 }
 

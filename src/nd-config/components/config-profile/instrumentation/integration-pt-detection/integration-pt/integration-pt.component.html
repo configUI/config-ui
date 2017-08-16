@@ -131,11 +131,20 @@
             <div class="ui-g-12">
                 <label style="font-weight: bolder;font-size: larger">Integration points</label>
                 <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstEndPoints">
-                    <div class="ui-g-10">
+                    <div class="ui-g-8">
                         <label>{{endPoints.name}}</label>
                     </div>
-                    <div>
-                        <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+                    <div class="ui-g-2">
+                        <div>
+                            <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="ui-g-2">
+                        <div>
+                            <button *ngIf="endPoints.customEntry == true || endPoints.isCustomEntry == true" pButton class="ui-button-danger" type="button" (click)="deleteIP(endPoints)" title="Delete custom integration point" icon="fa-trash"></button>
+                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-defined integration point cannot be deleted" icon="fa-trash"></button>
+
+                        </div>
                     </div>
                 </div>
             </div>
