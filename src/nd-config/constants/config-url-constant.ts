@@ -1,6 +1,6 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+ // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
   // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -99,6 +99,7 @@ export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;
 export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/custom/backenddetection/getbackendtype`;
 export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`;
 export const UPDATE_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/updatebackend`;
+export const DEL_INTEGRATION_POINTS = `${SERVICE_URL}/custom/backenddetection/delete`;
 
 
 //export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;

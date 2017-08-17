@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -105,14 +105,14 @@ export class ConfigKeywordsService {
         let keywordList = keywordInfo.keywordList;
 
         for (let i = 0; i < keywordList.length; i++) {
-            //If group of keywords value is not 0 that's means groupkeyword is enabled.
-            if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
-              //Enabling groupkeyword
-              keywordInfo.enable = true;
-            }
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.
+          if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
+            //Enabling groupkeyword
+            keywordInfo.enable = true;
           }
         }
       }
+    }
     this.keywordGroupSubject.next(this.keywordGroup);
     //Updating groupkeyword values after reading keyword data object.
     //this.keywordGroup = this.configKeywordsService.keywordGroup;
@@ -122,7 +122,7 @@ export class ConfigKeywordsService {
   private fileList = new Subject();
   fileListProvider = this.fileList.asObservable();
 
-  updateFileList(fileList){
+  updateFileList(fileList) {
     this.fileList.next(fileList);
   }
 
@@ -152,6 +152,10 @@ export class ConfigKeywordsService {
   /**For Integration PT Detection */
   getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
+  }
+
+  deleteIntegrationPointData(data, profileId): Observable<EndPoint> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_INTEGRATION_POINTS}/${profileId}`, data);
   }
 
   getBackendList(profileId): Observable<BackendInfo[]> {
@@ -373,7 +377,7 @@ export class ConfigKeywordsService {
     );
   }
 
-  deleteSpecificAttrValues(listOfIDs){
+  deleteSpecificAttrValues(listOfIDs) {
     let url = `${URL.DELETE_ATTR_RULES}`;
     return this._restApi.getDataByPostReq(url, listOfIDs);
   }
@@ -397,7 +401,7 @@ export class ConfigKeywordsService {
 
 
   /** Add BT HTTP REQUEST HEADERS */
-  addBtHttpHeaders(data, profileId){
+  addBtHttpHeaders(data, profileId) {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
   }
   /** Get all BT Http header data */
@@ -425,8 +429,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
   }
 
-    /** Method to upload file method monitors file */
-  uploadMethodMonitorFile(filePath, profileId){
+  /** Method to upload file method monitors file */
+  uploadMethodMonitorFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
   }
 
@@ -441,20 +445,17 @@ export class ConfigKeywordsService {
 
   }
   /*this method is used for get selected text instrumnetation profile in xml format*/
-  getInstrumentationProfileXMLData(data)
-  {
-       return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
+  getInstrumentationProfileXMLData(data) {
+    return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
   }
 
   /*this method is used for get all xml files for a particular path*/
-  getInstrumentationProfileXMLFileList()
-  {
-       return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
+  getInstrumentationProfileXMLFileList() {
+    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
   }
 
   /*this method is used for get selected xml instrumnetation profile in xml format*/
-  getXMLDataFromSelectedXMLFile(data)
-  {
-      return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
+  getXMLDataFromSelectedXMLFile(data) {
+    return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
   }
 }

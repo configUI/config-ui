@@ -1,4 +1,4 @@
-export class ServiceEntryPoint {
+export class  ServiceEntryPoint {
     desc: string;
     enabled: boolean;
     entryType: string;
@@ -27,6 +27,7 @@ export class AddIPDetection {
     fqm: string;
     id: number;
     name: string;
+    isCustomEntry:boolean=true;
 }
 export class BackendTableInfo {
     type: string;
@@ -75,6 +76,7 @@ export class EndPoint {
     description: string;
     enabled: boolean;
     fqm: string;
+    isCustomEntry:boolean=true;
 }
 
 export class NamingRuleAndExitPoint {
