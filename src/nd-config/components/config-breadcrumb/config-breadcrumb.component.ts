@@ -22,6 +22,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
   displaySessionLabel: boolean;
   subscription: Subscription;
   breadcrumbSubscription: Subscription;
+  dcId: any;
 
   ngOnInit() {
     this.trData = new TRData();
@@ -33,15 +34,14 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     });
     // this.items = [];
     if (sessionStorage.getItem("isTrNumber") != null) {
-      if(sessionStorage.getItem("isTrNumber") != "null")
-      {
-      this.trData.trNo = sessionStorage.getItem("isTrNumber");
-      this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
-      this.trData.status = sessionStorage.getItem("isStatus")
-      this.displaySessionLabel = true;
+      if (sessionStorage.getItem("isTrNumber") != "null") {
+        this.trData.trNo = sessionStorage.getItem("isTrNumber");
+        this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
+        this.trData.status = sessionStorage.getItem("isStatus")
+        this.displaySessionLabel = true;
       }
     }
-    else{
+    else {
       this.displaySessionLabel = false;
     }
 
@@ -104,13 +104,46 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       }
 
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
+
+        //Getting dcId from the URL
+        if (!url.includes("tree-main/profile")) {
+          let arrURL = url.split("/");
+          this.dcId = arrURL[arrURL.length - 1];
+          sessionStorage.setItem("dcId", this.dcId);
+        }
+
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] })
 
-        this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+        if (url.startsWith(BREADCRUMB.URL.TREE_PROFILE)) {
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN, routerLink: [`${BREADCRUMB.URL.TREE_MAIN}/${sessionStorage.getItem("dcId")}`] })
+          if (url.startsWith(BREADCRUMB.URL.TOPOLOGY_PROFILE))
+            this.items.push({ label: BREADCRUMB.LABEL.CONFIGURATION });
+          else {
+            let arrURL = url.split("/");
+
+            let tabId = arrURL[arrURL.length - 1];
+            let profileId = arrURL[arrURL.length - 2];
+
+            this.items.push({ routerLink: [`${BREADCRUMB.URL.TOPOLOGY_PROFILE}/${profileId}`], label: BREADCRUMB.LABEL.CONFIGURATION });
+
+            if (url.startsWith(BREADCRUMB.URL.TREE_GENERAL))
+              this.items.push({ label: BREADCRUMB.LABEL.GENERAL });
+            else if (url.startsWith(BREADCRUMB.URL.TREE_INSTRUMENTATION))
+              this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION });
+            else if (url.startsWith(BREADCRUMB.URL.TREE_ADVANCE))
+              this.items.push({ label: BREADCRUMB.LABEL.ADVANCE });
+            else if (url.startsWith(BREADCRUMB.URL.TREE_INTEGRATION))
+              this.items.push({ label: BREADCRUMB.LABEL.INTEGRATION });
+          }
+
+        }
+        else {
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+        }
       }
 
       else if (url == BREADCRUMB.URL.INSTRUMENTATION_PROFILE_MAKER) {
-        this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION_PROFILE_MAKER})
+        this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION_PROFILE_MAKER })
       }
       console.log("this.items", this.items);
     });

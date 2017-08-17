@@ -31,7 +31,14 @@ export const URL = {
     ADVANCE: `${ROUTING_PATH}/profile/advance`,
     INTEGRATION: `${ROUTING_PATH}/profile/integration`,
 
-    TREE_MAIN: `${ROUTING_PATH}/tree-main/`,
+    TREE_GENERAL: `${ROUTING_PATH}/tree-main/profile/general`,
+    TREE_INSTRUMENTATION: `${ROUTING_PATH}/tree-main/profile/instrumentation`,
+    TREE_ADVANCE: `${ROUTING_PATH}/tree-main/profile/advance`,
+    TREE_INTEGRATION: `${ROUTING_PATH}/tree-main/profile/integration`,
+
+    TREE_MAIN: `${ROUTING_PATH}/tree-main`,
     TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`,
+    TOPOLOGY_PROFILE: `${ROUTING_PATH}/tree-main/profile/configuration`,
+    TREE_PROFILE: `${ROUTING_PATH}/tree-main/profile`,
      INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`
 };  

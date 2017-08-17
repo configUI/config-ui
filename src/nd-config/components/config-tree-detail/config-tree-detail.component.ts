@@ -274,7 +274,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //Observable profile name
     this.configProfileService.profileNameObserver(entity.profileName);
-    this.router.navigate([this.ROUTING_PATH + '/profile/configuration', entity.profileId]);
+    this.router.navigate([this.ROUTING_PATH + '/tree-main/profile/configuration', entity.profileId]);
   }
 
   disableProfInstance(instanceId, flag) {

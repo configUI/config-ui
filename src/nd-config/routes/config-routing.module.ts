@@ -27,6 +27,14 @@ import { ConfigImportInstrProfileComponent } from '../components/config-import-i
 //             { path: 'application-list', component: ConfigApplicationListComponent },
 //             { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
 //             { path: 'tree-main/topology/:topoId', component: ConfigTreeMainComponent },
+//             { path: 'tree-main/profile', component: ConfigProfileRoutingComponent, children: [
+//                     { path: '', redirectTo: 'configuration/:profileId', pathMatch: 'full' },
+//                     { path: 'configuration/:profileId', component: ConfigurationComponent },
+//                     { path: 'general/:profileId/:tabId', component: GeneralComponent },
+//                     { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
+//                     { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
+//                     { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
+//                 ] },
 //             {
 //                 path: 'profile', component: ConfigProfileRoutingComponent, children: [
 //                     { path: '', redirectTo: 'profile-list', pathMatch: 'full' },
@@ -51,6 +59,14 @@ const routes: Routes = [
             { path: 'application-list', component: ConfigApplicationListComponent },
             { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
             { path: 'tree-main/topology/:topoId', component: ConfigTreeMainComponent },
+            { path: 'tree-main/profile', component: ConfigProfileRoutingComponent, children: [
+                    { path: '', redirectTo: 'configuration/:profileId', pathMatch: 'full' },
+                    { path: 'configuration/:profileId', component: ConfigurationComponent },
+                    { path: 'general/:profileId/:tabId', component: GeneralComponent },
+                    { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
+                    { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
+                    { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
+                ] },
             {
                 path: 'profile', component: ConfigProfileRoutingComponent, children: [
                     { path: '', redirectTo: 'profile-list', pathMatch: 'full' },
