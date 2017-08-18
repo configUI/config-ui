@@ -15,7 +15,7 @@ import { TRData } from '../../interfaces/main-info';
 export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
 
-  constructor(private router: Router, private configHomeService: ConfigHomeService) {}
+  constructor(private router: Router, private configHomeService: ConfigHomeService) { }
 
   items: MenuItem[];
   trData: TRData;

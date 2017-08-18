@@ -26,8 +26,6 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   subscriptionApplication: Subscription;
 
   ngOnInit() {
-
-    sessionStorage.getItem("metaDataDisplay");
     //below line gets called as soon as link of profile is clicked which routes to its configuration screen
     this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => {
       this.profileName = data;
@@ -79,10 +77,6 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       else {
         this.isMetaDataDisplay = false;
       }
-
-      // if(this.isMetaDataDisplay == true)
-      sessionStorage.setItem("metaDataDisplay", this.isMetaDataDisplay + "");
-      // else
     });
   }
 
