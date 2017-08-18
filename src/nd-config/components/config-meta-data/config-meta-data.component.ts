@@ -26,6 +26,8 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
   subscriptionApplication: Subscription;
 
   ngOnInit() {
+
+    sessionStorage.getItem("metaDataDisplay");
     //below line gets called as soon as link of profile is clicked which routes to its configuration screen
     this.subscriptionProfile = this.configProfileService.profileNameProvider$.subscribe(data => {
       this.profileName = data;
@@ -64,6 +66,10 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
           this.applicationName = sessionStorage.getItem("selectedApplicationName");
 
         this.label = `Application Name: ` + this.applicationName
+
+        if(url.startsWith(BREADCRUMB.URL.TREE_PROFILE)){
+          this.label = `Application Name: ` + this.applicationName + ", " + `Profile Name: ${this.profileName}`;
+        }
         
         if (!this.applicationName) {
           let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
@@ -73,6 +79,10 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       else {
         this.isMetaDataDisplay = false;
       }
+
+      // if(this.isMetaDataDisplay == true)
+      sessionStorage.setItem("metaDataDisplay", this.isMetaDataDisplay + "");
+      // else
     });
   }
 

@@ -48,6 +48,7 @@ import { ConfigImportInstrProfileComponent } from '../components/config-import-i
 //             },
 //             { path: 'topology-list', component: ConfigTopologyListComponent },
 //             { path: 'nd-agent', component: ConfigNdAgentComponent },
+//             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
 //         ]
 //     }
 // ];
@@ -84,7 +85,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-   //  imports: [RouterModule.forChild(routes)],
+    //  imports: [RouterModule.forChild(routes)],
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })

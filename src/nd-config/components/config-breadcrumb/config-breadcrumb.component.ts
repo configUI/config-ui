@@ -15,7 +15,7 @@ import { TRData } from '../../interfaces/main-info';
 export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
 
-  constructor(private router: Router, private configHomeService: ConfigHomeService) { }
+  constructor(private router: Router, private configHomeService: ConfigHomeService) {}
 
   items: MenuItem[];
   trData: TRData;
@@ -30,23 +30,11 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       this.trData = data;
       sessionStorage.setItem("isTrNumber", data.trNo);
       sessionStorage.setItem("isSwitch", "" + data.switch);
-      sessionStorage.setItem("isStatus", "" + data.status)
+      sessionStorage.setItem("isStatus", "" + data.status);
+      this.getRunningTestRunInfo();
     });
-    // this.items = [];
-    if (sessionStorage.getItem("isTrNumber") != null) {
-      if (sessionStorage.getItem("isTrNumber") != "null") {
-        this.trData.trNo = sessionStorage.getItem("isTrNumber");
-        this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
-        this.trData.status = sessionStorage.getItem("isStatus")
-        this.displaySessionLabel = true;
-      }
-    }
-    else {
-      this.displaySessionLabel = false;
-    }
 
-
-
+    this.items = [{ routerLink: [BREADCRUMB.URL.HOME], label: BREADCRUMB.LABEL.HOME }];    
     this.breadcrumbSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.items = [{ routerLink: [BREADCRUMB.URL.HOME], label: BREADCRUMB.LABEL.HOME }];
 
@@ -147,6 +135,20 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       }
       console.log("this.items", this.items);
     });
+  }
+
+  getRunningTestRunInfo() {
+      if (sessionStorage.getItem("isTrNumber") != null) {
+      if (sessionStorage.getItem("isTrNumber") != "null") {
+        this.trData.trNo = sessionStorage.getItem("isTrNumber");
+        this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
+        this.trData.status = sessionStorage.getItem("isStatus")
+        this.displaySessionLabel = true;
+      }
+    }
+    else {
+      this.displaySessionLabel = false;
+    }
   }
 
   enabledRTC() {
