@@ -149,6 +149,11 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
+  editServiceEntryPointData(data, profileId): Observable<ServiceEntryPoint> {
+    let url = `${URL.EDIT_SERVICE_ENTRY_POINTS}/${profileId}/${data.id}`
+    return this._restApi.getDataByPutReq(url, data);
+  }
+
   /**For Integration PT Detection */
   getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
