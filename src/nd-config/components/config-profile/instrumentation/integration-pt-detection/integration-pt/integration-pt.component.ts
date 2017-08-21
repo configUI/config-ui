@@ -79,15 +79,22 @@ export class IntegrationPtComponent implements OnInit {
       this.createBackendTypeSelectItem();
     });
   }
-
   /**To Fetch data to show the Backend Type in Dropdown Of Dialog box of ADD functionality */
   createBackendTypeSelectItem() {
     this.backendTypeSelecetItem = [];
-    for (let i = 0; i < this.backendInfo.length; i++) {
-      this.backendTypeSelecetItem.push({ label: this.backendInfo[i].backendTypeName, value: this.backendInfo[i].backendTypeId });
-    }
+    let arr = [];
+     for (let i = 0; i < this.backendInfo.length; i++) {
+          arr.push(this.backendInfo[i].backendTypeName);
+        }
+        arr.sort();
+        for (let i = 0; i < arr.length; i++){
+          for (let j = 0; j < this.backendInfo.length; j++){
+              if(arr[i] == this.backendInfo[j].backendTypeName){
+                this.backendTypeSelecetItem.push({ label: arr[i], value: this.backendInfo[j].backendTypeId });
+              }
+          }
+        }
   }
-
   /**This method is called to Open Dialog to add new IntegrationPTDetection when you click ADD Button */
   onAddIntegrationPTDetection() {
     this.addIPDetectionDetail = new AddIPDetection();
@@ -121,6 +128,7 @@ export class IntegrationPtComponent implements OnInit {
         this.configUtilityService.successMessage(Messages);
       });
     this.displayNewIPDetection = false;
+
   }
 
   onRowSelect() {

@@ -35,17 +35,17 @@
             <div class="ui-g-3">
                 <label>Exception name</label>
             </div>
-            <div class="ui-g-9">
-                <input name="exceptionName" pattern="^[\S]{0,99}$" type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required ngModel/>
-            </div>
+	 <div class="ui-g-9">
+                <input name="exceptionName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" title="Please enter valid exception name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required ngModel/>
+           </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-3">
                 <label>Display name</label>
             </div>
-            <div class="ui-g-9">
-                <input name="exceptionDisplayName" pattern="^[a-zA-Z0-9_.]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionDisplayName" required ngModel/>
-            </div>
+	 <div class="ui-g-9">
+                <input name="exceptionDisplayName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid display name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." type="text" size="50" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionDisplayName" required ngModel/>
+           </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-3">

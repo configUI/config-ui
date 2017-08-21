@@ -54,8 +54,17 @@ export class ConfigProfileListComponent implements OnInit {
   /**For Fetching Data in DropDown in Copy profile */
   loadProfileNameList() {
     this.profileListItem = [];
+    let arr = []; //This variable is used to sort Profiles
     for (let i = 0; i < this.profileData.length; i++) {
-      this.profileListItem.push({ label: this.profileData[i].profileName, value: this.profileData[i].profileId });
+      arr.push(this.profileData[i].profileName);
+    }
+    arr.sort();
+      for (let i = 0; i< arr.length; i++){
+        for (let j = 0; j < this.profileData.length; j++) {
+          if(this.profileData[j].profileName == arr[i]){
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
     }
   }
 
