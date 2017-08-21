@@ -2,14 +2,14 @@
 
  // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
-  // const  SERVICE_URL = 'http://localhost:8090';
+// const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
   const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-export const ROUTING_PATH: string = "";
+ export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
 // export const ROUTING_PATH: string = "/home/config";
@@ -74,6 +74,7 @@ export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/custom/profiles
 export const ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/delete`;
+export const EDIT_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/updateServiceEntry`;
 
 /*Url for Toggle */
 export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;
