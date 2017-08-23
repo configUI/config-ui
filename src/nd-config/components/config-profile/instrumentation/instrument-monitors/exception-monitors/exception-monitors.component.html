@@ -36,7 +36,7 @@
                 <label>Exception name</label>
             </div>
 	 <div class="ui-g-9">
-                <input name="exceptionName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" title="Please enter valid exception name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required ngModel/>
+                <input name="exceptionName" pattern="[a-zA-z\.]*" type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required ngModel/>
            </div>
         </div>
         <div class="ui-g">
