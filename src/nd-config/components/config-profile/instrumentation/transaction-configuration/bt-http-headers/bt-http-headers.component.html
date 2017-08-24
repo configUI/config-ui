@@ -121,10 +121,10 @@
                 <div class="ui-g-4">
                     <label>BT name</label>
                 </div>
-                <div class="ui-g-3">
-                    <input name="btname" type="text" class="config_align_dialog" pattern="[a-zA-Z0-9-_]*" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
+	 <div class="ui-g-3">
+                    <input name="btname" type="text" class="config_align_dialog" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
-                </div>
+               </div>
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
