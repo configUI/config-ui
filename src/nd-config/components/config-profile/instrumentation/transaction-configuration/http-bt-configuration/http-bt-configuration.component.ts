@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
-import { BusinessTransPatternData, BusinessTransGlobalData } from '../../../../../containers/instrumentation-data';
+import { BusinessTransPatternData, BusinessTransGlobalData, RequestParamData } from '../../../../../containers/instrumentation-data';
 
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
@@ -85,6 +85,21 @@ export class HTTPBTConfigurationComponent implements OnInit {
   isBTPatternBrowse: boolean = false;
 
   subscription: Subscription;
+
+  reqParamKeyCheck: boolean = false;
+  openReqKeyVal: boolean = false;
+
+  //Reuest parameter key and value table
+  reqParamInfo: any[];
+  selectedReqParam: RequestParamData[];
+  reqParamDetail: RequestParamData;
+
+  reqParamCount: number = 0;
+  editReqParamCount: number = 0;
+
+  editReqParam: boolean = false;
+
+  isNewParam: boolean = false;
 
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
@@ -247,9 +262,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**This method is used to add Pattern detail */
   savePattern(): void {
-    if (this.businessTransPatternDetail.dynamicPartReq == true && ((this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-"))) {
+    if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
       return;
+    }
+    if (this.businessTransPatternDetail.dynamicPartReq == true && this.reqParamKeyCheck == true && this.reqParamInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide request parameters");
+      return;
+    }
+    if (this.businessTransPatternDetail.dynamicPartReq == false) {
+      this.reqParamKeyCheck = false;
+      this.reqParamInfo = [];
     }
     if (this.chkInclude == true)
       this.businessTransPatternDetail.include = "include"
@@ -259,10 +282,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     /**
      * Condition to check if VALUE is filled and KEY is blank
      */
-    if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
-      this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
-      return;
-    }
+    // if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
+    //   this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
+    //   return;
+    // }
     if ((this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "") && this.businessTransPatternDetail.reqHeaderKey == "") {
       this.configUtilityService.errorMessage("Please provide header key of the dynamic part of request");
       return;
@@ -270,6 +293,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.setDynamicValuesON();  //This method is used to set the values of dynamic part components
 
+    let tempParam = this.createKeyValString();
+    this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
@@ -282,19 +307,54 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   }
 
+
+  //method to convert key and value table data into a string
+  createKeyValString() {
+    var tempParam = "";
+    if (!this.reqParamKeyCheck) {
+      this.reqParamInfo = [];
+      tempParam = "-";
+    }
+    else {
+      for (var i = 0; i < this.reqParamInfo.length; i++) {
+
+        //If there is only one key and value pair
+        if (i == 0) {
+          if (this.reqParamInfo[i].value == undefined || this.reqParamInfo[i].value == "" || this.reqParamInfo[i].value == "-")
+            tempParam = this.reqParamInfo[i].key
+          else
+            tempParam = this.reqParamInfo[i].key + "=" + this.reqParamInfo[i].value;
+        }
+
+        //For more than one key and value pair
+        else {
+          if (this.reqParamInfo[i].value == undefined || this.reqParamInfo[i].value == "" || this.reqParamInfo[i].value == "-")
+            tempParam = tempParam + "&" + this.reqParamInfo[i].key
+          else
+            tempParam = tempParam + "&" + this.reqParamInfo[i].key + "=" + this.reqParamInfo[i].value;
+        }
+      }
+    }
+    return tempParam;
+  }
+
   /* Open Dialog for Add Pattern */
   openAddPatternDialog() {
     this.businessTransPatternDetail = new BusinessTransPatternData();
+    this.reqParamInfo = [];
     this.businessTransPatternDetail.slowTransaction = "3000";
     this.businessTransPatternDetail.verySlowTransaction = "5000";
     this.chkInclude = false;
     this.isNewApp = true;
     this.addEditPatternDialog = true;
+    this.reqParamKeyCheck = false;
   }
 
   /**For showing edit Pattern dialog */
   editPatternDialog(): void {
     this.businessTransPatternDetail = new BusinessTransPatternData();
+    this.reqParamDetail = new RequestParamData();
+    this.reqParamInfo = [];
     if (!this.selectedPatternData || this.selectedPatternData.length < 1) {
       this.configUtilityService.errorMessage("Select row for edit");
       return;
@@ -309,9 +369,75 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.chkInclude = false;
 
+    if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == "-") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
+      this.businessTransPatternDetail.dynamicPartReq = false;
+      this.businessTransPatternDetail.reqHeaderKey == "";
+    }
 
+    if (this.reqParamInfo.length == 0) {
+      this.reqParamKeyCheck = false;
+    }
     this.isNewApp = false;
     this.addEditPatternDialog = true;
+
+    //Splitting the request parameter key/value in the form of table data
+    if (this.selectedPatternData[0].paramKeyValue != "-") {
+
+      /**
+       * If there are more than one request parameter key/value then
+       * Format - key1=val1&key2=val2&key3
+       * Then splitting them to get each key/value pair 
+       */
+      if (this.selectedPatternData[0].paramKeyValue.includes("&")) {
+        let arrKeyVal = this.selectedPatternData[0].paramKeyValue.split("&");
+        let that = this;
+        if (arrKeyVal.length > 1) {
+          this.reqParamKeyCheck = true;
+          for (let i = 0; i < arrKeyVal.length; i++) {
+
+            /**Splitting key and value to fill in table
+             * In this case, both key and value are given like key1=val1
+             */
+            if (arrKeyVal[i].includes("=")) {
+              let arr = arrKeyVal[i].split("=");
+              let details = [{ "key": arr[0], "value": arr[1] }];
+              this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
+            }
+
+            //In this case, only key is given i.e. key1
+            else {
+              let details = [{ "key": arrKeyVal[i], "value": "-" }];
+              this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
+            }
+          }
+        }
+      }
+
+      /**
+       * For a single key/value pair
+       * Format- key=val
+       */
+      else {
+
+        //Splitting when key and value both are provided
+        if (this.selectedPatternData[0].paramKeyValue.includes("=")) {
+          this.reqParamKeyCheck = true;
+          let arr = this.selectedPatternData[0].paramKeyValue.split("=");
+          let details = [{ "key": arr[0], "value": arr[1] }];
+
+          this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
+        }
+
+        //Splitting when only key is provided
+        else if (this.selectedPatternData[0].paramKeyValue != "") {
+          this.reqParamKeyCheck = true;
+          let details = [{ "key": this.selectedPatternData[0].paramKeyValue, "value": "-" }];
+
+          this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
+
+        }
+      }
+    }
     this.businessTransPatternDetail = Object.assign({}, this.selectedPatternData[0]);
   }
 
@@ -322,9 +448,19 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.businessTransPatternDetail.include = "exclude";
 
-    if (this.businessTransPatternDetail.dynamicPartReq == true && ((this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-"))) {
+    if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
       return;
+    }
+
+    //If request parameter is checked but data table is empty , then showing an error message
+    if (this.businessTransPatternDetail.dynamicPartReq == true && this.reqParamKeyCheck == true && this.reqParamInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide request parameters");
+      return;
+    }
+    if (this.businessTransPatternDetail.dynamicPartReq == false) {
+      this.reqParamKeyCheck = false;
+      this.reqParamInfo = [];
     }
 
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
@@ -344,6 +480,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.setDynamicValuesON();  //This method is used to set the values of dynamic part components
 
+    
+    let tempParam = this.createKeyValString();
+    this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -354,13 +493,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
           data.headerKeyValue = data.headerKeyValue;
         else
           data.headerKeyValue = "-";
-        if ((data.reqParamValue == null || data.reqParamValue == "") && data.reqParamKey != null)
-          data.paramKeyValue = data.reqParamKey;
-        else if (data.reqParamValue != null && data.reqParamKey != null)
-          data.paramKeyValue = data.paramKeyValue;
-        else
-          data.paramKeyValue = "-";
-        // this.selectedPatternData.push(data);
+        // if ((data.reqParamValue == null || data.reqParamValue == "") && data.reqParamKey != null)
+        //   data.paramKeyValue = data.reqParamKey;
+        // else if (data.reqParamValue != null && data.reqParamKey != null)
+        //   data.paramKeyValue = data.paramKeyValue;
+        // else
+        //   data.paramKeyValue = "-";
+        this.selectedPatternData.push(data);
+        this.selectedPatternData[0].paramKeyValue = data.reqParamKeyVal
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
         this.configUtilityService.successMessage(Messages);
       });
@@ -541,5 +681,118 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.configUtilityService.successMessage("File uploaded successfully");
       });
     }
+  }
+
+  //Opens request parameter dialog
+  openReqKeyValDialog() {
+    this.openReqKeyVal = true;
+    this.editReqParam = false;
+    this.isNewParam = true;
+    this.reqParamDetail = new RequestParamData();
+  }
+
+  //To save and edit request parameter values
+  saveReqParam() {
+    if (this.reqParamInfo == undefined)
+      this.reqParamInfo = [];
+
+    if (!this.reqParamDetail.value || this.reqParamDetail.value == undefined || this.reqParamDetail.value == "") {
+      this.reqParamDetail.value = "-";
+    }
+    if (this.editReqParam) {
+      //to edit request parameter key and value
+      this.editReqParam = false;
+      this.openReqKeyVal = false;
+      let that = this;
+      this.reqParamInfo.map(function (val) {
+        if (val.id == that.reqParamDetail.id) {
+          val.key = that.reqParamDetail.key;
+          val.value = that.reqParamDetail.value;
+        }
+      });
+      this.selectedReqParam = [];
+
+    }
+    else {
+      // to add request parameter key and value
+      this.reqParamDetail["id"] = this.reqParamCount
+      this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, this.reqParamDetail);
+      this.reqParamCount = this.reqParamCount + 1;
+    }
+
+
+    this.openReqKeyVal = false;
+  }
+
+  //Delete request parameters key/val
+  deleteReqParam() {
+    if (!this.selectedReqParam || this.selectedReqParam.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    else {
+      let selectReqParam = this.selectedReqParam;
+      let arrReqIndex = [];
+      for (let index in selectReqParam) {
+        arrReqIndex.push(selectReqParam[index]);
+      }
+      this.deleteConditionFromTable(arrReqIndex);
+      this.selectedReqParam = [];
+
+    }
+  }
+
+  /**This method is used to delete request parameter from Data Table */
+  deleteConditionFromTable(arrReqIndex: any[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    for (let index in arrReqIndex) {
+      rowIndex.push(this.getParamIndex(arrReqIndex[index]));
+    }
+    this.reqParamInfo = deleteMany(this.reqParamInfo, rowIndex);
+  }
+
+  /**This method returns selected parameter row on the basis of selected row */
+  getParamIndex(appId: any): number {
+    for (let i = 0; i < this.reqParamInfo.length; i++) {
+      if (this.reqParamInfo[i] == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  openEditReqParamDialog() {
+    if (!this.selectedReqParam || this.selectedReqParam.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+      return;
+    }
+    if (this.selectedReqParam.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit");
+      return;
+    }
+
+    else {
+      this.reqParamDetail = new RequestParamData();
+      let that = this;
+      this.reqParamInfo.map(function (val) {
+        val.id = that.reqParamCount;
+        that.reqParamCount = that.reqParamCount + 1;
+      })
+      if (this.selectedReqParam[0].value == "-") {
+        this.selectedReqParam[0].value = "";
+      }
+      this.isNewParam = false;
+      this.editReqParam = true;
+      this.openReqKeyVal = true;
+      this.reqParamDetail = Object.assign({}, this.selectedReqParam[0]);
+
+    }
+  }
+
+  closeReqKeyValDialog() {
+    this.openReqKeyVal = false;
+    this.selectedReqParam = [];
   }
 }

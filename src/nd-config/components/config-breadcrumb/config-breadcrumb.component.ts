@@ -152,14 +152,8 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   enabledRTC() {
-    //this.trData.status
     var that = this;
     setTimeout(function (this) {
-
-      // if (that.trData.switch == true)
-      //   that.trData.switch = false;
-      // else if (that.trData.switch == false)
-      //   that.trData.switch = true;
 
       sessionStorage.setItem("isSwitch", "" + that.trData.switch);
       that.configHomeService.trData.switch = that.trData.switch

@@ -260,7 +260,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       this.selectedNumericOp = this.httpStatsMonitorDetail.optId;
     else
       this.selectedOthersOp = this.httpStatsMonitorDetail.optId;
-
+  
   }
 
   saveHttpStatsMonitor(): void {
@@ -303,6 +303,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         return;
       }
     }
+    this.saveDataInObject();
     this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getAppIndex(this.httpStatsMonitorDetail.hscid);

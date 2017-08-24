@@ -199,6 +199,7 @@ export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
     slowTransaction: string;
     urlName: string;
     verySlowTransaction: string;
+    reqParamKeyVal : string;
 
 }
 
@@ -298,4 +299,12 @@ export class UrlCapturingData{
     includeParameter: boolean = false;
     urlOffset: number;
     maxChar: number;
+}
+
+
+//Request Param key/value in http bt configuration
+export class RequestParamData{
+    id: number;
+    key: any;
+    value: any;
 }
