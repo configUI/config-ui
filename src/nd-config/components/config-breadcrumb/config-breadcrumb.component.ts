@@ -133,6 +133,11 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       else if (url == BREADCRUMB.URL.INSTRUMENTATION_PROFILE_MAKER) {
         this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION_PROFILE_MAKER })
       }
+
+      else if(url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER) || url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER_TREE)){
+        this.items.push({label: BREADCRUMB.LABEL.AUTO_DISCOVER});
+      }
+
       console.log("this.items", this.items);
     });
   }

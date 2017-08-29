@@ -1,0 +1,68 @@
+<div class="ui-g configUI">
+  <form (ngSubmit)="discoverData()" #groupForm="ngForm" ngNativeValidate>
+    <div class="ui-g-12">
+      <div class="ui-g-2 config_auto-discover-margin">
+        <label>Connected Agent (s)</label>
+      </div>
+      <div class="ui-g-3" style="margin-top:19px">
+            <input name="agents" type="text" class='hidden-validator' pInputText [(ngModel)]="autoDiscoverDetail.agents" required ngModel/>  
+        <p-dropdown name="agents" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--"></p-dropdown>
+      </div>
+    </div>
+
+    <div class="ui-g-12 configUI" style="margin:0px 175px 27px 46px">
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          Discovery mode
+        </div>
+        <div class="ui-g-3">
+          <p-radioButton name="discover" value="1" label="Discover by filter" [(ngModel)]="autoDiscoverDetail.discoveryMode"></p-radioButton>
+        </div>
+        <div class="ui-g-3">
+          <p-radioButton name="discover" value="0" label="Discover all" [(ngModel)]="autoDiscoverDetail.discoveryMode"></p-radioButton>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-2">Class Filter</div>
+        <div class="ui-g-8">
+          <textarea name="classfilter" [disabled]="autoDiscoverDetail.discoveryMode == 0" rows="2" cols="4" [(ngModel)]="autoDiscoverDetail.classFilters"
+            class="config_app" pInputTextarea></textarea>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-2">Method Filter</div>
+        <div class="ui-g-8">
+          <textarea name="methodfilter" [disabled]="autoDiscoverDetail.discoveryMode == 0" rows="2" cols="4" [(ngModel)]="autoDiscoverDetail.methodFilters"
+            class="config_app" pInputTextarea></textarea>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="ui-g-12">
+      <div align="center">
+        <button type="submit" pButton icon="fa-pencil" label="Discover"></button>
+      </div>
+    </div>
+  </form>
+</div>
+<br><br>
+
+
+<div class="ui-g configUI">
+  <div class="ui-g-12 config_auto-discover-margin">
+    Instrument profile settings
+  </div>
+  <div class="ui-g-12">
+  <form (ngSubmit)="openAdrFile()" #groupForm="ngForm" ngNativeValidate>  
+    <div class="ui-g-2" style="margin-left:50px">Autodiscovered Instance(s)</div>
+    <div class="ui-g-3">
+       <input name="instance" type="text" size="10" class='hidden-validator' [(ngModel)]="adrFile" pInputText required ngModel/>   
+      <p-dropdown name="instance" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--"></p-dropdown>
+    </div>
+    <div class="ui-g-1">
+      <button type="submit" pButton icon="fa-check" label="Open"></button>
+    </div>
+</form>
+  </div>
+</div>

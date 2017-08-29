@@ -1,0 +1,52 @@
+<div class="ui-grid">
+  <fieldset>
+    <div class="ui-grid ui-grid-responsive ui-grid-pad">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-12" style="background-color:aliceblue">
+          <div class="ui-g-12">
+            <div class="ui-g-5 config_instr_hdr">
+              <div class="ui-g-5" style="margin-top: 3px">Auto Discovered data by agent</div>
+              <div class="ui-g-7">
+                <input type="text" [disabled]="true" [(ngModel)]="instanceFileName" required size=25 pInputText>
+              </div>
+            </div>
+            <div class="ui-g-2"></div>
+            <div class="ui-g-5 config_Uninstr_hdr" align="center">
+              <div style="margin-top: 3px">Instrumented List</div>
+            </div>
+          </div>
+          <div class="ui-grid-col-5">
+            <p-tree [value]="leftSideTreeData" class="auto-config-tree" (onNodeExpand)="nodeExpand($event)" selectionMode="checkbox"
+              [style]="{'height':'350px','width':'98.5%'}" [(selection)]="instrFromLeftSideTree">
+            </p-tree>
+          </div>
+          <div class="ui-grid-col-2 config-ui-auto" align="center">
+            <div>
+              <button class="instrumentation-css" type="button" (click)="getValuesForSelectedList()" pButton label=' Instrument  >> '> </button>
+            </div>
+            <div style="padding-top:5px;">
+              <button class="unInstrumentation-css" type="button" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument'></button>
+            </div>
+          </div>
+          <div class="ui-grid-col-5">
+            <p-tree [value]="rightSideTreeData" class="auto-config-tree" (onNodeUnselect)="onNodeUnselect($event)" (onNodeSelect)="onNodeSelect($event)" selectionMode="checkbox" [style]="{'height':'350px','width':'98.5%'}"
+              [(selection)]="instrFromRightSideTree"></p-tree>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui-grid-col-12 " style="background-color:aliceblue ">
+      <div class="ui-g-8"></div>
+      <div class="ui-g-2">Save instrumentation profile as</div>
+      <div class="ui-g-2 ">
+        <input type="text" [(ngModel)]="instrfileName" required size=25 pInputText>
+      </div>
+    </div>
+  </fieldset>
+  <br>
+  <div align="center">
+    <button type="button " class="config-instr-save-botton " (click)="saveInstrumentationFile()" pButton label="Save " icon="fa-save "></button>
+  </div>
+
+</div>

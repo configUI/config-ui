@@ -133,6 +133,9 @@ import { IntegrationPtComponent } from './components/config-profile/instrumentat
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
 // import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
 import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
+import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
+import { ConfigAutoDiscoverTreeComponent } from './components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component';
+import { ConfigAutoDiscoverMainComponent } from './components/config-auto-discover/config-auto-discover-main/config-auto-discover-main.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -197,7 +200,10 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
     UrlCapturingComponent,
-    ConfigImportInstrProfileComponent
+    ConfigImportInstrProfileComponent,
+    ConfigAutoDiscoverComponent,
+    ConfigAutoDiscoverMainComponent,
+    ConfigAutoDiscoverTreeComponent
   ],
   imports: [
     // CommonModule,

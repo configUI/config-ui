@@ -13,7 +13,8 @@ export const LABEL = {
     INTEGRATION:'Product Integration',
     TREE_MAIN: 'Topology Details',
     ND_AGENT: 'ND Agent Status',
-    INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker'
+    INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker',
+    AUTO_DISCOVER: 'Auto Discover'
 } 
 
 export const URL = {
@@ -40,5 +41,8 @@ export const URL = {
     TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`,
     TOPOLOGY_PROFILE: `${ROUTING_PATH}/tree-main/profile/configuration`,
     TREE_PROFILE: `${ROUTING_PATH}/tree-main/profile`,
-     INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`
+    INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`,
+    AUTO_DISCOVER: `${ROUTING_PATH}/auto-discover-main`,
+    AUTO_DISCOVER_TREE: `${ROUTING_PATH}/auto-discover-tree`,
+
 };  

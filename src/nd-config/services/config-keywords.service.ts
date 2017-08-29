@@ -463,4 +463,31 @@ export class ConfigKeywordsService {
   getXMLDataFromSelectedXMLFile(data) {
     return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
   }
+
+
+
+ getAutoDiscoverTreeData(adrFile)
+  {
+     return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_TREE_DATA}`, adrFile);
+  }
+    
+  getClassDiscoverTreeData(nodeInfo)
+  {
+     return this._restApi.getDataByPostReq(`${URL.GET_CLASS_DISCOVER_TREE_DATA}`, nodeInfo);
+  }
+
+  getSelectedNodeInfo(nodeInfo)
+  {
+    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_NODE_TREE_DATA}`, nodeInfo);
+  }
+
+  getUninstrumentaionTreeData(nodeInfo)
+  {
+    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_NODE_TREE_DATA}`, nodeInfo);
+  }
+
+  saveInsrumentationFileInXMLFormat(fileName)
+  {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}`, fileName);
+  }
 }

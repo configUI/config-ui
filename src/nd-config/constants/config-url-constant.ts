@@ -1,6 +1,6 @@
 
 
- // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+//  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -238,5 +238,18 @@ export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttp
 export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
 export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
 export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
+
+/**Auto discover */
+export const FETCH_AUTO_DISCOVERED_INSTANCE = `${SERVICE_URL}/custom/autodiscover/getadrfiles`;
+export const DISCOVER_DATA = `${SERVICE_URL}/custom/autodiscover/getautodiscoverdata`;
+
+export const GET_AUTO_DISCOVER_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getallAutoDiscoverData`;
+export const GET_CLASS_DISCOVER_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getAutoDiscoverClassData`;
+
+export const GET_SELECTED_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getSelectedNodeTreeData`;
+export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/uninstrumentationfqmdata`;
+
+export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscover/saveinstrumentationdatainxmlformat`;
+
 
 
