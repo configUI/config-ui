@@ -7,6 +7,7 @@ export interface MainInfo {
     trData: TRData;
     adminMode: boolean;
     agentData: NDAgentInfo[];
+    enableAutoScaling: boolean;
 }
 
 export class TRData {

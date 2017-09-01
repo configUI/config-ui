@@ -6,6 +6,7 @@ import { ConfigTopologyService } from '../../services/config-topology.service';
 import { TopologyInfo } from '../../interfaces/topology-info';
 import * as CONS from '../../constants/config-constant';
 import { Subscription } from 'rxjs/Subscription';
+import { ConfigHomeService } from '../../services/config-home.service';
 
 @Component({
   selector: 'app-config-tree',
@@ -20,6 +21,7 @@ export class ConfigTreeComponent implements OnInit {
 
   constructor(private configTopologyService: ConfigTopologyService,
               private route: ActivatedRoute,
+              private configHomeService: ConfigHomeService,
               private router: Router
                ) {
                  this.loadTopologyTreeData();
@@ -34,11 +36,24 @@ export class ConfigTreeComponent implements OnInit {
   topoId:number;
 
   subscription: Subscription;
+  enableAutoScaling: boolean;
 
   ngOnInit() {
     console.log('routeparams---',this.route.params)
     // this.loadTopologyTreeData();
-  }
+    this.loadEnableAutoScaling();
+
+    }
+
+    loadEnableAutoScaling(){
+      this.configHomeService.getMainData()
+      .subscribe(data => {
+        this.enableAutoScaling = data.enableAutoScaling;
+      }
+      );
+    }
+
+
   /*
   * Here request for tree where topology acts as root node gives response
   * topology as root node and tiers as children
@@ -84,14 +99,14 @@ export class ConfigTreeComponent implements OnInit {
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
     }
-    else if (event.node.data == "Tier") {
+    else if (!this.enableAutoScaling && event.node.data == "Tier") {
       if(event.node.leaf != true){
         this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
         let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
         this.getTableData.emit({ data })
       }
     }
-    else if (event.node.data == "Server") {
+    else if (!this.enableAutoScaling && event.node.data == "Server") {
       this.configTopologyService.getServerTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
       let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })

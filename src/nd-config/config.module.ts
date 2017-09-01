@@ -43,7 +43,8 @@ import {
   ChipsModule,
   ToolbarModule,
   SliderModule,
-  InputTextareaModule
+  InputTextareaModule,
+  FileUploadModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -240,7 +241,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToolbarModule,
     SliderModule,
     SplitButtonModule,
-    InputTextareaModule
+    InputTextareaModule,
+    FileUploadModule
   ],
 
   providers: [
