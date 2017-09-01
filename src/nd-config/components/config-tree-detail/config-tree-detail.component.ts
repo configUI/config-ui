@@ -119,6 +119,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   /** For getting entity(Tier, Server, Instance) data  **/
 
   getData(event): void {
+    this.selectedTopologyData = [];
+    
     //this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
     if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
       this.topologyName = event.data.nodeLabel;

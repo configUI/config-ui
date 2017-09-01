@@ -1,4 +1,4 @@
-<p-dataTable class="nde-ui" [value]="exceptionMonitorData" [(selection)]="selectedExceptionMonitorData">
+<p-dataTable class="nde-ui" [value]="exceptionMonitorData" [(selection)]="selectedExceptionMonitorData" [rows]="12" [paginator]="exceptionMonitorData?.length > 12" [pageLinks]="3">
     <p-header>
         <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span class="configui-float-css"> Apply exception monitors </span>

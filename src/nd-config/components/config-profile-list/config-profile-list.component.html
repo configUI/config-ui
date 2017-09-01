@@ -9,7 +9,7 @@
         <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
             <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
                 <template let-col let-profile="rowData" pTemplate>
-                <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
+                <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile)" >{{profile[col.field]}}</a></span>
             </template>
             </p-column>
             <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">

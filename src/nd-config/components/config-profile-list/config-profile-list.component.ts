@@ -59,22 +59,22 @@ export class ConfigProfileListComponent implements OnInit {
       arr.push(this.profileData[i].profileName);
     }
     arr.sort();
-      for (let i = 0; i< arr.length; i++){
-        for (let j = 0; j < this.profileData.length; j++) {
-          if(this.profileData[j].profileName == arr[i]){
-            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
-          }
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < this.profileData.length; j++) {
+        if (this.profileData[j].profileName == arr[i]) {
+          this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
         }
+      }
     }
   }
 
   /**For Saving Dialog Data when Save Button Is clicked */
   saveNewProfile(): void {
     //to check if profile name already exists
-     for (let i = 0; i < this.profileData.length; i++) {
+    for (let i = 0; i < this.profileData.length; i++) {
       if (this.profileData[i].profileName == this.profileDetail.profileName) {
         this.configUtilityService.errorMessage("Profile name already exist");
-        return ;
+        return;
       }
     }
     //to check if profile description is more than 500 characters
@@ -90,14 +90,17 @@ export class ConfigProfileListComponent implements OnInit {
         //Insert data in main table after inserting integration point detection in DB
         // this.profileData.push(data);
 
-      //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
-        this.profileData=ImmutableArray.push(this.profileData, data);
+        //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+        this.profileData = ImmutableArray.push(this.profileData, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.displayNewProfile = false;
   }
 
-  routeToConfiguration(selectedProfileId, selectedProfileName) {
+  routeToConfiguration(selectedProfileId, selectedProfileName, entity) {
+    if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
+      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
+
     //Observable profile name 
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
