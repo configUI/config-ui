@@ -63,7 +63,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (8,'ASReportInterval','0','900000','4','0','normal'),
 (9,'instrProfile','','','5','','normal'),
 (10,'ASDepthFilter','0','100','2','20','normal'),
-(11,'ASTraceLevel','0','20','2','1','normal'),
+(11,'ASTraceLevel','0','20','2','1','pre-custom'),
 (12,'enableNDSession','0','1024','5','0','normal'),
 (13,'enableCpuTime','0','1024','1','0','normal'),
 (14,'enableForcedFPChain','0','3','2','1','normal'),
@@ -90,7 +90,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (35,'ASNegativeThreadFilter','2','1048576','5','NDControlConnection','normal'),
 (36,'maxStackSizeDiff','0','1000','4','20','normal'),
 (37,'ASMethodHotspots','0','1','1','-1','normal'),
-(38,'enableExceptionInSeqBlob','0','1','2','0','normal'),
+(38,'enableExceptionInSeqBlob','0','1','2','0','pre-custom'),
 (39,'captureErrorLogs','0','2','2','0','normal'),
 (40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'),
 (41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom'),
@@ -98,7 +98,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (43,'enableExceptionsWithSourceAndVars','0','248','2','0','normal'),
 (44,'enableSourceCodeFilters','1','1024','5','false','normal'),
 (45,'ndExceptionMonFile','','','5','false','normal'),
-(46,'maxQueryDetailsmapSize','0','10000000','1','1000000','normal'),
+(46,'maxQueryDetailsmapSize','0','10000000','1','1000000','pre-custom'),
 (47,'formatIPResourceURL','0','512','5','0','normal');
 
 
