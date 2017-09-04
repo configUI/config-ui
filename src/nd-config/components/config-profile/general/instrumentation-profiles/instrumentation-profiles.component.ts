@@ -90,13 +90,20 @@ export class InstrumentationProfilesComponent implements OnInit {
       let arrVal = (this.configKeywordsService.keywordData["instrProfile"].value).split(",");
       this.instrProfiles = arrVal;
       }
-    else
-        this.instrProfiles[0] = this.configKeywordsService.keywordData["instrProfile"].value;
+    else{
+      let arr = [];
+      arr[0]=this.configKeywordsService.keywordData["instrProfile"].value
+      this.instrProfiles = arr;
+    }
     }
   }
 
   saveKeywordData(data) {
     let value = this.instrProfiles;
+    if(value[0]==null || value[0]==""){
+      this.configUtilityService.infoMessage("Please select file(s)");
+      return;
+    }
     let keywordData = this.configKeywordsService.keywordData;
     let keyword = {}
     if (keywordData.hasOwnProperty("instrProfile")) {
@@ -110,7 +117,6 @@ export class InstrumentationProfilesComponent implements OnInit {
   }
 
   resetKeywordData() {
-
     this.xmlFilesList = cloneObject(this.configKeywordsService.keywordData);
     if (this.xmlFilesList["instrProfile"].value == "0" || this.xmlFilesList["instrProfile"].value == "") {
       this.instrProfiles = [];
