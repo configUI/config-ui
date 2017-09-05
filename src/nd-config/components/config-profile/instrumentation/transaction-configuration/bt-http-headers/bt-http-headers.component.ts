@@ -398,7 +398,10 @@ export class BTHTTPHeadersComponent implements OnInit {
     deleteConditionFromTable(arrReqIndex: any[]): void {
         //For stores table row index
         let rowIndex: number[] = [];
-
+        if(arrReqIndex.length < 1){
+            this.configUtilityService.errorMessage("Select row(s) to delete");
+            return;    
+        }
         for (let index in arrReqIndex) {
             rowIndex.push(this.getCondIndex(arrReqIndex[index]));
         }
