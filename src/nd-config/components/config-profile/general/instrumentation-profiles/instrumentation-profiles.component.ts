@@ -12,7 +12,6 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { cloneObject } from '../../../../utils/config-utility';
 
 
-
 @Component({
   selector: 'app-instrumentation-profiles',
   templateUrl: './instrumentation-profiles.component.html',
@@ -41,9 +40,9 @@ export class InstrumentationProfilesComponent implements OnInit {
   subscription: Subscription;
   subscriptionEG: Subscription;
   openFileExplorerDialog: boolean = false;
-  isInstrBrowse: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,
+  ) {
     // this.subscription = this.store.select("keywordData").subscribe(data => {
     //   this.instrProfiles = data;
     //   console.log( "constructor", "this.debug", this.instrProfiles);
@@ -59,6 +58,7 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   ngOnInit() {
     this.loadListOfXmlFiles();
+    //let path = "C:\\Users\\compass-357\\Desktop\\Autodiscover\\fileReader.txt"
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.browseXmlFiles(data);
     });
@@ -78,7 +78,7 @@ export class InstrumentationProfilesComponent implements OnInit {
       this.createInstrProfileSelectItem(data)
     },
       error => {
-        console.error("Error in getting xml files");
+        console.log("error getting xml files");
       });
 
   }
@@ -90,13 +90,20 @@ export class InstrumentationProfilesComponent implements OnInit {
       let arrVal = (this.configKeywordsService.keywordData["instrProfile"].value).split(",");
       this.instrProfiles = arrVal;
       }
-    else
-        this.instrProfiles[0] = this.configKeywordsService.keywordData["instrProfile"].value;
+    else{
+      let arr = [];
+      arr[0]=this.configKeywordsService.keywordData["instrProfile"].value
+      this.instrProfiles = arr;
+    }
     }
   }
 
   saveKeywordData(data) {
     let value = this.instrProfiles;
+    if(value[0]==null || value[0]==""){
+      this.configUtilityService.infoMessage("Please select file(s)");
+      return;
+    }
     let keywordData = this.configKeywordsService.keywordData;
     let keyword = {}
     if (keywordData.hasOwnProperty("instrProfile")) {
@@ -123,31 +130,25 @@ export class InstrumentationProfilesComponent implements OnInit {
   openFileManager() {
 
     this.openFileExplorerDialog = true;
-    this.isInstrBrowse = true;
 
   }
 
   //Method to get the xml file path and upload them
   browseXmlFiles(filesWithPath) {
-    if (this.isInstrBrowse == true) {
-      this.isInstrBrowse = false;
-      this.openFileExplorerDialog = false;
-      // let filesWithPath = "";
-      this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
-        if (data.length < 1) {
-          this.configUtilityService.successMessage("Files imported successfully");
-        }
-        else
-          this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
-
-        this.loadListOfXmlFiles();
-      },
-        error => {
-          console.error("Error in browsing xml files");
-        }
-      );
-    }
+    this.openFileExplorerDialog = false;
+    // let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
+    this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
+      if (data.length < 1) {
+	console.log('Getting Data ==============', data);
+        console.log("Items in data =======================", this.instrProfileSelectItem);
+        this.configUtilityService.successMessage("Files imported successfully");
+      }
+      else
+        this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
+    },
+      error => {
+        console.log("Error in browsing xml files");
+      });
   }
-
 
 }

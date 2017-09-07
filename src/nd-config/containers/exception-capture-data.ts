@@ -3,7 +3,7 @@ export class ExceptionData
     instrumentException : boolean;
     exceptionCapturing : boolean = false;
     exceptionTrace : boolean;
-    exceptionTraceDepth : number = 999;
+    exceptionTraceDepth : number = 9999;
     exceptionType : boolean;
 }
 

@@ -66,7 +66,10 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
         this.label = `Application Name: ` + this.applicationName
 
         if(url.startsWith(BREADCRUMB.URL.TREE_PROFILE)){
-          this.label = `Application Name: ` + this.applicationName + ", " + `Profile Name: ${this.profileName}`;
+          if(this.applicationName != "undefined")
+            this.label = `Application Name: ` + this.applicationName + ", " + `Profile Name: ${this.profileName}`;
+          else
+            this.label = `Profile Name: ${this.profileName}`;
         }
         
         if (!this.applicationName) {

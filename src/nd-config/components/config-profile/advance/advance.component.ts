@@ -35,6 +35,9 @@ export class AdvanceComponent implements OnInit {
   
   adminMode:boolean;
 
+  errDialog: boolean = false;
+  msg = [];
+
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -74,7 +77,7 @@ export class AdvanceComponent implements OnInit {
       this.configKeywordsService.keywordData[key] = keywordData[key];
        this.configKeywordsService.keywordData[key].enable = true
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.triggerRunTimeChanges(keywordData);
   }
 
@@ -82,16 +85,20 @@ export class AdvanceComponent implements OnInit {
     this.index = e.index;
   }
 
-triggerRunTimeChanges(data) {
+
+   triggerRunTimeChanges(data) {
 
     let keyWordDataList = [];
     for (let key in data) {
       keyWordDataList.push(key + "=" + data[key].value);
     }
+    console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
+    console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
 
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
+      this.configKeywordsService.saveProfileKeywords(this.profileId);
       return;
     }
     else {
@@ -99,20 +106,52 @@ triggerRunTimeChanges(data) {
 
       if (this.configProfileService.nodeData.nodeType == 'topology') {
         const url = `${URL.RUNTIME_CHANGE_TOPOLOGY}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
       else if (this.configProfileService.nodeData.nodeType == 'tier') {
         const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
       else if (this.configProfileService.nodeData.nodeType == 'server') {
         const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
 
       else if (this.configProfileService.nodeData.nodeType == 'instance') {
         const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
     }
   }

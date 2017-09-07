@@ -30,7 +30,7 @@
 
 <!--Dialog for exception filter-->
 
-<p-dialog class="profile-dialog" header="{{isNewExceptionFilter ? 'Add Exception Filter' : 'Edit Exception Filter'}}" *ngIf="addEditExceptionFilterDialog"
+<p-dialog class="profile-dialog" [resizable]="false"  header="{{isNewExceptionFilter ? 'Add Exception Filter' : 'Edit Exception Filter'}}" *ngIf="addEditExceptionFilterDialog"
     [(visible)]="addEditExceptionFilterDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveExceptionFilter()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -39,7 +39,7 @@
             </div>
             <div class="ui-g-9">
                 <input name="advanceExceptionFilterPattern" type="text" size="50" pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterPattern" title="Please enter valid exception filter pattern. &#013;Rule 1: Exception filter pattern can include package,class separated by dot(.) . &#013;Rule 2: Exception filter pattern cannot include special character and whitespaces."
-                pattern="[a-zA-z\.]*" (keydown.space)="$event.preventDefault()" autofocus required ngModel/>
+                 pattern="[a-zA-z\.]*" (keydown.space)="$event.preventDefault()"  autofocus required ngModel/>
             </div>
         </div>
         <div class="ui-g">

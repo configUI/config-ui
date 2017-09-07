@@ -9,7 +9,7 @@
         <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
             <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
                 <template let-col let-profile="rowData" pTemplate>
-                <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'])" >{{profile[col.field]}}</a></span>
+                <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile)" >{{profile[col.field]}}</a></span>
             </template>
             </p-column>
             <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
@@ -27,14 +27,14 @@
 </div>
 <!--Dialog for Adding New Profile -->
 
-<p-dialog class="profile-dialog" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="profileName" type="text" class="config_app" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                     autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <label>Copy profile</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'72%'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
+                <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -51,7 +51,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="profileDesc" rows="2" cols="31" class="config_app" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
+                <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
             </div>
         </div>
         <footer>

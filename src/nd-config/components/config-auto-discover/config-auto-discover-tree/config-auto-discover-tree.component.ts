@@ -16,12 +16,14 @@ import { ConfigNdAgentService } from '../../../services/config-nd-agent.service'
 })
 export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
+    selectedFiles: any[];
     profileXMLFileList: any[];
     selectedXMLFile: string;
     leftSideTreeData: any[] = [];
     rightSideTreeData: any[] = [];
     selectedNodes: AutoDiscoverTreeData[];
     instrfileName: string;
+    /**Getting application list data */
 
     //Auto discover data details
     autoDiscoverDetail: AutoDiscoverData;
@@ -29,17 +31,38 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     adrFile: any;
     instanceFileName: string;
 
+    pckName: string = '';
     saveCheck: boolean = false;
 
     instrFromLeftSideTree: string;
     instrFromRightSideTree: string;
+    reqId: string;
     constructor(private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
         this.leftSideTreeData = [];
         this.adrFile = sessionStorage.getItem("adrFile");
         let temp = this.adrFile.split(".adr")
         this.instanceFileName = temp[0];
-        this._configKeywordsService.getAutoDiscoverTreeData(this.adrFile).subscribe(data => {
-            this.leftSideTreeData = data.node;
+
+        this.reqId = sessionStorage.getItem("configRequestID");
+       var userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName"); 
+
+        if (this.reqId == undefined) {
+            console.log("reqiD ==  ")
+            let timestamp = new Date().getTime();
+            let configRequestId = `${userName}-${Math.random()}-${timestamp}`;
+            sessionStorage.setItem('configRequestID', configRequestId);
+        }
+
+        this._configKeywordsService.getAutoDiscoverTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
+            if(data.node[0].children.length != 0)
+            {
+             this.leftSideTreeData = data.node;
+            }
+             else
+            {
+                this.configUtilityService.errorMessage("Auto discover method file is empty.");
+                return;
+            }           
             this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
         });
         this.autoDiscoverDetail = new AutoDiscoverData();
@@ -58,8 +81,13 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         if (this.instrfileName == "" || this.instrfileName == null) {
             this.configUtilityService.errorMessage("Provide a file name to save it");
             return;
+        } 
+        if(this.rightSideTreeData.length == 0)
+        {
+            this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
+            return;
         }
-        this._configKeywordsService.saveInsrumentationFileInXMLFormat(this.instrfileName).subscribe(data =>
+        this._configKeywordsService.saveInsrumentationFileInXMLFormat(this.instrfileName, this.reqId, this.instanceFileName).subscribe(data =>
             console.log(data));
         this.configUtilityService.successMessage("Saved successfully");
     }
@@ -67,14 +95,12 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
     }
 
-
     nodeExpand(event) {
-        if (event.node) {
+        if (event.node.children.length == 0) {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
-            this._configKeywordsService.getClassDiscoverTreeData(nodeInfo).subscribe(data => event.node.children = data.node);
+            this._configKeywordsService.getClassDiscoverTreeData(nodeInfo, this.reqId, this.instanceFileName).subscribe(data => event.node.children = data.node);
         }
     }
-
 
     getValuesForSelectedList() {
         this.selectedNodes = [];
@@ -84,23 +110,24 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             return;
         }
 
-        this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes).subscribe(data => {
+        this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
             this.configUtilityService.successMessage("Instrumentation data Successfully");
         });
     }
 
     removeValuesFromSelectedList() {
+
         this.selectedNodes = [];
-        // this.rightSideTreeData = [];
-        this.getUnselectedNodeInfo(this.rightSideTreeData, true);
+        this.getSelectedUnselectedNodeInfo(this.instrFromRightSideTree, true);
         if (this.selectedNodes.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for unInstrumentation");
             return;
         }
-        this._configKeywordsService.getUninstrumentaionTreeData(this.selectedNodes).subscribe(data => {
+        this._configKeywordsService.getUninstrumentaionTreeData(this.selectedNodes, this.reqId, this.instanceFileName ).subscribe(data => {
 
             this.rightSideTreeData = data.backendDetailList;
+            this.instrFromRightSideTree = '';
             this.configUtilityService.successMessage("UnInstrumentation data Successfully");
         });
     }
@@ -118,60 +145,14 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
                 nodeInfo = new AutoDiscoverTreeData();
                 nodeInfo.packageName = selectedNode[i]["parentPackageNode"];
                 nodeInfo.className = selectedNode[i]["label"];
-                this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo)
+                this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo);
             }
             if (selectedNode[i]["type"] == "method") {
                 nodeInfo = new AutoDiscoverTreeData();
                 nodeInfo.packageName = selectedNode[i]["parentPackageNode"];
                 nodeInfo.className = selectedNode[i]["parentClassNode"];
                 nodeInfo.methodName = selectedNode[i]["label"];
-                this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo)
-            }
-        }
-    }
-
-      onNodeSelect(event) {
-        event.node["selected"] = true;
-        event.node["partialSelected"] = false;
-    }
-
-    onNodeUnSelect(event) {
-        event.node["selected"] = false;
-        event.node["partialSelected"] = false;
-    }
-
-    getUnselectedNodeInfo(tree, isTrue) {
-        let nodeInfo = new AutoDiscoverTreeData();
-        this.selectedNodes = [];
-        for (let i = 0; i < tree.length; i++) {
-            if (tree[i].selected == isTrue) {
-                nodeInfo = new AutoDiscoverTreeData();
-                nodeInfo.packageName = tree[i].label;
-                this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo)
-            }
-            if (tree[i].children.length > 0) {
-                for (let j = 0; j < tree[i].children.length; j++) {
-                    if (tree[i].children[j].selected == isTrue) {
-                        nodeInfo = new AutoDiscoverTreeData();
-                        // nodeInfo = {"packageName": tree[i].children[j].parentPackageNode, "className": tree[i].children[j].parentClassNode };
-                        nodeInfo.packageName = tree[i].children[j].parentPackageNode;
-                        nodeInfo.className = tree[i].children[j].parentClassNode;
-                        this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo)
-                    }
-                    if (tree[i].children[j].children.length > 0) {
-                        for (let k = 0; k < tree[i].children[j].children.length; k++) {
-
-                            if (tree[i].children[j].children[k].selected == isTrue) {
-                                nodeInfo = new AutoDiscoverTreeData();
-                                // nodeInfo = {"packageName": tree[i].children[j].children[k].parentPackageNode, "className": tree[i].children[j].children[k].parentClassNode, "mathodName": tree[i].children[j].children[k].label };
-                                nodeInfo.packageName = tree[i].children[j].children[k].parentPackageNode;
-                                nodeInfo.className = tree[i].children[j].children[k].parentClassNode;
-                                nodeInfo.methodName = tree[i].children[j].children[k].label;
-                                this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo)
-                            }
-                        }
-                    }
-                }
+                this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo);
             }
         }
     }

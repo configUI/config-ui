@@ -35,7 +35,7 @@
 
 <!--Dialog for http stats monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNewHttpStatsMonitor ? 'Add  HTTP stats condition' : 'Edit HTTP stats condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewHttpStatsMonitor ? 'Add  HTTP stats condition' : 'Edit HTTP stats condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true">
     <form (ngSubmit)="saveHttpStatsMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-2">
@@ -114,7 +114,7 @@
                 <p-dropdown name="NumericOPTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="numericOP" placeholder="--Select--" [(ngModel)]="selectedNumericOp" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="selectedValueType==3">
-                <input name="dropdown9" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="selectedOthersOp" required ngModel/>
+                <input name="dropdown9" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedOthersOp" required ngModel/>
                 <p-dropdown name="OthersOPTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="othersOP" placeholder="--Select--" [(ngModel)]="selectedOthersOp" required ngModel></p-dropdown>
             </div>
         </div>
@@ -122,15 +122,16 @@
             <div class="ui-g-2">
                 <label>Comparison  value</label>
             </div>
-            <div class="ui-g-3">
-                <input name="ComparisonValue" class="config_align_dialog" pattern="[A-Za-z0-9]{1,99}" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
+<div class="ui-g-3" >
+                <input name="ComparisonValue" class="config_align_dialog" *ngIf="selectedOthersOp || selectedNumericOp == 15 || selectedNumericOp == 16 || selectedStringOp == 13 || selectedStringOp == 14" pattern="[A-Za-z0-9]{1,99}"  type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus  ngModel/>
+                <input name="ComparisonValue" class="config_align_dialog" *ngIf="!selectedOthersOp && selectedNumericOp != 15 && selectedNumericOp != 16 && selectedStringOp != 13 && selectedStringOp != 14" pattern="[A-Za-z0-9]{1,99}"  type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-3">
                 <label>Description</label>
             </div>
             <div class="ui-g-3">
-                <textarea name="Description" class="config_align_dialog" rows="2" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" cols="25" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
+                <textarea name="Description" rows="2" [disabled]="!selectedOthersOp&&!selectedNumericOp&&!selectedStringOp" class="config_align_dialog" cols="25" pInputTextarea [(ngModel)]="httpStatsMonitorDetail.description" ngModel></textarea>
             </div>
         </div>
         <footer>

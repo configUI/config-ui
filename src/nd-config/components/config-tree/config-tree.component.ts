@@ -6,6 +6,7 @@ import { ConfigTopologyService } from '../../services/config-topology.service';
 import { TopologyInfo } from '../../interfaces/topology-info';
 import * as CONS from '../../constants/config-constant';
 import { Subscription } from 'rxjs/Subscription';
+import { ConfigHomeService } from '../../services/config-home.service';
 
 @Component({
   selector: 'app-config-tree',
@@ -20,10 +21,9 @@ export class ConfigTreeComponent implements OnInit {
 
   constructor(private configTopologyService: ConfigTopologyService,
               private route: ActivatedRoute,
+              private configHomeService: ConfigHomeService,
               private router: Router
-               ) {
-                 this.loadTopologyTreeData();
-                }
+               ) { }
 
   topologyTreeData: TopologyInfo[];
   files: TreeNode[];
@@ -34,19 +34,31 @@ export class ConfigTreeComponent implements OnInit {
   topoId:number;
 
   subscription: Subscription;
+  enableAutoScaling: boolean;
 
   ngOnInit() {
     console.log('routeparams---',this.route.params)
-    // this.loadTopologyTreeData();
+    this.loadTopologyTreeData();
+    this.loadEnableAutoScaling();
   }
+
+  loadEnableAutoScaling(){
+      this.configHomeService.getMainData()
+      .subscribe(data => {
+        this.enableAutoScaling = data.enableAutoScaling;
+      }
+      );
+    }
+
   /*
-  * Here request for tree where topology acts as root node gives response
+  * Here request for tree where topology acts as root node gives response 
   * topology as root node and tiers as children
   * so when user clicks on topo node no need to request to sever to get all  tier childrens,
   * they are already present in tree but not visible tills its parent node topo is collapsed state.
   */
 
   loadTopologyTreeData(): void {
+
     this.route.params.subscribe((params: Params) => {this.dcId = params['dcId']
                                                     this.topoId = params['topoId']
     });
@@ -54,15 +66,16 @@ export class ConfigTreeComponent implements OnInit {
 
     /**below route function is always called whenever routing changes
      * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
-     *
+     * 
      */
      this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
        url = event["url"];
        let arr = url.split("/");
       if(arr.indexOf("tree-main") != -1){
+      
           if(arr.indexOf("topology") != -1){
             this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
-            this.createTreeData(data);
+                this.createTreeData(data);
             })
           }
           else{
@@ -71,7 +84,7 @@ export class ConfigTreeComponent implements OnInit {
             })
           }
       }
-    })
+    }) 
   }
 
   /*
@@ -84,14 +97,14 @@ export class ConfigTreeComponent implements OnInit {
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
     }
-    else if (event.node.data == "Tier") {
+    else if (!this.enableAutoScaling && event.node.data == "Tier") {
       if(event.node.leaf != true){
         this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
         let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
         this.getTableData.emit({ data })
       }
     }
-    else if (event.node.data == "Server") {
+    else if (!this.enableAutoScaling && event.node.data == "Server") {
       this.configTopologyService.getServerTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
       let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
@@ -123,7 +136,7 @@ export class ConfigTreeComponent implements OnInit {
   }
 
   /**
-   * This method is used to set node icon
+   * This method is used to set node icon 
    */
   addNodeInImage(node: TreeNode) {
 
@@ -167,6 +180,6 @@ export class ConfigTreeComponent implements OnInit {
       this.subscription.unsubscribe();
     }
    }
-
+     
 
 }

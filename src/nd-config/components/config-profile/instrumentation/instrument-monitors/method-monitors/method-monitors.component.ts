@@ -45,7 +45,7 @@ export class MethodMonitorsComponent implements OnInit {
   keywordValue: Object;
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
-
+  
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;
 
@@ -81,6 +81,7 @@ export class MethodMonitorsComponent implements OnInit {
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
+
   }
   saveKeywordData() {
     let filePath = '';
@@ -286,7 +287,7 @@ export class MethodMonitorsComponent implements OnInit {
     return -1;
   }
 
- /**used to open file manager
+  /**used to open file manager
   */
   openFileManager() {
 
@@ -303,22 +304,32 @@ export class MethodMonitorsComponent implements OnInit {
   uploadFile(filepath) {
     if (this.isMethodMonitorBrowse == true) {
       this.isMethodMonitorBrowse = false;
-    //Temporary path of the Method Monitor file to run locally,independently from Product UI
-    //  let filepath = "C:\\Users\\Naman\\Desktop\\methodmonitors.mml";
-     this.openFileExplorerDialog = false;
-
+      this.openFileExplorerDialog = false;
+      //Temporary path of the Method Monitor file to run locally,independently from Product UI
+       //let filepath = "";
       this.configKeywordsService.uploadMethodMonitorFile(filepath, this.profileId).subscribe(data => {
         if (data.length == this.methodMonitorData.length) {
-          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-          return;
+         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+         return;
         }
+        this.methodMonitorData = data;
         this.configUtilityService.successMessage("File uploaded successfully");
        });
     }
   }
-}
 
+  /* For all selection*/
+  onTableHeaderCheckboxToggle(event: any) {
+    if (event.checked === true) {
+        this.selectedMethodMonitorData = [];
+      for (let m of this.methodMonitorData) {
+            this.selectedMethodMonitorData.push(m);
+      }
+    } else {
+      this.selectedMethodMonitorData.length = 0;
+    }
+  }
 
-
+  }
 
 

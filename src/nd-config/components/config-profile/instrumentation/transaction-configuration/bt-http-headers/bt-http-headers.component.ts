@@ -98,22 +98,6 @@ export class BTHTTPHeadersComponent implements OnInit {
             this.btHttpHeadersInfo = [];
     }
 
-    //This method loads Header request drop-down values
-    // loadResponseHeader() {
-    //     this.responseHeader = [];
-    //     var resHdrLabel = ['--Select--', 'Accept-Charset', 'Accept-Datetime', 'Accept-Encoding', 'Accept-Language', 'Accept', 'Authorization',
-    //         'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5', 'Content-Type', 'Cookie', 'DNT', 'Date', 'Expect',
-    //         'Front-End-Https', 'Host', 'If-Match', 'If-Modified-Since', 'If-None-Match', 'If-Range', 'If-Unmodified-Since',
-    //         'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization', 'If-Range', 'Proxy-Connection', 'Range', 'Referer',
-    //         'TE', 'Upgrade', 'User-Agent', 'Via', 'Warning', 'X-ATT-DeviceId', 'X-Forwarded-For', 'X-Forwarded-Proto',
-    //         'X-Requested-With', 'X-Wap-Profile'];
-
-    //     var resHdrVal = ['0', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58',
-    //         '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83'];
-
-    //     this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
-    // }
-
     //To load opeartion operationName
     loadOperationName() {
         this.operationName = [];
@@ -398,7 +382,10 @@ export class BTHTTPHeadersComponent implements OnInit {
     deleteConditionFromTable(arrReqIndex: any[]): void {
         //For stores table row index
         let rowIndex: number[] = [];
-
+        if(arrReqIndex.length < 1){
+            this.configUtilityService.errorMessage("Select row(s) to delete");
+            return;    
+        }
         for (let index in arrReqIndex) {
             rowIndex.push(this.getCondIndex(arrReqIndex[index]));
         }

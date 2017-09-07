@@ -56,13 +56,13 @@ export class ConfigProfileListComponent implements OnInit {
     this.profileListItem = [];
     let arr = []; //This variable is used to sort Profiles
     for (let i = 0; i < this.profileData.length; i++) {
-      arr.push(this.profileData[i].profileName);
+      arr.push(this.profileData[i].profileName); 
     }
     arr.sort();
       for (let i = 0; i< arr.length; i++){
         for (let j = 0; j < this.profileData.length; j++) {
           if(this.profileData[j].profileName == arr[i]){
-            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+           this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }
         }
     }
@@ -97,7 +97,10 @@ export class ConfigProfileListComponent implements OnInit {
     this.displayNewProfile = false;
   }
 
-  routeToConfiguration(selectedProfileId, selectedProfileName) {
+  routeToConfiguration(selectedProfileId, selectedProfileName, entity) {
+    if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
+      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
+
     //Observable profile name 
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);

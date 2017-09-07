@@ -22,7 +22,7 @@
 
 
 <!--Dialog for changing profile-------->
-<p-dialog class="profile-dialog" header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
@@ -31,7 +31,7 @@
             </div>
             <div class="ui-g-8">
                 <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <p-dropdown name="profileId" [options]="profileSelectItem" [(ngModel)]="topoData.profileId" required ngModel></p-dropdown>
+                <p-dropdown name="profileId" appendTo="body"  [options]="profileSelectItem" [(ngModel)]="topoData.profileId" required ngModel></p-dropdown>
             </div>
         </div>
         <footer>

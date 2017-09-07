@@ -110,7 +110,10 @@ export class ConfigHomeComponent implements OnInit {
     }
   }
 
-  routeToConfiguration(selectedProfileId, selectedProfileName) {
+  routeToConfiguration(selectedProfileId, selectedProfileName, entity) {
+    if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
+      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
+
     //Observable profile name
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);

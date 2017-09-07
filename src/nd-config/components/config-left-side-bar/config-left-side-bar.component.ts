@@ -19,11 +19,10 @@ export class ConfigLeftSideBarComponent implements OnInit {
       { label: "Home", route: `${ROUTING_PATH}/home`, icon: "ndeicon ndegui-home1", tooltip: "Home" },
       { label: "Application", route: `${ROUTING_PATH}/application-list`, icon: "icon ndegui-application", tooltip: "Application" },
       { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "icon ndegui-profile", tooltip: "Profile" },
-      { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "icon ndegui-topology", tooltip: "Topology" },
-      { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "icon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
+      { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "ndeicon ndegui-topology", tooltip: "Topology" },
+     { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "icon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
       { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover-main`, icon: "icon ndegui-auto-discover", tooltip: "Auto Discover" },
-      // { label: "ND Agent", route: `${ROUTING_PATH}/nd-agent`, icon: "icon ndegui-nd-agent", tooltip: "ND Agent" },
-     // { label: "Discover Instrumentation Profile", route: `${ROUTING_PATH}/nd-agent`, icon: "fa fa-tint", tooltip: "Discover Instrumentation Profile" }
+      { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "icon ndegui-audit-logs", tooltip: "Audit Log" },
     ];
   }
 

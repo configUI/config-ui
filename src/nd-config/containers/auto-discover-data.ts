@@ -3,6 +3,7 @@ export class AutoDiscoverData{
     discoveryMode: any;
     classFilters: any;
     methodFilters: any;
+    status: string;
 }
 
 export class AutoDiscoverTreeData {

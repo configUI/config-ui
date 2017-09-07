@@ -168,10 +168,10 @@ export class HttpStatsMonitorsComponent implements OnInit {
       'X-ATT-DeviceId', 'X-Content-Security-Policy', 'X-Content-Type-Options', 'X-Forwarded-For', 'X-Forwarded-Proto', 'X-Frame-Options', 'X-Powered-By', 'X-Requested-With',
       'X-UA-Compatible', 'X-Wap-Profile', 'X-WebKit-CSP', 'X-XSS-Protection'];
 
-    var resHdrVal = [ '87', '84', '85', '86', '41', '42', '43', '44', '88', '45', '103', '46', '47', '48', '49', '50', '51', '52',
-      '53', '54', '55', '89', '56', '90', '57', '91', '58', '92', '93', '94', '95', '96', '97', '98', '59', '60', '61', '99', '100','62', '63', '64', '101',
-    '102', '114', '113','65','66','67','68','69','70','104','71','72','105','106','73','74','75','76','107','77','78','108','109','79','80','110',
-  '81','111','82','83'];
+    var resHdrVal = ['87', '84', '85', '86', '41', '42', '43', '44', '88', '45', '103', '46', '47', '48', '49', '50', '51', '52',
+      '53', '54', '55', '89', '56', '90', '57', '91', '58', '92', '93', '94', '95', '96', '97', '98', '59', '60', '61', '99', '100', '62', '63', '64', '101',
+      '114', '113', '65', '66', '67', '68', '69', '70', '104', '71', '72', '105', '106', '73', '74', '75', '76', '107', '77', '78', '108', '109', '79', '80', '110',
+      '81', '111', '82', '83'];
 
     this.responseHeader = ConfigUiUtility.createListWithKeyValue(resHdrLabel, resHdrVal);
   }
@@ -199,7 +199,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads operators for String values
   loadStringOP() {
     this.stringOP = [];
-    var stringOPLabel = ['=', '!=', 'contains', '!contains','present', '!present'];
+    var stringOPLabel = ['=', '!=', 'contains', '!contains', 'present', '!present'];
     var stringOPVal = ['1', '2', '3', '4', '13', '14'];
     this.stringOP = ConfigUiUtility.createListWithKeyValue(stringOPLabel, stringOPVal);
   }
@@ -260,7 +260,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
       this.selectedNumericOp = this.httpStatsMonitorDetail.optId;
     else
       this.selectedOthersOp = this.httpStatsMonitorDetail.optId;
-  
+
   }
 
   saveHttpStatsMonitor(): void {
@@ -304,6 +304,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
       }
     }
     this.saveDataInObject();
+    if(this.httpStatsMonitorDetail.compValue == null)
+      this.httpStatsMonitorDetail.compValue = "";
     this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getAppIndex(this.httpStatsMonitorDetail.hscid);
@@ -326,6 +328,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
         return;
       }
     }
+    if(this.httpStatsMonitorDetail.compValue == null)
+      this.httpStatsMonitorDetail.compValue = "";
     this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting HTTP Stats Condition in DB

@@ -11,8 +11,8 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 
 
-import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection , ExceptionMonitorData} from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, ExceptionMonitor,BTHTTPHeaderData,EndPoint } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -43,7 +43,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ['instrExceptions'] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
       // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
@@ -53,7 +53,11 @@ export class ConfigKeywordsService {
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
-  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) { }
+
+
+  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) {
+
+  }
 
   /** For Getting all keywordData data */
   getProfileKeywords(profileId) {
@@ -89,7 +93,7 @@ export class ConfigKeywordsService {
     if (!data)
       return this.keywordGroup;
 
-    //moduleName -> general, advance, product_integration, instrumentation
+    //moduleName -> general, advance, product_integration
     for (let moduleName in this.keywordGroup) {
 
       //keywordGroupList -> { flowpath: { enable: false, keywordList: ["k1", "k2"]}, hotspot: { enable: false, keywordList: ["k1", "k2"] }, ....}
@@ -105,7 +109,7 @@ export class ConfigKeywordsService {
         let keywordList = keywordInfo.keywordList;
 
         for (let i = 0; i < keywordList.length; i++) {
-          //If group of keywords value is not 0 that's means groupkeyword is enabled.
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.              
           if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
             //Enabling groupkeyword
             keywordInfo.enable = true;
@@ -121,8 +125,8 @@ export class ConfigKeywordsService {
   /** Config-nd File explorer */
   private fileList = new Subject();
   fileListProvider = this.fileList.asObservable();
-
-  updateFileList(fileList) {
+  
+  updateFileList(fileList){
     this.fileList.next(fileList);
   }
 
@@ -145,7 +149,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
-  deleteServiceEntryData(data, profileId): Observable<ServiceEntryPoint> {
+   deleteServiceEntryData(data, profileId): Observable<ServiceEntryPoint> {
     return this._restApi.getDataByPostReq(`${URL.DEL_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
@@ -154,13 +158,9 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPutReq(url, data);
   }
 
-  /**For Integration PT Detection */
+ /**For Integration PT Detection */
   getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
-  }
-
-  deleteIntegrationPointData(data, profileId): Observable<EndPoint> {
-    return this._restApi.getDataByPostReq(`${URL.DEL_INTEGRATION_POINTS}/${profileId}`, data);
   }
 
   getBackendList(profileId): Observable<BackendInfo[]> {
@@ -169,6 +169,10 @@ export class ConfigKeywordsService {
 
   addIntegrationPTDetectionData(profileId, data): Observable<AddIPDetection> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
+  }
+
+  deleteIntegrationPointData(data, profileId): Observable<EndPoint> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_INTEGRATION_POINTS}/${profileId}`, data);
   }
 
   addIPNamingAndExit(profileId, backendId, data): Observable<NamingRuleAndExitPoint> {
@@ -197,8 +201,6 @@ export class ConfigKeywordsService {
   deleteErrorDetection(data, profileId): Observable<ErrorDetection> {
     return this._restApi.getDataByPostReq(`${URL.DEL_ERROR_DETECTION}/${profileId}`, data);
   }
-
-
   getExceptionMonitorList(profileId): Observable<ExceptionMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_EXCEPTION_MON_TABLEDATA}/${profileId}`);
   }
@@ -215,6 +217,7 @@ export class ConfigKeywordsService {
   deleteExceptionMonitorData(data, profileId): Observable<ExceptionMonitorData> {
     return this._restApi.getDataByPostReq(`${URL.DEL_EXCEPTION_MONITOR}/${profileId}`, data);
   }
+
 
   getMethodMonitorList(profileId): Observable<MethodMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_METHOD_MON_TABLEDATA}/${profileId}`);
@@ -346,14 +349,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REQ_HDR}`, data);
   }
 
-  /* Fetch  Business Trans Method Info */
-  addHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
-    return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
-  }
-
   /** get the HTTP Request Header Type */
   getHTTPRequestValue(data, profileId): Observable<HTTPRequestHdrComponentData> {
     return this._restApi.getDataByPostReq(`${URL.UPDATE_HTTP_REQ_TYPE}/${profileId}`, data);
+  }
+
+  /* Fetch  Business Trans Method Info */
+  addHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
   }
 
   // /* Edit  Business Trans Method Info */
@@ -368,21 +371,51 @@ export class ConfigKeywordsService {
   //   return this._restApi.getDataByPostReq(url, data);
   // }
 
-  //Need more testing.
-  sendRunTimeChange(URL, data) {
+//Need more testing.
+  sendRunTimeChange(url, data, profileId, callback) {
+    let rtcMsg
+    let URL = `${url}/${profileId}`;
     this._restApi.getDataByPostReq(URL, data).subscribe(
       data => {
-        //When runtime changes are applied
-        this.configUtilityService.infoMessage("Runtime changes applied");
+        //For partial RTC
+        /**
+         * nd_control_rep:action=modify;result=PartialError;NodeJS:Mew:Instance1=48978;
+         * NodeJS:Mew:Instance2=Currently disconnected trying to reconnect;
+         */
+        if (data[0].includes("PartialError")) {
+          let arrPartial = []
+          let arr = data[0].split(";");
+          for (let i = 2; i < arr.length; i++) {
+            arrPartial.push(arr[i])
+          }
+          this.saveProfileKeywords(profileId);
+          rtcMsg = arrPartial;
+        }
+
+        //When runtime changes are applied then result=Ok
+        else if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
+          this.saveProfileKeywords(profileId);
+          this.configUtilityService.infoMessage("Runtime changes applied");
+          rtcMsg = [];
+        }
+
+        //When result=Error, then no RTC applied
+        else {
+          this.configUtilityService.errorMessage(" No runtime changes applied");
+          rtcMsg = [];
+        }
+        callback(rtcMsg);
       },
       error => {
         //When runtime changes are not applied
         this.configUtilityService.errorMessage("Error : See the agent logs");
+        return;
       }
     );
+
   }
 
-  deleteSpecificAttrValues(listOfIDs) {
+  deleteSpecificAttrValues(listOfIDs){
     let url = `${URL.DELETE_ATTR_RULES}`;
     return this._restApi.getDataByPostReq(url, listOfIDs);
   }
@@ -392,7 +425,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREQHDR_RULES}`, data);
   }
 
-  /* Edit Http Request Header Info */
+   /* Edit Http Request Header Info */
   editHTTPReqHeaderData(data): Observable<HTTPRequestHdrComponentData> {
     let url = `${URL.UPDATE_HTTPREQHDR}/${data.httpAttrId}`;
     return this._restApi.getDataByPostReq(url, data);
@@ -402,11 +435,43 @@ export class ConfigKeywordsService {
   deleteMethodBtRules(listOfIds) {
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_RULES_BT}`, listOfIds);
   }
+   
+   /** Method to upload file */
+  uploadFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
+  }
+
+   /** Method to upload file method monitors file */
+  uploadMethodMonitorFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
+  }
 
 
+  /** Method to copy selected xml files in instrProfiles */
+  copyXmlFiles(filesWithPath, profileId): Observable<string[]>{
+    return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
+  }
 
-  /** Add BT HTTP REQUEST HEADERS */
-  addBtHttpHeaders(data, profileId) {
+  /** Get file path */
+  getFilePath(profileId): Observable<string> {
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_FILE_PATH}/${profileId}`);
+
+  }
+
+  /*this method is used for get selected text instrumnetation profile in xml format*/
+  getInstrumentationProfileXMLData(data)
+  {
+    return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
+  }
+
+/*this method is used for get all xml files for a particular path*/
+  getInstrumentationProfileXMLFileList()
+  {
+    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
+  }
+
+   /** Add BT HTTP REQUEST HEADERS */
+  addBtHttpHeaders(data, profileId){
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
   }
   /** Get all BT Http header data */
@@ -429,65 +494,47 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
 
-  /** Method to upload file */
-  uploadFile(filePath, profileId) {
-    return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
+  /*this method is used for get selected xml instrumnetation profile in xml format*/
+  editXMLDataFromSelectedXMLFile(data) {
+    return this._restApi.getDataByGetReq(`${URL.EDIT_XML_DATA_FROM_SELECTED_XML_FILE}?filePath=${data}`);
   }
 
-  /** Method to upload file method monitors file */
-  uploadMethodMonitorFile(filePath, profileId) {
-    return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
+  /*this method is resposible for saving XML data after Editing */
+  saveInstrumentedDataInXMLFile(dataArr) {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_EDITED_XML_DATA_FROM_SELECTED_XML_FILE}`, dataArr);
   }
 
-  /** Method to copy selected xml files in instrProfiles */
-  copyXmlFiles(filesWithPath, profileId): Observable<string[]> {
-    return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
+  /* Delete XML File */
+  deleteXMLFile(fileName) {
+    return this._restApi.getDataByGetReq(`${URL.DELETE_XML_FILE}?fileName=${fileName}`);
   }
-
-  /** Get file path */
-  getFilePath(profileId): Observable<string> {
-    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_FILE_PATH}/${profileId}`);
-
-  }
-  /*this method is used for get selected text instrumnetation profile in xml format*/
-  getInstrumentationProfileXMLData(data) {
-    return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
-  }
-
-  /*this method is used for get all xml files for a particular path*/
-  getInstrumentationProfileXMLFileList() {
-    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
-  }
-
+ 
   /*this method is used for get selected xml instrumnetation profile in xml format*/
   getXMLDataFromSelectedXMLFile(data) {
     return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
   }
-
-
-
- getAutoDiscoverTreeData(adrFile)
-  {
-     return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_TREE_DATA}`, adrFile);
-  }
-    
-  getClassDiscoverTreeData(nodeInfo)
-  {
-     return this._restApi.getDataByPostReq(`${URL.GET_CLASS_DISCOVER_TREE_DATA}`, nodeInfo);
+  getAutoDiscoverTreeData(adrFile, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_TREE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
   }
 
-  getSelectedNodeInfo(nodeInfo)
-  {
-    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_NODE_TREE_DATA}`, nodeInfo);
+  getClassDiscoverTreeData(nodeInfo, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_CLASS_DISCOVER_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
   }
 
-  getUninstrumentaionTreeData(nodeInfo)
-  {
-    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_NODE_TREE_DATA}`, nodeInfo);
+  getSelectedNodeInfo(nodeInfo, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_NODE_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
   }
 
-  saveInsrumentationFileInXMLFormat(fileName)
-  {
-    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}`, fileName);
+  getUninstrumentaionTreeData(nodeInfo, reqId ,fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_NODE_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+  }
+
+  saveInsrumentationFileInXMLFormat(xmlFileName, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}?reqId=${reqId + ','+ fileName}`, xmlFileName);
+  }
+  
+  /* GEt Activity Log Data */
+  getActivityLogData() {
+    return this._restApi.getDataByGetReq(`${URL.GET_ACTIVITY_LOG_DATA}`);
   }
 }

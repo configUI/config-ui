@@ -1,4 +1,4 @@
-export class  ServiceEntryPoint {
+export class ServiceEntryPoint {
     desc: string;
     enabled: boolean;
     entryType: string;
@@ -52,6 +52,7 @@ export class NamingRule {
     url: boolean;
     userName: boolean;
 }
+
 export class IntegrationPTDetection {
     type: string;
     detail: string;
@@ -275,6 +276,7 @@ export class CustomKeywordsComponentData{
 
 }
 
+
 /** BT HTTP HEADERS  */
 export class BTHTTPHeaderData{
     id: number = 0;
@@ -300,7 +302,6 @@ export class UrlCapturingData{
     urlOffset: number;
     maxChar: number;
 }
-
 
 //Request Param key/value in http bt configuration
 export class RequestParamData{

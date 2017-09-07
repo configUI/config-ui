@@ -262,7 +262,7 @@ export class ConfigApplicationListComponent implements OnInit {
     let selectedApp = this.selectedApplicationData;
     let arrAppIndex = [];
     for (let index in selectedApp) {
-      arrAppIndex.push(selectedApp[index].appId);
+      arrAppIndex.push(selectedApp[index].appName);
     }
     this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data =>
       this.configUtilityService.infoMessage("Agent configuration settings generated successfully at path : " + data));

@@ -25,7 +25,7 @@
                 <!--<div class="ui-g-1"></div>-->
                 <div class="ui-g-5" style="margin-left: 16px">
                     <label>Capture exception stack trace upto </label>
-                    <input type="number" disabled={{!exceptionData.instrumentException}} [min]=0 [max]=999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/> frames
+                    <input type="number" disabled={{!exceptionData.instrumentException}} [min]=1 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/> frames
                 </div>
             </div>
             <div class="ui-g-12">
@@ -36,12 +36,12 @@
                 </div>
             </div>
         </div>
-        <div class="ui-g-12" style="margin-left: 5px;">
+        <!-- <div class="ui-g-12" style="margin-left: 5px;"> -->
             <!--<div class="ui-g-1"></div>-->
-            <div class="ui-g-5">
+            <!-- <div class="ui-g-5">
                 <p-checkbox name="enableExceptionInSeqBlob" binary="true" label="Enable exception capturing in sequence Blob" [(ngModel)]="exception.enableExceptionInSeqBlob.value"></p-checkbox>
             </div>
-        </div>
+        </div> -->
     </p-fieldset>
 
 
