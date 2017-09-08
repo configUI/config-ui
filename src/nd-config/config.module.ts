@@ -71,7 +71,7 @@ import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigCustomDataService } from './services/config-customdata.service';
-import { ApiService } from '../file-explorer/services/api.service';
+// import { ApiService } from '../file-explorer/services/api.service';
 
 
 /**Config UI Component */
@@ -127,8 +127,8 @@ import { NVCookieComponent } from './components/config-profile/product-integrati
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
 import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
-import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
-import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+// import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
+// import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
 import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
@@ -198,7 +198,7 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
     CustomKeywordsComponent,
-    ConfigNdFileExplorerComponent,
+    // ConfigNdFileExplorerComponent,
     ConfigImportInstrProfileComponent,
     ExceptionFilterComponent,
     ExceptionSettingComponent,   
@@ -211,9 +211,9 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     ConfigViewAuditLogComponent	
   ],
   imports: [
-     CommonModule,
-   // BrowserModule,
-   // BrowserAnimationsModule,
+    //  CommonModule,
+   BrowserModule,
+   BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     ConfigRoutingModule,
@@ -251,9 +251,9 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
   ],
 
   providers: [
-  { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+  // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
     ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
-    ApiService,
+    // ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]
 })

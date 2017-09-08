@@ -23,45 +23,9 @@ import { ConfigAutoDiscoverTreeComponent } from "../components/config-auto-disco
 import { ConfigViewAuditLogComponent } from '../components/config-view-audit-log/config-view-audit-log.component';
 
 /**For ProductUI */
-const routes: Routes = [
-    {
-        path: '', component: AppComponentForConfig, children: [
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: ConfigHomeComponent },
-            { path: 'application-list', component: ConfigApplicationListComponent },
-            { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
-            { path: 'tree-main/topology/:topoId', component: ConfigTreeMainComponent },
-            { path: 'tree-main/profile', component: ConfigProfileRoutingComponent, children: [
-                    { path: '', redirectTo: 'configuration/:profileId', pathMatch: 'full' },
-                    { path: 'configuration/:profileId', component: ConfigurationComponent },
-                    { path: 'general/:profileId/:tabId', component: GeneralComponent },
-                    { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
-                    { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
-                    { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
-                ] },
-            {
-                path: 'profile', component: ConfigProfileRoutingComponent, children: [
-                    { path: '', redirectTo: 'profile-list', pathMatch: 'full' },
-                    { path: 'profile-list', component: ConfigProfileListComponent },
-                    { path: 'configuration/:profileId', component: ConfigurationComponent },
-                    { path: 'general/:profileId/:tabId', component: GeneralComponent },
-                    { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
-                    { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
-                    { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
-                ]
-            },
-            { path: 'topology-list', component: ConfigTopologyListComponent },
-            { path: 'nd-agent', component: ConfigNdAgentComponent },
-            { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
-            { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
-            { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
-	    { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
-        ]
-    }
-];
-
-/**For local setup */
 // const routes: Routes = [
+//     {
+//         path: '', component: AppComponentForConfig, children: [
 //             { path: '', redirectTo: 'home', pathMatch: 'full' },
 //             { path: 'home', component: ConfigHomeComponent },
 //             { path: 'application-list', component: ConfigApplicationListComponent },
@@ -91,11 +55,47 @@ const routes: Routes = [
 //             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
 //             { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
 //             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
+// 	    { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
+//         ]
+//     }
 // ];
 
+/**For local setup */
+const routes: Routes = [
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: ConfigHomeComponent },
+            { path: 'application-list', component: ConfigApplicationListComponent },
+            { path: 'tree-main/:dcId', component: ConfigTreeMainComponent },
+            { path: 'tree-main/topology/:topoId', component: ConfigTreeMainComponent },
+            { path: 'tree-main/profile', component: ConfigProfileRoutingComponent, children: [
+                    { path: '', redirectTo: 'configuration/:profileId', pathMatch: 'full' },
+                    { path: 'configuration/:profileId', component: ConfigurationComponent },
+                    { path: 'general/:profileId/:tabId', component: GeneralComponent },
+                    { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
+                    { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
+                    { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
+                ] },
+            {
+                path: 'profile', component: ConfigProfileRoutingComponent, children: [
+                    { path: '', redirectTo: 'profile-list', pathMatch: 'full' },
+                    { path: 'profile-list', component: ConfigProfileListComponent },
+                    { path: 'configuration/:profileId', component: ConfigurationComponent },
+                    { path: 'general/:profileId/:tabId', component: GeneralComponent },
+                    { path: 'advance/:profileId/:tabId', component: AdvanceComponent },
+                    { path: 'instrumentation/:profileId/:tabId', component: InstrumentationComponent },
+                    { path: 'integration/:profileId/:tabId', component: ProductIntegrationComponent }
+                ]
+            },
+            { path: 'topology-list', component: ConfigTopologyListComponent },
+            { path: 'nd-agent', component: ConfigNdAgentComponent },
+            { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
+            { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
+            { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
+];
+
 @NgModule({
-     imports: [RouterModule.forChild(routes)],
-    // imports: [RouterModule.forRoot(routes)],
+    //  imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class ConfigRoutingModule {

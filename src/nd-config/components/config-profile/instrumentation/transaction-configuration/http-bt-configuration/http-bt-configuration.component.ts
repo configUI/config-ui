@@ -388,6 +388,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
        * Format - key1=val1&key2=val2&key3
        * Then splitting them to get each key/value pair 
        */
+     if (this.selectedPatternData[0].paramKeyValue != null) {
       if (this.selectedPatternData[0].paramKeyValue.includes("&")) {
         let arrKeyVal = this.selectedPatternData[0].paramKeyValue.split("&");
         let that = this;
@@ -412,7 +413,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
           }
         }
       }
-
+    }
       /**
        * For a single key/value pair
        * Format- key=val
@@ -420,6 +421,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
       else {
 
         //Splitting when key and value both are provided
+      if (this.selectedPatternData[0].paramKeyValue != null) {
         if (this.selectedPatternData[0].paramKeyValue.includes("=")) {
           this.reqParamKeyCheck = true;
           let arr = this.selectedPatternData[0].paramKeyValue.split("=");
@@ -438,6 +440,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         }
       }
     }
+   }
     this.businessTransPatternDetail = Object.assign({}, this.selectedPatternData[0]);
   }
 
@@ -623,7 +626,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**For close add/edit application dialog box */
   closeDialog(): void {
-    this.selectedPatternData = [];
+  //  this.selectedPatternData = [];
     this.addEditPatternDialog = false;
   }
 
