@@ -11,7 +11,7 @@ import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 //import { XmlFilesList } from '../../../../interfaces/keywords-info';
 import { cloneObject } from '../../../../utils/config-utility';
 
-
+import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 @Component({
   selector: 'app-instrumentation-profiles',
   templateUrl: './instrumentation-profiles.component.html',
@@ -41,7 +41,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   subscriptionEG: Subscription;
   openFileExplorerDialog: boolean = false;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService
   ) {
     // this.subscription = this.store.select("keywordData").subscribe(data => {
     //   this.instrProfiles = data;
@@ -117,6 +117,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   }
 
   resetKeywordData() {
+
     this.xmlFilesList = cloneObject(this.configKeywordsService.keywordData);
     if (this.xmlFilesList["instrProfile"].value == "0" || this.xmlFilesList["instrProfile"].value == "") {
       this.instrProfiles = [];
@@ -135,19 +136,62 @@ export class InstrumentationProfilesComponent implements OnInit {
   //Method to get the xml file path and upload them
   browseXmlFiles(filesWithPath) {
     this.openFileExplorerDialog = false;
-    // let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
-    this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
-      if (data.length < 1) {
-	console.log('Getting Data ==============', data);
-        console.log("Items in data =======================", this.instrProfileSelectItem);
-        this.configUtilityService.successMessage("Files imported successfully");
+
+    // Finding duplicate entry
+    let deepFilePathCopy = filesWithPath;
+    let fileList = filesWithPath.split(";");
+    var files = [];
+    for (let i = 0; i < fileList.length ; i++) {
+      let found = false;
+      let fileName = fileList[i].substring(fileList[i].lastIndexOf("/") + 1, fileList[i].length);
+      for (let j = 0 ; j < this.instrProfileSelectItem.length ; j++) {
+        if(fileName.trim() === this.instrProfileSelectItem[j].label) {
+          found = true;
+          break;
+        }
       }
-      else
-        this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
-    },
-      error => {
-        console.log("Error in browsing xml files");
-      });
+      if(!found)
+        files.push(fileList[i]);
+    }
+    filesWithPath = files.join(";");
+
+    if(deepFilePathCopy.split(";").length != files.length)
+    {
+	this.confirmationService.confirm({
+          message: 'Selection contains already added files. Are you sure that you want to upload unique files?',	
+          header: 'Confirmation',
+          icon: 'fa fa-question-circle',
+          accept: () => {
+		// let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
+		if(files.length != 0) {
+    		  this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
+      		    if (data.length < 1) {
+        	      this.configUtilityService.successMessage("Files imported successfully");
+      		    }
+      		    else
+        	      this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
+    		  },
+      		  error => {
+        	    console.log("Error in browsing xml files");
+      		  }); 
+		} else {
+		  this.configUtilityService.errorMessage("All Selected files are already imported");
+		}	
+          }
+	});	
+    } else {
+        this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
+          if (data.length < 1) {
+            this.configUtilityService.successMessage("Files imported successfully");
+          }
+          else
+            this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
+         },
+         error => {
+            console.log("Error in browsing xml files");
+        });
+    }
+    
   }
 
 }

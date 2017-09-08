@@ -38,7 +38,6 @@ export class Keywords{
 "logLevelOneFpMethod": KeywordsInfo
 "enableNDSession": KeywordsInfo
 "ASMethodHotspots" : KeywordsInfo
-"enableExceptionInSeqBlob" : KeywordsInfo
 "captureErrorlogs":KeywordsInfo
 "HTTPStatsCondCfg":KeywordsInfo
 }
