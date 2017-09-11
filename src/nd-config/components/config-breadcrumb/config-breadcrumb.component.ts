@@ -149,11 +149,8 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   getRunningTestRunInfo() {
-    if (sessionStorage.getItem("isTrNumber") == "null") {
-      this.displaySessionLabel = false
-    }
-    if (sessionStorage.getItem("isTrNumber") != null) {
-      if (sessionStorage.getItem("isTrNumber") != "null") {
+    if (sessionStorage.getItem("isTrNumber") != "null") {
+      if (sessionStorage.getItem("isTrNumber") != null) {
         this.trData.trNo = sessionStorage.getItem("isTrNumber");
         this.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
         this.trData.status = sessionStorage.getItem("isStatus")

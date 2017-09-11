@@ -40,7 +40,7 @@
         <div class="ui-g-1">
             <label>Header type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="headerModeResp" [style]="{'width':'60%'}" (click)="changeSpecificReq()"  [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
+            <p-dropdown name="headerModeResp" [style]="{'width':'60%'}" (click)="changeSpecificResp()"  [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[1].headerModeResp == 'Specified')">
             <input name="headerMode" type="text" size="30" class='hidden-validator' [(ngModel)]="data[1].headersNameResp[0]" pInputText required ngModel/>
