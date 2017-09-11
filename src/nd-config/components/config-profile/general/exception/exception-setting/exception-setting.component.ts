@@ -43,14 +43,6 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
-<<<<<<< HEAD
-
-    if(this.exception["enableExceptionInSeqBlob"].value == "0")
-      {
-        this.exception["enableExceptionInSeqBlob"].value = false;
-      }
-=======
->>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
@@ -133,8 +125,6 @@ export class ExceptionSettingComponent implements OnInit {
     }
     else {
       this.exceptionData = new ExceptionData();
-<<<<<<< HEAD
-=======
       if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
@@ -143,16 +133,12 @@ export class ExceptionSettingComponent implements OnInit {
         this.exceptionData.exceptionTraceDepth = 9999;
       }
       else if (this.exception["instrExceptions"].value == 1) {
->>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
-<<<<<<< HEAD
-=======
       }
->>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
     }
   }
 
