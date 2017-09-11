@@ -63,7 +63,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         // const xml = beautify(data._body);
         this.xmlFormat = data._body;
         if (this.xmlFormat == "")
-          this._configUtilityService.errorMessage("Files contains no data");
+          this._configUtilityService.errorMessage("File contains no data or invalid data");
         else
           this._configUtilityService.successMessage("File imported successfully");
         this.createDropDown(filename);

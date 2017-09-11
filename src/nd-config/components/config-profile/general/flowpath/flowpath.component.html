@@ -19,8 +19,7 @@
                             <label>Flowpath instrumentation percentage</label>
                         </div>
                         <div class="ui-g-2">
-                            <input type="number" name="bciInstrSessionPct" pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
-                            <p-slider name="bciInstrSessionPctSlider" [(ngModel)]="flowPath.bciInstrSessionPct.value"></p-slider>
+                            <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
                         </div>
                     </div>
 
@@ -77,7 +76,7 @@
                         </div>
 
                     </div>
-                                   <!-- <div class="ui-g-12">
+                    <!-- <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
                             <label>Set maximum cached queries to</label>
