@@ -5,7 +5,7 @@
             <md-card-subtitle class="md-card-subtitle-css">
                 <div class="header-Name">APPLICATION LIST {{applicationMsg}}</div>
                 <div class="header-button">
-                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" title="Configure application list " label="Configure" class="ui-button-info"></button></a>
+                    <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" title="Configure application list" label="Configure" class="ui-button-info"></button></a>
                 </div>
             </md-card-subtitle>
             <div class="table-css">
@@ -144,7 +144,7 @@
     </div>-->
 </div>
 <!--Adding dialog for import topologies-->
-<p-dialog class="profile-dialog" header="Import Topologies" *ngIf="importTopo" [(visible)]="importTopo" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="Import Topologies" *ngIf="importTopo" [(visible)]="importTopo" modal="modal" width="500" responsive="true">
     This feature is used to sync the topology settings of GUI with the file system.
     <footer>
         <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">

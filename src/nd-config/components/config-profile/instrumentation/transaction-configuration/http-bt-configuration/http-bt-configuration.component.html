@@ -164,7 +164,7 @@
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
-<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}"
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}"
   *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true">
   <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
     <div class="ui-g">
@@ -300,7 +300,7 @@
   </form>
 </p-dialog>
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
   modal="modal" width="650" responsive="true">
 
   <!-- This will look for this component in the ProductUI at this path -
@@ -310,7 +310,7 @@
 </p-dialog>
 
 <!-- Dialog to open request parameter key and value -->
-<p-dialog class="profile-dialog" header="{{isNewParam ? 'Add details' : 'Edit details'}}"
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewParam ? 'Add details' : 'Edit details'}}"
   *ngIf="openReqKeyVal" [(visible)]="openReqKeyVal" modal="modal" width="350" responsive="true">
   <form (ngSubmit)="saveReqParam()" #groupForm="ngForm" ngNativeValidate>
     <div class="ui-g-12">

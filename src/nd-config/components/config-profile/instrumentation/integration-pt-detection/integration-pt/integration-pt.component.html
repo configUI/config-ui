@@ -21,7 +21,7 @@
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog class="profile-dialog" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveAddIntegrationPTDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">

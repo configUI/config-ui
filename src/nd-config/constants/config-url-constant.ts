@@ -1,15 +1,16 @@
 
 
-//  const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
-// const  SERVICE_URL = 'http://localhost:8090';
 
+//  const  SERVICE_URL = 'http://localhost:8090';
+   
 
 //For Production use this SERVICE_URL
-  const SERVICE_URL = '/configUI';
+ const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
- export const ROUTING_PATH: string = "";
+export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
 // export const ROUTING_PATH: string = "/home/config";
@@ -40,9 +41,9 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist`
-//export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/profiles`
-export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
-export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
+//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
+export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
+export const GET_PROFILE_NAME = ` ${SERVICE_URL}/custom/profile`;
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -77,7 +78,7 @@ export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceent
 export const EDIT_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/updateServiceEntry`;
 
 /*Url for Toggle */
-export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;
+export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso`;
 
 
 /* Url fot BussinessTransaction */
@@ -88,7 +89,6 @@ export const FETCH_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
-export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 
 /* Url fot BussinessTransactionGlobal */
 export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;
@@ -101,7 +101,6 @@ export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/custom/backenddetection/getba
 export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`;
 export const UPDATE_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/updatebackend`;
 export const DEL_INTEGRATION_POINTS = `${SERVICE_URL}/custom/backenddetection/delete`;
-
 
 //export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
 export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/custom/topology/getalltopologylist`;
@@ -118,6 +117,7 @@ export const GET_FILE_PATH = `${SERVICE_URL}/custom/profilekeywords/getfilepath`
 /*Instrumentation Profile List*/
 export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles`;
 export const COPY_XML_FILES = `${SERVICE_URL}/custom/profilekeywords/copyxmlfiles`;
+
 
 /* URL for monitors  */
 export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
@@ -184,6 +184,7 @@ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
 export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
+export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 
 /* URL for methodBasedCapturingData */
 export const ADD_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapturing/addcustomdata`;
@@ -203,7 +204,7 @@ export const DEL_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/del
 export const ADD_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdr`;
 export const FETCH_HTTPREQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/gethttpreqhdr`;
 export const ADD_RULES_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdrrules`;
-export const UPDATE_HTTP_REQ_TYPE = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqtype`;
+export const UPDATE_HTTP_REQ_TYPE = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqtype`
 
 // export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
  export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/edithttpreqhdr`;
@@ -226,6 +227,11 @@ export const EDIT_ROW_EXCEPTION_FILTER_URL = `${SERVICE_URL}/custom/exceptionfil
 
 export const DEL_EXCEPTION_FILTER = `${SERVICE_URL}/custom/exceptionfilters/delete`;
 
+/*Import Instrumentation Profile*/
+export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
+export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
+export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
+
 /**** URL for BT HTTP Headers */
 export const BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader`;
 export const ADD_BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/addbthttpheader`;
@@ -234,10 +240,10 @@ export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
 
-/*Import Instrumentation Profile*/
-export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
-export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
-export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
+/*Edit Instrumentation Profile */
+export const EDIT_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/generatetreenodefromxml`;
+export const DELETE_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/deletexmlfile`;
+export const SAVE_EDITED_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/saveinstrumenteddatainxmlfile`;
 
 /**Auto discover */
 export const FETCH_AUTO_DISCOVERED_INSTANCE = `${SERVICE_URL}/custom/autodiscover/getadrfiles`;
@@ -251,5 +257,7 @@ export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autod
 
 export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscover/saveinstrumentationdatainxmlformat`;
 
+/* Activity Log data */
+export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/getauditactivitylogdata`;
 
 

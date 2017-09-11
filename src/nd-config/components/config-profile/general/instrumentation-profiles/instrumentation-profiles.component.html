@@ -20,8 +20,8 @@
           <div class="ui-g-1"></div>
           <div class="ui-g-5">
 
-            <!--<input name="multiSelect" type="text" size="50" class='hidden-validator' pInputText [(ngModel)]="instrProfiles" required ngModel/>-->
-            <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" [(ngModel)]="instrProfiles" required ngModel></p-multiSelect>
+            <!--<input name="multiSelect" type="text" size="5" class='hidden-validator' pInputText [(ngModel)]="instrProfiles" required ngModel/>-->
+            <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" (click)="loadListOfXmlFiles()" [(ngModel)]="instrProfiles" required ngModel></p-multiSelect>
           </div>
          <div class="ui-g-1">
             <button type="button" pButton icon="fa-folder-open" (click)="openFileManager()" label="Browse"></button>
@@ -38,7 +38,7 @@
       <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
      
-    <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
 
 

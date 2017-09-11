@@ -38,7 +38,7 @@
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog class="profile-dialog" header="{{isNewServiceEntryPoint ? 'Add Service entry point' : 'Edit Service entry point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewServiceEntryPoint ? 'Add Service entry point' : 'Edit Service entry point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">

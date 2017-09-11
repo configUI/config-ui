@@ -79,6 +79,7 @@ export class IntegrationPtComponent implements OnInit {
       this.createBackendTypeSelectItem();
     });
   }
+
   /**To Fetch data to show the Backend Type in Dropdown Of Dialog box of ADD functionality */
   createBackendTypeSelectItem() {
     this.backendTypeSelecetItem = [];
@@ -95,6 +96,7 @@ export class IntegrationPtComponent implements OnInit {
           }
         }
   }
+
   /**This method is called to Open Dialog to add new IntegrationPTDetection when you click ADD Button */
   onAddIntegrationPTDetection() {
     this.addIPDetectionDetail = new AddIPDetection();
@@ -233,7 +235,7 @@ export class IntegrationPtComponent implements OnInit {
       accept: () => {
         //Get Selected Applications's AppId
         let ipID = event["id"];
-        this.configKeywordsService.deleteIntegrationPointData(ipID, this.profileId)
+         this.configKeywordsService.deleteIntegrationPointData(ipID, this.profileId)
           .subscribe(data => {
             for (let i = 0; i < this.integrationDetail.lstEndPoints.length; i++) {
               if (this.integrationDetail.lstEndPoints[i] == event) {

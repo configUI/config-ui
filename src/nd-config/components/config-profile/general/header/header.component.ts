@@ -43,6 +43,8 @@ export class HeaderComponent implements OnInit {
   httpReqFullFp: HttpReqFullFp;
   httpRespFullFp: HttpRespFullFp;
 
+  keywordList = ['captureCustomData' , 'captureHTTPReqFullFp', 'captureHTTPRespFullFp'];
+
   profileId: number;
 
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
@@ -56,6 +58,13 @@ export class HeaderComponent implements OnInit {
         data[key].value = (data[key].value == 'true' || data[key].value == 'false') ? data[key].value == 'true' : data[key].value
       }
       this.header = data;
+    });
+        this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.header = keywordDataVal;
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.header.enable);
     this.configKeywordsService.toggleKeywordData();

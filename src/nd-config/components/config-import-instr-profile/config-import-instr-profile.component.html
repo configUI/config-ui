@@ -10,33 +10,88 @@
         </div>
     </div>
     <div class="ui-g-12">
-        <div class="ui-g-6">
-            <div class="ui-g-4 label">
+        <div class="ui-g-10">
+            <div class="ui-g-2 label">
                 <label>View Instrumentation Profile</label>
             </div>
-            <div class="ui-g-4">
-                <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'95%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--"></p-dropdown>
+            <div class="ui-g-3">
+                <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--" filter="filter"></p-dropdown>
             </div>
-            <div class="ui-g-1" style="margin-right:5px">
-                <button pButton type="button" label="View" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
+            <div class="ui-g-1" style="width: 7%;margin-left:10px">
+                <button pButton type="button" label="View" icon="fa-eye" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
             </div>
-            <div class="ui-g-1">
-                <button pButton type="button" label="Clear" (click)="clearWindow()" title="Clear all data from window"></button>
+            <div class="ui-g-1" style="width: 8%;">
+                <button pButton type="button" label="Create" icon="fa-plus" (click)="createXMLInstrumentationFile()" title="Create"></button>
+            </div>
+            <div class="ui-g-1" style="width: 6.5%;">
+                <button pButton type="button" label="Edit" icon="fa-pencil" (click)="editSelectedXMLFile()" title="Edit Selected XML File"></button>
+            </div>
+            <div class="ui-g-1" style="width: 8%;">
+                <button pButton type="button" label="Delete" icon="fa-trash" (click)="deleteSelectedXMLFile()" title="Delete Selected XML File"></button>
+            </div>
+            <div class="ui-g-1" style="width: 6%;">
+                <button pButton type="button" label="Clear" icon="fa-eraser" (click)="clearWindow()" title="Clear all data from window"></button>
             </div>
         </div>
 
     </div>
     <div class="ui-g-12">
-        <div>
+        <div *ngIf="!editXMLFile && !createXMLInstrumentation">
             <textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>
+        </div>
+        <div *ngIf="editXMLFile && !createXMLInstrumentation">
+            <p-panel header="Edit XML">
+                <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)" [style]="{'height':'350px','width':'98.5%','background':'#fff'}" appendTo="body"></p-tree>
+		<p-contextMenu #cm class="configContextMenu" [model]="xmlTreeMenu"></p-contextMenu>
+                <div style="margin-top: 8px">
+                    <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(false)"></button>
+                    <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(false)"></button>
+                    <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(false)" label="Save" style="float: right;"></button>
+                </div>
+            </p-panel>
+        </div>
+        <div *ngIf="createXMLInstrumentation" #createPanel>
+            <p-panel header="Create XML">
+                <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)" [style]="{'height':'350px','width':'98.5%','background':'#fff'}" appendTo="body"></p-tree>
+	  	<p-contextMenu #cm class="configContextMenu" [model]="xmlTreeMenu"></p-contextMenu>
+                <div style="margin-top: 8px">
+                    <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(true)"></button>
+                    <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(true)"></button>
+                    <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(true)" label="Save" style="float: right;"></button>
+                    <span style="float: right; padding-right: 5px">Enter File Name <input type="text" pInputText [(ngModel)]="saveXMLFileName"/></span>
+                </div>
+            </p-panel>
         </div>
     </div>
 </div>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss"  [resizable]="false" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+    modal="modal" width="650" responsive="true">
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-    <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>
+
+<!-- Adding Node Dialog -->
+<p-dialog [header]="addDialogHeader" [resizable]="false" [(visible)]="addNodeDialog" [width]="450">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4" style="padding-top:5px">
+                Enter {{nodeTitle}}
+            </div>
+            <div class="ui-grid-col-7">
+                <input type="text" pInputText [(ngModel)]="nodeLabel" />
+            </div>
+        </div>
+	<div class="ui-grid-row" align="center" style="margin-top:5px;margin-bottom:5px;margin-left: 26%;">
+            <div class="ui-grid-col-3">
+                <button class="ui-button-info" id="disabled-btn" type="button" (click)="addXMLNodeToTree()" pButton label="OK"></button>
+            </div>
+            <div class="ui-grid-col-3">
+                <button class="ui-button-danger" id="disabled-btn" type="button" (click)="cancelAddingNode()" pButton label="Cancel"></button>
+            </div>
+        </div>
+    </div>
 </p-dialog>

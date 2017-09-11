@@ -56,17 +56,18 @@ export class ConfigProfileListComponent implements OnInit {
     this.profileListItem = [];
     let arr = []; //This variable is used to sort Profiles
     for (let i = 0; i < this.profileData.length; i++) {
-      arr.push(this.profileData[i].profileName);
+      arr.push(this.profileData[i].profileName); 
     }
     arr.sort();
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < this.profileData.length; j++) {
-        if (this.profileData[j].profileName == arr[i]) {
-          this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+      for (let i = 0; i< arr.length; i++){
+        for (let j = 0; j < this.profileData.length; j++) {
+          if(this.profileData[j].profileName == arr[i]){
+           this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
         }
       }
     }
-  }
+  
 
   /**For Saving Dialog Data when Save Button Is clicked */
   saveNewProfile(): void {

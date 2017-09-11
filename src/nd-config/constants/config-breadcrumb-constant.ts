@@ -14,7 +14,8 @@ export const LABEL = {
     TREE_MAIN: 'Topology Details',
     ND_AGENT: 'ND Agent Status',
     INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker',
-    AUTO_DISCOVER: 'Auto Discover'
+    AUTO_DISCOVER: 'Auto Discover',
+    VIEW_AUDIT_LOG: 'View Audit Log'
 } 
 
 export const URL = {
@@ -44,5 +45,6 @@ export const URL = {
     INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`,
     AUTO_DISCOVER: `${ROUTING_PATH}/auto-discover-main`,
     AUTO_DISCOVER_TREE: `${ROUTING_PATH}/auto-discover-tree`,
-
+  
+    VIEW_AUDIT_LOG: `${ROUTING_PATH}/audit-log-view`,
 };  

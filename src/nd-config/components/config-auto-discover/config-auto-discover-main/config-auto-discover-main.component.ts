@@ -39,14 +39,14 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
     this.autoDiscoverDetail = new AutoDiscoverData();
     this.loadNDAgentStatusData();
     this.loadAdrFiles();    
-
+    this.autoDiscoverDetail.discoveryMode = 1;
   }
 
   /**Getting application list data */
   loadNDAgentStatusData(): void {
     this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
       this.ndAgentStatusData = data;
-      this.getConnectedAgentsList(data);
+       this.getConnectedAgentsList(data); 
     });
 
   }
@@ -54,12 +54,12 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   /**Get list of agents from ND agent info */
   getConnectedAgentsList(data) {
     for (var i = 0; i < data.length; i++) {
-      if (data[i].st == "Inactive" || data[i].st == "Active") {
+      if (data[i].at == "Java" && data[i].st == "Active") {
 
         this.agentLabel.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
         this.agentValue.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
       }
-      this.agents = ConfigUiUtility.createListWithKeyValue(this.agentLabel, this.agentValue);
+     this.agents = ConfigUiUtility.createListWithKeyValue(this.agentLabel, this.agentValue);
 
     }
   }
@@ -78,7 +78,6 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
 
 
   discoverData() {
-
     if (this.autoDiscoverDetail.discoveryMode == 1) {
       if ((this.autoDiscoverDetail.classFilters == null && this.autoDiscoverDetail.methodFilters == null) || (this.autoDiscoverDetail.methodFilters == "" && this.autoDiscoverDetail.classFilters == "")) {
         this.configUtilityService.errorMessage("Provide atleast one of the filters");
@@ -97,10 +96,23 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
     this.configNdAgentService.discoverData(this.autoDiscoverDetail).subscribe(data => {
       this.autoDiscoverDetail = data;
       this.loadAdrFiles();
-      this.configUtilityService.successMessage("Data discovered successfully");
-    })
+     
+      if(data.status == 'empty' && data.discoveryMode == '1')
+        this.configUtilityService.errorMessage("Discovered class name or method name is wrong.");
+      else if(data.status == 'empty' && data.discoveryMode == '0')
+        this.configUtilityService.errorMessage("Auto discover method file is empty");
+      else
+        this.configUtilityService.successMessage("Data discovered successfully");   
+ 
+   })
 
+  }
 
+  resetAllFields(){
+    this.autoDiscoverDetail.classFilters = "";
+    this.autoDiscoverDetail.methodFilters = "";
+    this.autoDiscoverDetail.discoveryMode = 1;
+    this.autoDiscoverDetail.agents = "";
   }
 
   openAdrFile() {

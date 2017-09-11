@@ -27,7 +27,7 @@ export class ExceptionSettingComponent implements OnInit {
   keywordData = new EventEmitter();
   exception: Object;
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['instrExceptions', 'enableExceptionInSeqBlob', 'enableExceptionsWithSourceAndVars'];
+  keywordList: string[] = ['instrExceptions', 'enableExceptionsWithSourceAndVars'];
   subscriptionEG: Subscription;
   // selectedValue: string = 'unhandled';
   enableGroupKeyword: boolean;
@@ -43,11 +43,14 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
+<<<<<<< HEAD
 
     if(this.exception["enableExceptionInSeqBlob"].value == "0")
       {
         this.exception["enableExceptionInSeqBlob"].value = false;
       }
+=======
+>>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
@@ -63,10 +66,8 @@ export class ExceptionSettingComponent implements OnInit {
       if (key == 'instrExceptions')
         this.exception[key]["value"] = instrValue;
     }
-    this.exception["enableExceptionInSeqBlob"].value = this.exception["enableExceptionInSeqBlob"].value == true ? 1 : 0;
     this.keywordData.emit(this.exception);
     sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
-    sessionStorage.setItem("exceptionCapturingSeqBlob", String(this.exception["enableExceptionInSeqBlob"].value));
     sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
 
   }
@@ -74,11 +75,6 @@ export class ExceptionSettingComponent implements OnInit {
   resetKeywordData() {
     this.getKeywordData();
     this.exception = cloneObject(this.configKeywordsService.keywordData);
-    //to reset value of enableExceptionInSeqBlob keyword
-    if (this.exception['enableExceptionInSeqBlob'].value == 0)
-      this.exception['enableExceptionInSeqBlob'].value = false;
-    else
-      this.exception['enableExceptionInSeqBlob'].value = true;
   }
 
   /* This method is used to get the existing keyword data from the backend */
@@ -137,11 +133,26 @@ export class ExceptionSettingComponent implements OnInit {
     }
     else {
       this.exceptionData = new ExceptionData();
+<<<<<<< HEAD
+=======
+      if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
+      }
+      else if (this.exception["instrExceptions"].value == 1) {
+>>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
+        this.exceptionData.instrumentException = false;
+        this.exceptionData.exceptionCapturing = false;
+        this.exceptionData.exceptionTrace = false;
+        this.exceptionData.exceptionType = false;
+        this.exceptionData.exceptionTraceDepth = 9999;
+<<<<<<< HEAD
+=======
+      }
+>>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
     }
   }
 
@@ -171,7 +182,8 @@ export class ExceptionSettingComponent implements OnInit {
       else
         instrVal = instrVal + "%200";
 
-      if(this.exceptionData.exceptionType == false)
+
+      if (this.exceptionData.exceptionType == false)
         instrVal = instrVal + "%200";
       else
         instrVal = instrVal + "%203"
@@ -183,7 +195,6 @@ export class ExceptionSettingComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.exception['enableExceptionInSeqBlob'].value = this.exception['enableExceptionInSeqBlob'].value == true ? 1 : 0;
     if (this.subscription)
       this.subscription.unsubscribe();
     if (this.subscriptionEG)

@@ -23,9 +23,7 @@ export class ConfigTreeComponent implements OnInit {
               private route: ActivatedRoute,
               private configHomeService: ConfigHomeService,
               private router: Router
-               ) {
-                 this.loadTopologyTreeData();
-                }
+               ) { }
 
   topologyTreeData: TopologyInfo[];
   files: TreeNode[];
@@ -40,12 +38,11 @@ export class ConfigTreeComponent implements OnInit {
 
   ngOnInit() {
     console.log('routeparams---',this.route.params)
-    // this.loadTopologyTreeData();
+    this.loadTopologyTreeData();
     this.loadEnableAutoScaling();
+  }
 
-    }
-
-    loadEnableAutoScaling(){
+  loadEnableAutoScaling(){
       this.configHomeService.getMainData()
       .subscribe(data => {
         this.enableAutoScaling = data.enableAutoScaling;
@@ -53,15 +50,15 @@ export class ConfigTreeComponent implements OnInit {
       );
     }
 
-
   /*
-  * Here request for tree where topology acts as root node gives response
+  * Here request for tree where topology acts as root node gives response 
   * topology as root node and tiers as children
   * so when user clicks on topo node no need to request to sever to get all  tier childrens,
   * they are already present in tree but not visible tills its parent node topo is collapsed state.
   */
 
   loadTopologyTreeData(): void {
+
     this.route.params.subscribe((params: Params) => {this.dcId = params['dcId']
                                                     this.topoId = params['topoId']
     });
@@ -69,15 +66,16 @@ export class ConfigTreeComponent implements OnInit {
 
     /**below route function is always called whenever routing changes
      * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
-     *
+     * 
      */
      this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
        url = event["url"];
        let arr = url.split("/");
       if(arr.indexOf("tree-main") != -1){
+      
           if(arr.indexOf("topology") != -1){
             this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
-            this.createTreeData(data);
+                this.createTreeData(data);
             })
           }
           else{
@@ -86,7 +84,7 @@ export class ConfigTreeComponent implements OnInit {
             })
           }
       }
-    })
+    }) 
   }
 
   /*
@@ -138,7 +136,7 @@ export class ConfigTreeComponent implements OnInit {
   }
 
   /**
-   * This method is used to set node icon
+   * This method is used to set node icon 
    */
   addNodeInImage(node: TreeNode) {
 
@@ -182,6 +180,6 @@ export class ConfigTreeComponent implements OnInit {
       this.subscription.unsubscribe();
     }
    }
-
+     
 
 }

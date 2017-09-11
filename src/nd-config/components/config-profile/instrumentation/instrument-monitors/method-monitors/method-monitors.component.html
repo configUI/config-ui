@@ -1,4 +1,4 @@
-<p-dataTable class="nde-ui" [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData"  [rows]="12" [paginator]="methodMonitorData?.length > 12" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData" [rows]="12" [paginator]="methodMonitorData?.length > 12" [pageLinks]="3" (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)">
     <p-header>
         <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span class="configui-float-css"> Apply method monitors </span>
@@ -30,7 +30,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
@@ -67,10 +67,11 @@
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
 
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+     <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
+               

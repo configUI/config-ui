@@ -398,9 +398,9 @@ export class JavaMethodComponent implements OnInit {
           returnType = "double";
           break;
         case 'L':
-        case '[':
-          while (charArr[i++] != ';')
-            ;
+        // case '[':
+        //   while (charArr[i++] != ';')
+        //     ;
           returnType = "object/string";
           break;
         default:
@@ -688,58 +688,66 @@ export class JavaMethodComponent implements OnInit {
   }
 
   //for creating list for index i.e arguments number list
-  validateArgAndGetArgumentsNumberList() {
-
-    let argStart = this.methodBasedCustomData.fqm.indexOf("(");
-    let argEnd = this.methodBasedCustomData.fqm.indexOf(")");
-    let args = this.methodBasedCustomData.fqm.substring(argStart + 1, argEnd);
-
-    //flag used for creating string "Ljava/lang/String;"
-    let flag = false;
-    let length = 0;
-    let string = '';
-    for (let i = 0; i < args.length; i++) {
-      if (args[i] == "L") {
-        flag = true;
-        string = string + args[i];
-        continue;
-      }
-      else if (flag) {
-        if (args[i] == ";") {
-          string = string + args[i];
-
-          //here string = "Ljava/lang/String;"
-
-          if (this.DATA_TYPE_ARR.indexOf(string) == -1){
-            this.configUtilityService.errorMessage("Invalid Argument Data Type")
-            flag = false;
-            return;
-          }
-          else{
-            length++;
-          }
-        }
-        else
-          string = string + args[i];
-
+    validateArgAndGetArgumentsNumberList() {
+    if (this.methodBasedCustomData.fqm == null || this.methodBasedCustomData.fqm == "") {
+      this.configUtilityService.errorMessage("Fill out fully qualified method name first");
+      this.indexList = [];
+      return;
+    }
+    else {
+      let argStart = this.methodBasedCustomData.fqm.indexOf("(");
+      let argEnd = this.methodBasedCustomData.fqm.indexOf(")");
+      let args = this.methodBasedCustomData.fqm.substring(argStart + 1, argEnd);
+      //flag used for creating string "Ljava/lang/String;"
+      let flag = false;
+      let length = 0;
+      let string = '';
+      if (args.length == 0) {
+        this.configUtilityService.errorMessage("No Arguments present in Fqm")
       }
       else {
-        if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1){
-          this.configUtilityService.errorMessage("Invalid Argument Data Type")
-          return;
-        }
-        else{
-          length++;
+        for (let i = 0; i < args.length; i++) {
+          if (args[i] == "L") {
+            flag = true;
+            string = string + args[i];
+            continue;
+          }
+          else if (flag) {
+            if (args[i] == ";") {
+              string = string + args[i];
+
+              // if (this.DATA_TYPE_ARR.indexOf(string) == -1) {
+              //   this.configUtilityService.errorMessage("Invalid Argument Data Type")
+              //   flag = false;
+              //   return;
+              // }
+              // else {
+                length++;
+                string = '';
+                flag = false;
+              // }
+            }
+            else
+              string = string + args[i];
+
+          }
+          else {
+            if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
+              this.configUtilityService.errorMessage("Invalid Argument Data Type")
+              return;
+            }
+            else {
+              length++;
+            }
+          }
         }
       }
+      this.indexList = [];
+      // this.indexList.push({ value: -1, label: '--Select Index--' });
+      for (let i = 1; i <= length; i++) {
+        this.indexList.push({ 'value': i, 'label': i + '' });
+      }
     }
-    this.indexList = [];
-    // this.indexList.push({ value: -1, label: '--Select Index--' });
-    for (let i = 1; i <= length; i++) {
-      this.indexList.push({ 'value': i, 'label': i+''});
-    }
-    // this.addArgumentRulesDialog = true;
-    // this.argumentTypeRules = new ArgumentTypeData();
   }
 
 

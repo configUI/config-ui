@@ -1,5 +1,5 @@
 .config-ui-auto {
-    padding-top: 97px
+    padding-top: 165px
 }
 
 .instrumentation-css {
@@ -12,8 +12,8 @@
     border: 1px solid #D84315 !important;
 }
 
-.config_instr_hdr{
-    background:#006699;
+.config_instr_hdr {
+    background: #006699;
     margin-left: -6px;
     border-radius: 3px;
     margin-bottom: -7px;
@@ -21,8 +21,8 @@
     padding: 0
 }
 
-.config_Uninstr_hdr{
-    background:#006699;
+.config_Uninstr_hdr {
+    background: #006699;
     margin-left: 6px;
     border-radius: 3px;
     margin-bottom: -7px;
@@ -30,6 +30,6 @@
     height: 33px;
 }
 
-.config-instr-save-botton{
-    background-color:  rgb(63, 81, 181) !important;
+.config-instr-save-botton {
+    background-color: rgb(63, 81, 181) !important;
 }

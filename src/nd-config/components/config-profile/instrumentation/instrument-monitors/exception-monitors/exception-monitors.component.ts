@@ -87,7 +87,7 @@ export class ExceptionMonitorsComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
     }
-    // this.configKeywordsService.saveProfileKeywords(this.profileId);
+   //this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
       if (this.selectedValues == false) {
         filePath = "NA";

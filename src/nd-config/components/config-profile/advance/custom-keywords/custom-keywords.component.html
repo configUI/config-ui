@@ -35,7 +35,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom configuration' : 'Edit Custom configuration'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNew ? 'Add Custom configuration' : 'Edit Custom configuration'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

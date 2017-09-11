@@ -41,4 +41,6 @@ export class ConfigApplicationService {
     let url = `${URL.GENERATE_ND_CONF}/${data}`;
     return this._restApi.getDataByGetReq(url);
   }
+  
+  
 }

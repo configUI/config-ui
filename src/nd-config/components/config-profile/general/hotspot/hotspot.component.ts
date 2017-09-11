@@ -25,7 +25,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASTraceLevel', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff'];
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff'];
 
   /**It stores keyword data for showing in GUI */
   hotspot: any;
@@ -89,12 +89,12 @@ export class HotspotComponent implements OnInit, OnDestroy {
     *  this is done to handle the case of writing keywords as:
     *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
     */
-    if (this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 && this.includedException != null) {
-      this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
-    }
-    else {
-      this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].defaultValue;
-    }
+      if (this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 && this.includedException != null) {
+        this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
+      }
+      else {
+        this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].defaultValue;
+      }
 
     if (this.excludedException != null && this.excludedException.length != 0) {
       this.hotspot["ASNegativeThreadFilter"].value = this.excludedException.join("&");
@@ -103,6 +103,14 @@ export class HotspotComponent implements OnInit, OnDestroy {
     else {
       this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].defaultValue;
     }
+    
+    if (this.includedException != null) {
+    if(this.includedException.length < 1){
+      this.hotspot["ASPositiveThreadFilters"].value = "NA";
+      this.includedException = null;
+    }
+   }
+
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
     console.log(" this.hotspot--",this.hotspot)
     this.keywordData.emit(this.hotspot);
@@ -111,16 +119,17 @@ export class HotspotComponent implements OnInit, OnDestroy {
   resetKeywordData() {
 
     this.hotspot = cloneObject(this.configKeywordsService.keywordData);
-    if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
-      this.includedException = null;
-    else
-      this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
-    // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
-    if (this.hotspot["ASNegativeThreadFilter"].value != null)
-      this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
-    this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+     if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
+          this.includedException = null;
+      else
+        this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
+        // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
+        if (this.hotspot["ASNegativeThreadFilter"].value != null)
+          this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
 
+       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
 
+    
   }
 
 

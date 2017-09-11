@@ -20,6 +20,8 @@ import { ConfigImportInstrProfileComponent } from '../components/config-import-i
 import { ConfigAutoDiscoverMainComponent } from "../components/config-auto-discover/config-auto-discover-main/config-auto-discover-main.component";
 import { ConfigAutoDiscoverTreeComponent } from "../components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component";
 
+import { ConfigViewAuditLogComponent } from '../components/config-view-audit-log/config-view-audit-log.component';
+
 /**For ProductUI */
 // const routes: Routes = [
 //     {
@@ -52,8 +54,8 @@ import { ConfigAutoDiscoverTreeComponent } from "../components/config-auto-disco
 //             { path: 'nd-agent', component: ConfigNdAgentComponent },
 //             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
 //             { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
-            // { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
-                
+//             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
+// 	    { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
 //         ]
 //     }
 // ];

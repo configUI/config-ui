@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
 
     modal="modal" width="700" responsive="true">
     <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
@@ -133,7 +133,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -149,7 +149,7 @@
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="operationName" type="text" class='hidden-validator config_align_dialog' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                    <input name="operationName" type="text" class='hidden-validator config_align_dialog ' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
                     <p-dropdown name="operationName" [style]="{'width': '177px'}" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                     <label>Bt name</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="btName" type="text" class="config_align_dialog" pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required ngModel/>
+                    <input name="btName" class="config_align_dialog" type="text" pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required ngModel/>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
 
 <!-- Add new Argument type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add argument type settings' :'Edit argument type settings'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewArg ? 'Add argument type settings' :'Edit argument type settings'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <!--<div class="ui-g-12">

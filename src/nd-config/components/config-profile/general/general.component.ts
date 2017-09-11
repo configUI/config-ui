@@ -5,7 +5,7 @@ import { KeywordsInfo } from '../../../interfaces/keywords-info';
 import { ConfigKeywordsDataService } from '../../../services/config-keywords-data.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
-import { Messages ,customKeywordMessage } from '../../../constants/config-constant'
+import { Messages, customKeywordMessage } from '../../../constants/config-constant'
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ConfigProfileService } from '../../../services/config-profile.service';
@@ -33,6 +33,9 @@ export class GeneralComponent implements OnInit {
   saveDisable: boolean = false;
   className: string = "General Component";
 
+  errDialog: boolean = false;
+  msg = [];
+
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -53,7 +56,7 @@ export class GeneralComponent implements OnInit {
 
   /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
   loadKeywordData() {
-    if (!this.configKeywordsService.keywordData){
+    if (!this.configKeywordsService.keywordData) {
       this.configKeywordsService.getProfileKeywords(this.profileId);
       // this.configKeywordsService.toggleKeywordData();
     }
@@ -61,12 +64,11 @@ export class GeneralComponent implements OnInit {
 
 
   saveKeywordData(keywordData) {
-    for(let key in keywordData){
+    for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
       this.configKeywordsService.keywordData[key].enable = true
     }
-
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    
     this.triggerRunTimeChanges(keywordData);
   }
 
@@ -81,12 +83,13 @@ export class GeneralComponent implements OnInit {
     for (let key in data) {
       keyWordDataList.push(key + "=" + data[key].value);
     }
-     console.log(this.className, "constructor", "this.configHomeService.trData.switch",this.configHomeService.trData);
-      console.log(this.className, "constructor", "this.configProfileService.nodeData",this.configProfileService.nodeData);
+    console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
+    console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
 
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
+      this.configKeywordsService.saveProfileKeywords(this.profileId);
       return;
     }
     else {
@@ -94,20 +97,53 @@ export class GeneralComponent implements OnInit {
 
       if (this.configProfileService.nodeData.nodeType == 'topology') {
         const url = `${URL.RUNTIME_CHANGE_TOPOLOGY}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            
+            that.errDialog = true;
+          }
+        })
       }
       else if (this.configProfileService.nodeData.nodeType == 'tier') {
         const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
       else if (this.configProfileService.nodeData.nodeType == 'server') {
         const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
 
       else if (this.configProfileService.nodeData.nodeType == 'instance') {
         const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}`;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList)
+        let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+          that.msg = rtcMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0) {
+            that.errDialog = true;
+          }
+        })
       }
     }
   }
