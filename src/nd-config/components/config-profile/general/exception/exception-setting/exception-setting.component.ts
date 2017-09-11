@@ -43,6 +43,14 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
+<<<<<<< HEAD
+
+    if(this.exception["enableExceptionInSeqBlob"].value == "0")
+      {
+        this.exception["enableExceptionInSeqBlob"].value = false;
+      }
+=======
+>>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
@@ -68,6 +76,7 @@ export class ExceptionSettingComponent implements OnInit {
     this.getKeywordData();
     this.exception = cloneObject(this.configKeywordsService.keywordData);
   }
+
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
     // let keywordData = this.configKeywordsService.keywordData;
@@ -94,24 +103,29 @@ export class ExceptionSettingComponent implements OnInit {
     if ((this.exception["instrExceptions"].value).includes("%20")) {
       let arr = (this.exception["instrExceptions"].value).split("%20")
       this.exceptionData = new ExceptionData();
-
-      if (arr[0] === "1") {
+      if (arr[0] === "1" && arr[2] === "0") {
         this.exceptionData.instrumentException = true;
         this.exceptionData.exceptionCapturing = false;
+        this.exceptionData.exceptionType = false;
       }
-      else if (arr[0] === "2") {
+      else if (arr[0] === "1" && arr[2] === "3") {
+        this.exceptionData.instrumentException = true;
+        this.exceptionData.exceptionCapturing = false;
+        this.exceptionData.exceptionType = true;
+      }
+      else if (arr[0] === "2" && arr[2] === "0" ) {
         this.exceptionData.instrumentException = true;
         this.exceptionData.exceptionCapturing = true;
+        this.exceptionData.exceptionType = false;
+      }
+      else if (arr[0] === "2" && arr[2] === "3" ) {
+        this.exceptionData.instrumentException = true;
+        this.exceptionData.exceptionCapturing = true;
+        this.exceptionData.exceptionType = true;
       }
       else
         this.exceptionData.instrumentException = false;
 
-      if (arr[1] === "1")
-        this.exceptionData.exceptionTrace = true;
-      else
-        this.exceptionData.exceptionTrace = false;
-
-      this.exceptionData.exceptionType = arr[2] == 0 ? false : true;
       if (arr.length > 3)
         this.exceptionData.exceptionTraceDepth = arr[3];
       else
@@ -119,6 +133,8 @@ export class ExceptionSettingComponent implements OnInit {
     }
     else {
       this.exceptionData = new ExceptionData();
+<<<<<<< HEAD
+=======
       if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
@@ -127,12 +143,16 @@ export class ExceptionSettingComponent implements OnInit {
         this.exceptionData.exceptionTraceDepth = 9999;
       }
       else if (this.exception["instrExceptions"].value == 1) {
+>>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
+<<<<<<< HEAD
+=======
       }
+>>>>>>> beb3066794cdbb18e111544b129c9dee5ec6eabc
     }
   }
 
@@ -161,6 +181,7 @@ export class ExceptionSettingComponent implements OnInit {
         instrVal = instrVal + "%201";
       else
         instrVal = instrVal + "%200";
+
 
       if (this.exceptionData.exceptionType == false)
         instrVal = instrVal + "%200";
