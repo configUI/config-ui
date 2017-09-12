@@ -20,35 +20,38 @@ export class ConfigTreeComponent implements OnInit {
   getTableData = new EventEmitter();
 
   constructor(private configTopologyService: ConfigTopologyService,
-              private route: ActivatedRoute,
-              private configHomeService: ConfigHomeService,
-              private router: Router
-               ) { }
+    private route: ActivatedRoute,
+    private configHomeService: ConfigHomeService,
+    private router: Router
+  ) { 
+    this.loadTopologyTreeData();
+  }
 
   topologyTreeData: TopologyInfo[];
   files: TreeNode[];
+  nodeId;
+  nodeLabel;
 
   selectedFiles: TreeNode[];
 
   dcId: number;
-  topoId:number;
+  topoId: number;
 
   subscription: Subscription;
-  enableAutoScaling: boolean;
+  enableAutoScaling: boolean = false;
 
   ngOnInit() {
-    console.log('routeparams---',this.route.params)
     this.loadTopologyTreeData();
-    this.loadEnableAutoScaling();
+    // this.loadEnableAutoScaling();
   }
 
-  loadEnableAutoScaling(){
-      this.configHomeService.getMainData()
+ /*  loadEnableAutoScaling() {
+    this.configHomeService.getMainData()
       .subscribe(data => {
         this.enableAutoScaling = data.enableAutoScaling;
       }
-      );
-    }
+     );
+  } */
 
   /*
   * Here request for tree where topology acts as root node gives response 
@@ -59,8 +62,9 @@ export class ConfigTreeComponent implements OnInit {
 
   loadTopologyTreeData(): void {
 
-    this.route.params.subscribe((params: Params) => {this.dcId = params['dcId']
-                                                    this.topoId = params['topoId']
+    this.route.params.subscribe((params: Params) => {
+    this.dcId = params['dcId']
+      this.topoId = params['topoId']
     });
     let url;
 
@@ -68,23 +72,23 @@ export class ConfigTreeComponent implements OnInit {
      * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
      * 
      */
-     this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-       url = event["url"];
-       let arr = url.split("/");
-      if(arr.indexOf("tree-main") != -1){
-      
-          if(arr.indexOf("topology") != -1){
-            this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
-                this.createTreeData(data);
-            })
-          }
-          else{
+    this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+      url = event["url"];
+      let arr = url.split("/");
+      if (arr.indexOf("tree-main") != -1) {
+
+        if (arr.indexOf("topology") != -1) {
+          this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
+            this.createTreeData(data);
+          })
+        }
+        else {
           this.configTopologyService.getTopologyTreeDetail(this.dcId).subscribe(data => {
             this.createTreeData(data);
-            })
-          }
+          })
+        }
       }
-    }) 
+    })
   }
 
   /*
@@ -92,19 +96,21 @@ export class ConfigTreeComponent implements OnInit {
    */
 
   loadNode(event) {
-     console.log("ConfigTreeComponent", "constructor", "event.node",event.node);
+    console.log("ConfigTreeComponent", "constructor", "event.node", event.node);
     if (event.node.data == "Topology") {
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
+      this.nodeId = event.node.id;
+      this.nodeLabel = event.node.label;
       this.getTableData.emit({ data })
     }
-    else if (!this.enableAutoScaling && event.node.data == "Tier") {
-      if(event.node.leaf != true){
+    else if (this.enableAutoScaling && event.node.data == "Tier") {
+      if (event.node.leaf != true) {
         this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
         let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
         this.getTableData.emit({ data })
       }
     }
-    else if (!this.enableAutoScaling && event.node.data == "Server") {
+    else if (this.enableAutoScaling && event.node.data == "Server") {
       this.configTopologyService.getServerTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
       let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.getTableData.emit({ data })
@@ -175,11 +181,27 @@ export class ConfigTreeComponent implements OnInit {
     }
   }
 
-   ngOnDestroy(){
-    if(this.subscription){
+  ngOnDestroy() {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
-   }
-     
+  }
+
+  /** To show and hide server(s) and instance(s) */
+  showServerInstance() {
+    for (let i = 0; i < this.files.length; i++) {
+      if (!this.enableAutoScaling && this.files[i].children) {
+        for (let j = 0; j < this.files[i].children.length; j++) {
+          if(this.files[i].children[j].children)
+          this.files[i].children[j].children = [];
+        }
+      }
+    }
+    if(this.nodeId != undefined){
+    let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': this.nodeId, nodeLabel: this.nodeLabel}
+      this.getTableData.emit({ data })
+    }
+  }
+
 
 }
