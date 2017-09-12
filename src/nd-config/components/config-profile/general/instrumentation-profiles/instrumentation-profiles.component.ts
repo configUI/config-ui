@@ -82,6 +82,20 @@ export class InstrumentationProfilesComponent implements OnInit {
       });
 
   }
+//To load XML files in dropdown on dropdown click
+  loadListOfXmldata() {
+    this.configKeywordsService.getListOfXmlFiles(this.profileId).subscribe(data => {
+      this.instrProfileSelectItem = [];
+      for (let i = 0; i < data.length; i++) {
+        this.instrProfileSelectItem.push({ value: data[i], label: data[i] });
+      }
+    },
+      error => {
+        console.log("error getting xml files");
+      });
+
+  }
+
 
   //It will load the saved list of instrument Profiles
   loadInstrData() {
@@ -117,7 +131,6 @@ export class InstrumentationProfilesComponent implements OnInit {
   }
 
   resetKeywordData() {
-
     this.xmlFilesList = cloneObject(this.configKeywordsService.keywordData);
     if (this.xmlFilesList["instrProfile"].value == "0" || this.xmlFilesList["instrProfile"].value == "") {
       this.instrProfiles = [];
