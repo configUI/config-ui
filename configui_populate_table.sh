@@ -9,26 +9,33 @@ INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail)
 (1,'HttpServletService','description'),
 (2,'EntryForWebLogicJSP','description'),
 (3,'ApacheJsperService','description'),
-(4,'jerseyCall','description'),
-(5,'glassFishJersey','description'),
-(6,'Generic','description'),
-(7,'JMSCall','description'),
-(8,'EntryForJBOSS','description'),
-(9,'ErrorPageEntry','description');
+(4, 'jerseyCall', 'description'),
+(5,'glassFishJersey', 'description'),
+(6,'Generic', 'description'),
+(7,'JMSCall', 'description'),
+(8,'EntryForJBOSS', 'description'),
+(9,'ErrorPageEntry','description'),
+(10,'HessianCallOut','description'),
+(11,'ATGServlet','description');
 
 INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name,entry_type_id, custom_entry) VALUES
-(1,'Fully qualified name for the service method for HttpServlet Class','javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V', 'HttpServlet.service',1,false),
+(1,'Fully qualified name for the service method for HttpServlet Class','javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','HttpServlet.service', 1,false),
 (2,'fully qualified name for the doFilter method for weblogic','weblogic.servlet.internal.FilterChainImpl.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','FilterChainImpl.doFilter', 2,false),
-(3,' ','org.apache.jasper.runtime.HttpJspBase.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','ApacheJsperService', 3, false),
+(3,' ','org.apache.jasper.runtime.HttpJspBase.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','ApacheJsperService', 3,false),
 (4,' ','weblogic.servlet.jsp.JspBase.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','WebAppFilterChain.doFilter', 2,false),
 (5,' ','com.ibm.ws.webcontainer.servlet.ServletWrapper.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletWrapper.service', 2,false),
 (6,' ','com.ibm.ws.webcontainer.servlet.ServletWrapper.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Lcom/ibm/ws/webcontainer/webapp/WebAppServletInvocationEvent;)V','ServletWrapper.service-WebAppServletInvocationEvent', 2,false),
 (7,' ','org.apache.catalina.core.ApplicationFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ApplicationFilterChain.doFilter', 8,false),
 (8,' ','org.glassfish.jersey.servlet.ServletContainer.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletContainer.service', 5,false),
 (9,' ','com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','WebAppFilterChain.doFilter', 2,false),
-(10,' ','org.apache.activemq.ActiveMQMessageConsumer.dispatch(Lorg/apache/activemq/command/MessageDispatch;)V','ActiveMQMessageConsumer.dispatch',7,false),
-(11,' ','com.ibm.mq.jms.MQMessageConsumer\$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer\$FacadeMessageListener.onMessage',7,false),
-(12,' ','weblogic.servlet.internal.RequestDispatcherImpl.forward(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','RequestDispatcherImpl.forward',9,false);
+(10,' ','weblogic.servlet.internal.RequestDispatcherImpl.forward(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','RequestDispatcherImpl.forward',9,false),
+(11,' ','com.caucho.hessian.server.HessianServlet.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','HessianServlet.service',10,false),
+(12,' ' ,'atg.servlet.pipeline.PipelineableServletImpl.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V', 'PipelineableServletImpl.service',11,false),
+(13,' ','atg.servlet.DynamoServlet.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','DynamoServlet.service',11,false),
+(14,' ','atg.servlet.sessionsaver.SessionSaverServlet.service(Latg/servlet/DynamoHttpServletRequest;Latg/servlet/DynamoHttpServletResponse;)V', 'SessionSaverServlet.service',11,false),
+(15,' ','atg.servlet.pipeline.HeadPipelineServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V', 'HeadPipelineServlet.service',11,false),
+(16,' ','org.apache.activemq.ActiveMQMessageConsumer.dispatch(Lorg/apache/activemq/command/MessageDispatch;)V','ActiveMQMessageConsumer.dispatch',7,false),
+(17,' ','com.ibm.mq.jms.MQMessageConsumer\$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer\$FacadeMessageListener.onMessage',7,false);
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
 (1, true, 1, 1),
@@ -40,9 +47,14 @@ INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, ent
 (7, true, 7, 1),
 (8, true, 8, 1),
 (9, true, 9, 1),
-(10,false, 10, 1),
-(11,false, 11, 1),
-(12,true, 12, 1);
+(10, true, 10, 1),
+(11, true, 11, 1),
+(12, true, 12, 1),
+(13, true, 13, 1),
+(14, true, 14, 1),
+(15, true, 15, 1),
+(16, false, 16, 1),
+(17, false, 17, 1);
 
 INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 (1,'char','0'),
@@ -53,7 +65,7 @@ INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 (6,'file','5');
 
 INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value,type) VALUES
-(1,'bciInstrSessionPct','0','100','2','0','normal'),
+(1,'bciInstrSessionPct','0','100','5','0','normal'),
 (2,'logLevelOneFpMethod','0','1','1','0','normal'),
 (3,'enableBciDebug','0','6','1','1','normal'),
 (4,'enableBciError','1','100','5','1','normal'),
@@ -83,7 +95,6 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (28,'BTRuleConfig','NA','NA','5','global','normal'),
 (29,'ndMethodMonFile','','','5','false','normal'),
 (30,'BTErrorRules','','','5','false','normal'),
-(31,'captureHttpSessionAttr','','','5','false','normal'),
 (32,'enableJVMThreadMonitor','0','2048','5','0','normal'),
 (33,'captureCustomData','','','5','false','normal'),
 (34,'ASPositiveThreadFilters','2','1048576','5','NA','normal'),
@@ -92,19 +103,19 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (37,'ASMethodHotspots','0','1','1','-1','normal'),
 (38,'enableExceptionInSeqBlob','0','1','2','0','pre-custom'),
 (39,'captureErrorLogs','0','2','2','0','normal'),
-(40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'),
+(40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'), 
 (41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom'),
 (42, 'HTTPStatsCondCfg','1','1024','5','false','normal'),
 (43,'enableExceptionsWithSourceAndVars','0','248','2','0','normal'),
 (44,'enableSourceCodeFilters','1','1024','5','false','normal'),
 (45,'ndExceptionMonFile','','','5','false','normal'),
-(46,'maxQueryDetailsmapSize','0','10000000','1','1000000','pre-custom'),
+(46,'maxQueryDetailMapSize','0','10000000','1','10000','pre-custom'),
 (47,'formatIPResourceURL','0','512','5','0','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
-(2,'WS backend','WEB SERVICE','HttpCallout','WS'),
+(2,'WS backend','WS','HttpCallout','WS'),
 (3,'JDBC backend','JDBC','oracleDB','JDBC'),
 (4,'Coherence backend','COHERENCE','HttpCallout','None'),
 (5,'RMI backend','RMI','HttpCallout','RMI'),
@@ -116,7 +127,8 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (11,'MONGO backend','MONGO','mongodb','MONGO'),
 (12,'Cassandra backend','CASSANDRA','cassandra','None'),
 (13,'Custom log backend','CUSTOM LOG','CustomLog','None'),
-(14,'Custom Error log backend','CUSTOM ERROR LOG','CustomErrorlog','None');
+(14,'Custom Error log backend','CUSTOM ERROR LOG','CustomErrorlog','None'),
+(15,'Thread backend','THREAD','Thread','None');
 
 
 INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry) VALUES
@@ -127,7 +139,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (5,'HTTP end point','org.apache.wink.client.internal.handlers.HttpURLConnectionHandler.processRequest(Lorg/apache/wink/client/ClientRequest;Lorg/apache/wink/client/handlers/HandlerContext;)Ljava/net/HttpURLConnection;','Apache Wink Client',1,false),
 (6,'HTTP end point','com.worklight.adapters.http.HTTPConnectionManager.execute(Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','MFP Worklight HTTP Client',1,false),
 (7,'HTTP end point','org.springframework.web.client.RestTemplate.doExecute(Ljava/net/URI;Lorg/springframework/http/HttpMethod;Lorg/springframework/web/client/RequestCallback;Lorg/springframework/web/client/ResponseExtractor;)Ljava/lang/Object;','Spring REST Template Client',1,false),
-(8,'HTTP end point','org.springframework.web.client.RestTemplate$HttpEntityRequestCallback.doWithRequest(Lorg/springframework/http/client/ClientHttpRequest;)V','Spring add Header in REST Callback Template Client',1,false),
+(8,'HTTP end point','org.springframework.web.client.RestTemplate\$HttpEntityRequestCallback.doWithRequest(Lorg/springframework/http/client/ClientHttpRequest;)V','Spring add Header in REST Callback Template Client',1,false),
 (9,'HTTP end point','org.springframework.http.client.support.HttpAccessor.createRequest(Ljava/net/URI;Lorg/springframework/http/HttpMethod;)Lorg/springframework/http/client/ClientHttpRequest;','Spring add Header in REST Client Template Client',1,false),
 (10,'HTTP end point','org.apache.http.impl.client.InternalHttpClient.doExecute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/client/methods/CloseableHttpResponse;','Apache Internal HTTP Client',1,false),
 (11,'WS end point','org.glassfish.jersey.client.JerseyInvocation.invoke()Ljavax/ws/rs/core/Response;','Jersey Webservice Client',2,false),
@@ -136,7 +148,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (14,'WS end point','com.sun.xml.ws.transport.http.client.HttpTransportPipe.processRequest(Lcom/sun/xml/ws/api/message/Packet;)Lcom/sun/xml/ws/api/pipe/NextAction;','HTTP Transport Pipe',2,false),
 (15,'WS end point','org.apache.cxf.jaxws.JaxWsClientProxy.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;','Apache cxf Webservice',2,false),
 (16,'RMI end point','java.rmi.Naming.lookup(Ljava/lang/String;)Ljava/rmi/Remote;','RMI Lookup Calls',5,false),
-(17,'RMI end point','java.rmi.Naming$ParsedNamingURL.<init>(Ljava/lang/String;ILjava/lang/String;)V','RMI Request',5,false),
+(17,'RMI end point','java.rmi.Naming\$ParsedNamingURL.<init>(Ljava/lang/String;ILjava/lang/String;)','RMI Request',5,false),
 (19,'JDBC end point','oracle.jdbc.driver.OraclePreparedStatementWrapper','oracleDB',3,false),
 (20,'HADOOP end point','org.springframework.data.hadoop.hbase.HbaseTemplate.execute(Ljava/lang/String;Lorg/springframework/data/hadoop/hbase/TableCallback;)Ljava/lang/Object;','Spring HBASE',8,false),
 (21,'COHERENCE end point','com.tangosol.net.cache.CachingMap.get(Ljava/lang/Object;)Ljava/lang/Object;','Coherence get',4,false),
@@ -172,7 +184,22 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (51,'CUSTOM LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;)V','LogEvent.<init>(String)',13,false),
 (52,'CUSTOM ERROR LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/Throwable;)V','LogEvent.<init>(String,Throwable)',14,false),
 (53,'CUSTOM ERROR LOG end point','atg.nucleus.logging.LogEvent.<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V','LogEvent.<init>(String,String,Throwable)',14,false),
-(54,'CUSTOM ERROR LOG end point','ch.qos.logback.classic.spi.LoggingEvent.<init>(Ljava/lang/String;Lch/qos/logback/classic/Logger;Lch/qos/logback/classic/Level;Ljava/lang/String;Ljava/lang/Throwable;[Ljava/lang/Object;)V','LoggingEvent.<init>(String,Logger,Level,String,Throwable,Object)',14,false);
+(54,'CUSTOM ERROR LOG end point','ch.qos.logback.classic.spi.LoggingEvent.<init>(Ljava/lang/String;Lch/qos/logback/classic/Logger;Lch/qos/logback/classic/Level;Ljava/lang/String;Ljava/lang/Throwable;[Ljava/lang/Object;)V','LoggingEvent.<init>(String,Logger,Level,String,Throwable,Object)',14,false),
+(55,'THREAD end point','java.lang.Thread.start()V','start()',15,false),
+(56,'THREAD end point','java.lang.Thread.run()V','run()',15,false),
+(57,'THREAD end point','java.util.concurrent.ThreadPoolExecutor.execute(Ljava/lang/Runnable;)V','execute(Runnable)',15,false),
+(58,'THREAD end point', 'java.util.concurrent.ThreadPoolExecutor.beforeExecute(Ljava/lang/Thread;Ljava/lang/Runnable;)V','beforeExecute(Thread,Runnable)',15, false), 
+(59,'THREAD end point','java.util.concurrent.ThreadPoolExecutor.afterExecute(Ljava/lang/Runnable;Ljava/lang/Throwable;)V','afterExecute(Throwable)',15,false),
+(60,'THREAD end point','java.util.concurrent.ForkJoinPool.addSubmission(Ljava/util/concurrent/ForkJoinTask;)V','addSubmission(ForkJoinTask)',15,false),
+(61,'THREAD end point','java.util.concurrent.ForkJoinTask.doExec()V','doExec()V',15,false),
+(62,'THREAD end point','java.util.concurrent.ForkJoinPool.externalPush(Ljava/util/concurrent/ForkJoinTask;)V','externalPush(ForkJoinTask)',15,false),
+(63,'THREAD end point','java.util.concurrent.ForkJoinTask.doExec()I','doExec()I',15,false),
+(64,'THREAD end point','com.tibco.pe.core.JobDispatcher.schedule(Lcom/tibco/pe/core/Job;)V','schedule(Job)',15,false),
+(65,'THREAD end point','com.tibco.pe.core.JobDispatcher$JobCourier.a(Lcom/tibco/pe/core/Job;)Z','a(Job)',15,false),
+(66,'WS end point','com.sun.xml.ws.transport.http.client.HttpTransportPipe.writeSOAPAction(Ljava/util/Map;Ljava/lang/String;Lcom/sun/xml/ws/api/message/Packet;)V','writeSOAPAction(Map,String,Packet)(i.e Ljava/lang/String;Lcom/sun/xml/ws/api/message/Packet;)',2,false),
+(67,'WS end point','com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.processRequest(Lcom/sun/xml/internal/ws/api/message/Packet;)Lcom/sun/xml/internal/ws/api/pipe/NextAction;','writeSOAPAction(Packet)',2,false),
+(68,'WS end point','com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.writeSOAPAction(Ljava/util/Map;Ljava/lang/String;)V','writeSOAPAction(Map,String)',2,false),
+(69,'WS end point','com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.writeSOAPAction(Ljava/util/Map;Ljava/lang/String;Lcom/sun/xml/internal/ws/api/message/Packet;)V','writeSOAPAction(Map,String,Packet)(i.e Lcom/sun/xml/internal/ws/api/message/Packet;)',2,false);
 
 
 
@@ -190,7 +217,8 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (11,true,false,false,false,false,false,false,false,false,false,false,false,false,11,1),
 (12,false,false,false,false,false,false,false,false,false,false,false,false,false,12,1),
 (13,false,false,false,false,false,false,false,false,false,false,false,false,false,13,1),
-(14,false,false,false,false,false,false,false,false,false,false,false,false,false,14,1);
+(14,false,false,false,false,false,false,false,false,false,false,false,false,false,14,1),
+(15,false,false,false,false,false,false,false,false,false,false,false,false,false,15,1);
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
 (1,true,1,1),
@@ -245,7 +273,22 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (51,false,51,1),
 (52,true,52,1),
 (53,true,53,1),
-(54,false,54,1);
+(54,false,54,1),
+(55,true,55,1),
+(56,true,56,1),
+(57,true,57,1),
+(58,true,58,1),
+(59,true,59,1),
+(60,true,60,1),
+(61,true,61,1),
+(62,true,62,1),
+(63,true,63,1),
+(64,true,64,1),
+(65,true,65,1),
+(66,true,66,1),
+(67,false,67,1),
+(68,false,68,1),
+(69,false,69,1);
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
 (1,'request'),
@@ -397,7 +440,6 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri,
 segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id)VALUES
 (1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1);
-
 
 COMMIT;
 +

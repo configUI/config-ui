@@ -245,7 +245,7 @@ deleteServiceEntryPoint():void{
     this.serviceEntryPointDetail = Object.assign({}, this.selectedServiceEntryData[0]);
   }
 
-  /**This method is used to validate the name of error Detection is already exists. */
+  /**This method is used to validate the name of Service entry point is already exists. */
   checkServiceEntryPointNameAlreadyExist(): boolean {
     for (let i = 0; i < this.serviceEntryData.length; i++) {
       if (this.serviceEntryData[i].name == this.serviceEntryPointDetail.name) {
