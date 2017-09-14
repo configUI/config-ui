@@ -801,8 +801,9 @@ export class JavaMethodComponent implements OnInit {
               break;
             case 'L':
             case '[':
-              while (charArr[i++] != ';' && i < charArr[i].length)
-                ;
+              while (charArr[i++] != ';'){
+              }
+              i--;
               if (pi == index)
                 return "object/string";
             default:

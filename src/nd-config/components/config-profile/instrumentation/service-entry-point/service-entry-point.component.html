@@ -65,7 +65,7 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pattern=".*(\((.*)\))+.*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+                <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
             </div>
         </div>
         <div class="ui-g config-ui">

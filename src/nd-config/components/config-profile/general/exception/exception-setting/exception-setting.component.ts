@@ -35,6 +35,8 @@ export class ExceptionSettingComponent implements OnInit {
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
+
     configKeywordsService.toggleKeywordData();
   }
 
@@ -64,8 +66,8 @@ export class ExceptionSettingComponent implements OnInit {
         this.exception[key]["value"] = instrValue;
     }
     this.keywordData.emit(this.exception);
-    sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
-    sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
+    // sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
+    // sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
 
   }
   /* This method is used to reset the keyword data */
@@ -136,6 +138,7 @@ export class ExceptionSettingComponent implements OnInit {
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
       }
+
     }
 
   /**Value for this keyword is
