@@ -42,7 +42,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-3">
-                <input name="httpStatsMonitorName" class="config_align_dialog" type="text" pattern="[A-Za-z0-9-_]{1,99}" [(ngModel)]="httpStatsMonitorDetail.conditionName" pInputText autofocus required ngModel/>
+                <input name="httpStatsMonitorName" class="config_align_dialog" type="text" pattern="[a-zA-Z]+[A-Za-z0-9-_]{1,99}" [(ngModel)]="httpStatsMonitorDetail.conditionName" pInputText autofocus required ngModel/>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-3">

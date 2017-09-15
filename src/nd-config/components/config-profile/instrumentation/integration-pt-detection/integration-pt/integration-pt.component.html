@@ -37,7 +37,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
+                <input name="name" required pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()"  title="Please enter valid name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /) in between the character. &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4:Name is of maximum 100 characters." type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
             </div>
         </div>
         <div class="ui-g">
