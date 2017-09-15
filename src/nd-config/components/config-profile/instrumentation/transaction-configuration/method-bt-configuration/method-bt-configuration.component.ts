@@ -105,14 +105,14 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.methodArgRulesInfo = [];
   }
 
-  arrStringLabel: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception', 'Eq'];
-  arrStringValue: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION', 'EQ'];
+  arrStringLabel: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
+  arrStringValue: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
 
 
-  arrNumericLabel: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'LT', 'GT', 'Eq', 'Ne', 'Exception'];
-  arrNumericValue: any[] = ['EQUALS', 'NOT_EQUALS', 'LESS_THAN', 'GREATER_THAN', 'LT', 'GT', 'EQ', 'NE', 'EXCEPTION'];
+  arrNumericLabel: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Exception'];
+  arrNumericValue: any[] = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION'];
 
-  arrCharLabel: any[] = ['Exception', 'Eq', 'Ne'];
+  arrCharLabel: any[] = ['Exception', 'Equals', 'Not equals'];
   arrCharValue: any[] = ['EXCEPTION', 'EQ', 'NE'];
 
   arrBooleanLabel: any[] = ['True', 'False', 'Exception'];

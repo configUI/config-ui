@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SelectItem } from 'primeng/primeng';
-
+import { ConfirmationService, SelectItem } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../services/config-utility.service';
 import { ConfigProfileService } from '../../services/config-profile.service'
 //  import { ProfileInfo } from '../../interfaces/profile-info';
 import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
-import { Messages, descMsg } from '../../constants/config-constant'
+import { Messages, descMsg } from '../../constants/config-constant';
+import { deleteMany } from '../../utils/config-utility';
 
 @Component({
   selector: 'app-config-profile-list',
@@ -17,7 +17,7 @@ import { Messages, descMsg } from '../../constants/config-constant'
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private router: Router) { }
+  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router) { }
 
   profileData: ProfileData[];
   selectedProfileData: ProfileData[];
@@ -26,6 +26,8 @@ export class ConfigProfileListComponent implements OnInit {
 
   profileListItem: SelectItem[];
   displayNewProfile: boolean = false;
+  showMsg: boolean = false;
+  displayErrMsg = [];
 
   ROUTING_PATH = ROUTING_PATH;
 
@@ -106,4 +108,71 @@ export class ConfigProfileListComponent implements OnInit {
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
   }
+
+  /** To delete profile */
+  deleteProfile(){
+    if(!this.selectedProfileData || this.selectedProfileData.length < 1){
+      this.configUtilityService.errorMessage("Select a profile to delete");
+      return;
+    }
+    if(this.selectedProfileData.length > 1){
+      this.configUtilityService.errorMessage("Select only one profile to delete")
+      return;
+    }
+    if(this.selectedProfileData[0].profileId == 1){
+      this.configUtilityService.errorMessage("Default profile cannot be deleted");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete selected profile?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+
+        this.configProfileService.deleteProfileData(this.selectedProfileData[0].profileId).subscribe(data => {
+
+          // If profile is applied to any topology
+          if(data != ""){
+            this.showMsg = true;
+            this.displayErrMsg = data.split(";");
+            this.displayErrMsg.pop();
+          }
+          // If profile is not applied to any topology
+          else{
+          this.deleteProfiles(this.selectedProfileData[0].profileId);
+          this.configUtilityService.infoMessage("Deleted successfully");
+          }         
+        })
+      },
+      reject: () => {
+
+      }
+    });
+
+  }
+
+    /**This method is used to delete profile */
+  deleteProfiles(arrProfId: number): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    // for (let index in arrProfId) {
+      rowIndex.push(this.getProfIndex(arrProfId));
+    // }
+
+    this.profileData = deleteMany(this.profileData, rowIndex);
+    //clearing the array used for storing selected row
+    this.selectedProfileData = [];
+  }
+
+    /**This method returns selected profile row on the basis of profId */
+  getProfIndex(profId: number): number {
+    for (let i = 0; i < this.profileData.length; i++) {
+      if (this.profileData[i].profileId == profId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
 }

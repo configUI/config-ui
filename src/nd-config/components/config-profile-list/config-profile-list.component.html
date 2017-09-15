@@ -1,64 +1,84 @@
 <div class="configUI">
-    <div class="header"><i aria-hidden="true"></i> Profile List
-        <span class="appIcon-css">
+  <div class="header"><i aria-hidden="true"></i> Profile List
+    <span class="appIcon-css">
             <button pButton type="button" title="Add Profile" (click)="openProfileDialog()" icon="fa-plus"></button>
+            <button pButton type="button"class="ui-button-danger" title="Delete Profile(s)" (click)="deleteProfile()" icon="fa-trash"></button>
         </span>
 
-    </div>
-    <div class="config-ui-table-margin">
-        <p-dataTable [value]="profileData" [rows]="15" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
-            <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
-                <template let-col let-profile="rowData" pTemplate>
-                <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile)" >{{profile[col.field]}}</a></span>
-            </template>
-            </p-column>
-            <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
-                <template let-col let-profile="rowData" pTemplate>
-                <span class="timpStamp-float-css" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
-            </template>
-            </p-column>
-            <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'50%'}">
-                <template let-col let-profile="rowData" pTemplate>
-                <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
-            </template>
-            </p-column>
-        </p-dataTable>
-    </div>
+  </div>
+  <div class="config-ui-table-margin">
+    <p-dataTable [value]="profileData" [rows]="15" [(selection)]="selectedProfileData" [paginator]="profileData?.length > 15"
+      [pageLinks]="3" class="nde-ui">
+      <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+      <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
+        <template let-col let-profile="rowData" pTemplate>
+          <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile)" >{{profile[col.field]}}</a></span>
+        </template>
+      </p-column>
+      <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
+        <template let-col let-profile="rowData" pTemplate>
+          <span class="timpStamp-float-css" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+        </template>
+      </p-column>
+      <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
+        <template let-col let-profile="rowData" pTemplate>
+          <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+        </template>
+      </p-column>
+    </p-dataTable>
+  </div>
 </div>
 <!--Dialog for Adding New Profile -->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Name</label>
-            </div>
-            <div class="ui-g-8">
-                <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-            </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Copy profile</label>
-            </div>
-            <div class="ui-g-8">
-                <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied"></p-dropdown>
-            </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Description</label>
-            </div>
-            <div class="ui-g-8">
-                <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
+<p-dialog class="profile-dialog" [resizable]="false" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile"
+  modal="modal" width="500" responsive="true">
+  <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Name</label>
+      </div>
+      <div class="ui-g-8">
+        <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+          autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Copy profile</label>
+      </div>
+      <div class="ui-g-8">
+        <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId"
+          placeholder="Select a Profile to be copied"></p-dropdown>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Description</label>
+      </div>
+      <div class="ui-g-8">
+        <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
+      </div>
+    </div>
+    <footer>
+      <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+        <button type="submit" pButton icon="fa-check" label="Save"></button>
+        <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
+      </div>
+    </footer>
+  </form>
+</p-dialog>
+
+<p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg" modal="modal"
+  width="300" responsive="true">
+  Profile cannot be deleted as it is applied at following level(s): <br>
+  <ul>
+    <li *ngFor="let msg of displayErrMsg">
+      <span>{{msg}}</span>
+    </li>
+  </ul>
+  <footer>
+    <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+      <button type="button" pButton (click)="showMsg=false" icon="fa-check" label="Ok"></button>
+    </div>
+  </footer>
 </p-dialog>

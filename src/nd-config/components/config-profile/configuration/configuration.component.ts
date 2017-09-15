@@ -35,10 +35,10 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     this.loadAdminInfo();
     this.loadKeywordData();
 	// This is done because if both the keywords in the exception capturing are disabled/default values the toggle in the configuration screen will also be disabled
-        if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
+        if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
       this.keywordGroup.general.exception.enable = false;
     }
-    else if (sessionStorage.getItem('exceptionCapturing') == null && sessionStorage.getItem('exceptionCapturingSeqBlob') == null && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == null) {
+    else if (sessionStorage.getItem('exceptionCapturing') == null && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == null) {
       this.keywordGroup.general.exception.enable = false;
     }
     else {

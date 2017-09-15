@@ -48,4 +48,8 @@ export class ConfigProfileService {
   getProfileName(profileId: number): Observable<string> {
     return this._restApi.getDataByGetReq(`${URL.GET_PROFILE_NAME}/${profileId}`);
   }
+
+  deleteProfileData(data): Observable<any>{
+    return this._restApi.getDataByPostReq(URL.DEL_PROFILE, data);
+  }
 }
