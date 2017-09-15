@@ -15,13 +15,13 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./exception-setting.component.css']
 })
 export class ExceptionSettingComponent implements OnInit {
-  
+
   @Input()
   data;
   profileId: number;
   index: number = 0;
   saveDisable: boolean;
-  
+
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();
@@ -32,27 +32,32 @@ export class ExceptionSettingComponent implements OnInit {
   // selectedValue: string = 'unhandled';
   enableGroupKeyword: boolean;
   keywordValue: Object;
-  
+
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
-    
+
     configKeywordsService.toggleKeywordData();
   }
-  
+
   exceptionData: ExceptionData;
   subscription: Subscription;
   exceptionForm: boolean = true;
-  
+
   ngOnInit() {
+    if(this.exception["enableExceptionInSeqBlob"].value == "0")
+      {
+        this.exception["enableExceptionInSeqBlob"].value = false;
+      }
+
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
       this.index = params['tabId'];
     });
-    
+
   }
-  
+
   /*This method is used to save the keyword data in backend */
   saveKeywordData(data) {
     let instrValue = this.instrExceptionValue(data);
@@ -63,14 +68,14 @@ export class ExceptionSettingComponent implements OnInit {
     this.keywordData.emit(this.exception);
     // sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
     // sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
-    
+
   }
   /* This method is used to reset the keyword data */
   resetKeywordData() {
     this.getKeywordData();
     this.exception = cloneObject(this.configKeywordsService.keywordData);
   }
-  
+
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
     // let keywordData = this.configKeywordsService.keywordData;
@@ -127,22 +132,14 @@ export class ExceptionSettingComponent implements OnInit {
     }
     else {
       this.exceptionData = new ExceptionData();
-      if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
       }
-      else if (this.exception["instrExceptions"].value == 1) {
-        this.exceptionData.instrumentException = false;
-        this.exceptionData.exceptionCapturing = false;
-        this.exceptionData.exceptionTrace = false;
-        this.exceptionData.exceptionType = false;
-        this.exceptionData.exceptionTraceDepth = 9999;
-      }
+
     }
-  }
 
   /**Value for this keyword is
    * 1%201%200%2012
