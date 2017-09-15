@@ -55,8 +55,7 @@ export class NVCookieComponent implements OnInit {
       this.ndSessionData.methodExitDepth = arr[1];
       this.ndSessionData.onResponseCommit = arr[2];
       this.ndSessionData.setResponseHeader = arr[3];
-      if (arr[4].startsWith("X-"))
-        this.ndSessionData.cookieName = arr[4].substring(2);
+      this.ndSessionData.cookieName = arr[4];
       this.ndSessionData.domain = arr[5];
       this.ndSessionData.idleTimeOut = arr[6];
       this.ndSessionData.maxFPAllowedInSession = arr[7];
@@ -115,7 +114,7 @@ export class NVCookieComponent implements OnInit {
     this.ndSessionData.onResponseCommit = this.ndSessionData.onResponseCommit ? 1 : 0;
     this.ndSessionData.setResponseHeader = this.ndSessionData.setResponseHeader ? 1 : 0;
 
-    let keyVal = `${this.ndSessionData.methodEntryDepth}%20${this.ndSessionData.methodExitDepth}%20${this.ndSessionData.onResponseCommit}%20${this.ndSessionData.setResponseHeader}%20X-${this.ndSessionData.cookieName}%20${this.ndSessionData.domain}%20${this.ndSessionData.idleTimeOut}%20${this.ndSessionData.maxFPAllowedInSession}`;
+    let keyVal = `${this.ndSessionData.methodEntryDepth}%20${this.ndSessionData.methodExitDepth}%20${this.ndSessionData.onResponseCommit}%20${this.ndSessionData.setResponseHeader}%20${this.ndSessionData.cookieName}%20${this.ndSessionData.domain}%20${this.ndSessionData.idleTimeOut}%20${this.ndSessionData.maxFPAllowedInSession}`;
     return keyVal;
   }
 

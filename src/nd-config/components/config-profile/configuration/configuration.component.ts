@@ -15,7 +15,7 @@ import { KeywordData, KeywordList } from '../../../containers/keyword-data';
 export class ConfigurationComponent implements OnInit, OnDestroy {
   keywordGroup: any;
   profileId: number;
-  toggleDisable: boolean = false;
+  toggleDisable: boolean=false;
 
   subscription: Subscription;
   subscriptionKeywordGroup: Subscription;
@@ -34,22 +34,22 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     });
     this.loadAdminInfo();
     this.loadKeywordData();
-	// This is done because if both the keywords in the exception capturing are disabled/default values the toggle in the configuration screen will also be disabled
-        if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
+    // This is done because this.keywordGroup.general.exception.enable gives us "false" when enabled
+   /* if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
       this.keywordGroup.general.exception.enable = false;
     }
-    else if (sessionStorage.getItem('exceptionCapturing') == null && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == null) {
-      this.keywordGroup.general.exception.enable = false;
+    else if (sessionStorage.getItem('exceptionCapturing') == null && sessionStorage.getItem('exceptionCapturingSeqBlob') == null && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == null) {
+         this.keywordGroup.general.exception.enable = false;
     }
     else {
-      this.keywordGroup.general.exception.enable = true;
+         this.keywordGroup.general.exception.enable = true;
     }
+    */
     // This is done because if all the two keywords of monitor are disabled then the toggle in the configuration screen will also be disabled 
     if (sessionStorage.getItem('enableBTMonitor') != "1" && sessionStorage.getItem('enableBackendMonitor') != "1") {
       this.keywordGroup.advance.monitors.enable=false;
     }
   }
-
   //This method is used to see whether it is admin mode or not
   loadAdminInfo(): void {
     this.configHomeService.getMainData()
@@ -71,6 +71,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           this.configKeywordsService.toggleKeywordData();
         }
       });
+
   }
 
   /**This is used to enable/disable groupkeyword values. */

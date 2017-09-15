@@ -35,6 +35,8 @@ export class ExceptionSettingComponent implements OnInit {
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.getKeywordData();
+    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
+
     configKeywordsService.toggleKeywordData();
   }
 
@@ -43,6 +45,11 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
+    if(this.exception["enableExceptionInSeqBlob"].value == "0")
+      {
+        this.exception["enableExceptionInSeqBlob"].value = false;
+      }
+
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
@@ -59,8 +66,8 @@ export class ExceptionSettingComponent implements OnInit {
         this.exception[key]["value"] = instrValue;
     }
     this.keywordData.emit(this.exception);
-    sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
-    sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
+    // sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
+    // sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
 
   }
   /* This method is used to reset the keyword data */
@@ -125,22 +132,14 @@ export class ExceptionSettingComponent implements OnInit {
     }
     else {
       this.exceptionData = new ExceptionData();
-      if (this.exception["instrExceptions"].value == 0) {
         this.exceptionData.instrumentException = false;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
       }
-      else if (this.exception["instrExceptions"].value == 1) {
-        this.exceptionData.instrumentException = false;
-        this.exceptionData.exceptionCapturing = false;
-        this.exceptionData.exceptionTrace = false;
-        this.exceptionData.exceptionType = false;
-        this.exceptionData.exceptionTraceDepth = 9999;
-      }
+
     }
-  }
 
   /**Value for this keyword is
    * 1%201%200%2012

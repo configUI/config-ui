@@ -1,7 +1,7 @@
 <div class="configUI">
     <div class="header"><i aria-hidden="true"></i>Application List
         <span class="appIcon-css">
-<!--        <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button> -->
+          <!--  <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>-->
             <button pButton type="button" title="Add an application" (click)="openAppDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an application"(click)="editAppDialog()" icon="fa-pencil" ></button>
             <button pButton type="button"class="ui-button-danger" title="Delete application(s)" (click)="deleteApp()" icon="fa-trash"></button>
@@ -46,7 +46,7 @@
 </div>
 <!--Dialog for adding Application-->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
