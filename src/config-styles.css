@@ -998,3 +998,7 @@ a {
 .config_align_dialog{
     width:177px;
 }
+/*Added to resolve bug Id-34208*/
+.configui .ui-dropdown .ui-dropdown-panel{
+    width : 100%
+}

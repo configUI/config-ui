@@ -184,7 +184,7 @@
                     <label>Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="value" type="text" class="config_align_dialog" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required ngModel/>
+                    <input name="value" type="text" class="config_align_dialog" pInputText [(ngModel)]="btMethodRulesDetail.value" (keydown.space)="$event.preventDefault()" required pattern="[a-zA-Z0-9]+[0-9a-zA-Z]*$" autofocus required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
