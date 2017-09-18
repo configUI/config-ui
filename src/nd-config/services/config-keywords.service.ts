@@ -388,6 +388,7 @@ export class ConfigKeywordsService {
           for (let i = 2; i < arr.length; i++) {
             arrPartial.push(arr[i])
           }
+          arrPartial.pop();
           this.saveProfileKeywords(profileId);
           rtcMsg = arrPartial;
         }
