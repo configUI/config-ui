@@ -46,7 +46,7 @@
                 <label>Display name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodDisplayName" pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
+                <input name="methodDisplayName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
             </div>
         </div>
         <div class="ui-g">
