@@ -27,12 +27,12 @@ export class UrlCapturingComponent implements OnInit {
   keywordData = new EventEmitter();
   urlCapturing: Object;
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['formatIPResourceURL'];
+  keywordList: string[] = ['formatIPResourceURL', 'enableIPResourceURL', 'dumpDefaultCassandraQuery', 'enableTransformThreadSubClass'];
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
   keywordValue: Object;
 
-  constructor(private configKeywordsService: ConfigKeywordsService,private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.configKeywordsService.toggleKeywordData();
   }
 
@@ -42,11 +42,11 @@ export class UrlCapturingComponent implements OnInit {
   // selectedValues: boolean;
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) =>{
+    this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable=this.profileId==1? true:false;
+      this.saveDisable = this.profileId == 1 ? true : false;
       this.index = params['tabId'];
-      });
+    });
     this.urlCapturingData = new UrlCapturingData();
     this.getKeywordData();
   }
@@ -55,24 +55,23 @@ export class UrlCapturingComponent implements OnInit {
   saveKeywordData() {
     let formatIPVal = this.formatIPResourceURLValue();
     for (let key in this.urlCapturing) {
-      if (key == 'formatIPResourceURL')
+      if (key == 'formatIPResourceURL') 
         this.urlCapturing[key]["value"] = formatIPVal;
     }
     this.keywordData.emit(this.urlCapturing);
   }
 
-   /* This method is used to reset the keyword data*/
-   resetKeywordData() {
+  /* This method is used to reset the keyword data*/
+  resetKeywordData() {
     this.getKeywordData();
-    if (this.urlCapturing["formatIPResourceURL"].value == "0")
-      {
-        this.urlCapturingData.includeParameter = false;
-        this.urlCapturingData.urlOffset = null;
-        this.urlCapturingData.maxChar = null;
-      }
-   else
-    this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
-   }
+    if (this.urlCapturing["formatIPResourceURL"].value == "0") {
+      this.urlCapturingData.includeParameter = false;
+      this.urlCapturingData.urlOffset = null;
+      this.urlCapturingData.maxChar = null;
+    }
+    else
+      this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
+  }
 
   /* This method is used to get the existing value of keyword from the backend*/
   getKeywordData() {
@@ -115,50 +114,48 @@ export class UrlCapturingComponent implements OnInit {
       else
         this.urlCapturingData.urlOffset = arr[1];
 
-      if (arr[2] === "256")
+      if (arr[2] === "10000")
         this.urlCapturingData.maxChar = null;
       else
         this.urlCapturingData.maxChar = arr[2];
     }
   }
 
-   /**Value for this keyword is
-   * 1%205%2010
-   * 1-  Enable includeParameter // It can be 0 or 1 [0 - disable , 1 - enable]
-   * 5- url offset
-   * 10- maximum characters
-   */
-
-  // Method used to construct the value of instrException keyword.
+  /**Value for this keyword is
+  * 1%205%2010
+  * 1-  Enable includeParameter // It can be 0 or 1 [0 - disable , 1 - enable]
+  * 5- url offset
+  * 10- maximum characters
+  */
 
   // Method used to construct the value of formatIPResourceURL keyword.
   formatIPResourceURLValue() {
     var formatIPVal = {};
-      if (this.urlCapturingData.includeParameter == false)
-        formatIPVal = "0";
-      else
-        formatIPVal = "1";
+    if (this.urlCapturingData.includeParameter == false)
+      formatIPVal = "0";
+    else
+      formatIPVal = "1";
 
-      if (this.urlCapturingData.urlOffset != null)
-        formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
-      else
-        formatIPVal = formatIPVal + "%200";
+    if (this.urlCapturingData.urlOffset != null)
+      formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
+    else
+      formatIPVal = formatIPVal + "%200";
 
-      if (this.urlCapturingData.maxChar != null)
-        formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
-      else
-        formatIPVal = formatIPVal + "%20256"
-      if(formatIPVal == "0%200%20256"){
-        return 0;
-      }
-      else
-        return formatIPVal;
-     }
+    if (this.urlCapturingData.maxChar != null)
+      formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
+    else
+      formatIPVal = formatIPVal + "%2010000"
+    if (formatIPVal == "0%200%2010000") {
+      return 0;
+    }
+    else
+      return formatIPVal;
+  }
 
 
-   checkOffset(offset, maxChar) {
+  checkOffset(offset, maxChar) {
     if (this.urlCapturingData.urlOffset >= this.urlCapturingData.maxChar) {
-      offset.setCustomValidity('urlOffset value should be less than maxChar value.');
+      offset.setCustomValidity('urlOffset value should be less than maxChar value.'); 
     }
     else {
       offset.setCustomValidity('');
@@ -169,7 +166,7 @@ export class UrlCapturingComponent implements OnInit {
 
   checkMaxChar(offset, maxChar) {
     if (this.urlCapturingData.urlOffset >= this.urlCapturingData.maxChar) {
-      maxChar.setCustomValidity('maxChar value should be greater than urlOffset value.');
+      maxChar.setCustomValidity('maxChar value should be greater than urlOffset value.');      
     }
     else {
       maxChar.setCustomValidity('');

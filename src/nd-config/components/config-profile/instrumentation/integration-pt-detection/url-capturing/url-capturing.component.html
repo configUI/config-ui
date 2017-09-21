@@ -1,40 +1,70 @@
-<!--<form *ngIf="url-capturing" #form="ngForm" ngNativeValidate>-->
- <div class="tabsincontent">
-<div class="header">Endpoint URL capturing
-    <div class="pull-right">
-        <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-        <button type="submit" pButton icon="fa-check" (click)="saveKeywordData()" label="Save"></button>
-    </div>
-</div>
-<p-panel class="hideheader">
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <div class="ui-g-1"> </div>
-                <div class="ui-g-5">
-                    <p-checkbox name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
-                </div>
-            </div>
-            <div class="ui-g-12">
-                <div class="ui-g-1"> </div>
-                <div class="ui-g-2">
-                    <label>Skip characters from URL</label>
-                </div>
-                <div class="ui-g-1">
-                    <input name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="256" [(ngModel)]="urlCapturingData.urlOffset" pInputText required ngModel/>
-                </div>
-            </div>
-            <div class="ui-g-12">
-                <div class="ui-g-1"></div>
-                <div class="ui-g-2">
-                    <label>Max character limit in URL</label>
-                </div>
-                <div class="ui-g-1">
-                    <input name="maxChar" title="" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="256" [(ngModel)]="urlCapturingData.maxChar" pInputText required ngModel/>
-                </div>
+<form (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
+    <div class="tabsincontent">
+        <div class="header">Integration Point Settings
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
             </div>
         </div>
+        <p-panel class="hideheader">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
+                <div class="ui-g">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-10">
+                        <p-fieldset legend="Endpoint URL capturing" [toggleable]="true" [collapsed]="false">
+                            <div class="ui-g-10">
+                                <div class="ui-g-1"> </div>
+                                <div class="ui-g-5">
+                                    <p-checkbox name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="ui-g-10">
+                                <div class="ui-g-1"> </div>
+                                <div class="ui-g-3">
+                                    <label>Skip characters from URL</label>
+                                </div>
+                                <div class="ui-g-1">
+                                    <input name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset"  pInputText ngModel/>
+                                </div>
+                            </div>
+                            <div class="ui-g-10">
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-3">
+                                    <label>Max character limit in URL</label>
+                                </div>
+                                <div class="ui-g-1">
+                                    <input name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-2" style="margin-left:-3px"></div>
+                    <div class="ui-g-3">
+                        <label>Enable dumping of default cassandra query</label>
+                    </div>
+                    <div class="ui-g-1">
+                        <input name="dumpDefaultCassandraQuery" type="number" min={{urlCapturing.dumpDefaultCassandraQuery.min}} max={{urlCapturing.dumpDefaultCassandraQuery.max}} [(ngModel)]="urlCapturing.dumpDefaultCassandraQuery.value" pInputText required ngModel/>
+                    </div>
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-2">
+                        <label>Enable url capturing feature</label>
+                    </div>
+                    <div class="ui-g-1">
+                        <input name="enableIPResourceURL"  type="number" min={{urlCapturing.enableIPResourceURL.min}} max={{urlCapturing.enableIPResourceURL.max}} [(ngModel)]="urlCapturing.enableIPResourceURL.value" pInputText required ngModel/>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-2" style="margin-left:-3px"></div>
+                    <div class="ui-g-3">
+                        <label>Enable transformation of thread subclasses</label>
+                    </div>
+                    <div class="ui-g-1">
+                        <input name="enableTransformThreadSubClass"  type="number" min={{urlCapturing.enableTransformThreadSubClass.min}} max={{urlCapturing.enableTransformThreadSubClass.max}} [(ngModel)]="urlCapturing.enableTransformThreadSubClass.value" pInputText required ngModel/>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
     </div>
-</p-panel>
- </div>
-<!--</form>-->
+</form>

@@ -110,7 +110,32 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (44,'enableSourceCodeFilters','1','1024','5','false','normal'),
 (45,'ndExceptionMonFile','','','5','false','normal'),
 (46,'maxQueryDetailMapSize','0','10000000','1','10000','pre-custom'),
-(47,'formatIPResourceURL','0','512','5','0','normal');
+(47,'formatIPResourceURL','0','512','5','0','normal'),
+(48,'enableIPResourceURL','0','1','2','0','normal'),
+(49,'dumpDefaultCassandraQuery','0','1','2','0','normal'),
+(50,'enableTransformThreadSubClass','0','1','2','1','normal'),
+(51,'captureDocumentforMongo','0','1','2','0','normal'),
+(52,'enableErrorRedirectionPage','0','1','2','0','normal'),
+(53,'enableMethodBreakDownTime','0','1024','5','0','normal'),
+(54,'NDHTTPRepHdrCfgListFullFp','1','1024','6','NA','pre-custom'),
+(55,'NDHTTPRepHdrCfgListL1Fp','1','1024','6','NA','pre-custom'),
+(56,'ndHttpHdrCaptureFileList','1','1024','6','NA','pre-custom'),
+(57,'ASReportDumpMode','0','3','1','1','normal'),
+(58,'ASStackCompareOption','1','2','4','1','pre-custom'),
+(59,'ASDataBufferMinCount','2','1024','4','16','pre-custom'),
+(60,'ASEnableFPSummaryReport','0','2','2','0','normal'),
+(61,'ASResumeDataBuffFreePct','1','100','4','25','pre-custom'),
+(62,'ndMonitorInterval','0','2147483647','2','0','normal'),
+(63,'captureExceptionTraceLevel','0','10','2','0','normal'),
+(64,'enableThreadCallout','0','10240','5','1','normal'),
+(65,'enableThreadMonTraceLevel','0','10','2','0','normal'),
+(66,'enableBTMonitorTrace','0','6','2','0','normal'),
+(67,'maxBTCount','1','5000','2','256','normal'),
+(68,'maxIPCount','1','1000','2','32','normal'),
+(69,'enableFPTrace','0','3','2','0','normal'),
+(70,'AgentTraceLevel','0','4','2','0','pre-custom'),
+(71,'captureHttpSessionTraceLevel','0','3','1','1','normal'),
+(72,'ndExceptionThrowingClassFilter','1','1024','6','NA','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
