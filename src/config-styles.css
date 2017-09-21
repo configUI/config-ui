@@ -9,82 +9,87 @@
 /*---------------Fonts CSS---------------*/
 
 @charset "UTF-8";
-
 @font-face {
-  font-family: "ndegui-icon";
-  src:url("fonts/ndegui-icon.eot");
-  src:url("fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"),
-    url("fonts/ndegui-icon.woff") format("woff"),
-    url("fonts/ndegui-icon.ttf") format("truetype"),
-    url("fonts/ndegui-icon.svg#ndegui-icon") format("svg");
-  font-weight: normal;
-  font-style: normal;
-
+    font-family: "ndegui-icon";
+    src: url("fonts/ndegui-icon.eot");
+    src: url("fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"), url("fonts/ndegui-icon.woff") format("woff"), url("fonts/ndegui-icon.ttf") format("truetype"), url("fonts/ndegui-icon.svg#ndegui-icon") format("svg");
+    font-weight: normal;
+    font-style: normal;
 }
 
 [data-icon]:before {
-  font-family: "ndegui-icon" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "ndegui-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="ndegui-"]:before,
 [class*=" ndegui-"]:before {
-  font-family: "ndegui-icon" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "ndegui-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .ndegui-application:before {
-  content: "\e000";
-}
-.ndegui-group:before {
-  content: "\e001";
-}
-.ndegui-home1:before {
-  content: "\e002";
-}
-.ndegui-instance:before {
-  content: "\e003";
-}
-.ndegui-instrmentation-profile:before {
-  content: "\e004";
-}
-.ndegui-nd-agent:before {
-  content: "\e005";
-}
-.ndegui-profile:before {
-  content: "\e006";
-}
-.ndegui-server:before {
-  content: "\e007";
-}
-.ndegui-tier:before {
-  content: "\e008";
-}
-.ndegui-topology:before {
-  content: "\e009";
-}
-.ndegui-topology-1:before {
-  content: "\e00a";
-}
-.ndegui-auto-discover:before {
-  content: "\e00b";
+    content: "\e000";
 }
 
+.ndegui-group:before {
+    content: "\e001";
+}
+
+.ndegui-home1:before {
+    content: "\e002";
+}
+
+.ndegui-instance:before {
+    content: "\e003";
+}
+
+.ndegui-instrmentation-profile:before {
+    content: "\e004";
+}
+
+.ndegui-nd-agent:before {
+    content: "\e005";
+}
+
+.ndegui-profile:before {
+    content: "\e006";
+}
+
+.ndegui-server:before {
+    content: "\e007";
+}
+
+.ndegui-tier:before {
+    content: "\e008";
+}
+
+.ndegui-topology:before {
+    content: "\e009";
+}
+
+.ndegui-topology-1:before {
+    content: "\e00a";
+}
+
+.ndegui-auto-discover:before {
+    content: "\e00b";
+}
 
 
 /*.ndeicon {
@@ -302,8 +307,6 @@ input[type="number"] {
 
 
 /*For hiding scroll in tree node */
-
-
 
 .auto-config-tree .ui-tree .ui-tree-container {
     width: 100%;
@@ -618,9 +621,11 @@ a {
 .configui-thread-css-2 {
     padding-left: 16px;
 }
-.configui-thread-css{
+
+.configui-thread-css {
     width: 20%;
 }
+
 
 /* Error-detection.css*/
 
@@ -995,10 +1000,17 @@ a {
     width: 72%;
 }
 
-.config_align_dialog{
-    width:177px;
+.config_align_dialog {
+    width: 177px;
 }
+
+.toggleChk .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(92, 136, 48) !important;
+}
+
+
 /*Added to resolve bug Id-34208*/
-.configui .ui-dropdown .ui-dropdown-panel{
-    width : 100%
+
+.configui .ui-dropdown .ui-dropdown-panel {
+    width: 100%
 }
