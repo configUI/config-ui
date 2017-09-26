@@ -42,7 +42,11 @@ export class ConfigHomeService {
     return this._restApi.getDataByGetReq(URL.HOME_SCREEN_URL);
   }
 
-  importTopology(): Observable<EntityInfo[]> {
-    return this._restApi.getDataByGetReq(URL.UPDATE_TOPOLOGY);
+  importTopology(topoName): Observable<EntityInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_TOPOLOGY}`, topoName);
+  }
+
+  getTopologyList(){
+    return this._restApi.getDataByGetReq(URL.GET_TOPO_LIST);
   }
 }
