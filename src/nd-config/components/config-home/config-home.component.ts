@@ -10,6 +10,7 @@ import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
 import { NDAgentInfo } from '../../interfaces/nd-agent-info';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
+import { ConfigUiUtility } from '../../utils/config-utility';
 
 @Component({
   selector: 'app-config-home',
@@ -33,18 +34,26 @@ export class ConfigHomeComponent implements OnInit {
   applicationMsg: string;
   profileInfoMsg: string;
   topologyInfoMsg: string;
+  topologyList = [];
+  selectedTopology: string;
 
   constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
     this.loadHomeData();
+    this.loadTopologyList();
+  }
+
+  loadTopologyList(){
+    this.configHomeService.getTopologyList().subscribe(data => {
+      this.topologyList = ConfigUiUtility.createListWithKeyValue(data, data);
+    })
   }
 
   /**Getting topology list , application list and profile list. */
   loadHomeData(): void {
     this.configHomeService.getMainData()
       .subscribe(data => {
-
         if (data.homeData[0].value.length > 5) {
           this.applicationMsg = "(Last 5 Modified)";
           this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
@@ -80,11 +89,12 @@ export class ConfigHomeComponent implements OnInit {
   }
 
   importTopologyDialog() {
+    this.selectedTopology = "";
     this.importTopo = true;
   }
 
   importTopology(): void {
-    this.configHomeService.importTopology().subscribe(data => {
+    this.configHomeService.importTopology(this.selectedTopology).subscribe(data => {
       if (data.length > 5) {
         this.topologyInfoMsg = "(Last 5 Modified)";
         this.topologyInfo = (data).slice(data.length - 5, data.length).reverse();
@@ -92,7 +102,7 @@ export class ConfigHomeComponent implements OnInit {
       else
         this.topologyInfo = (data).splice(0, data.length).reverse();
 
-      this.configUtilityService.infoMessage("Topologies imported successfully");
+      this.configUtilityService.infoMessage("Topology imported successfully");
     });
     this.importTopo = false;
   }

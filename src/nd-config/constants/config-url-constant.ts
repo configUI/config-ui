@@ -1,6 +1,6 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+  // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 
 
 //  const  SERVICE_URL = 'http://localhost:8090';
@@ -18,6 +18,7 @@ export const ROUTING_PATH: string = "";
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
+export const GET_TOPO_LIST = `${SERVICE_URL}/gettopologylist`;
 
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
