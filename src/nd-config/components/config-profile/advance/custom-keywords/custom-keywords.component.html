@@ -55,7 +55,7 @@
                 <label>Value</label>
             </div>
             <div class="ui-g-9">
-                <input name="value" type="text" size="50" pInputText [(ngModel)]="customKeywords.value" ngModel/>
+                <input name="value" type="text" size="50" pInputText [(ngModel)]="customKeywords.value" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>
         <div class="ui-g">

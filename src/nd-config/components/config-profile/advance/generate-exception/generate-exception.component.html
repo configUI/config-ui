@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required pattern="[^]{0,49}$" ngModel/>
+                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required pattern="[a-zA-Z\.]*" (keydown.space)="$event.preventDefault()" ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">
