@@ -135,7 +135,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (69,'enableFPTrace','0','3','2','0','normal'),
 (70,'AgentTraceLevel','0','4','2','0','pre-custom'),
 (71,'captureHttpSessionTraceLevel','0','3','1','1','normal'),
-(72,'ndExceptionThrowingClassFilter','1','1024','6','NA','normal');
+(72,'ndExceptionThrowingClassFilter','1','1024','6','NA','normal'),
+(73,'captureMethodForAllFP','0','1','2','0','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES

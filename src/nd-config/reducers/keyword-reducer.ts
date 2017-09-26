@@ -50,7 +50,8 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "formatIPResourceURL":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":47},
 "enableIPResourceURL":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":48},
 "dumpDefaultCassandraQuery":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":49},
-"enableTransformThreadSubClass":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":50}};
+"enableTransformThreadSubClass":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":50},
+"captureMethodForAllFP":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":73}};
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
     switch (action.type) {
