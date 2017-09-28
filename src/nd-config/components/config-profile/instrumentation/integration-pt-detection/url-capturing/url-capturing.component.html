@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader padding-left-css">
                 <div class="ui-g">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-10">
@@ -20,20 +20,20 @@
                             </div>
                             <div class="ui-g-10">
                                 <div class="ui-g-1"> </div>
-                                <div class="ui-g-3">
+                                <div class="ui-g-3" style="padding-left:25px">
                                     <label>Skip characters from URL</label>
                                 </div>
-                                <div class="ui-g-1">
-                                    <input name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset"  pInputText ngModel/>
+                                <div class="ui-g-2">
+                                    <input [disabled]="!urlCapturingData.includeParameter" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
                                 </div>
                             </div>
                             <div class="ui-g-10">
                                 <div class="ui-g-1"></div>
-                                <div class="ui-g-3">
+                                <div class="ui-g-3" style="padding-left:25px">
                                     <label>Max character limit in URL</label>
                                 </div>
-                                <div class="ui-g-1">
-                                    <input name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
+                                <div class="ui-g-2">
+                                    <input [disabled]="!urlCapturingData.includeParameter" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
                                 </div>
                             </div>
                         </p-fieldset>
@@ -52,7 +52,7 @@
                         <label>Enable url capturing feature</label>
                     </div>
                     <div class="ui-g-1">
-                        <input name="enableIPResourceURL"  type="number" min={{urlCapturing.enableIPResourceURL.min}} max={{urlCapturing.enableIPResourceURL.max}} [(ngModel)]="urlCapturing.enableIPResourceURL.value" pInputText required ngModel/>
+                        <input name="enableIPResourceURL" type="number" min={{urlCapturing.enableIPResourceURL.min}} max={{urlCapturing.enableIPResourceURL.max}} [(ngModel)]="urlCapturing.enableIPResourceURL.value" pInputText required ngModel/>
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -61,7 +61,8 @@
                         <label>Enable transformation of thread subclasses</label>
                     </div>
                     <div class="ui-g-1">
-                        <input name="enableTransformThreadSubClass"  type="number" min={{urlCapturing.enableTransformThreadSubClass.min}} max={{urlCapturing.enableTransformThreadSubClass.max}} [(ngModel)]="urlCapturing.enableTransformThreadSubClass.value" pInputText required ngModel/>
+                        <input name="enableTransformThreadSubClass" type="number" min={{urlCapturing.enableTransformThreadSubClass.min}} max={{urlCapturing.enableTransformThreadSubClass.max}} [(ngModel)]="urlCapturing.enableTransformThreadSubClass.value" pInputText required
+                            ngModel/>
                     </div>
                 </div>
             </div>

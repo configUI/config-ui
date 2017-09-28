@@ -55,7 +55,7 @@ export class UrlCapturingComponent implements OnInit {
   saveKeywordData() {
     let formatIPVal = this.formatIPResourceURLValue();
     for (let key in this.urlCapturing) {
-      if (key == 'formatIPResourceURL') 
+      if (key == 'formatIPResourceURL')
         this.urlCapturing[key]["value"] = formatIPVal;
     }
     this.keywordData.emit(this.urlCapturing);
@@ -109,15 +109,14 @@ export class UrlCapturingComponent implements OnInit {
       else
         this.urlCapturingData.includeParameter = false;
 
-      if (arr[1] === "0")
-        this.urlCapturingData.urlOffset = null;
-      else
         this.urlCapturingData.urlOffset = arr[1];
-
-      if (arr[2] === "10000")
-        this.urlCapturingData.maxChar = null;
-      else
         this.urlCapturingData.maxChar = arr[2];
+    }
+    else {
+      this.urlCapturingData = new UrlCapturingData();
+        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.urlOffset = 0;
+        this.urlCapturingData.maxChar = 256;
     }
   }
 
@@ -131,31 +130,30 @@ export class UrlCapturingComponent implements OnInit {
   // Method used to construct the value of formatIPResourceURL keyword.
   formatIPResourceURLValue() {
     var formatIPVal = {};
-    if (this.urlCapturingData.includeParameter == false)
-      formatIPVal = "0";
-    else
+    if (this.urlCapturingData.includeParameter == true)
+    {
       formatIPVal = "1";
 
-    if (this.urlCapturingData.urlOffset != null)
-      formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
-    else
-      formatIPVal = formatIPVal + "%200";
+         if (this.urlCapturingData.urlOffset != null)
+            formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
+         else
+            formatIPVal = formatIPVal + "%200";
 
-    if (this.urlCapturingData.maxChar != null)
-      formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
-    else
-      formatIPVal = formatIPVal + "%2010000"
-    if (formatIPVal == "0%200%2010000") {
-      return 0;
+         if (this.urlCapturingData.maxChar != null)
+            formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
+         else
+            formatIPVal = formatIPVal + "%20256";
     }
-    else
+    else {
+      formatIPVal = 0;
+    }
       return formatIPVal;
   }
 
 
   checkOffset(offset, maxChar) {
     if (this.urlCapturingData.urlOffset >= this.urlCapturingData.maxChar) {
-      offset.setCustomValidity('urlOffset value should be less than maxChar value.'); 
+      offset.setCustomValidity('urlOffset value should be less than maxChar value.');
     }
     else {
       offset.setCustomValidity('');
@@ -166,7 +164,7 @@ export class UrlCapturingComponent implements OnInit {
 
   checkMaxChar(offset, maxChar) {
     if (this.urlCapturingData.urlOffset >= this.urlCapturingData.maxChar) {
-      maxChar.setCustomValidity('maxChar value should be greater than urlOffset value.');      
+      maxChar.setCustomValidity('maxChar value should be greater than urlOffset value.');
     }
     else {
       maxChar.setCustomValidity('');
