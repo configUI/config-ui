@@ -306,6 +306,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.saveDataInObject();
     if(this.httpStatsMonitorDetail.compValue == null)
       this.httpStatsMonitorDetail.compValue = "";
+    if(this.httpStatsMonitorDetail.description==null || this.httpStatsMonitorDetail.description=="")
+      this.httpStatsMonitorDetail.description='-';
     this.configKeywordsService.editHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getAppIndex(this.httpStatsMonitorDetail.hscid);
@@ -330,6 +332,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
     }
     if(this.httpStatsMonitorDetail.compValue == null)
       this.httpStatsMonitorDetail.compValue = "";
+    if(this.httpStatsMonitorDetail.description==null || this.httpStatsMonitorDetail.description=="")
+      this.httpStatsMonitorDetail.description='-';
     this.configKeywordsService.addHttpStatsMonitorData(this.httpStatsMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting HTTP Stats Condition in DB
