@@ -45,10 +45,6 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
-    if(this.exception["enableExceptionInSeqBlob"].value == "0")
-      {
-        this.exception["enableExceptionInSeqBlob"].value = false;
-      }
 
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];

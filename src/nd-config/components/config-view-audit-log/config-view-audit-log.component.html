@@ -6,8 +6,12 @@
             <span>{{i+1}}</span>    
         </template>
     </p-column>
-    <p-column [style]="{'text-align':'right','width':'30px'}" field="timestamp" [sortable]="true" header="TimeStamp" [filter]="true"
-        filterPlaceholder="Search"></p-column>
+    <p-column [style]="{'width':'30px'}" field="timestamp" [sortable]="true" header="TimeStamp" [filter]="true"
+        filterPlaceholder="Search">
+        <template let-col let-rowData="rowData" pTemplate>
+            <span class="timpStamp-float-css" title="{{rowData[col.field]}}">{{rowData[col.field]}}</span>
+        </template>
+    </p-column>
     <p-column [style]="{'width':'40px'}" field="action" [sortable]="true" header="Action" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column [style]="{'width':'20px'}" field="username" [sortable]="true" header="User Name" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column [style]="{'width':'120px'}" field="description" [sortable]="true" header="Description" [filter]="true" filterPlaceholder="Search">
