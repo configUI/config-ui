@@ -91,6 +91,7 @@ const routes: Routes = [
             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
             { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
+            { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
 ];
 
 @NgModule({

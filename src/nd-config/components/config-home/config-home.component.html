@@ -154,7 +154,7 @@
       </div>
       <div class="ui-g-6">
         <input name="dropdown" type="text" size="5" class='hidden-validator' pInputText [(ngModel)]="selectedTopology" required ngModel/>
-        <p-dropdown name="dropdown" [style]="{'width':'205px'}" [options]="topologyList" [(ngModel)]="selectedTopology" placeholder="--Select--"
+        <p-dropdown name="dropdown" [style]="{'width':'205px'}" (click)="loadTopologyList()" [options]="topologyList" [(ngModel)]="selectedTopology" placeholder="--Select--"
           required></p-dropdown>
       </div>
     </div>

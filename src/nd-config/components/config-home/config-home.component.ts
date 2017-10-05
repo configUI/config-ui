@@ -41,11 +41,11 @@ export class ConfigHomeComponent implements OnInit {
 
   ngOnInit() {
     this.loadHomeData();
-    this.loadTopologyList();
   }
 
   loadTopologyList(){
     this.configHomeService.getTopologyList().subscribe(data => {
+      data = data.sort();
       this.topologyList = ConfigUiUtility.createListWithKeyValue(data, data);
     })
   }

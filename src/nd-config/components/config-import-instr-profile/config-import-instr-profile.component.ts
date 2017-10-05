@@ -107,6 +107,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configUtilityService.errorMessage("Select a file to View");
       return;
     }
+    this.xmlFormat = [];
     this._configKeywordsService.getXMLDataFromSelectedXMLFile(this.selectedXMLFile).subscribe(data => {
       // const xml = beautify(data._body);
       this.xmlFormat = data._body;
@@ -123,6 +124,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configUtilityService.errorMessage("Select a file to Edit");
       return;
     }
+    this.parsedXMLData  = [];
     this._configKeywordsService.editXMLDataFromSelectedXMLFile(this.selectedXMLFile).subscribe(data => {
       this.parsedXMLData = data['backendDetailList'];
     });
