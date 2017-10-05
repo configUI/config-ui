@@ -40,26 +40,7 @@
                             <p-radioButton name="enableForcedFPChain" value="2" label="Enable all with complete FP" [(ngModel)]="fpChain"></p-radioButton>
                         </div>
                     </div>-->
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"> </div>
-                        <div class="ui-g-3">
-                            <label>CPU time capturing</label>
-                        </div>
-                        <div class="ui-g-1">
-                            <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
-                        </div>
-                        <div class="ui-g-3 radioButtoncss">
-                            <p-radioButton name="enableCpuTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="cpuTime"></p-radioButton>
-                        </div>
-                        <div class="ui-g-3 configui-flowpath-css">
-                            <p-radioButton name="enableCpuTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
-                        </div>
-                        <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem"  required ngModel></p-dropdown>-->
-                        <!--<div class="ui-g-2">
-                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value"
-                                [options]="enableCpuTimeSelectItem"  required ngModel></p-dropdown>
-                        </div>-->
-                    </div>
+
 
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
@@ -82,10 +63,45 @@
                             <label>Capture method for all Flow path</label>
                         </div>
                         <div class="ui-g-2">
-                            <input name="captureMethodForAllFP" type="number"  pInputText min={{flowPath.captureMethodForAllFP.min}} max={{flowPath.captureMethodForAllFP.max}} [(ngModel)]="flowPath.captureMethodForAllFP.value" />
+                            <input name="captureMethodForAllFP" type="number" pInputText min={{flowPath.captureMethodForAllFP.min}} max={{flowPath.captureMethodForAllFP.max}} [(ngModel)]="flowPath.captureMethodForAllFP.value" />
                             <span></span>
                         </div>
 
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3">
+                            <label>CPU time capturing</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 radioButtoncss">
+                            <p-radioButton name="enableCpuTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 configui-flowpath-css">
+                            <p-radioButton name="enableCpuTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem"  required ngModel></p-dropdown>-->
+                        <!--<div class="ui-g-2">
+                            <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value"
+                                [options]="enableCpuTimeSelectItem"  required ngModel></p-dropdown>
+                        </div>-->
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3">
+                            <label>Method breakdown time capturing</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <p-radioButton name="enableMethodBreakDownTime" value="0" label="Disable" [(ngModel)]="methodBreakDownTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-2 radioButtoncss">
+                            <p-radioButton name="enableMethodBreakDownTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 configui-flowpath-css">
+                            <p-radioButton name="enableMethodBreakDownTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
+                        </div>
                     </div>
                     <!-- <div class="ui-g-12">
                         <div class="ui-g-1"></div>

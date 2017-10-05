@@ -9,38 +9,40 @@
         <p-panel class="hideheader">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader padding-left-css">
                 <div class="ui-g">
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-10">
-                        <p-fieldset legend="Endpoint URL capturing" [toggleable]="true" [collapsed]="false">
-                            <div class="ui-g-10">
-                                <div class="ui-g-1"> </div>
-                                <div class="ui-g-5">
-                                    <p-checkbox name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
-                                </div>
-                            </div>
-                            <div class="ui-g-10">
-                                <div class="ui-g-1"> </div>
-                                <div class="ui-g-3" style="padding-left:25px">
-                                    <label>Skip characters from URL</label>
-                                </div>
-                                <div class="ui-g-2">
-                                    <input [disabled]="!urlCapturingData.includeParameter" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
-                                </div>
-                            </div>
-                            <div class="ui-g-10">
-                                <div class="ui-g-1"></div>
-                                <div class="ui-g-3" style="padding-left:25px">
-                                    <label>Max character limit in URL</label>
-                                </div>
-                                <div class="ui-g-2">
-                                    <input [disabled]="!urlCapturingData.includeParameter" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
-                                </div>
-                            </div>
-                        </p-fieldset>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-5">
+                            <p-checkbox name="enableURLCapturing" label="Enable endpoint URL capturing" [(ngModel)]="enableFormatIPResourceURL" binary="false"></p-checkbox>
+                        </div>
                     </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-5" style="padding-left:25px">
+                            <p-checkbox [disabled]="!this.enableFormatIPResourceURL" name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"> </div>
+                        <div class="ui-g-3" style="padding-left:25px">
+                            <label>Skip characters from URL</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input [disabled]="!this.enableFormatIPResourceURL" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
+                        </div>
+
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2">
+                            <label>Max character limit in URL</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input [disabled]="!this.enableFormatIPResourceURL" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="ui-g-12">
-                    <div class="ui-g-2" style="margin-left:-3px"></div>
+                    <div class="ui-g-1"></div>
                     <div class="ui-g-3">
                         <label>Enable dumping of default cassandra query</label>
                     </div>
@@ -56,7 +58,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12">
-                    <div class="ui-g-2" style="margin-left:-3px"></div>
+                    <div class="ui-g-1"></div>
                     <div class="ui-g-3">
                         <label>Enable transformation of thread subclasses</label>
                     </div>

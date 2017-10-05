@@ -40,8 +40,8 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "enableBTMonitor":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":27},
 "ASTraceLevel":{"defaultValue":"1","min":"0","max":"20","assocId":-1,"value":"1","keyId":11},
 "logLevelOneFpMethod":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":2},
-"correlationIDHeader":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":17}, 
-"captureErrorLogs": {"defaultValue":"0","min":"0","max":"2","assocId":-1,"value":"0","keyId":2}, 
+"correlationIDHeader":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":17},
+"captureErrorLogs": {"defaultValue":"0","min":"0","max":"2","assocId":-1,"value":"0","keyId":2},
 "HTTPStatsCondCfg": {"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"0","keyId":5},
 "enableExceptionsWithSourceAndVars":{"defaultValue":"0","min":"0","max":"2048","assocId":-1,"value":"0","keyId":43},
 "enableSourceCodeFilters":{defaultValue: "false", min: "1", max: "1024", assocId: -1, value: "false", keyId: 44},
@@ -51,7 +51,8 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "enableIPResourceURL":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":48},
 "dumpDefaultCassandraQuery":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":49},
 "enableTransformThreadSubClass":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":50},
-"captureMethodForAllFP":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":73}};
+"captureMethodForAllFP":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":73},
+"enableMethodBreakDownTime":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":53}};
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
     switch (action.type) {

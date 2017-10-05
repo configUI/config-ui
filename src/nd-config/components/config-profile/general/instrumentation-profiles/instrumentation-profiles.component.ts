@@ -40,6 +40,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   subscription: Subscription;
   subscriptionEG: Subscription;
   openFileExplorerDialog: boolean = false;
+  isInstrProfileBrowse: boolean = false;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService
   ) {
@@ -141,14 +142,16 @@ export class InstrumentationProfilesComponent implements OnInit {
   /**used to open file manager
   */
   openFileManager() {
-
+    this.isInstrProfileBrowse = true
     this.openFileExplorerDialog = true;
 
   }
 
   //Method to get the xml file path and upload them
   browseXmlFiles(filesWithPath) {
-    this.openFileExplorerDialog = false;
+   if (this.isInstrProfileBrowse == true) {
+     this.isInstrProfileBrowse = false;
+     this.openFileExplorerDialog = false;
 
     // Finding duplicate entry
     let deepFilePathCopy = filesWithPath;
@@ -171,7 +174,7 @@ export class InstrumentationProfilesComponent implements OnInit {
     if(deepFilePathCopy.split(";").length != files.length)
     {
 	this.confirmationService.confirm({
-          message: 'Selection contains already added files. Are you sure that you want to upload unique files?',	
+          message: 'Selection contains already added files. Are you sure that you want to upload unique files?',
           header: 'Confirmation',
           icon: 'fa fa-question-circle',
           accept: () => {
@@ -186,12 +189,12 @@ export class InstrumentationProfilesComponent implements OnInit {
     		  },
       		  error => {
         	    console.log("Error in browsing xml files");
-      		  }); 
+      		  });
 		} else {
 		  this.configUtilityService.errorMessage("All Selected files are already imported");
-		}	
+		}
           }
-	});	
+	});
     } else {
         this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
           if (data.length < 1) {
@@ -204,7 +207,7 @@ export class InstrumentationProfilesComponent implements OnInit {
             console.log("Error in browsing xml files");
         });
     }
-    
-  }
 
+  }
+ }
 }

@@ -23,10 +23,11 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   @Output()
   keywordData = new EventEmitter();
 
-  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader','captureMethodForAllFP'];
+  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader','captureMethodForAllFP','enableMethodBreakDownTime'];
 
   flowPath: Object;
   cpuTime: string = '1';
+  methodBreakDownTime: string = '1';
 
   subscription: Subscription;
   subscriptionEG: Subscription;
@@ -46,6 +47,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.cpuTime = this.flowPath['enableCpuTime'].value;
       // this.enableCaptureHeader = this.flowPath['correlationIDHeader'];
       this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
+      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
     });
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
     this.configKeywordsService.toggleKeywordData();
@@ -75,6 +77,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
 
     this.flowPath['enableCpuTime'].value = this.cpuTime;
+    this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime;
     this.keywordData.emit(this.flowPath);
   }
 
@@ -82,6 +85,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
     this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
     this.cpuTime =  this.flowPath['enableCpuTime'].value;
+    this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
   }
 
   ngOnDestroy() {

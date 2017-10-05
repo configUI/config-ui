@@ -40,6 +40,7 @@ export class UrlCapturingComponent implements OnInit {
   subscription: Subscription;
   urlForm: boolean = true;
   // selectedValues: boolean;
+  enableFormatIPResourceURL: boolean;
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -65,12 +66,16 @@ export class UrlCapturingComponent implements OnInit {
   resetKeywordData() {
     this.getKeywordData();
     if (this.urlCapturing["formatIPResourceURL"].value == "0") {
+      this.enableFormatIPResourceURL = false;
       this.urlCapturingData.includeParameter = false;
       this.urlCapturingData.urlOffset = null;
       this.urlCapturingData.maxChar = null;
     }
     else
+    {
       this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
+      this.enableFormatIPResourceURL = true;
+    }
   }
 
   /* This method is used to get the existing value of keyword from the backend*/
@@ -99,6 +104,7 @@ export class UrlCapturingComponent implements OnInit {
 
       let arr = (this.urlCapturing["formatIPResourceURL"].value).split("%20")
       this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = true;
 
       if (arr[0] === "0") {
         this.urlCapturingData.includeParameter = false;
@@ -114,6 +120,7 @@ export class UrlCapturingComponent implements OnInit {
     }
     else {
       this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = false;
         this.urlCapturingData.includeParameter = false;
         this.urlCapturingData.urlOffset = 0;
         this.urlCapturingData.maxChar = 256;
@@ -130,10 +137,11 @@ export class UrlCapturingComponent implements OnInit {
   // Method used to construct the value of formatIPResourceURL keyword.
   formatIPResourceURLValue() {
     var formatIPVal = {};
-    if (this.urlCapturingData.includeParameter == true)
-    {
-      formatIPVal = "1";
-
+     if (this.enableFormatIPResourceURL == true) {
+         if (this.urlCapturingData.includeParameter == true)
+            formatIPVal = "1";
+         else
+            formatIPVal = "0";
          if (this.urlCapturingData.urlOffset != null)
             formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
          else
@@ -143,11 +151,12 @@ export class UrlCapturingComponent implements OnInit {
             formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
          else
             formatIPVal = formatIPVal + "%20256";
-    }
-    else {
-      formatIPVal = 0;
-    }
+
       return formatIPVal;
+     }
+     else {
+      return 0;
+     }
   }
 
 
