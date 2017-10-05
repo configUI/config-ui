@@ -37,9 +37,12 @@
     </div>
     <div class="ui-g-12">
         <div *ngIf="!editXMLFile && !createXMLInstrumentation">
-            <textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>
+            <!--<textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>-->
+	    <div class="config_textarea" id="xmlContentDiv">
+                <pre class="language-markup"><code class="codeClass" [innerHtml]="xmlFormat"></code></pre>
+            </div>
         </div>
-        <div *ngIf="editXMLFile && !createXMLInstrumentation">
+        <div *ngIf="editXMLFile && !createXMLInstrumentation" class="instrprofscroll">
             <p-panel header="Edit XML">
                 <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)" [style]="{'height':'350px','width':'98.5%','background':'#fff'}" appendTo="body"></p-tree>
 		<p-contextMenu #cm class="configContextMenu" [model]="xmlTreeMenu"></p-contextMenu>
@@ -50,7 +53,7 @@
                 </div>
             </p-panel>
         </div>
-        <div *ngIf="createXMLInstrumentation" #createPanel>
+        <div *ngIf="createXMLInstrumentation" #createPanel class="instrprofscroll">
             <p-panel header="Create XML">
                 <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)" [style]="{'height':'350px','width':'98.5%','background':'#fff'}" appendTo="body"></p-tree>
 	  	<p-contextMenu #cm class="configContextMenu" [model]="xmlTreeMenu"></p-contextMenu>
