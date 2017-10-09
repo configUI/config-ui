@@ -78,6 +78,9 @@ export class HttpRequestComponent implements OnInit {
       }
       else if (data["httpReqHdrType"] == "All")
         this.selectedHTTPReqHdrType = "All";
+      else{
+        this.selectedHTTPReqHdrType = "None";
+      }
     });
   }
 

@@ -41,7 +41,7 @@ export class ConfigTreeComponent implements OnInit {
   enableAutoScaling: boolean = false;
 
   ngOnInit() {
-    this.loadTopologyTreeData();
+    // this.loadTopologyTreeData();
     // this.loadEnableAutoScaling();
   }
 

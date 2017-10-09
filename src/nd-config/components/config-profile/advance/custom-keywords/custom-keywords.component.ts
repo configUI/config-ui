@@ -61,7 +61,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
-      if (data[key]['type'] == 'custom') {
+      if (data[key]['type'] == 'custom' && data[key]['enable'] == true) {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
         this.customKeywords.keywordName = key;
@@ -71,7 +71,7 @@ export class CustomKeywordsComponent implements OnInit {
         tableData.push(this.customKeywords);
         this.customKeywordsList.push({ 'value': key, 'label': key});
       }
-      else if(data[key]['type'] == 'pre-custom'){
+      else if(data[key]['type'] == 'pre-custom' || data[key]['type'] == 'custom'){
           this.customKeywordsList.push({ 'value': key, 'label': key});
       }
     }

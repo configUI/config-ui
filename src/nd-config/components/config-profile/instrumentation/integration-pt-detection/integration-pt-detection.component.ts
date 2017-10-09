@@ -34,7 +34,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
 
   errDialog: boolean = false;
   msg = [];
-
+  errMsg = [];
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -74,73 +74,82 @@ export class IntegrationPtDetectionComponent implements OnInit {
   }
 
 
-   triggerRunTimeChanges(data) {
-
-    let keyWordDataList = [];
-    for (let key in data) {
-      keyWordDataList.push(key + "=" + data[key].value);
+  triggerRunTimeChanges(data) {
+    
+        let keyWordDataList = [];
+        for (let key in data) {
+          keyWordDataList.push(key + "=" + data[key].value);
+        }
+        console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
+        console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
+    
+        //if test is offline mode, return (no run time changes)
+        if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
+          console.log(this.className, "constructor", "No NO RUN TIme Changes");
+          this.configKeywordsService.saveProfileKeywords(this.profileId);
+          return;
+        }
+        else {
+          console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData", this.configProfileService.nodeData);
+    
+          if (this.configProfileService.nodeData.nodeType == 'topology') {
+            const url = `${URL.RUNTIME_CHANGE_TOPOLOGY}/${this.configProfileService.nodeData.nodeId}`;
+            let that = this;
+            this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+              that.msg = rtcMsg;
+              that.errMsg = rtcErrMsg;
+    
+              //Showing partialError messages in dialog
+              if (that.msg.length > 0) {
+                
+                that.errDialog = true;
+              }
+            })
+          }
+          else if (this.configProfileService.nodeData.nodeType == 'tier') {
+            const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
+            let that = this
+            this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+              that.msg = rtcMsg;
+              that.errMsg = rtcErrMsg;
+    
+              //Showing partialError messages in dialog
+              if (that.msg.length > 0) {
+                
+                that.errDialog = true;
+              }
+            })
+          }
+          else if (this.configProfileService.nodeData.nodeType == 'server') {
+            const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}`;
+            let that = this;
+            this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+              that.msg = rtcMsg;
+              that.errMsg = rtcErrMsg;
+    
+              //Showing partialError messages in dialog
+              if (that.msg.length > 0) {
+                
+                that.errDialog = true;
+              }
+            })
+          }
+    
+          else if (this.configProfileService.nodeData.nodeType == 'instance') {
+            const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}`;
+            let that = this;
+            this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+              that.msg = rtcMsg;
+              that.errMsg = rtcErrMsg;
+    
+              //Showing partialError messages in dialog
+              if (that.msg.length > 0) {
+                
+                that.errDialog = true;
+              }
+            })
+          }
+        }
+      }
     }
-    console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
-    console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
-
-    //if test is offline mode, return (no run time changes)
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
-      console.log(this.className, "constructor", "No NO RUN TIme Changes");
-      this.configKeywordsService.saveProfileKeywords(this.profileId);
-      return;
-    }
-    else {
-      console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData", this.configProfileService.nodeData);
-
-      if (this.configProfileService.nodeData.nodeType == 'topology') {
-        const url = `${URL.RUNTIME_CHANGE_TOPOLOGY}/${this.configProfileService.nodeData.nodeId}`;
-        let that = this;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
-          that.msg = rtcMsg;
-
-          //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
-            that.errDialog = true;
-          }
-        })
-      }
-      else if (this.configProfileService.nodeData.nodeType == 'tier') {
-        const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
-        let that = this
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
-          that.msg = rtcMsg;
-
-          //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
-            that.errDialog = true;
-          }
-        })
-      }
-      else if (this.configProfileService.nodeData.nodeType == 'server') {
-        const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}`;
-        let that = this;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
-          that.msg = rtcMsg;
-
-          //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
-            that.errDialog = true;
-          }
-        })
-      }
-
-      else if (this.configProfileService.nodeData.nodeType == 'instance') {
-        const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}`;
-        let that = this;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
-          that.msg = rtcMsg;
-
-          //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
-            that.errDialog = true;
-          }
-        })
-      }
-    }
-  }
-}
+    

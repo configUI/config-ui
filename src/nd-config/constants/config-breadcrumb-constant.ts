@@ -38,9 +38,16 @@ export const URL = {
     TREE_ADVANCE: `${ROUTING_PATH}/tree-main/profile/advance`,
     TREE_INTEGRATION: `${ROUTING_PATH}/tree-main/profile/integration`,
 
+    TOPO_TREE_GENERAL: `${ROUTING_PATH}/tree-main/topology/profile/general`,
+    TOPO_TREE_INSTRUMENTATION: `${ROUTING_PATH}/tree-main/topology/profile/instrumentation`,
+    TOPO_TREE_ADVANCE: `${ROUTING_PATH}/tree-main/topology/profile/advance`,
+    TOPO_TREE_INTEGRATION: `${ROUTING_PATH}/tree-main/topology/profile/integration`,
+
     TREE_MAIN: `${ROUTING_PATH}/tree-main`,
     TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`,
     TOPOLOGY_PROFILE: `${ROUTING_PATH}/tree-main/profile/configuration`,
+    TREE_TOPOLOGY: `${ROUTING_PATH}/tree-main/topology/profile/configuration`,
+    TREE_TOPO_PROFILE: `${ROUTING_PATH}/tree-main/topology/profile`,    
     TREE_PROFILE: `${ROUTING_PATH}/tree-main/profile`,
     INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`,
     AUTO_DISCOVER: `${ROUTING_PATH}/auto-discover-main`,

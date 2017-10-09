@@ -68,6 +68,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   //used when topology screen comes from its topology show All screen or home screen
   topoId: number
 
+  url: string;
   subscription: Subscription;
 
   ngOnInit() {
@@ -78,7 +79,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   loadTopologyData(): void {
     this.getTableHeader();
-    let url;
+    // let url;
     this.route.params.subscribe((params: Params) => {
     this.dcId = params['dcId']
       this.topoId = params['topoId']
@@ -90,8 +91,8 @@ export class ConfigTreeDetailComponent implements OnInit {
      */
 
     this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-      url = event["url"];
-      let arr = url.split("/");
+      this.url = event["url"];
+      let arr = this.url.split("/");
       if (arr.indexOf("tree-main") != -1) {
         if (arr.indexOf("topology") != -1) {
           this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);
@@ -275,8 +276,15 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //Observable profile name
     this.configProfileService.profileNameObserver(entity.profileName);
-    this.router.navigate([this.ROUTING_PATH + '/tree-main/profile/configuration', entity.profileId]);
+    console.log("urllllllll---------", this.url)
+    if(this.url.includes("/tree-main/topology/")){
+      this.router.navigate([this.ROUTING_PATH + '/tree-main/topology/profile/configuration', entity.profileId]);      
+    }
+    else{
+      this.router.navigate([this.ROUTING_PATH + '/tree-main/profile/configuration', entity.profileId]);
+    }
   }
+
 
   disableProfInstance(instanceId, flag) {
 

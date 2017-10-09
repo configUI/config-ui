@@ -374,6 +374,7 @@ export class ConfigKeywordsService {
 //Need more testing.
   sendRunTimeChange(url, data, profileId, callback) {
     let rtcMsg
+    let rtcErrMsg;
     let URL = `${url}/${profileId}`;
     this._restApi.getDataByPostReq(URL, data).subscribe(
       data => {
@@ -383,14 +384,20 @@ export class ConfigKeywordsService {
          * NodeJS:Mew:Instance2=Currently disconnected trying to reconnect;
          */
         if (data[0].includes("PartialError")) {
-          let arrPartial = []
-          let arr = data[0].split(";");
-          for (let i = 2; i < arr.length; i++) {
-            arrPartial.push(arr[i])
-          }
-          arrPartial.pop();
           this.saveProfileKeywords(profileId);
-          rtcMsg = arrPartial;
+          let arrPartialErr = []
+          let arrPartialID = []
+          let arr = data[0].split(";");
+          for (let i = 2; i < arr.length - 1; i++) {
+
+            //if instance is equal to numeric, then RTC is applied on that insatnce
+            if(isNaN(parseInt(arr[i].substring(arr[i].lastIndexOf("=") + 1))))
+              arrPartialErr.push(arr[i]);
+            else
+              arrPartialID.push(arr[i]);
+          }      
+          rtcMsg = arrPartialID;
+          rtcErrMsg = arrPartialErr;
         }
 
         //When runtime changes are applied then result=Ok
@@ -398,14 +405,16 @@ export class ConfigKeywordsService {
           this.saveProfileKeywords(profileId);
           this.configUtilityService.infoMessage("Runtime changes applied");
           rtcMsg = [];
+          rtcErrMsg = [];
         }
 
         //When result=Error, then no RTC applied
         else {
           this.configUtilityService.errorMessage(" No runtime changes applied");
           rtcMsg = [];
+          rtcErrMsg = [];
         }
-        callback(rtcMsg);
+        callback(rtcMsg, rtcErrMsg);
       },
       error => {
         //When runtime changes are not applied

@@ -5,6 +5,9 @@
   <div class="ui-g-2">
     <p-radioButton name="httpRequest" label="Specific" value="Specific" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
   </div>
+  <div class="ui-g-2">
+        <p-radioButton name="httpRequest" label="None" value="None" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
+  </div>
 </div>
 
 <div class="ui-g configui-session-css-2" *ngIf="selectedHTTPReqHdrType == 'Specific'">

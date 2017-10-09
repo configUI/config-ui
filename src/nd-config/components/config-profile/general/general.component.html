@@ -21,11 +21,18 @@
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
   width="500" responsive="true">
   <div style="max-height: 500px; overflow-y: auto;">
+    Runtime changes successfully applied on: 
     <ul>
      <li *ngFor="let err of msg">
         <span>{{err}}</span>
      </li>
     </ul>
+    Error while applying Runtime changes on:
+    <ul>
+      <li *ngFor="let e of errMsg">
+         <span>{{e}}</span>
+      </li>
+     </ul>
   </div>
   <footer>
     <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
