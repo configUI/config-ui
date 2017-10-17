@@ -43,6 +43,11 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       if (url == BREADCRUMB.URL.APPLICATION_LIST) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST });
       }
+      else if(url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS )){
+        this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] });
+        this.items.push({label: BREADCRUMB.LABEL.NDC_KEYWORDS});
+      }
+
       else if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
 
         if (url.startsWith(BREADCRUMB.URL.PROFILE_LIST))

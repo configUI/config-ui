@@ -1,6 +1,6 @@
 
 
-  // const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+  // const  SERVICE_URL = 'https://10.10.30.47/configUI';
 
 
 //  const  SERVICE_URL = 'http://localhost:8090';
@@ -25,6 +25,7 @@ export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApp
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
 export const ADD_ROW_APP_URL = `${SERVICE_URL}/custom/application`;
 export const DEL_ROW_APP_URL = `${SERVICE_URL}/custom/application/delete`;
+export const GET_APP_NAME = `${SERVICE_URL}/custom/application/getappname`;
 
 /* Url for DCDetail */
 export const DC_TABLE_DATA_URL = `${SERVICE_URL}/application`;
@@ -261,5 +262,9 @@ export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscove
 
 /* Activity Log data */
 export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/getauditactivitylogdata`;
+
+/* NDC Keyword URL */
+export const GET_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/getncdkeyworddata`;
+export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddata`;
 
 

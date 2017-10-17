@@ -58,6 +58,7 @@ import { ConfigRoutingModule } from './routes/config-routing.module'
 
 /**Reducer */
 import { keywordReducer } from './reducers/keyword-reducer';
+import { ndcKeywordReducer } from './reducers/ndc-keyword-reducer';
 
 /**Config UI services */
 
@@ -138,6 +139,7 @@ import { UrlCapturingComponent } from './components/config-profile/instrumentati
 import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
 import { ConfigAutoDiscoverTreeComponent } from './components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component';
 import { ConfigAutoDiscoverMainComponent } from './components/config-auto-discover/config-auto-discover-main/config-auto-discover-main.component';
+import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywords-setting/config-ndc-keywords-setting.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -208,7 +210,8 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     ConfigAutoDiscoverComponent,
     ConfigAutoDiscoverMainComponent,
     ConfigAutoDiscoverTreeComponent,
-    ConfigViewAuditLogComponent	
+    ConfigViewAuditLogComponent,
+    ConfigNDCKeywordsSettingComponent
   ],
   imports: [
     //  CommonModule,
@@ -219,7 +222,7 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     ConfigRoutingModule,
     MaterialModule,
     PerfectScrollbarModule.forRoot(),
-    StoreModule.provideStore({ keywordData: keywordReducer }),
+    StoreModule.provideStore({ keywordData: keywordReducer, ndcKeywordData: ndcKeywordReducer}),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,

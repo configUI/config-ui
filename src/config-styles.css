@@ -20,73 +20,74 @@
   font-style: normal;
 
 }
-
 [data-icon]:before {
-  font-family: "ndegui-icon" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-[class^="ndegui-"]:before,
-[class*=" ndegui-"]:before {
-  font-family: "ndegui-icon" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.ndegui-application:before {
-  content: "\e000";
-}
-.ndegui-group:before {
-  content: "\e001";
-}
-.ndegui-home1:before {
-  content: "\e002";
-}
-.ndegui-instance:before {
-  content: "\e003";
-}
-.ndegui-instrmentation-profile:before {
-  content: "\e004";
-}
-.ndegui-nd-agent:before {
-  content: "\e005";
-}
-.ndegui-profile:before {
-  content: "\e006";
-}
-.ndegui-server:before {
-  content: "\e007";
-}
-.ndegui-tier:before {
-  content: "\e008";
-}
-.ndegui-topology:before {
-  content: "\e009";
-}
-.ndegui-topology-1:before {
-  content: "\e00a";
-}
-.ndegui-auto-discover:before {
-  content: "\e00b";
-}
-.ndegui-audit-logs:before {
-  content: "\e00c";
-}
-
+    font-family: "ndegui-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  [class^="ndegui-"]:before,
+  [class*=" ndegui-"]:before {
+    font-family: "ndegui-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .ndegui-application:before {
+    content: "\e000";
+  }
+  .ndegui-group:before {
+    content: "\e001";
+  }
+  .ndegui-home1:before {
+    content: "\e002";
+  }
+  .ndegui-instance:before {
+    content: "\e003";
+  }
+  .ndegui-instrmentation-profile:before {
+    content: "\e004";
+  }
+  .ndegui-nd-agent:before {
+    content: "\e005";
+  }
+  .ndegui-profile:before {
+    content: "\e006";
+  }
+  .ndegui-server:before {
+    content: "\e007";
+  }
+  .ndegui-tier:before {
+    content: "\e008";
+  }
+  .ndegui-topology:before {
+    content: "\e009";
+  }
+  .ndegui-auto-discover:before {
+    content: "\e00b";
+  }
+  .ndegui-audit-logs:before {
+    content: "\e00c";
+  }
+  .ndegui-data-collector:before {
+    content: "\e00a";
+  }
+  .ndegui-topology-1:before {
+    content: "\e00d";
+  }
 
 /*.ndeicon {
     margin: 0;
@@ -187,6 +188,8 @@ body {
 
 .config-ui-table-margin {
     padding: 8px;
+    overflow-y: scroll;
+    height: 450px;
 }
 
 .header-content {
@@ -1082,4 +1085,3 @@ a {
 .instrprofscroll .ui-tree .ui-tree-container {
     width: 102%;
 }
-

@@ -35,6 +35,12 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
             </p-column>
+            <p-column class="col-overflow" field="timeStamp" header="NDC Settings" [sortable]="true" [style]="{'width':'12%', 'text-align':'center'}">
+                <template let-col let-application="rowData" pTemplate>
+
+                <a (click)="routeToNDCKeywords(application['appId'])"><i  class="icon ndegui-data-collector"></i></a>
+            </template>
+            </p-column>
             <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
                 <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>

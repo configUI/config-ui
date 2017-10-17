@@ -19,8 +19,8 @@ import { ProductIntegrationComponent } from '../components/config-profile/produc
 import { ConfigImportInstrProfileComponent } from '../components/config-import-instr-profile/config-import-instr-profile.component';
 import { ConfigAutoDiscoverMainComponent } from "../components/config-auto-discover/config-auto-discover-main/config-auto-discover-main.component";
 import { ConfigAutoDiscoverTreeComponent } from "../components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component";
-
 import { ConfigViewAuditLogComponent } from '../components/config-view-audit-log/config-view-audit-log.component';
+import { ConfigNDCKeywordsSettingComponent } from '../components/config-ndc-keywords-setting/config-ndc-keywords-setting.component'
 
 /**For ProductUI */
 // const routes: Routes = [
@@ -63,7 +63,8 @@ import { ConfigViewAuditLogComponent } from '../components/config-view-audit-log
 //             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
 //             { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
 //             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
-// 	    { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
+// 	           { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
+//             { path: 'application-list/ndc-keywords-setting/:appId', component: ConfigNDCKeywordsSettingComponent },
 //         ]
 //     }
 // ];
@@ -107,7 +108,8 @@ const routes: Routes = [
             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
             { path: 'auto-discover-main', component: ConfigAutoDiscoverMainComponent },
             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
-            { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
+            { path: 'audit-log-view', component: ConfigViewAuditLogComponent },   
+            { path: 'application-list/ndc-keywords-setting/:appId', component: ConfigNDCKeywordsSettingComponent },
 ];
 
 @NgModule({

@@ -77,6 +77,13 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
           this.getAppName(appId);
         }
       }
+      else if(url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS)){
+        let appId = url.substring(url.lastIndexOf("/") + 1);
+        this.configApplicationService.getAppName(appId).subscribe(data => {
+          this.isMetaDataDisplay = true;
+          this.label = `Application Name: ` + data["_body"]
+        })
+      }
       else {
         this.isMetaDataDisplay = false;
       }

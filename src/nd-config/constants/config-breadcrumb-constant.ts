@@ -15,12 +15,14 @@ export const LABEL = {
     ND_AGENT: 'ND Agent Status',
     INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker',
     AUTO_DISCOVER: 'Auto Discover',
-    VIEW_AUDIT_LOG: 'View Audit Log'
+    VIEW_AUDIT_LOG: 'View Audit Log',
+    NDC_KEYWORDS: 'NDC Settings'
 } 
 
 export const URL = {
     HOME: `${ROUTING_PATH}/home`,
     APPLICATION_LIST: `${ROUTING_PATH}/application-list`,
+    NDC_KEYWORDS: `${ROUTING_PATH}/application-list/ndc-keywords-setting`,
     PROFILE: `${ROUTING_PATH}/profile`,
     PROFILE_LIST: `${ROUTING_PATH}/profile/profile-list`,
     TOPOLOGY_LIST: `${ROUTING_PATH}/profile/topology-list`,

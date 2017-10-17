@@ -402,8 +402,15 @@ export class ConfigKeywordsService {
 
         //When runtime changes are applied then result=Ok
         else if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
-          this.saveProfileKeywords(profileId);
           this.configUtilityService.infoMessage("Runtime changes applied");
+          let that = this;
+
+          //Setting timeout of 2 seconds 
+          setTimeout(function() {
+            // Whatever you want to do after the wait        
+            that.saveProfileKeywords(profileId);
+        }, 1000);
+
           rtcMsg = [];
           rtcErrMsg = [];
         }
@@ -547,4 +554,15 @@ export class ConfigKeywordsService {
   getActivityLogData() {
     return this._restApi.getDataByGetReq(`${URL.GET_ACTIVITY_LOG_DATA}`);
   }
+  
+  /* Get NDC Keywords data */
+  getNDCKeywords(appId): Observable<any[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_NDC_KEYWORDS}/${appId}`);
+  }
+
+  /* Save NDC Keywords data */
+  saveNDCKeywords(data, appId): Observable<any[]> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS}/${appId}`, data);
+  }
+
 }
