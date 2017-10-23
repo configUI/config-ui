@@ -104,8 +104,8 @@
             NDP Trace log level
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_TRACE_LEVEL" min=0 max=4
-              [(ngModel)]="ndcKeywords['NDP_TRACE_LEVEL'].value" required ngModel/>
+            <input pInputText type="number" name="NDP_TRACE_LEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_TRACE_LEVEL'].value" required
+              ngModel/>
           </div>
           <!-- </div>
         <div class="ui-grid-row"> -->
@@ -113,8 +113,8 @@
             Maximum depth of method call stack
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="MAX_METHOD_CALL_STACK" min=1 max=10485760
-              [(ngModel)]="ndcKeywords['MAX_METHOD_CALL_STACK'].value" required ngModel/>
+            <input pInputText type="number" name="MAX_METHOD_CALL_STACK" min=1 max=10485760 [(ngModel)]="ndcKeywords['MAX_METHOD_CALL_STACK'].value"
+              required ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -122,8 +122,7 @@
             Initial max concurrent flowpaths processed per JVM
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_INIT_CONCURRENT_FLOWPATHS" min=8
-              max=10485760 [(ngModel)]="ndcKeywords['NDP_INIT_CONCURRENT_FLOWPATHS'].value"
+            <input pInputText type="number" name="NDP_INIT_CONCURRENT_FLOWPATHS" min=8 max=10485760 [(ngModel)]="ndcKeywords['NDP_INIT_CONCURRENT_FLOWPATHS'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -132,8 +131,7 @@
             Incremental number of concurrent flowpath
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DELTA_CONCURRENT_FLOWPATHS" min=8
-              max=10485760 [(ngModel)]="ndcKeywords['NDP_DELTA_CONCURRENT_FLOWPATHS'].value"
+            <input pInputText type="number" name="NDP_DELTA_CONCURRENT_FLOWPATHS" min=8 max=10485760 [(ngModel)]="ndcKeywords['NDP_DELTA_CONCURRENT_FLOWPATHS'].value"
               required ngModel/>
           </div>
         </div>
@@ -142,8 +140,7 @@
             Maximum size (in kilobytes) of buffer of meta data table entries.
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_META_DATA_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_META_DATA_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_META_DATA_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_META_DATA_BUFSIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -152,8 +149,7 @@
             Maximum size (in kilobytes) of buffer of BCI Arguments (jsp page names)
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE'].value"
               required ngModel/>
           </div>
         </div>
@@ -162,8 +158,7 @@
             Maximum size (in kilobytes) of buffer of HTTP Header Metadata Buffer size
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -172,8 +167,7 @@
             Maximum size (in kilobytes) of buffer of HTTP Header Capture Buffer size
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE'].value"
               required ngModel/>
           </div>
         </div>
@@ -182,8 +176,7 @@
             Maximum size (in kilobytes) of buffer of Exception Data Buffer size
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -192,8 +185,7 @@
             Maximum size (in kilobytes) of buffer of flowpath table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE'].value"
               required ngModel/>
           </div>
         </div>
@@ -202,8 +194,7 @@
             Maximum size (in kilobytes) of buffer of flowpath table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_APPLOG_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_APPLOG_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_APPLOG_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_APPLOG_BUFSIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -212,8 +203,7 @@
             Maximum entries in the buffer of flowpath table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES'].value"
               required ngModel/>
           </div>
         </div>
@@ -222,8 +212,7 @@
             Maximum size (in kilobytes) of buffer of memory allocation table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -232,8 +221,7 @@
             Maximum size (in kilobytes) of buffer of NDSQL table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE" min=32
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE" min=32 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE'].value"
               required ngModel/>
           </div>
         </div>
@@ -242,8 +230,7 @@
             Maximum size (in kilobytes) of buffer of NDSQLRecord table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -252,8 +239,7 @@
             Size (in MB) of the ND debug log
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DEBUG_LOGFILE_ROLLOVER_SIZE" min=1
-              max=102400 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGFILE_ROLLOVER_SIZE'].value"
+            <input pInputText type="number" name="NDP_DEBUG_LOGFILE_ROLLOVER_SIZE" min=1 max=102400 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGFILE_ROLLOVER_SIZE'].value"
               required ngModel/>
           </div>
         </div>
@@ -262,8 +248,8 @@
             Timeout for flushing the buffered flowpath and other tables
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_FORCE_UPLOAD_TIMEOUT" min=1 max=2592000000
-              [(ngModel)]="ndcKeywords['NDP_FORCE_UPLOAD_TIMEOUT'].value" required ngModel/>
+            <input pInputText type="number" name="NDP_FORCE_UPLOAD_TIMEOUT" min=1 max=2592000000 [(ngModel)]="ndcKeywords['NDP_FORCE_UPLOAD_TIMEOUT'].value"
+              required ngModel/>
           </div>
           <!-- </div>
         <div class="ui-grid-row"> -->
@@ -271,8 +257,8 @@
             NDP seconds to mark a flowpath dead
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SECS_TO_MARK_AN_FP_DEAD" min=0 max=43200
-              [(ngModel)]="ndcKeywords['NDP_SECS_TO_MARK_AN_FP_DEAD'].value" required ngModel/>
+            <input pInputText type="number" name="NDP_SECS_TO_MARK_AN_FP_DEAD" min=0 max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_MARK_AN_FP_DEAD'].value"
+              required ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -280,8 +266,7 @@
             The interval between two consecutive hunts for any in-memory dead flowpaths.
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS" min=0
-              max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS'].value"
+            <input pInputText type="number" name="NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS" min=0 max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -307,8 +292,7 @@
             Maximum number of method entry records in a flowpath
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP" min=0
-              max=10000000 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP'].value"
+            <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP'].value"
               required ngModel/>
           </div>
         </div>
@@ -326,8 +310,7 @@
             Maximum size (in kilobytes) of buffer of JMS table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_JMS_BUFSIZE" min=8
-              max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_JMS_BUFSIZE'].value"
+            <input pInputText type="number" name="NDP_MAX_BUFFERED_JMS_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_JMS_BUFSIZE'].value"
               required ngModel/>
           </div>
         </div>
@@ -345,8 +328,7 @@
             The interval between consecutive flushes of method timing array to CSV file.
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS" min=0
-              max=10000000 [(ngModel)]="ndcKeywords['NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS'].value"
+            <input pInputText type="number" name="NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS'].value"
               required ngModel/>
           </div>
         </div>
@@ -355,8 +337,7 @@
             Disable the dumping of captured HTTP body
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY" min=0
-              max=1 [(ngModel)]="ndcKeywords['NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY'].value"
+            <input pInputText type="number" name="NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -419,9 +400,8 @@
             Minimum size (in bytes) of seq blob that qualifies it to be written in sqb file
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_MIN_SIZE" min=10
-              max="ndcKeywords['NDP_SEQ_BLOB_IN_FILE_MIN_SIZE'].max" [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_IN_FILE_MIN_SIZE'].value"
-              required ngModel/>
+            <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_MIN_SIZE" min=10 max="ndcKeywords['NDP_SEQ_BLOB_IN_FILE_MIN_SIZE'].max"
+              [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_IN_FILE_MIN_SIZE'].value" required ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -429,8 +409,7 @@
             Initial size of seq blob compression buffer
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE" min=1
-              max=2048 [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE'].value"
+            <input pInputText type="number" name="NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2048 [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -439,8 +418,8 @@
             Maximum size (in kilobytes) of buffer of SQB table entries
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="MAX_BUFFERED_SQB_BUFSIZE" min=8 max=1024000
-              [(ngModel)]="ndcKeywords['MAX_BUFFERED_SQB_BUFSIZE'].value" required ngModel/>
+            <input pInputText type="number" name="MAX_BUFFERED_SQB_BUFSIZE" min=8 max=1024000 [(ngModel)]="ndcKeywords['MAX_BUFFERED_SQB_BUFSIZE'].value"
+              required ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -474,8 +453,8 @@
             Change all the unknown sql query to given string
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SQL_START_NORM_ID" min=0 max=2000000000
-              [(ngModel)]="ndcKeywords['NDP_SQL_START_NORM_ID'].value" required ngModel/>
+            <input pInputText type="number" name="NDP_SQL_START_NORM_ID" min=0 max=2000000000 [(ngModel)]="ndcKeywords['NDP_SQL_START_NORM_ID'].value"
+              required ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -596,8 +575,8 @@
             Control size of Stacktrace file
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_HS_ST_IN_FILE_MIN_SIZE" min=1 max=2000000000
-              [(ngModel)]="ndcKeywords['NDC_HS_ST_IN_FILE_MIN_SIZE'].value" required ngModel/>
+            <input pInputText type="number" name="NDC_HS_ST_IN_FILE_MIN_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_IN_FILE_MIN_SIZE'].value"
+              required ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -605,8 +584,7 @@
             Control compression buffer init size
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE" min=1
-              max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE'].value"
+            <input pInputText type="number" name="NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE'].value"
               required ngModel/>
           </div>
           <!-- </div>
@@ -633,7 +611,8 @@
             Enable autoscaling
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="ENABLE_AUTO_SCALING" [(ngModel)]="ndcKeywords['ENABLE_AUTO_SCALING'].value" required ngModel/>
+            <input pInputText type="number" name="ENABLE_AUTO_SCALING" [(ngModel)]="ndcKeywords['ENABLE_AUTO_SCALING'].value" required
+              ngModel/>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -659,7 +638,8 @@
             NDP debug log level
           </div>
           <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DEBUG_LOGLEVEL" [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGLEVEL'].value" required ngModel/>
+            <input pInputText type="number" name="NDP_DEBUG_LOGLEVEL" [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGLEVEL'].value" required
+              ngModel/>
           </div>
           <!-- </div>
         <div class="ui-grid-row"> -->
@@ -910,7 +890,8 @@
             Path for creating temporary files by ND DB Loader
           </div>
           <div class="ui-g-2">
-            <input pInputText type="text" name="NDDBU_TMP_FILE_PATH" [(ngModel)]="ndcKeywords['NDDBU_TMP_FILE_PATH'].value" required ngModel/>
+            <input pInputText type="text" name="NDDBU_TMP_FILE_PATH" [(ngModel)]="ndcKeywords['NDDBU_TMP_FILE_PATH'].value" required
+              ngModel/>
           </div>
         </div>
         <hr>
