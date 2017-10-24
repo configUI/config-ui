@@ -174,7 +174,7 @@ export class HeaderComponent implements OnInit {
 
     this.header["captureHTTPReqFullFp"].value = captureHttpReqFullFpVal;
     this.header["captureHTTPRespFullFp"].value = captureHttpRespFullFpVal;
-    this.header["captureCustomData"].value = String(this.header["captureCustomData"].value == '1');
+    // this.header["captureCustomData"].value = String(this.header["captureCustomData"].value == '1');
     this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
     this.keywordData.emit(this.header);
   }
