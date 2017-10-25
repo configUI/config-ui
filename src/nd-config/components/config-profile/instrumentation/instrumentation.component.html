@@ -1,7 +1,7 @@
 <div class='tabs-all'>
     <p-tabView (onChange)="handleChange($event)">
         <p-tabPanel header="Service Entry Point" [selected]="index == 0">
-            <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId"></app-service-entry-point>
+            <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-service-entry-point>
         </p-tabPanel>
         <p-tabPanel header="Integration Point Detection" [selected]="index == 1">
             <app-integration-pt-detection *ngIf="index == 1" [profileId]="profileId"></app-integration-pt-detection>

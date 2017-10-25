@@ -1,6 +1,6 @@
 <p-tabView>
     <p-tabPanel header="Integration Point">
-        <app-integration-pt></app-integration-pt>
+        <app-integration-pt (keywordData)="saveKeywordData($event)"></app-integration-pt>
     </p-tabPanel>
     <p-tabPanel header="Settings">
         <app-url-capturing (keywordData)="saveKeywordData($event)"></app-url-capturing>

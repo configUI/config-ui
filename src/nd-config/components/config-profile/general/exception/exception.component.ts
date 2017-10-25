@@ -137,7 +137,7 @@ export class ExceptionComponent implements OnInit {
               that.errMsg = rtcErrMsg;
     
               //Showing partialError messages in dialog
-              if (that.msg.length > 0) {
+              if (that.msg.length > 0 || that.errMsg.length > 0) {
                 
                 that.errDialog = true;
               }
@@ -151,7 +151,7 @@ export class ExceptionComponent implements OnInit {
               that.errMsg = rtcErrMsg;
     
               //Showing partialError messages in dialog
-              if (that.msg.length > 0) {
+              if (that.msg.length > 0 || that.errMsg.length > 0) {
                 
                 that.errDialog = true;
               }
@@ -165,7 +165,7 @@ export class ExceptionComponent implements OnInit {
               that.errMsg = rtcErrMsg;
     
               //Showing partialError messages in dialog
-              if (that.msg.length > 0) {
+              if (that.msg.length > 0 || that.errMsg.length > 0) {
                 
                 that.errDialog = true;
               }
@@ -180,7 +180,7 @@ export class ExceptionComponent implements OnInit {
               that.errMsg = rtcErrMsg;
     
               //Showing partialError messages in dialog
-              if (that.msg.length > 0) {
+              if (that.msg.length > 0 || that.errMsg.length > 0) {
                 
                 that.errDialog = true;
               }
