@@ -1,18 +1,18 @@
 <div class="ui-g ndegui-mainbox">
     <div class="ui-g-12">
-        <div class="ui-g-6">
+        <div class="ui-g-5">
             <div class="ui-g-4 label">
                 <label>Import file</label>
             </div>
             <div class="ui-g-4">
-                <button pButton type="button" title="Browse" (click)="openFileManager()" label="Browse"></button>
+                <button pButton type="button" title="Browse" label="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
             </div>
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-10">
             <div class="ui-g-2 label">
-                <label>View Instrumentation Profile</label>
+                <label>Instrumentation Profile</label>
             </div>
             <div class="ui-g-3">
                 <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--" filter="filter" class="instrprofmaker autosearchfield"></p-dropdown>
@@ -38,15 +38,17 @@
     <div class="ui-g-12">
         <div *ngIf="!editXMLFile && !createXMLInstrumentation">
             <!--<textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>-->
-	    <div class="config_textarea instrprofileview" id="xmlContentDiv">
+	    <div class="config_textarea instrprofileview instrprofiletxtarea" id="xmlContentDiv">
                 <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="xmlFormat"></code></pre>
             </div>
         </div>
-        <div *ngIf="editXMLFile && !createXMLInstrumentation" class="instrprofscroll">
+        <div *ngIf="editXMLFile && !createXMLInstrumentation" class="instrprofscroll instrprofileheaderhght">
             <p-panel header="Edit XML">
+                <div class="ui-g-12 instrprofiletxtarea">
                 <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)"
                     [style]="{'height':'370px','width':'98.5%'}"></p-tree>
-                <div style="margin-top: 8px">
+                </div>
+                <div class="ui-g-12">
                     <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(false)"></button>
                     <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(false)"></button>
                     <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(false)" label="Save" style="float: right;"></button>
@@ -54,11 +56,13 @@
                 <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
             </p-panel>
         </div>
-        <div *ngIf="createXMLInstrumentation" #createPanel class="instrprofscroll">
+        <div *ngIf="createXMLInstrumentation" #createPanel class="instrprofscroll instrprofileheaderhght">
             <p-panel header="Create XML">
+                <div class="ui-g-12 instrprofiletxtarea">
                 <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)"
                     [style]="{'height':'370px','width':'98.5%'}"></p-tree>
-                <div style="margin-top: 8px">
+                </div>
+                <div class="ui-g-12">
                     <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(true)"></button>
                     <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(true)"></button>
                     <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(true)" label="Save" style="float: right;"></button>
