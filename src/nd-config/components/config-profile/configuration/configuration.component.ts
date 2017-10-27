@@ -15,7 +15,7 @@ import { KeywordData, KeywordList } from '../../../containers/keyword-data';
 export class ConfigurationComponent implements OnInit, OnDestroy {
   keywordGroup: any;
   profileId: number;
-  toggleDisable: boolean=false;
+  toggleDisable: boolean;
 
   subscription: Subscription;
   subscriptionKeywordGroup: Subscription;
@@ -34,8 +34,9 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     });
     this.loadAdminInfo();
     this.loadKeywordData();
-    // This is done because this.keywordGroup.general.exception.enable gives us "false" when enabled
-   /* if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
+    let isTrue = false;
+   /* // This is done because this.keywordGroup.general.exception.enable gives us "false" when enabled
+    if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
       this.keywordGroup.general.exception.enable = false;
     }
     else if (sessionStorage.getItem('exceptionCapturing') == null && sessionStorage.getItem('exceptionCapturingSeqBlob') == null && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == null) {
@@ -44,7 +45,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     else {
          this.keywordGroup.general.exception.enable = true;
     }
-    */
+*/
     // This is done because if all the two keywords of monitor are disabled then the toggle in the configuration screen will also be disabled 
     if (sessionStorage.getItem('enableBTMonitor') != "1" && sessionStorage.getItem('enableBackendMonitor') != "1") {
       this.keywordGroup.advance.monitors.enable=false;

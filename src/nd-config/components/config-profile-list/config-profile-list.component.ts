@@ -130,7 +130,6 @@ export class ConfigProfileListComponent implements OnInit {
       accept: () => {
 
         this.configProfileService.deleteProfileData(this.selectedProfileData[0].profileId).subscribe(data => {
-
           // If profile is applied to any topology
           if(data != ""){
             this.showMsg = true;

@@ -2,7 +2,7 @@
 <p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Method Business transaction list </span>
-        <span style="float: right; margin-top:-5px">
+        <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Add a method Business transaction" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a method Business transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete method business transaction(s)" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
@@ -27,9 +27,9 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
+<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business transaction method' :'Edit Business transaction method'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"
 
-    modal="modal" width="700" responsive="true">
+    modal="modal" width="700" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
@@ -38,7 +38,7 @@
                     <label>Fully qualified method name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="fqm" type="text" size="65" title="Please enter valid FQM"  #fqmField pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm" (keydown.space)="$event.preventDefault()" autofocus required ngModel/>
+                    <input name="fqm" type="text" size="65" title="Please enter valid FQM"  #fqmField pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"  [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -49,7 +49,7 @@
                     <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                         <p-header>
                             <span style="float: left;">  Return type settings </span>
-                            <span style="float: right; margin-top:-5px">
+                            <span style="float: right; margin-top:-3px">
                        <button pButton type="submit" title="Add a return type settings" (click)="first=true" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete return type setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
@@ -90,14 +90,14 @@
                 <div class="ui-g-3" style="margin-top: -5px">
                     <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
                     <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList()" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
-                        [options]="indexList"></p-dropdown>
+                        [options]="indexList" appendTo="body"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
                 <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'" [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
                     <p-header>
                         <span style="float: left;">  Argument type settings </span>
-                        <span style="float: right; margin-top:-5px">
+                        <span style="float: right; margin-top:-3px">
                        <button pButton type="submit" title="Add a argument type settings" (click)="second=true" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit" (click)="openEditArgRulesDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete argument type setting(s)" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
@@ -133,7 +133,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -149,8 +149,8 @@
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="operationName" type="text" class='hidden-validator config_align_dialog ' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
-                    <p-dropdown name="operationName" [style]="{'width': '177px'}" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--"></p-dropdown>
+                    <input name="operationName" type="text" class='hidden-validator config_align_dialog' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                    <p-dropdown name="operationName" [style]="{'width': '177px'}" [options]="operationList" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" appendTo="body"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -158,7 +158,7 @@
                     <label>Bt name</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="btName" class="config_align_dialog" type="text" pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required ngModel/>
+                    <input name="btName" type="text" class="config_align_dialog" pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required ngModel/>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
 
 <!-- Add new Argument type info -->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewArg ? 'Add argument type settings' :'Edit argument type settings'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add argument type settings' :'Edit argument type settings'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="400" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <!--<div class="ui-g-12">
@@ -184,7 +184,7 @@
                     <label>Value</label>
                 </div>
                 <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="value" type="text" class="config_align_dialog" pInputText [(ngModel)]="btMethodRulesDetail.value" (keydown.space)="$event.preventDefault()" required pattern="[a-zA-Z0-9]+[0-9a-zA-Z]*$" autofocus required ngModel/>
+                    <input name="value" type="text" class="config_align_dialog" pInputText [(ngModel)]="btMethodRulesDetail.value" (keydown.space)="$event.preventDefault()" required pattern="[a-zA-Z0-9]+[0-9a-zA-Z]*$"  autofocus required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -193,7 +193,7 @@
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
                     <input name="operationName" type="text" class='hidden-validator config_align_dialog' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
-                    <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '177px'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
+                    <p-dropdown name="operationName" [options]="operationList" [style]="{'width': '177px'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g-12">

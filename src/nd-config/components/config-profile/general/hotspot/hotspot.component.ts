@@ -110,7 +110,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
       this.includedException = null;
     }
    }
-
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
     console.log(" this.hotspot--",this.hotspot)
     this.keywordData.emit(this.hotspot);

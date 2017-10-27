@@ -196,7 +196,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     loadDropDownVal(){
         this.version = [];
         var val = ['A', 'B'];
-        this.version = ConfigUiUtility.createDropdown(val)
+        var key = ['Uncompressed', 'Compressed'];
+        this.version = ConfigUiUtility.createListWithKeyValue(key, val);
     }
 
     /**

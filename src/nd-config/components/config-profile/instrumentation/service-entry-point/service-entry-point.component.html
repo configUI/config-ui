@@ -1,7 +1,7 @@
 <p-dataTable class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
     <p-header>
         <span style="float: left">  Enable/Disable Service entry points</span>
-        <span style="float :right; margin-top:-5px">
+        <span style="float :right; margin-top:-3px">
             <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
             <button pButton type="button"  [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
             <button pButton class="ui-button-danger" type="button" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
@@ -38,7 +38,7 @@
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewServiceEntryPoint ? 'Add Service entry point' : 'Edit Service entry point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewServiceEntryPoint ? 'Add Service entry point' : 'Edit Service entry point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true" [resizable]="false">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -46,7 +46,7 @@
                 <label>Entry point type</label>
             </div>
             <div class="ui-g-8">
-                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
+                <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
                 <p-dropdown [options]="entryPointType" [style]="{'width':'180px'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="--Select--"></p-dropdown>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" title="Please enter valid service entry point name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /) in between the character. &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4: Service entry point name is of maximum 100 characters."
+                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" title="Please enter valid service entry point name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /). &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4: Service entry point name is of maximum 100 characters."
                     required pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>
@@ -65,7 +65,7 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+                <input name="fqm" type="text" size="60" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"  (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
             </div>
         </div>
         <div class="ui-g config-ui">

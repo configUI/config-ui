@@ -45,7 +45,7 @@ export class MethodMonitorsComponent implements OnInit {
   keywordValue: Object;
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
-  
+
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;
 
@@ -58,15 +58,23 @@ export class MethodMonitorsComponent implements OnInit {
 
     if (this.configKeywordsService.keywordData != undefined) {
       this.keywordValue = this.configKeywordsService.keywordData;
+      let config = {
+        'configkeyword' : this.keywordValue
+      }
+      sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
     else {
+      // Commenting this as store is giving default value instead of saved
+      /*
       this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         this.keywordValue = keywordDataVal;
-      });
+      }); */
+      let keyVal = JSON.parse(sessionStorage.getItem('keywordValue'));
+      this.keywordValue = keyVal['configkeyword'];
     }
     this.methodMonitor = {};
     this.keywordList.forEach((key) => {
@@ -81,7 +89,6 @@ export class MethodMonitorsComponent implements OnInit {
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
-
   }
   saveKeywordData() {
     let filePath = '';
@@ -97,6 +104,10 @@ export class MethodMonitorsComponent implements OnInit {
         }
       }
       this.configKeywordsService.keywordData[key] = this.methodMonitor[key];
+      let config = {
+        'configkeyword' : this.configKeywordsService.keywordData
+      }
+      sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
@@ -287,7 +298,7 @@ export class MethodMonitorsComponent implements OnInit {
     return -1;
   }
 
-  /**used to open file manager
+ /**used to open file manager
   */
   openFileManager() {
 
@@ -318,7 +329,7 @@ export class MethodMonitorsComponent implements OnInit {
     }
   }
 
-  /* For all selection*/
+  /* For all selection on header row select*/
   onTableHeaderCheckboxToggle(event: any) {
     if (event.checked === true) {
         this.selectedMethodMonitorData = [];
@@ -331,5 +342,8 @@ export class MethodMonitorsComponent implements OnInit {
   }
 
   }
+
+
+
 
 

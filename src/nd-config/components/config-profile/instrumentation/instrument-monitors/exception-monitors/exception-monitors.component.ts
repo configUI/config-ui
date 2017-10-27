@@ -50,15 +50,23 @@ export class ExceptionMonitorsComponent implements OnInit {
 
     if (this.configKeywordsService.keywordData != undefined) {
       this.keywordValue = this.configKeywordsService.keywordData;
+      let config = {
+        'configkeyword' : this.keywordValue
+      }
+      sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
     else {
+      // Commenting this as store is giving default value instead of saved
+      /*
       this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         this.keywordValue = keywordDataVal;
-      });
+      });*/
+      let keyVal = JSON.parse(sessionStorage.getItem('keywordValue'));
+      this.keywordValue = keyVal['configkeyword'];
     }
     this.exceptionMonitor = {};
     this.keywordList.forEach((key) => {
@@ -86,8 +94,12 @@ export class ExceptionMonitorsComponent implements OnInit {
         }
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
+      let config = {
+        'configkeyword' : this.configKeywordsService.keywordData
+      }
+      sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
-   //this.configKeywordsService.saveProfileKeywords(this.profileId);
+   // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
       if (this.selectedValues == false) {
         filePath = "NA";

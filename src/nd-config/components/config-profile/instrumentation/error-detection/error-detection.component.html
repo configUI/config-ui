@@ -15,14 +15,14 @@
             <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="errorFrom" header="Status code from" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
+    <p-column class="tableCss" field="errorFrom" header="Status code from" [sortable]="true" [style]="{'width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+            <span title="{{errorDetection[col.field]}}" class="timpStamp-float-css">{{errorDetection[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="errorTo" header="Status code to" [sortable]="true" [style]="{'text-align':'right','width':'15%'}">
+    <p-column class="tableCss" field="errorTo" header="Status code to" [sortable]="true" [style]="{'width':'15%'}">
         <template let-col let-errorDetection="rowData" pTemplate>
-            <span title="{{errorDetection[col.field]}}">{{errorDetection[col.field]}}</span>
+            <span title="{{errorDetection[col.field]}}" class="timpStamp-float-css">{{errorDetection[col.field]}}</span>
         </template>
     </p-column>
     <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
@@ -40,14 +40,14 @@
 
 <!--Dialog for Error  Detection-->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewErrorDetection ? 'Add Error Detection' : 'Edit Error Detection'}}" *ngIf="addEditErrorDetectionDialog" [(visible)]="addEditErrorDetectionDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveErrorDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Rule name</label>
             </div>
             <div class="ui-g-8">
-                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid rule name. &#013;Rule name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                <input name="ruleName" type="text" size="45" class="configUI-error" pInputText [(ngModel)]="errorDetectionDetail.ruleName" title="Please enter valid rule name. &#013;Rule name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                     autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
             </div>
         </div>
@@ -94,7 +94,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="ruleDesc" rows="2" cols="45" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" ngModel></textarea>
+                <textarea name="ruleDesc" rows="2" cols="45" class="configUI-error" pInputTextarea [(ngModel)]="errorDetectionDetail.ruleDesc" ngModel></textarea>
             </div>
         </div>
         <footer>

@@ -1,9 +1,9 @@
 <div class='tabs-all'>
     <p-tabView (onChange)="handleChange($event)">
-        <p-tabPanel header="Debug level" [selected]="index == 0">
+        <p-tabPanel header="Debug level"*ngIf="isUserMode" [selected]="index == 0">
             <app-debug *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-debug>
         </p-tabPanel>
-        <p-tabPanel header="Monitors" [selected]="index == 1">
+        <p-tabPanel header="Monitors" *ngIf="isUserMode" [selected]="index == 1">
             <app-monitors *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
         </p-tabPanel>
         <p-tabPanel header="Put delay in method" *ngIf="adminMode" [selected]="index == 2">

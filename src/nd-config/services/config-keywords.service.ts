@@ -9,10 +9,10 @@ import { KEYWORD_DATA } from '../reducers/keyword-reducer';
 import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-info';
 // import { BusinessTransPatternInfo } from '../interfaces/business-trans-pattern-info';
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
+import { Subscription } from 'rxjs/Subscription';
 
-
-import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection , ExceptionMonitorData} from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, ExceptionMonitor,BTHTTPHeaderData,EndPoint } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -34,7 +34,6 @@ export class ConfigKeywordsService {
   public set keywordData(value: Object) {
     this._keywordData = value;
   }
-
   private keywordGroupSubject = new Subject<GroupKeyword>();
 
   keywordGroupProvider$ = this.keywordGroupSubject.asObservable();
@@ -43,7 +42,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader","captureMethodForAllFP"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ['instrExceptions'] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
       // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
@@ -53,11 +52,7 @@ export class ConfigKeywordsService {
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
 
-
-
-  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) {
-
-  }
+  constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) { }
 
   /** For Getting all keywordData data */
   getProfileKeywords(profileId) {
@@ -93,7 +88,7 @@ export class ConfigKeywordsService {
     if (!data)
       return this.keywordGroup;
 
-    //moduleName -> general, advance, product_integration
+    //moduleName -> general, advance, product_integration, instrumentation
     for (let moduleName in this.keywordGroup) {
 
       //keywordGroupList -> { flowpath: { enable: false, keywordList: ["k1", "k2"]}, hotspot: { enable: false, keywordList: ["k1", "k2"] }, ....}
@@ -109,7 +104,7 @@ export class ConfigKeywordsService {
         let keywordList = keywordInfo.keywordList;
 
         for (let i = 0; i < keywordList.length; i++) {
-          //If group of keywords value is not 0 that's means groupkeyword is enabled.              
+          //If group of keywords value is not 0 that's means groupkeyword is enabled.
           if (data[keywordList[i]].value != 0 || data[keywordList[i]].value != "0") {
             //Enabling groupkeyword
             keywordInfo.enable = true;
@@ -125,8 +120,8 @@ export class ConfigKeywordsService {
   /** Config-nd File explorer */
   private fileList = new Subject();
   fileListProvider = this.fileList.asObservable();
-  
-  updateFileList(fileList){
+
+  updateFileList(fileList) {
     this.fileList.next(fileList);
   }
 
@@ -149,7 +144,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
-   deleteServiceEntryData(data, profileId): Observable<ServiceEntryPoint> {
+  deleteServiceEntryData(data, profileId): Observable<ServiceEntryPoint> {
     return this._restApi.getDataByPostReq(`${URL.DEL_SERVICE_ENTRY_POINTS}/${profileId}`, data);
   }
 
@@ -158,9 +153,13 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPutReq(url, data);
   }
 
- /**For Integration PT Detection */
+  /**For Integration PT Detection */
   getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
+  }
+
+  deleteIntegrationPointData(data, profileId): Observable<EndPoint> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_INTEGRATION_POINTS}/${profileId}`, data);
   }
 
   getBackendList(profileId): Observable<BackendInfo[]> {
@@ -169,10 +168,6 @@ export class ConfigKeywordsService {
 
   addIntegrationPTDetectionData(profileId, data): Observable<AddIPDetection> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
-  }
-
-  deleteIntegrationPointData(data, profileId): Observable<EndPoint> {
-    return this._restApi.getDataByPostReq(`${URL.DEL_INTEGRATION_POINTS}/${profileId}`, data);
   }
 
   addIPNamingAndExit(profileId, backendId, data): Observable<NamingRuleAndExitPoint> {
@@ -201,6 +196,8 @@ export class ConfigKeywordsService {
   deleteErrorDetection(data, profileId): Observable<ErrorDetection> {
     return this._restApi.getDataByPostReq(`${URL.DEL_ERROR_DETECTION}/${profileId}`, data);
   }
+
+
   getExceptionMonitorList(profileId): Observable<ExceptionMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_EXCEPTION_MON_TABLEDATA}/${profileId}`);
   }
@@ -217,7 +214,6 @@ export class ConfigKeywordsService {
   deleteExceptionMonitorData(data, profileId): Observable<ExceptionMonitorData> {
     return this._restApi.getDataByPostReq(`${URL.DEL_EXCEPTION_MONITOR}/${profileId}`, data);
   }
-
 
   getMethodMonitorList(profileId): Observable<MethodMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_METHOD_MON_TABLEDATA}/${profileId}`);
@@ -237,7 +233,7 @@ export class ConfigKeywordsService {
   }
 
   getListOfXmlFiles(profileId): Observable<string[]> {
-    return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST)
+    return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST);
   }
 
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
@@ -349,14 +345,14 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REQ_HDR}`, data);
   }
 
-  /** get the HTTP Request Header Type */
-  getHTTPRequestValue(data, profileId): Observable<HTTPRequestHdrComponentData> {
-    return this._restApi.getDataByPostReq(`${URL.UPDATE_HTTP_REQ_TYPE}/${profileId}`, data);
-  }
-
   /* Fetch  Business Trans Method Info */
   addHTTPReqHeaderData(data, profileId): Observable<HTTPRequestHdrComponentData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REQ_HDR}/${profileId}`, data);
+  }
+
+  /** get the HTTP Request Header Type */
+  getHTTPRequestValue(data, profileId): Observable<HTTPRequestHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_HTTP_REQ_TYPE}/${profileId}`, data);
   }
 
   // /* Edit  Business Trans Method Info */
@@ -432,7 +428,7 @@ export class ConfigKeywordsService {
 
   }
 
-  deleteSpecificAttrValues(listOfIDs){
+  deleteSpecificAttrValues(listOfIDs) {
     let url = `${URL.DELETE_ATTR_RULES}`;
     return this._restApi.getDataByPostReq(url, listOfIDs);
   }
@@ -442,7 +438,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREQHDR_RULES}`, data);
   }
 
-   /* Edit Http Request Header Info */
+  /* Edit Http Request Header Info */
   editHTTPReqHeaderData(data): Observable<HTTPRequestHdrComponentData> {
     let url = `${URL.UPDATE_HTTPREQHDR}/${data.httpAttrId}`;
     return this._restApi.getDataByPostReq(url, data);
@@ -452,43 +448,11 @@ export class ConfigKeywordsService {
   deleteMethodBtRules(listOfIds) {
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_RULES_BT}`, listOfIds);
   }
-   
-   /** Method to upload file */
-  uploadFile(filePath, profileId){
-    return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
-  }
-
-   /** Method to upload file method monitors file */
-  uploadMethodMonitorFile(filePath, profileId){
-    return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
-  }
 
 
-  /** Method to copy selected xml files in instrProfiles */
-  copyXmlFiles(filesWithPath, profileId): Observable<string[]>{
-    return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
-  }
 
-  /** Get file path */
-  getFilePath(profileId): Observable<string> {
-    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_FILE_PATH}/${profileId}`);
-
-  }
-
-  /*this method is used for get selected text instrumnetation profile in xml format*/
-  getInstrumentationProfileXMLData(data)
-  {
-    return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
-  }
-
-/*this method is used for get all xml files for a particular path*/
-  getInstrumentationProfileXMLFileList()
-  {
-    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
-  }
-
-   /** Add BT HTTP REQUEST HEADERS */
-  addBtHttpHeaders(data, profileId){
+  /** Add BT HTTP REQUEST HEADERS */
+  addBtHttpHeaders(data, profileId) {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
   }
   /** Get all BT Http header data */
@@ -511,6 +475,41 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
 
+  /** Method to upload file */
+  uploadFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
+  }
+
+  /** Method to upload file method monitors file */
+  uploadMethodMonitorFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
+  }
+
+  /** Method to copy selected xml files in instrProfiles */
+  copyXmlFiles(filesWithPath, profileId): Observable<string[]> {
+    return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
+  }
+
+  /** Get file path */
+  getFilePath(profileId): Observable<string> {
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_FILE_PATH}/${profileId}`);
+
+  }
+  /*this method is used for get selected text instrumnetation profile in xml format*/
+  getInstrumentationProfileXMLData(data) {
+    return this._restApi.getXMLDataByPostReq(`${URL.GET_IMPORT_INSTRUMENT_PROFILE_XML}`, data);
+  }
+
+  /*this method is used for get all xml files for a particular path*/
+  getInstrumentationProfileXMLFileList() {
+    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
+  }
+
+  /*this method is used for get selected xml instrumnetation profile in xml format*/
+  getXMLDataFromSelectedXMLFile(data) {
+    return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
+  }
+
   /*this method is used for get selected xml instrumnetation profile in xml format*/
   editXMLDataFromSelectedXMLFile(data) {
     return this._restApi.getDataByGetReq(`${URL.EDIT_XML_DATA_FROM_SELECTED_XML_FILE}?filePath=${data}`);
@@ -525,12 +524,8 @@ export class ConfigKeywordsService {
   deleteXMLFile(fileName) {
     return this._restApi.getDataByGetReq(`${URL.DELETE_XML_FILE}?fileName=${fileName}`);
   }
- 
-  /*this method is used for get selected xml instrumnetation profile in xml format*/
-  getXMLDataFromSelectedXMLFile(data) {
-    return this._restApi.getXMLDataByPostReq(`${URL.GET_XML_DATA_FROM_SELECTED_XML_FILE}`, data);
-  }
-  getAutoDiscoverTreeData(adrFile, reqId, fileName) {
+
+   getAutoDiscoverTreeData(adrFile, reqId, fileName) {
     return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_TREE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
   }
 
@@ -549,7 +544,7 @@ export class ConfigKeywordsService {
   saveInsrumentationFileInXMLFormat(xmlFileName, reqId, fileName) {
     return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}?reqId=${reqId + ','+ fileName}`, xmlFileName);
   }
-  
+
   /* GEt Activity Log Data */
   getActivityLogData() {
     return this._restApi.getDataByGetReq(`${URL.GET_ACTIVITY_LOG_DATA}`);
@@ -566,3 +561,4 @@ export class ConfigKeywordsService {
   }
 
 }
+

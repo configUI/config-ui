@@ -13,7 +13,7 @@
         </div>
         <div class="ui-g-8" *ngIf="(data[0].headerMode == 'Specified')">
             <input type="text" size="30" class='hidden-validator' [(ngModel)]="data[0].headersName[0]" pInputText required ngModel/>
-            <p-multiSelect [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
+            <p-multiSelect class="multiselectdropReqResp" [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="ui-g-8" *ngIf="(data[1].headerModeResp == 'Specified')">
             <input name="headerMode" type="text" size="30" class='hidden-validator' [(ngModel)]="data[1].headersNameResp[0]" pInputText required ngModel/>
-            <p-multiSelect [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
+            <p-multiSelect class="multiselectdropReqResp" [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>

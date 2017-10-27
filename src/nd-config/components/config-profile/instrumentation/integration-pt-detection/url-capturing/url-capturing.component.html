@@ -7,7 +7,7 @@
             </div>
         </div>
         <p-panel class="hideheader">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader padding-left-css">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
                 <div class="ui-g">
 
                     <div class="ui-g-12">
@@ -47,14 +47,14 @@
                         <label>Enable dumping of default cassandra query</label>
                     </div>
                     <div class="ui-g-1">
-                        <input name="dumpDefaultCassandraQuery" type="number" min={{urlCapturing.dumpDefaultCassandraQuery.min}} max={{urlCapturing.dumpDefaultCassandraQuery.max}} [(ngModel)]="urlCapturing.dumpDefaultCassandraQuery.value" pInputText required ngModel/>
+                        <input name="dumpDefaultCassandraQuery" type="number" min="0" max="1" [(ngModel)]="urlCapturing['dumpDefaultCassandraQuery']['value']" pInputText required ngModel/>
                     </div>
                     <div class="ui-g-1"></div>
                     <div class="ui-g-2">
                         <label>Enable url capturing feature</label>
                     </div>
                     <div class="ui-g-1">
-                        <input name="enableIPResourceURL" type="number" min={{urlCapturing.enableIPResourceURL.min}} max={{urlCapturing.enableIPResourceURL.max}} [(ngModel)]="urlCapturing.enableIPResourceURL.value" pInputText required ngModel/>
+                        <input name="enableIPResourceURL" type="number" min="0" max="1" [(ngModel)]="urlCapturing['enableIPResourceURL']['value']" pInputText required ngModel/>
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -63,7 +63,7 @@
                         <label>Enable transformation of thread subclasses</label>
                     </div>
                     <div class="ui-g-1">
-                        <input name="enableTransformThreadSubClass" type="number" min={{urlCapturing.enableTransformThreadSubClass.min}} max={{urlCapturing.enableTransformThreadSubClass.max}} [(ngModel)]="urlCapturing.enableTransformThreadSubClass.value" pInputText required
+                        <input name="enableTransformThreadSubClass" type="number" min="0" max="1" [(ngModel)]="urlCapturing['enableTransformThreadSubClass']['value']" pInputText required
                             ngModel/>
                     </div>
                 </div>

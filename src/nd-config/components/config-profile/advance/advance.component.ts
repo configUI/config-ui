@@ -34,6 +34,7 @@ export class AdvanceComponent implements OnInit {
   className: string = "Advance Component";
   
   adminMode:boolean;
+  isUserMode: boolean;
 
   errDialog: boolean = false;
   msg = [];
@@ -69,6 +70,7 @@ export class AdvanceComponent implements OnInit {
   loadAdminInfo(): void {
     this.configHomeService.getMainData()
       .subscribe(data => {this.adminMode = data.adminMode;
+        this.isUserMode = true;
       }
       );
   }

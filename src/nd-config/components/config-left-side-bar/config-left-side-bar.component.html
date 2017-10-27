@@ -5,7 +5,7 @@
         <li *ngFor="let ngMenu of navMenuArray">
             <a class="iconCss config-ui" routerLink="{{ngMenu.route}}" routerLinkActive="active" pTooltip="{{ngMenu.tooltip}}" tooltipPosition="right">
                 <button md-icon-button>
-                    <i style="font-size: 32px" class="{{ngMenu.icon}}"></i>
+                    <i class="icon {{ngMenu.icon}}"></i>
              </button>
             </a>
         </li>

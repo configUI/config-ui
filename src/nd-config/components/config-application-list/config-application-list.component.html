@@ -1,3 +1,4 @@
+<div class="ndegui-mainbox">
 <div class="configUI">
     <div class="header"><i aria-hidden="true"></i>Application List
         <span class="appIcon-css">
@@ -35,10 +36,9 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
             </p-column>
-            <p-column class="col-overflow" field="appName" header="NDC Settings" [sortable]="true" [style]="{'width':'11%', 'text-align':'center'}">
+           <p-column class="col-overflow" field="appName" header="NDC Settings" [sortable]="true" [style]="{'width':'11%', 'text-align':'center'}">
                 <template let-col let-application="rowData" pTemplate>
-
-                <a (click)="routeToNDCKeywords(application['appId'])" title="Click to open '{{application[col.field]}}' NDC Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
+			<a (click)="routeToNDCKeywords(application['appId'])" title="Click to open '{{application[col.field]}}' NDC Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
             </template>
             </p-column>
             <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
@@ -51,7 +51,7 @@
 
 </div>
 <!--Dialog for adding Application-->
-
+</div>
 <p-dialog class="profile-dialog" header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -79,7 +79,7 @@
             </div>
             <div class="ui-g-8">
                 <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                <p-dropdown name="topoId" [options]="topologySelectItem" placeholder="--Select Topology--" [style]="{'width':'72%'}" [(ngModel)]="applicationDetail.topoId" required ngModel></p-dropdown>
+                <p-dropdown name="topoId" [options]="topologySelectItem" placeholder="--Select Topology--" [style]="{'width':'72%','margin-left': '-19px'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
