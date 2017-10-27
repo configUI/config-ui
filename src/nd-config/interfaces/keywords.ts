@@ -38,13 +38,12 @@ export class Keywords{
 "logLevelOneFpMethod": KeywordsInfo
 "enableNDSession": KeywordsInfo
 "ASMethodHotspots" : KeywordsInfo
-"captureErrorlogs": KeywordsInfo
-"HTTPStatsCondCfg": KeywordsInfo
+"captureErrorlogs":KeywordsInfo
+"HTTPStatsCondCfg":KeywordsInfo
 "formatIPResourceURL": KeywordsInfo
 "enableIPResourceURL": KeywordsInfo
 "dumpDefaultCassandraQuery": KeywordsInfo
 "enableTransformThreadSubClass": KeywordsInfo
 "captureMethodForAllFP": KeywordsInfo
-
 }
 

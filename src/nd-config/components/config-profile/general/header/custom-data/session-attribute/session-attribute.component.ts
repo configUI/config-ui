@@ -85,9 +85,11 @@ export class SessionAttributeComponent implements OnInit {
       }
       else if (data["sessionType"] == "All")
         this.selectedSessionAttribute = "All";
+      else{
+        this.selectedSessionAttribute = "None"
+      }
     });
   }
-
 
   doAssignSessionAttributeTableData(data) {
     this.sessionAttributeComponentInfo = [];

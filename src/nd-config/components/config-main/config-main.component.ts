@@ -11,6 +11,7 @@ export class ConfigMainComponent implements OnInit {
 
   isProgressBar: boolean = false;
   color: string = "primary";
+  calcheight : String = "340px";
   
   ngOnInit() {
     this.configUtilityService.progressBarProvider$.subscribe(flag=> {
@@ -21,6 +22,7 @@ export class ConfigMainComponent implements OnInit {
       }, 1);
       
     });
+       this.calcheight = window.innerHeight - 104 + "px";	
   }
 
 }

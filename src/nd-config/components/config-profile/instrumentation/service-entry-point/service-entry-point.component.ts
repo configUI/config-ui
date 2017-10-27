@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ConfirmationService, SelectItem } from 'primeng/primeng'
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { ConfirmationService, SelectItem } from 'primeng/primeng';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
@@ -20,14 +23,19 @@ import { deleteMany } from '../../../../utils/config-utility';
 })
 export class ServiceEntryPointComponent implements OnInit {
 
+  @Output()
+  keywordData = new EventEmitter();
+
   @Input()
   profileId: number;
   /**It store service entry data */
   serviceEntryData: ServiceEntryPoint[];
-  selectedServiceEntryData:ServiceEntryPoint[];
+  selectedServiceEntryData: ServiceEntryPoint[];
 
- /**It stores table data for showing in GUI */
-  serviceEntrypointTableData:ServiceEntryPoint[];
+  entryPoints: Object;
+
+  /**It stores table data for showing in GUI */
+  serviceEntrypointTableData: ServiceEntryPoint[];
 
   /**It store service entry data for add*/
   serviceEntryPointDetail: ServiceEntryPoint;
@@ -35,13 +43,28 @@ export class ServiceEntryPointComponent implements OnInit {
   @Input()
   saveDisable: boolean = false;
 
+  /**These are those keyword which are used in current screen. */
+  keywordList = ['NDEntryPointsFile'];
+
   /**It is used as flag to open or close dialog */
   displayNewService: boolean = false;
 
-  addEditServiceEntryDialog:boolean = false;
-  isNewServiceEntryPoint:boolean;
+  addEditServiceEntryDialog: boolean = false;
+  isNewServiceEntryPoint: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService,private confirmationService: ConfirmationService) { }
+  subscription: Subscription;
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
+
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.entryPoints = keywordDataVal;
+    });
+
+  }
 
   ngOnInit() {
     this.loadServiceEntryPoint();
@@ -73,11 +96,11 @@ export class ServiceEntryPointComponent implements OnInit {
           arr.push(entryPointTypeList[i].entryTypeName);
         }
         arr.sort();
-        for (let i = 0; i < arr.length; i++){
-          for (let j = 0; j < entryPointTypeList.length; j++){
-              if(arr[i] == entryPointTypeList[j].entryTypeName){
-                this.entryPointType.push({ label: arr[i], value: entryPointTypeList[j].entryTypeId });
-              }
+        for (let i = 0; i < arr.length; i++) {
+          for (let j = 0; j < entryPointTypeList.length; j++) {
+            if (arr[i] == entryPointTypeList[j].entryTypeName) {
+              this.entryPointType.push({ label: arr[i], value: entryPointTypeList[j].entryTypeId });
+            }
           }
         }
       });
@@ -119,12 +142,21 @@ export class ServiceEntryPointComponent implements OnInit {
         this.serviceEntryPointDetail.entryType = this.entryPointType[i].label;
       }
     }
-
+    let that = this;
+    let filePath;
     this.serviceEntryPointDetail.fqm = this.serviceEntryPointDetail.fqm.trim();
     this.configKeywordsService.addServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting service in DB
         // this.serviceEntryData.push(data);
+        that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+
+          //For sending Runtime Changes
+            filePath = data["_body"];
+            filePath = filePath + "/NDEntryPointFile.txt";
+          that.entryPoints['NDEntryPointsFile'].path = filePath;
+          that.keywordData.emit(that.entryPoints);
+        });
         this.serviceEntryData = ImmutableArray.push(this.serviceEntryData, data);
         this.configUtilityService.successMessage(Messages);
       });
@@ -133,6 +165,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   /**Used to enabled/Disabled Service Entry Points */
   enableToggle(rowData: ServiceEntryPoint) {
+    let filePath;
     this.configKeywordsService.enableServiceEntryPointList(rowData.id, !rowData.enabled).subscribe(
       data => {
         if (rowData.enabled == true) {
@@ -143,30 +176,40 @@ export class ServiceEntryPointComponent implements OnInit {
         }
       }
     );
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      
+      //For sending Runtime Changes
+
+        filePath = data["_body"];
+        filePath = filePath + "/NDEntryPointFile.txt";
+      this.entryPoints['NDEntryPointsFile'].path = filePath;
+      this.keywordData.emit(this.entryPoints);
+    });
+
   }
   /**
    * Method to delete custom service entry points
    */
-deleteServiceEntryPoint():void{
-   if (!this.selectedServiceEntryData || this.selectedServiceEntryData.length < 1) {
+  deleteServiceEntryPoint(): void {
+    if (!this.selectedServiceEntryData || this.selectedServiceEntryData.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
     }
-/**
- * Check if selected row(s) contain pre-defined Service Entry Point(s)
- */
-      let selectedEntry = this.selectedServiceEntryData;
-        let arrAppIndex = [];
-         for (let index in selectedEntry) {
-          arrAppIndex.push(selectedEntry[index].isCustomEntry);
-        }
-        let i:number;
-   for( i=0;i<11;i++){
-          if(arrAppIndex[i]==false){
-            this.configUtilityService.errorMessage("Predefined Service Entry Point(s) can't be deleted");
-             return;
-          }
-		 }
+    /**
+     * Check if selected row(s) contain pre-defined Service Entry Point(s)
+     */
+    let selectedEntry = this.selectedServiceEntryData;
+    let arrAppIndex = [];
+    for (let index in selectedEntry) {
+      arrAppIndex.push(selectedEntry[index].isCustomEntry);
+    }
+    let i: number;
+    for (i = 0; i < 11; i++) {
+      if (arrAppIndex[i] == false) {
+        this.configUtilityService.errorMessage("Predefined Service Entry Point(s) can't be deleted");
+        return;
+      }
+    }
 
     this.confirmationService.confirm({
       message: 'Do you want to delete the selected row?',
@@ -226,18 +269,18 @@ deleteServiceEntryPoint():void{
     /**
       * Check if selected row(s) contain pre-defined Service Entry Point(s)
       */
-      let selectedEntry = this.selectedServiceEntryData;
-        let arrAppIndex = [];
-         for (let index in selectedEntry) {
-          arrAppIndex.push(selectedEntry[index].isCustomEntry);
-         }
-        let i:number;
-        for( i=0;i<11;i++){
-          if(arrAppIndex[i]==false){
-            this.configUtilityService.errorMessage("Predefined Service Entry Point can't be edited");
-             return;
-            }
-          }
+    let selectedEntry = this.selectedServiceEntryData;
+    let arrAppIndex = [];
+    for (let index in selectedEntry) {
+      arrAppIndex.push(selectedEntry[index].isCustomEntry);
+    }
+    let i: number;
+    for (i = 0; i < 11; i++) {
+      if (arrAppIndex[i] == false) {
+        this.configUtilityService.errorMessage("Predefined Service Entry Point can't be edited");
+        return;
+      }
+    }
 
     this.serviceEntryPointDetail = new ServiceEntryPoint();
     this.isNewServiceEntryPoint = false;
@@ -274,23 +317,23 @@ deleteServiceEntryPoint():void{
     this.configKeywordsService.editServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         let index = this.getServiceEntryPoint();
-        this.serviceEntryData = ImmutableArray.replace(this.serviceEntryData, data,index);
+        this.serviceEntryData = ImmutableArray.replace(this.serviceEntryData, data, index);
         this.serviceEntryPointDetail.entryType = data.entryType
         this.configUtilityService.successMessage(Messages);
       });
     this.addEditServiceEntryDialog = false;
-    this.selectedServiceEntryData=[];
+    this.selectedServiceEntryData = [];
   }
 
   getServiceEntryPoint(): number {
-    if(this.serviceEntryPointDetail){
+    if (this.serviceEntryPointDetail) {
       let ID = this.serviceEntryPointDetail.id;
-    for (let i = 0; i < this.serviceEntryData.length; i++) {
-      if (this.serviceEntryData[i].id == ID) {
-        return i;
+      for (let i = 0; i < this.serviceEntryData.length; i++) {
+        if (this.serviceEntryData[i].id == ID) {
+          return i;
+        }
       }
     }
-  }
     return -1;
   }
 

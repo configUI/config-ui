@@ -7,16 +7,19 @@
 
 
 /*---------------Fonts CSS---------------*/
-
 @charset "UTF-8";
-@font-face {
-    font-family: "ndegui-icon";
-    src: url("fonts/ndegui-icon.eot");
-    src: url("fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"), url("fonts/ndegui-icon.woff") format("woff"), url("fonts/ndegui-icon.ttf") format("truetype"), url("fonts/ndegui-icon.svg#ndegui-icon") format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
 
+@font-face {
+  font-family: "ndegui-icon";
+  src:url("fonts/ndegui-icon.eot");
+  src:url("fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"),
+    url("fonts/ndegui-icon.woff") format("woff"),
+    url("fonts/ndegui-icon.ttf") format("truetype"),
+    url("fonts/ndegui-icon.svg#ndegui-icon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
 [data-icon]:before {
     font-family: "ndegui-icon" !important;
     content: attr(data-icon);
@@ -28,10 +31,10 @@
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-[class^="ndegui-"]:before,
-[class*=" ndegui-"]:before {
+  }
+  
+  [class^="ndegui-"]:before,
+  [class*=" ndegui-"]:before {
     font-family: "ndegui-icon" !important;
     font-style: normal !important;
     font-weight: normal !important;
@@ -41,56 +44,50 @@
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.ndegui-application:before {
+  }
+  
+  .ndegui-application:before {
     content: "\e000";
-}
-
-.ndegui-group:before {
+  }
+  .ndegui-group:before {
     content: "\e001";
-}
-
-.ndegui-home1:before {
+  }
+  .ndegui-home1:before {
     content: "\e002";
-}
-
-.ndegui-instance:before {
+  }
+  .ndegui-instance:before {
     content: "\e003";
-}
-
-.ndegui-instrmentation-profile:before {
+  }
+  .ndegui-instrmentation-profile:before {
     content: "\e004";
-}
-
-.ndegui-nd-agent:before {
+  }
+  .ndegui-nd-agent:before {
     content: "\e005";
-}
-
-.ndegui-profile:before {
+  }
+  .ndegui-profile:before {
     content: "\e006";
-}
-
-.ndegui-server:before {
+  }
+  .ndegui-server:before {
     content: "\e007";
-}
-
-.ndegui-tier:before {
+  }
+  .ndegui-tier:before {
     content: "\e008";
-}
-
-.ndegui-topology:before {
+  }
+  .ndegui-topology:before {
     content: "\e009";
-}
-
-.ndegui-topology-1:before {
-    content: "\e00a";
-}
-
-.ndegui-auto-discover:before {
+  }
+  .ndegui-auto-discover:before {
     content: "\e00b";
-}
-
+  }
+  .ndegui-audit-logs:before {
+    content: "\e00c";
+  }
+  .ndegui-data-collector:before {
+    content: "\e00a";
+  }
+  .ndegui-topology-1:before {
+    content: "\e00d";
+  }
 
 /*.ndeicon {
     margin: 0;
@@ -106,7 +103,6 @@ body {
     font-size: 12px;
     margin: 0;
     padding: 0;
-    background: url('assets/img/ocean.jpg') center #000000;
 }
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
@@ -192,6 +188,8 @@ body {
 
 .config-ui-table-margin {
     padding: 8px;
+    overflow-y: scroll;
+    height: 450px;
 }
 
 .header-content {
@@ -271,10 +269,10 @@ body {
 }
 
 
-/*
-hide it behind the dropdown component, the required
+/* 
+hide it behind the dropdown component, the required 
   HTML5 pop up still shows which is good and the form
- is still marked as not valid
+ is still marked as not valid 
 */
 
 .hidden-validator {
@@ -308,9 +306,11 @@ input[type="number"] {
 
 /*For hiding scroll in tree node */
 
-.auto-config-tree .ui-tree .ui-tree-container {
-    width: 100%;
-}
+
+/*
+.config-tree>.ui-tree .ui-tree-container {
+    overflow: hidden;
+}*/
 
 .sessionTab .ui-tabview .ui-tabview-panel {
     min-height: 64px;
@@ -621,9 +621,8 @@ a {
 .configui-thread-css-2 {
     padding-left: 16px;
 }
-
-.configui-thread-css {
-    width: 20%;
+.configui-thread-css{
+    width: 12%;
 }
 
 
@@ -728,8 +727,6 @@ a {
     font-size: 11px;
     font-weight: 600;
 }
-
-
 /* config-tree-detail.css */
 
 
@@ -952,7 +949,6 @@ a {
 
 /* config-profile-list.components.css */
 
-
 /* config-top-nav-bar.component.css */
 
 .stripbg {
@@ -987,30 +983,105 @@ a {
     background-color: rgb(92, 136, 48);
 }
 
-.browseTopCss .ui-dialog {
-    margin-top: -170px;
-}
-
 .config_textarea {
     min-width: 99%;
     min-height: 395px;
+}
+
+.browseTopCss .ui-dialog {
+    margin-top: -170px;
 }
 
 .config_app {
     width: 72%;
 }
 
-.config_align_dialog {
-    width: 177px;
+.config_align_dialog{
+   width: 177px;
 }
 
+/*Remove this if causing Context Menu misplacement*/
+.configContextMenu .ui-menu.ui-menu-dynamic {
+    position: fixed;
+/*    top: 226px !important;*/
+}
+
+.configContextMenu .ui-menu {
+    width: 10%;
+}
+
+.auto-discover .ui-dropdown-panel .ui-dropdown-filter-container {
+    width: 100%;
+}
+.config-dialog-error .ui-dialog .ui-dialog-content
+{
+    height: 350px;
+    overflow: scroll;
+}
+
+.config-uploadFileDialog .ui-dialog
+{
+    left: 51% !important;
+    width: 38% !important;
+    margin-top: -6% !important;
+    border: 3px solid #3e7fb5 !important;
+}
+.config-uploadFileDialog .ui-button .ui-state-disabled, .config-uploadFileDialog .ui-widget:disabled{
+    opacity: 0.35 !important;
+    cursor: default !important;
+  }
+
+.saveDisable .ui-button .ui-state-disabled, .saveDisable .ui-widget:disabled {
+    opacity: .35 !important;
+    cursor: default !important;
+}
+
+/* Added for Bug Id:31435*/
+.instrProfSelectClass .ui-multiselect-panel {
+  top: 0 !important;
+}
+/*Added for Bug Id-34208*/
+.configui .ui-dropdown .ui-dropdown-panel{
+    width : 100%
+}
+
+/*For toogle button when checked*/
 .toggleChk .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgb(92, 136, 48) !important;
+    background-color: rgb(92, 136, 48) !important ;
 }
 
+.config-profile-dialog {
+    width : 210px;
+}
 
-/*Added to resolve bug Id-34208*/
+/* Added for fixed header Bug Id: 34605*/
+.nde-ui-auditLogTable .ui-widget-header.ui-datatable-scrollable-header {
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    top: 0;
+    z-index: 100;
+}
 
-.configui .ui-dropdown .ui-dropdown-panel {
-    width: 100%
+/* Added for disabled issue of any field*/
+ textarea:disabled, input:not([type]):disabled, input[type="number" i]:disabled, input[type="text" i]:disabled {
+    background: #ececec;
+    color: #b7b7b7;
+}
+
+/* Added for loading spinner in file manager*/
+.loadingClass {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+    pointer-events: none;
+    color: #6E6E6E;
+}
+
+.instrprofscroll .ui-tree .ui-tree-container {
+    width: 102%;
 }

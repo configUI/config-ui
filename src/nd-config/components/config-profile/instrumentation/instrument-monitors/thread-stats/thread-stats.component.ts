@@ -69,15 +69,23 @@ export class ThreadStatsComponent implements OnInit {
     //hasOwnProperty is undefined on refreshing page, checking for keywordData if it is undefined or not 
     if (this.configKeywordsService.keywordData != undefined) {
       keywordData = this.configKeywordsService.keywordData;
+      let config = {
+        'configkeyword' : keywordData
+      }
+      sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
     else {
+      // Commenting this as store is giving default value instead of saved one
+      /*
       this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         keywordData = keywordDataVal;
-      });
+      });*/
+      let keyVal = JSON.parse(sessionStorage.getItem('keywordValue'));
+      keywordData = keyVal['configkeyword'];
     }
     this.threadStats = {}
     this.keywordList.forEach((key) => {
@@ -102,6 +110,10 @@ export class ThreadStatsComponent implements OnInit {
         this.threadStats[key]["value"] = threadVal;
     }
     this.keywordData.emit(this.threadStats);
+    let config = {
+        'configkeyword' : this.configKeywordsService.keywordData 
+    }
+    sessionStorage.setItem('keywordValue', JSON.stringify(config));
   }
 
 //Method to generate enableJVMThreadMonitor keyword value

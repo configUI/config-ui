@@ -28,7 +28,7 @@
                             <label>Exception type</label>
                         </div>
                         <div class="ui-g-3">
-                            <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="genExceptionData.exceptionType" required ngModel/>
+                            <input name="dropdown" type="text" size="30" class='hidden-validator' pInputText [(ngModel)]="genExceptionData.exceptionType" style="width:10px" required ngModel/>
                             <p-dropdown name="exceptionType" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="genExceptionData.exceptionType" [autoWidth]="true" [options]="exceptionType" required ngModel></p-dropdown>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="ui-g-3">
-                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required pattern="[a-zA-Z\.]*" (keydown.space)="$event.preventDefault()" ngModel/>
+                            <input name="exceptionName" type="text" size="30" [(ngModel)]="genExceptionData.exceptionName" pInputText autofocus required pattern="[a-zA-Z\.]*" (keydown.space)="$event.preventDefault()"  ngModel/>
                         </div>
                     </div>
                     <div class="ui-g-12">

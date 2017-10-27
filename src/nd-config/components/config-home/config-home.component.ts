@@ -89,12 +89,17 @@ export class ConfigHomeComponent implements OnInit {
   }
 
   importTopologyDialog() {
+    this.loadTopologyList();
     this.selectedTopology = "";
     this.importTopo = true;
   }
 
   importTopology(): void {
     this.configHomeService.importTopology(this.selectedTopology).subscribe(data => {
+      for(let i=0;i<data.length;i++){
+        if(data[i].timestamp==null)
+          data[i].timestamp="-";
+      } 
       if (data.length > 5) {
         this.topologyInfoMsg = "(Last 5 Modified)";
         this.topologyInfo = (data).slice(data.length - 5, data.length).reverse();

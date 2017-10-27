@@ -38,11 +38,11 @@ export class ConfigProfileService {
   }
 
   getProfileList(): Observable<ProfileData[]> {
-    return this._restApi.getDataByGetReq(URL.FETCH_PROFILE_TABLEDATA);
+    return this._restApi.getDataByGetReq(`${URL.FETCH_PROFILE_TABLEDATA}`);
   }
 
   addProfileData(data): Observable<ProfileData> {
-    return this._restApi.getDataByPostReq(URL.UPDATE_PROFILE_TABLE, data);
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_PROFILE_TABLE}`, data);
   }
 
   getProfileName(profileId: number): Observable<string> {
@@ -52,4 +52,5 @@ export class ConfigProfileService {
   deleteProfileData(data): Observable<any>{
     return this._restApi.getDataByPostReq(URL.DEL_PROFILE, data);
   }
+
 }

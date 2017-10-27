@@ -41,6 +41,9 @@ export class ConfigApplicationService {
     let url = `${URL.GENERATE_ND_CONF}/${data}`;
     return this._restApi.getDataByGetReq(url);
   }
-  
+
+  getAppName(appId): Observable<String>{
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_APP_NAME}/${appId}`);
+  }
   
 }

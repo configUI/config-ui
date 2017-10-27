@@ -1,21 +1,21 @@
-<div class="ui-g configUI">
+<div class="ui-g ndegui-mainbox">
     <div class="ui-g-12">
-        <div class="ui-g-6">
+        <div class="ui-g-5">
             <div class="ui-g-4 label">
                 <label>Import file</label>
             </div>
             <div class="ui-g-4">
-                <button pButton type="button" title="Browse" (click)="openFileManager()" label="Browse"></button>
+                <button pButton type="button" title="Browse" label="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
             </div>
         </div>
     </div>
     <div class="ui-g-12">
         <div class="ui-g-10">
             <div class="ui-g-2 label">
-                <label>View Instrumentation Profile</label>
+                <label>Instrumentation Profile</label>
             </div>
-            <div class="ui-g-3 configui">
-                <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--" filter="filter"></p-dropdown>
+            <div class="ui-g-3">
+                <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--" filter="filter" class="instrprofmaker autosearchfield"></p-dropdown>
             </div>
             <div class="ui-g-1" style="width: 7%;margin-left:10px">
                 <button pButton type="button" label="View" icon="fa-eye" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
@@ -37,37 +37,46 @@
     </div>
     <div class="ui-g-12">
         <div *ngIf="!editXMLFile && !createXMLInstrumentation">
-            <textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>
+            <!--<textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>-->
+	    <div class="config_textarea instrprofileview instrprofiletxtarea" id="xmlContentDiv">
+                <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="xmlFormat"></code></pre>
+            </div>
         </div>
-        <div *ngIf="editXMLFile && !createXMLInstrumentation">
+        <div *ngIf="editXMLFile && !createXMLInstrumentation" class="instrprofscroll instrprofileheaderhght">
             <p-panel header="Edit XML">
-                <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)" [style]="{'height':'350px','width':'98.5%','background':'#fff'}" appendTo="body"></p-tree>
-		<p-contextMenu #cm class="configContextMenu" [model]="xmlTreeMenu"></p-contextMenu>
-                <div style="margin-top: 8px">
+                <div class="ui-g-12 instrprofiletxtarea">
+                <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)"
+                    [style]="{'height':'370px','width':'98.5%'}"></p-tree>
+                </div>
+                <div class="ui-g-12">
                     <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(false)"></button>
                     <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(false)"></button>
                     <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(false)" label="Save" style="float: right;"></button>
                 </div>
+                <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
             </p-panel>
         </div>
-        <div *ngIf="createXMLInstrumentation" #createPanel>
+        <div *ngIf="createXMLInstrumentation" #createPanel class="instrprofscroll instrprofileheaderhght">
             <p-panel header="Create XML">
-                <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)" [style]="{'height':'350px','width':'98.5%','background':'#fff'}" appendTo="body"></p-tree>
-	  	<p-contextMenu #cm class="configContextMenu" [model]="xmlTreeMenu"></p-contextMenu>
-                <div style="margin-top: 8px">
+                <div class="ui-g-12 instrprofiletxtarea">
+                <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)"
+                    [style]="{'height':'370px','width':'98.5%'}"></p-tree>
+                </div>
+                <div class="ui-g-12">
                     <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(true)"></button>
                     <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(true)"></button>
                     <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(true)" label="Save" style="float: right;"></button>
-                    <span style="float: right; padding-right: 5px">Enter File Name <input type="text" pInputText [(ngModel)]="saveXMLFileName"/></span>
+                    <span style="float: right; padding-right: 5px">Enter File Name <input type="text" pInputText (keydown.dot)="$event.preventDefault()" [(ngModel)]="saveXMLFileName"/></span>
                 </div>
+                <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
             </p-panel>
         </div>
     </div>
 </div>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss"  [resizable]="false" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
-    modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss ui-widget-header browser-color" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+    modal="modal" width="650" responsive="true" [resizable]="false">
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
@@ -75,7 +84,7 @@
 </p-dialog>
 
 <!-- Adding Node Dialog -->
-<p-dialog [header]="addDialogHeader" [resizable]="false" [(visible)]="addNodeDialog" [width]="450">
+<p-dialog [header]="addDialogHeader" [(visible)]="addNodeDialog" [width]="450" [resizable]="false">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
             <div class="ui-grid-col-4" style="padding-top:5px">

@@ -9,5 +9,12 @@ export interface KeywordsInfo {
      value: string;
 }
 
+export interface NDCKeywordsInfo{
+    defaultValue: string;
+    max: string;
+    keyId: number;
+    min: string;
+    value: string;
 
+}
 

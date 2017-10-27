@@ -49,4 +49,5 @@ export class ConfigHomeService {
   getTopologyList(){
     return this._restApi.getDataByGetReq(URL.GET_TOPO_LIST);
   }
+
 }

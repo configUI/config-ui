@@ -250,6 +250,11 @@ export class ConfigApplicationListComponent implements OnInit {
     this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
   }
 
+  //Route to NDC Keyword 
+  routeToNDCKeywords(selectedAppId){
+    this.router.navigate([ROUTING_PATH + '/application-list/ndc-keywords-setting', selectedAppId])
+  }
+
   generateNDConfFile() {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
       this.configUtilityService.errorMessage("Select an application to generate agent configuration settings");

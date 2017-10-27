@@ -21,7 +21,7 @@ import * as URL from '../../../../constants/config-url-constant';
 })
 export class IntegrationPtDetectionComponent implements OnInit {
 
- @Input()
+  @Input()
   profileId: number;
   index: number = 0;
   subscriptionNodeData: Subscription;
@@ -34,7 +34,7 @@ export class IntegrationPtDetectionComponent implements OnInit {
 
   errDialog: boolean = false;
   msg = [];
-
+  errMsg = [];
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -52,15 +52,15 @@ export class IntegrationPtDetectionComponent implements OnInit {
     this.loadKeywordData();
   }
   /**This method is used to when keyword data object doesn't exists any key value then we will get keyword data from server */
-  loadKeywordData(){
-    if(!this.configKeywordsService.keywordData){
+  loadKeywordData() {
+    if (!this.configKeywordsService.keywordData) {
       this.configKeywordsService.getProfileKeywords(this.profileId);
       this.configKeywordsService.toggleKeywordData();
     }
   }
 
-  saveKeywordData(keywordData){
-    for(let key in keywordData){
+  saveKeywordData(keywordData) {
+    for (let key in keywordData) {
       this.configKeywordsService.keywordData[key] = keywordData[key];
       this.configKeywordsService.keywordData[key].enable = true;
     }
@@ -69,16 +69,21 @@ export class IntegrationPtDetectionComponent implements OnInit {
     this.triggerRunTimeChanges(keywordData);
   }
 
-  handleChange(e){
+  handleChange(e) {
     this.index = e.index;
   }
 
 
-   triggerRunTimeChanges(data) {
+  triggerRunTimeChanges(data) {
 
     let keyWordDataList = [];
     for (let key in data) {
-      keyWordDataList.push(key + "=" + data[key].value);
+      if (data[key].path) {
+        keyWordDataList.push(key + "=" + data[key].path);
+      }
+      else {
+        keyWordDataList.push(key + "=" + data[key].value);
+      }
     }
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
@@ -95,11 +100,13 @@ export class IntegrationPtDetectionComponent implements OnInit {
       if (this.configProfileService.nodeData.nodeType == 'topology') {
         const url = `${URL.RUNTIME_CHANGE_TOPOLOGY}/${this.configProfileService.nodeData.nodeId}`;
         let that = this;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
           that.msg = rtcMsg;
+          that.errMsg = rtcErrMsg;
 
           //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
+          if (that.msg.length > 0 || that.errMsg.length > 0) {
+
             that.errDialog = true;
           }
         })
@@ -107,11 +114,13 @@ export class IntegrationPtDetectionComponent implements OnInit {
       else if (this.configProfileService.nodeData.nodeType == 'tier') {
         const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
         let that = this
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
           that.msg = rtcMsg;
+          that.errMsg = rtcErrMsg;
 
           //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
+          if (that.msg.length > 0 || that.errMsg.length > 0) {
+
             that.errDialog = true;
           }
         })
@@ -119,11 +128,13 @@ export class IntegrationPtDetectionComponent implements OnInit {
       else if (this.configProfileService.nodeData.nodeType == 'server') {
         const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}`;
         let that = this;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
           that.msg = rtcMsg;
+          that.errMsg = rtcErrMsg;
 
           //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
+          if (that.msg.length > 0 || that.errMsg.length > 0) {
+
             that.errDialog = true;
           }
         })
@@ -132,11 +143,13 @@ export class IntegrationPtDetectionComponent implements OnInit {
       else if (this.configProfileService.nodeData.nodeType == 'instance') {
         const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}`;
         let that = this;
-        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg) {
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
           that.msg = rtcMsg;
+          that.errMsg = rtcErrMsg;
 
           //Showing partialError messages in dialog
-          if (that.msg.length > 0) {
+          if (that.msg.length > 0 || that.errMsg.length > 0) {
+
             that.errDialog = true;
           }
         })

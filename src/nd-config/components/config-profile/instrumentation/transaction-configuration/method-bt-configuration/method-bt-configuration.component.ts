@@ -126,7 +126,8 @@ export class MethodBTConfigurationComponent implements OnInit {
     BYTE: 'B',
     FLOAT: 'F',
     DOUBLE: 'D',
-    LONG: 'J'
+    LONG: 'J',
+    CHAR: 'C'
   };
 
   DATA_TYPE_ARR = [
@@ -137,7 +138,8 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.DATA_TYPE.BYTE,
     this.DATA_TYPE.FLOAT,
     this.DATA_TYPE.DOUBLE,
-    this.DATA_TYPE.LONG
+    this.DATA_TYPE.LONG,
+    this.DATA_TYPE.CHAR
   ];
 
   changeOpertionType(type) {
@@ -246,6 +248,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.selectedArgRules = [];
     this.selectedMethodRules = [];
+    this.indexList = [];
   }
 
   //Open view window on FQM name click
@@ -898,6 +901,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     });
     this.addBusinessTransMethodDialog = false;
     this.selectedbusinessTransMethod = [];
+    this.indexList = [];
   }
 
   //For openong edit form of return type rules
@@ -953,6 +957,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.selectedMethodRules = [];
     this.methodBtTypeDelete = [];
     this.selectedArgRules = [];
+    this.indexList = [];
     // this.btMethodRulesDetail = new RulesData();
   }
 

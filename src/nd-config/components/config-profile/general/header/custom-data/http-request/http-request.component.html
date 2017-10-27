@@ -5,13 +5,16 @@
   <div class="ui-g-2">
     <p-radioButton name="httpRequest" label="Specific" value="Specific" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
   </div>
+  <div class="ui-g-2">
+        <p-radioButton name="httpRequest" label="None" value="None" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
+  </div>
 </div>
 
 <div class="ui-g configui-session-css-2" *ngIf="selectedHTTPReqHdrType == 'Specific'">
   <!--For showing HTTP Request Header list -->
   <p-dataTable [value]="httpRequestHdrComponentInfo" class="nde-ui" [(selection)]="selectedHTTPReqHeader" [rows]="5" [paginator]="httpRequestHdrComponentInfo?.length > 5 "
     [pageLinks]="3">
-    <p-header>
+    <p-header>     
         <span class="configui-float-css"> HTTP request header (s) </span>
         <span class="configui-float">`
                        <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
@@ -39,7 +42,7 @@
 </div>
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -102,7 +105,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog class="profile-dialog" [resizable]="false"  header="{{!isNewRule ? 'Add custom settings ' : 'Edit custom settings'}}" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{!isNewRule ? 'Add custom settings ' : 'Edit custom settings'}}" *ngIf="rulesDialog" [(visible)]="rulesDialog" modal="modal" width="590" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -112,9 +115,12 @@
                 <div class="ui-g-4">
                     <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters." required pattern="[a-zA-Z0-9_-]*" ngModel/>
                 </div>
+                <div class="ui-g-2">
+                    <label>Custom value</label>
+                </div>
                 <div class="ui-g-4">
-                    <input name="customValueType" type="text" class='hidden-validator' pInputText [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel/>
-                    <p-dropdown name="customValueType" [style]="{'width':'100%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="Custom value type"></p-dropdown>
+                    <input name="customValueType" type="text" class='hidden-validator configinput' pInputText [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel/>
+                    <p-dropdown name="customValueType" [style]="{'width':'90%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel placeholder="--Select type--"></p-dropdown>
                 </div>
             </div>
 

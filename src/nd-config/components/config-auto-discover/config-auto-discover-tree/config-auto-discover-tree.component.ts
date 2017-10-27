@@ -90,7 +90,15 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this._configKeywordsService.saveInsrumentationFileInXMLFormat(this.instrfileName, this.reqId, this.instanceFileName).subscribe(data =>
             console.log(data));
         this.configUtilityService.successMessage("Saved successfully");
+
+	this.clearFields();
     }
+
+    clearFields() {
+        this.instrfileName = "";
+        this.rightSideTreeData = [];
+    }
+
     ngOnInit() {
 
     }
@@ -135,7 +143,8 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     getSelectedUnselectedNodeInfo(selectedNode, isTrue) {
         let nodeInfo = new AutoDiscoverTreeData();
         this.selectedNodes = [];
-        for (let i = 0; i < selectedNode.length; i++) {
+        if (selectedNode != undefined){
+         for (let i = 0; i < selectedNode.length; i++) {
             if (selectedNode[i]["type"] == "package") {
                 nodeInfo = new AutoDiscoverTreeData();
                 nodeInfo.packageName = selectedNode[i]["label"];
@@ -154,6 +163,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
                 nodeInfo.methodName = selectedNode[i]["label"];
                 this.selectedNodes = ImmutableArray.push(this.selectedNodes, nodeInfo);
             }
-        }
-    }
+         }
+       }
+     }
 }

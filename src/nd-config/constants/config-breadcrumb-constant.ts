@@ -15,12 +15,14 @@ export const LABEL = {
     ND_AGENT: 'ND Agent Status',
     INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker',
     AUTO_DISCOVER: 'Auto Discover',
-    VIEW_AUDIT_LOG: 'View Audit Log'
+    VIEW_AUDIT_LOG: 'View Audit Log',
+    NDC_KEYWORDS: 'NDC Settings'
 } 
 
 export const URL = {
     HOME: `${ROUTING_PATH}/home`,
     APPLICATION_LIST: `${ROUTING_PATH}/application-list`,
+    NDC_KEYWORDS: `${ROUTING_PATH}/application-list/ndc-keywords-setting`,
     PROFILE: `${ROUTING_PATH}/profile`,
     PROFILE_LIST: `${ROUTING_PATH}/profile/profile-list`,
     TOPOLOGY_LIST: `${ROUTING_PATH}/profile/topology-list`,
@@ -38,9 +40,16 @@ export const URL = {
     TREE_ADVANCE: `${ROUTING_PATH}/tree-main/profile/advance`,
     TREE_INTEGRATION: `${ROUTING_PATH}/tree-main/profile/integration`,
 
+    TOPO_TREE_GENERAL: `${ROUTING_PATH}/tree-main/topology/profile/general`,
+    TOPO_TREE_INSTRUMENTATION: `${ROUTING_PATH}/tree-main/topology/profile/instrumentation`,
+    TOPO_TREE_ADVANCE: `${ROUTING_PATH}/tree-main/topology/profile/advance`,
+    TOPO_TREE_INTEGRATION: `${ROUTING_PATH}/tree-main/topology/profile/integration`,
+
     TREE_MAIN: `${ROUTING_PATH}/tree-main`,
     TREE_MAIN_TOPOLOGY:`${ROUTING_PATH}/tree-main/topology`,
     TOPOLOGY_PROFILE: `${ROUTING_PATH}/tree-main/profile/configuration`,
+    TREE_TOPOLOGY: `${ROUTING_PATH}/tree-main/topology/profile/configuration`,
+    TREE_TOPO_PROFILE: `${ROUTING_PATH}/tree-main/topology/profile`,    
     TREE_PROFILE: `${ROUTING_PATH}/tree-main/profile`,
     INSTRUMENTATION_PROFILE_MAKER: `${ROUTING_PATH}/instrumentation-profile-maker`,
     AUTO_DISCOVER: `${ROUTING_PATH}/auto-discover-main`,

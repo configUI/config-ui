@@ -1,23 +1,17 @@
 <div class='tabs-all'>
     <p-tabView (onChange)="handleChange($event)">
-        <p-tabPanel header="Debug level" [selected]="index == 0">
+        <p-tabPanel header="Debug level"*ngIf="isUserMode" [selected]="index == 0">
             <app-debug *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-debug>
         </p-tabPanel>
-        <!--<p-tabPanel header="Backend monitor" [selected]="index == 1">
-            <app-backend-monitors *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-backend-monitors>
-        </p-tabPanel>-->
-        <p-tabPanel header="Monitors" [selected]="index == 1">
+        <p-tabPanel header="Monitors" *ngIf="isUserMode" [selected]="index == 1">
             <app-monitors *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
         </p-tabPanel>
-        <!--<p-tabPanel header="Put delay in method" *ngIf="adminMode == 'true'" [selected]="index == 3">-->
         <p-tabPanel header="Put delay in method" *ngIf="adminMode" [selected]="index == 2">
             <app-delay *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-delay>
         </p-tabPanel>
-        <!--<p-tabPanel header="Generate exception" *ngIf="adminMode == 'true'" [selected]="index == 4">-->
          <p-tabPanel header="Generate exception" *ngIf="adminMode"  [selected]="index == 3">
             <app-generate-exception *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-generate-exception>
         </p-tabPanel>
-
         <p-tabPanel header="Custom configuration" *ngIf="adminMode" [selected]="index == 4">
             <app-custom-keywords *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-keywords>
         </p-tabPanel>
@@ -25,17 +19,24 @@
 </div>
 
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
-  width="500" responsive="true">
-  <div style="max-height: 500px; overflow-y: auto;">
-    <ul>
-     <li *ngFor="let err of msg">
-        <span>{{err}}</span>
-     </li>
-    </ul>
+width="500" responsive="true">
+<div style="max-height: 500px; overflow-y: auto;">
+  Runtime changes successfully applied on: 
+  <ul>
+   <li *ngFor="let err of msg">
+      <span>{{err}}</span>
+   </li>
+  </ul>
+  Error while applying Runtime changes on:
+  <ul>
+    <li *ngFor="let e of errMsg">
+       <span>{{e}}</span>
+    </li>
+   </ul>
+</div>
+<footer>
+  <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+    <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
   </div>
-  <footer>
-    <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-      <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
-    </div>
-  </footer>
+</footer>
 </p-dialog>

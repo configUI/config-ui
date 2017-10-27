@@ -68,6 +68,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   //used when topology screen comes from its topology show All screen or home screen
   topoId: number
 
+  url: string;
   subscription: Subscription;
 
   ngOnInit() {
@@ -78,7 +79,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   loadTopologyData(): void {
     this.getTableHeader();
-    let url;
+    // let url;
     this.route.params.subscribe((params: Params) => {
     this.dcId = params['dcId']
       this.topoId = params['topoId']
@@ -90,8 +91,8 @@ export class ConfigTreeDetailComponent implements OnInit {
      */
 
     this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-      url = event["url"];
-      let arr = url.split("/");
+      this.url = event["url"];
+      let arr = this.url.split("/");
       if (arr.indexOf("tree-main") != -1) {
         if (arr.indexOf("topology") != -1) {
           this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);
@@ -243,13 +244,18 @@ export class ConfigTreeDetailComponent implements OnInit {
   /**This method is used to creating topology select item object */
   createProfileSelectItem(data) {
     this.profileSelectItem = [];
-    //this.profileSelectItem.push({ value: -1, label: '--Select Profile--' });
-    console.log("this.profileData---", data)
-    let that = this;
-    data.forEach(function (val) {
-      that.profileSelectItem.push({ value: val.profileId, label: val.profileName });
-    })
-
+    let arr = []; //This variable is used to sort Profiles
+    for (let i = 0; i < data.length; i++) {
+      arr.push(data[i].profileName); 
+    }
+    arr.sort();
+      for (let i = 0; i< arr.length; i++){
+        for (let j = 0; j < data.length; j++) {
+          if(data[j].profileName == arr[i]){
+           this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
+          }
+        }
+      }
   }
 
   // routeToConfiguration(selectedProfileId, selectedProfileName) {
@@ -275,8 +281,14 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //Observable profile name
     this.configProfileService.profileNameObserver(entity.profileName);
-    this.router.navigate([this.ROUTING_PATH + '/tree-main/profile/configuration', entity.profileId]);
+    if(this.url.includes("/tree-main/topology/")){
+      this.router.navigate([this.ROUTING_PATH + '/tree-main/topology/profile/configuration', entity.profileId]);      
+    }
+    else{
+      this.router.navigate([this.ROUTING_PATH + '/tree-main/profile/configuration', entity.profileId]);
+    }
   }
+
 
   disableProfInstance(instanceId, flag) {
 

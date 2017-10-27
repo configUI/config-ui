@@ -43,6 +43,11 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       if (url == BREADCRUMB.URL.APPLICATION_LIST) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST });
       }
+      else if(url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS )){
+        this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] });
+        this.items.push({label: BREADCRUMB.LABEL.NDC_KEYWORDS});
+      }
+
       else if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
 
         if (url.startsWith(BREADCRUMB.URL.PROFILE_LIST))
@@ -87,12 +92,40 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       }
 
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)) {
+        if (!url.includes("tree-main/topology/profile")) {
+          let topoId = url.substring(url.lastIndexOf("/") + 1)
+          sessionStorage.setItem("topoId", topoId)
+          // this.items.push({ label: BREADCRUMB.LABEL.TOPOLOGY_DETAIL, routerLink: [BREADCRUMB.URL.TOPOLOGY_DETAIL] })
+        }
         this.items.push({ label: BREADCRUMB.LABEL.TOPOLOGY_DETAIL, routerLink: [BREADCRUMB.URL.TOPOLOGY_DETAIL] })
-        this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+
+        if (url.startsWith(BREADCRUMB.URL.TREE_TOPO_PROFILE)) {
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN, routerLink: [`${BREADCRUMB.URL.TREE_MAIN_TOPOLOGY}/${sessionStorage.getItem("topoId")}`] })
+          if (url.startsWith(BREADCRUMB.URL.TREE_TOPOLOGY))
+            this.items.push({ label: BREADCRUMB.LABEL.CONFIGURATION });
+          else {
+            let arrURL = url.split("/");
+
+            let tabId = arrURL[arrURL.length - 1];
+            let profileId = arrURL[arrURL.length - 2];
+
+            this.items.push({ routerLink: [`${BREADCRUMB.URL.TREE_TOPOLOGY}/${profileId}`], label: BREADCRUMB.LABEL.CONFIGURATION });
+
+            if (url.startsWith(BREADCRUMB.URL.TOPO_TREE_GENERAL))
+              this.items.push({ label: BREADCRUMB.LABEL.GENERAL });
+            else if (url.startsWith(BREADCRUMB.URL.TOPO_TREE_INSTRUMENTATION))
+              this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION });
+            else if (url.startsWith(BREADCRUMB.URL.TOPO_TREE_ADVANCE))
+              this.items.push({ label: BREADCRUMB.LABEL.ADVANCE });
+            else if (url.startsWith(BREADCRUMB.URL.TOPO_TREE_INTEGRATION))
+              this.items.push({ label: BREADCRUMB.LABEL.INTEGRATION });
+          }
+        }
+        else {
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+        }
       }
-
       else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
-
         //Getting dcId from the URL
         if (!url.includes("tree-main/profile")) {
           let arrURL = url.split("/");

@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 
 import { IntegrationPTDetection, BackendTableInfo, AddIPDetection, NamingRuleAndExitPoint, EndPointInfo, EndPoint, NamingRule } from '../../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
@@ -20,6 +23,10 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./integration-pt.component.css']
 })
 export class IntegrationPtComponent implements OnInit {
+
+  @Output()
+  keywordData = new EventEmitter();
+
   @Input()
   saveDisable: boolean;
 
@@ -38,6 +45,12 @@ export class IntegrationPtComponent implements OnInit {
 
   backendInfo: BackendInfo[];
 
+  integrationPoints: Object;
+  subscription: Subscription;
+
+  /**These are those keyword which are used in current screen. */
+  keywordList = ['NDEntryPointsFile', 'ndBackendNamingRulesFile'];
+
   displayNewIPDetection: boolean = false;
   detailDialog: boolean = false;
 
@@ -46,7 +59,14 @@ export class IntegrationPtComponent implements OnInit {
 
   endPoint: EndPoint[];
 
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.integrationPoints = keywordDataVal;
+    });
     this.loadIntegrationPTDetectionList();
     this.loadBackendInfoList();
   }
@@ -84,17 +104,17 @@ export class IntegrationPtComponent implements OnInit {
   createBackendTypeSelectItem() {
     this.backendTypeSelecetItem = [];
     let arr = [];
-     for (let i = 0; i < this.backendInfo.length; i++) {
-          arr.push(this.backendInfo[i].backendTypeName);
+    for (let i = 0; i < this.backendInfo.length; i++) {
+      arr.push(this.backendInfo[i].backendTypeName);
+    }
+    arr.sort();
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < this.backendInfo.length; j++) {
+        if (arr[i] == this.backendInfo[j].backendTypeName) {
+          this.backendTypeSelecetItem.push({ label: arr[i], value: this.backendInfo[j].backendTypeId });
         }
-        arr.sort();
-        for (let i = 0; i < arr.length; i++){
-          for (let j = 0; j < this.backendInfo.length; j++){
-              if(arr[i] == this.backendInfo[j].backendTypeName){
-                this.backendTypeSelecetItem.push({ label: arr[i], value: this.backendInfo[j].backendTypeId });
-              }
-          }
-        }
+      }
+    }
   }
 
   /**This method is called to Open Dialog to add new IntegrationPTDetection when you click ADD Button */
@@ -116,7 +136,8 @@ export class IntegrationPtComponent implements OnInit {
       .subscribe(data => {
         //Getting index for set data in main array table data.
         let index = this.getTableIndex(data.backendTypeId);
-
+        let that = this;
+        let filePath;
         //Insert data in main table after inserting integration point detection in DB
         let endPointData: EndPoint = new EndPoint();
         endPointData.id = data.id;
@@ -125,6 +146,17 @@ export class IntegrationPtComponent implements OnInit {
         endPointData.fqm = data.fqm;
         endPointData.name = data.name;
         // this.ipDetectionData[index].lstEndPoints.push(endPointData);
+
+        that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+
+          //For sending Runtime Changes
+
+          filePath = data["_body"];
+          that.integrationPoints['NDEntryPointsFile'].path = filePath + "/NDEntryPointFile.txt";;
+          that.integrationPoints['ndBackendNamingRulesFile'].path = filePath + "/BackendNamingRule.txt";
+
+          that.keywordData.emit(that.integrationPoints);
+        });
         this.ipDetectionData[index].lstEndPoints = ImmutableArray.push(this.ipDetectionData[index].lstEndPoints, endPointData);
         this.loadIntegrationPTDetectionList();
         this.configUtilityService.successMessage(Messages);
@@ -165,6 +197,16 @@ export class IntegrationPtComponent implements OnInit {
       .subscribe(data => {
         //Getting index for set data in main array table data.
         let index = this.getTableIndex(data.backendTypeId);
+        let that = this;
+        let filePath;
+        that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+
+          //For sending Runtime Changes                    
+          filePath = data["_body"];
+          that.integrationPoints['NDEntryPointsFile'].path = filePath + "/NDEntryPointFile.txt";
+          that.integrationPoints['ndBackendNamingRulesFile'].path = filePath + "/BackendNamingRule.txt";
+          that.keywordData.emit(that.integrationPoints);
+        });
 
         this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
         this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
@@ -235,7 +277,7 @@ export class IntegrationPtComponent implements OnInit {
       accept: () => {
         //Get Selected Applications's AppId
         let ipID = event["id"];
-         this.configKeywordsService.deleteIntegrationPointData(ipID, this.profileId)
+        this.configKeywordsService.deleteIntegrationPointData(ipID, this.profileId)
           .subscribe(data => {
             for (let i = 0; i < this.integrationDetail.lstEndPoints.length; i++) {
               if (this.integrationDetail.lstEndPoints[i] == event) {

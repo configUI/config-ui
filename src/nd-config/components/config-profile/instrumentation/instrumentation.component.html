@@ -1,7 +1,7 @@
 <div class='tabs-all'>
     <p-tabView (onChange)="handleChange($event)">
         <p-tabPanel header="Service Entry Point" [selected]="index == 0">
-            <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId"></app-service-entry-point>
+            <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-service-entry-point>
         </p-tabPanel>
         <p-tabPanel header="Integration Point Detection" [selected]="index == 1">
             <app-integration-pt-detection *ngIf="index == 1" [profileId]="profileId"></app-integration-pt-detection>
@@ -20,17 +20,24 @@
 </div>
 
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
-  width="500" responsive="true">
-  <div style="max-height: 500px; overflow-y: auto;">
-    <ul>
-     <li *ngFor="let err of msg">
-        <span>{{err}}</span>
-     </li>
-    </ul>
+width="500" responsive="true">
+<div style="max-height: 500px; overflow-y: auto;">
+  Runtime changes successfully applied on: 
+  <ul>
+   <li *ngFor="let err of msg">
+      <span>{{err}}</span>
+   </li>
+  </ul>
+  Error while applying Runtime changes on:
+  <ul>
+    <li *ngFor="let e of errMsg">
+       <span>{{e}}</span>
+    </li>
+   </ul>
+</div>
+<footer>
+  <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+    <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
   </div>
-  <footer>
-    <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-      <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
-    </div>
-  </footer>
+</footer>
 </p-dialog>

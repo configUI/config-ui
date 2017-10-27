@@ -121,7 +121,8 @@ export class JavaMethodComponent implements OnInit {
     BYTE: 'B',
     FLOAT: 'F',
     DOUBLE: 'D',
-    LONG: 'J'
+    LONG: 'J',
+    CHAR: 'C'
   };
 
   DATA_TYPE_ARR = [
@@ -132,7 +133,8 @@ export class JavaMethodComponent implements OnInit {
     this.DATA_TYPE.BYTE,
     this.DATA_TYPE.FLOAT,
     this.DATA_TYPE.DOUBLE,
-    this.DATA_TYPE.LONG
+    this.DATA_TYPE.LONG,
+    this.DATA_TYPE.CHAR
   ];
 
 

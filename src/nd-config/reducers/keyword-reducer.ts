@@ -52,7 +52,8 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "dumpDefaultCassandraQuery":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":49},
 "enableTransformThreadSubClass":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":50},
 "captureMethodForAllFP":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":73},
-"enableMethodBreakDownTime":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":53}};
+"enableMethodBreakDownTime":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":53},
+"ndBackendNamingRulesFile":{"defaultValue":"true","min":"","max":"","assocId":-1,"value":"true","keyId":74}};
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
     switch (action.type) {

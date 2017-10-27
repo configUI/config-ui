@@ -21,10 +21,10 @@
                     </div>
                     <div class="ui-grid-col-2 config-ui-auto" align="center">
                         <div>
-                            <button class="instrumentation-css" type="button" (click)="getValuesForSelectedList()" pButton label=' Instrument  >> ' style="width:115px"> </button>
+                            <button class="instrumentation-css" type="button" (click)="getValuesForSelectedList()" pButton label=' Instrument  >> ' style="width:122px"> </button>
                         </div>
                         <div style="padding-top:5px;">
-                            <button class="unInstrumentation-css" type="button" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument'></button>
+                            <button class="unInstrumentation-css" type="button" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument' style="width:122px"></button>
                         </div>
                     </div>
                     <div class="ui-grid-col-5">
@@ -38,7 +38,7 @@
             <div class="ui-g-7"></div>
             <div class="ui-g-2" style="margin-top:4px">Save instrumentation profile as</div>
             <div class="ui-g-2 ">
-                <input type="text" [(ngModel)]="instrfileName" required size=25 pInputText (keydown.space)="$event.preventDefault()">
+                <input type="text" [(ngModel)]="instrfileName" size=25 pInputText (keydown.space)="$event.preventDefault()" (keydown.dot)="$event.preventDefault()">
             </div>
             <div class="ui-g-1">
                 <button type="button " class="config-instr-save-botton " (click)="saveInstrumentationFile()" pButton label="Save " icon="fa-save "></button>

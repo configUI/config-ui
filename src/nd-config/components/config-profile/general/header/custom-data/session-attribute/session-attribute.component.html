@@ -5,6 +5,9 @@
     <div class="ui-g-2">
         <p-radioButton name="sessionAttribute" label="Specific" value="Specific" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
+    <div class="ui-g-2">
+        <p-radioButton name="sessionAttribute" label="None" value="None" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
+    </div>
 </div>
 
 <div class="ui-g configui-session-css-2" *ngIf="selectedSessionAttribute == 'Specific'">
@@ -39,7 +42,7 @@
 </div>
 
 <!--Dialog for ADD and Edit Session Attribute-->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewSessionAttr ? 'Add session attribute(s)' : 'Edit session attribute(s)'}}" *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewSessionAttr ? 'Add session attribute(s)' : 'Edit session attribute(s)'}}" *ngIf="addEditSessionAttrDialog" [(visible)]="addEditSessionAttrDialog" modal="modal" width="550" responsive="true" [resizable]="false" [resizable]="false">
     <form (ngSubmit)="saveADDEditSessionAttr()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -106,7 +109,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog class="profile-dialog" [resizable]="false"  header="{{!isNewValueType ? 'Add value type settings' : 'Edit value type settings'}}" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true">
+<p-dialog class="profile-dialog" header="{{!isNewValueType ? 'Add value type settings' : 'Edit value type settings'}}" *ngIf="sessionAttrTypeValueDialog" [(visible)]="sessionAttrTypeValueDialog" modal="modal" width="600" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveTypesValues()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -121,7 +124,7 @@
                 </div>
                 <div class="ui-g-4">
                     <input name="customValueType" type="text" class='hidden-validator' pInputText [(ngModel)]="customValueTypeDetail.type" required ngModel/>                    
-                    <p-dropdown name="customValueType" [style]="{'width':'87%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.type" required ngModel placeholder="--Select--"></p-dropdown>
+                    <p-dropdown name="customValueType" [style]="{'width':'88%'}" [options]="customValueType" [(ngModel)]="customValueTypeDetail.type" required ngModel placeholder="--Select--"></p-dropdown>
                 </div>
             </div>
 
