@@ -23,7 +23,7 @@ export class ConfigTreeComponent implements OnInit {
     private route: ActivatedRoute,
     private configHomeService: ConfigHomeService,
     private router: Router
-  ) { 
+  ) {
     this.loadTopologyTreeData();
   }
 
@@ -41,7 +41,7 @@ export class ConfigTreeComponent implements OnInit {
   enableAutoScaling: boolean = false;
 
   ngOnInit() {
-    this.loadTopologyTreeData();
+   // this.loadTopologyTreeData();
     // this.loadEnableAutoScaling();
   }
 
@@ -54,7 +54,7 @@ export class ConfigTreeComponent implements OnInit {
   } */
 
   /*
-  * Here request for tree where topology acts as root node gives response 
+  * Here request for tree where topology acts as root node gives response
   * topology as root node and tiers as children
   * so when user clicks on topo node no need to request to sever to get all  tier childrens,
   * they are already present in tree but not visible tills its parent node topo is collapsed state.
@@ -70,7 +70,7 @@ export class ConfigTreeComponent implements OnInit {
 
     /**below route function is always called whenever routing changes
      * SO handling the case that required service is hit only when url contains 'tree-main' in the url.
-     * 
+     *
      */
     this.subscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       url = event["url"];
@@ -100,6 +100,14 @@ export class ConfigTreeComponent implements OnInit {
     if (event.node.data == "Topology") {
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
       this.nodeId = event.node.id;
+      //This is done showing and hiding leaf icon on the basis of auto scaling
+      for(var i = 0 ; i < event.node.children.length ; i++)
+      {
+        if(!this.enableAutoScaling)
+          event.node.children[i].leaf = true;
+        else
+          event.node.children[i].leaf = false;
+      }
       this.nodeLabel = event.node.label;
       this.getTableData.emit({ data })
     }
@@ -142,7 +150,7 @@ export class ConfigTreeComponent implements OnInit {
   }
 
   /**
-   * This method is used to set node icon 
+   * This method is used to set node icon
    */
   addNodeInImage(node: TreeNode) {
 
@@ -194,6 +202,16 @@ export class ConfigTreeComponent implements OnInit {
         for (let j = 0; j < this.files[i].children.length; j++) {
           if(this.files[i].children[j].children)
           this.files[i].children[j].children = [];
+          this.files[i].children[j]["leaf"] = true;
+        }
+      }
+      //This is done showing and hiding leaf icon on the basis of auto scaling
+      else if(this.enableAutoScaling && this.files[i].children)
+      {
+        for (let j = 0; j < this.files[i].children.length; j++) {
+          if(this.files[i].children[j].children)
+          this.files[i].children[j]["leaf"] = false;
+          this.files[i].children[j]["expanded"] = false;
         }
       }
     }
@@ -202,6 +220,4 @@ export class ConfigTreeComponent implements OnInit {
       this.getTableData.emit({ data })
     }
   }
-
-
 }
