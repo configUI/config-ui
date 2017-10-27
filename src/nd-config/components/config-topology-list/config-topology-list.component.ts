@@ -22,6 +22,11 @@ export class ConfigTopologyListComponent implements OnInit {
 
   loadTopologyList(){
     this.configTopologyService.getTopologyList().subscribe(data=> {
+      for(let i=0;i<data.length;i++){
+        if(data[i]["timeStamp"]==null){
+          data[i]["timeStamp"]="-";
+        }
+      }
          this.topologyData = data// For temporary basis we are getting data from these keys
     });
   }

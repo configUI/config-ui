@@ -30,14 +30,14 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNewMethodMonitor ? 'Add method monitor' : 'Edit method monitor'}}" *ngIf="addEditMethodMonitorDialog" [(visible)]="addEditMethodMonitorDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveMethodMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
                 <label>Method name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodName" type="text" size="50" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                <input name="methodName" type="text" size="50" class="configUI-common-len" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
                     required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\((.*)\))+.*" ngModel/>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <label>Display name</label>
             </div>
             <div class="ui-g-9">
-                <input name="methodDisplayName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
+                <input name="methodDisplayName" class="configUI-common-len" pattern="[a-zA-Z0-9]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -54,7 +54,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-9">
-                <textarea name="methodDesc" rows="2" cols="50" pInputTextarea [(ngModel)]="methodMonitorDetail.methodDesc" ngModel></textarea>
+                <textarea name="methodDesc" rows="2" cols="50" class="configUI-common-len" pInputTextarea [(ngModel)]="methodMonitorDetail.methodDesc" ngModel></textarea>
             </div>
         </div>
         <footer>
@@ -67,11 +67,10 @@
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
 
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-     <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+     <app-config-nd-file-explorer></app-config-nd-file-explorer>
 </p-dialog>
-               

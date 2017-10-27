@@ -12,6 +12,7 @@ import { ConfigUtilityService } from '../../services/config-utility.service';
 export class ConfigViewAuditLogComponent implements OnInit {
 
   auditLogData: any = [];
+  gb: any;
 
   constructor(private _configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private _configKeywordsService: ConfigKeywordsService) { }
 

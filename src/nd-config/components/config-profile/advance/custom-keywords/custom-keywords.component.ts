@@ -47,6 +47,12 @@ export class CustomKeywordsComponent implements OnInit {
 
   subscription: Subscription;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+  isCustomConfigurationBrowse: boolean = false;
+
+  isValueDisabled: boolean = false;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -80,6 +86,9 @@ export class CustomKeywordsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => { this.profileId = params['profileId']; })
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+    this.uploadFile(data);
+    });
   }
 
   /**For showing add  dialog */
@@ -130,6 +139,89 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
 
+    //Validation check for custom keywords
+    if (this.customKeywords.keywordName == 'ASDataBufferMinCount')
+    {
+      if (+this.customKeywords.value < 2 || +this.customKeywords.value > 1024)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 2 and 1024");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'maxQueryDetailMapSize')
+    {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 10000000)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 10000000");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'ASStackCompareOption')
+    {
+      if (+this.customKeywords.value < 1 || +this.customKeywords.value > 2)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 1 and 2");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'enableExceptionInSeqBlob')
+    {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 1");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'AgentTraceLevel')
+    {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 4)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 4");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'ASTraceLevel')
+    {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 20)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 20");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'maxExceptionMessageLength')
+    {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 10000)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 10000");
+        return;
+      }
+    }
+    
+    if (this.customKeywords.keywordName == 'maxResourceDetailMapSize')
+    {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1000000)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 1000000");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'ASResumeDataBuffFreePct')
+    {
+      if (+this.customKeywords.value < 1 || +this.customKeywords.value > 100)
+      {
+        this.configUtilityService.errorMessage("Please enter value between 1 and 100");
+        return;
+      }
+    }
+
+
     //To check that keyword name already exists or not
     for (var i = 0; i < this.customKeywordsDataList.length; i++) {
       //checking (isNew) for handling the case of edit functionality
@@ -160,4 +252,21 @@ export class CustomKeywordsComponent implements OnInit {
     this.isNew = false;
     this.selectedCustomKeywordsData = [];
   }
+
+  openFileManager() {
+    this.openFileExplorerDialog = true;
+    this.isCustomConfigurationBrowse = true;
+  }
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isCustomConfigurationBrowse == true) {
+      this.isCustomConfigurationBrowse = false;
+      this.openFileExplorerDialog = false;
+      this.customKeywords.value = filepath;
+      this.isValueDisabled = true;
+      }
+    }
 }

@@ -1,3 +1,4 @@
+<div class="ndegui-mainbox">
 <div class="configUI">
     <div class="header"><i aria-hidden="true"></i> Topology List</div>
     <div class="config-ui-table-margin">
@@ -10,6 +11,12 @@
             </p-column>
             <!--<p-column [style]="{'width':'120px','text-overflow':'ellipsis'}" field="topoDesc" header="Description" [sortable]="true">
         </p-column>-->
+          <p-column [style]="{'width':'120px'}" field="timeStamp" header="Last imported on" [sortable]="true">
+            <template let-col let-topology="rowData" pTemplate>
+              <span title="{{topology[col.field]}}" class="timpStamp-float-css">{{topology[col.field]}}</span>
+            </template>
+          </p-column>
         </p-dataTable>
     </div>
+</div>
 </div>

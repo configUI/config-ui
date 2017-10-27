@@ -1,4 +1,4 @@
-<div class="main">
+<div class="configui-container">
     <!--<div class="ui-g">
         <div class="ui-g-12">
             <app-config-header-top-nav-bar></app-config-header-top-nav-bar>
@@ -8,7 +8,7 @@
         <div class="ui-g-1" class="ndegui-sidenav">
             <app-config-left-side-bar></app-config-left-side-bar>
         </div>
-        <div class="ui-g-11 configui-top-nav-css">
+        <div class="ui-g-12 configui-top-nav-css">
             <div class="top-nav-bar">
                 <app-config-top-nav-bar></app-config-top-nav-bar>
 
@@ -17,13 +17,13 @@
                 </div>
 
             </div>
-            <div class="main">
+            <div class="configui-rghtpane" [style.height] = "calcheight">
                 <div class="ui-g configui-scrollbar">
                     <div class="ui-g-12">
-                        <perfect-scrollbar class="configui-scrollbar">
+                        <!--<perfect-scrollbar class="configui-scrollbar">-->
                             <!--<div class="content">Scrollable content</div>-->
                             <app-config-right-content></app-config-right-content>
-                        </perfect-scrollbar>
+                       <!-- </perfect-scrollbar>-->
                     </div>
                 </div>
             </div>

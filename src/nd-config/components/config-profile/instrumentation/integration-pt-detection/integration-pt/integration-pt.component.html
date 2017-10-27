@@ -1,7 +1,7 @@
 <p-dataTable class="nde-ui" [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect()">
     <p-header>
         <span style="float: left">Integration point detection configuration</span>
-        <span style="float :right; margin-top:-5px">
+        <span style="float :right; margin-top:-3px">
             <button pButton type="button" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add integration point detection" ></button>
         </span>
     </p-header>
@@ -21,7 +21,7 @@
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="700" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveAddIntegrationPTDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
@@ -37,8 +37,7 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" required pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" title="Please enter valid name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /) in between the character. &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4:Name is of maximum 100 characters."
-                    type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
+                <input name="name" pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()"  title="Please enter valid name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /) in between the character. &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4:Name is of maximum 100 characters."  type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -46,8 +45,7 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required
-                    ngModel />
+                <input name="fqm" type="text" size="60" title="Please enter valid FQM"  pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
             </div>
         </div>
         <div class="ui-g">
@@ -76,7 +74,7 @@
 </p-dialog>
 
 <!--This dialog showing the 'Naming Rules' & 'Exit Points' values for particular service entry point-->
-<p-dialog class="profile-dialog" *ngIf="detailDialog" header="{{integrationDetail.type}} details" [(visible)]="detailDialog" modal="modal" width="500" responsive="true">
+<p-dialog class="profile-dialog" *ngIf="detailDialog" header="{{integrationDetail.type}} details" [(visible)]="detailDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
         <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO">
@@ -144,7 +142,7 @@
                     <div class="ui-g-2">
                         <div>
                             <button *ngIf="endPoints.customEntry == true || endPoints.isCustomEntry == true" pButton class="ui-button-danger" type="button" (click)="deleteIP(endPoints)" title="Delete custom integration point" icon="fa-trash"></button>
-                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-defined integration point cannot be deleted" icon="fa-trash"></button>
+                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-defined custom integration point" icon="fa-trash"></button>
 
                         </div>
                     </div>

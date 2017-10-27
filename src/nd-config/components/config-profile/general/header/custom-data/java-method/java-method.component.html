@@ -36,7 +36,7 @@
 
 
 <!--Dialog for adding -->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{isNew ? 'Settings for Java method based custom data' : 'Edit settings for Java method based custom data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Settings for Java method based custom data' : 'Edit settings for Java method based custom data '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveEditData(fqmField)" id="addMethodBasedForm" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
@@ -44,7 +44,7 @@
             </div>
             <div class="ui-g-8">
                 <input name="fqm" disabled={{!isNew}} #fqmField type="text" size="60" pInputText [(ngModel)]="methodBasedCustomData.fqm" autofocus title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
-                    required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()" ngModel/>
+                    title="Please enter valid FQM" required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()"  ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -171,7 +171,7 @@
 
 
 <!--Form for adding return Type Rules-->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{editReturnRules ?'Edit return type settings' :'Add return type settings'}}" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true">
+<p-dialog class="profile-dialog" header="{{editReturnRules ?'Edit return type settings' :'Add return type settings'}}" *ngIf="addReturnRulesDialog" [(visible)]="addReturnRulesDialog" modal="modal" width="620" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveReturnRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -179,14 +179,14 @@
                     <label>Name</label>
                 </div>
                 <div class="ui-g-4 configui-java-css">
-                    <input name="headerName" type="text" size="23" pInputText [(ngModel)]="returnTypeRules.headerName" title="Please enter valid rule name.   &#013;Please enter maximum upto 50 characters." autofocus required pattern="[^]{0,49}$" ngModel/>
+                    <input name="headerName" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.headerName" title="Please enter valid rule name.   &#013;Please enter maximum upto 50 characters." autofocus required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Custom type</label>
                 </div>
                 <div class="ui-g-4 configui-java-css">
                     <input name="type" type="text" size="20" class='hidden-validator' pInputText [(ngModel)]="returnTypeRules.type" required ngModel/>
-                    <p-dropdown name="type" [style]="{'width': '92%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" placeholder=" --Select-- "></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '88%'}" [options]="customValTypeList" [(ngModel)]="returnTypeRules.type" placeholder=" --Select-- " appendTo="body"></p-dropdown>
                 </div>
             </div>
             <!--<div class="ui-g-12">
@@ -202,15 +202,15 @@
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-4 configui-java-css">
-                    <input name="operationName" type="text" size="20" class='hidden-validator' pInputText [(ngModel)]="returnTypeRules.operation" required ngModel/>
-                    <p-dropdown name="operationName" [style]="{'width': '93%'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" placeholder=" --Select-- "></p-dropdown>
+                    <input name="operationName" type="text" size="17" class='hidden-validator' pInputText [(ngModel)]="returnTypeRules.operation" required ngModel/>
+                    <p-dropdown name="operationName" [style]="{'width': '88%'}" [options]="operationList" [(ngModel)]="returnTypeRules.operation" placeholder=" --Select-- " appendTo="body"></p-dropdown>
                 </div>
                 <!--<div class="ui-g-6" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">-->
                 <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
                     <label>Operator value</label>
                 </div>
                 <div class="ui-g-4 configui-java-css" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">
-                    <input name="operatorValue" type="text" size="23" pInputText [(ngModel)]="returnTypeRules.operatorValue" title="Please enter valid Operator value.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed." required pattern="[^\s]{0,49}$"
+                    <input name="operatorValue" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.operatorValue" title="Please enter valid Operator value.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed." required pattern="[^\s]{0,49}$"
                         ngModel/>
                 </div>
                 <!--</div>-->
@@ -261,7 +261,7 @@
 
 
 <!--Form for adding Argument Type Rules-->
-<p-dialog class="profile-dialog" [resizable]="false" header="{{editArgumentRules ?'Edit argument type settings':'Add argument type settings'}}" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog" header="{{editArgumentRules ?'Edit argument type settings':'Add argument type settings'}}" *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="650" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -276,8 +276,8 @@
                     <label>Index</label>
                 </div>
                 <div class="ui-g-3 configui-java-css">
-                    <input name="indexVal" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.indexVal" required ngModel/>
-                    <p-dropdown name="indexVal" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal"></p-dropdown>
+                    <input name="indexVal" type="text" size="17" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.indexVal" required ngModel/>
+                    <p-dropdown name="indexVal" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
                 </div>
             </div>
 
@@ -307,15 +307,15 @@
                 </div>
                 <div class="ui-g-3 configui-java-css">
                     <input name="type" type="text" size="17" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
-                    <p-dropdown name="type" [style]="{'width': '93%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--"></p-dropdown>
+                    <p-dropdown name="type" [style]="{'width': '96%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--" appendTo="body"></p-dropdown>
                 </div>
                 <div class="ui-g-2"></div>
                 <div class="ui-g-2">
                     <label>Operation</label>
                 </div>
                 <div class="ui-g-3 configui-java-css">
-                    <input name="operationName" type="text" size="18" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.operationName" required ngModel/>
-                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()"></p-dropdown>
+                    <input name="operationName" type="text" size="17" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.operationName" required ngModel/>
+                    <p-dropdown name="operationName" [style]="{'width': '100%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
                 </div>
             </div>
             <!--<div class="ui-g-12">

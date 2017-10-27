@@ -1,3 +1,4 @@
+<div class="ndegui-mainbox">
 <div class="configUI">
   <div class="header"><i aria-hidden="true"></i> Profile List
     <span class="appIcon-css">
@@ -28,6 +29,7 @@
     </p-dataTable>
   </div>
 </div>
+</div>
 <!--Dialog for Adding New Profile -->
 
 <p-dialog class="profile-dialog" [resizable]="false" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile"
@@ -38,8 +40,8 @@
         <label>Name</label>
       </div>
       <div class="ui-g-8">
-        <input name="profileName" type="text" size="30" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-          autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+        <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Profile name is of maximum 30 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+          autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
       </div>
     </div>
     <div class="ui-g">
@@ -47,7 +49,7 @@
         <label>Copy profile</label>
       </div>
       <div class="ui-g-8">
-        <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'205px'}" [(ngModel)]="profileDetail.parentProfileId"
+        <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.parentProfileId"
           placeholder="Select a Profile to be copied"></p-dropdown>
       </div>
     </div>
@@ -56,7 +58,7 @@
         <label>Description</label>
       </div>
       <div class="ui-g-8">
-        <textarea name="profileDesc" rows="2" cols="30" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
+        <textarea name="profileDesc" rows="2" cols="30" class="configUI-profile-dialog" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
       </div>
     </div>
     <footer>
@@ -70,7 +72,7 @@
 
 <p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg" modal="modal"
   width="300" responsive="true">
-  Profile cannot be deleted as it is applied at following level(s): <br>
+  Profile cannot be deleted as it is applied at following level(s) : <br>
   <ul>
     <li *ngFor="let msg of displayErrMsg">
       <span>{{msg}}</span>

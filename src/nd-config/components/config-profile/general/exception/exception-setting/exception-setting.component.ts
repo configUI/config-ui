@@ -34,9 +34,8 @@ export class ExceptionSettingComponent implements OnInit {
   keywordValue: Object;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-    this.getKeywordData();
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
-
+    this.getKeywordData();
     configKeywordsService.toggleKeywordData();
   }
 
@@ -45,7 +44,6 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
-
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
@@ -62,8 +60,8 @@ export class ExceptionSettingComponent implements OnInit {
         this.exception[key]["value"] = instrValue;
     }
     this.keywordData.emit(this.exception);
-    // sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
-    // sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
+   // sessionStorage.setItem("exceptionCapturing", String(this.exceptionData.instrumentException));
+   // sessionStorage.setItem("exceptionCapturingAdvanceSetting", String(this.exception["enableExceptionsWithSourceAndVars"].value));
 
   }
   /* This method is used to reset the keyword data */
@@ -71,7 +69,6 @@ export class ExceptionSettingComponent implements OnInit {
     this.getKeywordData();
     this.exception = cloneObject(this.configKeywordsService.keywordData);
   }
-
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
     // let keywordData = this.configKeywordsService.keywordData;
@@ -98,7 +95,7 @@ export class ExceptionSettingComponent implements OnInit {
     if ((this.exception["instrExceptions"].value).includes("%20")) {
       let arr = (this.exception["instrExceptions"].value).split("%20")
       this.exceptionData = new ExceptionData();
-      if (arr[0] === "1" && arr[2] === "0") {
+        if (arr[0] === "1" && arr[2] === "0") {
         this.exceptionData.instrumentException = true;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionType = false;
@@ -133,9 +130,8 @@ export class ExceptionSettingComponent implements OnInit {
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
         this.exceptionData.exceptionTraceDepth = 9999;
-      }
-
     }
+  }
 
   /**Value for this keyword is
    * 1%201%200%2012
@@ -162,7 +158,6 @@ export class ExceptionSettingComponent implements OnInit {
         instrVal = instrVal + "%201";
       else
         instrVal = instrVal + "%200";
-
 
       if (this.exceptionData.exceptionType == false)
         instrVal = instrVal + "%200";

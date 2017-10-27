@@ -46,5 +46,4 @@ export class ConfigApplicationService {
     return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_APP_NAME}/${appId}`);
   }
   
-  
 }

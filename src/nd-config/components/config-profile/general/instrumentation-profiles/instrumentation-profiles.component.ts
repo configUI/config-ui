@@ -142,7 +142,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   /**used to open file manager
   */
   openFileManager() {
-    this.isInstrProfileBrowse = true
+    this.isInstrProfileBrowse = true;
     this.openFileExplorerDialog = true;
 
   }
@@ -174,7 +174,7 @@ export class InstrumentationProfilesComponent implements OnInit {
     if(deepFilePathCopy.split(";").length != files.length)
     {
 	this.confirmationService.confirm({
-          message: 'Selection contains already added files. Are you sure that you want to upload unique files?',
+          message: 'Selection contains already added files. Are you sure that you want to upload unique files?',	
           header: 'Confirmation',
           icon: 'fa fa-question-circle',
           accept: () => {
@@ -189,25 +189,25 @@ export class InstrumentationProfilesComponent implements OnInit {
     		  },
       		  error => {
         	    console.log("Error in browsing xml files");
-      		  });
+      		  }); 
 		} else {
 		  this.configUtilityService.errorMessage("All Selected files are already imported");
-		}
-          }
-	});
-    } else {
-        this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
-          if (data.length < 1) {
-            this.configUtilityService.successMessage("Files imported successfully");
-          }
-          else
-            this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
-         },
-         error => {
-            console.log("Error in browsing xml files");
-        });
+	 	}	
+           }
+       	});	
+     } else {
+         this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
+           if (data.length < 1) {
+             this.configUtilityService.successMessage("Files imported successfully");
+            }
+           else
+             this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
+          },
+          error => {
+             console.log("Error in browsing xml files");
+         });
+      }
+     
     }
-
   }
- }
 }

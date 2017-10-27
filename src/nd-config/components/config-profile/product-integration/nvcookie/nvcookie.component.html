@@ -38,7 +38,7 @@
                             <label>ND session cookie name</label>
                         </div>
                         <div class="ui-g-1">
-                            <input name="cookieName" [(ngModel)]="ndSessionData.cookieName" type="text" required />
+                            <input name="cookieName" [(ngModel)]="ndSessionData.cookieName" type="text" title="Please enter valid ND session cookie name. &#013;Maximum 30 characters are allowed. &#013;Characters must be Alpha, Numeric or Underscore" pattern="[a-zA-Z0-9_]{0,30}$" (keydown.space)="$event.preventDefault()" required />
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">

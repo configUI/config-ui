@@ -43,9 +43,9 @@ import {
   ChipsModule,
   ToolbarModule,
   SliderModule,
-  FileUploadModule,
-  ContextMenuModule, 
   InputTextareaModule,
+  ContextMenuModule,
+  FileUploadModule
 } from 'primeng/primeng';
 
 /**Perfect Scrollbar module */
@@ -72,7 +72,7 @@ import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigCustomDataService } from './services/config-customdata.service';
-// import { ApiService } from '../file-explorer/services/api.service';
+import { ApiService } from '../file-explorer/services/api.service';
 
 
 /**Config UI Component */
@@ -128,24 +128,23 @@ import { NVCookieComponent } from './components/config-profile/product-integrati
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
 import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
-// import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
-// import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
-import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
+
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
+import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
-
+import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
 import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
 import { ConfigAutoDiscoverTreeComponent } from './components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component';
 import { ConfigAutoDiscoverMainComponent } from './components/config-auto-discover/config-auto-discover-main/config-auto-discover-main.component';
+import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/config-view-audit-log.component';
 import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywords-setting/config-ndc-keywords-setting.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
-import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/config-view-audit-log.component';
 
 @NgModule({
   declarations: [
@@ -195,18 +194,18 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     JavaMethodComponent,
     NVCookieComponent,
     MethodMonitorsComponent,
-    ExceptionMonitorsComponent,
     HttpStatsMonitorsComponent,
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
     CustomKeywordsComponent,
-    // ConfigNdFileExplorerComponent,
-    ConfigImportInstrProfileComponent,
     ExceptionFilterComponent,
-    ExceptionSettingComponent,   
+    ExceptionSettingComponent,
+    ConfigNdFileExplorerComponent,
+    ExceptionMonitorsComponent,
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
     UrlCapturingComponent,
+    ConfigImportInstrProfileComponent,
     ConfigAutoDiscoverComponent,
     ConfigAutoDiscoverMainComponent,
     ConfigAutoDiscoverTreeComponent,
@@ -214,19 +213,20 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     ConfigNDCKeywordsSettingComponent
   ],
   imports: [
-    //  CommonModule,
-   BrowserModule,
-   BrowserAnimationsModule,
+    CommonModule,
+    // BrowserModule,
+    // BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     ConfigRoutingModule,
     MaterialModule,
     PerfectScrollbarModule.forRoot(),
-    StoreModule.provideStore({ keywordData: keywordReducer, ndcKeywordData: ndcKeywordReducer}),
+    StoreModule.provideStore({ keywordData: keywordReducer, ndcKeywordData: ndcKeywordReducer }),
     InputTextModule,
     DataTableModule,
     BreadcrumbModule,
     MenuModule,
+    ContextMenuModule,
     DropdownModule,
     TreeModule,
     ButtonModule,
@@ -248,15 +248,14 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
     ToolbarModule,
     SliderModule,
     SplitButtonModule,
-    FileUploadModule,
-    ContextMenuModule,
     InputTextareaModule,
+    FileUploadModule
   ],
 
   providers: [
-  // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+    { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
     ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
-    // ApiService,
+    ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]
 })
