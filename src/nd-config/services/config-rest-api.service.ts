@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { CavTopPanelNavigationService } from '../../../main/services/cav-top-panel-navigation.service';
-import { CavConfigService } from '../../../main/services/cav-config.service';
+// import { CavTopPanelNavigationService } from '../../../main/services/cav-top-panel-navigation.service';
+// import { CavConfigService } from '../../../main/services/cav-config.service';
 
 import './config-rxjs-import';
 
@@ -11,14 +11,17 @@ import {ConfigUtilityService} from './config-utility.service';
 @Injectable()
 export class ConfigRestApiService {
 
-  constructor(private _navService: CavTopPanelNavigationService, private _productConfig: CavConfigService, private http: Http, private configUtilityService: ConfigUtilityService) { }
+  constructor(
+    //  private _navService: CavTopPanelNavigationService,
+    //  private _productConfig: CavConfigService, 
+     private http: Http, private configUtilityService: ConfigUtilityService) { }
 
   className: string = "ConfigRestApiService";
 
   // Fetch data
 
   getDataByGetReq(url: string): Observable<any> {
-    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
+    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -33,7 +36,7 @@ export class ConfigRestApiService {
 
     // Fetch data
   getDataByGetReqWithNoJson(url: string): Observable<any> {
-    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
+    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -46,7 +49,7 @@ export class ConfigRestApiService {
   }
 
   getDataByPostReq(url: string, body?: any): Observable<any> {
-    url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+    // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
@@ -66,7 +69,7 @@ export class ConfigRestApiService {
   }
 
   getDataByPutReq(url: string, body?: Object): Observable<any> {
-    url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+    // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });// Create a request option
     
@@ -80,7 +83,7 @@ export class ConfigRestApiService {
   }
 /*  Get Agent Info according selected DC */
   getAgentDataByGetReq(url: string): Observable<any> {
-    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url;
+    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -95,7 +98,7 @@ export class ConfigRestApiService {
 
 /* This method is used for get value in xml format */
  getXMLDataByPostReq(url: string, body?: any): Observable<any> {
-    url = this._productConfig.getURLByActiveDC() + url;
+    // url = this._productConfig.getURLByActiveDC() + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};

@@ -72,7 +72,7 @@ import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigCustomDataService } from './services/config-customdata.service';
-import { ApiService } from '../file-explorer/services/api.service';
+// import { ApiService } from '../file-explorer/services/api.service';
 
 
 /**Config UI Component */
@@ -131,10 +131,10 @@ import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-p
 
 import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
 import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
-import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
+// import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
-import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
+// import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
 import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
 import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
 import { ConfigAutoDiscoverTreeComponent } from './components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component';
@@ -200,7 +200,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomKeywordsComponent,
     ExceptionFilterComponent,
     ExceptionSettingComponent,
-    ConfigNdFileExplorerComponent,
+    // ConfigNdFileExplorerComponent,
     ExceptionMonitorsComponent,
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
@@ -213,9 +213,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConfigNDCKeywordsSettingComponent
   ],
   imports: [
-    CommonModule,
-    // BrowserModule,
-    // BrowserAnimationsModule,
+    // CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     ConfigRoutingModule,
@@ -253,9 +253,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
 
   providers: [
-    { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+    // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
     ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
-    ApiService,
+    // ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]
 })
