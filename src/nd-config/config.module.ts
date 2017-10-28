@@ -48,9 +48,6 @@ import {
   FileUploadModule
 } from 'primeng/primeng';
 
-/**Perfect Scrollbar module */
-import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
 import 'hammerjs';
 
 /** Routing Module */
@@ -142,9 +139,15 @@ import { ConfigAutoDiscoverMainComponent } from './components/config-auto-discov
 import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/config-view-audit-log.component';
 import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywords-setting/config-ndc-keywords-setting.component';
 
-const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
+// not commit in cvs
+import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
+import { AuthenticationService } from './services/authentication.service';
+import {CavConfigService } from './services/cav-config.service';
+import { CavDataApiService } from './services/cav-data-api.service';
+import { CavTopPanelNavigationService } from './services/cav-top-panel-navigation.service';
+import { TimerService } from './services/timer.service';
+import { AlertConfigService } from './services/alert-config-service';
+
 
 @NgModule({
   declarations: [
@@ -220,7 +223,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpModule,
     ConfigRoutingModule,
     MaterialModule,
-    PerfectScrollbarModule.forRoot(),
     StoreModule.provideStore({ keywordData: keywordReducer, ndcKeywordData: ndcKeywordReducer }),
     InputTextModule,
     DataTableModule,
@@ -254,7 +256,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   providers: [
     // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
-    ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
+    AlertConfigService, TimerService, CavTopPanelNavigationService, CavDataApiService ,CavConfigService, AuthenticationService,CavMenuNavigatorService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
     // ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]

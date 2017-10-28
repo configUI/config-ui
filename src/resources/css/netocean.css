@@ -1,0 +1,100 @@
+@charset "UTF-8";
+@font-face {
+    font-family: "netocean-gui-icon";
+    src: url("../fonts/netocean-gui-icon.eot");
+    src: url("../fonts/netocean-gui-icon.eot?#iefix") format("embedded-opentype"), url("../fonts/netocean-gui-icon.woff") format("woff"), url("../fonts/netocean-gui-icon.ttf") format("truetype"), url("../fonts/netocean-gui-icon.svg#netocean-gui-icon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "netocean-gui-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="no-icon-"]:before,
+[class*=" no-icon-"]:before {
+    font-family: "netocean-gui-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.no-icon-index-datasource:before {
+    content: "\e000";
+}
+
+.no-icon-logging:before {
+    content: "\e001";
+}
+
+.no-icon-performance:before {
+    content: "\e002";
+}
+
+.no-icon-service-time:before {
+    content: "\e003";
+}
+
+.no-icon-ssl-setting:before {
+    content: "\e004";
+}
+
+.no-icon-url-setting:before {
+    content: "\e005";
+}
+
+.no-icon-internet-simulation-setting:before {
+    content: "\e006";
+}
+
+.no-icon-http-setting:before {
+    content: "\e007";
+}
+
+.no-icon-git-setting:before {
+    content: "\e008";
+}
+
+.mat-sidenav-transition .mat-sidenav {
+    overflow: visible;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    margin: 0;
+    padding: 5px;
+    color: #fff;
+    font-size: 11px;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    margin: 0;
+    padding: 5px;
+    font-size: 11px;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-buttonpane {
+    padding: 0px;
+    border: 0;
+}
+
+.right-side-padding {
+    padding: 0.5em
+}

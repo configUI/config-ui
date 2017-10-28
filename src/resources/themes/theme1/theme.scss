@@ -1,0 +1,2041 @@
+@import '../../../../node_modules/@angular/material/_theming.scss';
+// Plus imports for other components in your app.
+// Include the base styles for Angular Material core. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$candy-app-primary: mat-palette($mat-indigo);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$candy-app-warn: mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+body {
+    font-family: 'Open Sans', sans-serif !important;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    background: url(images/body_bg.png) center top repeat fixed #000;
+}
+/*----------------Themeing CSS------------------*/
+.cavContentArea .grid{
+   background: transparent; 
+}
+.cavContentArea .grid-item{
+    box-shadow: 0 0 6px 1px #7b7b7b;
+    background: #fff;
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #eaeaea 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#eaeaea 100%);
+    background: radial-gradient(ellipse at center, #ffffff 0%,#eaeaea 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=1 );
+    border-radius: 4px;
+}
+.mat-sidenav{
+    background: rgba(255,255,255, 0.85);
+    box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+}
+.left-nav .icon {
+    color: #000;
+}
+.left-nav button[md-icon-button] {
+   border-top: 0px #c00 solid;
+   border-bottom: 1px #bdbdbd solid;
+   border-left: 0px #c00 solid;
+   border-right: 0px #c00 solid;
+}
+
+.cav-toolbar {
+    background: rgba(0, 0, 0, 0.10);
+}
+ .mat-toolbar.mat-primary{
+    background: rgba(255, 255, 255, 0.32);
+    box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
+    color:#000;
+}
+.login-settings {
+    color: #000;
+}
+.login-settings .totalscen-btn .ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    border: 1px solid #e0e0e0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    box-shadow: 0 0 1px 1px #a9a9a9;
+}
+.main-box {
+    background-color: rgba(245, 245, 245, 0.62);
+}
+.test-run-table .ui-datatable th.ui-state-default {
+    background: #45484d;
+    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
+    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    color: #fff;
+    padding: 4px;
+}
+.test-run-table, .scen-table .ui-datatable th.ui-state-default span{
+    color: #fff;
+}
+.test-run-table, .scen-table, .ui-datatable-odd {
+    background-color: #e3e3e3;
+}
+.test-run-table, .scen-table,.ui-datatable-even {
+    background-color: #fff;
+}
+.test-run-table, .scen-table, .ui-datatable tbody > tr.ui-widget-content {
+    border-color: #757575;
+}
+.section_button label {
+    background: ghostwhite;
+}
+.section-downloadas label {
+    background: rgba(0, 0, 0, 0.94);
+    color: #fff;
+}
+.scenleft-tree {
+    background:rgba(255, 255, 255, 0.5);
+}
+.scenario .ui-breadcrumb {
+    background: #282828;
+    color: #fff;
+}
+.scenario .ui-breadcrumb ul li a {
+    color: #fff;
+}
+.lbl .ui-chkbox-label {
+    color: #000;
+}
+.dashboard-nav-menu-header {
+    color: #fff;
+    background: #525252;
+}
+.dashboard-sql-query .ui-datatable th.ui-state-default {
+    background: #8c8c8c;
+    color: #fff;
+}
+.dashboard-sql-query-toolbar .ui-toolbar{
+    background: #282828;
+    color: #f3f3f3;
+}
+.ui-panelmenu-header {
+    background: #f3f2f5;
+}
+/*----------------RUN COMMAND---------------*/
+.mainDivRunCommand .ui-widget-header {
+    background: #404040;
+    color:#fff;
+}
+#outputHeaderDiv {
+    background: #808080;
+    color: #fff;
+}
+.runCommand-btn .btnClass{
+    background: #4a4a4a;
+    color: #fff;
+}
+.rcnavbar-a {
+    background: #000;
+    color: #fff;
+}
+.rc-footer {
+    background-color: rgba(49, 49, 49, 0.85);
+}
+.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active a {
+    background: #2d2d2d;
+    color: #fff;
+}
+.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default a {
+    background: #b5b5b5;
+    color: #292929;
+}
+.commandListClass .ui-datatable th.ui-state-default {
+    background: #595b5f;
+    color: #fff;
+}
+#downloadTxBtn{
+   color: #FFFFFF;
+   background: #6b6b6b;
+   border: 1px solid #6b6b6b;
+}
+.transaction-details-filedset{
+    background: rgba(115, 115, 115, 0.52);
+    border: 0px #a9a9a9 solid;
+}
+.txBtn{
+    color: #FFFFFF;
+    background: #282828;
+    border: 1px solid #0b2138;
+    margin-right: 5px;
+}
+#txDetailWinId .ui-datatable .ui-datatable-thead>tr>th {
+    background: #282828;
+    color: #fff;
+}
+#txDetailWinId div.ui-datatable-scrollable-body {
+    background: #e2e2e2;
+}
+#txDetailWinId .ui-widget-header {
+    border: 1px solid #666;
+    background: #f6f7f9 0 0 repeat-x;
+}
+.rc-schmanage .ui-datatable th.ui-state-default {
+        background: #676767;
+        color: #fff;
+}
+.rc-modal a{
+        color: #fff;
+}
+
+/*--------------------Fav-----------*/
+.favBtn{
+    background: #4e4e4e;
+    color: #eaeaea;
+ 
+}
+
+
+/*----------------Alert CSS----------------------*/
+app-alert-home .ui-datatable th.ui-state-default {
+    background-color: #595b5f;
+    color:  #fff;
+}
+app-alert-home .ui-datatable th span.ui-column-title
+{
+  color:#fff;
+}
+.alert-top-panel {
+    background: #424242;
+    color:#fff;
+}
+app-alert-home .historyTable .ui-datatable th.ui-state-default
+{
+  background-color: #595b5f;
+}
+app-alert-home .ui-accordion .ui-accordion-header {
+   background: rgba(214, 214, 214, 0.8);
+}
+app-alert-home .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #adadad;
+}
+.top-panel{
+  background:rgba(19, 19, 19, 0.5);
+}
+.download-panel
+{
+   background: rgba(185, 185, 185, 0.51);
+}
+app-alert-home .ui-state-default {
+    border: 1px solid #8e8e8e;
+    border-top: 1px solid #8e8e8e;
+}
+/*----------------END-------------------*/
+
+
+.mat-sidenav mat-icon {
+    color: white;
+}
+
+.mat-sidenav div {
+    color: white;
+}
+
+.dashboard-panel-header-color {
+    color: #fff;
+    border-color: black;
+    background: rgba(43, 43, 43, 0.8);
+}
+.dashboard-menu-nav-header-icon {
+    color:#dadada;
+}
+
+.dashboard-panel-color {
+    box-shadow: 0 0 6px 1px #5a5a5a;
+    background: #fff;
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #eaeaea 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#eaeaea 100%);
+    background: radial-gradient(ellipse at center, #ffffff 0%,#eaeaea 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=1 );
+}
+
+
+.scenario-left .ui-panelmenu-content {
+    background: rgba(255,255,255,0.98);
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-header {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu div {
+    color: black;
+}
+
+.dashboard-lower-section {
+    background: linear-gradient(#696969, #dbe0de);
+}
+.dashboard-lower-section .ui-toolbar {
+    background: #080808;
+    border: 0;
+}
+.dashboard-lower-section button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    border: 1px solid #525252;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+}
+.dashboard-lower-section .ui-datatable th.ui-state-default{
+    background: #292929;
+    color: #fff;
+}
+.dashboard-lower-section .ui-widget-content .lower-panel-table-row-odd{
+    background: #d0d0d0;
+}
+
+/*First level node css.*/
+
+.dashboard-tree-input-icon {
+    background: transparent;
+}
+
+.mat-select-value {
+    color: white;
+}
+
+.mat-select-trigger {
+    color: white;
+}
+
+.mat-select-arrow {
+    color: white;
+}
+
+
+/*For Single Prime UI panel.*/
+
+.ui-panel .ui-panel-content {
+    background: #d0d0d0;
+}
+
+
+.mat-sidenav-container {
+    background: transparent;
+}
+
+.mat-card {
+    background: transparent;
+}
+
+
+/*For navigation link on top panel.*/
+
+.top-panel-nav-icon {
+    color: black;
+    font-size: 20px;
+}
+
+.product-nav-bar .mat-ink-bar {
+    background: red;
+}
+
+
+/*for md select color lable*/
+
+.mat-select-value-text {
+    color: #1d1919;
+}
+
+.dashboard-sidenav {
+    background: rgba(220, 220, 220, 0.8);
+    box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+}
+
+.dashboard-tree-input-icon {
+    color: black;
+}
+
+.dashboard-sub-menu .ui-menuitem-link:hover {
+    color: white;
+    font-weight: bold;
+    background: #282828;
+}
+
+.dashboard-panel-context-menu .ui-menuitem-active .ui-menuitem-link:hover {
+    color: white;
+    font-weight: bold;
+    background: #778cf5;
+}
+
+
+/*for layout selection icon*/
+
+.layoutFocus {
+    background: #56c5f2 !important;
+}
+
+.layoutNotFocus {
+    background: transparent;
+}
+
+.customTitleBar .ui-accordion {
+    background: #56c5f2;
+}
+
+.customTitleBar .ui-accordion-header {
+    background: #c3c3c3;
+}
+.customTitleBar .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+        background: #e9e9e9;
+}
+
+/*------------------- Tree component css start-------------------*/
+
+.dashboard-tree-input-icon {
+    background: transparent;
+}
+
+.dashboard-tree-component .mat-tab-label {
+    background-color: #b1afaf;
+}
+
+.dashboard-tree-component .mat-select-trigger {
+    color: grey;
+    background-color: ghostwhite;
+}
+
+.dashboard-tree-component .ui-menuitem-active .ui-menuitem-link:hover {
+    color: white;
+    font-weight: bold;
+    background: #778cf5;
+}
+
+.dashboard-tree-component .ui-state-highlight {
+    background: wheat;
+}
+
+.mat-sidenav div {
+    color: black;
+}
+
+.mat-select-value-text {
+    color: #1d1919;
+}
+
+.mat-select-arrow {
+    color: black;
+}
+
+.dashboard-tree-graph-node {
+    color: blue;
+}
+
+.dashboard-tree-group-node {
+    color: #800080;
+}
+
+.dashboard-tree-metrics-node {
+    color: #d35b37;
+}
+
+.dashboard-tree-tier-node {
+    color: #7ABB15;
+}
+
+.dashboard-tree-server-node {
+    color: #FFA500;
+}
+
+.dashboard-tree-instance-node {
+    color: #FF6347;
+}
+
+.dashboard-tree-interface-node {
+    color: blue;
+}
+
+.dashboard-tree-search-select .mat-select-underline {
+    background: black;
+}
+
+.dashboard-show-inTree {
+    color: chartreuse;
+    font-style: italic;
+    background-color: chocolate;
+}
+
+
+/*------------------- Tree component css End-------------------*/
+
+.ui-panelmenu-content {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu .ui-panelmenu-header {
+    background: rgba(217, 226, 226, 0.99);
+}
+
+.dashboard-nav-panel-menu div {
+    color: black;
+}
+
+.ui-panelmenu-header {
+    background: rgb(53, 56, 55);
+}
+
+
+/*-----------Start Configuration css------------*/
+
+.dashboard-setting-win-fieldSets {
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-perconfigcheckbox .ui-chkbox .ui-chkbox-box {
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-configModuleName .ui-dropdown label.ui-dropdown-label {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-configdropdown .ui-dropdown label.ui-dropdown-label {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-permultiselect .ui-multiselect .ui-multiselect-label-container {
+    color: black;
+}
+
+.dashboard-setting-win-perTxtcheckbox .ui-chkbox .ui-chkbox-box {
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-setting-win-configdialog {
+    background: #282828;
+    color: white;
+}
+
+.dashboard-setting-win-tabs {
+    color: black;
+}
+.dashboard-sub-menu .ui-menu, .ui-menu .ui-menu-child{
+    background: #f6f7f9 0 0 repeat-x;
+    background: linear-gradient(to bottom, #f6f7f9 0%,#ebedf0 100%);
+}
+
+
+/*-----------End Configuration css------------*/
+
+
+/*This is the CSS for the Highlight lower panel row*/
+
+.dashboard-lower-table .ui-widget-content .lower-panel-table-selected-row {
+    background-color: #808080;
+    color: black;
+}
+
+.dashboard-lower-table .ui-widget-content .lower-panel-table-row-even {
+    border: 1px solid #D5D5D5;
+    background: #fff;
+    color: #222222;
+}
+
+.dashboard-lower-table .ui-widget-content .lower-panel-table-row-odd {
+    border: 1px solid #D5D5D5;
+    background: #d0d0d0;
+    color: #222222;
+}
+
+
+/*------------------- Custom Tree component css start-------------------*/
+
+.dashboard-custom-tree-graph-node {
+    color: khaki;
+}
+
+.dashboard-custom-tree-metrics-node {
+    color: blanchedalmond;
+}
+
+.dashboard-custom-tree-report-node {
+    color: gold;
+}
+
+.dashboard-open-CustomDialog h2 {
+    color: white;
+}
+
+.dashboard-open-CustomDialog .dialogclose {
+    background: #3f51b5
+}
+
+.dashboard-open-CustomDialog .mat-dialog-title {
+    background-color: #3f51b5;
+    color: white;
+}
+
+
+/*-------------------Custom Tree component css End-------------------*/
+
+
+/*------------------------  graph time window css-------------- */
+
+.graph-dialog-title {
+    background: black;
+}
+
+.graph-icon {
+    color: white;
+}
+
+.graphOption {
+    background-color: #f2f5f9;
+}
+
+
+/*--------------- end graph time window css -------------*/
+
+
+/*--------------Derived Component Css Start ------------------------*/
+
+.dashboard-open-derivedDialog .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-open-derivedDialog .mat-select-value {
+    color: #1d1919;
+}
+
+.dashboard-open-derivedDialog .mat-dialog-title {
+    background-color: #282828;
+    color: white;
+}
+
+.dashboard-open-derivedDialog .deriveddialogclose {
+    background: #282828;
+}
+
+.dashboard-open-derivedDialog1 .mat-dialog-title {
+    background-color: #282828;
+    color: white;
+}
+
+.dashboard-open-derivedDialog1 .deriveddialogclose {
+    background: #282828;
+}
+
+.dashboard-open-derivedDialog1 .dashboard-open-derivedDialog h2 {
+    color: white;
+}
+
+.dashboard-open-derivedDialog1 .derivedadvanced {
+    border: 1px solid black;
+}
+
+.dashboard-open-derivedDialog1 .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-gdf-advanced .derivedadvanced {
+    border: 1px solid black;
+}
+
+.dashboard-gdf-advanced .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-gdf-advanced .legendLbl2 {
+    color: #399394;
+}
+
+.dashboard-gdf-selection .deriveddialogclose {
+    background: #673ab7;
+}
+
+.dashboard-gdf-selection .dashboard-open-derivedDialog .mat-select-placeholder {
+    color: black;
+}
+
+.dashboard-gdf-selection .derivedadvanced {
+    border: 1px solid black;
+}
+
+.dashboard-gdf-selection .block2 {
+    border: 1px solid #ADADAD;
+}
+
+.dashboard-gdf-selection .dashboardspecified {
+    border: 1px solid black;
+}
+
+
+/*-----------------Derived Component Css End -----*/
+
+
+/*This is the CSS for the Highlight compare window table row*/
+
+.ui-widget-content .compare-table-selected-row {
+    background-color: #96c3eb;
+    color: black;
+}
+
+.dashboard-compare-Dialog .ui-widget-content .compare-table-row-even {
+    border: 1px solid #D5D5D5;
+    background: #ffffff;
+    color: #222222;
+}
+
+.dashboard-compare-Dialog .ui-widget-content .compare-table-row-odd {
+    border: 1px solid #D5D5D5;
+    background: #fafafb;
+    color: #222222;
+}
+
+
+/* For compare window */
+
+.dashboard-compare-Dialog .mat-dialog-title {
+    background-color: #282828;
+    color: white;
+}
+
+.dashboard-compare-Dialog h2 {
+    color: white;
+}
+
+.dashboard-compare-Dialog .mat-select-trigger {
+    color: black;
+}
+
+
+/*-----------------Compare Compoment Css ---------*/
+
+.dashboard-data-load-spinner path {
+    stroke: white;
+}
+
+
+/*----------------widget setting ---------------*/
+
+.dashboard-widget-setting-dialog {
+    color: white;
+    background-color: black;
+}
+
+
+/*-----------Start Open Merge css------------*/
+
+.dashboard-open-mergeDialog .mat-dialog-title {
+    color: white;
+    background-color: #282828;
+}
+
+.dashboard-open-mergeDialog h2 {
+    color: white;
+}
+
+.selected-hirarchy {
+    background-color: #676767;
+    color: #fff;
+}
+
+.dashboard-open-mergehelpDialog .mat-dialog-title {
+    background-color: #282828;
+    color: white;
+}
+
+.dashboard-open-mergehelpDialog h2 {
+    color: white;
+}
+
+.contentHelpMerge tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.contentHelpMerge th {
+    background-color: #2e7a78;
+    color: #fff;
+}
+
+.contentHelpMerge .heading {
+    background: #3d7170;
+    color: #fff;
+    border-bottom: 1px #ccc solid;
+}
+
+.contentHelpMerge .td {
+    border: 1px solid #dddddd;
+}
+
+.contentHelpMerge .td a {
+    color: #505050;
+}
+
+.openMerge .ui-state-default a {
+    color: black;
+    background: #a0a0a0;
+}
+
+
+
+/*-----------End Open Merge css------------*/
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-trigger .fa {
+    color: transparent;
+    background: transparent;
+}
+
+.dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-panel ul li label {
+    color: black;
+}
+
+
+/*----------Scenario Difference GUI START---------*/
+
+.dashboard-scenario-HeadingDiv {
+    background-color: black;
+    color: white;
+}
+
+.dashboard-scenario-InnerDiv-Single {
+    background-color: #dcecfd;
+}
+
+.dashboard-scenario-InnerDiv {
+    background-color: #dcecfd;
+}
+
+
+/*----------Scenario Difference GUI END---------*/
+
+
+/*----------Server Signature Difference GUI START---------*/
+
+.dashboard-server-diff-HeadingDiv {
+    background-color: black;
+    color: white;
+}
+
+.dashboard-server-diff-InnerDiv {
+    background-color: #dcecfd;
+}
+
+
+/*----------Server Signature Difference GUI END---------*/
+
+/*-------------------Scenario Main GUI--------------------*/
+/*Scenario---------*/
+.scen-gui-backg, .scenTab .ui-tabview.ui-widget-content {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 4px 1px #878787;
+}
+
+.scenario .ui-toolbar {
+    background: rgba(40, 40, 40, 0.67);
+}
+
+.scenario-left .ui-widget.ui-panelmenu-header.ui-state-default {
+    background: transparent;
+    border-bottom: 1px #bdbdbd solid;;
+}
+
+.scenario-left .ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a{
+    background: #000;
+}
+
+.scenario-left .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+    color: #000;
+}
+.scen-toolbar .ui-toolbar {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+/** Global Header in scenario */
+.scen-global-header {
+    background: #45484d;
+    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
+    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    color: white;
+}
+
+.scen-table .ui-datatable.ui-widget.ui-datatable-resizable {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.scenario .ui-grid.ui-grid-responsive.ui-fluid.ui-grid-pad {
+    background: rgba(245, 245, 245, 0.65);
+}
+
+.scen-table .ui-datatable th.ui-state-default{
+    background: #595b5f;
+    color: #fff;
+    padding: 4px;;
+}
+
+.scen-table .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+    background: rgb(169, 169, 169);
+    color: #000;
+}
+
+.scenario .ui-toolbar label {
+    color: white;
+}
+
+.scen-title-span span {
+    margin-left: 15px;
+    border-bottom: 1px solid #fff;
+}
+
+.scenVUser span {
+    color: #282828;
+}
+
+.scenario .toolbarIcon.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only {
+    background: transparent;
+}
+
+.scenmodal .ui-dialog-titlebar.ui-widget-header {
+    background: #282828;
+    color: #fff;
+}
+
+.scenmodal span.fa.fa-fw.fa-close {
+    color: #fff;
+}
+
+.accordHeader .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+    background: #424242;
+}
+
+.accordHeader .ui-accordion-header.ui-state-default.ui-corner-all {
+    background: rgb(115, 115, 115);
+}
+
+.accordHeader span.fa.fa-fw.fa-caret-down {
+    color: #fff;
+}
+
+/*--------For dropdown arrow caret-----------*/
+  .accordHeader span.fa.fa-fw.fa-caret-down.ui-clickable {
+    color: #000;
+}
+
+.accordian-css .ui-state-default a:link{
+    color: #fff;
+}
+.accordHeader .ui-accordion .ui-accordion-header a {
+    font-weight: inherit;
+    color: #fff;
+}
+
+.accordHeader .ui-accordion .ui-accordion-content.ui-widget-content {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.logsDrpDwn, .scenario, .scenmodal, span.fa.fa-fw.fa-caret-down.ui-c{
+    color: black;
+}
+
+.buttonList, span.fa.fa-fw.fa-caret-down.ui-c.ui-button-icon-left{
+    color: #fff; 
+}
+
+.scen-panel .ui-panel .ui-panel-titlebar {
+    padding: 4px;
+    background: #ffffff;
+}
+
+.scen-panel .ui-panel .ui-panel-content {
+    background: rgb(238, 240, 245);
+}
+
+.scenTab li.ui-state-default.ui-corner-top.ui-tabview-selected.ui-state-active {
+    background: #fdfdfd;
+}
+
+.scenTab .ui-tabview .ui-tabview-nav > li.ui-state-default {
+    background: #8e8e8e;
+}
+
+.scenTab .ui-tabview-panels {
+    background: rgba(255, 255, 255, 0.73);
+}
+
+.scenario-left .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background: rgba(197, 197, 197, 0.75);
+}
+
+.toolbarTabPanel .ui-toolbar {
+    background: rgba(126, 122, 122, 0.37);
+}
+
+/*for pick list in scenario*/
+.scen-pickList .ui-picklist-caption.ui-widget-header.ui-corner-tl.ui-corner-tr {    
+    background: rgb(66, 66, 66);    
+    color: #fff;    
+    text-align: left;
+}
+
+.scen-pickList .ui-picklist-list.ui-picklist-source, .ui-picklist-list.ui-picklist-target {  
+    background: rgba(255, 255, 255, 0.81); 
+    color: #000;
+}
+
+
+/*for scenario wizard*/
+
+.wizard-dialog .ui-dialog .ui-dialog-titlebar {
+   background: #1c526b;
+    color: white;
+}
+
+.wizard-dialog .ui-dialog .ui-dialog-buttonpane {
+    background:  ghostwhite ;
+}
+.wizard-dialog .ui-widget-overlay .ui-dialog-mask{
+    background: rgba(31, 34, 38, 0.55);
+}
+/*Dashboard Update User session Css*/
+/*----------------- PrimeNg Tab and Data Table CSS------------------*/
+
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-default{
+    background: #ccc;
+}
+
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-panel{
+    border-bottom: 1px #d2d2d2 solid;
+    border-left: 1px #d2d2d2 solid;
+    border-right: 1px #d2d2d2 solid;
+}
+
+.dashboard-update-user-session-rate-tab .ui-tabview.ui-widget-content{
+    background: transparent;
+}
+
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-active{
+    background: #fff;
+}
+
+.dashboard-update-user-session-text-header {
+    background: hsla(0, 0%, 10%, 0.8);
+    color: #fff;
+}
+
+.dashboard-update-user-session-text-header .ui-widget-header {
+    color: white;
+}
+
+.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
+    background: rgb(71, 71, 71);
+    color: #fff;
+}
+
+.dashboard-update-user-session-dataTable>table .ui-widget-content ui-datatable-odd {
+    background: transparent;
+}
+
+.dashboard-update-user-session-dataTable .ui-datatable-odd {
+    background: #888888;
+    color: #fff;
+}
+
+.dashboard-update-user-session-dataTable tr.ui-widget-content.ui-datatable-even {
+    background: #fff;
+    color: #2b2828;
+}
+
+/*--------------END CODE-----------------*/
+
+/* -----------------------------------Import access log css---------------------------*/
+
+.accessLog-parse-table .ui-datatable th.ui-state-default {
+    background: #3f7bbc;
+}
+
+.accessLog-theme {
+    background-color: #cecece;
+    color:#000;
+}
+.accessLog-theme-lower{
+        background: #F5F5F5;
+}
+
+.accessLog-middle-component {
+     background-color: white;;
+}
+
+.accessLog-dialogHeader {
+    background-color:black;
+}
+
+.accessLog-dialogHeaderText {
+    color: white;
+}
+.dialogHeaderBackground {
+  background:black;
+  color: #fff;
+}
+
+.accessLog-applyButton, .accessLog-cancelButton {
+    border: 1px solid #e0e0e0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 5px 1px #b1b1b1;
+}
+
+.accessLog-successMsg {
+    color:green;
+}
+
+.accessLog-errMsg {
+   color:red; 
+}
+
+.accessLog-help-Content tr:nth-child(even){ 
+    background-color: #f2f2f2
+    }
+
+.accessLog-help-Content th {
+    background-color: #4CAF50;
+    color: white;
+    }
+
+.access-log-table .ui-datatable .ui-datatable-thead>tr>th { 
+         background: #595b5f; 
+          color: white;
+          padding: 6px;
+}
+
+.access-log-footer .ui-datatable .ui-datatable-tfoot>tr>td { 
+    background: black;
+    color: white;
+}
+
+.accessLogButtonText .mat-button, .mat-icon-button, .mat-raised-button {
+    color: white;
+}
+.file-manager-table .ui-datatable th.ui-state-default {
+    background:  #595b5f;
+    color: #fff;
+}
+.file-manager-table .ui-datatable-odd {
+    background: #eaeaea;
+}
+/*---------------------------Import Access Log Css--------------------------------------------*/
+
+.scheduleTabPanel{
+    background: #fff;
+}
+
+.rc-modal .ui-dialog .ui-dialog-titlebar {
+    background: #282828;
+    color: #fff;
+}
+
+/******* For Config UI ************/
+
+.nde-ui .ui-datatable .ui-datatable-thead>tr>th {
+    background: #595b5f;
+    color: white;
+}
+.nde-ui .ui-datatable-odd {
+   /* background-color: #e8f4ff;*/
+}
+
+.ndegui-sidenav {
+    /*background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12);*/
+}
+
+
+
+/*.config-ui button[md-icon-button] {
+    border-bottom: 1px #353535 solid;
+}*/
+
+.config-ui .mat-button,
+.config-ui .mat-icon-button,
+.config-ui .mat-raised-button {
+    border-bottom: 1px #d6d6d6 solid;
+}
+
+.top-nav-bar {
+    background: #45484d;
+}
+.custom-breadcrumb .ui-breadcrumb {
+        color:#dedede;
+}
+.custom-breadcrumb .ui-breadcrumb a{
+        color:#f5f5f5;
+}
+.top-nav-bar .ui-widget-header {
+    background: transparent;
+}
+
+.header-content {
+    color: #fff;
+    background: rgba(40, 40, 40, 0.95);
+}
+
+.ndegui_left button {
+    background: transparent;
+}
+
+.tabs-all {
+    /*background: rgba(255, 255, 255, 0.65);*/
+}
+
+.tabs-all .ui-tabview {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
+    background: #f4f4f4;
+    color: #fff;
+}
+.tabs-all .ui-tabview .ui-tabview-panel {
+    border: 1px #c5c5c5 solid;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default {
+    background: #b1b1b1;;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav li a,
+.ui-tabview.ui-tabview-collapsible .ui-tabview-nav li.ui-tabview-selected a {
+    color: #000;
+}
+.tabs-all .ui-widget-header {
+    background: #3e3e3e;
+    color:  #fff;
+}
+
+.tabs-all .ui-panel .ui-panel-content {
+    background: #fff;
+}
+
+.tabsincontent .header {
+    color: #fff;
+    background: #3e3e3e;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    background: #183D65;
+    color: #fff;
+}
+
+.flowpathheader-accordion {
+    color: #000;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+.flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #ececec;
+}
+
+.config-tree .ui-tree {
+    background: rgba(214, 214, 214, 0.72);
+}
+
+.ui-datatable-odd {
+    /*background-color: #e8f4ff;*/
+}
+
+.configUI {
+    background: rgba(255, 255, 255, 0.65);
+    /*box-shadow: 0 0 6px 2px #565656;*/
+}
+
+.configUI .header {
+    color: #fff;
+    background: #282828;
+    /*background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );*/
+}
+
+.cav-toolbar {
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #77d218;
+}
+
+
+/* config header */
+
+.md-card-subtitle-css {
+    background: rgba(40, 40, 40, 0.95);
+}
+
+.header-Name {
+    color: white;
+}
+
+.ndegui-card {
+    background: #fff;
+    background: radial-gradient(ellipse at center, #ffffff 0%, #eaeaea 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=1 );
+    border-radius: 4px;
+}
+
+.button-color {
+    background-color: #4cae4c;
+    border-color: #449d44;
+}
+
+ul.cav-menu-ul {
+    color: white;
+}
+
+.mat-button-focus-overlay {
+    background: white;
+}
+
+
+/*
+button[md-icon-button] {
+    background: #000000;
+}*/
+
+.iconCss {
+    color: #000;
+}
+
+
+/* configuration.component.css */
+
+#top-div {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 6px 2px #565656;
+    border-radius:4px;
+}
+
+a {
+    color: white;
+}
+
+#top-div .heading {
+    border-bottom: 1px #777 solid;
+}
+
+.configUI_card-css .mat-card {
+    background: #4e4e4e;
+}
+
+.icon_big {
+    color: white;
+}
+
+
+/*session-attribute.css */
+
+.configui-session-css {
+    background: #f6f7f9
+}
+
+
+/* config-profile-list.components.css */
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    background: #282828;
+    color: #fff;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+
+/* config-top-nav-bar.component.css */
+
+.stripbg {
+    background: #dedede;
+}
+
+
+/* config-tree-main.components.css */
+
+.mytreeview {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.mytreeview .header {
+    color: #fff;
+    background: #45484d;
+    background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+}
+
+.config-ui .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #77d218 !important;
+}
+
+.config-ui .mat-slide-toggle-thumb {
+    background-color: #cccccc;
+}
+
+.config-ui .mat-slide-toggle-bar {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.config-ui .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(92, 136, 48) !important;
+}
+
+/*----------Login Screen-------------*/
+.container1 {
+    background: url('images/theme1-login.jpg') no-repeat center fixed;
+}
+.ui-panelmenu-header {
+    background: rgba(255, 255, 255, 0);
+    border: 0;
+}
+
+.editFavoriteDialog .mat-dialog-title{
+    color: white;
+    background-color: #282828;
+}
+.favEdit{
+    background: #383838;
+    color: #fff;
+
+}
+ .favoFileMgmtDialog .mat-dialog-title{
+    color: white;
+    background-color: #282828;
+}
+.btn-select, .btn-add-folder, .btn-create-folder, .btn-cancel-folder, .btn-upload  {
+    color: #fff;
+    background: #bbbbbb;
+}
+.glb-allbtn {
+    border: 1px solid #e0e0e0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    box-shadow: 0 0 1px 1px #a9a9a9;
+}
+button.glb-allbtn.mat-raised-button{
+    color: #fff;
+}
+/*
+.loading {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    position: fixed;
+background: #f6f8f9;
+background: -moz-linear-gradient(top, #f6f8f9 0%, #e5ebee 83%, #d7dee3 85%, #d7dee3 100%, #f5f7f9 100%);
+background: -webkit-linear-gradient(top, #f6f8f9 0%,#e5ebee 83%,#d7dee3 85%,#d7dee3 100%,#f5f7f9 100%);
+background: linear-gradient(to bottom, #f6f8f9 0%,#e5ebee 83%,#d7dee3 85%,#d7dee3 100%,#f5f7f9 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 );;
+
+}*/
+.dashboard-corelation-dialog {   
+    background: #282828;
+}
+.dashboard-corelation-dialog span{   
+    font-size: 16px;
+    color: #fff;
+}
+.selected-alert-type{
+    background: #888;
+}
+.historyleftpane .ui-accordion .ui-accordion-header .fa {
+    color: #fff;
+}
+.openMerge .ui-state-default a:link,{
+    color: #000;
+}
+.main-box-alert{
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
+.dashboard-menu-nav-split-icon {
+    font-size: 1px;
+    border-bottom: 1px #bdbdbd solid;
+    border-top: 0px #313131 solid;
+    border-left: 0px #313131 solid;
+    border-right: 0px #313131 solid;
+}
+.dashboard-tree-component {
+    background: #e6e6e6;
+    background: -moz-linear-gradient(top, #e6e6e6 0%, #ffffff 100%);
+    background: -webkit-linear-gradient(top, #e6e6e6 0%,#ffffff 100%);
+    background: linear-gradient(to bottom, #e6e6e6 0%,#ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e6e6', endColorstr='#ffffff',GradientType=0 );   
+}
+.dashboard-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-right, span.ui-treenode-icon.fa.fa-fw.fa-hdd-o{
+    color:#000;
+}
+
+.dashboard-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-down, span.ui-treenode-icon.fa.fa-fw.fa-newspaper-o, span.ui-treenode-icon.fa.fa-fw.fa-line-chart{
+    color:#282828;
+}
+.dashboard-custom-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-right, span.ui-treenode-icon.fa.fa-fw.fa-hdd-o{
+    color:#000;
+}
+.dashboard-custom-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-down, span.ui-treenode-icon.fa.fa-fw.fa-newspaper-o, span.ui-treenode-icon.fa.fa-fw.fa-line-chart{
+    color:#282828;
+}
+.dashboard-custom-tree-metrics-node span.ui-treenode-label.ui-corner-all {
+    color: #000;
+}
+button.dashboard-tree-action-buttion.mat-mini-fab {
+    background: transparent;
+}
+button.md-fab.pieChartInTD.mat-mini-fab {
+    background: #42A5F5;
+}
+#txDetailWinId .ui-accordion .ui-accordion-content{
+    background: #cecece;
+}
+.trnssidenav-piechart{
+    background: #d3e2ef;
+    box-shadow: 0 0 4px 1px white;
+     border: 1px #000 solid;
+}
+.dashboard-elapsed-time-icon .clr{
+    color: #fff;
+}
+.sql-btn{
+    background: #6b6b6b;
+    box-shadow: 0 0 3px 1px #525252;
+    color: #fff; 
+}
+#outputMainBodyDiv {
+    background: rgba(255, 255, 255, 0.52);
+    border: solid #eee;
+}
+.dashboard-setting-win-tabs .mat-tab-label-active {
+    background: #9fceff;
+}
+.trnssidenav-piechart{
+    background: #e3e3e3;
+    box-shadow: 0 0 4px 1px white;
+    border: 1px #9c9c9c solid;
+}
+.dashboard-pagination .ui-paginator .ui-paginator-page.ui-state-active {
+    background: #424242;
+    color: #ffffff;
+    border-color: #d1d1d1;
+}
+app-alert-home .mat-button-toggle-checked {
+    color: #fff;
+    background: #7b7b7b
+}
+.alert-nav-item {
+    background: rgba(255, 255, 255, 0.63);
+}
+.ndegui-mainbox {
+    background:  rgba(245, 245, 245, 0.7);
+}
+.ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active {
+    color:#282828;
+}
+.organiseFavoriteDialog .mat-dialog-title{
+    color: white;
+    background-color: #464646;
+   
+}
+
+.dashboard-pagination .ui-paginator .ui-paginator-page.ui-state-active {
+	background: #4e4e4e;
+    border-color: #6b6b6b;
+}
+
+.ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default{
+    background: #f7f7f7;
+}
+.transcompare-filedset {
+  border: 1px solid #262626;
+  background: rgba(181, 181, 181, 0.62); 
+  }
+.trans-heading{
+    background: rgba(40, 40, 40, 0.25);
+}
+.scen-lefttree {
+    background: rgba(255, 255, 255, 0.5);
+}
+.drawer-menu {
+        background: rgba(0, 0, 0, 0.75);
+}
+.inline-display {
+    background:transparent
+}
+.display-label{
+    color: #000;
+}
+ .alrtlbl {
+     color: #fff;
+ }
+ app-alert-home .mat-sidenav {
+    background-color: rgba(255, 255, 255, 0.65) ; 
+}
+.totalTestRunCard, .totalArchieveCard, .totalLockedTestsCard, .totalScriptsCard, .totalScenarioCard, .totalRunningCard {
+ background: #EDEDED;  width: auto; cursor: pointer;border: 1px solid #b9b9b9;
+}
+.ndagent .ui-accordion .ui-accordion-header {
+    background: #666;
+}
+.favParamBtn{
+    color: #FFFFFF;
+    background: #2399e5;
+    border: 1px solid #0b2138;
+}
+.favoriteParamNdFilter .mat-dialog-title{
+    color: white;
+    background-color: #282828;
+}
+.saveDialogBox .mat-dialog-title{
+    color: white;
+    background-color: #282828;
+}
+
+/*-------Added on 10072017---------*/
+.mat-menu-content .ui-state-default {
+    background: #f6f7f9 0 0 repeat-x;
+    background: linear-gradient(to bottom, #f6f7f9 0%,#ebedf0 100%);
+}
+.mat-menu-content {
+     background: #f6f7f9 0 0 repeat-x;
+    background: linear-gradient(to bottom, #f6f7f9 0%,#ebedf0 100%);
+}
+.addFavoriteDialog .mat-dialog-title{
+    color: #fff;
+    background: #282828;
+}
+.chngPassword .ui-widget-header{
+    background: #282828;
+} 
+.chngPassword .ui-dialog.ui-widget .ui-dialog-titlebar {
+    color: #fff;
+    padding: 6px;
+}
+.chngPassword .ui-widget-content {
+    margin: 0;
+}
+.chngrefreshkey .ui-widget-header{
+    background: #282828;
+} 
+.chngrefreshkey .ui-dialog.ui-widget .ui-dialog-titlebar {
+    color: #fff;
+    padding: 6px;
+}
+.chngrefreshkey .ui-widget-content {
+    margin: 0;
+}
+/*---------Added on 12072017-----------*/
+.lastReleaseClass {
+    color: #000;
+}
+md-card.buildCardClass.mat-card {
+    background-color: #425e8e;
+}
+.eyeDivClass {
+    background: #0A162C;
+}
+
+.lastRelease-table, .diskgrid-table, th {
+    background: #888888;
+    color: #fff;
+}
+
+.ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active {
+    background-color: #595b5f;
+    color: #fff;}
+
+.lastRelease-table, .diskgrid-table, tr:nth-of-type(odd) {
+    background: #e3e3e3;
+    color: #000;
+}
+.lastRelease-table, .diskgrid-table, tr:nth-of-type(even) {
+    background: #fff;
+    color: #000;
+}
+.diskgrid-table td{
+  border: 1px #bdbdbd solid;
+}
+.dashboard-top-panel .mat-button-focus-overlay {
+    background: rgba(0, 0, 0, 0.17);
+    margin: -4px 0 0 0;
+}
+.dashboard-top-panel .mat-button-focus-overlay {
+    background: rgba(0, 0, 0, 0.15);
+    margin: -4px 0 0 0;
+}
+.grphtab-view .ui-treetable th.ui-state-default{
+    background: #595b5f;
+    color: #fff;
+}
+.grphtab-view tbody:nth-of-type(odd) {
+    background: #e3e3e3;
+    color: #000;
+    border-bottom: 1px #9c9c9c solid;
+    border-top: 1px #9c9c9c solid;      
+}
+.grphtab-view tbody:nth-of-type(even) {
+    background: #fff;
+    color: #000;
+    border-bottom: 1px #9c9c9c solid;
+    border-top: 1px #9c9c9c solid;
+}
+
+.dashboard-panel-selected {
+    border: 1px solid #000;
+    -webkit-box-shadow: 0px 0px 8px 4px rgb(10, 10, 10);
+    -moz-box-shadow: 0px 0px 8px 4px rgb(10, 10, 10);
+    box-shadow: 0px 0px 8px 4px rgb(10, 10, 10);
+}
+
+ /*---------------Timeslot Management --------------*/
+.timeslot-table .ui-datatable th.ui-state-default{
+    background: #595b5f;
+    background: -moz-linear-gradient(top, #417ebf 0%, #3b77b6 100%);
+    background: -webkit-linear-gradient(top, #417ebf 0%,#3b77b6 100%);
+    background: linear-gradient(to bottom, #417ebf 0%,#3b77b6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#417ebf', endColorstr='#3b77b6',GradientType=0 );
+    color: #fff;
+    padding: 6px;
+}
+.timeslot-header {
+    background: #282828;
+    color: #dadada;
+}
+.timeslot-main .ui-paginator{
+    background: rgba(0, 0, 0, 0.14);
+}
+.timeslot-top{
+    background: rgba(255, 255, 255, 0.5);
+}
+.timeslot-popup-header .mat-dialog-title{
+    background: #282828;
+    color: #fff;
+}
+.timeslot-popup-footer {
+    background: #f9f9f9;
+    border-top: 1px #d2d2d2 solid;
+}
+
+/*-------------NewAddon17072017----------------*/
+.mat-dialog-container {
+    background: #FDFDFD; /*#fdf5e1;*/
+}
+.chngPassword, .chngrefreshkey .ui-widget-content {
+     background: #FDFDFD;
+}
+.btn1, .btn2, .dashboard-alert-model-footer-btn, .dashboard-confirm-model-footer-btn, .transaction-alert-model-footer-btn, .td-confirm-model-footer-btn{
+    background: rgba(0, 0, 0, 0.75);
+}
+button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashboard-confirm-model-footer-btn, button.transaction-alert-model-footer-btn, button.td-confirm-model-footer-btn{
+    color:#f0f0f0;
+}
+.dashboard-alert-model-header, .dashboard-confirm-model-header, .transaction-alert-model-header, .td-confirm-model-header{
+    background: #282828;
+    color:#fff;
+}
+#txDetailWinId .tx_Subheader {
+    color: #fff;
+    background: #31200c;
+    border: 1px solid #0b2138;
+}
+.top-panel-nav-cross-icon {
+    color: black;
+    background: white;
+}
+.dashboard-tree-component .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
+    background: #967e7e;
+    font-weight: normal;
+    color: #555555;
+}
+
+.dashboard-tree-component .ui-tabview .ui-tabview-nav > li.ui-state-default {
+    background: rgb(158, 147, 147);
+}
+
+.ui-tabview.ui-widget-content {
+    border: 0px none;
+    background: #ededed;
+}
+
+.ui-tabview .ui-tabview-panel {
+    border-width: 0;
+    padding: 0em;
+    background: 0;
+}
+
+.dashboard-input-model-footer .dashboard-input-model-footer-btn{
+      background: #3a3a3a;
+}
+
+/*for not changing color on mouse hover on button*/
+.mat-button-focus-overlay{
+    position: relative;
+   }
+
+.sliderCustomColor .mat-slider-horizontal .mat-slider-thumb-label {
+  background-color: #3a3a3a;
+}
+
+.sliderCustomColor .mat-slider-horizontal .mat-slider-track-fill {
+  background-color: #3a3a3a;  
+}
+
+/*This is the CSS for the Highlight health check monitor window table row*/
+
+.ui-widget-content .healthChkMon-table-selected-row {
+    background-color: #96c3eb;
+    color: black;
+}
+
+.health-chk-mon .ui-widget-content .healthChkMon-table-row-even {
+    border: 1px solid #D5D5D5;
+    background: #ffffff;
+    color: #222222;
+}
+
+.health-chk-mon .ui-widget-content .healthChkMon-table-row-odd {
+    border: 1px solid #D5D5D5;
+    background: #fafafb;
+    color: #222222;
+}
+/*--------------CSS For FileUpload-----------------*/
+  .uploadFiles .ui-fileupload-choose.ui-button.ui-widget {
+    background: #314184; 
+}
+
+
+
+
+
+
+
+
+
+/*Access Control css */
+.mainDiv {
+  /*theme1*/
+  background: #e3e3e3; }
+
+.tabheader {
+  /*theme 5*/
+  background: #595b5f;
+  color: white; }
+
+.mdcardbackgrnd {
+  /*theme5*/
+  background: #e3e3e3;
+  /*padding: 0px*/ }
+
+.compotable .ui-datatable th.ui-state-default {
+  background-color: #595b5f;
+  color: white; }
+
+.mdcardtoprightbackgrnd {
+  background: white; }
+
+.toprightheader {
+  /*theme5*/
+  background: #595b5f;
+  color: #fafafa; }
+
+.permissionpanel .ui-panel .ui-panel-titlebar {
+  background: #595b5f;
+  color: white; }
+
+.permissionTree {
+  background: #e3e3e3; }
+
+.permissionTree .ui-widget-content .ui-state-highlight {
+  background: rgba(89, 91, 95, 0.41); }
+
+.capabilitytable .ui-widget-content .ui-state-highlight {
+  background: rgba(89, 91, 95, 0.41); }
+
+.accesscontrol-tree-tier-node {
+  color: #b92717; }
+
+.accesscontrol-tree-default-node {
+  color: rgba(44, 20, 141, 0.94); }
+
+.permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #595b5f; }
+
+.permissionpanel .ui-panel .ui-panel-content {
+  background: #ffffff; }
+
+.permissionpanel .ui-panel .ui-panel-titlebar {
+  color: #fff8da; }
+
+.permissionGroup .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #595b5f; }
+
+.permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #595b5f; }
+
+.capabilityButton {
+  color: black; }
+/*Access Control css */
+.mainDiv {
+  /*theme1*/
+  background: #e3e3e3; }
+
+.tabheader {
+  /*theme 5*/
+  background: #595b5f;
+  color: white; }
+
+.mdcardbackgrnd {
+  /*theme5*/
+  background: #e3e3e3;
+  /*padding: 0px*/ }
+
+.compotable .ui-datatable th.ui-state-default {
+  background-color: #595b5f;
+  color: white; }
+
+.mdcardtoprightbackgrnd {
+  background: white; }
+
+.toprightheader {
+  /*theme5*/
+  background: #595b5f;
+  color: #fafafa; }
+
+.permissionpanel .ui-panel .ui-panel-titlebar {
+  background: #595b5f;
+  color: white; }
+
+.permissionTree {
+  background: #e3e3e3; }
+
+.permissionTree .ui-widget-content .ui-state-highlight {
+  background: rgba(89, 91, 95, 0.41); }
+
+.capabilitytable .ui-widget-content .ui-state-highlight {
+  background: rgba(89, 91, 95, 0.41); }
+
+.accesscontrol-tree-tier-node {
+  color: #b92717; }
+
+.accesscontrol-tree-default-node {
+  color: rgba(44, 20, 141, 0.94); }
+
+.permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #595b5f; }
+
+.permissionpanel .ui-panel .ui-panel-content {
+  background: #ffffff; }
+
+.permissionpanel .ui-panel .ui-panel-titlebar {
+  color: #fff8da; }
+
+.permissionGroup .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #595b5f; }
+
+.permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #595b5f; }
+
+.capabilityButton {
+  color: black; }
+
+/* css for add new layout window*/
+.addLayoutDialog .mat-dialog-title{
+    color: white;
+    background-color: #282828;
+}
+
+
+/*--------ProductUI widget Header backgrounds----------*/
+.handle {
+ 	background: #424242;
+    color:#fff;
+}
+.header{
+	color:#fff;
+}
+.handle.alertHeader{
+  background: #424242;
+ /* background: #b71c1c;
+  background: -moz-linear-gradient(top,  #b71c1c 0%, #960606 100%);
+  background: -webkit-linear-gradient(top,  #b71c1c 0%,#960606 100%);
+  background: linear-gradient(to bottom,  #b71c1c 0%,#960606 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b71c1c', endColorstr='#960606',GradientType=0 );*/
+}
+
+table{
+    border-collapse: collapse;
+    box-shadow: 0 0 0 0 #fff;
+}
+th{
+    font-size: 11px;
+    font-weight: 400;
+    padding: 4px;
+    border: 1px #adadad solid;
+}
+td {
+    font-size: 11px;
+    font-weight: 400;
+    padding: 3px;
+    border: 1px #adadad solid;
+}
+/*----------New AccessControl CSS--------------*/
+.accessControl-box {
+    background-color: rgba(245, 245, 245, 0.8);
+}
+.tabheader {
+    background:#424242;
+    color: #e2e2e2;
+}
+.AC-leftpane{
+    background: rgba(255, 255, 255, 0.62);
+}
+
+.toprightheader{
+    /*theme5*/
+    background: #424242;
+    color: #fafafa;   
+}
+.AC-rightpane {
+    background: rgba(255, 255, 255, 0.8);
+}
+ .permissionpanel .ui-panel .ui-panel-titlebar{
+    background: #2c3b51;
+    color: #fafafa;
+ }
+ md-card.permissionTree.mat-card{
+    overflow: auto;
+    height: 215px;
+    padding: 0px;
+    margin: 0 6px;
+    /*background: rgb(231, 205, 149);*/
+}
+.permissionTree{
+  background: rgba(190, 220, 234, 0.15);
+ }
+
+.compotable .ui-datatable .ui-datatable-data tr.ui-state-hover, .ui-datatable .ui-datatable-data tr.ui-state-highlight {
+  border-color: #462f12;; 
+}
+
+/*------------------ND CONFIG UI----------------*/
+.ndegui_left .mat-button, .mat-icon-button, .mat-raised-button {
+    color: #000;
+}
+/* -------------------------- ProductUICSS ------------------*/
+.cardTitleClass{
+    color: #fff;
+}
+.mat-card-subtitle {
+  color: #282828; 
+}

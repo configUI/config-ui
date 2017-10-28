@@ -1,0 +1,970 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/*@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~https://fonts.googleapis.com/icon?family=Open+Sans';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';*/
+
+
+/*---------------Fonts CSS---------------*/
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "ndegui-icon";
+  src:url("../../fonts/ndegui-icon.eot");
+  src:url("../../fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/ndegui-icon.woff") format("woff"),
+    url("../../fonts/ndegui-icon.ttf") format("truetype"),
+    url("../../fonts/ndegui-icon.svg#ndegui-icon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "ndegui-icon" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="ndegui-"]:before,
+[class*=" ndegui-"]:before {
+  font-family: "ndegui-icon" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ndegui-application:before {
+  content: "\e000";
+}
+.ndegui-group:before {
+  content: "\e001";
+}
+.ndegui-home1:before {
+  content: "\e002";
+}
+.ndegui-instance:before {
+  content: "\e003";
+}
+.ndegui-instrmentation-profile:before {
+  content: "\e004";
+}
+.ndegui-nd-agent:before {
+  content: "\e005";
+}
+.ndegui-profile:before {
+  content: "\e006";
+}
+.ndegui-server:before {
+  content: "\e007";
+}
+.ndegui-tier:before {
+  content: "\e008";
+}
+.ndegui-topology:before {
+  content: "\e009";
+}
+.ndegui-auto-discover:before {
+  content: "\e00b";
+}
+.ndegui-audit-logs:before {
+  content: "\e00c";
+}
+.ndegui-data-collector:before {
+  content: "\e00a";
+}
+.ndegui-topology-1:before {
+  content: "\e00d";
+}
+
+.nde-ui .ui-datatable .ui-datatable-thead>tr>th {
+    font-weight:500;
+}
+
+.nde-ui .ui-datatable .ui-datatable-tfoot>tr>td,
+.nde-ui .ui-datatable .ui-datatable-data>tr>td {
+    height: 26px;
+    text-overflow: ellipsis;
+}
+
+.nde-ui .ui-datatable thead tr {
+    height: 24px;
+}
+
+
+/*-----------------Cutom CSS---------------*/
+
+.ndegui-sidenav {
+    /*margin-right: 15px;
+    min-width: 6%;*/
+    overflow: initial;
+    top: 30px;
+    min-height: 620px;
+}
+
+.ndegui-sidenav .mat-sidenav {
+    top: 30px;
+    height: 620px;
+    width:50px;
+}
+
+.top-nav-bar {
+    font-size: 12px;
+    margin: -4px -4px -4px 62px;
+}
+
+
+/*ul.cav-menu-ul {
+    margin-top: 0;
+}*/
+
+.custom-breadcrumb .ui-breadcrumb {
+    border-radius: 0px;
+    border: 0;
+    padding: 0.1em;
+
+}
+
+.top-nav-bar .ui-breadcrumb ul li.fa {
+    margin: 0;
+}
+
+
+/*li.ui-breadcrumb-chevron.fa.fa-chevron-right {
+    font-size: 10px;
+}*/
+
+
+/*.header-button {
+    padding-top: 5px;
+}*/
+
+
+.configUI .header {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 5px;
+    /*margin: -8px -8px 10px;*/
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.config-ui-table-margin {
+    padding: 8px;
+    overflow-y: auto;
+    height: 450px;
+}
+
+.header-content {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 22px;
+    padding: 2px;
+    /*margin: 10px 0 0 0;*/
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.table-css .ui-datatable .ui-datatable-data>tr>td {
+    border: 1px #adadad solid;
+}
+
+.tabs-all {
+    box-shadow: 0 0 8px 2px #2d2d2d;
+}
+
+.tabs-all .ui-tabview {
+    padding: 0px;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
+    font-weight: normal;
+}
+
+.tabs-all .ui-tabview.ui-tabview-top>.ui-tabview-nav {
+    padding: 0;
+}
+.tabs-all .ui-widget-header {
+    padding: 4px;
+}
+
+.tabs-all .ui-g {
+    padding: 5px;
+}
+
+.tabsincontent {
+    border: 1px #bbb solid;
+}
+
+.tabsincontent .header {
+    font-size: 12px;
+    padding: 3px 6px 2px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.hyperlink {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card-toggle .mat-slide-toggle-thumb {
+    height: 16px;
+    width: 16px;
+}
+
+.card-toggle .mat-slide-toggle-bar {
+    width: 33px;
+    height: 12px;
+}
+
+.hideheader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    opacity: 0;
+}
+
+
+/* 
+hide it behind the dropdown component, the required 
+  HTML5 pop up still shows which is good and the form
+ is still marked as not valid 
+*/
+
+.hidden-validator {
+    position: absolute;
+    z-index: -1;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    margin: 0;
+    padding: 5px;
+    font-size: 11px;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-buttonpane {
+    padding: 0px;
+    border: 0;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+.config-tree {
+    min-height: 410px;
+    max-height: 410px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/*For hiding scroll in tree node */
+
+
+
+.auto-config-tree .ui-tree .ui-tree-container {
+    width: 125.3%;
+}
+
+.sessionTab .ui-tabview .ui-tabview-panel {
+    min-height: 64px!important;
+}
+
+.nde-ui .ui-datatable .ui-datatable-header {
+    height: 25px;
+}
+
+.iconCss .icon {
+    float: initial;
+}
+
+
+/******** Internal Css**************/
+
+
+/*application-list */
+
+.appIcon-css {
+    float: right;
+}
+
+.timpStamp-float-css {
+    float: right;
+}
+
+
+/*config-main.component.css */
+
+.configui-top-nav-css {
+    padding: 0;
+}
+
+.configui-progressbar {
+    height: 1px;
+}
+
+.configui-scrollbar {
+    height: 480px;
+}
+
+
+/*  config-header-top-nav-bar.css */
+
+
+/*.image {
+    width: 8%;
+    margin-top: -37px;
+}*/
+
+.cav-toolbar {
+    min-height: 30px;
+    height: 30px;
+}
+
+
+/*config Header*/
+
+.togglebtn span {
+    font-weight: 500;
+}
+
+.breadcrumb-toggle {
+    display: inline-block;
+    margin: 0;
+}
+
+.md-card-css .mat-card {
+    padding: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 225px;
+}
+
+.header-Name {
+    font-size: 12px;
+    padding: 9px;
+    float: left;
+    font-weight: 500;
+}
+
+.header-button {
+    text-align: right;
+    padding: 5px;
+    font-size: 11px;
+}
+
+.table-css {
+    padding: 0px 8px 8px 8px;
+    font-size: 11px
+}
+
+ul.cav-menu-ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.config-ui .mat-button,
+.config-ui .mat-icon-button,
+.config-ui .mat-raised-button {
+    width: 100%;
+    height: 50px;
+    border-radius: 0%;
+}
+
+.iconCss {
+    border-radius: 0%;
+    display: inline-block;
+    overflow: hidden;
+    padding: 1px 0 0;
+    width:100%;
+}
+
+
+/* backend-monitors.css */
+
+
+/*
+.configui-hideheader {
+    margin: 10px 0px;
+}
+
+.configui-hideheader-css {
+    padding-left: 50px;
+}*/
+
+
+/* custom_keyword.css */
+
+
+/*
+#top-div .mat-slide-toggle {
+    margin: 4px 30% 0;
+}*/
+
+.configui-float-css {
+    float: left;
+}
+
+.configui-float {
+    float: right;
+    margin-top: -3px;
+}
+
+
+/* debug-component.css */
+
+.debug_css {
+    width: 18%;
+}
+
+.configui-debug-css-2 {
+    width: 47px;
+}
+
+.configui-debug-css-3 {
+    margin-left: 5px;
+}
+
+.configui-debug-css-4 {
+    width: 2%;
+}
+
+
+/* delay.components.css*/
+
+.configui-delay-css-2 {
+    text-align: right;
+    width: 40%;
+}
+
+.configui-delay-css-3 {
+    text-align: right;
+    width: 40%;
+}
+
+
+/* generate-exception.css */
+
+.configui-fqm-css {
+    width: 150%;
+}
+
+
+/* configuration.component.css */
+
+#top-div {
+    padding: 3px;
+}
+
+#top-div md-card {
+    height: 190px;
+    /*margin: 6px;*/
+    padding: 14px;
+}
+
+.contents:hover {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+}
+
+#top-div .mat-slide-toggle {
+    padding: 2px;
+}
+
+#top-div .heading {
+    /*margin-bottom: 12px;*/
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.icon_big {
+    font-size: 130px;
+    margin-top: 25px;
+}
+
+#top-div .intrumentation li {
+    padding: 5px;
+    list-style-type: none;
+}
+
+
+/*exception css */
+
+.configui-exception-css {
+    padding-left: 16px;
+}
+
+.configui-exception-css-2 {
+    padding-left: 5px;
+}
+
+
+/* flow-path.components */
+
+.radioButtoncss {
+    width: 26%;
+}
+
+.configui-flowpath-css {
+    padding-left: 20px;
+}
+
+
+/* http-header.components */
+
+
+/*.httpHeaderCss {
+    margin-left: 1.2em;
+}*/
+
+
+/* java.method.css */
+
+.configui-java-css {
+    margin-top: -5px;
+}
+
+.configui-java-css-2 {
+    margin-left: 6px;
+}
+
+.configui-java-css-3 {
+    width: 3%;
+}
+
+
+/* error-detection.components */
+
+.tableCss {
+    width: 120px;
+    text-overflow: ellipsis
+}
+
+
+/*.toggle-space {
+    margin: 1px 34%;
+}*/
+
+
+/*session-attribute.css */
+
+.configui-session-css-2 {
+    /*margin-bottom: 10px;*/
+    border: ridge;
+}
+
+
+/* hot-spot.css */
+
+.configui-hotspot-css {
+    width: 68px;
+}
+
+.configui-hotspot-css-2 {
+    padding-left: 25px;
+}
+
+
+/*thread-stats-components.css */
+
+.configui-thread-css-1 {
+    padding-left: 20px;
+}
+
+.configui-thread-css-2 {
+    padding-left: 16px;
+}
+.configui-thread-css{
+    width: 12%;
+}
+
+/* Error-detection.css*/
+
+.configui-error-css-1 {
+    text-align: right;
+}
+
+.configui-error-css-2 {
+    margin: 0px 0px;
+}
+
+
+/* http-state-monitor.css */
+
+.configui-stats-css {
+    width: 177px;
+}
+
+
+/* integration-pt-detection.component.css */
+
+.tableCss {
+    width: 120px;
+    text-overflow: ellipsis
+}
+
+.config-toggle {
+    margin: 4px 0px;
+}
+
+.config-margin {
+    margin: 0px 5px;
+}
+
+
+/* service-entry-point.component.css */
+
+.tableCss {
+    width: 120px;
+    text-overflow: ellipsis
+}
+
+
+/*
+.toggle-space {
+    margin: 1px 34%;
+}*/
+
+
+/* http-bt-configuration.component.css */
+
+.label-Css {
+    /* padding-top: 16px;*/
+    width: 30%;
+}
+
+.div-css {
+    padding-top: 0px;
+}
+
+.ui-g-12 {
+    padding: 0.5em;
+}
+
+.label {
+    margin-top: 5px;
+}
+
+.padding-left-css {
+    padding-left: 1.5em;
+}
+
+.header-font-size {
+    font-weight: bold;
+}
+
+.segment-type-css {
+    width: 12%;
+    margin-top: 3px;
+}
+
+.pattern-dialog-border {
+    border: 1px solid #c0c0c0;
+    margin-bottom: 3px;
+}
+
+
+/* config-profile-list.components.css */
+
+.tableCss {
+    width: 120px;
+    text-overflow: ellipsis;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    margin: 0;
+    padding: 5px;
+    font-size: 11px;
+}
+/* config-tree-detail.css */
+/*
+.toggle-space {
+    margin: 1px 34%;
+}*/
+
+
+/* config-tree-main.components.css */
+
+.mytreeview {
+    border-radius: 4px;
+}
+
+.mytreeview .header {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: normal;
+    padding: 6px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.mytreeview .content {
+    padding: 0px;
+}
+
+.browseTopCss .ui-dialog {
+    margin-top: -170px;
+}
+
+.config_textarea {
+    min-width: 99%;
+    min-height: 395px;
+    max-height: 430px;
+    overflow-y: auto;
+}
+
+.config_app {
+    width: 72%;
+    margin-left: -19px;
+}
+
+.browseTopCss .mat-button-focus-overlay{
+    position: relative;
+}
+
+
+.config_align_dialog{
+    width:177px;
+}
+
+.slider_img .ui-widget-content .ui-state-default,
+.slider_img .ui-state-default {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAVCAYAAAAjODzXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZBQjgwQThDRjQ4ODExRTBBMzgxQjZGRjMwN0M4RjFGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZBQjgwQThERjQ4ODExRTBBMzgxQjZGRjMwN0M4RjFGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkFCODBBOEFGNDg4MTFFMEEzODFCNkZGMzA3QzhGMUYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkFCODBBOEJGNDg4MTFFMEEzODFCNkZGMzA3QzhGMUYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5U68QXAAAED0lEQVR42qyWzU9jVRjGz+29pdBSKJWAksmMGheTyAwLKCRE/gAXAq5MEHZujCtCov8CS5dOMgkLozALo0ZCYgTdkgyTAhqR8GUDmGKhQin97q3Pc3zP5FpnGJ16k6f33N7z/u77dc69lvrn4RwcHLxXq9XeKhaLt6vV6i3XdRO4/qVUKn0Ti8XuY05FXX/8Z4blHa+srLw2NDT0WVNTUyyTyaiTkxN1dnamQqGQCgaD+gzgw/X19XfHx8d3YVOrc+C5GT4B+AB4Y3h4+BEmxxzHUX6//7Es6y9/ASAoNjIy8mhhYaHXY98wQ//09/dHent7P8ekcLlc1gYtLS1ahCA61dzcrAKBgAb6fL7w4ODgp5xmvGiUQUf8s7OzH6J+N7LZrEJNVaVS0cZMIwEGaCCcA2jf8vLyR+yH/4NBSDgajb59eXmpbNvWqQNQTw6HwxrG2hKCplP5fF6LUbe3t78D+48ZUaMMOhKBZ7fYWPScN40ikYiGtLa2qkKhoPigXC6nx4wYdjdpT0caZdCREOoVMDcoAugxwWw6dr75H8vv8RjwJtrrGjfIoCMODIpIZYAp1ZsADNva2lRHR4dKJpOqu7tbR0SwiYg1xsGutLlsG2XQkcrp6Wm6q6vrJRqzuVhXnk2EjEaWncI8HQkh+/v7Z7CvktYog6vmanNzM07P0Tg6CjaVSa05p9NpHQnTyoZkdKurqw9pT21sbKw3wuAuE4WXb66trd3r6ekJcQI7npFwKRpDNiGjpLgCdnZ2Un19fe/D/geWRhifPAfjA9h/z/pW6TFS1DI6OnoHk22mjGIUhBHCZQc2YH7eK09NTd07Ojpahv1vrDMZe3t7rWNjY3fB8P0bxuTk5P3j4+PvyKAj7K7i7u7u1dLSkosd8tXOzs6AgfDM2mJV6J1xe3s7A8BCPB7/EnZbUF4YJTDyi4uLamBg4OXrGFtbW5cTExNfoJxfwe5nMmzZodlw2VQqdTE3N5fiNo0NKoRa20i5D5FUDw8Pc/Pz89vT09MPMO9bzN+ALsQJS96meTRtDowLZCiMngkKw0LDuolEIg/G3szMzNd4EZIRh/7g883bl03L9dwF3YZeh16BXuD2LUvsFPoV+kkykWIWPG9gMoLQDeiuMLhZdXgYfGgC+hHahI6hAoOxPJ8DtryAotCLUKeAHYn2Sh6ehNIG4HHEkge2if1NCSwkbDKy0O/iTFKu+X/NEUjN1BnKyPhcwJZcl8WZrIzduu+RmpQ4J44qKV1AsuVKP53L/bzM1wy7DlTzOOXKRDpXNPuFjCtP+CjycipiWxGnCxLAuShbV9a/faGZa0vK4Zjt2wM3D3Cv+Uw0ZXYkG/VZLT0po9Y1MKvuvjdjzzq89t6vOPdpnD8FGACiWVtxaofC7AAAAABJRU5ErkJggg==) 0 0 no-repeat
+}
+
+/*Remove this if causing Context Menu misplacement*/
+.configContextMenu .ui-menu.ui-menu-dynamic {
+    position: fixed;
+}
+
+.configContextMenu .ui-menu {
+    width: 10%;
+}
+
+.auto-discover .ui-dropdown-panel .ui-dropdown-filter-container {
+    width: 100%;
+}
+
+.config-dialog-error .ui-dialog .ui-dialog-content
+{
+    height: 350px;
+    overflow: scroll;
+}
+ 
+/*--------New Class Added for right pane------------*/
+ .configui-rghtpane {
+    margin-left: 60px;
+    height: 340px;
+    margin-top: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+ }
+
+.configui-container {
+    overflow: auto;
+}
+.stripbg .ui-toolbar {
+    padding: 0px 5px;
+}
+.tabs-all .ui-tabview .ui-tabview-panel {
+    padding: 6px;
+    min-height: 400px;
+    border-top: 0px;
+}
+.ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable {
+    border: 1px solid #D5D5D5;
+}
+/*Added for bug Id-34109*/
+.configinput {
+   width :20%;
+}
+
+/*For toogle button when checked*/
+.toggleChk .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(92, 136, 48) !important;
+}
+
+/*For alignment of profile dialog*/
+.configUI-profile-dialog {
+    width : 210px;
+}
+
+/*For alignment of method,exception monitor and custom keyword dialog*/
+.configUI-common-len {
+    width : 330px;
+}
+
+/*For error detection dilog*/
+.configUI-error {
+    width : 300px;
+}
+
+/* Added for fixed header Bug Id: 34605*/
+.nde-ui-auditLogTable .ui-widget-header.ui-datatable-scrollable-header {
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+S    top: 0;
+    z-index: 100;
+}
+
+/* Added for formatting color issue in file manager*/
+.browser-color .ui-widget-header {
+    background: #d4d1d1;
+    color: #fff;
+}
+
+/* Added for disabled Css issue of any field*/
+textarea:disabled, input:not([type]):disabled, input[type="number" i]:disabled, input[type="text" i]:disabled {
+     background: #ececec;
+     color: #b7b7b7;
+}
+
+/* Added for padding issue in table header of file manager*/
+.headerCss .ui-widget-header {
+    padding: 0px;
+}
+
+/* Added for loading spinner in file manager*/
+.loadingClass {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+    pointer-events: none;
+    color: #6E6E6E;
+}
+/*Added for formatting dropdown bug Id-34208*/
+.instrprofmaker .ui-dropdown .ui-dropdown-panel{
+   width : 100%;
+}
+
+.instrprofscroll .ui-tree .ui-tree-container {
+    width: 102%;
+    height:98.5%;
+    margin-top: -5px;
+}
+
+.configUI {
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.65);
+    /*box-shadow: 0 0 8px 1px #2d2d2d;*/
+    /* padding: 8px; */
+}
+
+/*Added for sroll in view  bugId-34210*/
+.instrprofileview .codeClass[_ngcontent-c67] {
+    height: 420px;
+}
+
+body {
+    overflow :hidden;
+}
+
+.mat-sidenav {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    min-width: 5vw;
+    outline: 0;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.autosearchfield .ui-dropdown-panel .ui-dropdown-filter-container {
+    width: 100%;
+}
+.autodiscoverdropdown .ui-dropdown .ui-dropdown-panel {
+   margin: -3px 0px;
+}
+.multiselectdropReqResp .ui-multiselect-panel {
+  width :100%;
+}
+.ui-chkbox .ui-chkbox-box {
+  height:1em;
+}
+.auditviewtableht .config-ui-table-margin {
+    height:507;
+}
+
+.config-view-audit div.ui-datatable-scrollable-body {
+        max-height: 386px!important;
+}
+
+/* Added for disabled condition in custom configuration*/
+.custom-config-dialog input:not([type]):disabled, .custom-config-dialog input[type=number i]:disabled, .custom-config-dialog input[type=text i]:disabled, .custom-config-dialog textarea:disabled{
+    color: #000000;
+}
+
+/* Added for disabled condition in custom configuration*/
+.custom-config-dialog .ui-button .ui-state-disabled, .custom-config-dialog .ui-widget:disabled {
+    opacity:0.85;
+}
+
+/* Added for left padding in custom configuration*/
+.custom-browse {
+    padding-left:28px;
+}
+/*-------------------ND CONFIF NEW-----------*/
+
+.icon{
+  float: left;
+  font-size: 2.2em;
+}
+
+.profile-dialog .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    font-size: 12px;
+    font-weight: 500;
+}
+.instrprofileheaderhght .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    padding-top: 4px;
+    height: 22px;
+    padding-left: 6px;
+}
+.instrprofiletxtarea {
+    background: white;
+    height: 366px;
+}
+.instrprofileheaderhght .ui-panel .ui-panel-content {
+    height: 411px;
+}
+.instrprof .ndegui-mainbox {
+    height:500px;
+}

@@ -2,66 +2,49 @@
 .alert-nav-item {
     color: #fff;
 }
-
 .alert-nav-item:hover {
     background-color: #e0e0e0;
     color: #000;
 }
 
-.md-button-toggle-checked {
+app-alert-home .md-button-toggle-checked {
     color: #000;
 }
 
 
 /*History left panel accordion styling start*/
 
-.ui-accordion .ui-accordion-header {
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.ui-accordion .ui-accordion-header:hover {
+app-alert-home .ui-accordion .ui-accordion-header:hover {
     background: #00aacc;
 }
 
-.ui-accordion .ui-accordion-header.ui-state-active {
-    background: #dadada;
+app-alert-home .ui-accordion .ui-accordion-header.ui-state-active {
+    font-size: 1em;
 }
 
-.ui-accordion .ui-accordion-header a {
+app-alert-home .ui-accordion .ui-accordion-header a {
     text-decoration: none;
+    font-weight: normal;
+    font-size: 1em;
 }
 
 
 /*History left panel accordion styling end*/
 
-.ui-datatable thead tr {
+app-alert-home .ui-datatable thead tr {
     height: 30px;
     font-size: 12px;
 }
 
-.table-header-icon {
+app-alert-home .table-header-icon {
     margin: -7px -6px;
 }
 
 
-/*.ui-datatable th span.ui-column-title
-{
-  color:#2f2f2f
-}
-*/
 
-.ui-datatable th.ui-state-default {
-    background-color: #bbdefb !important;
-    font-weight: 600 !important;
-}
 
-.active-alert .ui-datatable-odd {
-    background: #f0f8ff !important;
-}
-
-.active-alert .ui-state-highlight {
-    background: #104263 !important;
-    /*#156090 !important;*/
+app-alert-home .ui-datatable th.ui-state-default {
+    font-weight: 600;
 }
 
 .alert .ui-widget-header {
@@ -69,40 +52,40 @@
     border: 0px;
 }
 
-.ui-paginator .ui-paginator-page,
-.ui-paginator .ui-paginator-pages,
-.ui-paginator .ui-paginator-next,
-.ui-paginator .ui-paginator-last,
-.ui-paginator .ui-paginator-first,
-.ui-paginator .ui-paginator-prev,
-.ui-paginator .ui-paginator-current {
+app-alert-home .ui-paginator .ui-paginator-page,
+app-alert-home .ui-paginator .ui-paginator-pages,
+app-alert-home .ui-paginator .ui-paginator-next,
+app-alert-home .ui-paginator .ui-paginator-last,
+app-alert-home .ui-paginator .ui-paginator-first,
+app-alert-home .ui-paginator .ui-paginator-prev,
+app-alert-home .ui-paginator .ui-paginator-current {
     margin-top: 0.3em !important;
 }
 
-.ui-tooltip {
+app-alert-home .ui-tooltip {
     max-width: 30%;
 }
 
-.ui-tooltip-text.ui-shadow.ui-corner-all {
+app-alert-home .ui-tooltip-text.ui-shadow.ui-corner-all {
     white-space: pre-wrap;
 }
 
 
 /* History components styling */
 
-.selectRule .ui-multiselect-label-container {
+app-alert-home .selectRule .ui-multiselect-label-container {
     width: 200px !important;
     height: 20px !important;
 }
 
-.select-topology .ui-multiselect-label-container {
+app-alert-home .select-topology .ui-multiselect-label-container {
     width: 150px !important;
 }
 
 
 /*History Table pane*/
 
-.detailTable .ui-datatable-thead>tr>th {
+app-alert-home .detailTable .ui-datatable-thead>tr>th {
     background: #082648 !important;
     color: #fff;
 }
@@ -110,140 +93,125 @@
 
 /*history preset dropdown */
 
-.ui-dropdown-items-wrapper {
+app-alert-home .ui-dropdown-items-wrapper {
     max-height: 202px !important;
 }
 
-.history-calendar .ui-datepicker .ui-datepicker-calendar {
+app-alert-home .history-calendar .ui-datepicker .ui-datepicker-calendar {
     font-size: 0.8em;
 }
 
-.ui-growl {
+app-alert-home .ui-growl {
     position: absolute;
     width: initial;
 }
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     background-color: #F5F5F5;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-    background-color: #F5F5F5;
+    width: 8px;
+    height: 8px;
+    background-color: #cfe1f1;
 }
 
 ::-webkit-scrollbar-thumb {
     /*border-radius: 10px;*/
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(40, 40, 40)), color-stop(0.72, rgb(40, 40, 40)), color-stop(0.86, rgb(40, 40, 40)));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, #b7b5b5), color-stop(0.72, #b3adad), color-stop(0.86, #a29b9b));
 }
 
 
 /*--------------New Style------------------*/
 
-.mat-button-toggle-checked {
-    padding: 11px;
+app-alert-home .mat-button-toggle-checked {
+   /* padding: 11px;*/
 }
 
-.mat-button-toggle {
-    color: #fff;
+app-alert-home .mat-button-toggle {
+   
+    padding: 10px;
 }
 
-.mat-button-toggle-checked {
-    color: #000 !important;
+app-alert-home .mat-button-toggle-checked {
+    
+    padding: 10px;
 }
 
-.mat-sidenav-container {
+app-alert-home .mat-sidenav-container {
     background-color: rgba(255, 255, 255, 0) !important;
 }
 
-.mat-sidenav {
-    background-color: rgba(255, 255, 255, 0.45) !important;
-}
-
-.mat-sidenav.mat-sidenav-opened,
-.mat-sidenav.mat-sidenav-opening {
+app-alert-home .mat-sidenav.mat-sidenav-opened,
+app-alert-home .mat-sidenav.mat-sidenav-opening {
     box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2), 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12);
 }
 
-.ui-accordion .ui-accordion-content {
+app-alert-home .ui-accordion .ui-accordion-content {
     padding: 10px 4px !important;
 }
 
-.ui-fieldset,
-.ui-fieldset .ui-fieldset-legend {
+app-alert-home .ui-fieldset,
+app-alert-home .ui-fieldset .ui-fieldset-legend {
     background: #f9f9f9 !important;
 }
 
-.margin-right-20 {
+app-alert-home .margin-right-20 {
     color: #fff;
 }
 
-.md-button-toggle-checked .md-button-toggle-label-content {
+app-alert-home .md-button-toggle-checked .md-button-toggle-label-content {
     background-color: rgba(148, 197, 230, 0.91);
 }
 
-.ui-widget-header .ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-state-default {
+app-alert-home .ui-widget-header .ui-state-default,
+app-alert-home .ui-widget-content .ui-state-default,
+app-alert-home .ui-state-default {
     border: 1px solid #8e8e8e;
 }
 
-.alertSeverity .ui-widget-header .ui-state-default,
-.alertSeverity .ui-widget-content .ui-state-default {
+app-alert-home .alertSeverity .ui-widget-header .ui-state-default,
+app-alert-home .alertSeverity .ui-widget-content .ui-state-default {
     border: 1px solid rgba(142, 142, 142, 0);
 }
 
-.ui-widget-header .ui-button,
-.ui-widget-content .ui-button,
-.ui-button {
+app-alert-home .ui-widget-header .ui-button,
+app-alert-home .ui-widget-content .ui-button,
+app-alert-home .ui-button {
     border: 1px solid #0b2138 !important;
     background: #0b2a3e;
+}
+
+app-alert-home .ui-button:hover, app-alert-home button.ui-button.ui-state-default:hover, app-alert-home .ui-button.ui-state-default:hover {
+    color: #FFFFFF;
+    background: #2399e5;
 }
 
 
 /*************hidtory table styles**************************/
 
 
-/*.historyTable .ui-datatable thead tr
+app-alert-home .historyTable .ui-datatable thead tr
 {
   height: 30px;
   font-size: 12px;
 }
-.historyTable .ui-datatable th.ui-state-default
-{
-  background-color: #90CAF9 !important;
-  font-weight: 600 !important;
-}*/
 
-.ui-widget-content .history-table-double-selected-row {
-    background: #156090 !important;
-    color: black;
-}
 
-.ui-widget-content .history-table-row-even {
-    background: #ffffff !important;
-    color: #222222 !important;
-}
 
-.ui-widget-content .history-table-row-odd {
-    background: #f0f8ff !important;
-    color: #222222 !important;
-}
-
-.detailTable .ui-datatable th span.ui-column-title {
+app-alert-home .detailTable .ui-datatable th span.ui-column-title {
     color: #fff
 }
 
-.detailTable .ui-datatable thead tr {
+app-alert-home .detailTable .ui-datatable thead tr {
     height: 22px;
     font-size: 12px;
 }
 
-.detailTable .ui-datatable th.ui-state-default {
+app-alert-home .detailTable .ui-datatable th.ui-state-default {
     font-weight: 100 !important;
 }
 
@@ -251,43 +219,43 @@
 /*************alert faunts icons defnitions**************/
 
 .alertgui-word {
-    color: #0055cc;
+    color: #0055cc !important;
 }
 
 .alertgui-excel {
-    color: #00aa77;
+    color: #00aa77 !important;
 }
 
 .alertgui-pdf {
-    color: #ff4040;
+    color: #ff4040 !important;
 }
 
 .alertgui-type {
-    color: #ff2020;
+    color: #ff2020 !important;
 }
 
 .alertgui-capacity {
-    color: #000;
+    color: #774bca !important;
 }
 
 .alertgui-behavior {
-    color: #f3d809;
+    color: #f3d809 !important;
 }
 
 .alertgui-critical-event {
-    color: #B60308;
+    color: #B60308 !important;
 }
 
 .alertgui-major-event {
-    color: #fe5400;
+    color: #fe5400 !important;
 }
 
 .alertgui-minor-event {
-    color: #ffbb00;
+    color: #ffbb00 !important;
 }
 
 .alertgui-tomcat {
-    color: #ef1818;
+    color: #ef1818 !important;
 }
 
 .normal {

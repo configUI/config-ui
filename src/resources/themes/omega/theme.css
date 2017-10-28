@@ -741,3 +741,11 @@ p-selectbutton.ng-dirty.ng-invalid .ui-button,
 p-togglebutton.ng-dirty.ng-invalid .ui-button {
     border-bottom-color: #f44336;
 }
+
+
+  #monitorUpDownInfoDialog .ui-accordion .ui-accordion-header {
+    background-color: #282828;
+}
+ #monitorUpDownInfoDialog  .ui-accordion .ui-accordion-header a{
+      color: white;
+}

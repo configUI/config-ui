@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "acl-icon";
+  src:url("../../fonts/acl-icon.eot");
+  src:url("../../fonts/acl-icon.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/acl-icon.woff") format("woff"),
+    url("../../fonts/acl-icon.ttf") format("truetype"),
+    url("../../fonts/acl-icon.svg#acl-icon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "acl-icon" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="acl-"]:before,
+[class*=" acl-"]:before {
+  font-family: "acl-icon" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.acl-admin:before {
+  content: "\e000";
+}
+.acl-business:before {
+  content: "\e001";
+}
+.acl-capability:before {
+  content: "\e002";
+}
+.acl-capability1:before {
+  content: "\e003";
+}
+.acl-custom:before {
+  content: "\e004";
+}
+.acl-group:before {
+  content: "\e005";
+}
+.acl-read-all:before {
+  content: "\e006";
+}
+.acl-user:before {
+  content: "\e007";
+}
+.acl-write-all:before {
+  content: "\e008";
+}
+.acl-accesscontrol:before {
+  content: "\e009";
+}
+
+//.cosmotable .ui-datatable th.ui-state-default {
+  //  background-color: #4e3413;
+   // color :white
+//}
+
+.compotable .ui-datatable th.ui-state-default{
+  //   background-color: #4e3413 ;
+   // color :white
+}
+.compotable .ui-datatable .ui-column-filter {
+    width: 21%;
+    margin-top: .25em;
+    float: right;
+    height: 16px
+}
+
+
+.controltab .mat-tab-label[] {
+    line-height: 30px;
+    height: 35px ;  
+    font-size: 18px;
+    min-width: 100px;
+    opacity: 1;
+
+}
+.controltab .mat-tab-label-container {
+    height: 40px;
+}
+.controltab .mat-tab-body {
+        overflow-y: hidden !important;
+}
+.cmpEdit .md2-select-trigger {
+    max-width: 0px;
+    min-width: 0px;
+}
+.capabilitytable th {
+    /*theme5*/
+   // background: #4e3413;
+    //color: #fafafa;
+}
+.capabilitytable .ui-datatable th.ui-state-default {
+   // background: #4e3413;  
+}
+
+.permissionGroup .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    //background-color: #4e3413;
+}
+.permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+   // border-color: #4e3413;
+}
+
+.capabilitytable .ui-widget-header .ui-state-default .ui-widget-content .ui-state-defaul .ui-state-default {
+ /*theme5*/
+  //background: #4e3413;
+   }
+
+.controltab .mat-ink-bar {
+   // background-color: #4e3413;
+}
+
+/*.capabilityTree .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default {
+    background: rgba(78, 52, 19, 0.48);
+}*/
+.capabilityTable .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+    //background: #e7c377;
+    /* color: white; */
+}
+
+
+.permissionTree .ui-widget-header .ui-state-default  {
+    // background: rgba(78, 52, 19, 0.48);
+
+}
+.permissionTree .ui-widget-content .ui-state-default {
+//background: rgb(255, 255, 255);
+}
+.permissionTree .ui-state-default{
+// background: rgba(78, 52, 19, 0.48);
+}
+.permissionTree .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+ // background: #e7c377;
+   
+}
+ .mat-mini-fab.mat-accent{
+   //  background: rgba(78, 52, 19, 0.48);
+ }
+
+ .permissionTree::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+    //background: rgb(231, 205, 149);
+}
+
+
+.accesscontrol-tree-tier-node{
+   // color :rgb(185, 39, 23);
+}
+.mdcardtoprightbackgrnd{
+//background: rgba(255, 230, 196, 0.65);
+}
+
+.permissionpanel .ui-panel .ui-panel-content {
+  //  background: #ffffff;
+}
+
+.mat-select-panel .mat-select-content .mat-option {
+      max-height: 21px;
+}
+
+
+/*----------New AccessControl CSS--------------*/
+.accessControl-box {
+    margin: 10px 8px;
+    min-height: 90vh;
+    /*padding: 2px 4px;*/
+    box-shadow: 0 0 6px 2px #565656;
+    border-radius: 4px;
+}
+.controltab .mat-tab-link {
+    line-height: 28px;
+    height: 32px;
+    min-width: 100px;
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+}
+.compotable {
+  padding:  10px 0 0 0;
+}
+.compotable .ui-datatable .ui-datatable-thead>tr>th, .ui-datatable .ui-datatable-tfoot>tr>td{
+    font-size: 11px;
+}
+.compotable .ui-datatable .ui-datatable-data>tr>td {
+  padding: 4px;
+}
+.toprightheader{
+    padding: 4px;
+}
+.AC-rghtpane-box input.ui-inputtext{
+    margin-bottom: 4px;
+}
+.AC-btn {
+  text-align: center;
+  width: 100%;
+}
+button.capabilityButton.mat-raised-button{
+    height: 26px;
+    line-height: 12px;
+    font-weight: 400;
+    margin: 10px 0 5px 0;
+    font-size: 12px;
+}
+.AC-rightpane .mat-card-header-text {
+    margin: 0;
+}
+
+.AC-leftpane {
+    min-height: 380px;
+}
+.AC-leftpane.mat-card {
+  
+    padding: 2px;
+}
+.AC-left-search{
+    padding: 3px 0 5px 0;
+    border-bottom: 1px #cecece solid;
+}
+.AC-left-search input {
+    width: 70%;
+}
+.AC-rightpane {
+    padding: 0;
+    margin: 6px 0 0 -2px;
+}
+.AC-rightpane md-card.mat-card{
+    padding: 0px;
+}
+.AC-rghtpane-box {
+    background: white;
+    padding: 2px;
+    border: 1px #a9a9a9 solid;
+}
+.permissionpanel .ui-panel .ui-panel-titlebar{
+    font-size: 11px;
+    padding: 4px;
+  }
+.custompermission {
+    border-bottom: 1px solid #cacaca;
+    padding: 0px;
+}

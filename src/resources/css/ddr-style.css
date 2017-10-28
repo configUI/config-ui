@@ -1,0 +1,10 @@
+.ui-tooltip
+{
+    word-break:break-all;
+    cursor:pointer;
+    color:blue;
+}
+
+.Ddr-popup-footer .ui-dialog-footer{
+    text-align: left;
+}

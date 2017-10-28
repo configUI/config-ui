@@ -1,0 +1,968 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    height: 100%;
+    padding: 0;
+   /* background: url('images/ocean.jpg') center #000000;*/
+    overflow: hidden;
+}
+
+@font-face {
+  font-family: "caviproductgui";
+  src:url("fonts/caviproductgui.eot");
+  src:url("fonts/caviproductgui.eot?#iefix") format("embedded-opentype"),
+    url("fonts/caviproductgui.woff") format("woff"),
+    url("fonts/caviproductgui.ttf") format("truetype"),
+    url("fonts/caviproductgui.svg#caviproductgui") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "caviproductgui" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="produi-icon-"]:before,
+[class*=" produi-icon-"]:before {
+  font-family: "caviproductgui" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.produi-icon-admin:before {
+  content: "\e000";
+}
+.produi-icon-automation:before {
+  content: "\e001";
+}
+.produi-icon-dashboard:before {
+  content: "\e002";
+}
+.produi-icon-ed:before {
+  content: "\e003";
+}
+.produi-icon-home:before {
+  content: "\e004";
+}
+.produi-icon-monitors:before {
+  content: "\e005";
+}
+.produi-icon-nde-setting:before {
+  content: "\e006";
+}
+.produi-icon-scenario:before {
+  content: "\e007";
+}
+.produi-icon-scripts:before {
+  content: "\e008";
+}
+.produi-icon-sessionpacing:before {
+  content: "\e009";
+}
+.produi-icon-tr:before {
+  content: "\e00a";
+}
+.produi-icon-nd-agent:before {
+  content: "\e00b";
+}
+.produi-icon-run-command:before {
+  content: "\e00c";
+}
+
+
+/*For Splash Screen*/
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    /*  line-height: 1.3em;*/
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.loading>div {
+    width: 32%;
+    height: 70%;
+    border-radius: 4%;
+    padding: 20px 0 0;
+    margin: 8em auto;
+    /* background: rgb(255, 255, 255);
+  -webkit-box-shadow: 3px 3px 18px 3px rgb(52, 100, 156);
+  box-shadow: 3px 3px 18px 3px rgb(52, 100, 156); */
+}
+.loadingSpin{
+    margin: 8em;
+}
+
+.loading .spinner {
+    content: '';
+    width: 40px;
+    height: 40px;
+    background: #e91e63;
+    animation: spin-a 2s infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.loading>span {
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: 50%;
+    margin-top: 231px;
+    color: #ff8c00;
+    font-size: 15px;
+    text-align: center;
+}
+
+#main {
+  position: absolute;  font-size: 18em;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.spinner {
+  position: relative;
+}
+
+.spinner:before, .spinner:after {
+  content: "";
+  position: relative;
+  display: block;
+}
+
+.spinner:before {
+  -webkit-animation: spinner 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+          animation: spinner 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+  width: 1em;
+  height: 1em;
+  background: url("images/new_logo-o.png") no-repeat 50%/70% rgba(0, 0, 0, 0.1);
+
+}
+
+.spinner:after {
+  -webkit-animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+          animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+  bottom: -.5em;
+  height: .25em;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+@-webkit-keyframes spinner {
+  50% {
+    border-radius: 50%;
+    -webkit-transform: scale(0.5) rotate(360deg);
+            transform: scale(0.5) rotate(360deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(720deg);
+            transform: scale(1) rotate(720deg);
+  }
+}
+
+@keyframes spinner {
+  50% {
+    border-radius: 50%;
+    -webkit-transform: scale(0.5) rotate(360deg);
+            transform: scale(0.5) rotate(360deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(720deg);
+            transform: scale(1) rotate(720deg);
+  }
+}
+@-webkit-keyframes shadow {
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+@keyframes shadow {
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+.splash-logo {
+    left: 50%;
+    top: 50%;
+    margin-left: -44px;
+    margin-top: -47px;
+    z-index: 2;
+    position: absolute;
+    width: 90px;
+}
+
+.splash-loader,
+.splash-loader::before,
+.splash-loader::after {
+  left: 50%;
+  top: 50%;
+  margin-left: -58px;
+  margin-top: -62px;
+  position: absolute;
+  vertical-align: middle;
+  background: #8ee5ee;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.splash-loader::before {
+  content: "";
+  animation: bounce 1.5s infinite;
+}
+.splash-loader::after {
+  content: "";
+  animation: bounce 1.5s -0.4s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.splash-screen {
+    background-color: #f3f3f3;
+    height: 100%;
+}
+
+
+/*.content {
+    padding: 1.5em;
+}*/
+
+
+/*Added for Responsive*/
+
+/*.md-sidenav-content {
+    height: initial !important;
+    overflow: initial !important;
+    position: absolute;
+    z-index: 99999;
+}*/
+
+
+/*Splash Screen Company Icon*/
+
+.companySplashIcon {
+    height: 70px;
+    margin-top: 0%;
+}
+
+.splashDiv {
+    top: 10%;
+    position: relative;
+}
+
+@media only screen and (max-width: 640px) {
+    .companySplashIcon {
+        height: 30px;
+        width: 120px;
+    }
+}
+
+.loading-ProductUI-name {
+    color: #fff;
+    font-size: 30px;
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9, 0 2px 0 #aaa, 0 3px 1px rgba(0, 0, 0, .1), 0 0 3px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .1), 0 3px 5px rgba(0, 0, 0, .1), 0 5px 5px rgba(0, 0, 0, .7), 0 5px 5px rgba(0, 0, 0, .2), 0 5px 5px rgba(0, 0, 0, .5);
+}
+
+table {
+    width: 100%;
+}
+
+.ui-tooltip {
+    font-size: 11px !important;
+}
+
+.md-card-title-group {
+    margin: 0 -12px !important;
+}
+
+.md-sidenav-focus-trap>.cdk-focus-trap-content {
+    overflow: visible !important;
+}
+
+/*New Loader*/
+
+.wraper {
+    -webkit-transform: translate(8%, 40%);
+    transform: translate(8%, 40%);
+    -webkit-animation: rotate 1s ease-in-out infinite;
+    animation: rotate 1s ease-in-out infinite;
+}
+
+.wraper div {
+    height: 150px;
+    margin: 0 auto;
+    width: 150px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.wraper div:nth-child(1),
+.wraper div:nth-child(2),
+.wraper div:nth-child(3),
+.wraper div:nth-child(4),
+.wraper div:nth-child(5),
+.wraper div:nth-child(6),
+.wraper div:nth-child(7),
+.wraper div:nth-child(8),
+.wraper div:nth-child(9) {
+    background-color: #282828;
+    height: 20px;
+    width: 20px;
+}
+
+.wraper div:nth-child(1) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+}
+
+.wraper div:nth-child(2) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .2s;
+    animation-delay: .2s;
+}
+
+.wraper div:nth-child(3) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s;
+}
+
+.wraper div:nth-child(4) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .1s;
+    animation-delay: .1s;
+}
+
+.wraper div:nth-child(5) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s;
+}
+
+.wraper div:nth-child(6) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .7s;
+    animation-delay: .7s;
+}
+
+.wraper div:nth-child(7) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s;
+}
+
+.wraper div:nth-child(8) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .6s;
+    animation-delay: .6s;
+}
+
+.wraper div:nth-child(9) {
+    -webkit-animation: loop 1s ease-in-out infinite;
+    animation: loop 1s ease-in-out infinite;
+    -webkit-animation-delay: .8s;
+    animation-delay: .8s;
+}
+
+@-webkit-keyframes loop {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: .1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes loop {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: .1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/*.ui-menu.ui-menu-dynamic {
+    top: initial !important;*/
+    /**left: 95% !important; **/
+/*}*/
+
+.navBarAccClass .ui-menu.ui-menu-dynamic {
+    left: 2% !important;
+    top: initial !important;
+    width: auto !important;
+}
+
+/*Font and Styles for Scenario*/
+
+.glyphs.css-mapping .icon {
+    margin: 0;
+    margin-right: 10px;
+    padding: 13px;
+    height: 50px;
+    width: 50px;
+    /*color: #162a36 !important;*/
+    overflow: hidden;
+    float: left;
+    font-size: 24px
+}
+
+@font-face {
+    font-family: "caviscenariogui";
+    src: url("fonts/caviscenariogui.eot");
+    src: url("fonts/caviscenariogui.eot?#iefix") format("embedded-opentype"), url("fonts/caviscenariogui.woff") format("woff"), url("fonts/caviscenariogui.ttf") format("truetype"), url("fonts/caviscenariogui.svg#caviscenariogui") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "caviscenariogui" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="scenario-icon-"]:before,
+[class*=" scenario-icon-"]:before {
+    font-family: "caviscenariogui" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.scenario-icon-global-setting:before {
+    content: "\e000";
+}
+
+.scenario-icon-smtp-setting:before {
+    content: "\e001";
+}
+
+.scenario-icon-server-mapping:before {
+    content: "\e002";
+}
+
+.scenario-icon-schedular-setting:before {
+    content: "\e003";
+}
+
+.scenario-icon-realbrowser-user:before {
+    content: "\e004";
+}
+
+.scenario-icon-nde-setting:before {
+    content: "\e005";
+}
+
+.scenario-icon-monitors:before {
+    content: "\e006";
+}
+
+.scenario-icon-java-setting:before {
+    content: "\e007";
+}
+
+.scenario-icon-healthmonitors:before {
+    content: "\e008";
+}
+
+.scenario-icon-group-setting:before {
+    content: "\e009";
+}
+
+.scenario-icon-syncpoint:before {
+    content: "\e00b";
+}
+
+.scenario-icon-ssl:before {
+    content: "\e00c";
+}
+
+.scenario-icon-advanced:before {
+    content: "\e00d";
+}
+
+.scenario-icon-network:before {
+    content: "\e00e";
+}
+
+.scenario-icon-logsnreports:before {
+    content: "\e00f";
+}
+
+.scenario-icon-http:before {
+    content: "\e010";
+}
+
+.scenario-icon-clickaway:before {
+    content: "\e011";
+}
+
+.scenario-icon-pagereload:before {
+    content: "\e012";
+}
+
+.scenario-icon-rampdown:before {
+    content: "\e013";
+}
+
+.scenario-icon-virtualuser:before {
+    content: "\e014";
+}
+
+.scenario-icon-transaction:before {
+    content: "\e015";
+}
+
+.scenario-icon-thinktime:before {
+    content: "\e00a";
+}
+
+.scenario-icon-inlinedelay:before {
+    content: "\e016";
+}
+
+.scenario-icon-autofetch:before {
+    content: "\e017";
+}
+
+.scenario-icon-sessionpacing:before {
+    content: "\e018";
+}
+
+/*Added for Scenario Panel Menu*/
+input[name="phaseName"] {
+    width: 120px !important;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+/*for giving scroll bar  and width to add group list*/
+.mat-select-value-text{
+    font-size: 11px;
+}
+.cdk-overlay-pane md-option{
+    height: 32px;
+    overflow: hidden;
+    padding-bottom: 3px;
+}
+.cdk-overlay-pane .mat-select-panel{
+    padding-bottom: 10px;
+}
+.cdk-overlay-pane .mat-select-arrow{
+  color: #000;
+}
+
+.mat-dialog-container {
+    padding: 0px !important;    
+}
+
+.mat-dialog-content{
+   padding:2px 9px !important;
+   margin: 0px !important;
+}
+
+.dashboard-show-graph-data-accordain   .ui-accordion-content.ui-widget-content{
+    border: 1px #f1f1f1 solid !important;
+    border-top: 0px;
+    padding: 0 1em;
+}
+
+.fileManagerTable .ui-datatable-data>tr>td {
+    line-height: 10px;
+}
+
+.summaryReport .ui-dialog {
+    width: 60%;
+    min-height: 450px;
+}
+
+.fileExpDialog .ui-dialog {
+    height: initial !important;
+    top: 4% !important;
+    margin-right: 10px;
+    margin-left: -55px;
+}
+
+.file-manager-table .ui-widget {
+   font-size:  12px !important;
+   font-family: 'Open Sans', sans-serif !important; 
+}
+.file-manager-table .ui-datatable th.ui-state-default {
+    background:  #3e7fb5;
+    color: #fff;
+    font-weight: 400;
+}
+.file-manager-table .ui-datatable-odd
+{
+    background: #dfefff;
+}
+
+.fileExpDialog .ui-dialog-title
+{
+    color: blue;
+    margin-left: 38%;
+}
+
+.mat-dialog-container {
+    padding: 0px !important;    
+}
+.mat-dialog-content{
+   padding:2px 9px !important;
+   margin: 0px !important;
+}
+
+.ui-growl-message p {
+    word-wrap: break-word;
+}
+
+.newFolderDialog .ui-dialog
+{
+    left:28% !important;
+    width: 34% !important;
+    border: 3px solid #3e7fb5 !important;
+    top:30% !important;
+}
+
+.newFolderDialog .ui-dialog .ui-dialog-buttonpane
+{
+    //padding: 0.2em 3em 0em 0.4em !important;
+}
+
+.uploadFileDialog .ui-dialog
+{
+     left:30% !important;
+    width: 38% !important;
+    /* margin-top: 9% !important; */
+    border: 3px solid #3e7fb5 !important;
+}
+
+.ndagent .ui-accordion .ui-accordion-header {
+    padding: .1em .2em .1em 0.1em ;
+   /* background: rgba(38, 38, 38, 0.8);*/
+}
+.ui-accordion .ui-accordion-header a {
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.produi-icon-run-command {
+    font-size: 22px;
+    margin-top: 14px;
+}
+
+/*----------------RUN COMMAND---------------*/
+.mainDivRunCommand .ui-panel .ui-panel-titlebar {
+    padding: 6px;
+}
+
+
+.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
+    background: #2d2d2d;
+    font-weight: normal;
+    color: #555555;
+}
+.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default {
+    background: #6699c8;
+}
+
+.panel4Div, .mainDivRunCommand .ui-tabview:not(.ui-ribbon) .ui-tabview-nav {
+    background: transparent;
+}
+.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-panel {
+    padding: 0 .2em;
+}
+ .rcnavbar-a{
+    border: 0px solid #fff;
+    background: #c6e3f7;
+    color: #000;
+}
+
+.mainDivRunCommand {
+    padding: 0 10px 10px;
+    /*background: rgb(198, 227, 247);*/
+    margin-top: 0px;
+    margin: 0 8px;
+}
+
+.runCommand-btn{
+    text-align: center;
+}
+.runCommand-btn .btnClass{
+    font-size: 12px;
+    line-height: 28px;
+    border-radius: 1px;
+}
+.mainDivRunCommand .material-icons {
+    font-size: 16px;
+}
+.mainDivRunCommand .ui-tabview-panels {
+    width:100%;
+    overflow: auto;
+}
+
+.mytest>.mat-tab-links{
+    border: 0px #fff solid;
+}
+
+
+/*---------------All MODAL CSS---------------------*/
+.rc-modal {
+     line-height: normal; 
+}
+.rc-modal .ui-dialog .ui-dialog-titlebar {
+    margin: 0;
+    padding: 4px 8px;
+}
+.rc-modal .ui-dialog .ui-dialog-titlebar .ui-widget-header a {
+    color:#fff;
+}
+.rc-modal .ui-panel .ui-panel-content {
+    background: #fbfbfb;
+}
+.rc-modal .ui-widget-header {
+    background: #d3e7f7;
+}
+.rc-modal .ui-dropdown .ui-dropdown-trigger{
+    right: 0;
+    padding:0;
+}
+.mainDivRunCommand .ui-dropdown .ui-dropdown-trigger{
+    right: 0;
+    padding:0;
+}
+.rc-modal .ui-corner-all, .ui-corner-right, .ui-corner-top, .ui-corner-tr{
+    margin:0;
+}
+
+.ui-widget-overlay {
+    opacity: 0.4;
+}
+.rc-modal .ui-dialog.ui-widget .ui-dialog-content {
+   padding: .5em .2em
+} 
+
+/*---------new added CSS-----------*/
+.left-menu .ui-menu {
+  width: 100%;
+  min-width: 150px;
+}
+.golbal-bottombtn {
+    text-align: center;
+    margin: 10px;
+    width: 100%;
+}
+.main-box {
+    margin: 10px 8px;
+    min-height: 80vh;
+    padding: 2px 4px;
+    box-shadow: 0 0 4px 1px #565656;
+    border-radius:4px;
+}
+
+.ddr-box {
+    margin: 10px 8px;
+    min-height: 85vh;
+    padding: 2px 4px;
+    box-shadow: 0 0 4px 1px #565656;
+    border-radius:4px;
+}
+
+.main-box-alert {
+    margin: 1px 8px;
+    min-height: 70vh;
+    padding: 2px 4px;
+    box-shadow: 0 0 4px 1px #565656;
+    border-radius:4px;
+}
+.ndegui-mainbox {
+    margin: 6px 3px;
+    box-shadow: 0 0 4px 1px #565656;
+    border-radius:4px;
+}
+.scenario-left .ui-panelmenu .ui-panelmenu-content {
+    overflow: visible;
+}
+.filterDrop .ui-dropdown-panel .ui-dropdown-filter-container {
+    position: relative;
+    margin: 0;
+    padding: .4em;
+    display: block;
+}
+.glb-allbtn {
+    border: 1px solid #e0e0e0;
+    color: #fff;
+    box-shadow: 0 0 1px 1px #a9a9a9;
+    padding: 4px;
+}
+
+.mat-select-trigger {
+    font-size: 13px;
+} 
+/* change  css for header */
+.changePasswordHeader .ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: 7px 10px;
+   
+}
+.dashboard-open-derivedDialog .mat-select-trigger{
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+/*---------new added time slot CSS -----------*/
+.left-menu .ui-menu {
+  width: 100%;
+  min-width: 150px;
+}
+.golbal-bottombtn {
+    text-align: center;
+    margin: 10px;
+    width: 100%;
+}
+.main-box {
+    margin: 10px 8px;
+    min-height: 80vh;
+    padding: 2px 4px;
+    box-shadow: 0 0 6px 2px #565656;
+    border-radius:4px;
+}
+
+.scenario-left .ui-panelmenu .ui-panelmenu-content {
+    overflow: visible;
+}
+.filterDrop .ui-dropdown-panel .ui-dropdown-filter-container {
+    position: relative;
+    margin: 0;
+    padding: .4em;
+    display: block;
+}
+.glb-allbtn {
+    border: 1px solid #e0e0e0;
+    color: #fff;
+    box-shadow: 0 0 1px 1px #a9a9a9;
+    padding: 4px;
+}
+
+.mat-select-trigger {
+    font-size: 13px;
+} 
+/* change  css for header */
+.changePasswordHeader .ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: 7px 10px;
+   
+}
+
+ngb-timepicker.slottime-datetime .ngb-tp-hour{
+        flex-direction: row;
+}
+ngb-timepicker.slottime-datetime .ngb-tp-minute{
+        flex-direction: row;
+}
+ngb-timepicker.slottime-datetime .ngb-tp-second{
+        flex-direction: row;
+}
+ngb-timepicker.slottime-datetime> fieldset {
+    border: 0;
+    margin-top: -4px;
+}
+ngb-timepicker.slottime-datetime .btn-link{
+    padding: 5px;
+    font-size: 8px;
+    background: #f7f7f7;
+    border: 1px #d6d6d6 solid;
+}
+span.ui-radiobutton-icon.fa.fa-circle {
+    font-size: 8px;
+    line-height: 12px;
+}
+.ui-widget-content {
+    border: 0;
+}
+.ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable {
+    border: 1px solid #D5D5D5;
+}
+
+/*------------ND AGENT STYLE-----------*/
+.ndagent .ui-accordion-content.ui-widget-content{
+    padding: 10px 5px;
+}

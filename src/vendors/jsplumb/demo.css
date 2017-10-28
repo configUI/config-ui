@@ -1,0 +1,207 @@
+.demo {
+    /* for IE10+ touch devices */
+    touch-action:none;
+}
+
+.flowchart-demo .window {
+    /*border: 1px solid #346789;*/
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 3.5em;
+    /*opacity: 0.8;*/
+    width: 80px;
+    height: 80px;
+    /*line-height: 80px;*/
+    cursor: pointer;
+    text-align: center;
+    z-index: 0;
+    position: absolute;
+    /*background-color: #eeeeef;*/
+    color: black;
+    font-family: helvetica, sans-serif;
+    padding: 0.5em;
+    font-size: 0.9em;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+    border: 3px solid #00e;
+}
+
+.flowchart-demo .window:hover {
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #444;
+  /*opacity: 0.6;*/
+}
+
+.flowchart-demo .active {
+    border: 1px dotted green;
+}
+
+.flowchart-demo .hover {
+    border: 1px dotted red;
+}
+
+
+.flowchart-demo .jtk-connector {
+    z-index: 4;
+}
+
+.flowchart-demo .jtk-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+    z-index: 21;
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel {
+    background-color: white;
+    padding: 0.4em;
+    font: 12px sans-serif;
+    color: #444;
+    z-index: 21;
+    border: 1px dotted gray;
+    /*opacity: 0.8;*/
+    cursor: pointer;
+}
+.flowchart-demo  .greenLabel
+{
+background-color:white;
+   padding:0.4em;
+    color:blue; 
+    font:10px Verdana,Arial,Helvetica,sans-serif;
+   color:#000;
+   z-index:21;
+   border:1px solid green;
+   border-radius: 12.5px;
+   /*opacity:0.8; */
+   /*transition: opacity 1s;
+   filter:alpha(opacity=80);*/
+          text-overflow: ellipsis;
+   cursor: pointer;
+}
+.flowchart-demo .redLabel{
+   background-color:#FFCCCC;
+   padding:0.4em;
+    color:blue; 
+    font:10px Verdana,Arial,Helvetica,sans-serif;
+   color:#000;
+   z-index:19;
+   border:1px solid red;
+   border-radius: 12.5px;
+   /*opacity:0.8; 
+   transition: opacity 1s;
+   filter:alpha(opacity=80);*/
+          text-overflow: ellipsis;
+   cursor: pointer;
+ }
+
+.flowchart-demo .aLabel.jtk-hover {
+    background-color: #5C96BC;
+    color: white;
+    border: 1px solid white;
+}
+
+.window.jtk-connected {
+    /*border: 1px solid green;*/
+}
+
+.jtk-drag {
+    /*outline: 4px solid pink !important;*/
+}
+
+path, .jtk-endpoint {
+    cursor: pointer;
+}
+
+.jtk-overlay {
+    background-color:transparent;
+    z-index: 21;
+}
+
+ 
+.err-page-node {
+    width: 48px;
+    height: 48px;
+    border-radius: 25px;
+    border: 4px solid #ffbf00;
+    box-shadow: 0px 0px 28px #000
+ 
+  }
+
+/*-------------------------------------------------------------------------*/
+
+
+.smallCircle {
+  border-radius: 50%;
+  width: 20px !important;
+  height: 20px !important; 
+  background: #C3D9FF;/* goldenrod; */
+  margin-top: -40px;
+ }
+
+
+
+a.tooltipsforlabel {
+  position: relative;
+  display: inline;
+}
+a.tooltipsforlabel span {
+  position: absolute;
+  min-width:200px; 
+  color: black !important;
+  
+   background-color: white;
+  /* outer shadows  (note the rgba is red, green, blue, alpha) */
+  -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
+  /* rounded corners */
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  /* gradients */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white),
+    color-stop(15%, white), color-stop(100%, #D7E9F5));
+  background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%);
+  
+ /* background: #000000; */
+  padding-left: 4px;
+  padding-right: 4px;
+  min-height: 30px;
+  line-height: 16px;
+  overflow: hidden;
+  text-align: left;
+  visibility: hidden;
+  border: 1px solid #1a1a1a;
+  z-index: 21;
+  border: 2px Solid #999;
+  border-top-left-radius: 7px 7px;
+  border-top-right-radius: 7px 7px;
+  border-bottom-right-radius: 7px 7px;
+  border-bottom-left-radius: 7px 7px;
+  /*border-radius: 6px; */
+      /*opacity: 1;*/
+    /*transition: opacity 1s;*/
+  white-space: nowrap;
+}
+a.tooltipsforlabel span :after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-bottom: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltipsforlabel span {
+  visibility: visible;
+  /*opacity: 1!important;*/
+  top: 18px;
+  left: 50%;
+  margin-left: -59px;
+}

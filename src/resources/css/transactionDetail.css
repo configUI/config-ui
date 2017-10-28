@@ -1,0 +1,117 @@
+.grid-align{
+  text-align: right;
+}
+
+.grid-align-left{
+   text-align: left;
+}
+
+/*for transaction detail */
+
+#txDetailWinId .mat-option{
+    font-size: 13px;
+}
+#txDetailWinId .mat-select .mat-select-trigger{
+    font-size: 13px;
+}
+
+#txDetailWinId .mat-input-placeholder{
+       color: white;
+}
+#txDetailWinId .md2-datepicker-input{
+    border-radius: 6px;
+    min-width: 65px;
+    width: 100px;
+    padding-left: 4px;
+    height: 30px;
+}
+#txDetailWinId .mat-tab-label{
+	min-width: 100px;
+    /* min-height: 20px; */
+    /* height: 36px; */
+    font-weight: bold;
+    font-size: 12px;
+	}
+#txDetailWinId .mat-tab-labels {
+    height: 36px;
+    margin-top: -15px;
+}
+
+#txDetailWinId .md2-datepicker-input{
+    border-radius: 6px;
+    min-width: 65px;
+    width: 100px;
+    padding-left: 4px;
+    height: 30px;
+}
+
+
+#txDetailWinId .mat-checkbox-background {
+    /* background-color: #f1528d; */
+}
+
+#txDetailWinId div.ui-datatable-scrollable-body {
+     min-height: 300px;
+    height:  320px;
+    overflow: scroll; 
+}
+
+
+#txDetailWinId .ui-datatable-scrollable-footer-box{
+  /*  margin-top: -16px;*/
+}
+#txDetailWinId .ui-column-footer{
+    font-weight: bold;
+}
+
+#txDetailWinId .ui-datatable .ui-datatable-thead>tr>th{
+     text-align:center !important; 
+     text-overflow: ellipsis;
+}
+
+/*in case of grouping below css class handle grouping width */
+#txDetailWinId .ui-datatable table
+{
+  table-layout: auto ;
+} 
+
+
+    .trans-details-txName-col{
+      text-align : left;
+    }
+
+    .trans-details-cols{
+        text-align : right;
+    }
+
+    #txDetailWinId .mat-menu-panel{
+    width: 70px;
+    min-width: 65px;
+    margin-top: 18px;
+    height: 190px;
+    margin-left: 42px;
+    overflow-y: scroll;
+}
+   #txDetailWinId button.mat-menu-item{
+    height: 39px;
+    padding: 0 16px;
+    font-size: 13px; 
+   }
+.trans-heading {
+    text-align: center;
+    margin: 0;
+    padding: 4px;
+}
+.lblPanel{
+  text-transform: none;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+ #txDetailWinId .ui-datatable .ui-datatable-data tr.ui-state-highlight, .ui-datatable .ui-datatable-data tr.ui-state-hover{
+     cursor: auto;
+ }
+
+  #txDetailWinId .md2-datepicker-placeholder.md2-floating-placeholder{
+   color :black
+ }

@@ -1,15 +1,12 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "project": {
+        "version": "1.0.0-beta.17",
         "name": "config-ui"
     },
     "apps": [{
         "root": "src",
         "outDir": "dist",
-        "assets": [
-            "assets",
-            "favicon.ico"
-        ],
+        "assets": ["assets", "resources", "images"],
         "index": "index.html",
         "main": "main.ts",
         "polyfills": "polyfills.ts",
@@ -21,12 +18,28 @@
             "resources/themes/omega/theme.css",
             "../node_modules/font-awesome/css/font-awesome.min.css",
             "../node_modules/primeng/resources/primeng.min.css",
-            "resources/themes/default/theme.css",
-            "resources/themes/default/default.scss",
+            "styles.css",
             "resources/css/main.css",
-            "config-styles.css"
+            "resources/css/dashboard.css",
+            "resources/css/transactionDetail.css",
+            "resources/css/material-icons.css",
+            "resources/css/alert-style.css",
+            "resources/css/config-styles.css",
+            "resources/css/scenario-styles.css",
+            "resources/css/access-log.css",
+            "resources/css/netocean.css",
+            "resources/css/ddr-style.css",
+            "../src/vendors/prettyprint/style/desert.css",
+            "../src/vendors/prettyprint/style/prettify.css",
+            "vendors/jsplumb/demo.css",
+            "resources/css/accesscontrolstyle.css",
+            "../node_modules/prismjs/themes/prism-coy.css"
         ],
-        "scripts": [],
+        "scripts": [
+            "scripts/utility.js",
+            "../node_modules/hammerjs/hammer.min.js",
+            "vendors/prettyprint/js/prettify.js"
+        ],
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",

@@ -1,0 +1,130 @@
+.accesslog-zone .mat-select-trigger {
+        min-width: 350px ;
+        padding-top: 10px;
+}
+
+.accesslog-zone .mat-select-content,.accesslog-zone .mat-select-panel-done-animating {
+    max-width: 410px;
+}
+
+.access-log-menu .mat-tab-body-content .ui-menu.ui-menu-dynamic
+{
+    left: initial;
+}
+
+.accesslog-serverList .ui-dropdown-panel .ui-dropdown-list {
+    width: 31%;
+}
+
+.access-log-radio .mat-radio-inner-circle {
+    margin-top: 3px;
+}
+
+.access-log-radio .mat-radio-outer-circle {
+     margin-top: 3px;
+}
+.accesslog-importAhead {
+    margin-left: 20px;
+    min-width: 175px;
+}
+
+.list-ui .ui-dropdown-panel .ui-dropdown-items-wrapper  {
+    width: 422px;
+}
+
+
+.dropDown-list .mat-select-panel {
+		max-width: 431px;
+}
+
+
+.accessLog-fileMenu .ui-menu.ui-menu-dynamic {
+     top: 7% ;
+     left: 90%; 
+}
+
+
+.accessLog-image .zoom_img img {
+        height: 153px;
+        width: 150px;
+        -moz-transition: -moz-transform 0.5s ease-in;
+        -webkit-transition: -webkit-transform 0.5s ease-in;
+        -o-transition: -o-transform 0.5s ease-in;
+}
+    
+.accessLog-image .zoom_img img:hover {
+        -moz-transform: scale(2);
+        -webkit-transform: scale(3);
+        -o-transform: scale(2);
+}
+
+ .accessLog-helpContent  .table {
+  border-collapse: collapse;
+    width: 100%;
+}
+
+.accessLog-helpContent .th, td {
+   /* text-align: left;
+    padding: 3px;*/
+}
+
+.accessLog-serverList .mat-select-trigger {
+        height: 33px;
+}
+
+.accessLog-folderIcon .mat-icon {
+ margin-top: 1%;
+}
+
+.accessLog-folderIcon .fa-folder-open:before {
+ font-size: x-large;
+}
+
+.mat-select-panel .mat-select-content .mat-option {
+        line-height: 25px;
+        font-size: 12px;
+        max-height: 18px;
+        max-width: 333px;
+}
+
+.access-log-timezone .mat-select {
+    width: 366px ;
+}
+
+.access-log-tierlist .cdk-overlay-pane .mat-select-panel {
+    padding-bottom: 5px;
+}
+
+.accessLog-fileMenu .mat-tab-body-content .ui-menu.ui-menu-dynamic {
+    margin-left: -15%; 
+}
+
+
+.access-log-dialog .mat-dialog-container {
+  overflow: visible;
+}
+
+.access-log-middle-table .ui-datatable .ui-datatable-tfoot>tr>td, .ui-datatable .ui-datatable-data>tr>td {
+    height: 16px;
+    border-color: inherit;
+    box-sizing: border-box;
+    padding: .25em .5em;
+    overflow: hidden;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.access-log-fotter .ui-datatable .ui-datatable-tfoot>tr>td {
+    font-weight: normal;
+    height: 16px;
+}
+
+.access-log-tierlist .cdk-overlay-pane .mat-select-panel {
+    padding-bottom: 5px;
+}
+
+.access-log-footer .ui-datatable .ui-datatable-tfoot>tr>td {
+    text-align: right;
+    width: 152px;
+}
+

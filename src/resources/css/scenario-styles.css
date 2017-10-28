@@ -1,0 +1,124 @@
+.scenario .ui-toolbar {
+    border: 0px;
+    border-radius: 0px;
+}
+
+.scen-global-header {
+    padding: 5px;
+}
+
+.scenario .ui-grid.ui-grid-responsive.ui-fluid.ui-grid-pad {
+    margin: 0 0 4px 0;
+}
+
+.scenmodal .ui-dialog-titlebar.ui-widget-header {
+    padding: .5em;
+}
+
+.scenmodal .ui-radiobutton-icon {
+    font-size: 6px;
+    line-height: 12px;
+}
+
+.scenTab .ui-tabview.ui-tabview-top>.ui-tabview-nav {
+    padding: 0;
+}
+
+.scenTab .ui-tabview-panels {
+    border: 1px solid #b1b1b1;
+}
+
+/*For Bug: 24797*/
+.scenario .ui-button .ui-state-disabled, .ui-widget:disabled{
+  opacity: 0.35;
+  cursor: default;
+}
+
+.scenario-left span.ui-panelmenu-icon.fa.fa-caret-right, span.ui-panelmenu-icon.fa.fa-caret-down {
+    float: right;
+    margin-top: 3px;
+}
+
+.phases-table .ui-datatable table {
+    border-collapse: collapse;
+}
+
+/*for pick list in scenario*/
+.scen-pickList .ui-picklist-caption.ui-widget-header.ui-corner-tl.ui-corner-tr {        
+    text-align: left;
+}
+
+.phases-table .ui-datatable .ui-datatable-data>tr>td {
+    padding: 6px;
+}
+
+.scen-table .ui-datatable .ui-datatable-data>tr>td {
+    padding: 4px;
+}
+
+.wizard-dialog .ui-dialog {
+    height: 466px;
+    top: 30px ;
+    left: 254px;
+}
+
+.wizard-dialog .ui-dialog .ui-dialog-titlebar {
+    padding: 0.6em 1.2em ;
+    margin: 0px 0px 0px;
+    height: 32px; 
+}
+
+.wizard-dialog .ui-dialog .ui-dialog-content {
+    padding: 0.1em;
+}
+
+/*.wizard-dialog .ui-dialog-content .ui-widget-content {
+    background:  ghostwhite !important;
+}*/
+
+.wizard-dialog .ui-dropdown .ui-dropdown-trigger {
+    height: 101%;
+    width: 20px;
+}
+
+.wizard-dialog .ui-grid.ui-grid-pad>.ui-grid-row>div {
+    padding: 0em;
+}
+
+.zIndexConfirm .ui-widget-overlay ui-dialog-mask {
+    z-index: 1007 ;
+}
+
+.wizard-dialog .ui-dialog .ui-dialog-buttonpane {
+    border-width: 0 0 0 0 ;
+}
+
+
+.addTableWizard .ui-button-text-only .ui-button-text {
+    padding: .1em 0.1em;
+}
+
+.wizard-summary-table .ui-datatable .ui-datatable-data>tr>td{
+      height: 14px;
+     padding: .1em .5em;
+}
+.wizard-summary-table .ui-datatable thead tr{
+      height:22px;
+}
+.wizard-summary-table .ui-datatable .ui-datatable-data>tr>td{
+      height: 13px;
+     padding: .1em .5em;
+}
+/*------------------New Entry----------------------*/
+.scen-lefttree .ui-panelmenu .ui-panelmenu-header {
+    margin:0;
+}
+.scenmodal .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    margin: 0 0 1px;
+    padding: 0 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.scenmodal button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only {
+    width: auto;
+}

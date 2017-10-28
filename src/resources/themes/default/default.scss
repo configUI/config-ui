@@ -54,6 +54,10 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     color: black;
 }
 
+.dashboard-lower-section {
+    background: linear-gradient(#00f3ff, #dbe0de);
+}
+
 
 /*First level node css.*/
 
@@ -548,25 +552,113 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     color: black;
 }
 
+
 /*----------Scenario Difference GUI START---------*/
-.dashboard-scenario-HeadingDiv{
+
+.dashboard-scenario-HeadingDiv {
     background-color: black;
     color: white;
 }
-.dashboard-scenario-InnerDiv-Single{
+
+.dashboard-scenario-InnerDiv-Single {
     background-color: #dcecfd;
 }
-.dashboard-scenario-InnerDiv{
+
+.dashboard-scenario-InnerDiv {
     background-color: #dcecfd;
 }
+
+
 /*----------Scenario Difference GUI END---------*/
 
+
 /*----------Server Signature Difference GUI START---------*/
-.dashboard-server-diff-HeadingDiv{
+
+.dashboard-server-diff-HeadingDiv {
     background-color: black;
     color: white;
 }
-.dashboard-server-diff-InnerDiv{
+
+.dashboard-server-diff-InnerDiv {
     background-color: #dcecfd;
 }
+
+
 /*----------Server Signature Difference GUI END---------*/
+
+/** Transaction Detail ***/
+
+.block-ui-wrapper.block-ui-main{
+  background: rgba(230, 223, 223, 0.54);
+}
+
+.block-ui-spinner .loader {
+    border-top: 1.1em solid #28da1c;
+    border-right: 1.1em solid #1ccc3a;
+    border-bottom: 1.1em solid #496718;
+    border-left: 1.1em solid #33671e;
+}
+
+/* -----------------------------------Import access log css---------------------------*/
+
+.accessLog-parse-table .ui-datatable th.ui-state-default {
+    background: #3f7bbc;
+}
+
+.accessLog-theme {
+    background-color: #b6dbd5;
+}
+
+.accessLog-middle-component {
+     background-color: white;;
+}
+
+.accessLog-dialogHeader {
+    background-color:black;
+}
+
+.accessLog-dialogHeaderText {
+    color: white;
+}
+
+.accessLog-applyButton {
+    background: #3f51b5;
+}
+
+.accessLog-cancelButton {
+    background: #ff5722;
+}
+
+.accessLog-successMsg {
+    color:green;
+}
+
+.accessLog-errMsg {
+   color:red; 
+}
+
+.accessLog-help-Content tr:nth-child(even){ 
+    background-color: #f2f2f2
+    }
+
+.accessLog-help-Content th {
+    background-color: #4CAF50;
+    color: white;
+    }
+
+.access-log-table .ui-datatable .ui-datatable-thead>tr>th { 
+         background: #3f7bbc; 
+          color: white;
+}
+
+.access-log-footer .ui-datatable .ui-datatable-tfoot>tr>td { 
+    background: black;
+    color: white;
+}
+
+.accessLogButtonText .mat-button, .mat-icon-button, .mat-raised-button {
+    color: white;
+}
+
+/*---------------------------Import Access Log Css--------------------------------------------*/
+

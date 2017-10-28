@@ -1,26 +1,124 @@
 <md-toolbar color="primary" class="cav-toolbar">
-    <img class="image" src="assets/img/cavi_logo_white.png" style="cursor:pointer">
+    <img class="image" src="images/cavi_logo_white.png" style="cursor:pointer" (click)="clickHome()">
 
-    <!--<nav md-tab-nav-bar class="product-nav-bar">
+    <nav md-tab-nav-bar class="product-nav-bar">
         <a md-tab-link *ngFor="let link of mainNavLinks" [routerLink]="link.routeURL" [active]="link.isActive" class="product-nav-link" (click)="onNavTabChange(link);">
+            <md-icon *ngIf="link.label != 'Home'" class="top-panel-nav-cross-icon" fontSet="fa" fontIcon="fa-window-close" title="Close This Tab" (click)='onCloseNavTab($event, link);'></md-icon>
             <md-icon class="top-panel-nav-icon" fontSet="fa" [fontIcon]="link.routeIcon" [title]="link.label"></md-icon>
         </a>
     </nav>
 
+    <!--  <button class="app-icon-button" (click)="onToggleMenuNavigation()">
+    <i class="material-icons app-toolbar-menu">menu</i>
+  </button>  -->
+    <!--  <span class="image">
+    <ul style="display:flex;list-style:none;">
+      <app-cav-topNav-menu *ngFor="let menu of topNavMenu" [navMenu]="menu" [sidebarCollapsed]="isCollapsed"></app-cav-topNav-menu>
+    </ul>
+  </span> -->
     <span class="app-toolbar-filler"></span>
+    <div *ngIf="isShowCapacity" class="inline-display pointer">
+        <div class="display-label" title="Capacitive Alert Count">Capacity </div>
+        <div (click)="showFilteredAlertType('Capacity', 'Critical')" title="Critical : {{cpCriticalCount}}">
+            <div class="alert-counter critical">{{cpCriticalCount}}</div>
+            <md-icon class="alert-icon">notifications</md-icon>
+        </div>
+        <div (click)="showFilteredAlertType('Capacity', 'Major')" title="Major : {{cpMajorCount}}">
+            <div class="alert-counter major">{{cpMajorCount}}</div>
+            <md-icon class="alert-icon">notifications</md-icon>
+        </div>
+        <div (click)="showFilteredAlertType('Capacity', 'Minor')" title="Minor : {{cpMinorCount}}">
+            <div class="alert-counter minor">{{cpMinorCount}}</div>
+            <md-icon class="alert-icon">notifications</md-icon>
+        </div>
+    </div>
+    <div *ngIf="isShowBehavior" class="inline-display pointer">
+        <div class="display-label behavior-margin" title="Behavioral Alert Count">Behavior </div>
+        <div (click)="showFilteredAlertType('Behavior', 'Critical')" title="Critical : {{bhCriticalCount}}">
+            <div class="alert-counter critical">{{bhCriticalCount}}</div>
+            <md-icon class="alert-behavior-icon">notifications</md-icon>
+        </div>
+        <div (click)="showFilteredAlertType('Behavior', 'Major')" title="Major : {{bhMajorCount}}">
+            <div class="alert-counter major">{{bhMajorCount}}</div>
+            <md-icon class="alert-behavior-icon">notifications</md-icon>
+        </div>
+        <div (click)="showFilteredAlertType('Behavior', 'Minor')" title="Minor : {{bhMinorCount}}">
+            <div class="alert-counter minor">{{bhMinorCount}}</div>
+            <md-icon class="alert-behavior-icon">notifications</md-icon>
+        </div>
+    </div>
+
+    <div class="login-settings">
+        <span title='Current Time - MM/dd/yyyy HH:mm:ss(TimeZone)'>
+       {{date}}{{timeZone}}
+     </span>
+    </div>
+
+    <!--For opening Theme drop down  -->
+    <md-icon class="product-theme-icon mat-icon material-icons" title="Theme Selection" md-button [mdMenuTriggerFor]="thMenu" role="img" aria-hidden="true">format_color_fill</md-icon>
+    <md-icon md-button fontIcon="fa-sort-desc" fontSet="fa" class="product-theme-icon-arrow" [mdMenuTriggerFor]="thMenu" title="Theme Selection"></md-icon>
+    <md-menu #thMenu="mdMenu" [overlapTrigger]="false">
+        <div>
+            <table>
+                <tr *ngFor="let row of arrThemeNames">
+                    <td *ngFor="let tile of row" class="product-theme-tile" [style.background]="tile.color" style='cursor:pointer;' title='Apply This Theme' (click)="onChangeTheme($event, tile.text)">
+                        <md-icon *ngIf='tile.isActive' md-button fontIcon="fa-check" fontSet="fa" class="product-theme-active-icon" style="cursor:pointer;" title="This Theme is already active"></md-icon>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </md-menu>
+
+    <span *ngIf='(isHpd && checkNO=="NO")' class="checkIcon">
+     <i class="material-icons" title="click to activate HPD" (click)="restartHpd()">check_circle</i>
+    </span>
+    <span *ngIf='(!isHpd && checkNO=="NO")' class="checkIcon"> <i class="fa fa-spinner  fa-spin fa-1x" title="Activating services. it will take some time... Please wait." aria-hidden="true"></i>
+    </span>
+
     <div class="login-settings">
         <span>
-       {{date}}{{timeZone}}
-     </span>-->
-    <!--<span>
-        <p-splitButton class="navBarAccClass" [label]="username" icon="fa-user" [model]="items"></p-splitButton>
-     </span>-->
-    <!--<span>
+        <p-splitButton *ngIf="isMultiDCEnable == 'true'" label="Data Center: {{_config.getActiveDC()}}" icon="fa-server" [model]="dcList"></p-splitButton>
+<p-splitButton class="navBarAccClass" [label]="username" icon="fa-user"  title="{{productType}} Account: {{username}}"  [model]="items"></p-splitButton>     </span>
+        <span>
           <span (click)='fillScreenMode()'>
           <button type="text" *ngIf="visible" pButton icon="fa fa-expand" onclick="requestFullScreen(document.documentElement);"></button>
           <button type="text" *ngIf="!visible" pButton icon="fa fa-window-minimize" onclick="closeFullScreen(document)"></button>
         </span>
         </span>
-    </div>-->
+    </div>
 
 </md-toolbar>
+<p-dialog header="Change Password" class="chngPassword" modal="modal" [closable]="false" [resizable]="false" [(visible)]="displaySettingGui" width="400">
+
+    <label>Old Password*</label><input id="oldPass" (keyup.enter)="changePassword()" placeholder="Old Password" type="password" size="20" pInputText style="margin-left:20%; margin-bottom:5px" [(ngModel)]="oldPasswordText" /><br>
+    <label>New Password*</label><input id="newPass" type="password" (keyup.enter)="changePassword()" placeholder="New Password" size="20" pInputText style="margin-left:18.3%; margin-bottom:5px" [(ngModel)]="newPasswordText" /><br>
+    <label>Confirm New Password*</label><input id="confNewPass" (keyup.enter)="changePassword()" placeholder="Confirm Password" type="password" size="20" pInputText style="margin-left:5.5%;" [(ngModel)]="confirmPasswordText" /><br>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" style="margin-right:26%;" (click)="displaySettingGui=false" label="Cancel"></button>
+            <button type="button" pButton icon="fa-check" style="margin-right:2%;" (keyup.enter)="changePassword()" (click)="changePassword()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Change Refresh Interval Time(milliseconds)" class="chngrefreshkey" modal="modal" [closable]="false" [resizable]="false" [(visible)]="displayRefreshIntervalGui" width="420">
+    <label *ngIf="!(productType == 'NetDiagnostics')">Test Asset Summary*</label><input *ngIf="!(productType == 'NetDiagnostics')" id="testRun" type="text" size="20" pInputText style="margin-left:8.5%; margin-bottom:5px" [(ngModel)]="testRunRefreshInterval"
+    /><br>
+    <label>Alert*</label><input id="alert" type="text" size="20" pInputText style="margin-left:31.1%; margin-bottom:5px" [(ngModel)]="alertRefreshInterval" /><br>
+    <label>Heap Memory*</label><input id="heap" type="text" size="20" pInputText style="margin-left:18%; margin-bottom:5px" [(ngModel)]="heapRefreshInterval" /><br>
+    <label>CPU Utilization*</label><input id="cpu" type="text" size="20" pInputText style="margin-left:16.5%; margin-bottom:5px" [(ngModel)]="cpuUtiliRefreshInterval" /><br>
+    <label>Available Memory*</label><input id="overAll" type="text" size="20" pInputText style="margin-left:12.5%; margin-bottom:5px" [(ngModel)]="overAllRefreshInterval" /><br>
+    <label>Disk Space*</label><input id="diskSpace" type="text" size="20" pInputText style="margin-left:21.3%;" [(ngModel)]="diskSpaceRefreshInterval" /><br>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <div style="width: 140px; float: left; margin-top: 10px;">
+                <p-checkbox label="Update Config Value" [(ngModel)]="checkedConfigValue" binary="true"></p-checkbox>
+            </div>
+            <button type="button" pButton icon="fa-close" style="margin-right:4%;" (click)="displayRefreshIntervalGui=false" label="Cancel"></button>
+            <button type="button" pButton icon="fa-check" style="margin-right:2%;" (click)="ResetRefreshIntervalTime()" label="Reset"></button>
+            <button type="button" style="position: relative;bottom: 28px;" pButton icon="fa-check" style="margin-right:2%;" (click)="UpdateRefreshIntervalTime()" label="Update"></button>
+        </div>
+    </p-footer>
+</p-dialog>

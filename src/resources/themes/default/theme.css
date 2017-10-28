@@ -1,277 +1,206 @@
 /*Scenario---------*/
 
-.scenario .ui-widget {
-    font-family: 'Open Sans', sans-serif !important;
-    /*background: rgba(0, 0, 0, 0.32);*/
+.scen-gui-backg,
+.scenTab .ui-tabview.ui-widget-content {
+    background: rgba(255, 255, 255, 0.6);
 }
 
-.scenario-left .ui-panelmenu .ui-widget{
+.scenario .ui-toolbar {
+    background: rgba(40, 40, 40, 0.67);
+}
+
+.scenario-left .ui-widget.ui-panelmenu-header.ui-state-default {
     background: transparent;
 }
 
-.scenario .ui-state-default a,
+.scenario-left .ui-panelmenu .ui-panelmenu-header.ui-state-active,
+.ui-panelmenu .ui-panelmenu-header.ui-state-active a {
+    background: #233f54;
+}
+
+.scenario-left .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-    color: #fff !important;
-}
-
-.scenario .ui-widget-header {
-    background: rgba(249, 165, 165, 0) !important;
-}
-
-.scenario .ui-breadcrumb {
-    background: rgba(255, 255, 255, 0.34) !important;
-}
-
-.scenario .ui-widget-content {
-    background: rgba(255, 255, 255, 1);
-}
-
-.scenario .ui-widget-content a {
-    color: #040404 !important;
-}
-
-.scenario .ui-grid {
-    background: rgba(255, 255, 255, 0.68) !important;
-}
-
-.scenario .ui-datatable th.ui-state-default {
-    background: rgba(3, 18, 35, 0.94) !important;
-    color: #fff !important;
-}
-
-.scenario .ui-button{
-    background: rgba(0, 0, 0, 0.15) !important;
-    border: 1px solid #4e4e4e !important;
-}
-
-.scenario>table .ui-widget-content ui-datatable-odd {
-    background: transparent !important;
-}
-
-.scenario .ui-datatable-odd {
-    background: #34608e !important;
-    color: #fff !important;
-}
-
-.scenario tr.ui-widget-content.ui-datatable-even {
-    background: rgb(176, 211, 247);
-    color: #2b2828 !important;
-}
-
-.scenmodal .ui-dialog .ui-dialog-titlebar {
-    background: #282828 !important;
-    color: #dcdcdc !important;
-}
-
-.scenmodal .ui-dialog .ui-dialog-title {
-    color: #dcdcdc !important;
-}
-
-.glblschtxt {
-    background: hsla(0, 0%, 10%, 0.8);
     color: #fff;
 }
 
-.glblschtxt-header {
-    background: rgba(16, 16, 16, 0.35);
+.scen-toolbar .ui-toolbar {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+
+/** Global Header in scenario */
+
+.scen-global-header {
+    background: #293842;
+    color: white;
+}
+
+.scen-table .ui-datatable.ui-widget.ui-datatable-resizable {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.scenario .ui-grid.ui-grid-responsive.ui-fluid.ui-grid-pad {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.scen-table .ui-datatable th.ui-state-default {
+    background: #2a608c;
     color: #fff;
 }
 
-.glblschtxt .ui-widget-header {
+.scen-table .ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight .ui-widget-content {
+    background: rgba(24, 107, 160, 0.72);
+}
+
+
+/**.scenario .ui-toolbar label {
+    color: white;
+}
+*/
+
+.scenario .clr-white {
+    color: white;
+}
+
+.scen-title-span span {
+    margin-left: 15px;
+    border-bottom: 1px solid #fff;
+}
+
+.scenVUser span {
+    color: #282828;
+}
+
+.scenario .toolbarIcon.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only {
+    background: transparent;
+}
+
+.scenmodal .ui-dialog-titlebar.ui-widget-header {
+    background: #1c526b;
+    color: #fff;
+}
+
+.scenmodal span.fa.fa-fw.fa-close {
+    color: #fff;
+}
+
+.accordHeader .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+    background: rgb(57, 132, 185);
+}
+
+.accordHeader .ui-accordion-header.ui-state-default.ui-corner-all {
+    background: rgb(57, 82, 102);
+}
+
+.accordHeader,
+span.fa.fa-fw.fa-caret-right,
+span.fa.fa-fw.fa-caret-down {
     color: white;
 }
 
 .accordHeader .ui-accordion .ui-accordion-header a {
-    background: hsla(0, 0%, 15%, 0.8) !important;
+    font-weight: inherit;
 }
 
-.accordHeader .ui-accordion .ui-accordion-header .fa {
+.accordHeader .ui-accordion .ui-accordion-content.ui-widget-content {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.logsDrpDwn,
+.scenario,
+.scenmodal,
+span.fa.fa-fw.fa-caret-down.ui-c {
+    color: black;
+}
+
+.buttonList,
+span.fa.fa-fw.fa-caret-down.ui-c.ui-button-icon-left {
+    color: #fff;
+}
+
+.scen-panel .ui-panel .ui-panel-titlebar {
+    padding: 4px;
+    background: rgba(0, 128, 128, 0.47);
+}
+
+.scen-panel .ui-panel .ui-panel-content {
+    background: rgb(238, 240, 245);
+}
+
+.scenTab li.ui-state-default.ui-corner-top.ui-tabview-selected.ui-state-active {
+    background: #2f5556;
+}
+
+.scenTab .ui-tabview .ui-tabview-nav>li.ui-state-default {
+    background: #658788;
+}
+
+.scenTab .ui-tabview-panels {
+    background: rgba(255, 255, 255, 0.73);
+}
+
+.scenario-left .ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    background: rgba(79, 131, 167, 0.59);
+}
+
+.toolbarTabPanel .ui-toolbar {
+    background: rgba(126, 122, 122, 0.37);
+}
+
+
+/*for pick list in scenario*/
+
+.scen-pickList .ui-picklist-caption.ui-widget-header.ui-corner-tl.ui-corner-tr {
+    background: rgba(0, 128, 128, 0.47);
+    color: #fff;
+    text-align: left;
+}
+
+.scen-pickList .ui-picklist-list.ui-picklist-source,
+.ui-picklist-list.ui-picklist-target {
+    background: #d7e0e1;
+    color: #000;
+}
+
+
+/*for scenario wizard*/
+
+.wizard-dialog .ui-dialog .ui-dialog-titlebar {
+    background: #1c526b;
     color: white;
 }
 
-.scenmodal .ui-widget-content a {
-    color: #dad2d2;
+.wizard-dialog .ui-dialog .ui-dialog-buttonpane {
+    background: ghostwhite;
 }
 
-.scenTab .ui-tabview .ui-tabview-nav > li.ui-state-default{
-    background: #7294b7;
+.wizard-dialog .ui-widget-overlay .ui-dialog-mask {
+    background: rgba(31, 34, 38, 0.55);
 }
 
-.scenTab .ui-tabview .ui-tabview-panel{
-    background: rgba(16, 16, 16, 0);
-}
-
-.scenTab .ui-tabview.ui-widget-content{
-    background: rgba(16, 16, 16, 0.19)
-}
-
-.scenario-left .ui-panelmenu .ui-panelmenu-content{
-    background: rgba(49, 70, 78, 0.55);
-}
-
-.scenario-left .ui-panelmenu .ui-menuitem-link{
-    color: #fff;
-} 
-
-.scenario-left .ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a{
-    background: #282828;
-}
-.accordHeader .ui-accordion .ui-accordion-content {
-    overflow: inherit !important;
-    background: rgba(255, 255, 255, 0.6) !important;
-}
-
-.scen-gui-backg {
-    background: rgba(255, 255, 255, 0.6);
-}
-
-.ui-dialog .ui-dialog-content {
-    background: #fff !important;
-}
-
-.scenario-left .ui-panelmenu .ui-menuitem-link:hover {
-    background: rgba(40, 40, 40, 0.28) !important;
-}
-.open-total-scen-btn button {
-    padding: .2em 0.1em;
-}
-
-.open-total-scen-table .ui-datatable-odd {
-    background: #dfefff;
-}
-
-.ui-widget {
-    font-family: 'Open Sans', sans-serif !important;
-}
-
-.open-total-scen-table .ui-datatable th.ui-state-default {
-    background: #92c1e8 !important;
-    color: #fff !important;
-}
-
-.open-total-scen-table .ui-datatable-header {
-    background: #1b313e !important;
-    font-size: 1.2em !important;
-    color: #fff !important;
-    text-align: left !important;
-}
-
-.open-total-scen-table .ui-state-highlight {
-    background: #186ba0 !important;
-}
-
-.accordHeaderLogsReport .ui-accordion .ui-accordion-header a {
-    background: hsla(0, 0%, 15%, 0.8) !important;
-}
-
-.accordHeaderLogsReport .ui-accordion .ui-accordion-header .fa {
-    color: white;
-}
-
-.accordHeaderLogsReport .ui-accordion .ui-accordion-content {
-    overflow: inherit !important;
-    background: rgba(255, 255, 255, 0.6) !important;
-}
-
-.contentClass{
-    background: rgba(255, 255, 255, 0.6) !important;
-    color: #000 !important;
-    border: none !important;
-    padding: 1em;
-}
-.pannelHeader .ui-panel-content-wrapper {
-    background: rgba(255, 255, 255, 0.6) !important;
-}
-
-.pannelHeader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
-    background: hsla(0, 0%, 15%, 0.8) !important;
-    color: #fff !important;
-}
-
-
-.pickListClass .ui-picklist-caption.ui-widget-header.ui-corner-tl.ui-corner-tr{
-    background: hsla(0, 0%, 15%, 0.8) !important;
-    color: #fff  !important;
-    text-align: left  !important;
-}
-
-.pickListClass .ui-picklist-list.ui-picklist-source, .ui-picklist-list.ui-picklist-target{
-  background: rgba(0, 0, 0, 0.12) !important;
-  color: #000 !important;
-}
-
-.scenario .ui-state-highlight {
-    background: #08c1b0 !important;
-}
-.scenProfileButton .ui-button {
-    background: #2399e5 !important;
-}
-
-.dashboard-layout-accordion-header{
-    color:black;
-    
-}
-
-.layoutFocus{
-
-background:#56c5f2 !important;
-}
-
-.layoutNotFocus{
-
- background:transparent;
-}
-.customTitleBar .ui-accordion{
-    background:#56c5f2;
-    }
-.customTitleBar  .ui-accordion-header{
-      background:#56c5f2;
-  }
-  
-.dbReplayInputSwitchClass .ui-inputswitch .ui-inputswitch-on{
-    background: rgba(255, 0, 0, 0.82) !important;
-}
-
-.dbReplayInputSwitchClass .ui-inputswitch .ui-inputswitch-off{
-    background: green !important;
-    color: #fff;
-}
-.dialogHeight .ui-dialog {
-    height: 300px !important;
-}
-
-/*For health monitor*/
-.scenTab .ui-tabview .ui-tabview-nav > li.ui-state-active{
-    background: #282828 !important;
-}
-
-.viewByFocus
-{
-    color: #3a4e98 !important;
-}
-
-.viewByNotFocus
-{
-    color:black;
-}
 
 /*Dashboard Update User session Css*/
+
+
 /*----------------- PrimeNg Tab and Data Table CSS------------------*/
 
-.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-default{
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav>li.ui-state-default {
     background: #7294b7;
 }
 
-.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-panel{
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-panel {
     background: rgba(16, 16, 16, 0);
 }
 
-.dashboard-update-user-session-rate-tab .ui-tabview.ui-widget-content{
+.dashboard-update-user-session-rate-tab .ui-tabview.ui-widget-content {
     background: rgba(16, 16, 16, 0.19)
 }
 
-.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-active{
+.dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav>li.ui-state-active {
     background: #282828;
 }
 
@@ -303,13 +232,244 @@ background:#56c5f2 !important;
     color: #2b2828;
 }
 
-/*Scenario Scheduler Dialog*/
-.scenScheduleDialog .ui-dialog .ui-dialog-titlebar {
-    margin: 0 0 9px 0px !important;
-    background: #475A67 !important;
+
+/******* For Config UI ************/
+
+.nde-ui .ui-datatable .ui-datatable-thead>tr>th {
+    background: #3c8fe8;
+    color: white;
+}
+
+.ndegui-sidenav {
+    background: #000;
+}
+
+.ndegui-sidenav .mat-sidenav {
+    background-color: black;
+}
+
+
+/*.config-ui button[md-icon-button] {
+    border-bottom: 1px #353535 solid;
+}*/
+
+.config-ui .mat-button,
+.config-ui .mat-icon-button,
+.config-ui .mat-raised-button {
+    border-bottom: 1px #353535 solid;
+}
+
+.top-nav-bar {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.top-nav-bar .ui-widget-header {
+    background: transparent;
+}
+
+.header-content {
+    color: #fff;
+    background: #31669f;
+}
+
+.ndegui_left button {
+    background: transparent;
+}
+
+.tabs-all {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.tabs-all .ui-tabview {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
+    background: #71a1e6;
     color: #fff;
 }
 
-.scenScheduleDialog .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title{
-    padding: 0 0 0 10px;
+.tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default {
+    background: #e7eef5;
+}
+
+.tabs-all .ui-tabview .ui-tabview-nav li a,
+.ui-tabview.ui-tabview-collapsible .ui-tabview-nav li.ui-tabview-selected a {
+    color: #000;
+}
+
+.tabs-all .ui-panel .ui-panel-content {
+    background: #fff;
+}
+
+.tabsincontent .header {
+    color: #fff;
+    background: #183D65;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    background: #183D65;
+    color: #fff;
+}
+
+.flowpathheader-accordion {
+    color: #000;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+.flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #ececec;
+}
+
+.config-tree .ui-tree {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.ui-datatable-odd {
+    background-color: #e8f4ff;
+}
+
+.configUI {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.configUI .header {
+    color: #fff;
+    background: #183D65;
+}
+
+.cav-toolbar {
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #77d218;
+}
+
+
+/* config header */
+
+.md-card-subtitle-css {
+    background: #183D65;
+}
+
+.header-Name {
+    color: white;
+}
+
+.md-card-css .mat-card {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.button-color {
+    background-color: #4cae4c;
+    border-color: #449d44;
+}
+
+ul.cav-menu-ul {
+    color: white;
+}
+
+.mat-button-focus-overlay {
+    background: white;
+}
+
+
+/*
+button[md-icon-button] {
+    background: #000000;
+}*/
+
+.iconCss {
+    color: white;
+}
+
+
+/* configuration.component.css */
+
+#top-div {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+a {
+    color: white;
+}
+
+#top-div .heading {
+    border-bottom: 1px #777 solid;
+}
+
+.configUI_card-css .mat-card {
+    background: #2B5797;
+}
+
+.icon_big {
+    color: white;
+}
+
+
+/*session-attribute.css */
+
+.configui-session-css {
+    background: #f6f7f9
+}
+
+
+/* config-profile-list.components.css */
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar {
+    background: #282828;
+    color: #fff;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+
+/* config-top-nav-bar.component.css */
+
+.stripbg {
+    background: #a7cffc;
+}
+
+
+/* config-tree-main.components.css */
+
+.mytreeview {
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.mytreeview .header {
+    color: #fff;
+    background: #183D65;
+}
+
+.config-ui .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #77d218 !important;
+}
+
+.config-ui .mat-slide-toggle-thumb {
+    background-color: #cccccc;
+}
+
+.config-ui .mat-slide-toggle-bar {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.config-ui .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(92, 136, 48) !important;
+}
+
+.sliderCustomColor md-slider div[class=mat-slider-wrapper] div[class=mat-slider-thumb-container] 
+div[class=mat-slider-thumb],div[class=mat-slider-thumb-label],div[class=mat-slider-track-wrapper] div[class=mat-slider-track-fill] {
+background-color: rgb(63,81,181) !important;
+}
+
+.autocompleteCustomColor button[type=button] {
+    background-color: rgb(63,81,181);
+    border:1px solid rgb(63,81,181);
 }
