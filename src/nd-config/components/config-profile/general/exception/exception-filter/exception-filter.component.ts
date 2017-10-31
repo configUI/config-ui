@@ -56,6 +56,11 @@ export class ExceptionFilterComponent implements OnInit {
   //To enable or disable mode in dialog
   exceptionfiltermode: boolean;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+    
+  isExceptioFilterBrowse: boolean = false;
+
   constructor(private store: Store<KeywordList>, private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configExceptionFilterService: ConfigExceptionFilterService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
   }
   subscription: Subscription;
@@ -86,8 +91,9 @@ export class ExceptionFilterComponent implements OnInit {
           this.selectedValues = false;
       }
     });
-
-
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
+    });
 
   }
 
@@ -354,6 +360,46 @@ export class ExceptionFilterComponent implements OnInit {
       }
     }
     return -1;
+  }
+ /**used to open file manager
+  */
+  openFileManager() {
+    
+        this.openFileExplorerDialog = true;
+        this.isExceptioFilterBrowse = true;
+    
+      }
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isExceptioFilterBrowse == true) {
+      this.isExceptioFilterBrowse = false;
+      this.openFileExplorerDialog = false;
+      
+      if (filepath.includes(";")) {
+        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+        return;
+      }
+       let that=this;
+      this.configExceptionFilterService.uploadExceptionFilterFile(filepath, this.profileId).subscribe(data => {
+        data.map(function (val) {
+          that.modifyData(val)
+        })
+        if (data.length == this.enableSourceCodeFiltersTableData.length) {
+         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+         return;
+        }
+        this.enableSourceCodeFiltersTableData = ImmutableArray.push(this.enableSourceCodeFiltersTableData, data);
+	if(data.length==0){
+         this.configUtilityService.errorMessage("Could not upload. This file may already be empty or contains invalid data ");
+         return;
+        }
+        this.enableSourceCodeFiltersTableData = data;
+        this.configUtilityService.successMessage("File uploaded successfully");
+       });
+    }
   }
 
 }
