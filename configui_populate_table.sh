@@ -80,7 +80,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (13,'enableCpuTime','0','1024','1','0','normal'),
 (14,'enableForcedFPChain','0','3','2','1','normal'),
 (15,'InstrTraceLevel','0','11','2','0','normal'),
-(16,'instrExceptions','0','512','5','0','normal'),
+(16,'instrExceptions','0','512','5','1%201%200%2020','normal'),
 (17,'correlationIDHeader','0','1024','5','-','normal'),
 (18,'ASStackComparingDepth','0','1000','4','10','normal'),
 (19,'putDelayInMethod','0','10240','5','0','normal'),

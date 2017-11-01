@@ -31,7 +31,7 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "enableForcedFPChain":{"defaultValue":"1","min":"0","max":"3","assocId":-1,"value":"1","keyId":14},
 "NDEntryPointsFile":{"defaultValue":"true","min":"","max":"","assocId":-1,"value":"true","keyId":21},
 "ASThresholdMatchCount":{"defaultValue":"5","min":"1","max":"100","assocId":-1,"value":"5","keyId":7},
-"instrExceptions":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":16},
+"instrExceptions":{"defaultValue":"1%201%200%2020","min":"0","max":"512","assocId":-1,"value":"0","keyId":16},
 "InstrTraceLevel":{"defaultValue":"0","min":"0","max":"11","assocId":-1,"value":"0","keyId":15},
 "captureCustomData":{"defaultValue":"false","min":" ","max":" ","assocId":-1,"value":"false","keyId":33},
 "ASDepthFilter":{"defaultValue":"20","min":"0","max":"100","assocId":-1,"value":"20","keyId":10},

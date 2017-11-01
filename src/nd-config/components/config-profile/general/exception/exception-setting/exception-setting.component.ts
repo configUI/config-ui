@@ -121,15 +121,15 @@ export class ExceptionSettingComponent implements OnInit {
       if (arr.length > 3)
         this.exceptionData.exceptionTraceDepth = arr[3];
       else
-        this.exceptionData.exceptionTraceDepth = 9999;
+        this.exceptionData.exceptionTraceDepth = 20;
     }
     else {
       this.exceptionData = new ExceptionData();
-        this.exceptionData.instrumentException = false;
+        this.exceptionData.instrumentException = true;
         this.exceptionData.exceptionCapturing = false;
         this.exceptionData.exceptionTrace = false;
         this.exceptionData.exceptionType = false;
-        this.exceptionData.exceptionTraceDepth = 9999;
+        this.exceptionData.exceptionTraceDepth = 20;
     }
   }
 

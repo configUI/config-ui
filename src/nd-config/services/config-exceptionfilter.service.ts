@@ -38,5 +38,10 @@ export class ConfigExceptionFilterService {
     return this._restApi.getDataByPostReq(`${URL.DEL_EXCEPTION_FILTER}/${profileId}`, data);
   }
 
+   /** Method to upload file excetion filter file */
+   uploadExceptionFilterFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_EXCEPTION_FILTER_FILE}/${profileId}`, filePath);
+  }
+
 
 }
