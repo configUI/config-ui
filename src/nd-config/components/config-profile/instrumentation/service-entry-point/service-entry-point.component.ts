@@ -229,6 +229,16 @@ export class ServiceEntryPointComponent implements OnInit {
             this.selectedServiceEntryData = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           })
+          let filePath;
+          this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+            
+            //For sending Runtime Changes
+      
+              filePath = data["_body"];
+              filePath = filePath + "/NDEntryPointFile.txt";
+            this.entryPoints['NDEntryPointsFile'].path = filePath;
+            this.keywordData.emit(this.entryPoints);
+          });
       },
       reject: () => {
       }
@@ -320,6 +330,16 @@ export class ServiceEntryPointComponent implements OnInit {
         this.serviceEntryData = ImmutableArray.replace(this.serviceEntryData, data, index);
         this.serviceEntryPointDetail.entryType = data.entryType
         this.configUtilityService.successMessage(Messages);
+      });
+      let filePath;
+      this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+        
+        //For sending Runtime Changes
+  
+          filePath = data["_body"];
+          filePath = filePath + "/NDEntryPointFile.txt";
+        this.entryPoints['NDEntryPointsFile'].path = filePath;
+        this.keywordData.emit(this.entryPoints);
       });
     this.addEditServiceEntryDialog = false;
     this.selectedServiceEntryData = [];
