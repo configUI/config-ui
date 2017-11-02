@@ -134,6 +134,7 @@ export const FETCH_EXCEPTION_MON_TABLEDATA = `${SERVICE_URL}/custom/exceptionmon
 export const ADD_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor`;
 export const DEL_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor/delete`;
 export const EDIT_ROW_EXCEPTION_MONITOR_URL = `${SERVICE_URL}/custom/exceptionmonitor/updateExceptionMonitor`;
+export const UPLOAD_EXCEPTION_MONITOR_FILE = `${SERVICE_URL}/custom/exceptionmonitor/uploadfile`;
 
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;

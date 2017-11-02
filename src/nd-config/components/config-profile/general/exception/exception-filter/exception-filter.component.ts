@@ -374,6 +374,21 @@ export class ExceptionFilterComponent implements OnInit {
 
   /* dialog window & set relative path */
   uploadFile(filepath) {
+    let  str : string;
+    let str1:string;
+    str=filepath.substring(filepath.lastIndexOf("/"),filepath.length)
+    str1=str.substring(str.lastIndexOf("."),str.length);
+    let check : boolean;
+    if(str1 == ".ecf" || str1 == ".txt"){
+        check=true;
+    }
+    else{
+      check=false;
+    }
+    if(check==false){
+      this.configUtilityService.errorMessage("Extension(s) other than .txt and .ecf are not supported");
+      return;
+    }
     if (this.isExceptioFilterBrowse == true) {
       this.isExceptioFilterBrowse = false;
       this.openFileExplorerDialog = false;
@@ -391,11 +406,7 @@ export class ExceptionFilterComponent implements OnInit {
          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
          return;
         }
-        this.enableSourceCodeFiltersTableData = ImmutableArray.push(this.enableSourceCodeFiltersTableData, data);
-	if(data.length==0){
-         this.configUtilityService.errorMessage("Could not upload. This file may already be empty or contains invalid data ");
-         return;
-        }
+       // this.enableSourceCodeFiltersTableData = ImmutableArray.push(this.enableSourceCodeFiltersTableData, data);
         this.enableSourceCodeFiltersTableData = data;
         this.configUtilityService.successMessage("File uploaded successfully");
        });
