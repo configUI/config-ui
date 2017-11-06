@@ -9,921 +9,908 @@
     </div>
     <div class="config-ui-table-margin">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Time (in seconds) to receive data from cavmon after test is over
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_WAIT_TIME_AFTER_TEST_IS_OVER" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_AFTER_TEST_IS_OVER'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Time (in seconds) before sending error response to NS/GUI
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_CONTROL_MSG_ACK_TIMEOUT" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_CONTROL_MSG_ACK_TIMEOUT'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Timeout (in seconds) for control thread epoll wait for receiving any event
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_CONTROL_THREAD_EPOLL_TIMEOUT" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_CONTROL_THREAD_EPOLL_TIMEOUT'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Behaviour of ND Collector in the error conditions
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR" min=0 max=2 [(ngModel)]="ndcKeywords['NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Time (in seconds) between continuous heart beat messages
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI" min=0 [(ngModel)]="ndcKeywords['NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Time (in ms) to poll if the test run is currently running
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_TR_RUNNING_STATUS_POLL_INTERVAL" min=0 [(ngModel)]="ndcKeywords['NDP_TR_RUNNING_STATUS_POLL_INTERVAL'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Filter Flowpath which are not the part of NS initiated transaction
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_OMIT_NON_NS_FLOWPATHS" min=0 [(ngModel)]="ndcKeywords['NDP_OMIT_NON_NS_FLOWPATHS'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Filter Flowpath which are not the part of current test run
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_EXCLUDE_FLOWPATHS_OUTSIDE_TESTIDX" min=0 [(ngModel)]="ndcKeywords['NDP_EXCLUDE_FLOWPATHS_OUTSIDE_TESTIDX'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            NDP trace log level
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_TRACE_LEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_TRACE_LEVEL'].value" required
-              ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum depth of method call stack
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="MAX_METHOD_CALL_STACK" min=1 max=10485760 [(ngModel)]="ndcKeywords['MAX_METHOD_CALL_STACK'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Initial max concurrent flowpaths processed per JVM
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_INIT_CONCURRENT_FLOWPATHS" min=8 max=10485760 [(ngModel)]="ndcKeywords['NDP_INIT_CONCURRENT_FLOWPATHS'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Incremental number of concurrent flowpath
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DELTA_CONCURRENT_FLOWPATHS" min=8 max=10485760 [(ngModel)]="ndcKeywords['NDP_DELTA_CONCURRENT_FLOWPATHS'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of meta data table entries.
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_META_DATA_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_META_DATA_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of BCI arguments (JSP page names)
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of HTTP header metadata buffer size
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of HTTP header capture buffer size
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of exception data buffer size
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of flowpath table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of flowpath table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_APPLOG_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_APPLOG_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum entries in the buffer of flowpath table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of memory allocation table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of NDSQL table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE" min=32 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of NDSQLRecord table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Size (in MB) of the ND debug log
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DEBUG_LOGFILE_ROLLOVER_SIZE" min=1 max=102400 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGFILE_ROLLOVER_SIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Timeout (in seconds) for flushing the buffered flowpath and other tables
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_FORCE_UPLOAD_TIMEOUT" min=1 max=2592000000 [(ngModel)]="ndcKeywords['NDP_FORCE_UPLOAD_TIMEOUT'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            NDP (in seconds) to mark a flowpath dead
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SECS_TO_MARK_AN_FP_DEAD" min=0 max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_MARK_AN_FP_DEAD'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Interval (in seconds) between two consecutive hunts for any in-memory dead flowpaths.
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS" min=0 max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS'].value"
-              required ngModel/>
-          </div>
-          <div class="ui-grid-col-5 marginClassTop">
-            Time (in ms) before polling the raw_data file for new incoming raw_data
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_NEW_RAW_DATA_POLL_INTERVAL" min=0 [(ngModel)]="ndcKeywords['NDP_NEW_RAW_DATA_POLL_INTERVAL'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Flowpath instance in the mapping record
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_FORCE_ADD_URC_FOR_NS_FPI_IN_MAPPING_RECORD" min=0 [(ngModel)]="ndcKeywords['NDP_FORCE_ADD_URC_FOR_NS_FPI_IN_MAPPING_RECORD'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum number of method entry records in a flowpath
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Flag to lower the priority of the process ndu_process_data
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_LOWER_PROCESS_PRIORITY_FLAG" min=0 [(ngModel)]="ndcKeywords['NDP_LOWER_PROCESS_PRIORITY_FLAG'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of JMS table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_BUFFERED_JMS_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_JMS_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum number of concurrent flowpath instances
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_CONCURRENT_THREADS_IN_JVM" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_CONCURRENT_THREADS_IN_JVM'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Interval (in seconds) between consecutive flushes of method timing array to CSV file.
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Disable the dumping of captured HTTP body
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Timeout (in ms) to stop instrumentation response message from BCI
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_STOP_INSTRUMENTATION_RESPONSE_TIMEOUT" min=0 [(ngModel)]="ndcKeywords['NDC_STOP_INSTRUMENTATION_RESPONSE_TIMEOUT'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Accept/Reject new data connection request
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum no. of times the signal is sent to data thread till connection disconnects
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_DATA_THD_TERM_RETRY_COUNT" min=0 [(ngModel)]="ndcKeywords['NDC_DATA_THD_TERM_RETRY_COUNT'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum SQL index
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_SQL_INDEX_FROM_BCI" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_SQL_INDEX_FROM_BCI'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Flag whether a response will be sent to BCI on new data connection
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="SND_RESP_TO_BCI_ON_DATA_CONN" min=0 max=1 [(ngModel)]="ndcKeywords['SND_RESP_TO_BCI_ON_DATA_CONN'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Enable dumping of aggregate data in raw_data directory
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_LOG_BCI_AGGREGATE_RAW_DATA" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_LOG_BCI_AGGREGATE_RAW_DATA'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Minimum size (in bytes) of sequence blob that qualifies it to be written in sqb file
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_MIN_SIZE" min=10 max=2048 [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_IN_FILE_MIN_SIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Initial size (in bytes) of sequence blob compression buffer
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2048 [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in kilobytes) of buffer of sqb table entries
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="MAX_BUFFERED_SQB_BUFSIZE" min=8 max=1024000 [(ngModel)]="ndcKeywords['MAX_BUFFERED_SQB_BUFSIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Control time (in seconds) for sending FORCE_STOP_COMP_SIG signal to NDP
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_WAIT_TIME_TO_SEND_FORCE_STOP_COMP_SIG" min=0 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_TO_SEND_FORCE_STOP_COMP_SIG'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Enable dumping URL record
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DUMP_URC" min=0 [(ngModel)]="ndcKeywords['NDP_DUMP_URC'].value" required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Time out (in seconds) for retrying the recovery of meta data entries from the database
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_META_DATA_RECOVERY_RETRY_TIMEOUT_IN_SEC" min=0 [(ngModel)]="ndcKeywords['NDP_META_DATA_RECOVERY_RETRY_TIMEOUT_IN_SEC'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Start to force smallest ID in SQL (meta data) table
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SQL_START_NORM_ID" min=0 max=2000000000 [(ngModel)]="ndcKeywords['NDP_SQL_START_NORM_ID'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Flag to enable dumping of SQL timing in CSV
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_ENABLE_SQL_TIMING" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ENABLE_SQL_TIMING'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Flag to enable dumping of SQL record in CSV
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_ENABLE_SQL_RECORD" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ENABLE_SQL_RECORD'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Flag to enable dumping of BCI arguments data in CSV
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_ENABLE_BCIARG" min=1 max=300 [(ngModel)]="ndcKeywords['NDP_ENABLE_BCIARG'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum size (in bytes) of read data from CSV file into buffer
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_CHUNK_SIZE" min=0 [(ngModel)]="ndcKeywords['NDDBU_CHUNK_SIZE'].value" required
-              ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum time (in seconds) before data is uploaded to DB
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_IDLE_TIME" min=0 [(ngModel)]="ndcKeywords['NDDBU_IDLE_TIME'].value" required
-              ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Maximum number of cycles to read the data from all instances into buffer
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_NUM_CYCLES" min=0 [(ngModel)]="ndcKeywords['NDDBU_NUM_CYCLES'].value" required
-              ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Generate URL record if mapping record is not received from BCI
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_FORCE_ADD_URC_FOR_MISSING_FP_MAPPING_RECORD" min=0 [(ngModel)]="ndcKeywords['NDP_FORCE_ADD_URC_FOR_MISSING_FP_MAPPING_RECORD'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Free flowpath minimum sequence blob size (in bytes)
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_FREE_FP_MIN_SQB_SIZE" min=0 [(ngModel)]="ndcKeywords['NDP_FREE_FP_MIN_SQB_SIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Size (in bytes) of raw data to be processed at a time in NDP per instance
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_RAW_DATA_BUF_SIZE" min=0 [(ngModel)]="ndcKeywords['NDP_RAW_DATA_BUF_SIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Flag to enable generation of FP signatures in NDP
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_GENERATE_FP_SIGNATURES" min=0 [(ngModel)]="ndcKeywords['NDP_GENERATE_FP_SIGNATURES'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Minimum response time to filter level 1 flowpath
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MIN_RESPTIME_TO_FILTER_L1_FP" min=0 [(ngModel)]="ndcKeywords['NDP_MIN_RESPTIME_TO_FILTER_L1_FP'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            NDP binary format for method timing
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_BINARY_FORMAT_FOR_METHOD_TIMING" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_BINARY_FORMAT_FOR_METHOD_TIMING'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Threshold time (in ms) of difference between NDC timestamp and BCI timestamp
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_BCI_TIME_DIFF_THRESHOLD_IN_MS" min=0 [(ngModel)]="ndcKeywords['NDC_BCI_TIME_DIFF_THRESHOLD_IN_MS'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Control size (in bytes) of stacktrace file
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_HS_ST_IN_FILE_MIN_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_IN_FILE_MIN_SIZE'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Control compression buffer init size (in bytes)
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Enable monitor log
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="ND_ENABLE_MONITOR_LOG" min=0 [(ngModel)]="ndcKeywords['ND_ENABLE_MONITOR_LOG'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Set maximum number of entry and exit records in a Flowpath
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Enable autoscaling
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="ENABLE_AUTO_SCALING" min=0 max=1 [(ngModel)]="ndcKeywords['ENABLE_AUTO_SCALING'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Modify entry in the topology in case of auto scaling
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_MODIFY_TOPO_ENTRY" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_MODIFY_TOPO_ENTRY'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Interval (in seconds) between two consecutive attempts to terminate a thread by sending
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC" min=0 [(ngModel)]="ndcKeywords['NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            NDP debug log level
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_DEBUG_LOGLEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGLEVEL'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            NDC reuse instance ID time (in minutes)
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_REUSE_INSTANCE_ID_TIME_IN_MIN" min=0 [(ngModel)]="ndcKeywords['NDC_REUSE_INSTANCE_ID_TIME_IN_MIN'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Meta data recovery
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_ENABLE_METADATA_RECOVERY" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ENABLE_METADATA_RECOVERY'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Enable/Disable the memory dump method to store HTTP header records
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_ALLOW_REQ_DETAIL_BEFORE_SQB_BEGIN_REC" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ALLOW_REQ_DETAIL_BEFORE_SQB_BEGIN_REC'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            NDC log BCI aggregate raw data ex
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            NDC BCI response time for metadata (in seconds)
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_BCI_RESPONSE_TIME_FOR_METADATA_IN_SECS" min=0 [(ngModel)]="ndcKeywords['NDC_BCI_RESPONSE_TIME_FOR_METADATA_IN_SECS'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            FP stats monitor
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="ENABLE_FP_STAT_MONITOR" min=0 max=1 [(ngModel)]="ndcKeywords['ENABLE_FP_STAT_MONITOR'].value"
-              required ngModel/>
-          </div>
-          <!-- </div>
-        <div class="ui-grid-row"> -->
-          <div class="ui-grid-col-5 marginClassTop">
-            Send active instance response
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="SEND_ACTIVE_INSTANCE_REP" min=0 max=1 [(ngModel)]="ndcKeywords['SEND_ACTIVE_INSTANCE_REP'].value"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            NDC maximum control connection
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_MAX_CTRL_CON" min=0 [(ngModel)]="ndcKeywords['NDC_MAX_CTRL_CON'].value" required
-              ngModel/>
-          </div>
-          <!-- </div>
+        <p-fieldset legend="ND Controller" [toggleable]="true" [collapsed]="false">
+          <div class="configUI">
+            <div class="config-ui-table-margin">
+              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Time (in seconds) to receive data from cavmon after test is over
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_WAIT_TIME_AFTER_TEST_IS_OVER" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_AFTER_TEST_IS_OVER'].value"
+                      required ngModel/>
+                  </div>
+                  <!-- </div>
+          <div class="ui-grid-row"> -->
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Time (in seconds) before sending error response to NS/GUI
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_CONTROL_MSG_ACK_TIMEOUT" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_CONTROL_MSG_ACK_TIMEOUT'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Timeout (in seconds) for control thread epoll wait for receiving any event
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_CONTROL_THREAD_EPOLL_TIMEOUT" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_CONTROL_THREAD_EPOLL_TIMEOUT'].value"
+                      required ngModel/>
+                  </div>
+                  <!-- </div>
+          <div class="ui-grid-row"> -->
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Behaviour of ND Collector in the error conditions
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR" min=0 max=2 [(ngModel)]="ndcKeywords['NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Time (in seconds) between continuous heart beat messages
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI" min=0 [(ngModel)]="ndcKeywords['NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Timeout (in ms) to stop instrumentation response message from BCI
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_STOP_INSTRUMENTATION_RESPONSE_TIMEOUT" min=0 [(ngModel)]="ndcKeywords['NDC_STOP_INSTRUMENTATION_RESPONSE_TIMEOUT'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Accept/Reject new data connection request
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Maximum depth of method call stack
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="MAX_METHOD_CALL_STACK" min=1 max=10485760 [(ngModel)]="ndcKeywords['MAX_METHOD_CALL_STACK'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Maximum no. of times the signal is sent to data thread till connection disconnects
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_DATA_THD_TERM_RETRY_COUNT" min=0 [(ngModel)]="ndcKeywords['NDC_DATA_THD_TERM_RETRY_COUNT'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Interval (in seconds) between two consecutive attempts to terminate a thread by sending
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC" min=0 [(ngModel)]="ndcKeywords['NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Control time (in seconds) for sending FORCE_STOP_COMP_SIG signal to NDP
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_WAIT_TIME_TO_SEND_FORCE_STOP_COMP_SIG" min=0 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_TO_SEND_FORCE_STOP_COMP_SIG'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Control size (in bytes) of stacktrace file
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_HS_ST_IN_FILE_MIN_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_IN_FILE_MIN_SIZE'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Enable dumping of aggregate data in raw_data directory
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_LOG_BCI_AGGREGATE_RAW_DATA" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_LOG_BCI_AGGREGATE_RAW_DATA'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Threshold time (in ms) of difference between NDC timestamp and BCI timestamp
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_BCI_TIME_DIFF_THRESHOLD_IN_MS" min=0 [(ngModel)]="ndcKeywords['NDC_BCI_TIME_DIFF_THRESHOLD_IN_MS'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Control compression buffer init size (in bytes)
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Enable monitor log
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="ND_ENABLE_MONITOR_LOG" min=0 [(ngModel)]="ndcKeywords['ND_ENABLE_MONITOR_LOG'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Enable autoscaling
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="ENABLE_AUTO_SCALING" min=0 max=1 [(ngModel)]="ndcKeywords['ENABLE_AUTO_SCALING'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Modify entry in the topology in case of auto scaling
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_MODIFY_TOPO_ENTRY" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_MODIFY_TOPO_ENTRY'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    NDC reuse instance ID time (in minutes)
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_REUSE_INSTANCE_ID_TIME_IN_MIN" min=0 [(ngModel)]="ndcKeywords['NDC_REUSE_INSTANCE_ID_TIME_IN_MIN'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    NDC log BCI aggregate raw data ex
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    NDC BCI response time for metadata (in seconds)
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_BCI_RESPONSE_TIME_FOR_METADATA_IN_SECS" min=0 [(ngModel)]="ndcKeywords['NDC_BCI_RESPONSE_TIME_FOR_METADATA_IN_SECS'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    FP stats monitor
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="ENABLE_FP_STAT_MONITOR" min=0 max=1 [(ngModel)]="ndcKeywords['ENABLE_FP_STAT_MONITOR'].value"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Send active instance response
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="SEND_ACTIVE_INSTANCE_REP" min=0 max=1 [(ngModel)]="ndcKeywords['SEND_ACTIVE_INSTANCE_REP'].value"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                    NDC maximum control connection
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_MAX_CTRL_CON" min=0 [(ngModel)]="ndcKeywords['NDC_MAX_CTRL_CON'].value" required
+                      ngModel/>
+                  </div>
+                </div>
+                <hr>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-4 marginClassTop">
+                    Dump the NDC logs in ndc_trace.log file
+                  </div>
+                  <div class="ui-g-1">
+                    Value:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_TRACING_LEVEL_VAL" placeholder="Value" [(ngModel)]="NDC_TRACING_LEVEL_VAL" min=0
+                      max=4 required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-4 marginClassTop">
+                    Control stacktrace compression version
+                  </div>
+                  <div class="ui-g-1">
+                    Redirect to path:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_HS_ST_IN_FILE_FLAG" min=0 [(ngModel)]="NDC_HS_ST_IN_FILE_FLAG_VAL" required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-g-4"></div>
+                  <div class="ui-g-1">
+                    Size (in MB):
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_TRACING_LEVEL_SIZE" min=0 placeholder="Size" [(ngModel)]="NDC_TRACING_LEVEL_SIZE"
+                      required ngModel/>
+                  </div>
+                  <div class="ui-g-4"></div>
+                  <div class="ui-g-1">
+                    Data format:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <p-dropdown name="NDC_HS_ST_IN_FILE_FLAG_VER" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [options]="version"
+                      [(ngModel)]="NDC_HS_ST_IN_FILE_FLAG_VER" required ngModel></p-dropdown>
+                  </div>
+                </div>
+                <hr>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop">
+                    Mark instances which goes down (in ms)
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN" min=0 [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN"
+                      required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5 marginClassTop"></div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX" min=0 [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX"
+                      required ngModel/>
+                  </div>
+                </div>
+                <hr>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-4 marginClassTop">
+                    Set FPI mask
+                  </div>
+                  <div class="ui-g-1">
+                    NDE ID:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="ndeId1" min=0 [(ngModel)]="ndeId1" required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="ndeId2" min=0 [(ngModel)]="ndeId2" required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-2 marginClassTop">
+                  </div>
+                  <div class="ui-g-1">
+                    App ID:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="appId1" min=0 [(ngModel)]="appId1" required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="appId2" min=0 [(ngModel)]="appId2" required ngModel/>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-4 marginClassTop">
+                  </div>
+                  <div class="ui-g-1">
+                    Timestamp:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="timestamp1" [(ngModel)]="timestamp1" min=0 required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="timestamp2" [(ngModel)]="timestamp2" min=0 required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-2 marginClassTop">
+                  </div>
+                  <div class="ui-g-1">
+                    Sequence No.:
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="seqNo1" [(ngModel)]="seqNo1" min=0 required ngModel/>
+                  </div>
+                  <div class="ui-grid-col-1">
+                    <input pInputText type="number" name="seqNo2" [(ngModel)]="seqNo2" min=0 required ngModel/>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </p-fieldset>
+        <p-fieldset legend="ND Data Processor" [toggleable]="true" [collapsed]="true">
+          <div class="config-ui-table-margin">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Time (in ms) to poll if the test run is currently running
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_TR_RUNNING_STATUS_POLL_INTERVAL" min=0 [(ngModel)]="ndcKeywords['NDP_TR_RUNNING_STATUS_POLL_INTERVAL'].value"
+                    required ngModel/>
+                </div>
+                <div class="ui-grid-col-5 marginClassTop">
+                  Set maximum number of entry and exit records in a Flowpath
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2'].value"
+                    required ngModel/>
+                </div>
+              </div>
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Filter Flowpath which are not the part of NS initiated transaction
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_OMIT_NON_NS_FLOWPATHS" min=0 [(ngModel)]="ndcKeywords['NDP_OMIT_NON_NS_FLOWPATHS'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Filter Flowpath which are not the part of current test run
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_EXCLUDE_FLOWPATHS_OUTSIDE_TESTIDX" min=0 [(ngModel)]="ndcKeywords['NDP_EXCLUDE_FLOWPATHS_OUTSIDE_TESTIDX'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  NDP trace log level
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_TRACE_LEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_TRACE_LEVEL'].value" required
+                    ngModel/>
+                </div>
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flag to enable dumping of BCI arguments data in CSV
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_ENABLE_BCIARG" min=1 max=300 [(ngModel)]="ndcKeywords['NDP_ENABLE_BCIARG'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Initial max concurrent flowpaths processed per JVM
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_INIT_CONCURRENT_FLOWPATHS" min=8 max=10485760 [(ngModel)]="ndcKeywords['NDP_INIT_CONCURRENT_FLOWPATHS'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Incremental number of concurrent flowpath
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_DELTA_CONCURRENT_FLOWPATHS" min=8 max=10485760 [(ngModel)]="ndcKeywords['NDP_DELTA_CONCURRENT_FLOWPATHS'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of meta data table entries.
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_META_DATA_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_META_DATA_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of BCI arguments (JSP page names)
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_BCI_ARG_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of HTTP header metadata buffer size
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_MD_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of HTTP header capture buffer size
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_HTTP_HEADER_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of exception data buffer size
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_EXCEPTION_DATA_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of flowpath table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_FLOWPATH_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of flowpath table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_APPLOG_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_APPLOG_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum entries in the buffer of flowpath table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_METHOD_TIMING_TABLE_ENTRIES'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of memory allocation table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_MEM_ALLOC_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of NDSQL table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE" min=32 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_TABLE_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of NDSQLRecord table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_SQL_RECORD_TABLE_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Size (in MB) of the ND debug log
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_DEBUG_LOGFILE_ROLLOVER_SIZE" min=1 max=102400 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGFILE_ROLLOVER_SIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Timeout (in seconds) for flushing the buffered flowpath and other tables
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_FORCE_UPLOAD_TIMEOUT" min=1 max=2592000000 [(ngModel)]="ndcKeywords['NDP_FORCE_UPLOAD_TIMEOUT'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  NDP (in seconds) to mark a flowpath dead
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SECS_TO_MARK_AN_FP_DEAD" min=0 max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_MARK_AN_FP_DEAD'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Interval (in seconds) between two consecutive hunts for any in-memory dead flowpaths.
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS" min=0 max=43200 [(ngModel)]="ndcKeywords['NDP_SECS_TO_CLEAN_DEAD_FLOWPATHS'].value"
+                    required ngModel/>
+                </div>
+                <div class="ui-grid-col-5 marginClassTop">
+                  Time (in ms) before polling the raw_data file for new incoming raw_data
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_NEW_RAW_DATA_POLL_INTERVAL" min=0 [(ngModel)]="ndcKeywords['NDP_NEW_RAW_DATA_POLL_INTERVAL'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flowpath instance in the mapping record
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_FORCE_ADD_URC_FOR_NS_FPI_IN_MAPPING_RECORD" min=0 [(ngModel)]="ndcKeywords['NDP_FORCE_ADD_URC_FOR_NS_FPI_IN_MAPPING_RECORD'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum number of method entry records in a flowpath
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flag to lower the priority of the process ndu_process_data
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_LOWER_PROCESS_PRIORITY_FLAG" min=0 [(ngModel)]="ndcKeywords['NDP_LOWER_PROCESS_PRIORITY_FLAG'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of JMS table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_BUFFERED_JMS_BUFSIZE" min=8 max=1048576 [(ngModel)]="ndcKeywords['NDP_MAX_BUFFERED_JMS_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum number of concurrent flowpath instances
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_CONCURRENT_THREADS_IN_JVM" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_CONCURRENT_THREADS_IN_JVM'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Interval (in seconds) between consecutive flushes of method timing array to CSV file.
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Disable the dumping of captured HTTP body
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_DISABLE_DUMPING_CAPTURED_HTTP_BODY'].value"
+                    required ngModel/>
+                </div>
+                <div class="ui-grid-col-5 marginClassTop">
+                  Minimum size (in bytes) of sequence blob that qualifies it to be written in sqb file
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_MIN_SIZE" min=10 max=2048 [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_IN_FILE_MIN_SIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum SQL index
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MAX_SQL_INDEX_FROM_BCI" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_SQL_INDEX_FROM_BCI'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flag whether a response will be sent to BCI on new data connection
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="SND_RESP_TO_BCI_ON_DATA_CONN" min=0 max=1 [(ngModel)]="ndcKeywords['SND_RESP_TO_BCI_ON_DATA_CONN'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Initial size (in bytes) of sequence blob compression buffer
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2048 [(ngModel)]="ndcKeywords['NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum size (in kilobytes) of buffer of sqb table entries
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="MAX_BUFFERED_SQB_BUFSIZE" min=8 max=1024000 [(ngModel)]="ndcKeywords['MAX_BUFFERED_SQB_BUFSIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Enable dumping URL record
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_DUMP_URC" min=0 [(ngModel)]="ndcKeywords['NDP_DUMP_URC'].value" required ngModel/>
+                </div>
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum time (in seconds) before data is uploaded to DB
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDDBU_IDLE_TIME" min=0 [(ngModel)]="ndcKeywords['NDDBU_IDLE_TIME'].value" required
+                    ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Time out (in seconds) for retrying the recovery of meta data entries from the database
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_META_DATA_RECOVERY_RETRY_TIMEOUT_IN_SEC" min=0 [(ngModel)]="ndcKeywords['NDP_META_DATA_RECOVERY_RETRY_TIMEOUT_IN_SEC'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Start to force smallest ID in SQL (meta data) table
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SQL_START_NORM_ID" min=0 max=2000000000 [(ngModel)]="ndcKeywords['NDP_SQL_START_NORM_ID'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flag to enable dumping of SQL timing in CSV
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_ENABLE_SQL_TIMING" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ENABLE_SQL_TIMING'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flag to enable dumping of SQL record in CSV
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_ENABLE_SQL_RECORD" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ENABLE_SQL_RECORD'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Generate URL record if mapping record is not received from BCI
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_FORCE_ADD_URC_FOR_MISSING_FP_MAPPING_RECORD" min=0 [(ngModel)]="ndcKeywords['NDP_FORCE_ADD_URC_FOR_MISSING_FP_MAPPING_RECORD'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Free flowpath minimum sequence blob size (in bytes)
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_FREE_FP_MIN_SQB_SIZE" min=0 [(ngModel)]="ndcKeywords['NDP_FREE_FP_MIN_SQB_SIZE'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Size (in bytes) of raw data to be processed at a time in NDP per instance
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_RAW_DATA_BUF_SIZE" min=0 [(ngModel)]="ndcKeywords['NDP_RAW_DATA_BUF_SIZE'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Flag to enable generation of FP signatures in NDP
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_GENERATE_FP_SIGNATURES" min=0 [(ngModel)]="ndcKeywords['NDP_GENERATE_FP_SIGNATURES'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Minimum response time to filter level 1 flowpath
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_MIN_RESPTIME_TO_FILTER_L1_FP" min=0 [(ngModel)]="ndcKeywords['NDP_MIN_RESPTIME_TO_FILTER_L1_FP'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  NDP binary format for method timing
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_BINARY_FORMAT_FOR_METHOD_TIMING" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_BINARY_FORMAT_FOR_METHOD_TIMING'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Meta data recovery
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_ENABLE_METADATA_RECOVERY" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ENABLE_METADATA_RECOVERY'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
+          <div class="ui-grid-row"> -->
+                <div class="ui-grid-col-5 marginClassTop">
+                  Enable/Disable the memory dump method to store HTTP header records
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_ALLOW_REQ_DETAIL_BEFORE_SQB_BEGIN_REC" min=0 max=1 [(ngModel)]="ndcKeywords['NDP_ALLOW_REQ_DETAIL_BEFORE_SQB_BEGIN_REC'].value"
+                    required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  NDP debug log level
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_DEBUG_LOGLEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGLEVEL'].value"
+                    required ngModel/>
+                </div>
+                <!-- </div>
             <div class="ui-grid-row"> -->
+              </div>
+              <hr>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4 marginClassTop">
+                  Enable DB call by NoSQL
+                </div>
+                <div class="ui-g-1">
+                  Redix:
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="REDIS" min=0 [(ngModel)]="REDIX" required ngModel/>
+                </div>
+                <div class="ui-grid-col-4 marginClassTop">
+                  Enable DB call by SQL
+                </div>
+                <div class="ui-g-1">
+                  JDBC:
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="JDBC" min=0 [(ngModel)]="JDBC" required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4 marginClassTop">
+                </div>
+                <div class="ui-g-1">
+                  Cassandra:
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="CASSANDRA" min=0 [(ngModel)]="CASSANDRA" required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4 marginClassTop">
+                </div>
+                <div class="ui-g-1">
+                  MongoDB:
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="MONGODB" min=0 [(ngModel)]="MONGODB" required ngModel/>
+                </div>
+              </div>
+              <hr>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4 marginClassTop">
+                  Decide whether sequence blob strings will be written to separate file
+                </div>
+                <div class="ui-g-1">
+                  Redirect to path:
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_FLAG_VAL" min=0 max=1 [(ngModel)]="NDP_SEQ_BLOB_IN_FILE_FLAG_VAL"
+                    required ngModel/>
+                </div>
 
-        </div>
-        <hr>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Limit the max number of chunks read from single instance
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_RD_INST_COUNT_AND_SKIP_MIN" min=0 [(ngModel)]="NDDBU_RD_INST_COUNT_AND_SKIP_MIN"
-              required ngModel/>
-          </div>
-          <div class="ui-grid-col-5 marginClassTop">
-            Mark instances which goes down (in ms)
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN" min=0 [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN"
-              required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop"></div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_RD_INST_COUNT_AND_SKIP_MAX" min=0 [(ngModel)]="NDDBU_RD_INST_COUNT_AND_SKIP_MAX"
-              required ngModel/>
-          </div>
-          <div class="ui-grid-col-5 marginClassTop"></div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX" min=0 [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX"
-              required ngModel/>
-          </div>
-        </div>
-        <hr>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-            Dump the NDC logs in ndc_trace.log file
-          </div>
-          <div class="ui-g-1">
-            Value:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_TRACING_LEVEL_VAL" placeholder="Value" [(ngModel)]="NDC_TRACING_LEVEL_VAL" min=0
-              max=4 required ngModel/>
-          </div>
-          <div class="ui-grid-col-4 marginClassTop">
-            Dump the NDDBU logs in ndu_db_upload.trace
-          </div>
-          <div class="ui-g-1">
-            Value:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_TRACE_LEVEL_VAL" [(ngModel)]="NDDBU_TRACE_LEVEL_VAL" min=0 max=4 required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-g-4"></div>
-          <div class="ui-g-1">
-            Size (in MB):
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_TRACING_LEVEL_SIZE" min=0 placeholder="Size" [(ngModel)]="NDC_TRACING_LEVEL_SIZE"
-              required ngModel/>
-          </div>
-          <div class="ui-g-4"></div>
-          <div class="ui-g-1">
-            Size (in MB):
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDDBU_TRACE_LEVEL_SIZE" min=0 [(ngModel)]="NDDBU_TRACE_LEVEL_SIZE" required ngModel/>
-          </div>
-        </div>
-        <hr>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-            Decide whether sequence blob strings will be written to separate file
-          </div>
-          <div class="ui-g-1">
-            Redirect to path:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_FLAG_VAL" min=0 max=1 [(ngModel)]="NDP_SEQ_BLOB_IN_FILE_FLAG_VAL" required
-              ngModel/>
-          </div>
-          <div class="ui-grid-col-4 marginClassTop">
-            Control stacktrace compression version
-          </div>
-          <div class="ui-g-1">
-            Redirect to path:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDC_HS_ST_IN_FILE_FLAG" min=0 [(ngModel)]="NDC_HS_ST_IN_FILE_FLAG_VAL" required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            Data format:
-          </div>
-          <div class="ui-grid-col-1">
-            <p-dropdown name="NDP_SEQ_BLOB_IN_FILE_FLAG_VER" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [options]="version"
-              [(ngModel)]="NDP_SEQ_BLOB_IN_FILE_FLAG_VER" required ngModel></p-dropdown>
-          </div>
-          <div class="ui-grid-col-4 marginClassTop">
-          </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4 marginClassTop">
+                </div>
+                <div class="ui-g-1">
+                  Data format:
+                </div>
+                <div class="ui-grid-col-1">
+                  <p-dropdown name="NDP_SEQ_BLOB_IN_FILE_FLAG_VER" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [options]="version"
+                    [(ngModel)]="NDP_SEQ_BLOB_IN_FILE_FLAG_VER" required ngModel></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4 marginClassTop">
+                </div>
+              </div>
 
-          <div class="ui-g-1">
-            Data format:
-          </div>
-          <div class="ui-grid-col-1">
-            <p-dropdown name="NDC_HS_ST_IN_FILE_FLAG_VER" [style]="{'width': '100%'}" scrollHeight="150px" [autoWidth]="true" [options]="version"
-              [(ngModel)]="NDC_HS_ST_IN_FILE_FLAG_VER" required ngModel></p-dropdown>
-          </div>
-        </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-4 marginClassTop"></div>
 
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop"></div>
-
-          <div class="ui-g-1">
-            Size (in MB):
+                <div class="ui-g-1">
+                  Size (in MB):
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_FLAG_SIZE" min=0 [(ngModel)]="NDP_SEQ_BLOB_IN_FILE_FLAG_SIZE"
+                    required ngModel/>
+                </div>
+              </div>
+              <hr>
+            </div>
           </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="NDP_SEQ_BLOB_IN_FILE_FLAG_SIZE" min=0 [(ngModel)]="NDP_SEQ_BLOB_IN_FILE_FLAG_SIZE"
-              required ngModel/>
+        </p-fieldset>
+        <p-fieldset legend="ND Database" [toggleable]="true" [collapsed]="true">
+          <div class="config-ui-table-margin">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Maximum number of cycles to read the data from all instances into buffer
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDDBU_NUM_CYCLES" min=0 [(ngModel)]="ndcKeywords['NDDBU_NUM_CYCLES'].value" required
+                    ngModel/>
+                </div>
+              </div>
+              <hr>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop">
+                  Limit the max number of chunks read from single instance
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDDBU_RD_INST_COUNT_AND_SKIP_MIN" min=0 [(ngModel)]="NDDBU_RD_INST_COUNT_AND_SKIP_MIN"
+                    required ngModel/>
+                </div>
+                <div class="ui-grid-col-4 marginClassTop">
+                  Dump the NDDBU logs in ndu_db_upload.trace
+                </div>
+                <div class="ui-g-1">
+                  Value:
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDDBU_TRACE_LEVEL_VAL" [(ngModel)]="NDDBU_TRACE_LEVEL_VAL" min=0 max=4 required ngModel/>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-5 marginClassTop"></div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDDBU_RD_INST_COUNT_AND_SKIP_MAX" min=0 [(ngModel)]="NDDBU_RD_INST_COUNT_AND_SKIP_MAX"
+                    required ngModel/>
+                </div>
+                <div class="ui-g-4"></div>
+                <div class="ui-g-1">
+                  Size (in MB):
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDDBU_TRACE_LEVEL_SIZE" min=0 [(ngModel)]="NDDBU_TRACE_LEVEL_SIZE" required ngModel/>
+                </div>
+              </div>
+              <hr>
+            </div>
           </div>
-
-        </div>
-        <hr>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-            Enable DB call by
-          </div>
-          <div class="ui-g-1">
-            JDBC:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="JDBC" min=0 [(ngModel)]="JDBC" required ngModel/>
-          </div>
-          <div class="ui-grid-col-4 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            Redix:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="REDIX" min=0 [(ngModel)]="REDIX" required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            MongoDB:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="MONGODB" min=0 [(ngModel)]="MONGODB" required ngModel/>
-          </div>
-          <div class="ui-grid-col-4 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            Cassandra:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="CASSCENDRA" min=0 [(ngModel)]="CASSCENDRA" required ngModel/>
-          </div>
-        </div>
-        <hr>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-5 marginClassTop">
-            Path for creating temporary files by ND DB loader
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" name="NDDBU_TMP_FILE_PATH" [(ngModel)]="ndcKeywords['NDDBU_TMP_FILE_PATH'].value" required
-              ngModel/>
-          </div>
-        </div>
-        <hr>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-            Set FPI mask
-          </div>
-          <div class="ui-g-1">
-            NDE ID:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="ndeId1" min=0 [(ngModel)]="ndeId1" required ngModel/>
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="ndeId2" min=0 [(ngModel)]="ndeId2" required ngModel/>
-          </div>
-          <div class="ui-grid-col-2 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            App ID:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="appId1" min=0 [(ngModel)]="appId1" required ngModel/>
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="appId2" min=0 [(ngModel)]="appId2" required ngModel/>
-          </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            Timestamp:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="timestamp1" [(ngModel)]="timestamp1" min=0 required ngModel/>
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="timestamp2" [(ngModel)]="timestamp2" min=0 required ngModel/>
-          </div>
-          <div class="ui-grid-col-2 marginClassTop">
-          </div>
-          <div class="ui-g-1">
-            Sequence No.:
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="seqNo1" [(ngModel)]="seqNo1" min=0 required ngModel/>
-          </div>
-          <div class="ui-grid-col-1">
-            <input pInputText type="number" name="seqNo2" [(ngModel)]="seqNo2" min=0 required ngModel/>
-          </div>
-        </div>
+        </p-fieldset>
       </div>
     </div>
   </div>

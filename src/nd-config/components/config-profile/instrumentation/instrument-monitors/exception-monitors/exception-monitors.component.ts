@@ -43,7 +43,7 @@ export class ExceptionMonitorsComponent implements OnInit {
   selectedValues: boolean;
   keywordValue: Object;
   /** To open file explorer dialog */
-  openFileExplorerDialog: boolean = false; 
+  openFileExplorerDialog: boolean = false;
   isExceptioMonitorBrowse: boolean = false;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
@@ -53,7 +53,7 @@ export class ExceptionMonitorsComponent implements OnInit {
     if (this.configKeywordsService.keywordData != undefined) {
       this.keywordValue = this.configKeywordsService.keywordData;
       let config = {
-        'configkeyword' : this.keywordValue
+        'configkeyword': this.keywordValue
       }
       sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
@@ -100,11 +100,11 @@ export class ExceptionMonitorsComponent implements OnInit {
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
       let config = {
-        'configkeyword' : this.configKeywordsService.keywordData
+        'configkeyword': this.configKeywordsService.keywordData
       }
       sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
-   //this.configKeywordsService.saveProfileKeywords(this.profileId);
+    //this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
       if (this.selectedValues == false) {
         filePath = "NA";
@@ -293,32 +293,31 @@ export class ExceptionMonitorsComponent implements OnInit {
     return -1;
   }
 
- /**used to open file manager
-  */
+  /**used to open file manager
+   */
   openFileManager() {
-    
-        this.openFileExplorerDialog = true;
-        this.isExceptioMonitorBrowse = true;
-    
-      }
+
+    this.openFileExplorerDialog = true;
+    this.isExceptioMonitorBrowse = true;
+
+  }
 
   /** This method is called form ProductUI config-nd-file-explorer component with the path
  ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
 
   /* dialog window & set relative path */
   uploadFile(filepath) {
-   let  str : string;
-   let str1:string;
-   str=filepath.substring(filepath.lastIndexOf("/"),filepath.length)
-   str1=str.substring(str.lastIndexOf("."),str.length);
-   if(!(str1==".txt")){
-    this.configUtilityService.errorMessage("Extension(s) other than .txt are not supported");
-    return
-   }
     if (this.isExceptioMonitorBrowse == true) {
       this.isExceptioMonitorBrowse = false;
       this.openFileExplorerDialog = false;
-      
+      let str: string;
+      let str1: string;
+      str = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+      str1 = str.substring(str.lastIndexOf("."), str.length);
+      if (!(str1 == ".txt")) {
+        this.configUtilityService.errorMessage("Extension(s) other than .txt are not supported");
+        return
+      }
       if (filepath.includes(";")) {
         this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
         return;
@@ -326,13 +325,13 @@ export class ExceptionMonitorsComponent implements OnInit {
       console.log("before hitting service")
       this.configKeywordsService.uploadExceptionMonitorFile(filepath, this.profileId).subscribe(data => {
         if (data.length == this.exceptionMonitorData.length) {
-         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-         return;
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
         }
-        this.exceptionMonitorData=data;
+        this.exceptionMonitorData = data;
         // this.exceptionMonitorData = ImmutableArray.push(this.exceptionMonitorData, data);
         this.configUtilityService.successMessage("File uploaded successfully");
-       });
+      });
     }
   }
 }
