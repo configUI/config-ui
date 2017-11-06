@@ -692,6 +692,10 @@ a {
     border: 1px solid #c0c0c0;
     margin-bottom: 3px;
 }
+.pattern-dialog-border .ui-inputtext {
+    padding: 0em;
+    transition: unset;
+}
 
 
 /* config-profile-list.components.css */
