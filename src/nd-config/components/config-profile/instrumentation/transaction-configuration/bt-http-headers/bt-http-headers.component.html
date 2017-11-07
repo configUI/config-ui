@@ -104,14 +104,14 @@
 
 <!--Dialog to add Request header-->
 <p-dialog class="profile-dialog" header="{{isNewCond ? 'Add request header condition' : 'Edit request header condition'}}"
-    modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="400" responsive="true" [resizable]="false">
+    modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="500" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label>Operation</label>
                 </div>
-                <div class="ui-g-3">
+                <div class="ui-g-8" style="margin-top: -5px">
                     <input name="type" type="text" class='hidden-validator config_align_dialog' pInputText [(ngModel)]="headerConditionDetail.operation"
                         required ngModel/>
                     <p-dropdown name="operationName" [options]="operationName" [style]="{'width': '177px'}" [(ngModel)]="headerConditionDetail.operation" placeholder="--Select--"></p-dropdown>
@@ -121,7 +121,7 @@
                 <div class="ui-g-4">
                     <label>BT name</label>
                 </div>
-	 <div class="ui-g-3">
+	 <div class="ui-g-4" style="margin-top: -5px">
                     <input name="btname" type="text" class="config_align_dialog" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                </div>
@@ -130,7 +130,7 @@
                 <div class="ui-g-4">
                     <label>Pattern</label>
                 </div>
-                <div class="ui-g-3">
+                <div class="ui-g-8" style="margin-top: -5px">
                     <input name="hdrValue" type="text" class="config_align_dialog" pattern="[a-zA-Z0-9-%_./&]*" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
                         pInputText required ngModel/>
                 </div>
