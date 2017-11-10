@@ -84,7 +84,7 @@
 </p-dialog>
 
 <!-- Adding Node Dialog -->
-<p-dialog [header]="addDialogHeader" [(visible)]="addNodeDialog" [width]="450" [resizable]="false">
+<p-dialog class="profile-dialog" [header]="addDialogHeader" [(visible)]="addNodeDialog" [width]="450" [resizable]="false">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
             <div class="ui-grid-col-4" style="padding-top:5px">
@@ -94,7 +94,8 @@
                 <input type="text" pInputText [(ngModel)]="nodeLabel" />
             </div>
         </div>
-	<div class="ui-grid-row" align="center" style="margin-top:5px;margin-bottom:5px;margin-left: 26%;">
+	<div class="ui-grid-row" style="margin-top:5px;margin-bottom:5px;margin-right: 8.5%;margin-left: 15%;">
+	    <div class="ui-grid-col-6"></div>
             <div class="ui-grid-col-3">
                 <button class="ui-button-info" id="disabled-btn" type="button" (click)="addXMLNodeToTree()" pButton label="OK"></button>
             </div>
