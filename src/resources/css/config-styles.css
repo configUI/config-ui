@@ -207,9 +207,9 @@
 .tabs-all .ui-tabview.ui-tabview-top>.ui-tabview-nav {
     padding: 0;
 }
-.tabs-all .ui-widget-header {
+/* .tabs-all .ui-widget-header {
     padding: 4px;
-}
+} */
 
 .tabs-all .ui-g {
     padding: 5px;
@@ -971,4 +971,10 @@ body {
 }
 .instrprof .ndegui-mainbox {
     height:500px;
+}
+.tabs-all .ui-panel .ui-panel-content {
+    background: #fff;
+    overflow-y: auto;
+    max-height: 400px;
+    padding-top: 0px;
 }

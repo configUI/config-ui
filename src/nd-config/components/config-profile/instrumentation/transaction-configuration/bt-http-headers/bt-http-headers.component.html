@@ -104,7 +104,7 @@
 
 <!--Dialog to add Request header-->
 <p-dialog class="profile-dialog" header="{{isNewCond ? 'Add request header condition' : 'Edit request header condition'}}"
-    modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="500" responsive="true" [resizable]="false">
+    modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="400" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

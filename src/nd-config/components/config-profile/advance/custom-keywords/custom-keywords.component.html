@@ -1,7 +1,7 @@
 <div id=top-div>
     <p-dataTable class="nde-ui config-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
         <p-header>
-            <span class="configui-float-css">Custom configuration list </span>
+            <span class="configui-float-css">Custom Configuration list </span>
             <span class="configui-float">
             <button pButton type="button" title="Add Custom configuration" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit Custom configuration" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
@@ -92,7 +92,7 @@
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss " [resizable]="false " header="File manager " *ngIf="openFileExplorerDialog " [(visible)]="openFileExplorerDialog " modal="modal " width="650 " responsive="true ">
+<p-dialog class="profile-dialog browseTopCss " [resizable]="false " header="File Manager " *ngIf="openFileExplorerDialog " [(visible)]="openFileExplorerDialog " modal="modal " width="650 " responsive="true ">
 
     <!-- This will look for this component in the ProductUI at this path -
          ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
