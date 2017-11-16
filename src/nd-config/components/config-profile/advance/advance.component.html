@@ -1,4 +1,4 @@
-<div class='tabs-all'>
+<div class='tabs-all' *ngIf="agentType == 'Java' || agentType == '-'">
     <p-tabView (onChange)="handleChange($event)">
         <p-tabPanel header="Debug level"*ngIf="isUserMode" [selected]="index == 0">
             <app-debug *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-debug>
@@ -17,6 +17,20 @@
         </p-tabPanel>
     </p-tabView>
 </div>
+
+<div class='tabs-all' *ngIf="agentType != 'Java' && agentType != '-'">
+        <p-tabView (onChange)="handleChange($event)">
+            <p-tabPanel header="Debug level"*ngIf="isUserMode" [selected]="index == 0">
+                <app-debug *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-debug>
+            </p-tabPanel>
+            <p-tabPanel header="Monitors" *ngIf="isUserMode" [selected]="index == 1">
+                <app-monitors *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
+            </p-tabPanel>
+            <p-tabPanel header="Custom configuration" *ngIf="adminMode" [selected]="index == 2">
+                <app-custom-keywords *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-keywords>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
 
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
 width="500" responsive="true">
