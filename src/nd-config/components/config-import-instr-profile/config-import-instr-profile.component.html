@@ -1,86 +1,101 @@
 <div class="ui-g ndegui-mainbox">
     <div class="ui-g-12">
-        <div class="ui-g-5">
-            <div class="ui-g-4 label">
-                <label>Import file</label>
-            </div>
-            <div class="ui-g-4">
-                <button pButton type="button" title="Browse" label="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
-            </div>
+      <div class="ui-g-5">
+        <div class="ui-g-4 label">
+          <label>Agent Type</label>
         </div>
+        <div class="ui-g-4">
+          <p-dropdown [options]="agent" name="agent" [style]="{'width':'100%'}" [(ngModel)]="selectedAgent" placeholder="--Select--"
+            (ngModelChange)="getAgentSpecificFiles($event)"></p-dropdown>
+        </div>
+      </div>
     </div>
-    <div class="ui-g-12">
-        <div class="ui-g-10">
-            <div class="ui-g-2 label">
-                <label>Instrumentation Profile</label>
-            </div>
-            <div class="ui-g-3">
-                <p-dropdown [options]="profileXMLFileList" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile" placeholder="--Select--" filter="filter" class="instrprofmaker autosearchfield"></p-dropdown>
-            </div>
-            <div class="ui-g-1" style="width: 7%;margin-left:10px">
-                <button pButton type="button" label="View" icon="fa-eye" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
-            </div>
-            <div class="ui-g-1" style="width: 8%;">
-                <button pButton type="button" label="Create" icon="fa-plus" (click)="createXMLInstrumentationFile()" title="Create"></button>
-            </div>
-            <div class="ui-g-1" style="width: 6.5%;">
-                <button pButton type="button" label="Edit" icon="fa-pencil" (click)="editSelectedXMLFile()" title="Edit Selected XML File"></button>
-            </div>
-            <div class="ui-g-1" style="width: 8%;">
-                <button pButton type="button" label="Delete" icon="fa-trash" (click)="deleteSelectedXMLFile()" title="Delete Selected XML File"></button>
-            </div>
-            <div class="ui-g-1" style="width: 6%;">
-                <button pButton type="button" label="Clear" icon="fa-eraser" (click)="clearWindow()" title="Clear all data from window"></button>
-            </div>
-        </div>
+  <div class="ui-g-12">
+    <div class="ui-g-5">
+      <div class="ui-g-4 label">
+        <label>Import file</label>
+      </div>
+      <div class="ui-g-4">
+        <button pButton type="button" title="Browse" label="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-10">
+      <div class="ui-g-2 label">
+        <label>Instrumentation Profile</label>
+      </div>
+      <div class="ui-g-3">
+        <p-dropdown [options]="profileXMLFileList" [disabled]="selectedAgent==''" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile"
+          placeholder="--Select--" filter="filter" class="instrprofmaker autosearchfield"></p-dropdown>
+      </div>
+      <div class="ui-g-1" style="width: 7%;margin-left:10px">
+        <button pButton type="button" label="View" icon="fa-eye" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
+      </div>
+      <div class="ui-g-1" style="width: 8%;" *ngIf="selectedAgent=='Java'">
+        <button pButton type="button" label="Create" icon="fa-plus" (click)="createXMLInstrumentationFile()" title="Create"></button>
+      </div>
+      <div class="ui-g-1" style="width: 6.5%;" *ngIf="selectedAgent=='Java'">
+        <button pButton type="button" label="Edit" icon="fa-pencil" (click)="editSelectedXMLFile()" title="Edit Selected XML File"></button>
+      </div>
+      <div class="ui-g-1" style="width: 8%;" *ngIf="selectedAgent=='Java'">
+        <button pButton type="button" label="Delete" icon="fa-trash" (click)="deleteSelectedXMLFile()" title="Delete Selected XML File"></button>
+      </div>
+      <div class="ui-g-1" style="width: 6%;">
+        <button pButton type="button" label="Clear" icon="fa-eraser" (click)="clearWindow()" title="Clear all data from window"></button>
+      </div>
+    </div>
 
+  </div>
+  <div class="ui-g-12">
+    <div *ngIf="!editXMLFile && !createXMLInstrumentation">
+      <!--<textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>-->
+      <div class="config_textarea instrprofileview instrprofiletxtarea" id="xmlContentDiv">
+        <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="xmlFormat"></code></pre>
+      </div>
     </div>
-    <div class="ui-g-12">
-        <div *ngIf="!editXMLFile && !createXMLInstrumentation">
-            <!--<textarea pInputTextarea class="config_textarea" [(ngModel)]="xmlFormat" disabled></textarea>-->
-	    <div class="config_textarea instrprofileview instrprofiletxtarea" id="xmlContentDiv">
-                <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="xmlFormat"></code></pre>
-            </div>
+    <div *ngIf="editXMLFile && !createXMLInstrumentation" class="instrprofscroll instrprofileheaderhght">
+      <p-panel header="Edit XML">
+        <div class="ui-g-12 instrprofiletxtarea">
+          <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)"
+            [style]="{'height':'370px','width':'98.5%'}"></p-tree>
         </div>
-        <div *ngIf="editXMLFile && !createXMLInstrumentation" class="instrprofscroll instrprofileheaderhght">
-            <p-panel header="Edit XML">
-                <div class="ui-g-12 instrprofiletxtarea">
-                <p-tree [value]="parsedXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, false)"
-                    [style]="{'height':'370px','width':'98.5%'}"></p-tree>
-                </div>
-                <div class="ui-g-12">
-                    <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(false)"></button>
-                    <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(false)"></button>
-                    <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(false)" label="Save" style="float: right;"></button>
-                </div>
-                <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
-            </p-panel>
+        <div class="ui-g-12">
+          <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(false)"></button>
+          <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(false)"></button>
+          <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(false)" label="Save" style="float: right;"></button>
         </div>
-        <div *ngIf="createXMLInstrumentation" #createPanel class="instrprofscroll instrprofileheaderhght">
-            <p-panel header="Create XML">
-                <div class="ui-g-12 instrprofiletxtarea">
-                <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)"
-                    [style]="{'height':'370px','width':'98.5%'}"></p-tree>
-                </div>
-                <div class="ui-g-12">
-                    <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(true)"></button>
-                    <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(true)"></button>
-                    <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(true)" label="Save" style="float: right;"></button>
-                    <span style="float: right; padding-right: 5px">Enter File Name <input type="text" pInputText (keydown.dot)="$event.preventDefault()" [(ngModel)]="saveXMLFileName"/></span>
-                </div>
-                <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
-            </p-panel>
-        </div>
+        <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
+      </p-panel>
     </div>
+    <div *ngIf="createXMLInstrumentation" #createPanel class="instrprofscroll instrprofileheaderhght">
+      <p-panel header="Create XML">
+        <div class="ui-g-12 instrprofiletxtarea">
+          <p-tree [value]="createXMLData" selectionMode="single" [(selection)]="selectedNode" [contextMenu]="cm" (onNodeContextMenuSelect)="nodeSelect($event, true)"
+            [style]="{'height':'370px','width':'98.5%'}"></p-tree>
+        </div>
+        <div class="ui-g-12">
+          <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(true)"></button>
+          <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(true)"></button>
+          <button pButton type="button" title="Save" icon="fa-floppy-o" (click)="saveModifiedXMLNodes(true)" label="Save" style="float: right;"></button>
+          <span style="float: right; padding-right: 5px">Enter File Name
+            <input type="text" pInputText (keydown.dot)="$event.preventDefault()" [(ngModel)]="saveXMLFileName"
+            />
+          </span>
+        </div>
+        <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
+      </p-panel>
+    </div>
+  </div>
 </div>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss ui-widget-header browser-color" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+<p-dialog class="profile-dialog browseTopCss ui-widget-header browser-color" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
     modal="modal" width="650" responsive="true" [resizable]="false">
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+  <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
 
 <!-- Adding Node Dialog -->

@@ -2612,7 +2612,7 @@ div.section .ui-dropdown .ui-dropdown-label {
   background: #505050; }
 
 .ndegui-mainbox {
-  background: rgba(2, 2, 2, 0.65); }
+  background: rgba(255, 255, 255, 0.6); }
 
 .dashboard-lower-section .ui-widget-content .ui-state-highlight {
   background: #666; }
@@ -2680,7 +2680,8 @@ app-alert-home .ui-widget-content .history-table-row-odd {
   border: 1px solid #b9b9b9; }
 
 .ndagent .ui-accordion .ui-accordion-header {
-  background: #282828; }
+  background: #282828;
+  color: #fff; }
 
 app-alert-home .ui-widget-content .history-table-double-selected-row {
   background: #000; }
@@ -3003,7 +3004,11 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
 
 /*--------ProductUI widget Header backgrounds----------*/
 .handle {
-  background: #151515; }
+  background: #151515;
+  color: #fff; }
+
+.header {
+  color: #fff; }
 
 .handle.alertHeader {
   background: #151515;
@@ -3081,3 +3086,21 @@ button.capabilityButton.mat-raised-button {
 
 .compotable .ui-datatable .ui-datatable-data tr.ui-state-hover, .ui-datatable .ui-datatable-data tr.ui-state-highlight {
   border-color: #462f12; }
+
+  .dotnet-color{
+    color: blue;
+  }
+  
+  .java-color{
+   color:  rgba(255, 68, 0, 0.596);
+  }
+  
+  .nodejs-color{
+    color: green;
+  }
+/* -------------------------- ProductUICSS ------------------*/
+.cardTitleClass {
+  color: #fff; }
+
+.mat-card-subtitle {
+  color: #282828; }

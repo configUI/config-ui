@@ -21,8 +21,10 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   subscriptionKeywordGroup: Subscription;
 
   adminMode: boolean;
+  agentType: string = "";
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configHomeService: ConfigHomeService, private store: Store<KeywordList>) {
+    this.agentType = sessionStorage.getItem("agentType");    
       //Initialize groupkeyword values
       this.keywordGroup = this.configKeywordsService.keywordGroup;
   }

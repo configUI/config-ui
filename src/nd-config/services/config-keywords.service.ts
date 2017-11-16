@@ -236,8 +236,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_EXCEPTION_MONITOR_FILE}/${profileId}`, filePath);
 }
 
-  getListOfXmlFiles(profileId): Observable<string[]> {
-    return this._restApi.getDataByGetReq(URL.GET_INSTR_PROFILE_LIST);
+  getListOfXmlFiles(profileId, agentType): Observable<string[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_INSTR_PROFILE_LIST}/${agentType}`);
   }
 
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
@@ -505,8 +505,8 @@ export class ConfigKeywordsService {
   }
 
   /*this method is used for get all xml files for a particular path*/
-  getInstrumentationProfileXMLFileList() {
-    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}`);
+  getInstrumentationProfileXMLFileList(agent) {
+    return this._restApi.getDataByGetReq(`${URL.GET_XML_INSTRUMENT_PROFILE}/${agent}`);
   }
 
   /*this method is used for get selected xml instrumnetation profile in xml format*/

@@ -4,4 +4,5 @@ export class ProfileData {
     parentProfileId:number = 1;
     profileId:number;
     userName : string;
+    agent: string = "Java"
 }

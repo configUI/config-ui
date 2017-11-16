@@ -8,7 +8,7 @@
     <p-dataTable class="nde-ui toggleChk" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-        <p-column *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
+        <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
             <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
           <a class="hyperlink" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
         </template>

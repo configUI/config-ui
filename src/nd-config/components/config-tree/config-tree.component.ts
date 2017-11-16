@@ -98,7 +98,7 @@ export class ConfigTreeComponent implements OnInit {
   loadNode(event) {
     console.log("ConfigTreeComponent", "constructor", "event.node", event.node);
     if (event.node.data == "Topology") {
-      let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label }
+      let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
       this.nodeId = event.node.id;
       //This is done showing and hiding leaf icon on the basis of auto scaling
       for(var i = 0 ; i < event.node.children.length ; i++)
@@ -114,13 +114,13 @@ export class ConfigTreeComponent implements OnInit {
     else if (this.enableAutoScaling && event.node.data == "Tier") {
       if (event.node.leaf != true) {
         this.configTopologyService.getTierTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
-        let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label }
+        let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
         this.getTableData.emit({ data })
       }
     }
     else if (this.enableAutoScaling && event.node.data == "Server") {
       this.configTopologyService.getServerTreeDetail(event.node.id, event.node.profileId).subscribe(nodes => this.createChildTreeData(nodes, event));
-      let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id, nodeLabel: event.node.label }
+      let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
       this.getTableData.emit({ data })
     }
   }

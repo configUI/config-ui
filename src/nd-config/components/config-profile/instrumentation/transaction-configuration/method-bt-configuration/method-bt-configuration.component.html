@@ -1,7 +1,7 @@
 <!--For showing Business Transaction Pattern(s) list -->
 <p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Method Business transaction list </span>
+        <span style="float: left"> Method Business Transaction list </span>
         <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Add a method Business transaction" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a method Business transaction " [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
@@ -133,7 +133,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add return type settings' :'Edit return type settings'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="400" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

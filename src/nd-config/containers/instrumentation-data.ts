@@ -200,6 +200,9 @@ export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
     urlName: string;
     verySlowTransaction: string;
     reqParamKeyVal : string;
+    slowDynamicThreshold: string;
+    verySlowDynamicThreshold: string;
+    agent: string;
 
 }
 
@@ -218,6 +221,8 @@ export class BusinessTransGlobalData {
     slowTransaction: string;
     verySlowTransaction: string;
     uriType: string;
+    slowDynamicThreshold: string;
+    verySlowDynamicThreshold: string;
 }
 
 export class SessionAtrributeComponentsData {

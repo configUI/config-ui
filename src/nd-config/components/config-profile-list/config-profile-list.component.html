@@ -13,7 +13,15 @@
       <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
       <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
         <template let-col let-profile="rowData" pTemplate>
-          <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile)" >{{profile[col.field]}}</a></span>
+          <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
+        </template>
+      </p-column>
+      <p-column class="tableCss" field="agent" header="Agent" [sortable]="true" [style]="{'width':'11%'}">
+        <template class="tableCss" let-col let-profile="rowData" pTemplate>
+          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Java'"><i class="icon ndegui-java java-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == '-'">{{profile[col.field]}}</span>              
         </template>
       </p-column>
       <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
@@ -51,6 +59,15 @@
       <div class="ui-g-8">
         <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.parentProfileId"
           placeholder="Select a Profile to be copied"></p-dropdown>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4">
+        <label>Agent</label>
+      </div>
+      <div class="ui-g-8">
+        <p-dropdown [options]="agentList" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.agent"
+          placeholder="Select an agent"></p-dropdown>
       </div>
     </div>
     <div class="ui-g">

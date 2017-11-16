@@ -1,6 +1,6 @@
 <form (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
   <div class="tabsincontent">
-    <div class="header">Instrumentation profiles
+    <div class="header">Instrumentation Profiles
       <div class="pull-right">
         <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
         <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
@@ -21,7 +21,7 @@
           <div class="ui-g-5">
 
             <!--<input name="multiSelect" type="text" size="50" class='hidden-validator' pInputText [(ngModel)]="instrProfiles" required ngModel/>-->
-            <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" (click)="loadListOfXmldata()" [(ngModel)]="instrProfiles" required ngModel></p-multiSelect>
+            <p-multiSelect name="instrProfiles" [options]="instrProfileSelectItem" [(ngModel)]="instrProfiles" required ngModel></p-multiSelect>
           </div>
          <div class="ui-g-1">
             <button type="button" pButton icon="fa-folder-open" (click)="openFileManager()" label="Browse"></button>
@@ -33,7 +33,7 @@
   </div>
 </form>
 <!--Dialog to open file explorer dialog -->
-<p-dialog  class="profile-dialog browseTopCss headerCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
+<p-dialog  class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
   
       <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->

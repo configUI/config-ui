@@ -1,96 +1,154 @@
 <form *ngIf="debug" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-    <div class="tabsincontent">
-        <div class="header">Debug level capturing settings
-            <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
+  <div class="tabsincontent">
+    <div class="header">Debug Level Capturing settings
+      <div class="pull-right">
+        <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+        <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
+      </div>
+    </div>
+    <p-panel class="hideheader">
+
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'Java' || agentType == '-'">
+
+        <div class="ui-g">
+
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3">
+              <label>Set agent debug logging to </label>
             </div>
+
+            <div class="ui-g-3">
+              <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}}
+                max={{debug.enableBciDebug.max}} class="configui-debug-css-2" required ngModel>
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3">
+              <label>Set agent error logging to</label>
+            </div>
+
+            <div class="ui-g-3">
+              <input type="number" name="enableBciError" [(ngModel)]="debug.enableBciError.value" min={{debug.enableBciError.min}} max={{debug.enableBciError.max}}
+                class="configui-debug-css-2" required ngModel>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+
+            <div class="ui-g-3">
+              <label>Set instrumentation trace logging level to</label>
+            </div>
+
+            <div class="ui-g-3">
+              <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}}
+                class="configui-debug-css-2" required ngModel>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3">
+              <label>Filter threads whose stack trace is less than</label>
+            </div>
+            <div class="ui-g-1">
+              <input name="depthDebug" type="number" [(ngModel)]="debug.ASDepthFilter.value" min={{debug.ASDepthFilter.min}} max={{debug.ASDepthFilter.max}}
+                class="configui-debug-css-2" required ngModel />
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3">
+              <label>Set method monitor trace logging level to</label>
+            </div>
+            <div class="ui-g-3">
+              <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
+                max={{debug.ndMethodMonTraceLevel.max}} class="configui-debug-css-2" required ngModel>
+            </div>
+          </div>
         </div>
-        <p-panel class="hideheader">
 
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
+        <div class="ui-g-12">
+          <div class="ui-g-1"></div>
+          <div class="ui-g-3">
+            <label class="configui-debug-css-3">Error logs capturing</label>
+          </div>
+          <div class="ui-g-1">
+            <p-radioButton name="captureErrorlogs" value="0" label="Disable" [(ngModel)]="debug.captureErrorLogs.value"></p-radioButton>
+          </div>
+          <div class="ui-g-1 configui-debug-css-4">
+            <p-radioButton name="captureErrorlogs" value="1" [(ngModel)]="debug.captureErrorLogs.value"></p-radioButton>
+          </div>
+          <div class="ui-g-3">
+            <label>Enable capturing error messages by throwable object only</label>
+          </div>
 
+          <div class="ui-g-1 configui-debug-css-4">
+            <p-radioButton name="captureErrorlogs" value="2" [(ngModel)]="debug.captureErrorLogs.value"></p-radioButton>
+          </div>
+          <div class="ui-g-3">
+            <label>Enable capturing error messages by throwable object and error logs both</label>
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'NodeJS'">
+
+        <div class="ui-g">
+
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3">
+              <label>Set agent debug logging to </label>
+            </div>
+
+            <div class="ui-g-3">
+              <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}}
+                max={{debug.enableBciDebug.max}} class="configui-debug-css-2" required ngModel>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-1"></div>
+            <div class="ui-g-3">
+              <label>Set method monitor trace logging level to</label>
+            </div>
+            <div class="ui-g-3">
+              <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
+                max={{debug.ndMethodMonTraceLevel.max}} class="configui-debug-css-2" required ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'Dot Net'">
                 <div class="ui-g">
-
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <label>Set agent debug logging to </label>
-                        </div>
-
-                        <div class="ui-g-3">
-                            <input type="number" size='20' name="enableBciDebug" [(ngModel)]="debug.enableBciDebug.value" min={{debug.enableBciDebug.min}} max={{debug.enableBciDebug.max}} class="configui-debug-css-2" required ngModel>
-                        </div>
+                  <div class="ui-g-12">
+                    <div class="ui-g-1"></div>
+        
+                    <div class="ui-g-3">
+                      <label>Set instrumentation trace logging level to</label>
                     </div>
-
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <label>Set agent error logging to</label>
-                        </div>
-
-                        <div class="ui-g-3">
-                            <input type="number" name="enableBciError" [(ngModel)]="debug.enableBciError.value" min={{debug.enableBciError.min}} max={{debug.enableBciError.max}} class="configui-debug-css-2" required ngModel>
-                        </div>
+                    <div class="ui-g-3">
+                      <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}}
+                        class="configui-debug-css-2" required ngModel>
                     </div>
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-
-                        <div class="ui-g-3">
-                            <label>Set instrumentation trace logging level to</label>
-                        </div>
-
-                        <div class="ui-g-3">
-                            <input type="number" name="InstrTraceLevel" [(ngModel)]="debug.InstrTraceLevel.value" min={{debug.InstrTraceLevel.min}} max={{debug.InstrTraceLevel.max}} class="configui-debug-css-2" required ngModel>
-                        </div>
-                    </div>
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <label>Filter threads whose stack trace is less than</label>
-                        </div>
-                        <div class="ui-g-1">
-                            <input name="depthDebug" type="number" [(ngModel)]="debug.ASDepthFilter.value" min={{debug.ASDepthFilter.min}} max={{debug.ASDepthFilter.max}} class="configui-debug-css-2" required ngModel />
-                        </div>
-                    </div>
-
-                    <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <label>Set method monitor trace logging level to</label>
-                        </div>
-                        <div class="ui-g-3">
-                            <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}} max={{debug.ndMethodMonTraceLevel.max}} class="configui-debug-css-2" required ngModel>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ui-g-12">
+                  </div>
+                  <div class="ui-g-12">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <label class="configui-debug-css-3">Error logs capturing</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <p-radioButton name="captureErrorlogs" value="0" label="Disable" [(ngModel)]="debug.captureErrorLogs.value"></p-radioButton>
-                    </div>
-                    <div class="ui-g-1 configui-debug-css-4">
-                        <p-radioButton name="captureErrorlogs" value="1" [(ngModel)]="debug.captureErrorLogs.value"></p-radioButton>
+                      <label>Set method monitor trace logging level to</label>
                     </div>
                     <div class="ui-g-3">
-                        <label>Enable capturing error messages by throwable object only</label>
+                      <input type="number" name="ndMethodMonTraceLevel" [(ngModel)]="debug.ndMethodMonTraceLevel.value" min={{debug.ndMethodMonTraceLevel.min}}
+                        max={{debug.ndMethodMonTraceLevel.max}} class="configui-debug-css-2" required ngModel>
                     </div>
-
-                    <div class="ui-g-1 configui-debug-css-4">
-                        <p-radioButton name="captureErrorlogs" value="2" [(ngModel)]="debug.captureErrorLogs.value"></p-radioButton>
-                    </div>
-                    <div class="ui-g-3">
-                        <label>Enable capturing error messages by throwable object and error logs both</label>
-                    </div>
-
-
+                  </div>
                 </div>
-
-            </div>
-        </p-panel>
-    </div>
+              </div>
+    </p-panel>
+  </div>
 </form>

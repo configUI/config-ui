@@ -50,6 +50,7 @@ export class ConfigApplicationListComponent implements OnInit {
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
+    sessionStorage.setItem("agentType", "");
     this.loadApplicationData();
     // this.loadTopologyData();
   }

@@ -1186,6 +1186,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 12px;
+  font-weight: 400;
   background: url(images/3.jpg) center repeat fixed #000; }
 
 /*----------------Themeing CSS------------------*/
@@ -2590,7 +2591,7 @@ div.section label {
   color: #000; }
 
 .ndegui-mainbox {
-  background: rgba(255, 255, 255, 0); }
+  background: rgba(255, 255, 255, 0.6); }
 
 .dashboard-lower-section .ui-widget-content .ui-state-highlight {
   background: #6dad95; }
@@ -2661,7 +2662,8 @@ app-alert-home .ui-widget-content .history-table-row-odd {
   color: #fff; }
 
 .ndagent .ui-accordion .ui-accordion-header {
-  background: #245e50; }
+  background: #245e50;
+  color: #c2f3e2; }
 
 .favParamBtn {
   color: #FFFFFF;
@@ -2901,7 +2903,11 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
 
 /*--------ProductUI widget Header backgrounds----------*/
 .handle {
-  background: #021912; }
+  background: #021912;
+  color: #fff; }
+
+.header {
+  color: #fff; }
 
 .handle.alertHeader {
   background: #021912;
@@ -2991,3 +2997,28 @@ button.capabilityButton.mat-raised-button {
 .compotable .ui-datatable th.ui-state-default {
   background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
   color: white; }
+
+  .dotnet-color{
+    color: blue;
+  }
+  
+  .java-color{
+   color: rgba(255, 68, 0, 0.596);
+  }
+  
+  .nodejs-color{
+    color: green;
+  }
+/*------------------ND CONFIG UI----------------*/
+.header-button {
+  background: #021912; }
+
+/* -------------------------- ProductUICSS ------------------*/
+.cardTitleClass {
+  color: #fff; }
+
+.mat-card-subtitle {
+  color: #282828; }
+
+md-card-subtitle.dashboard-data-widget-subtitle.mat-card-subtitle {
+  color: #bcf3de; }

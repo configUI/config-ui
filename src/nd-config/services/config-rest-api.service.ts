@@ -68,6 +68,26 @@ export class ConfigRestApiService {
       .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
   }
 
+  getDataByPostReqWithNoJSON(url: string, body?: any): Observable<any> {
+    // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+    if(body == undefined)
+      body = {};
+    let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });// Create a request option
+    
+    console.info(this.className, "getDataByPostReq", "URL", url, "Body", body);
+
+    return this.http.post(url, body, options) // ...using post request
+      // ...and calling .json() on the response to return data
+      .map((res: Response) => {
+        this.configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        return res;
+      })
+      //...errors if any
+      .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
+  }
+
   getDataByPutReq(url: string, body?: Object): Observable<any> {
     // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON

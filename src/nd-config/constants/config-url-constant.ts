@@ -1,12 +1,12 @@
 
 
- // const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+ //const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
- // const  SERVICE_URL = 'http://localhost:8090';
+// const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
-const SERVICE_URL = '/configUI';
+ const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
 //export const ROUTING_PATH: string = "";
@@ -46,6 +46,7 @@ export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelis
 export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
 export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
 export const DEL_PROFILE = `${SERVICE_URL}/custom/profile/delete`;
+export const GET_PROFILE_AGENT = `${SERVICE_URL}/custom/profile/getprofileagent`;
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;

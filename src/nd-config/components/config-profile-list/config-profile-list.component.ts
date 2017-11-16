@@ -8,7 +8,7 @@ import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
 import { Messages, descMsg } from '../../constants/config-constant';
-import { deleteMany } from '../../utils/config-utility';
+import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
 
 @Component({
   selector: 'app-config-profile-list',
@@ -25,6 +25,7 @@ export class ConfigProfileListComponent implements OnInit {
   profileDetail: ProfileData;
 
   profileListItem: SelectItem[];
+  agentList: SelectItem[];
   displayNewProfile: boolean = false;
   showMsg: boolean = false;
   displayErrMsg = [];
@@ -35,6 +36,13 @@ export class ConfigProfileListComponent implements OnInit {
 
   ngOnInit() {
     this.loadProfileList();
+    this.loadAgentList()
+  }
+
+  loadAgentList(){
+    let key = ['Java', 'NodeJS', 'Dot Net'];
+    this.agentList = ConfigUiUtility.createDropdown(key);
+
   }
 
   loadProfileList() {
@@ -100,7 +108,9 @@ export class ConfigProfileListComponent implements OnInit {
     this.displayNewProfile = false;
   }
 
-  routeToConfiguration(selectedProfileId, selectedProfileName, entity) {
+  routeToConfiguration(selectedProfileId, selectedProfileName, entity, selectedProfileAgent) {
+
+    sessionStorage.setItem("agentType", selectedProfileAgent);
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
       this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
 

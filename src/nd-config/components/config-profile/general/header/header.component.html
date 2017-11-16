@@ -1,6 +1,6 @@
 <form *ngIf="HeaderForm" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Flowpath header settings
+        <div class="header">Flowpath Header settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
@@ -12,7 +12,7 @@
                 <p-fieldset legend="HTTP Headers" [toggleable]="true">
                     <app-http-header [data]="httpKeywordObject"></app-http-header>
                 </p-fieldset><br>
-                <p-fieldset legend="Custom Data" [toggleable]="true" [collapsed]="true">
+                <p-fieldset legend="Custom Data" [toggleable]="true" [collapsed]="true" >
                     <app-custom-data [data]="header"></app-custom-data>
                 </p-fieldset>
             </div>

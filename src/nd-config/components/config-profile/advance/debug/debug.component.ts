@@ -36,12 +36,14 @@ export class DebugComponent {
 
   /**It stores keyword data for showing in GUI */
   debug: Object;
+  agentType: string = "";
+
   enableGroupKeyword: boolean;
   subscription: Subscription;
   subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
-
+    this.agentType = sessionStorage.getItem("agentType");    
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {

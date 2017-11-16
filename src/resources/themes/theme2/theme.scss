@@ -1913,11 +1913,6 @@ app-alert-home .ui-widget-content .history-table-row-odd {
     color: #f0f0f0;
 }
 
-.ddr-accordion .ui-accordion-content{
-	background : transparent;
-        border : 1px solid #fbfbfb;
-}
-
 .ddr-graphpanel{
   background:white;
   border-radius : 4px;
@@ -2171,3 +2166,18 @@ button.capabilityButton.mat-raised-button{
        border-left:0;
         border-right:0;
   }
+
+  /*------------------DDR GUI -------------*/
+.ddr-box {
+    background: rgba(250, 250, 250, 0.7);
+}
+.ddrbreadcrumb .ui-widget-header{
+    background: rgba(255, 255, 255, 0.4);
+}
+.showoffset {
+    background: rgba(255, 255, 255, 0.52);
+}
+.ddr-accordion .ui-accordion-content{
+	    background : rgba(255, 255, 255, 0.5);
+        border : 1px solid #fbfbfb;
+}

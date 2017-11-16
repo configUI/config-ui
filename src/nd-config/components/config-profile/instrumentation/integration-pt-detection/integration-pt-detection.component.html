@@ -2,7 +2,7 @@
     <p-tabPanel header="Integration Point">
         <app-integration-pt (keywordData)="saveKeywordData($event)"></app-integration-pt>
     </p-tabPanel>
-    <p-tabPanel header="Settings">
+    <p-tabPanel header="Settings" *ngIf="agentType == 'Java' || agentType == '-'">
         <app-url-capturing (keywordData)="saveKeywordData($event)"></app-url-capturing>
     </p-tabPanel>
 </p-tabView>

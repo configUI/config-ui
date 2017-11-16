@@ -46,7 +46,7 @@
 
 
 
-    <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true">
+    <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java' || agentType == '-'">
         <div class="ui-g-12">
             <span style="font-weight: bold">Source Code Capturing</span>
         </div>

@@ -122,3 +122,7 @@
 .scenmodal button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only {
     width: auto;
 }
+/*---------------Icon size in the left tree---------*/
+.scencon{
+    font-size: 1.5em;
+}

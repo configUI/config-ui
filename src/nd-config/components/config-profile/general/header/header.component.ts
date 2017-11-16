@@ -176,7 +176,18 @@ export class HeaderComponent implements OnInit {
     this.header["captureHTTPRespFullFp"].value = captureHttpRespFullFpVal;
     //this.header["captureCustomData"].value = String(this.header["captureCustomData"].value == '1');
     this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
-    this.keywordData.emit(this.header);
+    let filePath;
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+      if (this.header['captureCustomData'].value == false) {
+        filePath = "NA";
+      }
+      else {
+        filePath = data["_body"];
+        filePath = filePath + "/captureCustomData.cd";
+      }
+      this.header['captureCustomData'].path = filePath;
+      this.keywordData.emit(this.header);
+    });
   }
 
   /*

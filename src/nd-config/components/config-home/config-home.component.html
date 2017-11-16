@@ -43,14 +43,17 @@
         <p-dataTable [value]="profileInfo" class="nde-ui">
           <p-column rowStyleClass="col-overflow" field="name" header="Name">
             <template let-col let-profile="rowData" pTemplate>
-              <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'], profile)" >{{profile[col.field]}}</a></span>
+              <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
             </template>
           </p-column>
-          <!--<p-column rowStyleClass="col-overflow" field="description" header="Description">
-                        <template let-col let-profile="rowData" pTemplate>
-                            <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
-                        </template>
-                    </p-column>-->
+          <p-column rowStyleClass="col-overflow" field="agent" header="Agent">
+            <template let-col let-profile="rowData" pTemplate align="center">
+              <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+              <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+              <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Java'"><i class="icon ndegui-java java-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+              <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == '-'">{{profile[col.field]}}</span>              
+            </template>
+          </p-column>
           <p-column rowStyleClass="col-overflow" field="timestamp" header="Last updated on">
             <template let-col let-profile="rowData" pTemplate>
               <span title="{{profile[col.field]}}" class="timpStamp-float-css">{{profile[col.field]}}</span>
@@ -88,10 +91,10 @@
             </template>
           </p-column>
           <p-column rowStyleClass="col-overflow" field="timestamp" header="Last imported on">
-              <template let-col let-application="rowData" pTemplate>
-                <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
-              </template>
-            </p-column>
+            <template let-col let-application="rowData" pTemplate>
+              <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
+            </template>
+          </p-column>
         </p-dataTable>
       </div>
     </md-card>
@@ -158,16 +161,16 @@
         Select a topology to import
       </div>
       <div class="ui-g-6">
-        <input name="dropdown" type="text" size="5" class='hidden-validator'  pInputText [(ngModel)]="selectedTopology" required ngModel/>
-        <p-dropdown name="dropdown" [style]="{'width':'205px'}"  (click)="loadTopologyList()" [options]="topologyList" [(ngModel)]="selectedTopology" placeholder="--Select--" appendTo="body"
-          required></p-dropdown>
+        <input name="dropdown" type="text" size="5" class='hidden-validator' pInputText [(ngModel)]="selectedTopology" required ngModel/>
+        <p-dropdown name="dropdown" [style]="{'width':'205px'}" (click)="loadTopologyList()" [options]="topologyList" [(ngModel)]="selectedTopology"
+          placeholder="--Select--" appendTo="body" required></p-dropdown>
       </div>
     </div>
     <footer>
-        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-            <button pButton type="submit" label="Import" align="right" icon="fa-download"></button>
-            <button type="button" pButton icon="fa-close" (click)="importTopo=false" label="Cancel"></button>
-        </div>
+      <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+        <button pButton type="submit" label="Import" align="right" icon="fa-download"></button>
+        <button type="button" pButton icon="fa-close" (click)="importTopo=false" label="Cancel"></button>
+      </div>
     </footer>
-</form>
+  </form>
 </p-dialog>

@@ -36,6 +36,7 @@ export class GeneralComponent implements OnInit {
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
+  agentType: string ="";  
 
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
@@ -43,7 +44,9 @@ export class GeneralComponent implements OnInit {
     private router: Router,
     private configProfileService: ConfigProfileService,
     private configHomeService: ConfigHomeService
-  ) { }
+  ) { 
+    this.agentType = sessionStorage.getItem("agentType");        
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -80,9 +83,14 @@ export class GeneralComponent implements OnInit {
 
   triggerRunTimeChanges(data) {
 
-    let keyWordDataList = [];
-    for (let key in data) {
-      keyWordDataList.push(key + "=" + data[key].value);
+      let keyWordDataList = [];
+      for (let key in data) {
+        if(data[key].path){
+          keyWordDataList.push(key + "=" + data[key].path);
+        }
+        else{
+        keyWordDataList.push(key + "=" + data[key].value);
+      }
     }
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
