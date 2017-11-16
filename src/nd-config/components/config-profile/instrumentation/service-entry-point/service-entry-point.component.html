@@ -1,6 +1,6 @@
 <p-dataTable class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
     <p-header>
-        <span style="float: left">  Enable/Disable Service entry points</span>
+        <span style="float: left">  Enable/Disable Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
             <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
             <button pButton type="button"  [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>

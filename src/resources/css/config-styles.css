@@ -215,10 +215,9 @@
 }
 
 
-/*.tabs-all .ui-widget-header {
+/* .tabs-all .ui-widget-header {
     padding: 4px;
-}
-*/
+} */
 
 .tabs-all .ui-g {
     padding: 5px;
@@ -258,6 +257,7 @@
     opacity: 0;
 }
 
+,
 
 /* 
 hide it behind the dropdown component, the required 
@@ -877,7 +877,7 @@ a {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -o-sticky;
-    S top: 0;
+    top: 0;
     z-index: 100;
 }
 
