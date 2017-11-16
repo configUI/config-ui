@@ -42,12 +42,15 @@ export class InstrumentationProfilesComponent implements OnInit {
   openFileExplorerDialog: boolean = false;
   isInstrProfileBrowse: boolean = false;
 
+  agentType: string = "";  
+
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService
   ) {
     // this.subscription = this.store.select("keywordData").subscribe(data => {
     //   this.instrProfiles = data;
     //   console.log( "constructor", "this.debug", this.instrProfiles);
     // });
+    this.agentType = sessionStorage.getItem("agentType");    
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.instrumentation_profiles.enable);
     this.configKeywordsService.toggleKeywordData();
   }
@@ -75,7 +78,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   }
 
   loadListOfXmlFiles() {
-    this.configKeywordsService.getListOfXmlFiles(this.profileId).subscribe(data => {
+    this.configKeywordsService.getListOfXmlFiles(this.profileId, this.agentType).subscribe(data => {
       this.createInstrProfileSelectItem(data)
     },
       error => {
@@ -83,20 +86,6 @@ export class InstrumentationProfilesComponent implements OnInit {
       });
 
   }
-//To load XML files in dropdown on dropdown click
-  loadListOfXmldata() {
-    this.configKeywordsService.getListOfXmlFiles(this.profileId).subscribe(data => {
-      this.instrProfileSelectItem = [];
-      for (let i = 0; i < data.length; i++) {
-        this.instrProfileSelectItem.push({ value: data[i], label: data[i] });
-      }
-    },
-      error => {
-        console.log("error getting xml files");
-      });
-
-  }
-
 
   //It will load the saved list of instrument Profiles
   loadInstrData() {
@@ -170,7 +159,7 @@ export class InstrumentationProfilesComponent implements OnInit {
         files.push(fileList[i]);
     }
     filesWithPath = files.join(";");
-
+    let that = this
     if(deepFilePathCopy.split(";").length != files.length)
     {
 	this.confirmationService.confirm({
@@ -178,6 +167,7 @@ export class InstrumentationProfilesComponent implements OnInit {
           header: 'Confirmation',
           icon: 'fa fa-question-circle',
           accept: () => {
+      filesWithPath = filesWithPath + "%" + that.agentType;
 		// let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
 		if(files.length != 0) {
     		  this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
@@ -188,7 +178,7 @@ export class InstrumentationProfilesComponent implements OnInit {
         	      this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
     		  },
       		  error => {
-        	    console.log("Error in browsing xml files");
+        	    console.log("Error in browsing files");
       		  }); 
 		} else {
 		  this.configUtilityService.errorMessage("All Selected files are already imported");
@@ -204,7 +194,7 @@ export class InstrumentationProfilesComponent implements OnInit {
              this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
           },
           error => {
-             console.log("Error in browsing xml files");
+             console.log("Error in browsing files");
          });
       }
      

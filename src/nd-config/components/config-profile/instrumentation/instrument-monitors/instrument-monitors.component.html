@@ -8,7 +8,7 @@
     <p-tabPanel header="Exception Monitor">
         <app-exception-monitors [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-exception-monitors>
     </p-tabPanel>
-    <p-tabPanel header="JVM Thread CPU Monitor">
+    <p-tabPanel header="JVM Thread CPU Monitor" *ngIf="agentType == 'Java' || agentType == '-'">
         <app-thread-stats [saveDisable]="saveDisable" [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-thread-stats>
     </p-tabPanel>
 

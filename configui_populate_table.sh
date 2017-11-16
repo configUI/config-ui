@@ -2,8 +2,8 @@
 
 BEGIN;
 
-INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name,controller_name) VALUES
-(1,'default','Default profile','-','','-');
+INSERT INTO config.profile(profile_id,profile_name,profile_desc,time_stamp,user_name,controller_name,agent) VALUES
+(1,'default','Default profile','-','','-','-');
 
 INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail) VALUES
 (1,'HttpServletService','description'),
@@ -137,7 +137,14 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (71,'captureHttpSessionTraceLevel','0','3','1','1','normal'),
 (72,'ndExceptionThrowingClassFilter','1','1024','6','NA','normal'),
 (73,'captureMethodForAllFP','0','1','2','0','normal'),
-(74,'ndBackendNamingRulesFile','','','5','true','normal');
+(74,'ndBackendNamingRulesFile','','','5','true','normal'),
+(75,'eventLoopMonitor','','','2','1','normal'),
+(76,'gcProfiler','','','2','1','normal'),
+(77,'nodejsCpuProfilingTime','','','2','10','normal'),
+(78,'nodeAsyncEventMonitor','','','2','0','normal'),
+(79,'nodeServerMonitor','','','2','0','normal'),
+(80,'excludeMethodOnRespTime','','','2','0','normal');
+
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
@@ -464,8 +471,8 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 
 
 INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri,
-segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id)VALUES
-(1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1);
+segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id, slow_threshold, very_slow_threshold)VALUES
+(1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1, 10, 20);
 
 INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_max, ndc_def_value,ndc_key_val )VALUES 
 (1,'NDC_WAIT_TIME_AFTER_TEST_IS_OVER','','','30','30'),

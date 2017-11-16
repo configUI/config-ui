@@ -24,6 +24,41 @@
                         <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend monitor"></p-checkbox>
                     </div>
                 </div>
+                <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3">
+                        <p-checkbox name="eventLoopMonitor" [(ngModel)]="eventLoopMonitorChk" binary="true" ngModel label="Average time taken by event loop"></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3">
+                        <p-checkbox name="gcProfiler" [(ngModel)]="gcProfilerChk" binary="true" ngModel label="GC and heap usage information"></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-3">
+                        <p-checkbox name="nodeAsyncEventMonitor" [(ngModel)]="nodeAsyncEventMonitorChk" binary="true" ngModel label="Asynchronous events information"></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-4">
+                        <p-checkbox name="nodeServerMonitor" [(ngModel)]="nodeServerMonitorChk" binary="true" ngModel label="Server request/response information on particular node server"></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-4">
+                      <label>Profile CPU for particular time for nodejs agent (in seconds)</label>
+                    </div>
+        
+                    <div class="ui-g-3">
+                      <input type="number" name="nodejsCpuProfilingTime" [(ngModel)]="monitor.nodejsCpuProfilingTime.value"
+                        class="configui-debug-css-2" required ngModel>
+                    </div>
+                  </div>
             </div>
         </p-panel>
     </div>

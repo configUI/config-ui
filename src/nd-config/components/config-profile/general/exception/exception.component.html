@@ -1,8 +1,8 @@
 <p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="Exception" [style]="{'width':'800px'}">
+    <p-tabPanel header="Exception" [style]="{'width':'800px'}" *ngIf="agentType == 'Java' || agentType == '-'">
         <app-exception-setting [data]="exception" (keywordData)="saveKeywordData($event)"></app-exception-setting>
     </p-tabPanel>
-    <p-tabPanel header="Filter">
+    <p-tabPanel header="Filter" *ngIf="agentType == 'Java' || agentType == '-'">
         <app-exception-filter (keywordData)="saveKeywordData($event)"></app-exception-filter>
     </p-tabPanel>
 </p-tabView>

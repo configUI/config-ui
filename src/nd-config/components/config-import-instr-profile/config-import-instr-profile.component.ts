@@ -26,7 +26,9 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   isMakeXMLFile: boolean;
   openFileExplorerDialog: boolean = false;
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
-
+  agent: any[];
+  selectedAgent: string = "";
+  
   //Edit XML Tree Node
   editXMLFile: boolean = false;
   parsedXMLData: TreeNode[];
@@ -45,22 +47,26 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   ngOnInit() {
 
     /* create Dropdown for xml files */
-    this.createDropDown("filename", () => {});
     this.xmlFormat = "No file selected";
 
     this._configKeywordsService.fileListProvider.subscribe(data => {
       this.getFileList(data);
     });
-
+    let agentVal = ['Java', 'NodeJS', 'Dot Net'];
+    this.agent = ConfigUiUtility.createDropdown(agentVal);
   }
 
   createDropDown(filename, callback) {
-    this._configKeywordsService.getInstrumentationProfileXMLFileList().subscribe(data => {
+    this._configKeywordsService.getInstrumentationProfileXMLFileList(this.selectedAgent).subscribe(data => {
       this.profileXMLFileList = ConfigUiUtility.createDropdown(data);
       if (filename !== "filename")
         this.selectedXMLFile = filename;
       callback();
     });
+  }
+
+  getAgentSpecificFiles(val){
+    this.createDropDown("filename", () => {});    
   }
 
   /**used to open file manager */

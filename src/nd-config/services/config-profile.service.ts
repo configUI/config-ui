@@ -53,4 +53,8 @@ export class ConfigProfileService {
     return this._restApi.getDataByPostReq(URL.DEL_PROFILE, data);
   }
 
+  getProfileAgent(profileName): Observable<any>{
+    return this._restApi.getDataByPostReqWithNoJSON(URL.GET_PROFILE_AGENT, profileName);
+  }
+
 }

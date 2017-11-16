@@ -71,7 +71,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     }
 
     createDropDown() {
-        this._configKeywordsService.getInstrumentationProfileXMLFileList().subscribe(data => {
+        this._configKeywordsService.getInstrumentationProfileXMLFileList("").subscribe(data => {
             this.profileXMLFileList = ConfigUiUtility.createDropdown(data);
         });
     }

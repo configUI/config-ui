@@ -2991,3 +2991,15 @@ button.capabilityButton.mat-raised-button {
 .compotable .ui-datatable th.ui-state-default {
   background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
   color: white; }
+
+  .dotnet-color{
+    color: blue;
+  }
+  
+  .java-color{
+   color: rgba(255, 68, 0, 0.596);
+  }
+  
+  .nodejs-color{
+    color: green;
+  }

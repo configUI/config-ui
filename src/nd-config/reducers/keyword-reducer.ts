@@ -31,7 +31,7 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "enableForcedFPChain":{"defaultValue":"1","min":"0","max":"3","assocId":-1,"value":"1","keyId":14},
 "NDEntryPointsFile":{"defaultValue":"true","min":"","max":"","assocId":-1,"value":"true","keyId":21},
 "ASThresholdMatchCount":{"defaultValue":"5","min":"1","max":"100","assocId":-1,"value":"5","keyId":7},
-"instrExceptions":{"defaultValue":"1%201%200%2020","min":"0","max":"512","assocId":-1,"value":"0","keyId":16},
+"instrExceptions":{"defaultValue":"1%201%200%2020","min":"0","max":"512","assocId":-1,"value":"1%201%200%2020","keyId":16},
 "InstrTraceLevel":{"defaultValue":"0","min":"0","max":"11","assocId":-1,"value":"0","keyId":15},
 "captureCustomData":{"defaultValue":"false","min":" ","max":" ","assocId":-1,"value":"false","keyId":33},
 "ASDepthFilter":{"defaultValue":"20","min":"0","max":"100","assocId":-1,"value":"20","keyId":10},
@@ -53,7 +53,14 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "enableTransformThreadSubClass":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":50},
 "captureMethodForAllFP":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":73},
 "enableMethodBreakDownTime":{"defaultValue":"0","min":"0","max":"1024","assocId":-1,"value":"0","keyId":53},
-"ndBackendNamingRulesFile":{"defaultValue":"true","min":"","max":"","assocId":-1,"value":"true","keyId":74}};
+"ndBackendNamingRulesFile":{"defaultValue":"true","min":"","max":"","assocId":-1,"value":"true","keyId":74},
+"eventLoopMonitor":{"defaultValue":"1","min":"","max":"","assocId":-1,"value":"1","keyId":75}, //NodeJS Only
+"gcProfiler":{"defaultValue":"1","min":"","max":"","assocId":-1,"value":"1","keyId":75}, //NodeJS Only
+"nodejsCpuProfilingTime":{"defaultValue":"10","min":"","max":"","assocId":-1,"value":"10","keyId":75}, //NodeJS Only
+"nodeAsyncEventMonitor":{"defaultValue":"0","min":"","max":"","assocId":-1,"value":"0","keyId":75}, //NodeJS Only
+"nodeServerMonitor":{"defaultValue":"0","min":"","max":"","assocId":-1,"value":"0","keyId":75}, //NodeJS Only
+"excludeMethodOnRespTime":{"defaultValue":"0","min":"","max":"","assocId":-1,"value":"0","keyId":75}, //NodeJS Only
+};
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
     switch (action.type) {

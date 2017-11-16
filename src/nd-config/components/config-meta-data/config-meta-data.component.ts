@@ -24,6 +24,7 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
 
   subscriptionProfile: Subscription;
   subscriptionApplication: Subscription;
+  type = '-';
 
   ngOnInit() {
     //below line gets called as soon as link of profile is clicked which routes to its configuration screen
@@ -31,6 +32,11 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       this.profileName = data;
       //storing profile name in a session
       sessionStorage.setItem("proName", data);
+      this.type = sessionStorage.getItem("agentType");
+      this.configProfileService.getProfileAgent(this.profileName).subscribe(data => {
+        this.type = data._body;
+        sessionStorage.setItem("agentType", data._body);      
+      })
     });
     
     /*below code handles the case of refreshing the page due to which profileName gets undefined 
@@ -40,6 +46,7 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       this.profileName = sessionStorage.getItem("proName");
 
     this.subscriptionApplication = this.configApplicationService.applicationNameProvider$.subscribe(data => {this.applicationName = data;
+      this.type = sessionStorage.getItem("agentType");
       sessionStorage.setItem("selectedApplicationName", this.applicationName)
     });
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {

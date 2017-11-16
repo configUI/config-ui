@@ -122,23 +122,60 @@ export class ConfigTreeDetailComponent implements OnInit {
   getData(event): void {
     this.selectedTopologyData = [];
     //this.selectedEntityArr = [CONS.TOPOLOGY.TOPOLOGY];
-    if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
+
+    //When collapsing at topology level
+    if (event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY && event.data.nodeExpanded == true) {
       this.topologyName = event.data.nodeLabel;
-      // this.selectedEntityArr = [event.data.nodeLabel];
+      this.currentEntity = CONS.TOPOLOGY.TOPOLOGY;
+      if(this.dcId != undefined)
+        this.configTopologyService.getTopologyDetail(this.dcId).subscribe(data => this.topologyData = data);
+      else
+        this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);      
+      this.selectedEntityArr = event.data.nodeLabel
+     }
+
+     //When expanding at topology level
+     else if(event.data.currentEntity == CONS.TOPOLOGY.TOPOLOGY && !event.data.nodeExpanded){
+      this.topologyName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.TIER;
       this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
+      sessionStorage.setItem("tierId", event.data.nodeId);
       this.configTopologyService.getTierDetail(event.data.nodeId, this.topologyEntity).subscribe(data => this.topologyData = data);
       this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
      }
-    else if (event.data.currentEntity == CONS.TOPOLOGY.TIER) {
+
+     //When collapsing at Tier level
+    else if (event.data.currentEntity == CONS.TOPOLOGY.TIER && event.data.nodeExpanded == true) {
+      this.tierName = event.data.nodeLabel;
+      this.currentEntity = CONS.TOPOLOGY.TIER;
+      // this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
+      this.configTopologyService.getTierDetail(+(sessionStorage.getItem("tierId")), this.topologyEntity).subscribe(data => this.topologyData = data);
+      this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;      
+    }
+
+    //When expanding at Tier level
+    else if (event.data.currentEntity == CONS.TOPOLOGY.TIER && !event.data.nodeExpanded) {
       //this.selectedTopologyData :TierInfo[];
       this.tierName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
+      sessionStorage.setItem("serverId", event.data.nodeId);
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);
       this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " +  CONS.TOPOLOGY.SERVER;
     }
-    else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER) {
+
+    //When collapsing at Server level
+    else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER && event.data.nodeExpanded == true) {
+      this.serverName = event.data.nodeLabel;
+      this.currentEntity = CONS.TOPOLOGY.SERVER;
+      // this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
+      this.configTopologyService.getServerDetail(+(sessionStorage.getItem("serverId")), this.tierEntity).subscribe(data => this.topologyData = data);
+      this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " +  CONS.TOPOLOGY.SERVER;
+    }
+
+    //When expandong at server level
+    else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER && !event.data.nodeExpanded) {
+      this.serverName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => this.topologyData = data);
@@ -265,7 +302,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   // }
 
   routeToConfiguration(entity) {
-    console.log("entity--routeToConfiguration---", entity)
+
     if ('topoId' in entity) {
       this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId };
     }

@@ -39,6 +39,7 @@ export class AdvanceComponent implements OnInit {
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
+  agentType: string = "";
 
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
@@ -46,7 +47,9 @@ export class AdvanceComponent implements OnInit {
     private router: Router,
     private configProfileService: ConfigProfileService,
     private configHomeService: ConfigHomeService
-  ) { }
+  ) { 
+    this.agentType = sessionStorage.getItem("agentType");        
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {

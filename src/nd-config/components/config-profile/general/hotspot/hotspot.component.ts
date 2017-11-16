@@ -40,6 +40,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   enableGroupKeyword: boolean = false;
   includedExceptionChk: boolean = true;
   excludedExceptionChk: boolean = true;
+  agentType: string ="";
 
   /**Value for the keyword ASPositiveThreadFilters
    * Thread1&Thread2&Thread3
@@ -48,6 +49,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   */
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+    this.agentType = sessionStorage.getItem("agentType");    
     this.subscription = this.store.select("keywordData")
       .subscribe(data => {
         var keywordDataVal = {}

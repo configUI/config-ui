@@ -103,6 +103,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
+  agentType: string = "";  
 
   constructor(private route: ActivatedRoute,
     private configKeywordsService: ConfigKeywordsService,
@@ -111,7 +112,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
     private confirmationService: ConfirmationService,
     // private log: Logger,
   ) {
-
+    
+    this.agentType = sessionStorage.getItem("agentType");
+    
     this.segmentList = [];
     let arrLabel = ['First', 'Last', 'Segment Number'];
     let arrValue = ['first', 'last', 'segNo'];
@@ -137,6 +140,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
     /* Assign default value to slowTransaction */
     this.globalBtDetail.verySlowTransaction = '5000';
 
+    this.globalBtDetail.slowDynamicThreshold = '10';
+    this.globalBtDetail.verySlowDynamicThreshold = '20';
+
     /* Assign default value to slowTransaction */
     this.globalBtDetail.segmentValue = '2';
 
@@ -160,7 +166,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.profileId = params['profileId'];
       this.saveDisable = this.profileId == 1 ? true : false;
     });
-    this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
+    this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => {
+       this.doAssignBusinessTransData(data) });
     this.getKeywordData();
     this.loadBTPatternData();
     this.configKeywordsService.fileListProvider.subscribe(data => {
@@ -295,6 +302,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     let tempParam = this.createKeyValString();
     this.businessTransPatternDetail.reqParamKeyVal = tempParam;
+    this.businessTransPatternDetail.agent = this.agentType;
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
@@ -344,6 +352,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.reqParamInfo = [];
     this.businessTransPatternDetail.slowTransaction = "3000";
     this.businessTransPatternDetail.verySlowTransaction = "5000";
+    this.businessTransPatternDetail.slowDynamicThreshold = "10";
+    this.businessTransPatternDetail.verySlowDynamicThreshold = "20";
     this.chkInclude = false;
     this.isNewApp = true;
     this.addEditPatternDialog = true;
@@ -486,6 +496,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     let tempParam = this.createKeyValString();
     this.businessTransPatternDetail.reqParamKeyVal = tempParam;
+    this.businessTransPatternDetail.agent = this.agentType;
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -567,7 +578,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   checkAppNameAlreadyExist(): boolean {
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
       if (this.businessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
-        this.configUtilityService.errorMessage("Application Name already exist");
+        this.configUtilityService.errorMessage("Business Transaction name already exist");
         return true;
       }
     }
@@ -649,6 +660,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     slow.setCustomValidity('');
   }
+
 
   /**used to open file manager
   */

@@ -32,8 +32,10 @@ export class ExceptionSettingComponent implements OnInit {
   // selectedValue: string = 'unhandled';
   enableGroupKeyword: boolean;
   keywordValue: Object;
+  agentType: string = "";
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+    this.agentType = sessionStorage.getItem("agentType");    
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
     this.getKeywordData();
     configKeywordsService.toggleKeywordData();

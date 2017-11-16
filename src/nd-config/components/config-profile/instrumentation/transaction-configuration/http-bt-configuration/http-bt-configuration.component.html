@@ -58,6 +58,23 @@
                 <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
             </div>
         </div>
+        <div class="ui-g-12 header-font-size" *ngIf="agentType == 'NodeJS'">
+            <label>Dynamic threshold(Optional)</label>
+        </div>
+
+        <div class="ui-g-12 padding-left-css" *ngIf="agentType == 'NodeJS'">
+            <div class="ui-g-1"><label>Slow</label></div>
+            <div class="ui-g-10">
+                <input name="slowThreshold" #slowthresh  style="text-align:right; width:70px " type="number" min=0 pInputText [(ngModel)]="globalBtDetail.slowDynamicThreshold" /> %
+            </div>
+        </div>
+
+        <div class="ui-g-12 padding-left-css" *ngIf="agentType == 'NodeJS'">
+            <div class="ui-g-1"> <label>Very slow</label> </div>
+            <div class="ui-g-10">
+                <input name="verySlowThreshold" #vslowthresh style="text-align:right ; width:70px" type="number" min=0 pInputText [(ngModel)]="globalBtDetail.verySlowDynamicThreshold" /> %
+            </div>
+        </div>
         <div class="ui-g-12 header-font-size">
             <p-checkbox name="dynamicReqType" label="Choose dynamic request type" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
         </div>
@@ -131,6 +148,16 @@
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
+        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="slowDynamicThreshold" header="Slow dynamic threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+        <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+      </template>
+        </p-column>
+        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="verySlowDynamicThreshold" header="Very slow dynamic threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+        <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+      </template>
+        </p-column>
         <p-column class="col-overflow" field="paramKeyValue" header="Req param key value" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
@@ -197,6 +224,24 @@
                 </div>
                 <div class="ui-g-3">
                     <input name="verySlowTransaction" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />(ms)
+                </div>
+            </div>
+
+            <div class="ui-g-12 pattern-dialog-border" *ngIf="agentType == 'NodeJS'">
+                <div class="ui-g-3 label">
+                    <label>Dynamic threshold (%)</label>
+                </div>
+                <div class="ui-g-1 label">
+                    <label>Slow</label>
+                </div>
+                <div class="ui-g-3">
+                    <input name="slowDynamic" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowDynamicThreshold" ngModel /> %
+                </div>
+                <div class="ui-g-1 label">
+                    <label>Very Slow</label>
+                </div>
+                <div class="ui-g-3">
+                    <input name="verySlowDynamic" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowDynamicThreshold" ngModel /> %
                 </div>
             </div>
 

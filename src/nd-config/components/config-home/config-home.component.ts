@@ -113,6 +113,7 @@ export class ConfigHomeComponent implements OnInit {
   }
 
   routeToTreemain(selectedTypeId, selectedName, type) {
+    sessionStorage.setItem("agentType", "");    
     //Observable application name
     if (type == 'topology') {
       //it routes to (independent) topology screen
@@ -125,7 +126,8 @@ export class ConfigHomeComponent implements OnInit {
     }
   }
 
-  routeToConfiguration(selectedProfileId, selectedProfileName, entity) {
+  routeToConfiguration(selectedProfileId, selectedProfileName, entity, selectedProfileAgent) {
+    sessionStorage.setItem("agentType", selectedProfileAgent);    
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
       this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
 

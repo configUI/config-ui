@@ -17,10 +17,10 @@
                             <!--<div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread CPU Monitor</a></md-slide-toggle>
                             </div>-->
-                            <div>
+                            <div *ngIf="agentType == 'Java' || agentType == '-'">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Capture Exception</a></md-slide-toggle>
                             </div>
-                            <div>
+                            <div *ngIf="agentType != 'Dot Net'">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flowpath Header</a></md-slide-toggle>
                             </div>
                             <div>
@@ -41,10 +41,10 @@
                     <div class="ui-g">
                         <div class="ui-g-8">
                             <ul class="intrumentation">
-                                <li>
+                                <li *ngIf="agentType != 'NodeJS'">
                                     <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Service Entry Point</a>
                                 </li>
-                                <li>
+                                <li *ngIf="agentType != 'NodeJS'">
                                     <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Integration Point Detection</a>
                                 </li>
                                 <li>
@@ -98,10 +98,10 @@
                             <div>
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
                             </div>
-                            <div *ngIf="adminMode">
+                            <div *ngIf="adminMode && (agentType == 'Java' || agentType == '-')">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Put Delay in Method</a></md-slide-toggle>
                             </div>
-                            <div *ngIf="adminMode">
+                            <div *ngIf="adminMode && (agentType == 'Java' || agentType == '-')">
                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
                             </div>
 

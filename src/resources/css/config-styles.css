@@ -50,24 +50,31 @@
 
 .ndegui-application:before {
   content: "\e000";
+  color: white;
 }
 .ndegui-group:before {
   content: "\e001";
+  color: white;
 }
 .ndegui-home1:before {
   content: "\e002";
+  color: white;
 }
 .ndegui-instance:before {
   content: "\e003";
+  color: white;
 }
 .ndegui-instrmentation-profile:before {
   content: "\e004";
+  color: white;
 }
 .ndegui-nd-agent:before {
   content: "\e005";
+  color: white;
 }
 .ndegui-profile:before {
   content: "\e006";
+  color: white;
 }
 .ndegui-server:before {
   content: "\e007";
@@ -77,18 +84,34 @@
 }
 .ndegui-topology:before {
   content: "\e009";
+  color: white;
 }
 .ndegui-auto-discover:before {
   content: "\e00b";
+  color: white;
 }
 .ndegui-audit-logs:before {
   content: "\e00c";
+  color: white;
 }
 .ndegui-data-collector:before {
   content: "\e00a";
 }
 .ndegui-topology-1:before {
   content: "\e00d";
+  color: white;
+}
+.ndegui-dotnet:before {
+  content: "\e00e";
+}
+.ndegui-java:before {
+  content: "\e00f";
+}
+.ndegui-php:before {
+  content: "\e010";
+}
+.ndegui-nodejs:before {
+  content: "\e011";
 }
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
@@ -946,7 +969,7 @@ body {
 
 .icon{
   float: left;
-  font-size: 2.2em;
+ 
 }
 
 .profile-dialog .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
