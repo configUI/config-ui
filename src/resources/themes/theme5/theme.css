@@ -1186,8 +1186,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 12px;
-  font-weight: 400;
-  background: url(images/3.jpg) center repeat fixed #000; }
+  background: url(images/1.jpg) center repeat fixed #000; }
 
 /*----------------Themeing CSS------------------*/
 .cavContentArea .grid {
@@ -1195,13 +1194,17 @@ body {
 
 .cavContentArea .grid-item {
   box-shadow: 0px 0 4px 2px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #ecd9aa 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ecd9aa',GradientType=1 );
   border-radius: 4px;
   opacity: 0.8;
   border: 1px #525252 solid; }
 
 .mat-sidenav {
-  background: rgba(0, 0, 0, 0.52);
+  background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.3), 0 10px 14px 1px rgba(0, 0, 0, 0.24), 0 4px 18px 3px rgba(0, 0, 0, 0.22); }
 
 .left-nav .icon {
@@ -1222,27 +1225,27 @@ body {
   color: #000; }
 
 .login-settings {
-  color: #eaeaea;
+  color: #2d2d2d;
   font-weight: 600; }
 
 .login-settings .totalscen-btn .ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
-  border: 1px solid rgba(210, 210, 210, 0.44);
+  border: 1px solid #a07842;
   color: #fff;
-  background: #104240;
+  background: #4e3413;
   /* box-shadow: 0 0 1px 1px #a9a9a9;*/ }
 
 .main-box {
-  background-color: rgba(255, 255, 255, 0.4); }
+  background-color: rgba(255, 255, 255, 0.55); }
 
 .main-box-alert {
-  background-color: rgba(255, 255, 255, 0.4); }
+  background-color: rgba(255, 255, 255, 0.55); }
 
 .test-run-table .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff;
   padding: 4px; }
 
@@ -1259,13 +1262,17 @@ body {
   color: #f0f0f0; }
 
 .test-run-table, .scen-table, .ui-datatable-odd {
-  background-color: #72bfb6; }
+  background-color: #ffe6c4; }
 
 .test-run-table, .scen-table, .ui-datatable-even {
-  background-color: #D6EBE8; }
+  background-color: #dabc93; }
 
+/*
+.test-run-table, .scen-table, .ui-datatable .ui-widget-content .ui-state-highlight span {
+  color: #fff;
+}*/
 .test-run-table, .scen-table, .ui-datatable tbody > tr.ui-widget-content {
-  border-color: #757575; }
+  border-color: #523917; }
 
 .section_button label {
   background: ghostwhite; }
@@ -1278,7 +1285,7 @@ body {
   background: rgba(255, 255, 255, 0.5); }
 
 .scenario .ui-breadcrumb {
-  background: #729288;
+  background: #282828;
   color: #fff;
   border: 0;
   border-radius: 0; }
@@ -1291,35 +1298,34 @@ body {
 
 .dashboard-nav-menu-header {
   color: #fff;
-  background: #6cac95; }
+  background: #462d0e; }
 
 .dashboard-sql-query .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 .dashboard-sql-query-toolbar .ui-toolbar {
-  background: #25656d; }
+  background: #462d0e; }
 
 .ui-panelmenu-header {
   background: #f3f2f5; }
 
 /*----------------RUN COMMAND---------------*/
 .mainDivRunCommand .ui-widget-header {
-  background: #25656d;
+  background: #63431e;
   color: #fff; }
 
 #outputHeaderDiv {
-  background: #52949c;
+  background: #90693c;
   color: #fff; }
 
 .runCommand-btn .btnClass {
-  background: #104240;
-  color: #fff;
-  border: 1px #0c383e solid; }
+  background: #2f200c;
+  color: #fff; }
 
 .rcnavbar-a {
   background: #000;
@@ -1337,17 +1343,17 @@ body {
   color: #fff; }
 
 .commandListClass .ui-datatable th.ui-state-default {
-  background: #417ebf;
-  background: -moz-linear-gradient(top, #417ebf 0%, #3b77b6 100%);
-  background: -webkit-linear-gradient(top, #417ebf 0%, #3b77b6 100%);
-  background: linear-gradient(to bottom, #417ebf 0%, #3b77b6 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#417ebf', endColorstr='#3b77b6',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 #downloadTxBtn {
-  color: #FFFFFF;
-  background: #6b6b6b;
-  border: 1px solid #6b6b6b; }
+  color: #FFF;
+  background: #4e3413;
+  border: 1px solid #a07842; }
 
 .transaction-details-filedset {
   background: rgba(181, 181, 181, 0.62);
@@ -1355,16 +1361,16 @@ body {
 
 .txBtn {
   color: #FFFFFF;
-  background: #25656d;
-  border: 1px solid #0b2138;
+  background: #4e3413;
+  border: 1px solid #a07842;
   margin-right: 5px; }
 
 #txDetailWinId .ui-datatable .ui-datatable-thead > tr > th {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 #txDetailWinId div.ui-datatable-scrollable-body {
@@ -1379,41 +1385,41 @@ body {
 
 /*--------------------Fav-----------*/
 .favBtn {
-  background: #104240;
+  background: #4e3413;
   color: #eaeaea; }
 
 .organiseFavoriteDialog .mat-dialog-title {
   color: white;
-  background: #25656d; }
+  background: #b18348; }
 
 /*----------------Alert CSS----------------------*/
 app-alert-home .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 app-alert-home .ui-datatable th span.ui-column-title {
   color: #fff; }
 
 .alert-top-panel {
-  background: #25656d;
+  background: #fff6ea;
   color: #fff; }
 
 app-alert-home .historyTable .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 ); }
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 ); }
 
 app-alert-home .ui-accordion .ui-accordion-header {
-  background: #245e50; }
+  background: #63431e; }
 
 app-alert-home .ui-accordion .ui-accordion-header.ui-state-active {
-  background: #489684; }
+  background: #a0835d; }
 
 app-alert-home .ui-accordion .ui-accordion-header:hover {
   background: #000; }
@@ -1422,7 +1428,7 @@ app-alert-home .ui-accordion .ui-accordion-header a {
   color: #f0f0f0; }
 
 .top-panel {
-  background: rgba(181, 181, 181, 0.45); }
+  background: rgba(45, 45, 45, 0.45); }
 
 .download-panel {
   background: rgba(0, 0, 0, 0.68); }
@@ -1436,7 +1442,7 @@ app-alert-home .ui-state-default {
 
 /*----------------END-------------------*/
 md-icon.dashboard-menu-item-icon {
-  color: #cecece; }
+  color: #fffae9; }
 
 .dashboard-menu-item-text {
   color: #fff !important; }
@@ -1452,20 +1458,27 @@ md-icon.dashboard-menu-item-icon {
   font-weight: 500;
   font-size: 11px;
   border-color: black;
-  background: #173e31; }
+  background: #825a28; }
 
 .dashboard-top-panel md-toolbar-row.mat-toolbar-row {
-  color: #f0fff9; }
+  color: #000; }
 
 .dashboard-menu-nav-header-icon {
   color: #dadada; }
 
 .dashboard-panel-color {
   box-shadow: 0px 0 4px 2px rgba(82, 82, 82, 0.4);
-  background: rgba(0, 0, 0, 0.4); }
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #ecd9aa 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ecd9aa',GradientType=1 ); }
+
+.dashboard-panel-selected-color {
+  border-color: black; }
 
 .scenario-left .ui-panelmenu-content {
-  background: #cee6dd;
+  background: #ffefd6;
   border: 0; }
 
 .dashboard-nav-panel-menu .ui-panelmenu-header {
@@ -1475,14 +1488,14 @@ md-icon.dashboard-menu-item-icon {
   color: black; }
 
 .dashboard-lower-section {
-  background: #99ccc5;
-  background: -moz-linear-gradient(top, #99ccc5 0%, #edf6f4 100%);
-  background: -webkit-linear-gradient(top, #99ccc5 0%, #edf6f4 100%);
-  background: linear-gradient(to bottom, #99ccc5 0%, #edf6f4 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99ccc5', endColorstr='#edf6f4',GradientType=0 ); }
+  background: #ecdaac;
+  background: -moz-linear-gradient(top, #ecdaac 0%, #f7f0dd 100%);
+  background: -webkit-linear-gradient(top, #ecdaac 0%, #f7f0dd 100%);
+  background: linear-gradient(to bottom, #ecdaac 0%, #f7f0dd 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ecdaac', endColorstr='#f7f0dd',GradientType=0 ); }
 
 .dashboard-lower-section .ui-toolbar {
-  background: #57827c;
+  background: #5f4320;
   border: 0; }
 
 .dashboard-lower-section button.ui-button.ui-state-default, .ui-button.ui-state-default {
@@ -1491,11 +1504,11 @@ md-icon.dashboard-menu-item-icon {
   background: rgba(0, 0, 0, 0.55); }
 
 .dashboard-lower-section .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 .dashboard-lower-section .ui-widget-content .lower-panel-table-row-odd {
@@ -1521,8 +1534,12 @@ md-icon.dashboard-menu-item-icon {
 .mat-sidenav-container {
   background: transparent; }
 
-.mat-card {
-  background: rgba(0, 0, 0, 0.3); }
+.dashboard-panel-data .mat-card {
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #ecd9aa 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ecd9aa',GradientType=1 ); }
 
 /*For navigation link on top panel.*/
 .top-panel-nav-icon {
@@ -1537,7 +1554,7 @@ md-icon.dashboard-menu-item-icon {
   color: #f0f0f0; }
 
 .dashboard-sidenav {
-  background: rgba(0, 0, 0, 0.52);
+  background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12); }
 
 .dashboard-tree-input-icon {
@@ -1561,16 +1578,16 @@ md-icon.dashboard-menu-item-icon {
   background: transparent; }
 
 .customTitleBar .ui-accordion {
-  background: #56c5f2; }
+  background: #63431e; }
 
 .customTitleBar .ui-accordion-header {
-  background: #336553; }
+  background: #442d10; }
 
 .customTitleBar .ui-accordion-header .fa {
   color: #fff; }
 
-.customTitleBar .ui-accordion-header.ui-state-active {
-  background: #6bab94; }
+.customTitleBar .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+  background: #866c4b; }
 
 /*------------------- Tree component css start-------------------*/
 .dashboard-tree-input-icon {
@@ -1586,7 +1603,7 @@ md-icon.dashboard-menu-item-icon {
 .dashboard-tree-component .ui-menuitem-active .ui-menuitem-link:hover {
   color: white;
   font-weight: bold;
-  background: #102b25; }
+  background: #3a250c; }
 
 .dashboard-tree-component .ui-state-highlight {
   background: wheat; }
@@ -1659,18 +1676,18 @@ md-icon.dashboard-menu-item-icon {
   border: 1px solid #e0e0e0; }
 
 .dashboard-setting-win-configdialog {
-  background: #25656d;
+  background: #b18348;
   color: white; }
 
 .dashboard-setting-win-tabs {
   color: black; }
 
 .dashboard-sub-menu .ui-menu, .ui-menu .ui-menu-child {
-  background: #348478;
+  background: #846135;
   border: 0; }
 
 .dashboard-panel-context-menu.ui-contextmenu.ui-menu.ui-widget.ui-widget-content.ui-corner-all.ui-helper-clearfix.ui-menu-dynamic.ui-shadow {
-  background: #348478;
+  background: #846135;
   border: 0; }
 
 .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default {
@@ -1689,13 +1706,13 @@ md-icon.dashboard-menu-item-icon {
   color: black; }
 
 .dashboard-lower-table .ui-widget-content .lower-panel-table-row-even {
-  border: 1px solid #316a63;
-  background: #D6EBE8;
+  border: 1px solid #63431e;
+  background: #ffe6c4;
   color: #fff; }
 
 .dashboard-lower-table .ui-widget-content .lower-panel-table-row-odd {
-  border: 1px solid #316a63;
-  background: #72bfb6;
+  border: 1px solid #63431e;
+  background: #dabc93;
   color: #fff; }
 
 /*------------------- Custom Tree component css start-------------------*/
@@ -1738,18 +1755,18 @@ md-icon.dashboard-menu-item-icon {
   color: #1d1919; }
 
 .dashboard-open-derivedDialog .mat-dialog-title {
-  background-color: #25656d;
+  background-color: #b18348;
   color: white; }
 
 .dashboard-open-derivedDialog .deriveddialogclose {
-  background: #25656d; }
+  background: #b18348; }
 
 .dashboard-open-derivedDialog1 .mat-dialog-title {
-  background-color: #25656d;
+  background-color: #b18348;
   color: white; }
 
 .dashboard-open-derivedDialog1 .deriveddialogclose {
-  background: #25656d; }
+  background: #b18348; }
 
 .dashboard-open-derivedDialog1 .dashboard-open-derivedDialog h2 {
   color: white; }
@@ -1791,26 +1808,26 @@ md-icon.dashboard-menu-item-icon {
   color: black; }
 
 .dashboard-compare-Dialog .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 .dashboard-compare-Dialog .ui-widget-content .compare-table-row-even {
   border: 1px solid #D5D5D5;
-  background: #D6EBE8;
+  background: #dabc93;
   color: #f0f0f0; }
 
 .dashboard-compare-Dialog .ui-widget-content .compare-table-row-odd {
   border: 1px solid #D5D5D5;
-  background: #72bfb6;
+  background: #ffe6c4;
   color: #f0f0f0; }
 
 /* For compare window */
 .dashboard-compare-Dialog .mat-dialog-title {
-  background-color: #25656d;
+  background-color: #b18348;
   color: white; }
 
 .dashboard-compare-Dialog h2 {
@@ -1820,7 +1837,8 @@ md-icon.dashboard-menu-item-icon {
   color: black; }
 
 .dashboard-open-derivedDialog .mat-select-trigger {
-  color: #666; }
+  color: #666;
+  font-size: 12px; }
 
 /*-----------------Compare Compoment Css ---------*/
 .dashboard-data-load-spinner path {
@@ -1834,17 +1852,17 @@ md-icon.dashboard-menu-item-icon {
 /*-----------Start Open Merge css------------*/
 .dashboard-open-mergeDialog .mat-dialog-title {
   color: white;
-  background-color: #7d7d7d; }
+  background-color: #b18348; }
 
 .dashboard-open-mergeDialog h2 {
   color: white; }
 
 .selected-hirarchy {
-  background: #1f1f1f;
+  background: #4e3413;
   color: #fff; }
 
 .dashboard-open-mergehelpDialog .mat-dialog-title {
-  background: #25656d;
+  background-color: #b18348;
   color: white; }
 
 .dashboard-open-mergehelpDialog h2 {
@@ -1870,12 +1888,15 @@ md-icon.dashboard-menu-item-icon {
 
 .openMerge .ui-state-default a {
   color: black;
-  background: #6b6b6b; }
+  background: #735532; }
 
 .openMerge .ui-widget-content {
   border: 1px solid #D5D5D5;
-  background: #cacaca;
+  background: #fff9eb;
   color: #222222; }
+
+.openMerge .ui-accordion .ui-accordion-header .fa {
+  color: #fff; }
 
 /*-----------End Open Merge css------------*/
 .dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-trigger .fa {
@@ -1883,7 +1904,7 @@ md-icon.dashboard-menu-item-icon {
   background: transparent; }
 
 .dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-panel ul li label {
-  color: black; }
+  color: #f0f0f0; }
 
 /*----------Scenario Difference GUI START---------*/
 .dashboard-scenario-HeadingDiv {
@@ -1909,18 +1930,18 @@ md-icon.dashboard-menu-item-icon {
 /*-------------------Scenario Main GUI--------------------*/
 /*Scenario---------*/
 .scen-gui-backg, .scenTab .ui-tabview.ui-widget-content {
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 4px 1px #878787; }
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 4px 1px #9c7746; }
 
 .scenario .ui-toolbar {
-  background: rgba(40, 40, 40, 0.67); }
+  background: #5f3e19; }
 
 .scenario-left .ui-widget.ui-panelmenu-header.ui-state-default {
   background: transparent;
   border-bottom: 1px solid #3a3a3a; }
 
 .scenario-left .ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-  background: #539c82; }
+  background: #312109; }
 
 .scenario-left .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
   color: #eee; }
@@ -1930,12 +1951,15 @@ md-icon.dashboard-menu-item-icon {
 
 /** Global Header in scenario */
 .scen-global-header {
-  background: #45484d;
-  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-  background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);
-  background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: white; }
+
+fieldset.marginClassTop.fieldsetClass {
+  background: rgba(255, 255, 255, 0.65); }
 
 .scen-table .ui-datatable.ui-widget.ui-datatable-resizable {
   background: rgba(255, 255, 255, 0.42); }
@@ -1944,23 +1968,23 @@ md-icon.dashboard-menu-item-icon {
   background: rgba(245, 245, 245, 0.65); }
 
 .scen-table .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff;
   padding: 4px; }
 
 .scen-lefttree {
-  background: rgba(0, 0, 0, 0.56); }
+  background: rgba(78, 52, 20, 0.65); }
 
 .scen-table .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
-  background: #bdefdc;
+  background: #a59584;
   color: #e4e4e4; }
 
 .scen-table .ui-state-highlight a, .ui-widget-content .ui-state-highlight a {
-  color: #e4e4e4; }
+  color: #2d2d2d; }
 
 .scenario .ui-toolbar label {
   color: white; }
@@ -1977,18 +2001,19 @@ md-icon.dashboard-menu-item-icon {
   border: 0px #848484 solid; }
 
 .scenmodal .ui-dialog-titlebar.ui-widget-header {
-  background: linear-gradient(#539C82 0%, #2a6d58 100%);
+  background: #886436;
   color: #fff; }
 
 .scenmodal span.fa.fa-fw.fa-close {
   color: #fff; }
 
 .accordHeader .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
-  background: #489684; }
+  background: #ad865a;
+  border: 1px #7f603d solid; }
 
 .accordHeader .ui-accordion-header.ui-state-default.ui-corner-all {
-  background: #245e50;
-  border: 1px #154237 solid; }
+  background: #63431e;
+  border: 1px #352209 solid; }
 
 .accordHeader span.fa.fa-fw.fa-caret-down {
   color: #fff; }
@@ -2006,7 +2031,7 @@ md-icon.dashboard-menu-item-icon {
   color: #fff; }
 
 .accordHeader .ui-accordion .ui-accordion-content.ui-widget-content {
-  background: rgba(255, 255, 255, 0.8); }
+  background: rgba(255, 255, 255, 0.3); }
 
 .logsDrpDwn, .scenario, .scenmodal, span.fa.fa-fw.fa-caret-down.ui-c {
   color: black; }
@@ -2019,13 +2044,13 @@ md-icon.dashboard-menu-item-icon {
   background: #ffffff; }
 
 .scen-panel .ui-panel .ui-panel-content {
-  background: #eef0f5; }
+  background: #F6EAD3; }
 
 .scenTab li.ui-state-default.ui-corner-top.ui-tabview-selected.ui-state-active {
-  background: #2f5556; }
+  background: #ad7028; }
 
 .scenTab .ui-tabview .ui-tabview-nav > li.ui-state-default {
-  background: #658788; }
+  background: #5f3e19; }
 
 .scenTab .ui-tabview-panels {
   background: rgba(255, 255, 255, 0.73); }
@@ -2060,7 +2085,7 @@ md-icon.dashboard-menu-item-icon {
 /*Dashboard Update User session Css*/
 /*----------------- PrimeNg Tab and Data Table CSS------------------*/
 .dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-default {
-  background: #72bfb6; }
+  background: #cea46e; }
 
 .dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-panel {
   border-bottom: 1px #d2d2d2 solid;
@@ -2071,35 +2096,35 @@ md-icon.dashboard-menu-item-icon {
   background: transparent; }
 
 .dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-active {
-  background: #e4f5ef; }
+  background: #fffffb; }
 
 .dashboard-update-user-session-rate-tab .ui-state-default a:link {
   color: #000; }
 
 .dashboard-update-user-session-text-header {
-  background: #4d8d95;
+  background: #674c24;
   color: #fff; }
 
 .dashboard-update-user-session-text-header .ui-widget-header {
   color: white; }
 
 .dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 .dashboard-update-user-session-dataTable > table .ui-widget-content ui-datatable-odd {
   background: transparent; }
 
 .dashboard-update-user-session-dataTable .ui-datatable-odd {
-  background: #72bfb6;
+  background: #ffe6c4;
   color: #f0f0f0; }
 
 .dashboard-update-user-session-dataTable tr.ui-widget-content.ui-datatable-even {
-  background: #D6EBE8;
+  background: #dabc93;
   color: #f0f0f0; }
 
 /*--------------END CODE-----------------*/
@@ -2108,7 +2133,7 @@ md-icon.dashboard-menu-item-icon {
   background: #3f7bbc; }
 
 .accessLog-theme {
-  background-color: rgba(255, 255, 255, 0.55);
+  background-color: rgba(62, 43, 18, 0.13);
   color: #000; }
 
 .accessLog-theme-lower {
@@ -2124,7 +2149,7 @@ md-icon.dashboard-menu-item-icon {
   color: white; }
 
 .dialogHeaderBackground {
-  background: #25656d;
+  background: #b18348;
   color: #fff; }
 
 .accessLog-applyButton, .accessLog-cancelButton {
@@ -2147,11 +2172,11 @@ md-icon.dashboard-menu-item-icon {
   color: white; }
 
 .access-log-table .ui-datatable .ui-datatable-thead > tr > th {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: white;
   padding: 6px; }
 
@@ -2163,34 +2188,34 @@ md-icon.dashboard-menu-item-icon {
   color: white; }
 
 .file-manager-table .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 .file-manager-table .ui-datatable-odd {
-  background: #72bfb6; }
+  background: #ffe6c4; }
 
 .dialogData {
-  background: #d9eae9; }
+  background: #fffffb; }
 
 /*---------------------------Import Access Log Css--------------------------------------------*/
 .scheduleTabPanel {
   background: #fff; }
 
 .rc-modal .ui-dialog .ui-dialog-titlebar {
-  background: #25656d;
+  background: #b18348;
   color: #fff; }
 
 /******* For Config UI ************/
 .nde-ui .ui-datatable .ui-datatable-thead > tr > th {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: white; }
 
 .ndagent .ui-widget-content {
@@ -2209,7 +2234,7 @@ md-icon.dashboard-menu-item-icon {
 .config-ui .mat-button,
 .config-ui .mat-icon-button,
 .config-ui .mat-raised-button {
-  border-bottom: 1px #3a3a3a solid; }
+  border-bottom: 1px rgba(231, 207, 149, 0.3) solid; }
 
 .top-nav-bar {
   background: rgba(255, 255, 255, 0.5); }
@@ -2239,7 +2264,7 @@ md-icon.dashboard-menu-item-icon {
   background: rgba(255, 255, 255, 0.52); }
 
 .tabs-all .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
-  background: #9bc0b6;
+  background: #ebd4b1;
   color: #000;
   border-bottom: 0; }
 
@@ -2247,8 +2272,8 @@ md-icon.dashboard-menu-item-icon {
   border: 0px #c5c5c5 solid; }
 
 .tabs-all .ui-tabview .ui-tabview-nav > li.ui-state-default {
-  background: #6aad95;
-  border: 1px #266a57 solid;
+  background: #b59b72;
+  border: 1px #886436 solid;
   border-bottom: 0; }
 
 .tabs-all .ui-tabview .ui-tabview-nav li a,
@@ -2256,7 +2281,7 @@ md-icon.dashboard-menu-item-icon {
   color: #000; }
 
 .tabs-all .ui-widget-header {
-  background: #3e3e3e;
+  background: #886436;
   color: #fff; }
 
 .tabs-all .ui-panel .ui-panel-content {
@@ -2264,7 +2289,7 @@ md-icon.dashboard-menu-item-icon {
 
 .tabsincontent .header {
   color: #fff;
-  background: #353535; }
+  background: #886436; }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
   background: #183D65;
@@ -2280,7 +2305,7 @@ md-icon.dashboard-menu-item-icon {
   background: #ececec; }
 
 .config-tree .ui-tree {
-  background: rgba(99, 164, 145, 0.4); }
+  background: #d6c4aa; }
 
 .ui-datatable-odd {
   /*background-color: #e8f4ff;*/ }
@@ -2290,9 +2315,11 @@ md-icon.dashboard-menu-item-icon {
 
 .configUI .header {
   color: #fff;
-  background: #45484d;
-  background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); }
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 ); }
 
 .cav-toolbar {
   background: rgba(255, 255, 255, 0.38); }
@@ -2302,13 +2329,17 @@ md-icon.dashboard-menu-item-icon {
 
 /* config header */
 .md-card-subtitle-css {
-  background: #25656d; }
+  background: #6b4514; }
 
 .header-Name {
   color: white; }
 
 .ndegui-card {
-  background: rgba(255, 255, 255, 0.65);
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #ecd9aa 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ecd9aa',GradientType=1 );
   border-radius: 4px; }
 
 .button-color {
@@ -2341,10 +2372,14 @@ a {
   border-bottom: 1px #777 solid; }
 
 .configUI_card-css .mat-card {
-  background: #25656d; }
+  background: #422c0f; }
 
 .icon_big {
   color: #bdefe1; }
+
+.config-tree .ui-widget-content .ui-state-highlight {
+  background: #52310c;
+  color: #e4e4e4; }
 
 /*session-attribute.css */
 .configui-session-css {
@@ -2352,7 +2387,7 @@ a {
 
 /* config-profile-list.components.css */
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
-  background: #25656d;
+  background: #b18348;
   color: #fff; }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
@@ -2360,7 +2395,7 @@ a {
 
 /* config-top-nav-bar.component.css */
 .stripbg {
-  background: #bdefe1; }
+  background: #b59b72; }
 
 /* config-tree-main.components.css */
 .mytreeview {
@@ -2368,11 +2403,11 @@ a {
 
 .mytreeview .header {
   color: #fff;
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 ); }
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 ); }
 
 .config-ui .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: #77d218 !important; }
@@ -2388,7 +2423,7 @@ a {
 
 /*----------Login Screen-------------*/
 .container1 {
-  background: url("images/theme4-login.jpg") no-repeat center fixed; }
+  background: url("images/theme5-login.jpg") no-repeat center fixed; }
 
 .ui-panelmenu-header {
   background: rgba(255, 255, 255, 0);
@@ -2396,24 +2431,30 @@ a {
 
 .editFavoriteDialog .mat-dialog-title {
   color: white;
-  background-color: #25656d; }
+  background-color: #b18348; }
 
 .favEdit {
-  background: #104240;
+  background: #4e3413;
   color: #fff; }
 
 .favoFileMgmtDialog .mat-dialog-title {
   color: white;
-  background-color: #25656d; }
+  background-color: #b18348; }
 
 .btn-select, .btn-add-folder, .btn-create-folder, .btn-cancel-folder, .btn-upload {
   color: #fff;
-  background: #2a5c58; }
+  background: #4e3413; }
+
+.buttons .mat-button {
+  color: #fff; }
+
+.buttons .mat-button[disabled] {
+  color: darkgray; }
 
 .glb-allbtn {
-  border: 1px solid #e0e0e0;
+  border: 1px solid #a07842;
   color: #fff;
-  background: #104240;
+  background: #4e3413;
   box-shadow: 0 0 1px 1px #a9a9a9; }
 
 button.glb-allbtn.mat-raised-button {
@@ -2434,13 +2475,13 @@ button.glb-allbtn.mat-raised-button {
 }*/
 .dashboard-menu-nav-split-icon {
   font-size: 1px;
-  border-bottom: 1px #313131 solid;
+  border-bottom: 1px rgba(231, 207, 149, 0.2) solid;
   border-top: 0px #313131 solid;
   border-left: 0px #313131 solid;
   border-right: 0px #313131 solid; }
 
 .dashboard-tree-component {
-  background: #cbe5db; }
+  background: rgba(247, 232, 193, 0.92); }
 
 .dashboard-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-right, span.ui-treenode-icon.fa.fa-fw.fa-hdd-o {
   color: #000; }
@@ -2464,18 +2505,19 @@ button.md-fab.pieChartInTD.mat-mini-fab {
   background: #42A5F5; }
 
 #txDetailWinId .ui-accordion .ui-accordion-content {
-  background: #848484; }
+  background: rgba(107, 69, 20, 0.27);
+  border: 1px solid #ad8c62; }
 
 .trnssidenav-piechart {
-  background: #afafaf;
-  box-shadow: 0 0 4px 1px white;
-  border: 1px #fff solid; }
+  background: #f7f1c8;
+  box-shadow: 0 0 4px 1px #f1e6b4;
+  border: 1px #6b4514 solid; }
 
 .dashboard-elapsed-time-icon .clr {
   color: #fff; }
 
 .sql-btn {
-  background: #000;
+  background: #4e3413;
   box-shadow: 0 0 3px 1px #525252;
   color: #fff; }
 
@@ -2484,20 +2526,20 @@ button.md-fab.pieChartInTD.mat-mini-fab {
   border: solid #eee; }
 
 .mainDivRunCommand .ui-panel .ui-panel-content {
-  background: #e1f5ee; }
+  background: #faf5ee; }
 
 .dashboard-setting-win-tabs .mat-tab-label-active {
-  background: #9fceff; }
+  background: #eac088; }
 
 .dashboard-corelation-dialog {
-  background: #25656d; }
+  background: #b18348; }
 
 .dashboard-corelation-dialog span {
   font-size: 16px;
   color: #fff; }
 
 .selected-alert-type {
-  background: #101010; }
+  background: #523712; }
 
 .historyleftpane .ui-accordion .ui-accordion-header .fa {
   color: #fff; }
@@ -2507,14 +2549,14 @@ button.md-fab.pieChartInTD.mat-mini-fab {
 
 .left-nav button[md-icon-button] {
   border-top: 0px #c00 solid;
-  border-bottom: 1px #1b463a solid;
+  border-bottom: 1px rgba(231, 207, 149, 0.3) solid;
   border-left: 0px #c00 solid;
   border-right: 0px #c00 solid; }
 
 .dashboard-pagination .ui-paginator .ui-paginator-page.ui-state-active {
-  background: #000;
+  background: #825a28;
   color: #ffffff;
-  border-color: #6f6f6f; }
+  border-color: #4e3413; }
 
 app-alert-home .mat-button-toggle-checked {
   color: #fff;
@@ -2536,16 +2578,16 @@ md-icon.dashboard-elapsed-time-icon.clr.fa.fa-clock-o.mat-icon {
   background: #3a3a3a; }
 
 .dashboard-data-widget-title {
-  color: #ebebeb; }
+  color: #4e4e4e; }
 
 .dashboard-data-widget-subtitle {
-  color: #bdbdbd; }
+  color: #000; }
 
 .dashboard-data-widget-footer {
-  color: #f9f9f9; }
+  color: #4e4e4e; }
 
 #txDetailWinId .mat-tab-label {
-  color: white; }
+  color: #000; }
 
 .ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active {
   color: #282828; }
@@ -2557,19 +2599,19 @@ div.section label {
   color: #efefef; }
 
 .transcompare-filedset {
-  border: 1px solid #262626;
-  background: rgba(255, 255, 255, 0.72); }
+  border: 1px solid #ad8c62;
+  background: rgba(107, 69, 20, 0.27); }
 
 .transcompare-filedset .txBtn {
   color: #f0f0f0;
-  background: #25656d; }
+  background: #4e3413; }
 
 .lblPanel {
   color: #f0f0f0; }
 
 #txDetailWinId .ui-accordion .ui-accordion-header {
-  background: #525252;
-  border: 1px solid #0b2138; }
+  background: #63431e;
+  border: 1px solid #6b4514; }
 
 #txDetailWinId .ui-accordion .ui-accordion-header .fa {
   color: #c1c1c1; }
@@ -2590,18 +2632,17 @@ div.section label {
 .scen-table, .test-run-table, .ui-datatable .ui-datatable-data > tr > td span {
   color: #000; }
 
+.scen-table, .test-run-table, .ui-datatable .ui-datatable-data > tr > td {
+  color: #000; }
+
 .ndegui-mainbox {
   background: rgba(255, 255, 255, 0.6); }
 
 .dashboard-lower-section .ui-widget-content .ui-state-highlight {
-  background: #6dad95; }
+  background: #634014; }
 
 .scen-label {
-  color: #f0f0f0; }
-
-.dashboard-pagination .ui-paginator .ui-paginator-page.ui-state-active {
-  background: #020202;
-  border-color: #171717; }
+  color: #000; }
 
 .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default {
   background: #f7f7f7; }
@@ -2617,17 +2658,11 @@ div.section label {
 #txDetailWinId .mat-input-placeholder {
   color: white; }
 
-#txDetailWinId .ui-accordion .ui-accordion-content {
-  border: 1px solid cadetblue; }
-
 .trans-heading {
-  background: rgba(255, 255, 255, 0.3); }
+  background: #6b4514; }
 
 #txDetailWinId .ui-accordion .ui-accordion-header:hover {
   border: 1px solid #0b2138; }
-
-.trans-heading {
-  background: rgba(255, 255, 255, 0.3); }
 
 .drawer-menu {
   background: rgba(0, 0, 0, 0.75); }
@@ -2636,58 +2671,63 @@ div.section label {
   background: transparent; }
 
 .display-label {
-  color: white; }
+  color: #000; }
 
 app-alert-home .mat-sidenav {
   background-color: rgba(255, 255, 255, 0.65); }
 
 app-alert-home .ui-widget-content .history-table-row-even {
-  background: #D6EBE8;
+  background: #ffe6c4;
   color: #fff; }
 
 app-alert-home .ui-widget-content .history-table-row-odd {
-  background: #72bfb6;
+  background: #dabc93;
   color: #fff; }
 
 .total-recors {
   color: #fff; }
 
 .totalTestRunCard, .totalArchieveCard, .totalLockedTestsCard, .totalScriptsCard, .totalScenarioCard, .totalRunningCard {
-  background: #f4fffb;
+  background: #f9f4e5;
   width: auto;
   cursor: pointer;
-  border: 1px solid #aad6c6; }
+  border: 1px solid #ebd7b0; }
 
 .accordHeader .ui-accordion .ui-accordion-header .fa {
   color: #fff; }
 
 .ndagent .ui-accordion .ui-accordion-header {
-  background: #245e50;
-  color: #c2f3e2; }
+  background: #63431e;
+  color: #f2e5b5; }
 
-.favParamBtn {
-  color: #FFFFFF;
-  background: #2399e5;
+#txDetailWinId .tx_Subheader {
+  color: #fff;
+  background: #31200c;
   border: 1px solid #0b2138; }
 
+.favParamBtn {
+  color: #fff;
+  background: #4e3413;
+  border: 1px solid #a07842; }
+
 .favoriteParamNdFilter .mat-dialog-title {
-  color: white;
-  background-color: #25656d; }
+  color: #fff;
+  background-color: #b18348; }
 
 .saveDialogBox .mat-dialog-title {
   color: white;
-  background-color: #25656d; }
+  background-color: #b18348; }
 
 /*-------Added on 10072017---------*/
 .mat-menu-content .ui-state-default {
-  background: #336553; }
+  background: #442d10; }
 
 .addFavoriteDialog .mat-dialog-title {
   color: #fff;
-  background: #25656d; }
+  background: #b18348; }
 
 .chngPassword .ui-widget-header {
-  background: #25656d; }
+  background: #b18348; }
 
 .chngPassword .ui-dialog.ui-widget .ui-dialog-titlebar {
   color: #fff;
@@ -2697,7 +2737,7 @@ app-alert-home .ui-widget-content .history-table-row-odd {
   margin: 0; }
 
 .chngrefreshkey .ui-widget-header {
-  background: #25656d; }
+  background: #b18348; }
 
 .chngrefreshkey .ui-dialog.ui-widget .ui-dialog-titlebar {
   color: #fff;
@@ -2708,110 +2748,110 @@ app-alert-home .ui-widget-content .history-table-row-odd {
 
 /*---------Added on 12072017-----------*/
 .lastReleaseClass {
-  color: #fff; }
+  color: #291b08; }
 
 md-card.buildCardClass.mat-card {
-  background: #020a07; }
+  background: #1b1207; }
 
 .eyeDivClass {
   background: #353535; }
 
 .lastRelease-table, .diskgrid-table, th {
-  background: #3b7970;
-  background: linear-gradient(to bottom, #3b7970 0%, #3b7970 100%);
+  background: #84663b;
+  background: linear-gradient(to bottom, #84663b 0%, #84663b 100%);
   color: #fff; }
 
 .ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active {
-  background-color: #3b7970;
+  background-color: #84663b;
   color: #fff; }
 
 .lastRelease-table tr:nth-of-type(odd) {
-  background: #D6EBE8;
+  background: #dabc93;
   color: #000; }
 
 .lastRelease-table tr:nth-of-type(even) {
-  background: #72bfb6;
+  background: #ffe6c4;
   color: #000; }
 
 .diskgrid-table tr:nth-of-type(odd) {
-  background: #D6EBE8;
+  background: #dabc93;
   color: #000; }
 
 .diskgrid-table tr:nth-of-type(even) {
-  background: #72bfb6;
+  background: #ffe6c4;
   color: #000; }
 
 .diskgrid-table td {
-  border: 1px #bdbdbd solid; }
+  border: 1px #ad946e solid; }
 
 .dashboard-top-panel .mat-button-focus-overlay {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   margin: -4px 0 0 0; }
 
 .grphtab-view .ui-treetable th.ui-state-default {
-  background: #3b7970;
+  background: #84663b;
   color: #fff; }
 
 .grphtab-view tbody:nth-of-type(odd) {
-  background: #D6EBE8;
+  background: #dabc93;
   color: #000;
   border-bottom: 1px #9c9c9c solid;
   border-top: 1px #9c9c9c solid; }
 
 .grphtab-view tbody:nth-of-type(even) {
-  background: #72bfb6;
+  background: #ffe6c4;
   color: #000;
   border-bottom: 1px #9c9c9c solid;
   border-top: 1px #9c9c9c solid; }
 
 .navBarAccClass .ui-menu.ui-menu-dynamic {
-  background: #6baa8b;
-  border-color: #79c8bc; }
+  background: #faf6ea;
+  border: #faf6ea; }
 
 .dashboard-tree-component .dashboard-tree-context-menu {
-  background: #348478;
-  border-color: #348478; }
+  background: #846135;
+  border-color: #846135; }
 
 .dashboard-tree-context-menu a.ui-menuitem-link.ui-corner-all {
   color: #dedede; }
 
 .dashboard-tree-component .ui-widget-content .ui-state-highlight {
-  background: rgba(222, 222, 222, 0.66);
+  background: rgba(70, 45, 14, 0.23);
   color: #e4e4e4;
   padding: 2px; }
 
 .dashboard-top-panel .ui-menu {
-  background: #549c91;
-  border-color: #549c91; }
+  background: #e1ba7d;
+  border-color: #e1ba7d; }
 
 .dashboard-panel-selected {
-  border: 1px solid #A3CDC7;
-  -webkit-box-shadow: 0px 0px 8px 4px #d7e4e2;
-  -moz-box-shadow: 0px 0px 8px 4px #d7e4e2;
-  box-shadow: 0px 0px 8px 4px #d7e4e2; }
+  border: 1px solid #000;
+  -webkit-box-shadow: 0px 0px 8px 4px #0a0a0a;
+  -moz-box-shadow: 0px 0px 8px 4px #0a0a0a;
+  box-shadow: 0px 0px 8px 4px #0a0a0a; }
 
 /*---------------Timeslot Management --------------*/
 .timeslot-table .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff;
   padding: 6px; }
 
 .timeslot-header {
-  background: #25656d;
+  background: #b18348;
   color: #dadada; }
 
 .timeslot-main .ui-paginator {
   background: rgba(0, 0, 0, 0.14); }
 
 .timeslot-top {
-  background: rgba(255, 255, 255, 0.5); }
+  background: #FBF7ED; }
 
 .timeslot-popup-header .mat-dialog-title {
-  background: #25656d;
+  background: #b18348;
   color: #fff; }
 
 .timeslot-popup-footer {
@@ -2820,27 +2860,30 @@ md-card.buildCardClass.mat-card {
 
 /*-------------NewAddon17072017----------------*/
 .mat-dialog-container {
-  background: #f2feff;
+  background: #fffbf1;
   /*#fdf5e1;*/ }
 
 .chngPassword, .chngrefreshkey .ui-widget-content {
-  background: #f2feff; }
+  background: #fffbf1; }
 
 .btn1, .btn2, .dashboard-alert-model-footer-btn, .dashboard-confirm-model-footer-btn, .transaction-alert-model-footer-btn, .td-confirm-model-footer-btn {
-  background: #104240; }
+  background: #4e3413; }
 
-button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashboard-confirm-model-footer-btn, button.transaction-alert-model-footer-btn, .button.td-confirm-model-footer-btn {
+button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashboard-confirm-model-footer-btn, button.transaction-alert-model-footer-btn, button.td-confirm-model-footer-btn {
   color: #f0f0f0; }
 
 .dashboard-alert-model-header, .dashboard-confirm-model-header, .transaction-alert-model-header, .td-confirm-model-header {
-  background: #25656d;
+  background: #b18348;
   color: #fff; }
+
+.mat-button-focus-overlay, .mat-button-ripple {
+  position: relative; }
 
 .top-panel-nav-cross-icon {
   color: red; }
 
 .dashboard-tree-component .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
-  background: #6bad97;
+  background: #d4b544;
   font-weight: normal;
   color: #555555; }
 
@@ -2849,7 +2892,7 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
 
 .ui-tabview.ui-widget-content {
   border: 0px none;
-  background: #96cab9; }
+  background: #efdcb0; }
 
 .ui-tabview .ui-tabview-panel {
   border-width: 0;
@@ -2857,17 +2900,17 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
   background: 0; }
 
 .dashboard-input-model-footer .dashboard-input-model-footer-btn {
-  background: #1b3d29; }
+  background: #a59368; }
 
 /*for not changing color on mouse hover on button*/
 .mat-button-focus-overlay {
   position: relative; }
 
 .sliderCustomColor .mat-slider-horizontal .mat-slider-thumb-label {
-  background-color: #1b3d29; }
+  background-color: #a59368; }
 
 .sliderCustomColor .mat-slider-horizontal .mat-slider-track-fill {
-  background-color: #1b3d29; }
+  background-color: #a59368; }
 
 /*This is the CSS for the Highlight health check monitor window table row*/
 .ui-widget-content .healthChkMon-table-selected-row {
@@ -2875,42 +2918,127 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
   color: black; }
 
 .health-chk-mon .ui-datatable th.ui-state-default {
-  background: #3b7970;
-  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  background: #bd965c;
+  background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
+  background: linear-gradient(to bottom, #bd965c 0%, #aa6a20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
   color: #fff; }
 
 .health-chk-mon .ui-widget-content .healthChkMon-table-row-even {
   border: 1px solid #D5D5D5;
-  background: #D6EBE8;
+  background: #dabc93;
   color: #f0f0f0; }
 
 .health-chk-mon .ui-widget-content .healthChkMon-table-row-odd {
   border: 1px solid #D5D5D5;
-  background: #72bfb6;
+  background: #ffe6c4;
   color: #f0f0f0; }
 
 /*--------------CSS For FileUpload-----------------*/
 .uploadFiles .ui-fileupload-choose.ui-button.ui-widget {
   background: #314184; }
 
+/*access -control -css */
+.cosmotable .ui-datatable th.ui-state-default {
+  background-color: #4e3413;
+  color: white; }
+
+.compotable .ui-datatable th.ui-state-default {
+  background-color: #4e3413;
+  color: white; }
+
+.capabilitytable th {
+  /*theme5*/
+  background: #4e3413;
+  color: #fafafa; }
+
+.mdcardbackgrnd {
+  background: #e7cd95; }
+
+.permissionGroup .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #4e3413; }
+
+.permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #4e3413; }
+
+.capabilitytable .ui-widget-header .ui-state-default .ui-widget-content .ui-state-defaul .ui-state-default {
+  /*theme5*/
+  background: #4e3413; }
+
+.permissionpanel .ui-panel .ui-panel-titlebar {
+  /*theme5*/
+  background: #4e3413;
+  color: #fff8da; }
+
+.controltab .mat-ink-bar {
+  background-color: #4e3413; }
+
+/*.capabilityTree .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default {
+    background: rgba(78, 52, 19, 0.48);
+}*/
+.capabilityTable .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+  background: #e7c377;
+  /* color: white; */ }
+
+.permissionTree .ui-widget-header .ui-state-default {
+  background: rgba(78, 52, 19, 0.48); }
+
+.permissionTree .ui-widget-content .ui-state-default {
+  background: white; }
+
+.permissionTree .ui-state-default {
+  background: rgba(78, 52, 19, 0.48); }
+
+.permissionTree .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+  background: #e7c377; }
+
+.mat-mini-fab.mat-accent {
+  background: rgba(78, 52, 19, 0.48); }
+
+.permissionTree::-webkit-scrollbar {
+  background: #e7cd95; }
+
+.accesscontrol-tree-tier-node {
+  color: #b92717; }
+
+.mdcardtoprightbackgrnd {
+  background: rgba(255, 230, 196, 0.65); }
+
+.tabheader {
+  background: #4e3413;
+  color: white; }
+
+.mainDiv {
+  background: #e7cd95; }
+
+.permissionpanel .ui-panel .ui-panel-content {
+  background: white; }
+
+.capabilityButton {
+  color: black; }
+
+.toprightheader {
+  background: #4e3413; }
+
+.permissionTree {
+  background: #e7cd95; }
+
 /* css for add new layout window*/
 .addLayoutDialog .mat-dialog-title {
   color: white;
-  background-color: #25656d; }
+  background-color: #b18348; }
 
 /*--------ProductUI widget Header backgrounds----------*/
 .handle {
-  background: #021912;
-  color: #fff; }
+  background: #291d05;
+  color: #fff9eb; }
 
 .header {
-  color: #fff; }
+  color: #fff9eb; }
 
 .handle.alertHeader {
-  background: #021912;
+  background: #291d05;
   /*background: #b71c1c;
   background: -moz-linear-gradient(top,  #b71c1c 0%, #960606 100%);
   background: -webkit-linear-gradient(top,  #b71c1c 0%,#960606 100%);
@@ -2925,30 +3053,31 @@ th {
   font-size: 11px;
   font-weight: 400;
   padding: 4px;
-  border: 1px #3f776c solid; }
+  border: 1px #463b27 solid; }
 
 td {
   font-size: 11px;
   font-weight: 400;
-  padding: 4px;
-  border: 1px #3f776c solid; }
+  padding: 3px;
+  border: 1px #463b27 solid; }
 
 /*----------New AccessControl CSS--------------*/
 .accessControl-box {
-  background: rgba(255, 255, 255, 0.4); }
+  background: rgba(255, 255, 255, 0.55); }
 
 .accessControl-box .mat-card {
-  background: rgba(255, 255, 255, 0.4); }
+  background: transparent; }
 
 .tabheader {
-  background: #021912;
+  background: #291d05;
   color: #e2e2e2; }
 
 .AC-leftpane {
-  background: rgba(255, 255, 255, 0.6); }
+  background: rgba(255, 255, 255, 0.42); }
 
 .toprightheader {
-  background: #021912;
+  /*theme5*/
+  background: #291d05;
   color: #fafafa; }
 
 .AC-rightpane {
@@ -2958,7 +3087,7 @@ td {
   color: #000; }
 
 .permissionpanel .ui-panel .ui-panel-titlebar {
-  background: #021912;
+  background: #291d05;
   color: #fafafa; }
 
 md-card.permissionTree.mat-card {
@@ -2972,9 +3101,9 @@ md-card.permissionTree.mat-card {
   background: rgba(190, 220, 234, 0.15); }
 
 button.capabilityButton.mat-raised-button {
-  border: 1px solid rgba(210, 210, 210, 0.44);
+  border: 1px solid #a07842;
   color: #fff;
-  background: #104240; }
+  background: #4e3413; }
 
 .controltab .mat-tab-link {
   color: #000; }
@@ -2988,19 +3117,9 @@ button.capabilityButton.mat-raised-button {
 .compotable .ui-datatable .ui-datatable-data tr.ui-state-hover, .ui-datatable .ui-datatable-data tr.ui-state-highlight {
   border-color: #462f12; }
 
-.accesscontrol-tree-tier-node {
-  color: #b92717; }
-
-.accesscontrol-tree-default-node {
-  color: rgba(44, 20, 141, 0.94); }
-
-.compotable .ui-datatable th.ui-state-default {
-  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
-  color: white; }
-
 /*------------------ND CONFIG UI----------------*/
 .header-button {
-  background: #021912; }
+  background: #291d05; }
 
 /* -------------------------- ProductUICSS ------------------*/
 .cardTitleClass {
@@ -3008,6 +3127,3 @@ button.capabilityButton.mat-raised-button {
 
 .mat-card-subtitle {
   color: #282828; }
-
-md-card-subtitle.dashboard-data-widget-subtitle.mat-card-subtitle {
-  color: #bcf3de; }

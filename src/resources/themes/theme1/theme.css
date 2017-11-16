@@ -1202,7 +1202,7 @@ body {
   border-radius: 4px; }
 
 .mat-sidenav {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12); }
 
 .left-nav .icon {
@@ -2156,13 +2156,13 @@ app-alert-home .ui-state-default {
 
 .configUI {
   background: rgba(255, 255, 255, 0.65);
-  box-shadow: 0 0 6px 2px #565656; }
+  /*box-shadow: 0 0 6px 2px #565656;*/ }
 
 .configUI .header {
   color: #fff;
-  background: #45484d;
-  background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); }
+  background: #282828;
+  /*background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );*/ }
 
 .cav-toolbar {
   background: rgba(255, 255, 255, 0.38); }
@@ -2397,7 +2397,7 @@ app-alert-home .mat-button-toggle-checked {
   background: rgba(255, 255, 255, 0.63); }
 
 .ndegui-mainbox {
-  background: rgba(245, 245, 245, 0.62); }
+  background: rgba(245, 245, 245, 0.7); }
 
 .ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active {
   color: #282828; }
@@ -2791,11 +2791,15 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
 
 /*--------ProductUI widget Header backgrounds----------*/
 .handle {
-  background: #424242; }
+  background: #424242;
+  color: #fff; }
+
+.header {
+  color: #fff; }
 
 .handle.alertHeader {
   background: #424242;
-  /*background: #b71c1c;
+  /* background: #b71c1c;
   background: -moz-linear-gradient(top,  #b71c1c 0%, #960606 100%);
   background: -webkit-linear-gradient(top,  #b71c1c 0%,#960606 100%);
   background: linear-gradient(to bottom,  #b71c1c 0%,#960606 100%);
@@ -2852,3 +2856,14 @@ md-card.permissionTree.mat-card {
 
 .compotable .ui-datatable .ui-datatable-data tr.ui-state-hover, .ui-datatable .ui-datatable-data tr.ui-state-highlight {
   border-color: #462f12; }
+
+/*------------------ND CONFIG UI----------------*/
+.ndegui_left .mat-button, .mat-icon-button, .mat-raised-button {
+  color: #000; }
+
+/* -------------------------- ProductUICSS ------------------*/
+.cardTitleClass {
+  color: #fff; }
+
+.mat-card-subtitle {
+  color: #282828; }
