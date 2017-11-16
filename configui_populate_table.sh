@@ -551,7 +551,7 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (74,'NDP_ALLOW_REQ_DETAIL_BEFORE_SQB_BEGIN_REC','','','1','1'),
 (75,'NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX','','','0','0'),
 (76,'NDC_BCI_RESPONSE_TIME_FOR_METADATA_IN_SECS','','','60','60'),
-(77,'ENABLE_FP_STAT_MONITOR','','','1','1'),
+(77,'ENABLE_FP_STAT_MONITOR','','','0','0'),
 (78,'SEND_ACTIVE_INSTANCE_REP','','','1','1'),
 (79,'NDC_MAX_CTRL_CON','','','400','400'),
 (80,'NDP_MAX_SQL_INDEX_FROM_BCI','','','4096','4096'),
