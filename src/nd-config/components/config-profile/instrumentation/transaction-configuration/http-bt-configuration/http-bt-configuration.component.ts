@@ -577,8 +577,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /**This method is used to validate the name of Pattern is already exists. */
   checkAppNameAlreadyExist(): boolean {
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
-      if (this.businessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
-        this.configUtilityService.errorMessage("Business Transaction name already exist");
+      if (this.businessTransPatternInfo[i].urlName== this.businessTransPatternDetail.urlName) {
+        this.configUtilityService.errorMessage("URL pattern already exists");
         return true;
       }
     }

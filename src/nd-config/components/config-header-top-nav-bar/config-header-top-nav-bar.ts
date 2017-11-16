@@ -61,9 +61,9 @@ export class ConfigTopHeaderNavBarComponent implements OnInit {
   
     private timeSubscription = null;
     arrThemeNames = [[{text: 1, isActive: false, color: '#EDEDED'}, {text: 2, isActive: true, color: '#6C9DD1'}, 
-                     {text: 3, isActive: false, color: '#494949'}],
-                     [{text: 4, isActive: false, color: '#307565'}, /*{text: 5, isActive: false, color: '#E6CB91'} 
-                     {text: 6, isActive: false, color: '#f9d8fb'}], [{text: 7, isActive: false, color: '#00ff7f'},
+    {text: 3, isActive: false, color: '#494949'}],
+    [{text: 4, isActive: false, color: '#307565'}, {text: 5, isActive: false, color: '#E6CB91'} 
+    ,{text: 6, isActive: false, color: '#c9c9c9'}/* [{text: 7, isActive: false, color: '#00ff7f'},
                      {text: 8, isActive: false, color: '#ccc0b7'}, {text: 9, isActive: false, color: '#e152d4'}*/]];
   
     dcList:MenuItem[];
@@ -134,7 +134,7 @@ export class ConfigTopHeaderNavBarComponent implements OnInit {
       this.timeZoneId = sessionStorage.getItem('timeZoneId');
       this.timeZone = sessionStorage.getItem('timeZone');
       //incremented 3 milisecond
-      this.date = moment().tz(this.timeZoneId).format('MM/DD/YYYY HH:mm:ss');
+     // this.date = moment().tz(this.timeZoneId);
     }
     updateAlertCounter()
     {
@@ -162,7 +162,7 @@ export class ConfigTopHeaderNavBarComponent implements OnInit {
         this.productType = sessionStorage.getItem("sessServerTitle");
         this.getTestRunInfo();
         this.timeSubscription = this._timerService.getTimerSubscription().subscribe(
-          value =>  { this.date = moment().tz(this.timeZoneId).format('MM/DD/YYYY HH:mm:ss');
+          value =>  { //this.date = moment().tz(this.timeZoneId).format('MM/DD/YYYY HH:mm:ss');
          }
   
         );
@@ -183,39 +183,39 @@ export class ConfigTopHeaderNavBarComponent implements OnInit {
       let url = this._config.getINSAggrPrefix() + activeDC + '/DashboardServer/web/AlertDataService/alertCounter';
   
       console.log('Alert URL = ', url);
-      this._http.get(url).map(res => res.json()).subscribe(res =>
-      {
-        this.cpCriticalCount = res.cpCriticalCount;
-        this.cpMajorCount = res.cpMajorCount;
-        this.cpMinorCount = res.cpMinorCount;
-        this.bhCriticalCount = res.bhCriticalCount;
-        this.bhMajorCount = res.bhMajorCount;
-        this.bhMinorCount = res.bhMinorCount;
-      });
-      this._http.get(this._config.$appPath + '/productSummary/SummaryWebService/getRunningTestRunInfo').map(res => res.json()).subscribe(res =>
-      {
-        if(res != undefined && res != "") 
-        {
-          this.runningTestRunNumber = Number.parseInt(res);
-    this._alertConfig.$runningTestRunNum = this.runningTestRunNumber;
+      // this._http.get("url").map(res => res.json()).subscribe(res =>
+      // {
+      //   this.cpCriticalCount = res.cpCriticalCount;
+      //   this.cpMajorCount = res.cpMajorCount;
+      //   this.cpMinorCount = res.cpMinorCount;
+      //   this.bhCriticalCount = res.bhCriticalCount;
+      //   this.bhMajorCount = res.bhMajorCount;
+      //   this.bhMinorCount = res.bhMinorCount;
+      // });
+    //   this._http.get(this._config.$appPath + '/productSummary/SummaryWebService/getRunningTestRunInfo').map(res => res.json()).subscribe(res =>
+    //   {
+    //     if(res != undefined && res != "") 
+    //     {
+    //       this.runningTestRunNumber = Number.parseInt(res);
+    // this._alertConfig.$runningTestRunNum = this.runningTestRunNumber;
           
-    if(this.runningTestRunNumber > 0)
-          {
-            if(sessionStorage.getItem("strServerType") == "NC" || sessionStorage.getItem("strServerType") == "NS" || sessionStorage.getItem("strServerType") == "NS>NO")
-              this.isShowCapacity = true;
-            else
-            {
-              this.isShowCapacity = true;
-              this.isShowBehavior = true;
-            }
-          }
-        }
-        this._http.get(this._config.$appPath + '/productSummary/SummaryWebService/getAlertRefInterval?trNum=' + this.runningTestRunNumber).map(res => res.json()).subscribe(res =>
-        {
-          this.alertRefreshIntervals = Number.parseInt(res);
-          this.updateAlertCounter();
-        });
-      }); 
+    // if(this.runningTestRunNumber > 0)
+    //       {
+    //         if(sessionStorage.getItem("strServerType") == "NC" || sessionStorage.getItem("strServerType") == "NS" || sessionStorage.getItem("strServerType") == "NS>NO")
+    //           this.isShowCapacity = true;
+    //         else
+    //         {
+    //           this.isShowCapacity = true;
+    //           this.isShowBehavior = true;
+    //         }
+    //       }
+    //     }
+    //     this._http.get(this._config.$appPath + '/productSummary/SummaryWebService/getAlertRefInterval?trNum=' + this.runningTestRunNumber).map(res => res.json()).subscribe(res =>
+    //     {
+    //       this.alertRefreshIntervals = Number.parseInt(res);
+    //       this.updateAlertCounter();
+    //     });
+    //   }); 
     } 
     selectedDC: string = 'ALL';
     dcInfoMap: any[] = [];

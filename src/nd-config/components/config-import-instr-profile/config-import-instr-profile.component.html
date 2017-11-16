@@ -90,32 +90,34 @@
 </div>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss ui-widget-header browser-color" header="File manager" *ngIf="openFileExplorerDialog"
-  [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
-  <!-- This will look for this component in the ProductUI at this path -
+<p-dialog class="profile-dialog browseTopCss ui-widget-header browser-color" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+    modal="modal" width="650" responsive="true" [resizable]="false">
+    <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
   <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
 
 <!-- Adding Node Dialog -->
-<p-dialog [header]="addDialogHeader" [(visible)]="addNodeDialog" [width]="450" [resizable]="false">
-  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-4" style="padding-top:5px">
-        Enter {{nodeTitle}}
-      </div>
-      <div class="ui-grid-col-7">
-        <input type="text" pInputText [(ngModel)]="nodeLabel" />
-      </div>
-    </div>
-    <div class="ui-grid-row" align="center" style="margin-top:5px;margin-bottom:5px;margin-left: 26%;">
-      <div class="ui-grid-col-3">
-        <button class="ui-button-info" id="disabled-btn" type="button" (click)="addXMLNodeToTree()" pButton label="OK"></button>
-      </div>
-      <div class="ui-grid-col-3">
-        <button class="ui-button-danger" id="disabled-btn" type="button" (click)="cancelAddingNode()" pButton label="Cancel"></button>
-      </div>
+<p-dialog class="profile-dialog" [header]="addDialogHeader" [(visible)]="addNodeDialog" [width]="450" [resizable]="false">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4" style="padding-top:5px">
+                Enter {{nodeTitle}}
+            </div>
+            <div class="ui-grid-col-7">
+                <input type="text" pInputText [(ngModel)]="nodeLabel" />
+            </div>
+        </div>
+	<div class="ui-grid-row" style="margin-top:5px;margin-bottom:5px;margin-right: 8.5%;margin-left: 15%;">
+	    <div class="ui-grid-col-6"></div>
+            <div class="ui-grid-col-3">
+                <button class="ui-button-info" id="disabled-btn" type="button" (click)="addXMLNodeToTree()" pButton label="OK"></button>
+            </div>
+            <div class="ui-grid-col-3">
+                <button class="ui-button-danger" id="disabled-btn" type="button" (click)="cancelAddingNode()" pButton label="Cancel"></button>
+            </div>
+        </div>
     </div>
   </div>
 </p-dialog>

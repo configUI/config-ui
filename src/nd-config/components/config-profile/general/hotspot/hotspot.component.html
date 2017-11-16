@@ -1,9 +1,9 @@
 <form *ngIf="hotspot" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
-  <div class="tabsincontent">
-    <div class="header">Hotspot detection settings
-      <div class="pull-right">
-        <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
-        <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
+    <div class="tabsincontent">
+        <div class="header">Hotspot Detection settings
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
 
       </div>
     </div>

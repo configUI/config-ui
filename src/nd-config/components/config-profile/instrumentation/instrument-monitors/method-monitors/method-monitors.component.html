@@ -1,7 +1,7 @@
 <p-dataTable class="nde-ui" [value]="methodMonitorData" [(selection)]="selectedMethodMonitorData" [rows]="12" [paginator]="methodMonitorData?.length > 12" [pageLinks]="3" (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)">
     <p-header>
         <span class="configui-float-css"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
-        <span class="configui-float-css"> Apply method monitors </span>
+        <span class="configui-float-css"> Apply Method Monitors </span>
         <span class="configui-float">
             <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Add a method monitor" [disabled]="saveDisable" (click)="openAddMethodMonitorDialog()" icon="fa-plus"></button>
@@ -10,17 +10,17 @@
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="methodName" header="Method name" [sortable]="true">
+    <p-column [style]="{'width':'53%'}" class="tableCss" field="methodName" header="Method name" [sortable]="true">
         <template let-col let-MethodMonitor="rowData" pTemplate>
             <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="methodDisplayName" header="Display name" [sortable]="true">
+    <p-column [style]="{'width':'20%'}" class="tableCss" field="methodDisplayName" header="Display name" [sortable]="true">
         <template let-col let-MethodMonitor="rowData" pTemplate>
             <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="methodDesc" header="Description" [sortable]="true">
+    <p-column [style]="{'width':'25%'}" class="tableCss" field="methodDesc" header="Description" [sortable]="true">
         <template let-col let-MethodMonitor="rowData" pTemplate>
             <span title="{{MethodMonitor[col.field]}}">{{MethodMonitor[col.field]}}</span>
         </template>
@@ -67,7 +67,7 @@
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss headerCss" header="File manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
 
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->

@@ -58,7 +58,7 @@ export class ExceptionFilterComponent implements OnInit {
 
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;
-    
+
   isExceptioFilterBrowse: boolean = false;
 
   constructor(private store: Store<KeywordList>, private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configExceptionFilterService: ConfigExceptionFilterService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
@@ -361,14 +361,14 @@ export class ExceptionFilterComponent implements OnInit {
     }
     return -1;
   }
- /**used to open file manager
-  */
+  /**used to open file manager
+   */
   openFileManager() {
-    
-        this.openFileExplorerDialog = true;
-        this.isExceptioFilterBrowse = true;
-    
-      }
+
+    this.openFileExplorerDialog = true;
+    this.isExceptioFilterBrowse = true;
+
+  }
   /** This method is called form ProductUI config-nd-file-explorer component with the path
  ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
 
@@ -377,28 +377,38 @@ export class ExceptionFilterComponent implements OnInit {
     if (this.isExceptioFilterBrowse == true) {
       this.isExceptioFilterBrowse = false;
       this.openFileExplorerDialog = false;
-      
+      let str: string;
+      let str1: string;
+      str = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+      str1 = str.substring(str.lastIndexOf("."), str.length);
+      let check: boolean;
+      if (str1 == ".ecf" || str1 == ".txt") {
+        check = true;
+      }
+      else {
+        check = false;
+      }
+      if (check == false) {
+        this.configUtilityService.errorMessage("Extension(s) other than .txt and .ecf are not supported");
+        return;
+      }
       if (filepath.includes(";")) {
         this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
         return;
       }
-       let that=this;
+      let that = this;
       this.configExceptionFilterService.uploadExceptionFilterFile(filepath, this.profileId).subscribe(data => {
         data.map(function (val) {
           that.modifyData(val)
         })
         if (data.length == this.enableSourceCodeFiltersTableData.length) {
-         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-         return;
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
         }
-        this.enableSourceCodeFiltersTableData = ImmutableArray.push(this.enableSourceCodeFiltersTableData, data);
-	if(data.length==0){
-         this.configUtilityService.errorMessage("Could not upload. This file may already be empty or contains invalid data ");
-         return;
-        }
+        // this.enableSourceCodeFiltersTableData = ImmutableArray.push(this.enableSourceCodeFiltersTableData, data);
         this.enableSourceCodeFiltersTableData = data;
         this.configUtilityService.successMessage("File uploaded successfully");
-       });
+      });
     }
   }
 

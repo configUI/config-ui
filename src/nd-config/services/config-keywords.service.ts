@@ -231,6 +231,10 @@ export class ConfigKeywordsService {
   deleteMethodMonitorData(data, profileId): Observable<MethodMonitorData> {
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_MONITOR}/${profileId}`, data);
   }
+  /** Method to upload EXCEPTION MONITOR file */
+  uploadExceptionMonitorFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_EXCEPTION_MONITOR_FILE}/${profileId}`, filePath);
+}
 
   getListOfXmlFiles(profileId, agentType): Observable<string[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_INSTR_PROFILE_LIST}/${agentType}`);
