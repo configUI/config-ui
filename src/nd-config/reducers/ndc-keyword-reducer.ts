@@ -81,7 +81,7 @@ const DEFAULT_DATA = {
 "NDP_ALLOW_REQ_DETAIL_BEFORE_SQB_BEGIN_REC":{"ndcKeyId":74,"defaultValue":"1","min":"","max":"","value":"1","assocId":-1},
 "NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX":{"ndcKeyId":75,"defaultValue":"0","min":"","max":"","value":"0","assocId":-1},
 "NDC_BCI_RESPONSE_TIME_FOR_METADATA_IN_SECS":{"ndcKeyId":76,"defaultValue":"60","min":"","max":"","value":"60","assocId":-1},
-"ENABLE_FP_STAT_MONITOR":{"ndcKeyId":77,"defaultValue":"1","min":"","max":"","value":"1","assocId":-1},
+"ENABLE_FP_STAT_MONITOR":{"ndcKeyId":77,"defaultValue":"0","min":"","max":"","value":"0","assocId":-1},
 "SEND_ACTIVE_INSTANCE_REP":{"ndcKeyId":78,"defaultValue":"1","min":"","max":"","value":"1","assocId":-1},
 "NDC_MAX_CTRL_CON":{"ndcKeyId":79,"defaultValue":"400","min":"","max":"","value":"400","assocId":-1},
 "NDP_MAX_SQL_INDEX_FROM_BCI":{"ndcKeyId":80,"defaultValue":"4096","min":"","max":"","value":"4096","assocId":-1},
