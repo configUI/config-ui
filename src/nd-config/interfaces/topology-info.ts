@@ -37,3 +37,26 @@ export interface InstanceInfo {
     enabled: boolean;
 }
 
+export class AutoInstrSettings{
+    enableDebugSession: boolean = true;
+    minStackDepthDebugSession: number = 10;
+    autoInstrTraceLevel: number = 1;
+    autoInstrSampleThreshold: number = 120;
+    autoInstrPct: number = 60;
+    autoDeInstrPct: number = 80;
+    autoInstrMapSize: number = 100000;
+    autoInstrMaxAvgDuration: string = "5";
+    autoInstrClassWeight: number = 10;
+
+}
+
+export class AutoIntrDTO{
+    instanceName: string;
+    startTime: string;
+    endTime: string;
+    duration: string;
+    status: string;
+    elapsedTime: string;
+    configuration: string;
+    appName: string;
+}

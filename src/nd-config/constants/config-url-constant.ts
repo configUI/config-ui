@@ -9,10 +9,10 @@
  const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-//export const ROUTING_PATH: string = "";
+export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
- export const ROUTING_PATH: string = "/home/config";
+//  export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -270,3 +270,6 @@ export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/geta
 export const GET_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/getncdkeyworddata`;
 export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddata`;
 
+/* URL for auto-instrumentation */
+export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/applyautoinstrumentation`;
+export const GET_AUTO_INSTR_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaisettings`;
