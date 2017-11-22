@@ -69,6 +69,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this.autoDiscoverDetail.agents = this.adrFile;
 
     }
+    
 
     createDropDown() {
         this._configKeywordsService.getInstrumentationProfileXMLFileList("").subscribe(data => {

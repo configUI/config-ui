@@ -136,6 +136,7 @@ import { ConfigImportInstrProfileComponent } from './components/config-import-in
 import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
 import { ConfigAutoDiscoverTreeComponent } from './components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component';
 import { ConfigAutoDiscoverMainComponent } from './components/config-auto-discover/config-auto-discover-main/config-auto-discover-main.component';
+import { ConfigAutoInstrumentationComponent } from './components/config-auto-discover/config-auto-instrumentation/config-auto-instrumentation.component';
 import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/config-view-audit-log.component';
 import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywords-setting/config-ndc-keywords-setting.component';
 
@@ -213,7 +214,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigAutoDiscoverMainComponent,
     ConfigAutoDiscoverTreeComponent,
     ConfigViewAuditLogComponent,
-    ConfigNDCKeywordsSettingComponent
+    ConfigNDCKeywordsSettingComponent,
+    ConfigAutoInstrumentationComponent
   ],
   imports: [
     // CommonModule,
