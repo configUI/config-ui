@@ -6,6 +6,7 @@ import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, Au
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
+import { ConfigUtilityService } from './config-utility.service';
 
 @Injectable()
 export class ConfigTopologyService {
@@ -33,7 +34,7 @@ export class ConfigTopologyService {
 
 
 
-  constructor(private _restApi: ConfigRestApiService) { }
+  constructor(private _restApi: ConfigRestApiService, private configUtilityService: ConfigUtilityService) { }
 
   getTopologyList(): Observable<TopologyInfo[]> {
     return this._restApi.getDataByGetReq(URL.FETCH_ALL_TOPODATA);
@@ -164,6 +165,33 @@ applyAutoInstr(data): Observable<AutoIntrDTO> {
 getAutoInstr(appName, instanceName){
   return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AUTO_INSTR_DATA}/${appName}`, instanceName);
 }
+
+getServerDisplayName(instanceId: number): Observable<String> {
+  return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_SERVER_DIS_NAME}/${instanceId}`);
+}
+
+
+  //Send RTC on AI
+  sendRTCAutoInstr(url, data, autoInstrDto){
+    this._restApi.getDataByPostReq(url, data).subscribe(data => {
+
+      //When result=OK
+      if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
+        
+        //Request to save in database if NDC sends OK
+        this.applyAutoInstr(autoInstrDto).subscribe(data => {
+          this.configUtilityService.infoMessage("Auto Instrumentation started");
+        })
+      }
+      
+      //When result=Error, then no RTC applied
+      else {
+        //Getting error if any and showing as toaster message
+        let err = data[0].substring(data[0].lastIndexOf(";") + 1)
+        this.configUtilityService.errorMessage("Could not sta rt: " + err);
+      }
+    });
+  }
 
 
 }

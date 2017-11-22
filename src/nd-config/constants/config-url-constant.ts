@@ -1,6 +1,6 @@
 
 
- //const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+//  const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -68,7 +68,8 @@ export const ATTACH_PROFTO_SERVER = `${SERVICE_URL}/custom/server`;
 export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
 export const FETCH_INSTANCE_TABLE_URL = `${SERVICE_URL}/custom/instance`;
 export const ATTACH_PROFTO_INSTANCE = `${SERVICE_URL}/custom/instance`;
-export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`
+export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`;
+export const GET_SERVER_DIS_NAME = `${SERVICE_URL}/custom/instance/serverdisplayname`;
 
 /* Url for ServiceEntryPoint */
 export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;
@@ -159,6 +160,7 @@ export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topo
 export const RUNTIME_CHANGE_TIER = `${SERVICE_URL}/custom/runtimechange/tier`;
 export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server`;
 export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
+export const RUNTIME_CHANGE_AUTO_INSTR = `${SERVICE_URL}/custom/runtimechange/autoinstrumentation`;
 
 
 /* URL for ND Agent Status */

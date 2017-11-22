@@ -51,7 +51,7 @@ width="500" responsive="true">
 <form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
         
                 <div class="ui-g" style="margin-left: 10px">
-                    <p-checkbox name="enableDebugSession" [(ngModel)]="autoInstrObj['enableDebugSession']" label="Enable Auto Instrumentation" binary="true" ngModel></p-checkbox>                        
+                    <p-checkbox name="enableDebugSession" disabled=true [(ngModel)]="autoInstrObj['enableDebugSession']" label="Enable Auto Instrumentation" binary="true" ngModel></p-checkbox>                        
                 </div>
                 <br>
                 <div class="ui-g-12">
