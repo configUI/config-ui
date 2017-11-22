@@ -270,3 +270,6 @@ export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/geta
 export const GET_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/getncdkeyworddata`;
 export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddata`;
 
+/* URL for auto-instrumentation */
+export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/applyautoinstrumentation`;
+export const GET_AUTO_INSTR_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaisettings`;
