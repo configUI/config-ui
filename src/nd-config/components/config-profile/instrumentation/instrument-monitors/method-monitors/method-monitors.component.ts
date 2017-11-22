@@ -21,7 +21,7 @@ import { Messages, descMsg } from '../../../../../constants/config-constant'
 export class MethodMonitorsComponent implements OnInit {
 
   @Input()
-  profileId: number;
+  profileId: number; 
   @Output()
   keywordData = new EventEmitter();
   /**It stores method monitor-list data */
