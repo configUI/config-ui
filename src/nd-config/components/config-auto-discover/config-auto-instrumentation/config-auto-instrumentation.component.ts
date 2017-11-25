@@ -50,7 +50,8 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName){
+  stopInstrumentation(instanceName, sessionName){
+    let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     //if test is offline mode, return (no run time changes)
@@ -67,8 +68,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         strSetting = strSetting + "#" + instanceName;
 
         //Saving settings in database
-       let data = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName)
-       this.checkForCompleteOrActive(data);
+       this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function(data){
+         that.checkForCompleteOrActive(data);
+       })
 
     }
 

@@ -177,7 +177,8 @@ getServerDisplayName(instanceId: number): Observable<String> {
 
 
   //Send RTC on AI(running mode)
-  sendRTCAutoInstr(url, data, autoInstrDto){
+  sendRTCAutoInstr(url, data, autoInstrDto, callback){
+    let success = ""
     this._restApi.getDataByPostReq(url, data).subscribe(data => {
 
       //When result=OK
@@ -186,31 +187,35 @@ getServerDisplayName(instanceId: number): Observable<String> {
         //Request to save in database if NDC sends OK
         this.applyAutoInstr(autoInstrDto).subscribe(data => {
           this.configUtilityService.infoMessage("Auto Instrumentation started");
+          success = "success";
+          callback(success)
         })
       }
       
       //When result=Error, then no RTC applied
       else {
         //Getting error if any and showing as toaster message
-        let err = data[0].substring(data[0].lastIndexOf(";") + 1)
+        let err = data[0].substring(data[0].lastIndexOf(":") + 1)
         this.configUtilityService.errorMessage("Could not start: " + err);
-        return 
+         success = "fail";
+         callback(success)
       }
     });
   }
 
   //Send RTC on AI(Stop mode)
-  sendRTCTostopAutoInstr(url, data, instanceName){
-    let completeAutoData: AutoIntrDTO[] = [];
+  sendRTCTostopAutoInstr(url, data, instanceName,sessionName, callback){
     this._restApi.getDataByPostReq(url, data).subscribe(data => {
 
       //When result=OK
       if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
-        
+
+        //Merging instane name and session name with &
+        let ISName = instanceName + "&" + sessionName
         //Request to change the status of instance from "In progress to complete" if NDC sends OK
-        this.stopAutoInstr(instanceName).subscribe(data => {
+        this.stopAutoInstr(ISName).subscribe(data => {
           this.configUtilityService.infoMessage("Auto Instrumentation terminated");
-          completeAutoData = data
+          callback(data)
         })
       }
       
@@ -219,10 +224,9 @@ getServerDisplayName(instanceId: number): Observable<String> {
         //Getting error if any and showing as toaster message
         let err = data[0].substring(data[0].lastIndexOf(";") + 1)
         this.configUtilityService.errorMessage("Could not stop: " + err);
-        return
+        callback(data);
       }
     });
-    return completeAutoData;
   }
 
   //Get Auto Instrumentation Data to show  in table

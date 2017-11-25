@@ -370,16 +370,18 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   //To open auto instr configuration dialog
   openAutoInstrDialog(name) {
-    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-    //   this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
-    //   return;
-    // }      
+    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+      return;
+    }
     this.currentInstanceName = name;
     this.autoInstrObj = new AutoInstrSettings();
     this.autoInstrDto = new AutoIntrDTO();
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
     //Getting data of settings from database if user has already saved this instance settings
     let instanceName = this.splitTierServInsName(this.currentInstanceName);
+    this.autoInstrDto.sessionName = instanceName
+
     this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
       //Get settings from data if not null else create a new object
@@ -443,10 +445,9 @@ export class ConfigTreeDetailComponent implements OnInit {
     //Merging all the settings in the format( K1=Val1;K2=Val2;K3=Val3... )
     this.autoInstrDto.configuration = this.createSettings(this.autoInstrObj);
 
-    //Saving the value of session name provided by user 
-    this.autoInstrDto.sessionName = this.sessionName;
-
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
+    this.sessionName = this.autoInstrDto.sessionName
+
     this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionInterval.toString()
 
     //Send Runtime Changes
@@ -481,7 +482,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   //Reset the values of auto instrumentation settings to default
   resetToDefault() {
     this.autoInstrObj = new AutoInstrSettings();
-    this.sessionName = this.t_s_i_name
+    this.autoInstrDto = new AutoIntrDTO();
+    this.autoInstrDto.sessionName = this.t_s_i_name
   }
 
   ngOnDestroy() {
@@ -493,7 +495,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   //When test is running the send RTC 
   startAutoInstrumentation(data, autoInstrDto) {
-
+    let that = this
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
 
@@ -512,17 +514,19 @@ export class ConfigTreeDetailComponent implements OnInit {
       strSetting = strSetting + "#" + this.t_s_i_name;
 
       //Saving settings in database
-      let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto)
+      let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
+        //Check for successful RTC connection
+        if (success == "success")
+          that.changeIcon = false
+      })
 
-      //Check for successful RTC connection
-      if (success != undefined)
-        this.changeIcon = false
 
     }
   }
 
   //To stop auto-insrumentation
   stopInstrumentation(instanceName) {
+    let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     //if test is offline mode, return (no run time changes)
@@ -536,14 +540,16 @@ export class ConfigTreeDetailComponent implements OnInit {
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
       strSetting = "enableAutoInstrSession=0;"
       //Merging configuration and instance name with #
-      strSetting = strSetting + "#" + instanceName;
+      strSetting = strSetting + "#" + this.t_s_i_name;
 
       //Saving settings in database
-      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName)
+      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, that.t_s_i_name, that.sessionName, function (data) {
 
-      //Check for successful RTC connection      
-      if (success.length > 1)
-        this.changeIcon = true;
+        //Check for successful RTC connection  
+        if (data.length != 0 || !data[0]['contains'])
+          that.changeIcon = true;
+      })
+
 
     }
 
