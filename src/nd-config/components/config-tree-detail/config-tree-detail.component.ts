@@ -33,6 +33,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   agentType: string = "";
   serverDisplayName: string = "";
   t_s_i_name: string = "";
+  sessionName: string = "";
+  changeIcon: boolean = true;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -238,7 +240,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
       colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
       colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "autoInstrumentation"];
-  }
+    }
 
     for (let i = 0; i < colField.length; i++) {
       tableHeaderInfo.push({ field: colField[i], header: colHeader[i] });
@@ -368,17 +370,17 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   //To open auto instr configuration dialog
   openAutoInstrDialog(name) {
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
-      return;
-    }      
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+    //   return;
+    // }      
     this.currentInstanceName = name;
     this.autoInstrObj = new AutoInstrSettings();
     this.autoInstrDto = new AutoIntrDTO();
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
     //Getting data of settings from database if user has already saved this instance settings
     let instanceName = this.splitTierServInsName(this.currentInstanceName);
-    this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName).subscribe(data => {
+    this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
       //Get settings from data if not null else create a new object
       if (data['_body'] != "")
@@ -388,19 +390,20 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   /** To split the settings and assign to dialog
-    * enableDebugSession=1;minStackDepthDebugSession=10;autoInstrTraceLevel=1;autoInstrSampleThreshold=120;
-    * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=5;autoInstrClassWeight=10
+    * enableAutoInstrSession=1;minStackDepthAutoInstrSession=10;autoInstrTraceLevel=1;autoInstrSampleThreshold=120;
+    * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=5;autoInstrClassWeight=10;
+    * autoInstrSessionInterval=30
     */
   splitSettings(data) {
     let arr = data.split("=");
-    //For enableDebugSession
+    //For enableAutoInstrSession
     if (arr[1].substring(0, arr[1].lastIndexOf(";")) == 1)
-      this.autoInstrObj.enableDebugSession = true;
+      this.autoInstrObj.enableAutoInstrSession = true;
     else
-      this.autoInstrObj.enableDebugSession = false;
+      this.autoInstrObj.enableAutoInstrSession = false;
 
-    //For minStackDepthDebugSession
-    this.autoInstrObj.minStackDepthDebugSession = arr[2].substring(0, arr[2].lastIndexOf(";"))
+    //For minStackDepthAutoInstrSession
+    this.autoInstrObj.minStackDepthAutoInstrSession = arr[2].substring(0, arr[2].lastIndexOf(";"))
 
     //For autoInstrTraceLevel
     this.autoInstrObj.autoInstrTraceLevel = arr[3].substring(0, arr[3].lastIndexOf(";"))
@@ -421,7 +424,11 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.autoInstrObj.autoInstrMaxAvgDuration = arr[8].substring(0, arr[8].lastIndexOf(";"))
 
     //For autoInstrClassWeight
-    this.autoInstrObj.autoInstrClassWeight = arr[9];
+    this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
+
+    //For autoInstrSessionInterval
+    this.autoInstrObj.autoInstrSessionInterval = arr[10];
+
 
   }
 
@@ -436,8 +443,11 @@ export class ConfigTreeDetailComponent implements OnInit {
     //Merging all the settings in the format( K1=Val1;K2=Val2;K3=Val3... )
     this.autoInstrDto.configuration = this.createSettings(this.autoInstrObj);
 
+    //Saving the value of session name provided by user 
+    this.autoInstrDto.sessionName = this.sessionName;
+
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
-    this.autoInstrDto.duration = this.autoInstrObj.autoInstrMaxAvgDuration.toString()
+    this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionInterval.toString()
 
     //Send Runtime Changes
     this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto)
@@ -447,16 +457,18 @@ export class ConfigTreeDetailComponent implements OnInit {
   // Create Tier_Server_Instance name
   splitTierServInsName(instanceName) {
     this.t_s_i_name = this.tierName + "_" + this.serverDisplayName + "_" + instanceName
+    this.sessionName = this.t_s_i_name
     return this.t_s_i_name;
   }
 
   //Create auto instrumentation settings by merging them
   createSettings(data) {
     let setting;
-      setting = "enableDebugSession=1;minStackDepthDebugSession=" + data.minStackDepthDebugSession
-        + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
-        + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
-        + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight;
+    setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+      + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+      + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+      + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+      + ";autoInstrSessionInterval=" + data.autoInstrSessionInterval;
 
     return setting;
 
@@ -469,6 +481,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   //Reset the values of auto instrumentation settings to default
   resetToDefault() {
     this.autoInstrObj = new AutoInstrSettings();
+    this.sessionName = this.t_s_i_name
   }
 
   ngOnDestroy() {
@@ -483,7 +496,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
-    
+
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
@@ -493,49 +506,86 @@ export class ConfigTreeDetailComponent implements OnInit {
       //Getting keywords data whose values are different from default values
       let strSetting = this.getSettingForRTC(data);
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData", this.configProfileService.nodeData);
-        const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
+      const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
 
-        //Merging configuration and instance name with %
-        strSetting = strSetting + "%" + this.t_s_i_name;
+      //Merging configuration and instance name with #
+      strSetting = strSetting + "#" + this.t_s_i_name;
 
-        //Saving settings in database
-        this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto)
+      //Saving settings in database
+      let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto)
+
+      //Check for successful RTC connection
+      if (success != undefined)
+        this.changeIcon = false
 
     }
+  }
+
+  //To stop auto-insrumentation
+  stopInstrumentation(instanceName) {
+    console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
+    let strSetting = "";
+    //if test is offline mode, return (no run time changes)
+    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+      console.log(this.className, "constructor", "No NO RUN TIme Changes");
+      return;
+    }
+    else {
+      //Getting keywords data whose values are different from default values
+      console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
+      const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
+      strSetting = "enableAutoInstrSession=0;"
+      //Merging configuration and instance name with #
+      strSetting = strSetting + "#" + instanceName;
+
+      //Saving settings in database
+      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName)
+
+      //Check for successful RTC connection      
+      if (success.length > 1)
+        this.changeIcon = true;
+
+    }
+
   }
 
   //Getting the settings value which are different from default values
   getSettingForRTC(data) {
     let strSetting = "";
-    //Storing enableDebugSession keyword value as it will always be different from default value i.e., 0
-    strSetting = "enableDebugSession=1"
-    
-    //Comparing all the setting's value with their default value, they dont match then append in strSetting variable
-      if(data.minStackDepthDebugSession != 10)
-        strSetting = strSetting + ";minStackDepthDebugSession=" + data.minStackDepthDebugSession
+    //Storing enableAutoInstrSession keyword value as it will always be different from default value i.e., 0
+    strSetting = "enableAutoInstrSession=1%20" + this.sessionName;
 
-      if(data.autoInstrTraceLevel != 1)
-        strSetting = strSetting + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel
-      
-      if(data.autoInstrSampleThreshold != 120)
-        strSetting = strSetting + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+    //Comparing all the setting's value with their default value, if they dont match then append in strSetting variable
+    if (data.minStackDepthAutoInstrSession != 10)
+      strSetting = strSetting + ";minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
 
-      if(data.autoInstrPct != 60)
-        strSetting = strSetting + ";autoInstrPct=" + data.autoInstrPct
+    if (data.autoInstrTraceLevel != 1)
+      strSetting = strSetting + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel
 
-      if(data.autoDeInstrPct != 80)
-        strSetting = strSetting + ";autoDeInstrPct=" + data.autoDeInstrPct
+    if (data.autoInstrSampleThreshold != 120)
+      strSetting = strSetting + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
 
-      if(data.autoInstrMapSize != 100000)
-        strSetting = strSetting + ";autoInstrMapSize=" + data.autoInstrMapSize
+    if (data.autoInstrPct != 60)
+      strSetting = strSetting + ";autoInstrPct=" + data.autoInstrPct
 
-      if(data.autoInstrMaxAvgDuration != 5)
-        strSetting = strSetting + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration
+    if (data.autoDeInstrPct != 80)
+      strSetting = strSetting + ";autoDeInstrPct=" + data.autoDeInstrPct
 
-      if(data.autoInstrClassWeight != 10)
-        strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+    if (data.autoInstrMapSize != 100000)
+      strSetting = strSetting + ";autoInstrMapSize=" + data.autoInstrMapSize
+
+    if (data.autoInstrMaxAvgDuration != 5)
+      strSetting = strSetting + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration
+
+    if (data.autoInstrClassWeight != 10)
+      strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+
+    if (data.autoInstrSessionInterval != 30)
+      strSetting = strSetting + ";autoInstrSessionInterval=" + data.autoInstrSessionInterval
 
     return strSetting;
-    
+
   }
+
+
 }

@@ -275,3 +275,6 @@ export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savend
 /* URL for auto-instrumentation */
 export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/applyautoinstrumentation`;
 export const GET_AUTO_INSTR_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaisettings`;
+export const GET_AUTO_INSTR_TABLE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaidetails`;
+export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopautoinstrumentation`;
+

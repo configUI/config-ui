@@ -161,9 +161,14 @@ applyAutoInstr(data): Observable<AutoIntrDTO> {
   return this._restApi.getDataByPostReq(`${URL.APPLY_AUTO_INSTR}`, data);
 }
 
+/**To apply auto-instrumentation  */
+stopAutoInstr(instanceName): Observable<AutoIntrDTO[]>{
+  return this._restApi.getDataByPostReq(`${URL.STOP_AUTO_INSTR}`, instanceName);
+}
+
 /**To get auto-instrumentation settings data to display in dialog */
-getAutoInstr(appName, instanceName){
-  return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AUTO_INSTR_DATA}/${appName}`, instanceName);
+getAutoInstr(appName, instanceName, sessionName){
+  return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AUTO_INSTR_DATA}/${appName}`, instanceName+"#"+sessionName );
 }
 
 getServerDisplayName(instanceId: number): Observable<String> {
@@ -171,7 +176,7 @@ getServerDisplayName(instanceId: number): Observable<String> {
 }
 
 
-  //Send RTC on AI
+  //Send RTC on AI(running mode)
   sendRTCAutoInstr(url, data, autoInstrDto){
     this._restApi.getDataByPostReq(url, data).subscribe(data => {
 
@@ -188,10 +193,42 @@ getServerDisplayName(instanceId: number): Observable<String> {
       else {
         //Getting error if any and showing as toaster message
         let err = data[0].substring(data[0].lastIndexOf(";") + 1)
-        this.configUtilityService.errorMessage("Could not sta rt: " + err);
+        this.configUtilityService.errorMessage("Could not start: " + err);
+        return 
       }
     });
   }
+
+  //Send RTC on AI(Stop mode)
+  sendRTCTostopAutoInstr(url, data, instanceName){
+    let completeAutoData: AutoIntrDTO[] = [];
+    this._restApi.getDataByPostReq(url, data).subscribe(data => {
+
+      //When result=OK
+      if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
+        
+        //Request to change the status of instance from "In progress to complete" if NDC sends OK
+        this.stopAutoInstr(instanceName).subscribe(data => {
+          this.configUtilityService.infoMessage("Auto Instrumentation terminated");
+          completeAutoData = data
+        })
+      }
+      
+      //When result=Error, then no RTC applied
+      else {
+        //Getting error if any and showing as toaster message
+        let err = data[0].substring(data[0].lastIndexOf(";") + 1)
+        this.configUtilityService.errorMessage("Could not stop: " + err);
+        return
+      }
+    });
+    return completeAutoData;
+  }
+
+  //Get Auto Instrumentation Data to show  in table
+  getAIData(): Observable<AutoIntrDTO[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INSTR_TABLE_DATA}`);
+  }  
 
 
 }

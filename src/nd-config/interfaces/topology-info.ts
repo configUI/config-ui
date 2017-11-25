@@ -38,8 +38,8 @@ export interface InstanceInfo {
 }
 
 export class AutoInstrSettings{
-    enableDebugSession: boolean = true;
-    minStackDepthDebugSession: number = 10;
+    enableAutoInstrSession: boolean = true;
+    minStackDepthAutoInstrSession: number = 10;
     autoInstrTraceLevel: number = 1;
     autoInstrSampleThreshold: number = 120;
     autoInstrPct: number = 60;
@@ -47,6 +47,7 @@ export class AutoInstrSettings{
     autoInstrMapSize: number = 100000;
     autoInstrMaxAvgDuration: number = 5;
     autoInstrClassWeight: number = 10;
+    autoInstrSessionInterval: number = 30;
 
 }
 
@@ -59,4 +60,5 @@ export class AutoIntrDTO{
     elapsedTime: string;
     configuration: string;
     appName: string;
+    sessionName: string;
 }
