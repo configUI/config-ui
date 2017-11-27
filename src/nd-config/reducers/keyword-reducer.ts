@@ -44,7 +44,7 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "captureErrorLogs": {"defaultValue":"0","min":"0","max":"2","assocId":-1,"value":"0","keyId":2},
 "HTTPStatsCondCfg": {"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"0","keyId":5},
 "enableExceptionsWithSourceAndVars":{"defaultValue":"0","min":"0","max":"2048","assocId":-1,"value":"0","keyId":43},
-"enableSourceCodeFilters":{defaultValue: "false", min: "1", max: "1024", assocId: -1, value: "false", keyId: 44},
+"enableSourceCodeFilters":{"defaultValue": "false", "min": "1", "max": "1024", "assocId": -1, "value": "false", "keyId": 44},
 "ndExceptionMonFile":{"defaultValue":"false","min":"","max":"","assocId":-1,"value":"false","keyId":45},
 "maxQueryDetailsmapSize":{"defaultValue": "1000000", "min": "0", "max": "10000000", "assocId": -1, "value": "1000000", "keyId": 46},
 "formatIPResourceURL":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":47},

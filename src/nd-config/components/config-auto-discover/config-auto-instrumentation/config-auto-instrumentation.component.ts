@@ -4,6 +4,9 @@ import { ConfigTopologyService } from '../../../services/config-topology.service
 import { ConfigHomeService } from '../../../services/config-home.service';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
 import * as URL from '../../../constants/config-url-constant';
+import { Router } from '@angular/router';
+import { ROUTING_PATH } from '../../../constants/config-url-constant';
+
 
 
 @Component({
@@ -12,7 +15,7 @@ import * as URL from '../../../constants/config-url-constant';
 //   styleUrls: ['./config-auto-instrumentation.component.css']
 })
 export class ConfigAutoInstrumentationComponent implements OnInit {
-
+  ROUTING_PATH = ROUTING_PATH;
   /* To show Active Auto instrumentation list */
   autoIntrActive: AutoIntrDTO[] = [];
   selectedAutoIntrActive: AutoIntrDTO;
@@ -23,9 +26,8 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   className: string = "Auto Instrument Component";
 
-  constructor(private configTopologyService: ConfigTopologyService,
-    private configHomeService: ConfigHomeService,
-    private configUtilityService: ConfigUtilityService
+  constructor(private configTopologyService: ConfigTopologyService,private router:Router,private configUtilityService: ConfigUtilityService,
+    private configHomeService: ConfigHomeService
   ) { }
 
   ngOnInit() {
@@ -84,4 +86,18 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   }
 
+  openGUIForAutoInstrumentation(sessionFileName)
+  {
+    sessionFileName = sessionFileName + ".txt";
+    this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
+     
+       if (data['_body'] == "Fail") {
+           this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
+           return;
+       }
+       
+    this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);    
+  });
+  
+}
 }

@@ -21,15 +21,18 @@
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog class="profile-dialog" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection" modal="modal" width="700" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection"
+    modal="modal" width="700" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveAddIntegrationPTDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Backend type</label>
             </div>
             <div class="ui-g-8">
-                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.backendTypeId" required ngModel/>
-                <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'205px'}" name="backendTypeId" [(ngModel)]="addIPDetectionDetail.backendTypeId" placeholder="-- Select --" required ngModel></p-dropdown>
+                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.backendTypeId" required
+                    ngModel/>
+                <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'205px'}" name="backendTypeId" [(ngModel)]="addIPDetectionDetail.backendTypeId"
+                    placeholder="-- Select --" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -37,7 +40,17 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()"  title="Please enter valid name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /) in between the character. &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4:Name is of maximum 100 characters."  type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
+                <input name="name" pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" title="Please enter valid name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /) in between the character. &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4:Name is of maximum 100 characters."
+                    type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.name" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g" *ngIf="agentType =='Dot Net'">
+            <div class="ui-g-4">
+                <label>Module</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="module" type="text" size="60" pInputText [(ngModel)]="addIPDetectionDetail.module" required (keydown.space)="$event.preventDefault()"
+                required ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -45,7 +58,9 @@
                 <label>Fully qualified method name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" title="Please enter valid FQM"  pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel />
+                <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
+                    (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
+                />
             </div>
         </div>
         <div class="ui-g">
@@ -74,11 +89,14 @@
 </p-dialog>
 
 <!--This dialog showing the 'Naming Rules' & 'Exit Points' values for particular service entry point-->
-<p-dialog class="profile-dialog" *ngIf="detailDialog" header="{{integrationDetail.type}} details" [(visible)]="detailDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" *ngIf="detailDialog" header="{{integrationDetail.type}} details" [(visible)]="detailDialog"
+    modal="modal" width="500" responsive="true" [resizable]="false">
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
-        <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO">
-            <label style="font-weight: bolder;font-size: larger">Naming rules</label>
+        <div *ngIf="agentType =='Java'">
+            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO">
+                <label style="font-weight: bolder;font-size: larger">Naming rules</label>
+            </div>
         </div>
         <div class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
             <div class="ui-g" *ngSwitchCase="IP.WS">
@@ -96,11 +114,13 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table name </md-checkbox>
             </div>
-            <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
+            <div *ngIf="agentType =='Java'">
+                <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> URL </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
+                </div>
             </div>
             <div class="ui-g" *ngSwitchCase="IP.JDBC">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
@@ -141,8 +161,10 @@
                     </div>
                     <div class="ui-g-2">
                         <div>
-                            <button *ngIf="endPoints.customEntry == true || endPoints.isCustomEntry == true" pButton class="ui-button-danger" type="button" (click)="deleteIP(endPoints)" title="Delete custom integration point" icon="fa-trash"></button>
-                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-defined custom integration point" icon="fa-trash"></button>
+                            <button *ngIf="endPoints.customEntry == true || endPoints.isCustomEntry == true" pButton class="ui-button-danger" type="button"
+                                (click)="deleteIP(endPoints)" title="Delete custom integration point" icon="fa-trash"></button>
+                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-defined custom integration point"
+                                icon="fa-trash"></button>
 
                         </div>
                     </div>

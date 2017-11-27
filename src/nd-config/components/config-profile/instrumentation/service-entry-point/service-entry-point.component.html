@@ -1,4 +1,4 @@
-<p-dataTable class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
+<p-dataTable *ngIf="type" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
     <p-header>
         <span style="float: left">  Enable/Disable Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
@@ -37,6 +37,50 @@
     </p-column>
 </p-dataTable>
 
+<p-dataTable *ngIf="!type" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
+    <p-header>
+        <span style="float: left">  Enable/Disable Service Entry Points</span>
+        <span style="float :right; margin-top:-3px">
+            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
+            <button pButton type="button"  [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
+            <button pButton class="ui-button-danger" type="button" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+        </span>
+    </p-header>
+
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+    <p-column class="tableCss" field="entryType" header="Type" [sortable]="true" [style]="{'width':'15%'}">
+        <template let-col let-service="rowData" pTemplate>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="module" header="Module" [sortable]="true" [style]="{'width':'18%'}">
+        <template let-col let-service="rowData" pTemplate>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="name" header="Name" [sortable]="true" [style]="{'width':'32%'}">
+        <template let-col let-service="rowData" pTemplate>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss config-ui" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'7%'}">
+        <template class="config-ui" let-col let-service="rowData" pTemplate>
+            <md-slide-toggle [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'28%'}">
+        <template let-col let-service="rowData" pTemplate>
+            <span title="{{service[col.field]}}">{{service[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column field="isCustomEntry" header="Category" [style]="{'text-align':'center','width':'5%'}">
+        <template let-col let-service="rowData" pTemplate>
+        <span *ngIf="service[col.field]==true" title="Custom Service Entry Point"> <md-icon class="activeIconClass">border_color</md-icon></span>
+        <span *ngIf="service[col.field]==false " title="Predefined Service Entry Point"><md-icon class="inActiveIconClass">enhanced_encryption</md-icon></span>
+      </template>
+    </p-column>
+</p-dataTable>
+
 <!--Dialog for New Service Entry -->
 <p-dialog class="profile-dialog" header="{{isNewServiceEntryPoint ? 'Add Service entry point' : 'Edit Service entry point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true" [resizable]="false">
 
@@ -48,6 +92,15 @@
             <div class="ui-g-8">
                 <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
                 <p-dropdown [options]="entryPointType" [style]="{'width':'180px'}" name="entryTypeId" [(ngModel)]="serviceEntryPointDetail.entryTypeId" placeholder="--Select--"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g" *ngIf="!type">
+            <div class="ui-g-4">
+                <label>Module</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="module" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.module" required (keydown.space)="$event.preventDefault()" required ngModel/>
             </div>
         </div>
 

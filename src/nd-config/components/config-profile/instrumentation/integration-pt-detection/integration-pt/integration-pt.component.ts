@@ -58,8 +58,10 @@ export class IntegrationPtComponent implements OnInit {
   IP = INTEGRATION_TYPE;
 
   endPoint: EndPoint[];
+  agentType: string = "";
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
+    this.agentType = sessionStorage.getItem("agentType");
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -67,8 +69,9 @@ export class IntegrationPtComponent implements OnInit {
       })
       this.integrationPoints = keywordDataVal;
     });
-    this.loadIntegrationPTDetectionList();
-    this.loadBackendInfoList();
+   
+    // this.loadIntegrationPTDetectionList();
+    // this.loadBackendInfoList();
   }
 
   ngOnInit() {
@@ -132,6 +135,10 @@ export class IntegrationPtComponent implements OnInit {
       }
     }
     this.addIPDetectionDetail.fqm = this.addIPDetectionDetail.fqm.trim();
+    this.addIPDetectionDetail.agent = this.agentType;
+    if(this.agentType == "Java"){
+      this.addIPDetectionDetail.module = "-";
+    }
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)
       .subscribe(data => {
         //Getting index for set data in main array table data.
@@ -145,6 +152,14 @@ export class IntegrationPtComponent implements OnInit {
         endPointData.enabled = data.enabled;
         endPointData.fqm = data.fqm;
         endPointData.name = data.name;
+        if(this.agentType == "Java"){
+          endPointData.agent = "Java";
+          endPointData.module = "-";
+        }
+        else if(this.agentType == "Dot Net")
+        {
+            endPointData.agent = "Dot Net";
+        }
         // this.ipDetectionData[index].lstEndPoints.push(endPointData);
 
         that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
@@ -187,7 +202,7 @@ export class IntegrationPtComponent implements OnInit {
     this.namingRuleAndExitPoint.userName = this.integrationDetail.namingRule.userName;
     this.namingRuleAndExitPoint.lstEndPoints = [];
     this.namingRuleAndExitPoint.query = this.integrationDetail.namingRule.query;
-
+    
     for (let i = 0; i < this.integrationDetail.lstEndPoints.length; i++) {
       this.namingRuleAndExitPoint.lstEndPoints[i] = { id: this.integrationDetail.lstEndPoints[i].id, enabled: this.integrationDetail.lstEndPoints[i].enabled };;
     }

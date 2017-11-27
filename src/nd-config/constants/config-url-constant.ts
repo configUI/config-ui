@@ -41,12 +41,15 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
-export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist`
+export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/profilelist` 
 //export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/profiles`
 export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
 export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
 export const DEL_PROFILE = `${SERVICE_URL}/custom/profile/delete`;
 export const GET_PROFILE_AGENT = `${SERVICE_URL}/custom/profile/getprofileagent`;
+export const FETCH_JAVA_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/javaProfilelist`
+export const FETCH_DOTNET_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/dotNetProfilelist`
+export const FETCH_NODEJS_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/nodeJSProfilelist`
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -279,5 +282,14 @@ export const GET_AUTO_INSTR_TABLE_DATA = `${SERVICE_URL}/custom/autoinstrumentat
 export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopautoinstrumentation`;
 export const UPDATE_AI_DETAILS = `${SERVICE_URL}/custom/autoinstrumentation/updateaidetails`;
 
+export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/fileexixtornot`;
+
+/*Auto Instrumentation Data */
+export const GET_REMOVED_PACKAGE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedpackageList`;
+export const GET_INSTRUEMENTATED_PACKAGE_DATA =`${SERVICE_URL}/custom/autoinstrumentation/getinstrumentatedlist`;
+export const GET_REMOVED_CLASS_METHOD_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedclsmethodlist`;
+export const GET_SELECTED_REMOVED_INSTRUMENTED_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getselectedremoveddatainstrumented`;
+export const GET_UNINSTRUMENTATION_TREE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/uninstrumentationfqmdata`;
+export const SAVE_INSTRUEMENTATION_DATA_FILE = `${SERVICE_URL}/custom/autoinstrumentation/saveinstrumentationdatainxmlformat`;
 
 

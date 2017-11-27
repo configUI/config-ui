@@ -37,8 +37,20 @@ export class ConfigProfileService {
     this._profileName.next(profileName);
   }
 
-  getProfileList(): Observable<ProfileData[]> {
+  getProfileList(): Observable<ProfileData[]> { 
     return this._restApi.getDataByGetReq(`${URL.FETCH_PROFILE_TABLEDATA}`);
+  }
+
+  getJavaTypeProfileList(): Observable<ProfileData[]> { 
+    return this._restApi.getDataByGetReq(`${URL.FETCH_JAVA_PROFILE_TABLEDATA}`);
+  }
+
+  getDotNetTypeProfileList(): Observable<ProfileData[]> { 
+    return this._restApi.getDataByGetReq(`${URL.FETCH_DOTNET_PROFILE_TABLEDATA}`);
+  }
+
+  getNodeJSTypeProfileList(): Observable<ProfileData[]> { 
+    return this._restApi.getDataByGetReq(`${URL.FETCH_NODEJS_PROFILE_TABLEDATA}`);
   }
 
   addProfileData(data): Observable<ProfileData> {

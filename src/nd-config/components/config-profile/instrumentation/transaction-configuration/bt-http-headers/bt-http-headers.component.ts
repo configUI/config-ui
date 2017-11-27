@@ -61,11 +61,14 @@ export class BTHTTPHeadersComponent implements OnInit {
     condCount: number = 0;
     condCountEdit: number = 0;
 
+    saveDisable: boolean = false;
+
     constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     }
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.profileId = params['profileId'];
+            this.saveDisable = this.profileId == 1 ? true : false;
         });
 
         //Request to get all BT HTTP headers data

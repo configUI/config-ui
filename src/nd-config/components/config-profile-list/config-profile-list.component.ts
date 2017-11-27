@@ -36,10 +36,10 @@ export class ConfigProfileListComponent implements OnInit {
 
   ngOnInit() {
     this.loadProfileList();
-    this.loadAgentList()
+    this.loadAgentList();
   }
 
-  loadAgentList(){
+  loadAgentList() {
     let key = ['Java', 'NodeJS', 'Dot Net'];
     this.agentList = ConfigUiUtility.createDropdown(key);
 
@@ -53,31 +53,39 @@ export class ConfigProfileListComponent implements OnInit {
 
   /**For opening Dialog box When Add Button is clicked */
   openProfileDialog() {
-    /**When profileListItem is blank then create profileListItem */
-    if (!this.profileListItem)
-      this.loadProfileNameList();
-
     this.profileDetail = new ProfileData();
     this.displayNewProfile = true;
   }
 
-  /**For Fetching Data in DropDown in Copy profile */
-  loadProfileNameList() {
+  /** This function is called to show specific agent profile in Copy profile dropDown*/
+  getAgentSpecificProfiles(pro) {
     this.profileListItem = [];
     let arr = []; //This variable is used to sort Profiles
     for (let i = 0; i < this.profileData.length; i++) {
-      arr.push(this.profileData[i].profileName); 
+      arr.push(this.profileData[i].profileName);
     }
     arr.sort();
-      for (let i = 0; i< arr.length; i++){
-        for (let j = 0; j < this.profileData.length; j++) {
-          if(this.profileData[j].profileName == arr[i]){
-           this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < this.profileData.length; j++) {
+        if (pro == "Java" && this.profileData[j].agent == "Java" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
+        else if (pro == "Dot Net" && this.profileData[j].agent == "Dot Net" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
+        else if (pro == "NodeJS" && this.profileData[j].agent == "NodeJS" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }
         }
       }
     }
-  
+  }
+
 
   /**For Saving Dialog Data when Save Button Is clicked */
   saveNewProfile(): void {
@@ -120,16 +128,16 @@ export class ConfigProfileListComponent implements OnInit {
   }
 
   /** To delete profile */
-  deleteProfile(){
-    if(!this.selectedProfileData || this.selectedProfileData.length < 1){
+  deleteProfile() {
+    if (!this.selectedProfileData || this.selectedProfileData.length < 1) {
       this.configUtilityService.errorMessage("Select a profile to delete");
       return;
     }
-    if(this.selectedProfileData.length > 1){
+    if (this.selectedProfileData.length > 1) {
       this.configUtilityService.errorMessage("Select only one profile to delete")
       return;
     }
-    if(this.selectedProfileData[0].profileId == 1){
+    if (this.selectedProfileData[0].profileId == 1) {
       this.configUtilityService.errorMessage("Default profile cannot be deleted");
       return;
     }
@@ -141,16 +149,16 @@ export class ConfigProfileListComponent implements OnInit {
 
         this.configProfileService.deleteProfileData(this.selectedProfileData[0].profileId).subscribe(data => {
           // If profile is applied to any topology
-          if(data != ""){
+          if (data != "") {
             this.showMsg = true;
             this.displayErrMsg = data.split(";");
             this.displayErrMsg.pop();
           }
           // If profile is not applied to any topology
-          else{
-          this.deleteProfiles(this.selectedProfileData[0].profileId);
-          this.configUtilityService.infoMessage("Deleted successfully");
-          }         
+          else {
+            this.deleteProfiles(this.selectedProfileData[0].profileId);
+            this.configUtilityService.infoMessage("Deleted successfully");
+          }
         })
       },
       reject: () => {
@@ -160,13 +168,13 @@ export class ConfigProfileListComponent implements OnInit {
 
   }
 
-    /**This method is used to delete profile */
+  /**This method is used to delete profile */
   deleteProfiles(arrProfId: number): void {
     //For stores table row index
     let rowIndex: number[] = [];
 
     // for (let index in arrProfId) {
-      rowIndex.push(this.getProfIndex(arrProfId));
+    rowIndex.push(this.getProfIndex(arrProfId));
     // }
 
     this.profileData = deleteMany(this.profileData, rowIndex);
@@ -174,7 +182,7 @@ export class ConfigProfileListComponent implements OnInit {
     this.selectedProfileData = [];
   }
 
-    /**This method returns selected profile row on the basis of profId */
+  /**This method returns selected profile row on the basis of profId */
   getProfIndex(profId: number): number {
     for (let i = 0; i < this.profileData.length; i++) {
       if (this.profileData[i].profileId == profId) {
