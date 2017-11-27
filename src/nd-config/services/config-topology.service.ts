@@ -234,5 +234,11 @@ getServerDisplayName(instanceId: number): Observable<String> {
     return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INSTR_TABLE_DATA}`);
   }  
 
+    //Update AI details when duration is completed
+    updateAIDetails(): Observable<AutoIntrDTO[]> {
+      return this._restApi.getDataByGetReq(`${URL.UPDATE_AI_DETAILS}`);
+    }  
+  
+
 
 }

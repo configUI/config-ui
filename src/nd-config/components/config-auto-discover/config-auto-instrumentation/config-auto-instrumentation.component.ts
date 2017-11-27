@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AutoIntrDTO } from '../../../interfaces/topology-info';
 import { ConfigTopologyService } from '../../../services/config-topology.service';
 import { ConfigHomeService } from '../../../services/config-home.service';
+import { ConfigUtilityService } from '../../../services/config-utility.service';
 import * as URL from '../../../constants/config-url-constant';
 
 
@@ -23,14 +24,20 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   className: string = "Auto Instrument Component";
 
   constructor(private configTopologyService: ConfigTopologyService,
-    private configHomeService: ConfigHomeService
+    private configHomeService: ConfigHomeService,
+    private configUtilityService: ConfigUtilityService
   ) { }
 
   ngOnInit() {
     let that = this;
-    this.configTopologyService.getAIData().subscribe(data => {
-      //Checking is auto instrumentation is in running state or complete
-      this.checkForCompleteOrActive(data)
+
+    // this.configTopologyService.getAIData().subscribe(data => {
+    //   //Checking is auto instrumentation is in running state or complete
+    //   this.checkForCompleteOrActive(data)
+    // })
+
+    this.configTopologyService.updateAIDetails().subscribe(data => {
+    this.checkForCompleteOrActive(data)
     })
 
   }
@@ -57,6 +64,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
+      this.configUtilityService.errorMessage("Test is not running")
       return;
     }
     else {

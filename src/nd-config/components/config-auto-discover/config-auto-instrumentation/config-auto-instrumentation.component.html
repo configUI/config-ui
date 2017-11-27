@@ -25,6 +25,11 @@
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>                
             </template>
           </p-column>
+          <p-column class="col-overflow" field="endTime" header="Expected End Time" [sortable]="true" [style]="{'width':'16%'}">
+            <template let-col let-application="rowData" pTemplate>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>                
+            </template>
+          </p-column>
           <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time" [sortable]="true" [style]="{'width':'15%'}">
             <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>                
@@ -67,6 +72,7 @@
           </p-column>
           <p-column class="col-overflow" header="Duration" field="duration" [sortable]="true" [style]="{'width':'15%'}">
             <template let-col let-application="rowData" pTemplate>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
           </p-column>
           <p-column class="col-overflow" header="Operation" [sortable]="true" [style]="{'width':'8%', 'text-align':'center'}">
