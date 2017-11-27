@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo } from '../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO } from '../interfaces/topology-info';
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
+import { ConfigUtilityService } from './config-utility.service';
 
 @Injectable()
 export class ConfigTopologyService {
@@ -33,7 +34,7 @@ export class ConfigTopologyService {
 
 
 
-  constructor(private _restApi: ConfigRestApiService) { }
+  constructor(private _restApi: ConfigRestApiService, private configUtilityService: ConfigUtilityService) { }
 
   getTopologyList(): Observable<TopologyInfo[]> {
     return this._restApi.getDataByGetReq(URL.FETCH_ALL_TOPODATA);
@@ -154,5 +155,84 @@ export class ConfigTopologyService {
 // };
 //     return data.data;
 //   }
+
+/**To apply auto-instrumentation  */
+applyAutoInstr(data): Observable<AutoIntrDTO> {
+  return this._restApi.getDataByPostReq(`${URL.APPLY_AUTO_INSTR}`, data);
+}
+
+/**To apply auto-instrumentation  */
+stopAutoInstr(instanceName): Observable<AutoIntrDTO[]>{
+  return this._restApi.getDataByPostReq(`${URL.STOP_AUTO_INSTR}`, instanceName);
+}
+
+/**To get auto-instrumentation settings data to display in dialog */
+getAutoInstr(appName, instanceName, sessionName){
+  return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AUTO_INSTR_DATA}/${appName}`, instanceName+"#"+sessionName );
+}
+
+getServerDisplayName(instanceId: number): Observable<String> {
+  return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_SERVER_DIS_NAME}/${instanceId}`);
+}
+
+
+  //Send RTC on AI(running mode)
+  sendRTCAutoInstr(url, data, autoInstrDto, callback){
+    let success = ""
+    this._restApi.getDataByPostReq(url, data).subscribe(data => {
+
+      //When result=OK
+      if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
+        
+        //Request to save in database if NDC sends OK
+        this.applyAutoInstr(autoInstrDto).subscribe(data => {
+          this.configUtilityService.infoMessage("Auto Instrumentation started");
+          success = "success";
+          callback(success)
+        })
+      }
+      
+      //When result=Error, then no RTC applied
+      else {
+        //Getting error if any and showing as toaster message
+        let err = data[0].substring(data[0].lastIndexOf(":") + 1)
+        this.configUtilityService.errorMessage("Could not start: " + err);
+         success = "fail";
+         callback(success)
+      }
+    });
+  }
+
+  //Send RTC on AI(Stop mode)
+  sendRTCTostopAutoInstr(url, data, instanceName,sessionName, callback){
+    this._restApi.getDataByPostReq(url, data).subscribe(data => {
+
+      //When result=OK
+      if (data[0].includes("result=OK") || data[0].includes("result=Ok")) {
+
+        //Merging instane name and session name with &
+        let ISName = instanceName + "&" + sessionName
+        //Request to change the status of instance from "In progress to complete" if NDC sends OK
+        this.stopAutoInstr(ISName).subscribe(data => {
+          this.configUtilityService.infoMessage("Auto Instrumentation terminated");
+          callback(data)
+        })
+      }
+      
+      //When result=Error, then no RTC applied
+      else {
+        //Getting error if any and showing as toaster message
+        let err = data[0].substring(data[0].lastIndexOf(";") + 1)
+        this.configUtilityService.errorMessage("Could not stop: " + err);
+        callback(data);
+      }
+    });
+  }
+
+  //Get Auto Instrumentation Data to show  in table
+  getAIData(): Observable<AutoIntrDTO[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INSTR_TABLE_DATA}`);
+  }  
+
 
 }

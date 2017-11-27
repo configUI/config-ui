@@ -15,6 +15,14 @@
             <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
                 <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
         </template>
+        <template *ngIf="col.field == 'autoInstrumentation'" let-col let-entity="rowData" pTemplate="body">
+                <a class="hyperlink" *ngIf="changeIcon==true" (click)="openAutoInstrDialog(entity['instanceName'])" title="Start">
+                  <i class="fa fa-play-circle-o"></i>
+                </a>
+                <a class="hyperlink" *ngIf="changeIcon==false" (click)="stopInstrumentation(entity['instanceName'])" title="Stop">
+                    <i class="fa fa-stop"></i>
+                  </a>
+              </template>
         </p-column>
     </p-dataTable>
 
@@ -41,4 +49,111 @@
             </div>
         </footer>
     </form>
+</p-dialog>
+
+<p-dialog class="profile-dialog" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal"
+width="500" responsive="true">
+<form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
+        
+                <div class="ui-g" style="margin-left: 10px">
+                    <p-checkbox name="enableAutoInstrSession" disabled=true [(ngModel)]="autoInstrObj['enableAutoInstrSession']" label="Enable Auto Instrumentation" binary="true" ngModel></p-checkbox>                        
+                </div>
+                <br>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Min stacktrace depth for comparing methods in hotspot data for auto-instrumentation</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="minStackDepthAutoInstrSession" [(ngModel)]="autoInstrObj['minStackDepthAutoInstrSession']" pInputText min=0 max=1000 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Agent trace level</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoInstrTraceLevel" [(ngModel)]="autoInstrObj['autoInstrTraceLevel']" pInputText min=0 max=6 class="text-width"max=5  required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Sample threshold value</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoInstrSampleThreshold" [(ngModel)]="autoInstrObj['autoInstrSampleThreshold']" pInputText min=0 max=5000 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Fraction of % for methods in the sample</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Fraction of % for instrumented method that will be un-instrumented</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Map size to store classes and methods</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoInstrMapSize" [(ngModel)]="autoInstrObj['autoInstrMapSize']" pInputText min=0 max=10000000 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Comparing average duration of methods</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoInstrMaxAvgDuration" [(ngModel)]="autoInstrObj['autoInstrMaxAvgDuration']" pInputText min=0 max=100 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                        <div class="ui-g-7">
+                          <label>Weight of exception and exit point classes</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                          <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=0 max=10000 class="text-width" required ngModel>
+                        </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-7">
+                      <label>Session duration (in minutes)</label>
+                    </div>
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-4">
+                      <input type="number" size='20' name="autoInstrSessionInterval" [(ngModel)]="autoInstrObj['autoInstrSessionInterval']" pInputText min=0 class="text-width" required ngModel>
+                    </div>
+              </div>
+              <div class="ui-g-12">
+                <div class="ui-g-4">
+                  <label>Session Name</label>
+                </div>
+                <div class="ui-g-6">
+                  <input type="text" size='40' name="sessionName" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
+                </div>
+              </div>
+                <footer>
+                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                        <button type="submit" pButton icon="fa-play" label="Start"></button>
+                        <button type="button" pButton icon="fa-close" (click)="closeAutoInstrDialog()" label="Cancel"></button>
+                        <button type="button" pButton icon="fa-refresh" (click)="resetToDefault()" label="Reset to default"></button>
+                    </div>
+                </footer>
+            </form>
 </p-dialog>

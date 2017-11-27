@@ -1,6 +1,6 @@
 
 
-//const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+//  const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -9,10 +9,10 @@
  const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-//export const ROUTING_PATH: string = "";
+export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
- export const ROUTING_PATH: string = "/home/config";
+//  export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -71,7 +71,8 @@ export const ATTACH_PROFTO_SERVER = `${SERVICE_URL}/custom/server`;
 export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
 export const FETCH_INSTANCE_TABLE_URL = `${SERVICE_URL}/custom/instance`;
 export const ATTACH_PROFTO_INSTANCE = `${SERVICE_URL}/custom/instance`;
-export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`
+export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`;
+export const GET_SERVER_DIS_NAME = `${SERVICE_URL}/custom/instance/serverdisplayname`;
 
 /* Url for ServiceEntryPoint */
 export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;
@@ -162,6 +163,7 @@ export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topo
 export const RUNTIME_CHANGE_TIER = `${SERVICE_URL}/custom/runtimechange/tier`;
 export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server`;
 export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
+export const RUNTIME_CHANGE_AUTO_INSTR = `${SERVICE_URL}/custom/runtimechange/autoinstrumentation`;
 
 
 /* URL for ND Agent Status */
@@ -272,4 +274,10 @@ export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/geta
 /* NDC Keyword URL */
 export const GET_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/getncdkeyworddata`;
 export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddata`;
+
+/* URL for auto-instrumentation */
+export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/applyautoinstrumentation`;
+export const GET_AUTO_INSTR_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaisettings`;
+export const GET_AUTO_INSTR_TABLE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaidetails`;
+export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopautoinstrumentation`;
 
