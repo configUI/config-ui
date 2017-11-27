@@ -139,7 +139,7 @@ import { ConfigAutoDiscoverMainComponent } from './components/config-auto-discov
 import { ConfigAutoInstrumentationComponent } from './components/config-auto-discover/config-auto-instrumentation/config-auto-instrumentation.component';
 import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/config-view-audit-log.component';
 import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywords-setting/config-ndc-keywords-setting.component';
-
+import { ConfigAutoInstrumentationTreeComponent } from './components/config-auto-instrumentation/config-auto-instrumentation.component';
 // not commit in cvs
 import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -215,7 +215,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigAutoDiscoverTreeComponent,
     ConfigViewAuditLogComponent,
     ConfigNDCKeywordsSettingComponent,
-    ConfigAutoInstrumentationComponent
+    ConfigAutoInstrumentationComponent,
+    ConfigAutoInstrumentationTreeComponent
   ],
   imports: [
     // CommonModule,

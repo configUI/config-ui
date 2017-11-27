@@ -280,4 +280,14 @@ export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/apply
 export const GET_AUTO_INSTR_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaisettings`;
 export const GET_AUTO_INSTR_TABLE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaidetails`;
 export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopautoinstrumentation`;
+export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/fileexixtornot`;
+
+/*Auto Instrumentation Data */
+export const GET_REMOVED_PACKAGE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedpackageList`;
+export const GET_INSTRUEMENTATED_PACKAGE_DATA =`${SERVICE_URL}/custom/autoinstrumentation/getinstrumentatedlist`;
+export const GET_REMOVED_CLASS_METHOD_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedclsmethodlist`;
+export const GET_SELECTED_REMOVED_INSTRUMENTED_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getselectedremoveddatainstrumented`;
+export const GET_UNINSTRUMENTATION_TREE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/uninstrumentationfqmdata`;
+export const SAVE_INSTRUEMENTATION_DATA_FILE = `${SERVICE_URL}/custom/autoinstrumentation/saveinstrumentationdatainxmlformat`;
+
 
