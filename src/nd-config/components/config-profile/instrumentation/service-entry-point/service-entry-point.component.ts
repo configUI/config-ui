@@ -14,7 +14,7 @@ import { ImmutableArray } from '../../../../utils/immutable-array';
 
 import { Messages, descMsg } from '../../../../constants/config-constant';
 
-import { deleteMany } from '../../../../utils/config-utility';
+import { deleteMany, ConfigUiUtility, cloneObject } from '../../../../utils/config-utility';
 
 @Component({
   selector: 'app-service-entry-point',
@@ -54,8 +54,17 @@ export class ServiceEntryPointComponent implements OnInit {
 
   subscription: Subscription;
 
+  javaTypeEntryPointName = ["ATGServlet", "ApacheJsperService", "EntryForJBOSS", "EntryForWebLogicJSP", "ErrorPageEntry", "Genric", "HessianCallOut", "HttpServletService", "JMSCall", "glassFishJersey", "jerseyCall"];
+  javaTypeEntryPointId = ["11", "3", "8", "2", "9", "6", "10", "1", "7", "5", "4"];
+  dotNetTypeEntryPoint = ["HttpServletService", "TXExit"];
+  dotNetTypeEntryPointId = ["1", "12"];
+
+  agentType: string = "";
+  type: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
 
+    this.agentType = sessionStorage.getItem("agentType");
+    this.type = this.agentType == "Java" ? true : false;
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -68,8 +77,14 @@ export class ServiceEntryPointComponent implements OnInit {
 
   ngOnInit() {
     this.loadServiceEntryPoint();
-    this.loadEntryPointTypeList();
+
     this.saveDisable = this.profileId == 1 ? true : false;
+    if (this.agentType == "Java")
+      this.entryPointType = ConfigUiUtility.createListWithKeyValue(this.javaTypeEntryPointName, this.javaTypeEntryPointId);
+    else if (this.agentType == "Dot Net")
+      this.entryPointType = ConfigUiUtility.createListWithKeyValue(this.dotNetTypeEntryPoint, this.dotNetTypeEntryPointId);
+    else
+      this.loadEntryPointTypeList();    
   }
   /**It loads service entry data  */
   loadServiceEntryPoint() {
@@ -85,7 +100,7 @@ export class ServiceEntryPointComponent implements OnInit {
   }
   /**It adds data in dropdown of Entry type service */
   loadEntryPointTypeList() {
-    //EntryPointType contains some values then return. no need to get data from server.
+   // EntryPointType contains some values then return. no need to get data from server.
     if (this.entryPointType)
       return;
     this.entryPointType = [];
@@ -105,7 +120,6 @@ export class ServiceEntryPointComponent implements OnInit {
         }
       });
   }
-
 
   /**It stores the dialog data back to the backend */
   saveServiceEntryPointService(): void {
@@ -145,6 +159,11 @@ export class ServiceEntryPointComponent implements OnInit {
     let that = this;
     let filePath;
     this.serviceEntryPointDetail.fqm = this.serviceEntryPointDetail.fqm.trim();
+    this.serviceEntryPointDetail.agent = this.agentType;
+    if(this.serviceEntryPointDetail.module == null)
+      {
+        this.serviceEntryPointDetail.module = "-";
+      }
     this.configKeywordsService.addServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting service in DB
@@ -152,8 +171,8 @@ export class ServiceEntryPointComponent implements OnInit {
         that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
 
           //For sending Runtime Changes
-            filePath = data["_body"];
-            filePath = filePath + "/NDEntryPointFile.txt";
+          filePath = data["_body"];
+          filePath = filePath + "/NDEntryPointFile.txt";
           that.entryPoints['NDEntryPointsFile'].path = filePath;
           that.keywordData.emit(that.entryPoints);
         });
@@ -177,11 +196,11 @@ export class ServiceEntryPointComponent implements OnInit {
       }
     );
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      
+
       //For sending Runtime Changes
 
-        filePath = data["_body"];
-        filePath = filePath + "/NDEntryPointFile.txt";
+      filePath = data["_body"];
+      filePath = filePath + "/NDEntryPointFile.txt";
       this.entryPoints['NDEntryPointsFile'].path = filePath;
       this.keywordData.emit(this.entryPoints);
     });
@@ -229,16 +248,16 @@ export class ServiceEntryPointComponent implements OnInit {
             this.selectedServiceEntryData = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           })
-          let filePath;
-          this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-            
-            //For sending Runtime Changes
-      
-              filePath = data["_body"];
-              filePath = filePath + "/NDEntryPointFile.txt";
-            this.entryPoints['NDEntryPointsFile'].path = filePath;
-            this.keywordData.emit(this.entryPoints);
-          });
+        let filePath;
+        this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+
+          //For sending Runtime Changes
+
+          filePath = data["_body"];
+          filePath = filePath + "/NDEntryPointFile.txt";
+          this.entryPoints['NDEntryPointsFile'].path = filePath;
+          this.keywordData.emit(this.entryPoints);
+        });
       },
       reject: () => {
       }
@@ -324,6 +343,10 @@ export class ServiceEntryPointComponent implements OnInit {
     }
 
     this.serviceEntryPointDetail.fqm = this.serviceEntryPointDetail.fqm.trim();
+    if(this.serviceEntryPointDetail.module == null)
+      {
+        this.serviceEntryPointDetail.module = "-";
+      }
     this.configKeywordsService.editServiceEntryPointData(this.serviceEntryPointDetail, this.profileId)
       .subscribe(data => {
         let index = this.getServiceEntryPoint();
@@ -331,16 +354,16 @@ export class ServiceEntryPointComponent implements OnInit {
         this.serviceEntryPointDetail.entryType = data.entryType
         this.configUtilityService.successMessage(Messages);
       });
-      let filePath;
-      this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-        
-        //For sending Runtime Changes
-  
-          filePath = data["_body"];
-          filePath = filePath + "/NDEntryPointFile.txt";
-        this.entryPoints['NDEntryPointsFile'].path = filePath;
-        this.keywordData.emit(this.entryPoints);
-      });
+    let filePath;
+    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+
+      //For sending Runtime Changes
+
+      filePath = data["_body"];
+      filePath = filePath + "/NDEntryPointFile.txt";
+      this.entryPoints['NDEntryPointsFile'].path = filePath;
+      this.keywordData.emit(this.entryPoints);
+    });
     this.addEditServiceEntryDialog = false;
     this.selectedServiceEntryData = [];
   }

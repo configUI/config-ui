@@ -35,5 +35,6 @@ export interface InstanceInfo {
     profileId: number;
     profileName: string;
     enabled: boolean;
+    instanceType: string;
 }
 

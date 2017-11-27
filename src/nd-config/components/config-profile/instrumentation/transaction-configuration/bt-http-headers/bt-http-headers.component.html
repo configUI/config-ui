@@ -2,9 +2,9 @@
     <p-header>
         <span style="float: left"> BT HTTP Headers list</span>
         <span style="float: right; margin-top:-3px">
-                       <button pButton type="button" title="Add HTTP header" (click)="openHeader()" icon="fa-plus"></button>
-                        <button pButton type="button" title="Edit HTTP header " (click)="openEditHttpHeader()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete HTTP header(s)" (click)="deleteBTHTTPHeaders()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add HTTP header" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
+                        <button pButton type="button" title="Edit HTTP header " [disabled]="saveDisable" (click)="openEditHttpHeader()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete HTTP header(s)" [disabled]="saveDisable" (click)="deleteBTHTTPHeaders()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>

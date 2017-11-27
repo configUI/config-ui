@@ -8,6 +8,8 @@ export class  ServiceEntryPoint {
     name: string;
     tableType: string;
     isCustomEntry:boolean=true;
+    module:string;
+    agent: string;
 }
 
 export class ErrorDetection {
@@ -28,6 +30,8 @@ export class AddIPDetection {
     id: number;
     name: string;
     isCustomEntry:boolean=true;
+    agent: string;
+    module: string;
 }
 export class BackendTableInfo {
     type: string;
@@ -77,6 +81,8 @@ export class EndPoint {
     enabled: boolean;
     fqm: string;
     isCustomEntry:boolean=true;
+    agent: string;
+    module: string;
 }
 
 export class NamingRuleAndExitPoint {

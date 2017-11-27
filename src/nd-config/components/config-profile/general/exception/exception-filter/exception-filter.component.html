@@ -4,7 +4,7 @@
         <span style="float: left"> Apply Exception Filter </span>
 
         <span style="float :right; margin-top:-3px">
-            <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button>
+            <button pButton type="button" title="Browse" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Add exception filter" [disabled]="saveDisable" (click)="openAddExceptionFilterDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit exception filter" [disabled]="saveDisable" (click)="openEditExceptionFilterrDialog()" icon="fa-pencil"></button>
             <button pButton class="ui-button-danger" type="button" title="Delete exception filter(s)" [disabled]="saveDisable" (click)="deleteExceptionFilter()" icon="fa-trash"></button>

@@ -49,14 +49,14 @@
                 <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
                 <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
-            <div  class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp'">
+            <div  class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
                 <div class="ui-g-2">
                     <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open" label="Browse"></button>
                 </div>
             </div>
         </div>
 
-        <div class="ui-g custom-config-dialog" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp'">
+        <div class="ui-g custom-config-dialog" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
             <div class="ui-g-3">
                 <label>Path</label>
             </div>
@@ -66,7 +66,7 @@
         </div>
 
 
-        <div class="ui-g" *ngIf="customKeywords.keywordName!='NDHTTPRepHdrCfgListL1Fp' && customKeywords.keywordName!='ndHttpHdrCaptureFileList' && customKeywords.keywordName!='NDHTTPRepHdrCfgListFullFp'">
+        <div class="ui-g" *ngIf="customKeywords.keywordName!='NDHTTPRepHdrCfgListL1Fp' && customKeywords.keywordName!='ndHttpHdrCaptureFileList' && customKeywords.keywordName!='NDHTTPRepHdrCfgListFullFp' && customKeywords.keywordName!='NDAppLogFile' && customKeywords.keywordName!='ndBackendMonFile' && customKeywords.keywordName!='generateExceptionConfFile' && customKeywords.keywordName!='cavNVURLFile' && customKeywords.keywordName!='NDInterfaceFile'">
             <div class="ui-g-3">
                 <label>Value</label>
             </div>
