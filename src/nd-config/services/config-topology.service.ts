@@ -194,9 +194,26 @@ getServerDisplayName(instanceId: number): Observable<String> {
     return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INSTR_TABLE_DATA}`);
   }  
 
+    //Update AI details when duration is completed
+    updateAIDetails(): Observable<AutoIntrDTO[]> {
+      return this._restApi.getDataByGetReq(`${URL.UPDATE_AI_DETAILS}`);
+    }  
+  
+
   //Get Auto Instrumentation Data to show  in table
   getSessionFileExistOrNot(sessionFileName){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.FILE_EXIST_OR_NOT}`, sessionFileName);
   }  
+
+  //Get status of the selected AI
+    getAIStatus(instance){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, instance);
+    }  
+
+    //Download File after AI
+    downloadFile(data){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, data);
+    }  
+
 
 }
