@@ -12,7 +12,7 @@ import { ROUTING_PATH } from '../../../constants/config-url-constant';
 @Component({
   selector: 'app-config-auto-instrumentation',
   templateUrl: './config-auto-instrumentation.component.html'
-//   styleUrls: ['./config-auto-instrumentation.component.css']
+  //   styleUrls: ['./config-auto-instrumentation.component.css']
 })
 export class ConfigAutoInstrumentationComponent implements OnInit {
   ROUTING_PATH = ROUTING_PATH;
@@ -26,7 +26,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   className: string = "Auto Instrument Component";
 
-  constructor(private configTopologyService: ConfigTopologyService,private router:Router,private configUtilityService: ConfigUtilityService,
+  constructor(private configTopologyService: ConfigTopologyService, private router: Router, private configUtilityService: ConfigUtilityService,
     private configHomeService: ConfigHomeService
   ) { }
 
@@ -39,17 +39,17 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     // })
 
     this.configTopologyService.updateAIDetails().subscribe(data => {
-    this.checkForCompleteOrActive(data)
+      this.checkForCompleteOrActive(data)
     })
 
   }
 
   //Updating Active and Complete tables
-  checkForCompleteOrActive(data){
-    let autoIntrComplete =[];
-    let autoIntrActive =[];
-    for(let i=0;i< data.length; i++){  
-      if(data[i].status == "complete")
+  checkForCompleteOrActive(data) {
+    let autoIntrComplete = [];
+    let autoIntrActive = [];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].status == "complete")
         autoIntrComplete.push(data[i])
       else
         autoIntrActive.push(data[i])
@@ -59,7 +59,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName, sessionName){
+  stopInstrumentation(instanceName, sessionName) {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
@@ -72,32 +72,44 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     else {
       //Getting keywords data whose values are different from default values
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
-        const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-        strSetting = "enableAutoInstrSession=0;"
-        //Merging configuration and instance name with #
-        strSetting = strSetting + "#" + instanceName;
+      const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
+      strSetting = "enableAutoInstrSession=0;"
+      //Merging configuration and instance name with #
+      strSetting = strSetting + "#" + instanceName;
 
-        //Saving settings in database
-       this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function(data){
-         that.checkForCompleteOrActive(data);
-       })
+      //Saving settings in database
+      this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function (data) {
+        that.checkForCompleteOrActive(data);
+      })
 
     }
 
   }
 
-  openGUIForAutoInstrumentation(sessionFileName)
-  {
+  openGUIForAutoInstrumentation(sessionFileName) {
     sessionFileName = sessionFileName + ".txt";
     this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
-     
-       if (data['_body'] == "Fail") {
-           this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
-           return;
-       }
-       
-    this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);    
-  });
-  
-}
+
+      if (data['_body'] == "Fail") {
+        this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
+        return;
+      }
+
+      this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);
+    });
+
+  }
+
+  getAIStatus(instance) {
+    this.configTopologyService.getAIStatus(instance).subscribe(data => {
+    })
+  }
+
+  downloadFile(instance, session){
+    let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
+    this.configTopologyService.downloadFile(data).subscribe(data => {
+    })
+  }
+
+
 }

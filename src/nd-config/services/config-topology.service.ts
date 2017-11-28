@@ -205,4 +205,15 @@ getServerDisplayName(instanceId: number): Observable<String> {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.FILE_EXIST_OR_NOT}`, sessionFileName);
   }  
 
+  //Get status of the selected AI
+    getAIStatus(instance){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, instance);
+    }  
+
+    //Download File after AI
+    downloadFile(data){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, data);
+    }  
+
+
 }

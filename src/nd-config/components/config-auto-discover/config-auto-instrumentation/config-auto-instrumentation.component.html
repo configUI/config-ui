@@ -37,7 +37,7 @@
                     </p-column>
                     <p-column class="col-overflow" field="instanceName" [sortable]="true" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink" title="Refresh"><i class="fa fa-refresh"></i></a>
+                <a class="hyperlink" title="Refresh" (click)="getAIStatus(application['instanceName'])"><i class="fa fa-refresh"></i></a>
                 <a class="hyperlink" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])" title="Stop"><i class="fa fa-stop"></i></a>                
             </template>
                     </p-column>
@@ -77,8 +77,8 @@
                     </p-column>
                     <p-column class="col-overflow" header="Operation" [sortable]="true" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink" (click)="openGUIForAutoInstrumentation(application['instanceName'])" title="Refresh"><i class="fa fa-edit"></i></a>
-                <!-- <a class="hyperlink" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])" title="Stop"><i class="fa fa-stop"></i></a>   -->
+                <a class="hyperlink" (click)="openGUIForAutoInstrumentation(application['instanceName'])" title="Edit"><i class="fa fa-edit"></i></a>
+                <a class="hyperlink" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download"><i class="fa fa-download"></i></a>  
             </template>
                     </p-column>
                 </p-dataTable>
