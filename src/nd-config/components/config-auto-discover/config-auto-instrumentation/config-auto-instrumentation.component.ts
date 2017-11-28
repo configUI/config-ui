@@ -89,6 +89,10 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
            this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
            return;
        }
+       else if (data['_body'] == "Empty") {
+        this.configUtilityService.errorMessage("Session file is empty.");
+        return;
+        }
        
     this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);    
   });

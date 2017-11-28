@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode, MenuItem } from 'primeng/primeng';
 import { Http, Response } from '@angular/http';
-import { ImmutableArray } from '../../utils/immutable-array';
-import { ConfigKeywordsService } from '../../services/config-keywords.service';
-import { ConfigUiUtility } from '../../utils/config-utility';
-import { AutoDiscoverTreeData, AutoDiscoverData } from '../../containers/auto-discover-data';
-import { ConfigUtilityService } from '../../services/config-utility.service';
-import { ConfigNdAgentService } from '../../services/config-nd-agent.service';
+import { ImmutableArray } from '../../../utils/immutable-array';
+import { ConfigKeywordsService } from '../../../services/config-keywords.service';
+import { ConfigUiUtility } from '../../../utils/config-utility';
+import { AutoDiscoverTreeData, AutoDiscoverData } from '../../../containers/auto-discover-data';
+import { ConfigUtilityService } from '../../../services/config-utility.service';
+import { ConfigNdAgentService } from '../../../services/config-nd-agent.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-config-auto-discover-tree',
-    templateUrl: './config-auto-instrumentation.component.html',
-    styleUrls: ['./config-auto-instrumentation.component.css']
+    selector: 'config-edit-auto-instrumentation',
+    templateUrl: './config-edit-auto-instrumentation.component.html',
+    styleUrls: ['./config-edit-auto-instrumentation.component.css']
 })
-export class ConfigAutoInstrumentationTreeComponent implements OnInit {
+export class ConfigEditAutoInstrumentationComponent implements OnInit {
 
     selectedFiles: any[];
     selectedXMLFile: string;
@@ -23,12 +23,7 @@ export class ConfigAutoInstrumentationTreeComponent implements OnInit {
     selectedNodes: AutoDiscoverTreeData[];
     instrfileName: string;
 
-    //Auto discover data details
-    autoDiscoverDetail: AutoDiscoverData;
-
     txtFile: any;
-    instanceFileName: string;
-
     pckName: string = '';
     saveCheck: boolean = false;
     sessionFileName: string;
@@ -52,45 +47,19 @@ export class ConfigAutoInstrumentationTreeComponent implements OnInit {
         /**
          * this service get Removed package and put in left side tree
          */
-        this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId, this.instanceFileName).subscribe(data => {
-           console.log(" ======== " ,data.node )
-            if (data.node == undefined) {
-                this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
-                return;
-            }
-            else if (data.node[0].children.length != 0) {
-               
+        this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
                 this.leftSideTreeData = data.node;
-            }
-            else{
-                this.configUtilityService.errorMessage("Session file is empty.");
-                return;
-            }
-            this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+             this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
         });
 
      /**
      * this service get instrumented data and put in Right side tree
      */
-        this._configKeywordsService.getAutoInstrumentatedData(this.sessionFileName, this.reqId, this.instanceFileName).subscribe(data => {
-            
-           if (data.backendDetailList == undefined) {
-                this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
-                return;
-            }
-            else if (data.backendDetailList[0].children.length != 0) {
-                this.rightSideTreeData = data.backendDetailList;
-            }
-            else{
-                this.configUtilityService.errorMessage("Session file is empty.");
-                return;
-            }
+        this._configKeywordsService.getAutoInstrumentatedData(this.sessionFileName, this.reqId).subscribe(data => {
+         
+            this.rightSideTreeData = data.backendDetailList;
             this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
         });
-
-        this.autoDiscoverDetail = new AutoDiscoverData();
-        this.autoDiscoverDetail.agents = this.txtFile;
-
     }
 
     // Save Instrumentation File 
@@ -103,7 +72,7 @@ export class ConfigAutoInstrumentationTreeComponent implements OnInit {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
-        this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileName, this.reqId, this.instanceFileName).subscribe(data =>
+        this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileName, this.reqId).subscribe(data =>
             console.log(data));
         this.configUtilityService.successMessage("Saved successfully");
 
@@ -120,7 +89,7 @@ export class ConfigAutoInstrumentationTreeComponent implements OnInit {
     nodeExpand(event) {
         if (event.node.children.length == 0) {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
-            this._configKeywordsService.getClassMethodTreeData(nodeInfo, this.reqId, this.instanceFileName).subscribe(data => {
+            this._configKeywordsService.getClassMethodTreeData(nodeInfo, this.reqId).subscribe(data => {
                     if(!(data.node[0]["label"] == null))
                     {
                         event.node.children = data.node
@@ -141,7 +110,7 @@ export class ConfigAutoInstrumentationTreeComponent implements OnInit {
             return;
         }
 
-        this._configKeywordsService.getSelectedInstrumentaionInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
+        this._configKeywordsService.getSelectedInstrumentaionInfo(this.selectedNodes, this.reqId).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
             this.configUtilityService.successMessage("Instrumentation data Successfully");
         });
@@ -155,8 +124,7 @@ export class ConfigAutoInstrumentationTreeComponent implements OnInit {
             this.configUtilityService.errorMessage("At least Select a package, class or method for unInstrumentation");
             return;
         }
-        this._configKeywordsService.getUninstrumentaionData(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
-
+        this._configKeywordsService.getUninstrumentaionData(this.selectedNodes, this.reqId).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
             this.instrFromRightSideTree = '';
             this.configUtilityService.successMessage("UnInstrumentation data Successfully");

@@ -1,8 +1,8 @@
 
 
-//  const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+//const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
-// const  SERVICE_URL = 'http://localhost:8090';
+ //const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -280,7 +280,7 @@ export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/apply
 export const GET_AUTO_INSTR_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaisettings`;
 export const GET_AUTO_INSTR_TABLE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getaidetails`;
 export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopautoinstrumentation`;
-export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/fileexixtornot`;
+export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/fileexistornot`;
 
 /*Auto Instrumentation Data */
 export const GET_REMOVED_PACKAGE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedpackageList`;

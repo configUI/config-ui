@@ -566,28 +566,28 @@ export class ConfigKeywordsService {
 
 
   /** This method is for auto instrumetation */
-  getRemovedPackageData(adrFile, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_PACKAGE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
+  getRemovedPackageData(textFile, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_PACKAGE_DATA}?reqId=${reqId}`, textFile);
   }
   
-  getAutoInstrumentatedData(adrFile, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_INSTRUEMENTATED_PACKAGE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
+  getAutoInstrumentatedData(textFile, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_INSTRUEMENTATED_PACKAGE_DATA}?reqId=${reqId}`, textFile);
   }
 
-  getClassMethodTreeData(nodeInfo, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_CLASS_METHOD_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+  getClassMethodTreeData(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_CLASS_METHOD_DATA}?reqId=${reqId}`, nodeInfo);
   }
 
-  getSelectedInstrumentaionInfo(nodeInfo, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_REMOVED_INSTRUMENTED_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+  getSelectedInstrumentaionInfo(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_REMOVED_INSTRUMENTED_DATA}?reqId=${reqId}`, nodeInfo);
   }
 
-  getUninstrumentaionData(nodeInfo, reqId ,fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+  getUninstrumentaionData(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_TREE_DATA}?reqId=${reqId}`, nodeInfo);
   }
 
-  saveInsrumentationFileXMLFormat(xmlFileName, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_FILE}?reqId=${reqId + ','+ fileName}`, xmlFileName);
+  saveInsrumentationFileXMLFormat(xmlFileName, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_FILE}?reqId=${reqId}`, xmlFileName);
   }
 
 
