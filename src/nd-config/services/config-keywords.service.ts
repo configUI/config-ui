@@ -575,7 +575,7 @@ export class ConfigKeywordsService {
   }
 
   getClassMethodTreeData(nodeInfo, reqId) {
-    return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_CLASS_METHOD_DATA}?reqId=${reqId}`, nodeInfo);
+    return this._restApi.getDataByPostReq(`${URL.GET_CLASS_METHOD_RAW_DATA}?reqId=${reqId}`, nodeInfo);
   }
 
   getSelectedInstrumentaionInfo(nodeInfo, reqId) {

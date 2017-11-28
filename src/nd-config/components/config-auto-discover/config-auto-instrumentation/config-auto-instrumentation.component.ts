@@ -98,6 +98,10 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         this.configUtilityService.errorMessage("Session file is empty.");
         return;
       }
+      else if (data['_body'] == "WrongPattern") {
+        this.configUtilityService.errorMessage("Wrong Pattern: select other file");
+        return;
+      }
 
       this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);
     });

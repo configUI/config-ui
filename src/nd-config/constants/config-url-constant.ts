@@ -2,7 +2,7 @@
 
 //const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
- //const  SERVICE_URL = 'http://localhost:8090';
+//const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -285,7 +285,7 @@ export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/file
 
 export const GET_REMOVED_PACKAGE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedpackageList`;
 export const GET_INSTRUEMENTATED_PACKAGE_DATA =`${SERVICE_URL}/custom/autoinstrumentation/getinstrumentatedlist`;
-export const GET_REMOVED_CLASS_METHOD_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedclsmethodlist`;
+export const GET_CLASS_METHOD_RAW_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getclsmethodrawlist`;
 export const GET_SELECTED_REMOVED_INSTRUMENTED_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getselectedremoveddatainstrumented`;
 export const GET_UNINSTRUMENTATION_TREE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/uninstrumentationfqmdata`;
 export const SAVE_INSTRUEMENTATION_DATA_FILE = `${SERVICE_URL}/custom/autoinstrumentation/saveinstrumentationdatainxmlformat`;

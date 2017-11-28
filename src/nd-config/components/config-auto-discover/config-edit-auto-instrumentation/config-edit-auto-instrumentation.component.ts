@@ -22,7 +22,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     rightSideTreeData: any[] = [];
     selectedNodes: AutoDiscoverTreeData[];
     instrfileName: string;
-
+    showSessionName: string;
     txtFile: any;
     pckName: string = '';
     saveCheck: boolean = false;
@@ -44,6 +44,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
             this.route.params.subscribe((params: Params) => {
                 this.sessionFileName = params['sessionFileName'];
            });
+           this.showSessionName = this.sessionFileName.split(".txt")[0];
         /**
          * this service get Removed package and put in left side tree
          */
