@@ -96,6 +96,14 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
         return;
       }
+      else if (data['_body'] == "Empty") {
+        this.configUtilityService.errorMessage("Session file is empty.");
+        return;
+      }
+      else if (data['_body'] == "WrongPattern") {
+        this.configUtilityService.errorMessage("Wrong Pattern: select other file");
+        return;
+      }
 
       this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);
     });
@@ -107,12 +115,11 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     })
   }
 
-  downloadFile(instance, session){
+  downloadFile(instance, session) {
     let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
     this.configTopologyService.downloadFile(data).subscribe(data => {
       this.configUtilityService.successMessage("File downloaded successfully");
     })
   }
-
 
 }

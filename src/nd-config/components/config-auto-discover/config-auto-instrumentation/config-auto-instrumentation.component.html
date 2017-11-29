@@ -77,7 +77,7 @@
                     </p-column>
                     <p-column class="col-overflow" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink" (click)="openGUIForAutoInstrumentation(application['instanceName'])" title="Edit"><i class="fa fa-edit"></i></a>
+                <a class="hyperlink" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit"><i class="fa fa-edit"></i></a>
                 <a class="hyperlink" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download"><i class="fa fa-download"></i></a>  
             </template>
                     </p-column>
