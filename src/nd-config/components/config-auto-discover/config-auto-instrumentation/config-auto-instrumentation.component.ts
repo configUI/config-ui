@@ -23,6 +23,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   /* To show Complete auto instrumented list */
   autoIntrComplete: AutoIntrDTO[] = [];
   selectedAutoIntrComplete: AutoIntrDTO;
+  activeCount: string;
 
   className: string = "Auto Instrument Component";
 
@@ -56,6 +57,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     }
     this.autoIntrComplete = autoIntrComplete;
     this.autoIntrActive = autoIntrActive;
+    this.activeCount = "(Active: " + this.autoIntrActive.length + ")"
   }
 
   //To stop auto-insrumentation
@@ -108,6 +110,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   downloadFile(instance, session){
     let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
     this.configTopologyService.downloadFile(data).subscribe(data => {
+      this.configUtilityService.successMessage("File downloaded successfully");
     })
   }
 

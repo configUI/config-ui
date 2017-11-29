@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuItem } from 'primeng/primeng';
-
+import { ConfigTopologyService } from '../../services/config-topology.service';
+import { ROUTING_PATH } from '../../constants/config-url-constant';
 import * as BREADCRUMB from '../../constants/config-breadcrumb-constant';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { TRData } from '../../interfaces/main-info';
@@ -15,7 +16,8 @@ import { TRData } from '../../interfaces/main-info';
 export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
 
-  constructor(private router: Router, private configHomeService: ConfigHomeService) { }
+  constructor(private router: Router, private configHomeService: ConfigHomeService,
+    private configTopologyService: ConfigTopologyService) { }
 
   items: MenuItem[];
   trData: TRData;
@@ -24,7 +26,19 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
   breadcrumbSubscription: Subscription;
   dcId: any;
 
+  countAI: number = 0;
+  ROUTING_PATH = ROUTING_PATH;
+
   ngOnInit() {
+    //Load AI in progress sessions
+    this.configTopologyService.updateAIDetails().subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].status != "complete")
+          this.countAI++;
+          sessionStorage.setItem("countAI", this.countAI.toString())
+      }
+    })
+
     this.trData = new TRData();
     this.subscription = this.configHomeService.trData$.subscribe(data => {
       this.trData = data;
@@ -43,9 +57,9 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       if (url == BREADCRUMB.URL.APPLICATION_LIST) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST });
       }
-      else if(url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS )){
+      else if (url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS)) {
         this.items.push({ label: BREADCRUMB.LABEL.APPLICATION_LIST, routerLink: [BREADCRUMB.URL.APPLICATION_LIST] });
-        this.items.push({label: BREADCRUMB.LABEL.NDC_KEYWORDS});
+        this.items.push({ label: BREADCRUMB.LABEL.NDC_KEYWORDS });
       }
 
       else if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
@@ -170,8 +184,11 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
         this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION_PROFILE_MAKER })
       }
 
-      else if (url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER) || url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER_TREE)) {
-        this.items.push({ label: BREADCRUMB.LABEL.AUTO_DISCOVER });
+      else if (url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER_TREE)) {
+        this.items.push({ label: BREADCRUMB.LABEL.AUTO_DISCOVER })
+      }
+      else if (url.startsWith(BREADCRUMB.URL.AUTO_INSTRUMENTATION)) {
+        this.items.push({ label: BREADCRUMB.LABEL.AUTO_INSTRUMENTATION });
       }
 
       else if (url.startsWith(BREADCRUMB.URL.VIEW_AUDIT_LOG)) {

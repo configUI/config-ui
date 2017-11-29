@@ -1,10 +1,10 @@
 <div class='tabs-all' >
     <p-tabView (onChange)="handleChange($event)">
-      <p-tabPanel header="Auto Discover" [selected]="index == 0">
-        <app-config-auto-discover-main *ngIf="index == 0"  ></app-config-auto-discover-main>
+      <p-tabPanel header="Auto Instrument" [selected]="index == 0">
+        <app-config-auto-instrumentation *ngIf="index == 0"></app-config-auto-instrumentation>
       </p-tabPanel>
-      <p-tabPanel header="Auto Instrument" [selected]="index == 1">
-        <app-config-auto-instrumentation *ngIf="index == 1"></app-config-auto-instrumentation>
+      <p-tabPanel header="Auto Discover" [selected]="index == 1">
+        <app-config-auto-discover-main *ngIf="index == 1"  ></app-config-auto-discover-main>
       </p-tabPanel>
     </p-tabView>
   </div>

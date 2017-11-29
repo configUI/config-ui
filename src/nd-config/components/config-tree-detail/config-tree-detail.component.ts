@@ -239,7 +239,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
 
-      // check whether it is application topology screen ot topology details screen
+      // check whether it is application topology screen or topology details screen
       if (this.url.includes("/tree-main/topology/")) {
         colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled"];
         colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled"];

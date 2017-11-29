@@ -17,10 +17,10 @@
         </template>
         <template *ngIf="col.field == 'autoInstrumentation'" let-col let-entity="rowData" pTemplate="body">
                 <a class="hyperlink" *ngIf="changeIcon==true" (click)="openAutoInstrDialog(entity['instanceName'])" title="Start">
-                  <i class="fa fa-play-circle-o"></i>
+                  <i class="fa fa-play-circle-o" [style]="{'width':'8%', 'text-align':'center'}"></i>
                 </a>
                 <a class="hyperlink" *ngIf="changeIcon==false" (click)="stopInstrumentation(entity['instanceName'])" title="Stop">
-                    <i class="fa fa-stop"></i>
+                    <i class="fa fa-stop-circle" [style]="{'width':'8%', 'text-align':'center'}"></i>
                   </a>
               </template>
         </p-column>
@@ -145,14 +145,14 @@ width="500" responsive="true">
                   <label>Session Name</label>
                 </div>
                 <div class="ui-g-6">
-                  <input type="text" size='40' name="sessionName" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
+                  <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
                 </div>
               </div>
                 <footer>
                     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                         <button type="submit" pButton icon="fa-play" label="Start"></button>
                         <button type="button" pButton icon="fa-close" (click)="closeAutoInstrDialog()" label="Cancel"></button>
-                        <button type="button" pButton icon="fa-refresh" (click)="resetToDefault()" label="Reset to default"></button>
+                        <button type="button" pButton icon="fa-refresh" (click)="resetToDefault()" style="margin-right: 195px" label="Reset to default"></button>
                     </div>
                 </footer>
             </form>

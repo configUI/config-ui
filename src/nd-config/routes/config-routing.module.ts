@@ -22,6 +22,8 @@ import { ConfigAutoDiscoverTreeComponent } from '../components/config-auto-disco
 import { ConfigViewAuditLogComponent } from '../components/config-view-audit-log/config-view-audit-log.component';
 import { ConfigNDCKeywordsSettingComponent } from '../components/config-ndc-keywords-setting/config-ndc-keywords-setting.component'
 import { ConfigAutoInstrumentationTreeComponent } from '../components/config-auto-instrumentation/config-auto-instrumentation.component';
+import { ConfigAutoInstrumentationComponent } from '../components/config-auto-discover/config-auto-instrumentation/config-auto-instrumentation.component';
+
 
 /**For ProductUI */
 // const routes: Routes = [
@@ -112,6 +114,7 @@ const routes: Routes = [
 	    { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
         { path: 'application-list/ndc-keywords-setting/:appId', component: ConfigNDCKeywordsSettingComponent },
         { path: 'auto-discover/auto-instrumentation/:sessionFileName', component: ConfigAutoInstrumentationTreeComponent },
+        { path: 'auto-instrumentation', component: ConfigAutoInstrumentationComponent },
         
     
 ];
