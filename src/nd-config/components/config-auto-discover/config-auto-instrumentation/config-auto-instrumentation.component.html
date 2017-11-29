@@ -24,21 +24,21 @@
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="endTime" header="Expected End Time" [sortable]="true" [style]="{'width':'13%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="endTime" header="Expected End Time" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time" [sortable]="true" [style]="{'width':'15%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time" [sortable]="true" [style]="{'width':'15%'}">
+                        <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
                     </p-column>
                     <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink" title="Refresh" (click)="getAIStatus(application['instanceName'])"><i class="fa fa-refresh"></i></a>
-                <a class="hyperlink" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])" title="Stop"><i class="fa fa-stop-circle"></i></a>                
+                <a class="hyperlink iconFontSize" title="Refresh" (click)="getAIStatus(application['instanceName'])"><i class="fa fa-refresh"></i></a>
+                <a class="hyperlink iconFontSize" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])" title="Stop"><i class="fa fa-stop-circle"></i></a>                
             </template>
                     </p-column>
                 </p-dataTable>
@@ -69,16 +69,16 @@
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" header="Duration(in min)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" header="Duration(in min)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
+                        <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
                     </p-column>
                     <p-column class="col-overflow" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit"><i class="fa fa-edit"></i></a>
-                <a class="hyperlink" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download"><i class="fa fa-download"></i></a>  
+                <a class="hyperlink iconFontSize" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit"><i class="fa fa-edit"></i></a>
+                <a class="hyperlink iconFontSize" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download"><i class="fa fa-download"></i></a>  
             </template>
                     </p-column>
                 </p-dataTable>
