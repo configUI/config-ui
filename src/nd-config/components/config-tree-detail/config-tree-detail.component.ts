@@ -238,8 +238,16 @@ export class ConfigTreeDetailComponent implements OnInit {
       colField = ["serverDisplayName", "serverName", "profileName"];
     }
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
-      colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
-      colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "autoInstrumentation"];
+
+      // check whether it is application topology screen or topology details screen
+      if (this.url.includes("/tree-main/topology/")) {
+        colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled"];
+        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled"];
+      }
+      else {
+        colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
+        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "autoInstrumentation"];
+      }
     }
 
     for (let i = 0; i < colField.length; i++) {
@@ -250,7 +258,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   editDialog(): void {
-        if (!this.selectedTopologyData || this.selectedTopologyData.length < 1) {
+    if (!this.selectedTopologyData || this.selectedTopologyData.length < 1) {
       this.configUtilityService.errorMessage("Select a row to edit profile");
       return;
     }

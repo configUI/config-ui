@@ -116,46 +116,6 @@ export class ConfigTopologyService {
     return data.data;
   }
 
-//   getFiles(){
-//     let data = {
-//     "data": 
-//     [
-//         {
-//             "label": "Suman",
-//             "expan  e432dedIcon": "fa-folder-open",
-//             "collapsedIcon": "fa-folder",
-//         },
-//         {
-//             "label": "Pictures",
-//             "data": "Pictures Folder",
-//             "expandedIcon": "fa-folder-open",
-//             "collapsedIcon": "fa-folder",
-//             "children": [
-//                 {"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"},
-//                 {"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"},
-//                 {"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"}]
-//         },
-//         {
-//             "label": "Movies",
-//             "data": "Movies Folder",
-//             "expandedIcon": "fa-folder-open",
-//             "collapsedIcon": "fa-folder",
-//             "children": [{
-//                     "label": "Al Pacino",
-//                     "data": "Pacino Movies",
-//                     "children": [{"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"}]
-//                 },
-//                 {
-//                     "label": "Robert De Niro",
-//                     "data": "De Niro Movies",
-//                     "children": [{"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"}]
-//                 }]
-//         }
-//     ]
-// };
-//     return data.data;
-//   }
-
 /**To apply auto-instrumentation  */
 applyAutoInstr(data): Observable<AutoIntrDTO> {
   return this._restApi.getDataByPostReq(`${URL.APPLY_AUTO_INSTR}`, data);
@@ -233,6 +193,27 @@ getServerDisplayName(instanceId: number): Observable<String> {
   getAIData(): Observable<AutoIntrDTO[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INSTR_TABLE_DATA}`);
   }  
+
+    //Update AI details when duration is completed
+    updateAIDetails(): Observable<AutoIntrDTO[]> {
+      return this._restApi.getDataByGetReq(`${URL.UPDATE_AI_DETAILS}`);
+    }  
+  
+
+  //Get Auto Instrumentation Data to show  in table
+  getSessionFileExistOrNot(sessionFileName){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.FILE_EXIST_OR_NOT}`, sessionFileName);
+  }  
+
+  //Get status of the selected AI
+    getAIStatus(instance){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, instance);
+    }  
+
+    //Download File after AI
+    downloadFile(data){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, data);
+    }  
 
 
 }

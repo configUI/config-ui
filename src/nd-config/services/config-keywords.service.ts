@@ -564,5 +564,32 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS}/${appId}`, data);
   }
 
+
+  /** This method is for auto instrumetation */
+  getRemovedPackageData(textFile, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_PACKAGE_DATA}?reqId=${reqId}`, textFile);
+  }
+  
+  getAutoInstrumentatedData(textFile, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_INSTRUEMENTATED_PACKAGE_DATA}?reqId=${reqId}`, textFile);
+  }
+
+  getClassMethodTreeData(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_CLASS_METHOD_RAW_DATA}?reqId=${reqId}`, nodeInfo);
+  }
+
+  getSelectedInstrumentaionInfo(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_REMOVED_INSTRUMENTED_DATA}?reqId=${reqId}`, nodeInfo);
+  }
+
+  getUninstrumentaionData(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_TREE_DATA}?reqId=${reqId}`, nodeInfo);
+  }
+
+  saveInsrumentationFileXMLFormat(xmlFileName, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_FILE}?reqId=${reqId}`, xmlFileName);
+  }
+
+
 }
 

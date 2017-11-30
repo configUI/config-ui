@@ -1,0 +1,45 @@
+<div class="ui-g configUI">
+    <fieldset>
+        <div class="ui-g-12" style="padding:0px">
+            <div class="ui-g-5">
+                <div class="ui-g-12 header" style="padding:3.5px">
+                    <div class="ui-g-5" style="margin-top: 3px; padding:0px">Session Name</div>
+                    <div class="ui-g-7" style="padding:0px">
+                        <input type="text" [disabled]="true" [(ngModel)]="showSessionName" required size=35 title="{{showSessionName}}" pInputText>
+                    </div>
+                </div>
+                <div class="ui-g-12" style="background:white; border: 1px solid lightgray">
+                    <p-tree [value]="leftSideTreeData" (onNodeExpand)="nodeExpand($event)" selectionMode="checkbox" [style]="{'height':'400px','width':'38.2em','margin-top':'-6px'}" [(selection)]="instrFromLeftSideTree">
+                        <template let-col let-node="rowData" pTemplate>
+                        <span  title="{{node[col.field]}}" class="node.icon">{{node[col.field]}}</span>
+                    </template>
+                    </p-tree>
+                </div>
+            </div>
+            <div class="ui-g-2 config-ui-auto" align="center">
+                <div>
+                    <button type="button" (click)="getValuesForSelectedList()" pButton label=' Instrument  >> ' style="width:122px"> </button>
+                </div>
+                <div style="padding-top:5px;">
+                    <button class="unInstrumentation-css" type="button" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument' style="width:122px"></button>
+                </div>
+            </div>
+            <div class="ui-g-5">
+                <div class="ui-g-12 header">
+                    <div style="margin-top: 3px">Instrumented List</div>
+                </div>
+                <div class="ui-g-12" style="background:white; border: 1px solid lightgray">
+                    <p-tree [value]="rightSideTreeData" selectionMode="checkbox" [style]="{'height':'400px','width':'38.2em','margin-top':'-6px'}" [(selection)]="instrFromRightSideTree"></p-tree>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="ui-g-12 " style="background-color:white">
+            <div style="float:right">
+                <span>Save instrumentation profile as</span>
+                <span><input type="text" [(ngModel)]="instrfileName" size=25 pInputText (keydown.space)="$event.preventDefault()" (keydown.dot)="$event.preventDefault()"></span>
+                <span><button type="button" (click)="saveInstrumentationFile()" pButton label="Save " icon="fa-save "></button></span>
+            </div>
+        </div>
+    </fieldset>
+</div>

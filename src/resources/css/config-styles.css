@@ -890,17 +890,6 @@ a {
 }
 
 
-/* Added for disabled Css issue of any field*/
-
-textarea:disabled,
-input:not([type]):disabled,
-input[type="number" i]:disabled,
-input[type="text" i]:disabled {
-    background: #ececec;
-    color: #b7b7b7;
-}
-
-
 /* Added for padding issue in table header of file manager*/
 
 .headerCss .ui-widget-header {
@@ -1013,7 +1002,6 @@ body {
 
 /*-------------------ND CONFIF NEW-----------*/
 
-
 .icon {
     float: left;
     font-size: 2.2em;
@@ -1048,4 +1036,9 @@ body {
     overflow-y: auto;
     max-height: 400px;
     padding-top: 0px;
+}
+
+.iconFontSize {
+    font-size: 16px;
+    margin-right: 3px;
 }
