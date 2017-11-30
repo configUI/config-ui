@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'; 
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
@@ -32,7 +32,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId']
-      this.toggleDisable = this.profileId == 1 ? true : false;
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.toggleDisable =  true;
     });
     this.loadAdminInfo();
     this.loadKeywordData();

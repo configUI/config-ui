@@ -36,7 +36,8 @@ export class ThreadStatsComponent implements OnInit {
 
   ngOnInit() {
     this.getKeywordData();
-    this.saveDisable=this.profileId==1 ? true:false;
+    if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+      this.saveDisable =  true;
     console.log("hi",this.profileId);
   }
 

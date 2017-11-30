@@ -78,7 +78,9 @@ export class ServiceEntryPointComponent implements OnInit {
   ngOnInit() {
     this.loadServiceEntryPoint();
 
-    this.saveDisable = this.profileId == 1 ? true : false;
+    if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable =  true;
+   
     if (this.agentType == "Java")
       this.entryPointType = ConfigUiUtility.createListWithKeyValue(this.javaTypeEntryPointName, this.javaTypeEntryPointId);
     else if (this.agentType == "Dot Net")
