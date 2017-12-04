@@ -75,16 +75,21 @@ export class IntegrationPtComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable =  true;
+    });
     this.loadIntegrationPTDetectionList();
     this.loadBackendInfoList();
   }
 
   /**This method is called to load Data in Table */
   loadIntegrationPTDetectionList() {
-
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable = this.profileId == 1 ? true : false;
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable =  true;
     });
     this.configKeywordsService.getIntegrationPTDetectionList(this.profileId).subscribe(data => {
       this.ipDetectionData = data["backendDetail"];
@@ -92,10 +97,10 @@ export class IntegrationPtComponent implements OnInit {
   }
 
   loadBackendInfoList() {
-
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      this.saveDisable = this.profileId == 1 ? true : false;
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable =  true;
     });
     this.configKeywordsService.getBackendList(this.profileId).subscribe(data => {
       this.backendInfo = data;

@@ -51,7 +51,8 @@ export class ErrorDetectionComponent implements OnInit {
 
   ngOnInit() {
     this.loadErrorDetectionList();
-    this.saveDisable = this.profileId == 1 ? true : false;
+    if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+      this.saveDisable =  true;
     if (this.configKeywordsService.keywordData != undefined) {
       this.keywordValue = this.configKeywordsService.keywordData;
     }

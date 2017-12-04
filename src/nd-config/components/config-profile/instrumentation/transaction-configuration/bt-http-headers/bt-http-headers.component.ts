@@ -68,7 +68,8 @@ export class BTHTTPHeadersComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.profileId = params['profileId'];
-            this.saveDisable = this.profileId == 1 ? true : false;
+            if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+                this.saveDisable =  true;
         });
 
         //Request to get all BT HTTP headers data
