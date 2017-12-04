@@ -48,7 +48,7 @@ export class AutoInstrSettings{
     autoInstrMapSize: number = 100000;
     autoInstrMaxAvgDuration: number = 5;
     autoInstrClassWeight: number = 10;
-    autoInstrSessionInterval: number = 30;
+    autoInstrSessionDuration: number = 30;
 
 }
 

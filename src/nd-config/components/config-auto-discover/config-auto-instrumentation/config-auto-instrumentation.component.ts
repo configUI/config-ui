@@ -112,6 +112,13 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   getAIStatus(instance) {
     this.configTopologyService.getAIStatus(instance).subscribe(data => {
+      // if (data["_body"].includes("Error")) {
+      //   this.configUtilityService.errorMessage("Could not refresh: ", data["_body"])
+      //   return;
+      // }
+      // else {
+        this.autoIntrActive[0].elapsedTime = data["_body"];
+      // }
     })
   }
 

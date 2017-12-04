@@ -212,7 +212,7 @@ getServerDisplayName(instanceId: number): Observable<String> {
 
     //Download File after AI
     downloadFile(data){
-      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, data);
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
     }  
 
 

@@ -20,7 +20,7 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
                     </p-column>
-                    <p-column class="col-overflow" field="duration" header="Duration(in min)" [sortable]="true" [style]="{'width':'10%'}">
+                    <p-column class="col-overflow" field="duration" header="Duration(in sec)" [sortable]="true" [style]="{'width':'10%'}">
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
@@ -30,7 +30,7 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
                     </p-column>
-                    <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time" [sortable]="true" [style]="{'width':'15%'}">
+                    <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time (in sec)" [sortable]="true" [style]="{'width':'15%'}">
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
@@ -70,7 +70,7 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
                     </p-column>
-                    <p-column class="col-overflow" header="Duration(in min)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
+                    <p-column class="col-overflow" header="Duration(in sec)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>

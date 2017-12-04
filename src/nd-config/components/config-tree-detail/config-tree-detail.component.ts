@@ -34,7 +34,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverDisplayName: string = "";
   t_s_i_name: string = "";
   sessionName: string = "";
-  changeIcon: boolean = true;
+  autoInstrumentation: boolean = true;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -441,7 +441,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   /** To split the settings and assign to dialog
     * enableAutoInstrSession=1;minStackDepthAutoInstrSession=10;autoInstrTraceLevel=1;autoInstrSampleThreshold=120;
     * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=5;autoInstrClassWeight=10;
-    * autoInstrSessionInterval=30
+    * autoInstrSessionDuration=30
     */
   splitSettings(data) {
     let arr = data.split("=");
@@ -475,8 +475,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     //For autoInstrClassWeight
     this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
 
-    //For autoInstrSessionInterval
-    this.autoInstrObj.autoInstrSessionInterval = arr[10];
+    //For autoInstrSessionDuration
+    this.autoInstrObj.autoInstrSessionDuration = arr[10];
 
 
   }
@@ -495,7 +495,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
     this.sessionName = this.autoInstrDto.sessionName
 
-    this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionInterval.toString()
+    this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionDuration.toString()
 
     //Send Runtime Changes
     this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto)
@@ -516,7 +516,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
       + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
       + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-      + ";autoInstrSessionInterval=" + data.autoInstrSessionInterval;
+      + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration;
 
     return setting;
 
@@ -563,11 +563,21 @@ export class ConfigTreeDetailComponent implements OnInit {
       //Saving settings in database
       let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
         //Check for successful RTC connection
-        if (success == "success")
-          that.changeIcon = false
+        if (success == "success") {
+          console.log(" data == ", data);
+          console.log(" == ", that.topologyData);
+          for (let i = 0; i < that.topologyData.length; i++) {
+            if (that.topologyData[i]["instanceName"] == that.currentInstanceName) {
+              console.log(" == ", that.topologyData[i]["instanceName"]);
+              that.topologyData[i]["autoInstrumentation"] = false;
+              that.autoInstrumentation = false
+            }
+            else
+              that.topologyData[i]["enabled"] = true;
+
+          }
+        }
       })
-
-
     }
   }
 
@@ -594,7 +604,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
         //Check for successful RTC connection  
         if (data.length != 0 || !data[0]['contains'])
-          that.changeIcon = true;
+          that.autoInstrumentation = true;
       })
 
 
@@ -633,8 +643,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrClassWeight != 10)
       strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
 
-    if (data.autoInstrSessionInterval != 30)
-      strSetting = strSetting + ";autoInstrSessionInterval=" + data.autoInstrSessionInterval
+    if (data.autoInstrSessionDuration != 30)
+      strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
 
     return strSetting;
 

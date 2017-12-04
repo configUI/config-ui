@@ -16,10 +16,10 @@
                 <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
         </template>
             <template *ngIf="col.field == 'autoInstrumentation'" let-col let-entity="rowData" pTemplate="body">
-                <a class="hyperlink iconFontSize" *ngIf="changeIcon==true" (click)="openAutoInstrDialog(entity['instanceName'])" title="Start">
-                  <i class="fa fa-play-circle-o" [style]="{'width':'8%', 'text-align':'center'}"></i>
+                <a class="hyperlink iconFontSize" *ngIf="autoInstrumentation==true" (click)="openAutoInstrDialog(entity['instanceName'])" title="Start">
+                  <i class="fa fa-play-circle-o" ></i>
                 </a>
-                <a class="hyperlink iconFontSize" *ngIf="changeIcon==false" (click)="stopInstrumentation(entity['instanceName'])" title="Stop">
+                <a class="hyperlink iconFontSize" *ngIf="autoInstrumentation==false" (click)="stopInstrumentation(entity['instanceName'])" title="Stop">
                     <i class="fa fa-stop-circle" [style]="{'width':'8%', 'text-align':'center'}"></i>
                   </a>
               </template>
@@ -132,11 +132,11 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Session duration (in minutes)</label>
+                <label>Session duration (in seconds)</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrSessionInterval" [(ngModel)]="autoInstrObj['autoInstrSessionInterval']" pInputText min=0 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrSessionDuration" [(ngModel)]="autoInstrObj['autoInstrSessionDuration']" pInputText min=0 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12">
