@@ -31,6 +31,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //Load AI in progress sessions
+    this.countAI = 0;
     this.configTopologyService.updateAIDetails().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].status != "complete")

@@ -1,6 +1,6 @@
 
 
-// const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+ //const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
