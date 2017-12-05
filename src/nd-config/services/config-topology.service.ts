@@ -215,5 +215,10 @@ getServerDisplayName(instanceId: number): Observable<String> {
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
     }  
 
+    //Update AI enable in Instance table
+    updateAIEnable(instanceId, flag){
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${instanceId}`, flag);
+    }
+
 
 }

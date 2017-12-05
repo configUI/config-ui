@@ -34,7 +34,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverDisplayName: string = "";
   t_s_i_name: string = "";
   sessionName: string = "";
-  autoInstrumentation: boolean = true;
+  autoInstrumentation: boolean = false;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -92,6 +92,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   subscription: Subscription;
 
   currentInstanceName: string;
+  currentInsId: number;
 
   ngOnInit() {
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
@@ -202,6 +203,12 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => {
         this.topologyData = data
+        for (let i = 0; i < data.length; i++)
+          if (data[i].aiEnable == true)
+            this.autoInstrumentation = true
+          else
+            this.autoInstrumentation = false
+
         if (data.length != 0) {
           this.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
             this.serverDisplayName = data['_body'];
@@ -416,11 +423,12 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To open auto instr configuration dialog
-  openAutoInstrDialog(name) {
+  openAutoInstrDialog(name, id) {
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
       return;
     }
+    this.currentInsId = id;
     this.currentInstanceName = name;
     this.autoInstrObj = new AutoInstrSettings();
     this.autoInstrDto = new AutoIntrDTO();
@@ -564,28 +572,20 @@ export class ConfigTreeDetailComponent implements OnInit {
       let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
         //Check for successful RTC connection
         if (success == "success") {
-          console.log(" data == ", data);
-          console.log(" == ", that.topologyData);
-          for (let i = 0; i < that.topologyData.length; i++) {
-            if (that.topologyData[i]["instanceName"] == that.currentInstanceName) {
-              console.log(" == ", that.topologyData[i]["instanceName"]);
-              that.topologyData[i]["autoInstrumentation"] = false;
-              that.autoInstrumentation = false
-            }
-            else
-              that.topologyData[i]["enabled"] = true;
-
-          }
+          that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
+            that.autoInstrumentation = true;
+          })
         }
       })
     }
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName) {
+  stopInstrumentation(instanceName, id) {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
+    this.currentInsId = id
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
@@ -596,6 +596,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
       strSetting = "enableAutoInstrSession=0;"
+      this.t_s_i_name = this.splitTierServInsName(instanceName)
       //Merging configuration and instance name with #
       strSetting = strSetting + "#" + this.t_s_i_name;
 
@@ -604,7 +605,9 @@ export class ConfigTreeDetailComponent implements OnInit {
 
         //Check for successful RTC connection  
         if (data.length != 0 || !data[0]['contains'])
-          that.autoInstrumentation = true;
+        that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
+          that.autoInstrumentation = false;
+        })
       })
 
 

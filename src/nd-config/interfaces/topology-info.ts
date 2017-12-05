@@ -36,6 +36,7 @@ export interface InstanceInfo {
     profileName: string;
     enabled: boolean;
     instanceType: string;
+    aiEnable: boolean;
 }
 
 export class AutoInstrSettings{
