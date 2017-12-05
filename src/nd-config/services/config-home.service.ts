@@ -11,10 +11,17 @@ import * as URL from '../constants/config-url-constant';
 export class ConfigHomeService {
 
   private trDataSource = new Subject<TRData>();
+   AIOpertation = new Subject<any>(); // for Auto instrumentation Operation
   
+   _AIOpertation$ = this.AIOpertation.asObservable();
   // private _trData: TRData;
 
   private _trData: TRData;
+
+  public getAIOperationValue(data)
+  {
+       this.AIOpertation.next(data);
+  }
 
 	public get trData(): TRData { 
     if(sessionStorage.getItem("trData") != null) {

@@ -5,8 +5,9 @@
         </div>
         <div class="ui-g-3 togglebtn" *ngIf="displaySessionLabel">
             <md-slide-toggle class=' breadcrumb-toggle' (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null">
-                Apply changes on Session no: {{ trData.trNo == null ? 'NA' : trData.trNo }}<a [routerLink]="[ ROUTING_PATH + '/auto-discover']" *ngIf="countAI>0" > | <i class="fa fa-spinner" title="Auto Instrumentation process is in progress (Total Active: {{countAI}} )"></i></a>
-            </md-slide-toggle>
+                Apply changes on Session no: {{ trData.trNo == null ? 'NA' : trData.trNo }} </md-slide-toggle>
+            <a [routerLink]="[ ROUTING_PATH + '/auto-discover']" *ngIf="countAI>0"> |<img border='0' width='18' height='18' style='margin-bottom: -3px' src='./images/play.gif' title="Auto Instrumentation process is in progress (Total Active: {{countAI}} )"></a>
+
         </div>
 
     </div>
