@@ -574,6 +574,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         if (success == "success") {
           that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
             that.autoInstrumentation = true;
+            that.configHomeService.getAIOperationValue(that.autoInstrumentation);
           })
         }
       })
@@ -607,6 +608,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         if (data.length != 0 || !data[0]['contains'])
         that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
           that.autoInstrumentation = false;
+            that.configHomeService.getAIOperationValue(that.autoInstrumentation);
         })
       })
 

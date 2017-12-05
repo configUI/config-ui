@@ -35,8 +35,16 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       for (let i = 0; i < data.length; i++) {
         if (data[i].status != "complete")
           this.countAI++;
-          sessionStorage.setItem("countAI", this.countAI.toString())
+         
       }
+      this.configHomeService._AIOpertation$.subscribe(data =>
+        {
+          if(data == true)
+            this.countAI++;
+          else
+             this.countAI--;
+        })
+        sessionStorage.setItem("countAI", this.countAI.toString())
     })
 
     this.trData = new TRData();
