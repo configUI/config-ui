@@ -49,7 +49,7 @@ export class AutoInstrSettings{
     autoInstrMapSize: number = 100000;
     autoInstrMaxAvgDuration: number = 5;
     autoInstrClassWeight: number = 10;
-    autoInstrSessionDuration: number = 30;
+    autoInstrSessionDuration: number = 1800;
 
 }
 

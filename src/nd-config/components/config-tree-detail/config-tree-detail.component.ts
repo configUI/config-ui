@@ -449,7 +449,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   /** To split the settings and assign to dialog
     * enableAutoInstrSession=1;minStackDepthAutoInstrSession=10;autoInstrTraceLevel=1;autoInstrSampleThreshold=120;
     * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=5;autoInstrClassWeight=10;
-    * autoInstrSessionDuration=30
+    * autoInstrSessionDuration=1800
     */
   splitSettings(data) {
     let arr = data.split("=");
@@ -604,10 +604,11 @@ export class ConfigTreeDetailComponent implements OnInit {
       let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, that.t_s_i_name, that.sessionName, function (data) {
 
         //Check for successful RTC connection  
-        if (data.length != 0 || !data[0]['contains'])
+        if (data.length != 0 || !data[0]['contains']){
         that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
           that.autoInstrumentation = false;
         })
+      }
       })
 
 
@@ -646,7 +647,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrClassWeight != 10)
       strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
 
-    if (data.autoInstrSessionDuration != 30)
+    if (data.autoInstrSessionDuration != 1800)
       strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
 
     return strSetting;
