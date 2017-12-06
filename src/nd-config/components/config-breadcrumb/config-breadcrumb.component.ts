@@ -31,7 +31,10 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     //Load AI in progress sessions
-    this.countAI = 0;
+   
+    this.countAI = +sessionStorage.getItem("countAI");
+    if(this.countAI = undefined)
+      this.countAI = 0;
     this.configTopologyService.updateAIDetails().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].status != "complete")
@@ -45,7 +48,7 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
           else
              this.countAI--;
         })
-        sessionStorage.setItem("countAI", this.countAI.toString())
+        sessionStorage.setItem("countAI", this.countAI.toString());
     })
 
     this.trData = new TRData();
