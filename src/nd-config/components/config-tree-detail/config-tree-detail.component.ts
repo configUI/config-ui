@@ -580,7 +580,7 @@ export class ConfigTreeDetailComponent implements OnInit {
               
               that.topologyData = data
             });
-            that.configHomeService.getAIOperationValue(true);
+            that.configHomeService.getAIStartStopOperationValue(true);
           })
         }
       })
@@ -617,7 +617,7 @@ export class ConfigTreeDetailComponent implements OnInit {
             
             that.topologyData = data
           });
-            that.configHomeService.getAIOperationValue(false);
+            that.configHomeService.getAIStartStopOperationValue(false);
         })
       }
       })

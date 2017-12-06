@@ -53,12 +53,12 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
       if (data[i].status == "complete")
       {
         autoIntrComplete.push(data[i])
-        this.configHomeService.getAIOperationValue(false);
+      //  this.configHomeService.AIStartStopOpertationValueList(false);
       }
       else
       {
         autoIntrActive.push(data[i]);
-        this.configHomeService.getAIOperationValue(true);
+        this.configHomeService.AIStartStopOpertationValueList(true);
       }
     }
     this.autoIntrComplete = autoIntrComplete;
@@ -88,7 +88,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
       //Saving settings in database
       this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function (data) {
         that.checkForCompleteOrActive(data);
-       
+        this.configHomeService.AIStartStopOpertationValueList(false);
       })
     }
   }
@@ -123,6 +123,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         this.configUtilityService.infoMessage("Auto-Instrumentation completed")
         this.configTopologyService.updateAIDetails().subscribe(data => {
           this.checkForCompleteOrActive(data);
+          this.configHomeService.AIStartStopOpertationValueList(false);
         })
       }
       else {
