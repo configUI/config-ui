@@ -115,7 +115,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   }
 
-  getAIStatus(instance) {
+  getAIStatus(instance, session) {
+    //Combining instance and session name with #
+    instance = instance + "#" + session
     this.configTopologyService.getAIStatus(instance).subscribe(data => {
       if (data["_body"] == "complete") {
         this.configUtilityService.infoMessage("Auto-Instrumentation completed")
