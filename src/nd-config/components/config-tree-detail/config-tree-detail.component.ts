@@ -199,21 +199,26 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //When expanding at server level
     else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER && !event.data.nodeExpanded) {
+      let that = this;
       this.serverName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.serverId = event.data.nodeId;
-      this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => {
-        this.topologyData = data
-     
-        if (data.length != 0) {
-          this.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
-            this.serverDisplayName = data['_body'];
-
-          })
-        }
-      });
-      this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
+      
+      //Update the status of AI and icon when AI process id completed wh[en its duration is completed
+      this.configTopologyService.durationCompletion().subscribe(data => {
+        that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
+          that.topologyData = data
+          
+          if (data.length != 0) {
+            that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
+              that.serverDisplayName = data['_body'];
+              
+            })
+          }
+        });
+      })
+        this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
     }
 
     // this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
