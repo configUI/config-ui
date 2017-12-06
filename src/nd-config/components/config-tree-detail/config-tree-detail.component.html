@@ -15,13 +15,18 @@
             <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
                 <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
         </template>
-            <template *ngIf="col.field == 'autoInstrumentation'" let-col let-entity="rowData" pTemplate="body">
-                <a class="hyperlink iconFontSize" *ngIf="autoInstrumentation==false" (click)="openAutoInstrDialog(entity['instanceName'], entity['instanceId'])" title="Start">
-                  <i class="fa fa-play-circle-o" ></i>
-                </a>
-                <a class="hyperlink iconFontSize" *ngIf="autoInstrumentation==true" (click)="stopInstrumentation(entity['instanceName'], entity['instanceId'])" title="Stop">
-                    <i class="fa fa-stop-circle" [style]="{'width':'8%', 'text-align':'center'}"></i>
-                  </a>
+            <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
+                <span *ngIf="entity[col.field]== false" title="Start">
+                    <a class="hyperlink iconFontSize" (click)="openAutoInstrDialog(entity['instanceName'], entity['instanceId'])">
+                        <i class="fa fa-play-circle-o" ></i>
+                    </a>
+                   </span>
+                 <span *ngIf="entity[col.field]== true" title="Stop">
+                    <a class="hyperlink iconFontSize" (click)="stopInstrumentation(entity['instanceName'], entity['instanceId'])">
+                        <i class="fa fa-stop-circle" [style]="{'width':'8%', 'text-align':'center'}"></i>
+                    </a>
+                   </span>
+              
               </template>
         </p-column>
     </p-dataTable>
