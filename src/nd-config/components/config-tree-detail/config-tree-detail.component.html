@@ -51,13 +51,31 @@
     </form>
 </p-dialog>
 
+<!-- Dialog for Auto Instrumentation settings -->
 <p-dialog class="profile-dialog" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" responsive="true">
     <form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
 
-        <div class="ui-g" style="margin-left: 10px">
+        <!-- <div class="ui-g" style="margin-left: 10px">
             <p-checkbox name="enableAutoInstrSession" disabled=true [(ngModel)]="autoInstrObj['enableAutoInstrSession']" label="Enable Auto Instrumentation" binary="true" ngModel></p-checkbox>
         </div>
-        <br>
+        <br> -->
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Session Name</label>
+            </div>
+            <div class="ui-g-6">
+                <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-7">
+                <label>Session duration (in seconds)</label>
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-4">
+                <input type="number" size='20' name="autoInstrSessionDuration" [(ngModel)]="autoInstrObj['autoInstrSessionDuration']" pInputText min=0 class="text-width" required ngModel>
+            </div>
+        </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
                 <label>Min stacktrace depth for comparing methods in hotspot data for auto-instrumentation</label>
@@ -128,23 +146,6 @@
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
                 <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=0 max=10000 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-                <label>Session duration (in seconds)</label>
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrSessionDuration" [(ngModel)]="autoInstrObj['autoInstrSessionDuration']" pInputText min=0 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label>Session Name</label>
-            </div>
-            <div class="ui-g-6">
-                <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
             </div>
         </div>
         <footer>
