@@ -34,7 +34,6 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverDisplayName: string = "";
   t_s_i_name: string = "";
   sessionName: string = "";
-  autoInstrumentation: boolean = false;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -93,6 +92,8 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   currentInstanceName: string;
   currentInsId: number;
+
+  serverId: any;
 
   ngOnInit() {
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
@@ -201,12 +202,10 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.serverName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
+      this.serverId = event.data.nodeId;
       this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => {
         this.topologyData = data
-        for (let i = 0; i < data.length; i++)
-          if (data[i].aiEnable == true)
-            this.autoInstrumentation = true
-
+     
         if (data.length != 0) {
           this.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
             this.serverDisplayName = data['_body'];
@@ -251,7 +250,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       }
       else {
         colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
-        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "autoInstrumentation"];
+        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "aiEnable"];
       }
     }
 
@@ -443,6 +442,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.splitSettings(data['_body']);
       this.showInstr = true;
     })
+
   }
 
   /** To split the settings and assign to dialog
@@ -544,7 +544,6 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-
   }
 
   //When test is running the send RTC 
@@ -572,8 +571,11 @@ export class ConfigTreeDetailComponent implements OnInit {
         //Check for successful RTC connection
         if (success == "success") {
           that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
-            that.autoInstrumentation = true;
-            that.configHomeService.getAIOperationValue(that.autoInstrumentation);
+            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+              
+              that.topologyData = data
+            });
+            that.configHomeService.getAIOperationValue(true);
           })
         }
       })
@@ -606,8 +608,11 @@ export class ConfigTreeDetailComponent implements OnInit {
         //Check for successful RTC connection  
         if (data.length != 0 || !data[0]['contains']){
         that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
-          that.autoInstrumentation = false;
-            that.configHomeService.getAIOperationValue(that.autoInstrumentation);
+          that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+            
+            that.topologyData = data
+          });
+            that.configHomeService.getAIOperationValue(false);
         })
       }
       })
