@@ -206,8 +206,6 @@ export class ConfigTreeDetailComponent implements OnInit {
         for (let i = 0; i < data.length; i++)
           if (data[i].aiEnable == true)
             this.autoInstrumentation = true
-          else
-            this.autoInstrumentation = false
 
         if (data.length != 0) {
           this.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
@@ -436,6 +434,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     //Getting data of settings from database if user has already saved this instance settings
     let instanceName = this.splitTierServInsName(this.currentInstanceName);
     this.autoInstrDto.sessionName = instanceName
+    this.autoInstrDto.instanceId = this.currentInsId;
 
     this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 

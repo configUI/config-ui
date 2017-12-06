@@ -113,7 +113,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     this.configTopologyService.getAIStatus(instance).subscribe(data => {
       if (data["_body"] == "complete") {
         this.configUtilityService.infoMessage("Auto-Instrumentation completed")
-        return;
+        this.configTopologyService.updateAIDetails().subscribe(data => {
+          this.checkForCompleteOrActive(data)
+        })
       }
       else {
         this.autoIntrActive[0].elapsedTime = data["_body"];

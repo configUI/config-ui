@@ -63,4 +63,5 @@ export class AutoIntrDTO{
     configuration: string;
     appName: string;
     sessionName: string;
+    instanceId: number;
 }
