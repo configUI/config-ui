@@ -37,7 +37,7 @@
                     </p-column>
                     <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink iconFontSize" title="Refresh" (click)="getAIStatus(application['instanceName'])"><i class="fa fa-refresh"></i></a>
+                <a class="hyperlink iconFontSize" title="Refresh" (click)="getAIStatus(application['instanceName'], application['sessionName'])"><i class="fa fa-refresh"></i></a>
                 <a class="hyperlink iconFontSize" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])" title="Stop"><i class="fa fa-stop-circle"></i></a>                
             </template>
                     </p-column>
