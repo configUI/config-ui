@@ -88,7 +88,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
       //Saving settings in database
       this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function (data) {
         that.checkForCompleteOrActive(data);
-        this.configHomeService.AIStartStopOpertationValueList(false);
+        that.configHomeService.AIStartStopOpertationValueList(false);
       })
     }
   }

@@ -28,6 +28,10 @@ export class ConfigHomeService {
   {
        this.AIStartStopOpertationList.next(data);
   }
+  public getAIStartStopOperationOnHome()
+  {
+    this.AIStartStopOpertationList.next("data");
+  }
 
 	public get trData(): TRData { 
     if(sessionStorage.getItem("trData") != null) {
