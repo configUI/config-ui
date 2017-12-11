@@ -20,7 +20,7 @@ export class ConfigLeftSideBarComponent implements OnInit {
       { label: "Application", route: `${ROUTING_PATH}/application-list`, icon: "ndeicon ndegui-application", tooltip: "Application" },
       { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "ndeicon ndegui-profile", tooltip: "Profile" },
       { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "ndeicon ndegui-topology", tooltip: "Topology" },
-      { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "icon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
+      { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "ndeicon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
       { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover`, icon: "ndeicon ndegui-auto-discover", tooltip: "Instrumentation Finder" },
       { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
     ];
