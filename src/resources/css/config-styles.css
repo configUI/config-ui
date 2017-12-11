@@ -99,6 +99,22 @@
     content: "\e00d";
 }
 
+.ndegui-dotnet:before {
+    content: "\e00e";
+}
+
+.ndegui-java:before {
+    content: "\e00f";
+}
+
+.ndegui-php:before {
+    content: "\e010";
+}
+
+.ndegui-nodejs:before {
+    content: "\e011";
+}
+
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
     font-weight: 500;
 }
@@ -128,6 +144,7 @@
     top: 42px;
     height: 620px;
     width: 50px;
+    transform: translate3d(0, 0, 0)
 }
 
 .top-nav-bar {
@@ -215,9 +232,10 @@
 }
 
 
-/* .tabs-all .ui-widget-header {
+/*.tabs-all .ui-widget-header {
     padding: 4px;
-} */
+}
+*/
 
 .tabs-all .ui-g {
     padding: 5px;
@@ -255,6 +273,18 @@
 
 .hideheader .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
     opacity: 0;
+}
+
+
+/* 
+hide it behind the dropdown component, the required 
+  HTML5 pop up still shows which is good and the form
+ is still marked as not valid 
+*/
+
+.hidden-validator {
+    position: absolute;
+    z-index: -1;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
@@ -877,6 +907,17 @@ a {
 }
 
 
+/* Added for disabled Css issue of any field*/
+
+textarea:disabled,
+input:not([type]):disabled,
+input[type="number" i]:disabled,
+input[type="text" i]:disabled {
+    background: #ececec;
+    color: #b7b7b7;
+}
+
+
 /* Added for padding issue in table header of file manager*/
 
 .headerCss .ui-widget-header {
@@ -989,11 +1030,6 @@ body {
 
 /*-------------------ND CONFIF NEW-----------*/
 
-.icon {
-    float: left;
-    font-size: 2.2em;
-}
-
 .profile-dialog .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
     font-size: 12px;
     font-weight: 500;
@@ -1030,14 +1066,7 @@ body {
     margin-right: 3px;
 }
 
-
-/* 
-hide it behind the dropdown component, the required 
-  HTML5 pop up still shows which is good and the form
- is still marked as not valid 
-*/
-
-.hidden-validator {
-    position: absolute;
-    z-index: -1;
+.ndeicon {
+    float: left;
+    font-size: 2.2em;
 }
