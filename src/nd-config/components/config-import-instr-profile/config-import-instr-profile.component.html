@@ -29,7 +29,7 @@
         <p-dropdown [options]="profileXMLFileList" [disabled]="selectedAgent==''" name="dropdown" [style]="{'width':'100%'}" [(ngModel)]="selectedXMLFile"
           placeholder="--Select--" filter="filter" class="instrprofmaker autosearchfield"></p-dropdown>
       </div>
-      <div class="ui-g-1" style="width: 7%;margin-left:10px">
+      <div class="ui-g-1" style="width: 7%;margin-left:10px" *ngIf="selectedAgent!=''">
         <button pButton type="button" label="View" icon="fa-eye" (click)="showSelectedXmlFileData()" title="View selected XML file"></button>
       </div>
       <div class="ui-g-1" style="width: 8%;" *ngIf="selectedAgent=='Java'">
@@ -41,7 +41,7 @@
       <div class="ui-g-1" style="width: 8%;" *ngIf="selectedAgent=='Java'">
         <button pButton type="button" label="Delete" icon="fa-trash" (click)="deleteSelectedXMLFile()" title="Delete Selected XML File"></button>
       </div>
-      <div class="ui-g-1" style="width: 6%;">
+      <div class="ui-g-1" style="width: 6%;" *ngIf="selectedAgent!=''">
         <button pButton type="button" label="Clear" icon="fa-eraser" (click)="clearWindow()" title="Clear all data from window"></button>
       </div>
     </div>

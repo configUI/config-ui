@@ -41,6 +41,7 @@ export class ConfigHomeComponent implements OnInit {
 
   ngOnInit() {
     this.loadHomeData();
+    this.configHomeService.getAIStartStopOperationOnHome();
   }
 
   loadTopologyList(){

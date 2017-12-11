@@ -20,7 +20,7 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
                     </p-column>
-                    <p-column class="col-overflow" field="duration" header="Duration(in min)" [sortable]="true" [style]="{'width':'10%'}">
+                    <p-column class="col-overflow" field="duration" header="Duration(in sec)" [sortable]="true" [style]="{'width':'10%'}">
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
@@ -30,14 +30,14 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
                     </p-column>
-                    <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time" [sortable]="true" [style]="{'width':'15%'}">
+                    <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time (in sec)" [sortable]="true" [style]="{'width':'15%'}">
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>                
             </template>
                     </p-column>
                     <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
                         <template let-col let-application="rowData" pTemplate>
-                <a class="hyperlink iconFontSize" title="Refresh" (click)="getAIStatus(application['instanceName'])"><i class="fa fa-refresh"></i></a>
+                <a class="hyperlink iconFontSize" title="Refresh" (click)="getAIStatus(application['instanceName'], application['sessionName'])"><i class="fa fa-refresh"></i></a>
                 <a class="hyperlink iconFontSize" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])" title="Stop"><i class="fa fa-stop-circle"></i></a>                
             </template>
                     </p-column>
@@ -70,7 +70,7 @@
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
                     </p-column>
-                    <p-column class="col-overflow" header="Duration(in min)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
+                    <p-column class="col-overflow" header="Duration(in sec)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
                         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>

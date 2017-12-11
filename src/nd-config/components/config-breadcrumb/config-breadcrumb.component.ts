@@ -14,8 +14,6 @@ import { TRData } from '../../interfaces/main-info';
   styleUrls: ['./config-breadcrumb.component.css']
 })
 export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
-
-
   constructor(private router: Router, private configHomeService: ConfigHomeService,
     private configTopologyService: ConfigTopologyService) { }
 
@@ -32,11 +30,31 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //Load AI in progress sessions
     this.configTopologyService.updateAIDetails().subscribe(data => {
+      this.countAI = 0;
       for (let i = 0; i < data.length; i++) {
         if (data[i].status != "complete")
           this.countAI++;
-          sessionStorage.setItem("countAI", this.countAI.toString())
       }
+      this.configHomeService._AIStartStopOpertation$.subscribe(data =>
+        {
+          this.countAI = 0;
+          if(data == true)
+            this.countAI++;
+          else
+             this.countAI--;
+        })
+        this.configHomeService._AIStartStopOpertationList$.subscribe(data =>
+        { this.countAI = 0;
+            if(data == true)
+              this.countAI++;
+            else if(data == false)
+               this.countAI--;
+               else{
+               this.countAI = +sessionStorage.getItem("countAI");
+                
+               }
+          })
+        sessionStorage.setItem("countAI", this.countAI.toString());
     })
 
     this.trData = new TRData();

@@ -11,10 +11,27 @@ import * as URL from '../constants/config-url-constant';
 export class ConfigHomeService {
 
   private trDataSource = new Subject<TRData>();
-  
+   AIStartStopOpertation = new Subject<any>(); // for Auto instrumentation Operation
+   AIStartStopOpertationList = new Subject<any>();
+   _AIStartStopOpertation$ = this.AIStartStopOpertation.asObservable();
+   _AIStartStopOpertationList$ = this.AIStartStopOpertationList.asObservable();
   // private _trData: TRData;
 
   private _trData: TRData;
+
+  public getAIStartStopOperationValue(data)
+  {
+       this.AIStartStopOpertation.next(data);
+  }
+
+  public AIStartStopOpertationValueList(data)
+  {
+       this.AIStartStopOpertationList.next(data);
+  }
+  public getAIStartStopOperationOnHome()
+  {
+    this.AIStartStopOpertationList.next("data");
+  }
 
 	public get trData(): TRData { 
     if(sessionStorage.getItem("trData") != null) {

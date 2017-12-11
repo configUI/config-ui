@@ -1019,3 +1019,38 @@ fieldset {
 b {
     font-weight: 500;
 }
+
+
+/*----------------STYLES FOR EMAIL SMS ALERT SETTINGS------------*/
+.mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
+    padding: 1em 0em 1em 0em;
+}
+.mailSmsConfigSetting .ui-fieldset-content-wrapper{
+    margin-bottom: 10px;
+}
+.mailSmsConfigSetting .ui-widget-header {
+    padding: 6px;
+}
+.mailSmsConfigSetting input[type=number] {
+    width:50px;
+}
+.mailSmsConfigSetting .ui-multiselect-items-wrapper{
+    max-height: 85px;
+}
+
+.mailSmsConfigSetting .ui-widget-content{
+    border: 1px solid #d5d5d5;
+}
+
+.mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
+    background: transparent;
+    border: 0px solid #d5d5d5!important;
+}
+.mailSmsConfigSetting .ui-widget-header {
+    background: #282828;
+    color: #cccccc;
+}
+
+.mailSmsConfigSetting .ui-dialog .ui-dialog-content {
+    overflow: hidden;
+}

@@ -95,6 +95,37 @@
     border: 0;
 }
 
-.right-side-padding {
-    padding: 0.5em
+.NOtable {
+    padding-top: 4px;
+}
+.NO-header {
+    padding: 10px 10px 0;
+    height: 20px;
+    font-weight: 500;
+    font-size: 12px;
+}
+.NO-accordian .ui-accordion .ui-accordion-header {
+    padding: 0px;
+}
+.NO-header.new {
+    margin: 0 0 0 -10px;
+}
+.NO-fieldset legend.ui-fieldset-legend.ui-unselectable-text {
+    padding: 4px 3px;
+}
+.NO-fieldset fieldset.ui-fieldset.ui-widget.ui-widget-content.ui-corner-all {
+    margin: 4px;
+}
+.NO-modal .ui-dialog.ui-widget .ui-dialog-content {
+    padding: 8px 10px;
+}
+.NO-modal .ui-panel-titlebar {
+    padding: 5px;
+    font-weight: 500;
+}
+.NO-modal .ui-panel .ui-panel-content {
+    margin: 0 0 5px;
+}
+.NO-modal .labelformgroup{
+    font-weight: 400;
 }

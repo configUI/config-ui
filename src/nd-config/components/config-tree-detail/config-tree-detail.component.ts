@@ -34,7 +34,6 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverDisplayName: string = "";
   t_s_i_name: string = "";
   sessionName: string = "";
-  changeIcon: boolean = true;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -92,6 +91,9 @@ export class ConfigTreeDetailComponent implements OnInit {
   subscription: Subscription;
 
   currentInstanceName: string;
+  currentInsId: number;
+
+  serverId: any;
 
   ngOnInit() {
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
@@ -197,19 +199,26 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //When expanding at server level
     else if (event.data.currentEntity == CONS.TOPOLOGY.SERVER && !event.data.nodeExpanded) {
+      let that = this;
       this.serverName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
-      this.configTopologyService.getInstanceDetail(event.data.nodeId, this.serverEntity).subscribe(data => {
-        this.topologyData = data
-        if (data.length != 0) {
-          this.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
-            this.serverDisplayName = data['_body'];
-
-          })
-        }
-      });
-      this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
+      this.serverId = event.data.nodeId;
+      
+      //Update the status of AI and icon when AI process id completed wh[en its duration is completed
+      this.configTopologyService.durationCompletion().subscribe(data => {
+        that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
+          that.topologyData = data
+          
+          if (data.length != 0) {
+            that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
+              that.serverDisplayName = data['_body'];
+              
+            })
+          }
+        });
+      })
+        this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
     }
 
     // this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
@@ -246,7 +255,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       }
       else {
         colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
-        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "autoInstrumentation"];
+        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "aiEnable"];
       }
     }
 
@@ -416,11 +425,12 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To open auto instr configuration dialog
-  openAutoInstrDialog(name) {
+  openAutoInstrDialog(name, id) {
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
       return;
     }
+    this.currentInsId = id;
     this.currentInstanceName = name;
     this.autoInstrObj = new AutoInstrSettings();
     this.autoInstrDto = new AutoIntrDTO();
@@ -428,6 +438,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     //Getting data of settings from database if user has already saved this instance settings
     let instanceName = this.splitTierServInsName(this.currentInstanceName);
     this.autoInstrDto.sessionName = instanceName
+    this.autoInstrDto.instanceId = this.currentInsId;
 
     this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
@@ -436,12 +447,13 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.splitSettings(data['_body']);
       this.showInstr = true;
     })
+
   }
 
   /** To split the settings and assign to dialog
     * enableAutoInstrSession=1;minStackDepthAutoInstrSession=10;autoInstrTraceLevel=1;autoInstrSampleThreshold=120;
     * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=5;autoInstrClassWeight=10;
-    * autoInstrSessionInterval=30
+    * autoInstrSessionDuration=1800
     */
   splitSettings(data) {
     let arr = data.split("=");
@@ -475,8 +487,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     //For autoInstrClassWeight
     this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
 
-    //For autoInstrSessionInterval
-    this.autoInstrObj.autoInstrSessionInterval = arr[10];
+    //For autoInstrSessionDuration
+    this.autoInstrObj.autoInstrSessionDuration = arr[10];
 
 
   }
@@ -495,7 +507,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
     this.sessionName = this.autoInstrDto.sessionName
 
-    this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionInterval.toString()
+    this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionDuration.toString()
 
     //Send Runtime Changes
     this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto)
@@ -516,7 +528,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
       + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
       + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-      + ";autoInstrSessionInterval=" + data.autoInstrSessionInterval;
+      + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration;
 
     return setting;
 
@@ -537,7 +549,6 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-
   }
 
   //When test is running the send RTC 
@@ -563,19 +574,25 @@ export class ConfigTreeDetailComponent implements OnInit {
       //Saving settings in database
       let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
         //Check for successful RTC connection
-        if (success == "success")
-          that.changeIcon = false
+        if (success == "success") {
+          that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
+            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+              
+              that.topologyData = data
+            });
+            that.configHomeService.getAIStartStopOperationValue(true);
+          })
+        }
       })
-
-
     }
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName) {
+  stopInstrumentation(instanceName, id) {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
+    this.currentInsId = id
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
@@ -586,6 +603,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
       strSetting = "enableAutoInstrSession=0;"
+      this.t_s_i_name = this.splitTierServInsName(instanceName)
       //Merging configuration and instance name with #
       strSetting = strSetting + "#" + this.t_s_i_name;
 
@@ -593,8 +611,15 @@ export class ConfigTreeDetailComponent implements OnInit {
       let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, that.t_s_i_name, that.sessionName, function (data) {
 
         //Check for successful RTC connection  
-        if (data.length != 0 || !data[0]['contains'])
-          that.changeIcon = true;
+        if (data.length != 0 || !data[0]['contains']){
+        that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
+          that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+            
+            that.topologyData = data
+          });
+            that.configHomeService.getAIStartStopOperationValue(false);
+        })
+      }
       })
 
 
@@ -633,8 +658,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrClassWeight != 10)
       strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
 
-    if (data.autoInstrSessionInterval != 30)
-      strSetting = strSetting + ";autoInstrSessionInterval=" + data.autoInstrSessionInterval
+    if (data.autoInstrSessionDuration != 1800)
+      strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
 
     return strSetting;
 

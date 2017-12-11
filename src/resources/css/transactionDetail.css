@@ -52,8 +52,8 @@
 
 #txDetailWinId div.ui-datatable-scrollable-body {
      min-height: 300px;
-    height:  320px;
-    overflow: scroll; 
+    height:  326px;
+ /*   overflow: scroll;  */
 }
 
 

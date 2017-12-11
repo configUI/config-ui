@@ -22,7 +22,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 11px;
     background: url(images/1.jpg) center repeat fixed #000;
 }
 /*----------------Themeing CSS------------------*/
@@ -2324,4 +2324,87 @@ button.capabilityButton.mat-raised-button{
 }
 .mat-card-subtitle {
   color: #282828; 
+}
+
+/*-----------------------Dashboard Reports CSS--------------------*/
+.dashboardrpt-box  {
+    background: rgba(255, 255, 255, 0.55);
+}
+.dashboard-report-menu-left-slide {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12);;
+    color: #fff;
+}
+.dashboard-report-menu-left-slide .ui-accordion .ui-accordion-header {
+    background: #2d1c06;
+    border-bottom: 1px #100a03 solid;
+    border-radius: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.dashboard-report-menu-left-slide .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #2d1d08;
+    color: #cecece;
+}
+
+.dashboard-report-menu-left-slide .ui-widget-content {
+    background: transparent; /*#3a3a3a;*/
+    color: #fff;
+}
+.dashboard-report-menu-left-slide .ui-widget-content a {
+    color: #fff;
+}
+.dashboard-reports-tempate-left-content {
+   border-bottom: 1px #2d2d2d solid;
+}
+
+.dashboard-reports-available-page-top-panel {
+    background: rgba(255, 255, 255, 0.9);
+}
+.dashboard-report-context-menu-item .ui-widget-content {
+    background: #846135;
+}
+.dashboard-report-context-menu-item .ui-widget-content a{
+    color: #fff;
+    background: transparent;
+}
+.dashboardreports .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+    border: 1px #cecece solid;
+    background: rgba(255, 255, 255, 0.75);
+}
+.dashboardreports legend.ui-fieldset-legend {
+    background: #f7f7f7;
+}
+.dashboard-report-summary-main-div .ui-state-default a:link {
+    color: #4a4a4a;
+}
+.dashboard-report-summary-main-div .ui-accordion .ui-accordion-header {
+     background: #c9c9c9;
+    border: 1px #c1c1c1 solid;
+}
+.dashboard-report-summary-main-div .ui-accordion .ui-accordion-header.ui-state-active {
+        background: #fbfbfb;
+        border-bottom: 1px #c1c1c1 solid;
+        border-top: 1px #c1c1c1 solid;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+}
+.dashboardrpt-modal-header {
+    background: #b18348;
+    color: #fff;
+}
+
+.dashboard-report-alert-box /deep/ .ui-dialog.ui-widget .ui-dialog-titlebar {
+    background: #4e3413;
+    color: white;
+}
+.dashboard-report-alert-box /deep/ .ui-dialog .ui-dialog-titlebar-close {
+    color: white;
+}
+.dashboard-reports-excel-template-upload /deep/ span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
+    border: 1px solid #a07842;
+    color: #fff;
+    background: #714c1d;
 }

@@ -151,14 +151,13 @@ app-alert-home .mat-sidenav.mat-sidenav-opening {
 }
 
 app-alert-home .ui-accordion .ui-accordion-content {
-    padding: 10px 4px !important;
+    padding: 5px 4px !important;
 }
 
-app-alert-home .ui-fieldset,
+/*app-alert-home .ui-fieldset,
 app-alert-home .ui-fieldset .ui-fieldset-legend {
     background: #f9f9f9 !important;
-}
-
+}*/
 app-alert-home .margin-right-20 {
     color: #fff;
 }
@@ -178,7 +177,7 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default {
     border: 1px solid rgba(142, 142, 142, 0);
 }
 
-app-alert-home .ui-widget-header .ui-button,
+/*app-alert-home .ui-widget-header .ui-button,
 app-alert-home .ui-widget-content .ui-button,
 app-alert-home .ui-button {
     border: 1px solid #0b2138 !important;
@@ -188,8 +187,16 @@ app-alert-home .ui-button {
 app-alert-home .ui-button:hover, app-alert-home button.ui-button.ui-state-default:hover, app-alert-home .ui-button.ui-state-default:hover {
     color: #FFFFFF;
     background: #2399e5;
-}
+}*/
 
+app-alert-home .ui-accordion-content {
+    background: transparent !important;
+}
+app-alert-home .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+    padding: .6em 1em;
+    background: transparent;
+    border: 1px solid #d5d5d5 !important;
+}
 
 /*************hidtory table styles**************************/
 
@@ -370,4 +377,35 @@ app-alert-home .detailTable .ui-datatable th.ui-state-default {
 
 .alertgui-minor-event:before {
     content: "\e00a";
+}
+
+app-alert-home .mat-slide-toggle-thumb
+{
+  height: 16px !important;
+  width: 16px !important;
+}
+app-alert-home .mat-slide-toggle-bar
+{
+  width: 30px !important;
+  height: 11px !important;
+}
+app-alert-home .mat-slide-toggle-content
+{
+  font: inherit;
+}
+.p-m-action i{
+    font-size: 16px !important;
+}
+.p-m-action span{
+    display: none !important;
+}
+app-alert-home .ui-calendar.ui-calendar-w-btn input{
+    width: 10.4em;
+}
+app-alert-home .ui-datepicker.ui-widget{
+    width: auto;
+}
+app-alert-home .ui-confirmdialog.ui-dialog .ui-dialog-content{
+  text-align: justify;
+  display: inline-flex;
 }

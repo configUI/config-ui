@@ -60,11 +60,11 @@ export class ConfigTopHeaderNavBarComponent implements OnInit {
     checkNO = '';
   
     private timeSubscription = null;
-    arrThemeNames = [[{text: 1, isActive: false, color: '#EDEDED'}, {text: 2, isActive: true, color: '#6C9DD1'}, 
+    arrThemeNames =[[{text: 1, isActive: false, color: '#EDEDED'}, {text: 2, isActive: true, color: '#6C9DD1'}, 
     {text: 3, isActive: false, color: '#494949'}],
     [{text: 4, isActive: false, color: '#307565'}, {text: 5, isActive: false, color: '#E6CB91'} 
-    ,{text: 6, isActive: false, color: '#c9c9c9'}/* [{text: 7, isActive: false, color: '#00ff7f'},
-                     {text: 8, isActive: false, color: '#ccc0b7'}, {text: 9, isActive: false, color: '#e152d4'}*/]];
+    ,{text: 6, isActive: false, color: '#c9c9c9'}]]/*, [{text: 7, isActive: false, color: '#00ff7f'},
+    {text: 8, isActive: false, color: '#ccc0b7'}, {text: 9, isActive: false, color: '#e152d4'}]]*/;
   
     dcList:MenuItem[];
     dcArr: any[] = [];

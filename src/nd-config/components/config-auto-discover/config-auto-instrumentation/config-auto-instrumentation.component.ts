@@ -51,9 +51,15 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     let autoIntrActive = [];
     for (let i = 0; i < data.length; i++) {
       if (data[i].status == "complete")
+      {
         autoIntrComplete.push(data[i])
+      //  this.configHomeService.AIStartStopOpertationValueList(false);
+      }
       else
-        autoIntrActive.push(data[i])
+      {
+        autoIntrActive.push(data[i]);
+        this.configHomeService.AIStartStopOpertationValueList(true);
+      }
     }
     this.autoIntrComplete = autoIntrComplete;
     this.autoIntrActive = autoIntrActive;
@@ -82,14 +88,13 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
       //Saving settings in database
       this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function (data) {
         that.checkForCompleteOrActive(data);
+        that.configHomeService.AIStartStopOpertationValueList(false);
       })
-
     }
-
   }
 
   openGUIForAutoInstrumentation(sessionFileName) {
-    sessionFileName = sessionFileName + ".txt";
+    sessionFileName = sessionFileName + "_AI.txt";
     this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
 
       if (data['_body'] == "Fail") {
@@ -110,8 +115,20 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   }
 
-  getAIStatus(instance) {
+  getAIStatus(instance, session) {
+    //Combining instance and session name with #
+    instance = instance + "#" + session
     this.configTopologyService.getAIStatus(instance).subscribe(data => {
+      if (data["_body"] == "complete") {
+        this.configUtilityService.infoMessage("Auto-Instrumentation completed")
+        this.configTopologyService.updateAIDetails().subscribe(data => {
+          this.checkForCompleteOrActive(data);
+          this.configHomeService.AIStartStopOpertationValueList(false);
+        })
+      }
+      else {
+        this.autoIntrActive[0].elapsedTime = data["_body"];
+      }
     })
   }
 
