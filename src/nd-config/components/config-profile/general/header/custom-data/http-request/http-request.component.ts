@@ -612,6 +612,10 @@ export class HttpRequestComponent implements OnInit {
 
   /* set Value of All or Specific which Selected */
   getSelectedHTTPReqHdr() {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let httpReqHdrType = { httpReqHdrType: this.selectedHTTPReqHdrType };
     this.configKeywordsService.getHTTPRequestValue(httpReqHdrType, this.profileId).subscribe(data => this.selectedHTTPReqHdrType = data["httpReqHdrType"]);
 

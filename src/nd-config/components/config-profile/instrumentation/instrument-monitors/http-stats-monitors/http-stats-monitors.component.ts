@@ -110,6 +110,10 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.configKeywordsService.toggleKeywordData();
   }
   saveKeywordData() {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
 
     let filePath = '';
     for (let key in this.HttpStatsMonitor) {

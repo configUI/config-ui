@@ -1,4 +1,4 @@
-<div class="ndegui-mainbox">
+<div class="ndegui-mainbox"> 
 <div class="configUI">
   <div class="header"><i aria-hidden="true"></i> Profile List
     <span class="appIcon-css">
@@ -57,6 +57,7 @@
         <label>Agent</label>
       </div>
       <div class="ui-g-8">
+          <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.agent" required ngModel/>
         <p-dropdown [options]="agentList" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.agent"
         (ngModelChange)="getAgentSpecificProfiles($event)" placeholder="Select an agent"></p-dropdown>
       </div>
@@ -66,6 +67,7 @@
         <label>Copy profile</label>
       </div>
       <div class="ui-g-8">
+          <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.parentProfileId" required ngModel/>
         <p-dropdown [options]="profileListItem" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.parentProfileId"
           placeholder="Select a Profile to be copied"></p-dropdown>
       </div>

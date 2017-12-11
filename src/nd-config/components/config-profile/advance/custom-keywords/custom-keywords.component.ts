@@ -44,9 +44,9 @@ export class CustomKeywordsComponent implements OnInit {
   //list holding keywordsNameList
   customKeywordsList = [];
 
-  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "NDHTTPReqHdrCfgListL1Fp", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailmapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "ASTraceLevel"];
+  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob","NDHTTPRepHdrCfgListL1Fp", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailmapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPRepHdrCfgListFullFp", "ASTraceLevel"];
   nodeJsCustomKeywordsList = ["ndExceptionFilterList", "enableBackendMonTrace", "enableForcedFPChain", "captureHttpTraceLevel", "maxCharInSeqBlob", "bciMaxNonServiceMethodsPerFP", "bciDataBufferMaxCount", "bciDataBufferMaxSize", "ASDataBufferSize", "ASDataBufferMaxCount", "NVCookie"];
-  dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp", "NDHTTPReqHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
+  dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp","NDHTTPReqHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
 
   subscription: Subscription;
 

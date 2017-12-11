@@ -91,6 +91,10 @@ export class MethodMonitorsComponent implements OnInit {
     });
   }
   saveKeywordData() {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let filePath = '';
     for (let key in this.methodMonitor) {
       if (key == 'ndMethodMonFile') {

@@ -1,8 +1,8 @@
 export class ProfileData {
     profileName:string;
     profileDesc:string;
-    parentProfileId:number = 1;
+    parentProfileId:number;
     profileId:number;
     userName : string;
-    agent: string = "Java"
+    agent: string;
 }

@@ -3,7 +3,7 @@
     <div class="header">Flowpath settings
 
       <div class="pull-right">
-        <button type="button" pButton icon="fa-refresh" (click)="resetKeywordData()" label="Reset"></button>
+        <button type="button" pButton icon="fa-refresh" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
         <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
 
       </div>

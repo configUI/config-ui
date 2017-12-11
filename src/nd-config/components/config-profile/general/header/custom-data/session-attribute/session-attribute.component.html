@@ -1,12 +1,12 @@
 <div class="ui-g-12 configui-session-css">
     <div class="ui-g-2">
-        <p-radioButton name="sessionAttribute" label="All" value="All" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
+        <p-radioButton name="sessionAttribute" label="All" value="All" [disabled]="saveDisable" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
     <div class="ui-g-2">
-        <p-radioButton name="sessionAttribute" label="Specific" value="Specific" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
+        <p-radioButton name="sessionAttribute" label="Specific" value="Specific" [disabled]="saveDisable" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
     <div class="ui-g-2">
-        <p-radioButton name="sessionAttribute" label="None" value="None" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
+        <p-radioButton name="sessionAttribute" label="None" value="None" [disabled]="saveDisable" [(ngModel)]="selectedSessionAttribute" (click)="getSelectedAtribute()"></p-radioButton>
     </div>
 </div>
 

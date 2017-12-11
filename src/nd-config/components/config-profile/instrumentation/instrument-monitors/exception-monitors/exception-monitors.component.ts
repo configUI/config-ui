@@ -86,6 +86,10 @@ export class ExceptionMonitorsComponent implements OnInit {
     });
   }
   saveKeywordData() {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let filePath = '';
     for (let key in this.exceptionMonitor) {
       if (key == 'ndExceptionMonFile') {
