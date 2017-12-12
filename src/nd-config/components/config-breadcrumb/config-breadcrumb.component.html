@@ -1,14 +1,17 @@
 <div class="custom-breadcrumb">
     <div class="ui-g config-ui">
-        <div class="ui-g-9">
-            <p-breadcrumb [model]="items"></p-breadcrumb>
-        </div>
-        <div class="ui-g-3 togglebtn" *ngIf="displaySessionLabel">
-            <md-slide-toggle class=' breadcrumb-toggle' (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null">
-                Apply changes on Session no: {{ trData.trNo == null ? 'NA' : trData.trNo }} </md-slide-toggle>
-            <a [routerLink]="[ ROUTING_PATH + '/auto-discover']" *ngIf="countAI>0"> |<img border='0' width='18' height='18' style='margin-bottom: -3px' src='./images/play.gif' title="Auto Instrumentation process is in progress (Total Active: {{countAI}} )"></a>
+        <div class="ui-g-11" style="padding:0px; width:96%">
+            <div class="ui-g-9" style="width:76%">
+                <p-breadcrumb [model]="items"></p-breadcrumb>
+            </div>
+            <div class="ui-g-3 togglebtn" style="width:24%" *ngIf="displaySessionLabel">
+                <md-slide-toggle class=' breadcrumb-toggle' (click)="enabledRTC()" [(ngModel)]="trData.switch" [disabled]="trData.trNo == null">
+                    Apply changes on Session no: {{ trData.trNo == null ? 'NA' : trData.trNo }} </md-slide-toggle>
 
+            </div>
         </div>
-
+        <div class="ui-g-1" style="width:4%; border-left: 1px solid #f7f7f7" *ngIf="countAI>0 && trData.trNo != null">
+            <a [routerLink]="[ ROUTING_PATH + '/auto-discover']" style="margin: 10px;"> <img border='0' width='18' height='18' src='./images/play.gif' title="Auto Instrumentation process is in progress (Total Active: {{countAI}} )"></a>
+        </div>
     </div>
 </div>
