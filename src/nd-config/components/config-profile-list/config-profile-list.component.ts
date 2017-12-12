@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, SelectItem } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../services/config-utility.service';
@@ -40,14 +40,26 @@ export class ConfigProfileListComponent implements OnInit {
   }
 
   loadAgentList() {
-    let key = ['Dot Net','Java','NodeJS'];
+    let key = ['Dot Net', 'Java', 'NodeJS'];
     this.agentList = ConfigUiUtility.createDropdown(key);
 
   }
 
   loadProfileList() {
     this.configProfileService.getProfileList().subscribe(data => {
-      this.profileData = data;
+      let tempArray = [];
+      for (let i = 0; i < data.length; i++) {
+        if (+data[i].profileId == 1 || +data[i].profileId == 777777 || +data[i].profileId == 888888) {
+          tempArray.push(data[i]);
+        }
+      }
+
+      this.profileData = data.reverse();
+      this.profileData.splice(0, 3); 
+      for (let i = 0; i < tempArray.length; i++) {
+        this.profileData.push(tempArray[i]);
+      }
+
     });
   }
 
@@ -112,6 +124,7 @@ export class ConfigProfileListComponent implements OnInit {
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
         this.profileData = ImmutableArray.push(this.profileData, data);
         this.configUtilityService.successMessage(Messages);
+        this.loadProfileList();
       });
     this.displayNewProfile = false;
   }
@@ -158,6 +171,7 @@ export class ConfigProfileListComponent implements OnInit {
           else {
             this.deleteProfiles(this.selectedProfileData[0].profileId);
             this.configUtilityService.infoMessage("Deleted successfully");
+            this.loadProfileList();
           }
         })
       },
