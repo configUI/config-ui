@@ -51,6 +51,17 @@ export class ConfigHomeComponent implements OnInit {
     let timer = Observable.timer(20000, this.refreshIntervalTime);
     this.subscription = timer.subscribe(t => this.getTestInfoDetails());
   }
+  
+  ngOnDestroy() {
+    try {
+      this.subscription.unsubscribe();
+    }
+    catch (e) {
+      console.log("getting error in ", e);
+    }
+
+  }
+
 
   loadTopologyList(){
     this.configHomeService.getTopologyList().subscribe(data => {
