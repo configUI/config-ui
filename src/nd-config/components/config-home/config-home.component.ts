@@ -38,8 +38,8 @@ export class ConfigHomeComponent implements OnInit {
   topologyInfoMsg: string;
   topologyList = [];
   selectedTopology: string;
-  refreshIntervalTime = 20000;
  
+  refreshIntervalTime = 20000;
   subscription: Subscription;
   constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
@@ -51,17 +51,6 @@ export class ConfigHomeComponent implements OnInit {
     let timer = Observable.timer(20000, this.refreshIntervalTime);
     this.subscription = timer.subscribe(t => this.getTestInfoDetails());
   }
-  
-  ngOnDestroy() {
-    try {
-      this.subscription.unsubscribe();
-    }
-    catch (e) {
-      console.log("getting error in ", e);
-    }
-
-  }
-
 
   loadTopologyList(){
     this.configHomeService.getTopologyList().subscribe(data => {
