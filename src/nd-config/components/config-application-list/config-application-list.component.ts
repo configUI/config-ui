@@ -253,6 +253,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   //Route to NDC Keyword 
   routeToNDCKeywords(selectedAppId){
+    sessionStorage.setItem("agentType", "");
     this.router.navigate([ROUTING_PATH + '/application-list/ndc-keywords-setting', selectedAppId])
   }
 
