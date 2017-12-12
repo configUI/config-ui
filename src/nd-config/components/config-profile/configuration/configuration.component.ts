@@ -80,6 +80,10 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
   /**This is used to enable/disable groupkeyword values. */
   change(selectedKeywordGroup) {
+    if(this.toggleDisable == true)
+      {
+        return;
+      }
     for (let moduleName in this.keywordGroup) {
       let keywordGroupList = this.keywordGroup[moduleName];
 

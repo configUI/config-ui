@@ -186,6 +186,10 @@ export class ServiceEntryPointComponent implements OnInit {
 
   /**Used to enabled/Disabled Service Entry Points */
   enableToggle(rowData: ServiceEntryPoint) {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let filePath;
     this.configKeywordsService.enableServiceEntryPointList(rowData.id, !rowData.enabled).subscribe(
       data => {

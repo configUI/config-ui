@@ -11,6 +11,8 @@ import { EntityInfo } from '../../interfaces/entity-info';
 import { NDAgentInfo } from '../../interfaces/nd-agent-info';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ConfigUiUtility } from '../../utils/config-utility';
+import { Observable, } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-config-home',
@@ -36,12 +38,18 @@ export class ConfigHomeComponent implements OnInit {
   topologyInfoMsg: string;
   topologyList = [];
   selectedTopology: string;
-
+ 
+  refreshIntervalTime = 20000;
+  subscription: Subscription;
   constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
     this.loadHomeData();
+    this.getTestInfoDetails()
     this.configHomeService.getAIStartStopOperationOnHome();
+   
+    let timer = Observable.timer(20000, this.refreshIntervalTime);
+    this.subscription = timer.subscribe(t => this.getTestInfoDetails());
   }
 
   loadTopologyList(){
@@ -81,14 +89,22 @@ export class ConfigHomeComponent implements OnInit {
         this.agentsInfo = data.agentData;
         // data.trData.switch = data.trData.status == 'running';
         // data.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
-        data.trData.switch = true;
-        if(sessionStorage.getItem("isSwitch") === 'false')
-          data.trData.switch = false;
-        this.configHomeService.setTrData(data.trData);
-        this.configHomeService.trData = data.trData;
+       
       })
   }
 
+  getTestInfoDetails()
+  {
+    this.configHomeService.getTestRunStatus().subscribe(data => 
+    {
+      data.trData.switch = true;
+      if(sessionStorage.getItem("isSwitch") === 'false')
+        data.trData.switch = false;
+      this.configHomeService.setTrData(data.trData);
+      this.configHomeService.trData = data.trData;
+      }
+    );
+  }
   importTopologyDialog() {
     this.loadTopologyList();
     this.selectedTopology = "";

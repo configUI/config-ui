@@ -1,6 +1,6 @@
 
 
-//  const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+// const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -18,6 +18,7 @@ export const ROUTING_PATH: string = "";
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
 export const GET_TOPO_LIST = `${SERVICE_URL}/gettopologylist`;
+export const GET_TEST_RUN_STATUS = `${SERVICE_URL}/runningtestrunstatus`;
 
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
@@ -47,9 +48,9 @@ export const UPDATE_PROFILE_TABLE = `${SERVICE_URL}/custom/profile`
 export const GET_PROFILE_NAME = `${SERVICE_URL}/custom/profile`;
 export const DEL_PROFILE = `${SERVICE_URL}/custom/profile/delete`;
 export const GET_PROFILE_AGENT = `${SERVICE_URL}/custom/profile/getprofileagent`;
-export const FETCH_JAVA_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/javaProfilelist`
-export const FETCH_DOTNET_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/dotNetProfilelist`
-export const FETCH_NODEJS_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/nodeJSProfilelist`
+export const FETCH_JAVA_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/javaprofilelist`
+export const FETCH_DOTNET_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/dotnetprofilelist`
+export const FETCH_NODEJS_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/nodejsprofilelist`
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;

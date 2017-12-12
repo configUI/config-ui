@@ -67,4 +67,8 @@ export class ConfigHomeService {
     return this._restApi.getDataByGetReq(URL.GET_TOPO_LIST);
   }
 
+  getTestRunStatus()
+  {
+    return this._restApi.getDataByGetReq(URL.GET_TEST_RUN_STATUS);
+  }
 }

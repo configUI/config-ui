@@ -28,7 +28,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
   agent: any[];
   selectedAgent: string = "";
-  
+
   //Edit XML Tree Node
   editXMLFile: boolean = false;
   parsedXMLData: TreeNode[];
@@ -52,7 +52,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     this._configKeywordsService.fileListProvider.subscribe(data => {
       this.getFileList(data);
     });
-    let agentVal = ['Java', 'NodeJS', 'Dot Net'];
+    let agentVal = ['Dot Net','Java', 'NodeJS'];
     this.agent = ConfigUiUtility.createDropdown(agentVal);
   }
 
@@ -65,8 +65,8 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     });
   }
 
-  getAgentSpecificFiles(val){
-    this.createDropDown("filename", () => {});    
+  getAgentSpecificFiles(val) {
+    this.createDropDown("filename", () => { });
   }
 
   /**used to open file manager */
@@ -81,28 +81,30 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   getFileList(path) {
     if (this.isMakeXMLFile == true) {
       this.isMakeXMLFile = false;
-     if (path.includes(";")) {
-       this._configUtilityService.errorMessage("Multiple files cannot be imported");
-       return;
-     }
-     if(this.isFromXML) {
-       if (!path.includes(".txt")) {
-         this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
-         return;
-       }
-     }
-    let filename = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
+      if (path.includes(";")) {
+        this._configUtilityService.errorMessage("Multiple files cannot be imported");
+        return;
+      }
+      if (this.isFromXML) {
+        if (!path.includes(".txt")) {
+          this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
+          return;
+        }
+      }
+      let filename = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
       filename = filename + ".xml";
       path = path + "@" + this.userName;
       this._configKeywordsService.getInstrumentationProfileXMLData(path).subscribe(data => {
         // const xml = beautify(data._body);
         this.xmlFormat = data._body;
-	this.xmlFormat = Prism.highlight(data._body, Prism.languages.markup);
-        if (this.xmlFormat == "")
+        this.xmlFormat = Prism.highlight(data._body, Prism.languages.markup);
+        if (this.xmlFormat == "") {
           this._configUtilityService.errorMessage("Files contains no data or invalid data");
+          return;
+        }
         else
           this._configUtilityService.successMessage("File imported successfully");
-        this.createDropDown(filename, () => {});
+        this.createDropDown(filename, () => { });
       });
     }
 
@@ -133,7 +135,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configUtilityService.errorMessage("Select a file to Edit");
       return;
     }
-    this.parsedXMLData  = [];
+    this.parsedXMLData = [];
     this._configKeywordsService.editXMLDataFromSelectedXMLFile(this.selectedXMLFile).subscribe(data => {
       this.parsedXMLData = data['backendDetailList'];
     });
@@ -192,7 +194,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'command': (event) => {
             this.confirmationService.confirm({
               message: 'Are you sure that you want to perform this action?',
-	      header: 'Confirmation',
+              header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
               }
@@ -223,7 +225,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'command': (event) => {
             this.confirmationService.confirm({
               message: 'Are you sure that you want to perform this action?',
-	      header: 'Confirmation',
+              header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
               }
@@ -241,7 +243,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'command': (event) => {
             this.confirmationService.confirm({
               message: 'Are you sure that you want to perform this action?',
-	      header: 'Confirmation',
+              header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
               }
@@ -266,7 +268,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
       // Adding Package
       if (type === 'All') {
-	if (this.checkForDuplicacy('All', label, null, null, xmlDataArr)) {
+        if (this.checkForDuplicacy('All', label, null, null, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Package Entry is not allowed");
           return;
         }
@@ -277,12 +279,12 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentClassNode': null,
           'selected': false,
           'leaf': false,
-	  'expanded': true,
+          'expanded': true,
           'children': []
         };
         xmlDataArr[0]['children'].push(obj);
       } else if (type === 'package') {  // Add class
-	if (this.checkForDuplicacy('package', this.nodeObj['parentPackageNode'], label, null, xmlDataArr)) {
+        if (this.checkForDuplicacy('package', this.nodeObj['parentPackageNode'], label, null, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Class Entry is not allowed");
           return;
         }
@@ -293,7 +295,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentClassNode': this.toTitleCase(label),
           'selected': false,
           'leaf': false,
-	  'expanded': true,
+          'expanded': true,
           'children': []
         };
 
@@ -311,7 +313,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         let packageName = this.nodeObj['parentPackageNode'];
         let className = this.nodeObj['parentClassNode'];
 
-	if (this.checkForDuplicacy('class', packageName, className, label, xmlDataArr)) {
+        if (this.checkForDuplicacy('class', packageName, className, label, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Method Entry is not allowed");
           return;
         }
@@ -323,7 +325,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentClassNode': this.nodeObj['parentClassNode'],
           'selected': false,
           'leaf': false,
-	  'expanded': true,
+          'expanded': true,
           'children': []
         };
 
@@ -360,7 +362,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   /**delete node from tree */
   deleteNodeFromTree(type, label, contextMenuEvent) {
     try {
-      
+
       let xmlDataArr = [];
       if (this.nodeObj['isCreate']) {
         xmlDataArr = this.createXMLData;
@@ -460,8 +462,8 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   /** Dialog OK operation function */
   addXMLNodeToTree() {
 
-     if (this.nodeObj['type'] === 'All') {
-      if (this.nodeLabel.split('.').length == 0 || (this.nodeLabel.split('.')[1] == "" || this.nodeLabel.split('.')[0] == "") ) {
+    if (this.nodeObj['type'] === 'All') {
+      if (this.nodeLabel.split('.').length == 0 || (this.nodeLabel.split('.')[1] == "" || this.nodeLabel.split('.')[0] == "")) {
         this._configUtilityService.errorMessage('Package Name should be like [xyz.abc]');
         return;
       }
@@ -470,14 +472,14 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         this._configUtilityService.errorMessage('Package Name should not special character except `.` ');
         return;
       }
-    } else if (this.nodeObj['type'] === 'package' ) {
+    } else if (this.nodeObj['type'] === 'package') {
       var regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
       if (regex.test(this.nodeLabel)) {
         this._configUtilityService.errorMessage('Class Name should not contain special Characters');
         return;
       }
     } else if (this.nodeObj['type'] === 'class') {
-	
+
       if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') == -1) {
         this._configUtilityService.errorMessage('Method Name should be like [methodName(xyz) or methodName()]');
         return;
@@ -541,7 +543,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     }
 
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to save the changes?',	
+      message: 'Are you sure that you want to save the changes?',
       header: 'Confirmation',
       accept: () => {
         let uploadArray = [];
@@ -579,10 +581,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
             // Filling Drop Down with newly created file
             this.createDropDown(fileName, () => {
-	      this.saveXMLFileName = '';
-	      this.saveXMLFileName = '';
+              this.saveXMLFileName = '';
+              this.saveXMLFileName = '';
               this.clearWindow();
-	    });
+            });
           }
         });
 
@@ -594,9 +596,9 @@ export class ConfigImportInstrProfileComponent implements OnInit {
    * This method is responsible for deleting Selected XML file
    */
   deleteSelectedXMLFile() {
-    
+
     //If no file selected
-    if( this.selectedXMLFile == '' || this.selectedXMLFile == undefined) {
+    if (this.selectedXMLFile == '' || this.selectedXMLFile == undefined) {
       this._configUtilityService.errorMessage("No File Selected");
       return;
     }
@@ -609,10 +611,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         this._configKeywordsService.deleteXMLFile(fileName).subscribe(data => {
           if (data['status'] === 'OK') {
             this._configUtilityService.successMessage('File Deleted Successfully');
-             // Filling Drop Down with newly created file
+            // Filling Drop Down with newly created file
             this.createDropDown("filename", () => {
-	      this.clearWindow();
-	    });
+              this.clearWindow();
+            });
           }
         });
       }
@@ -667,20 +669,20 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   }
 
   /** Check for duplicate entry while adding nodes */
-  checkForDuplicacy(type , pckgName, className, methodName, arrToIterate) {
+  checkForDuplicacy(type, pckgName, className, methodName, arrToIterate) {
     let arr = arrToIterate[0]['children'];
     if (type === 'All') {
-      for (let i = 0 ; i < arr.length ; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
           return true;
         }
       }
     } else if (type === 'package') {
-      for (let i = 0 ; i < arr.length ; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
-	  if(arr[i].children.length == 0)
+          if (arr[i].children.length == 0)
             return false;
-          for (let j = 0 ; j < arr[i].children.length ; j++) {
+          for (let j = 0; j < arr[i].children.length; j++) {
             if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
               return true;
             }
@@ -688,13 +690,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         }
       }
     } else if (type === 'class') {
-      for (let i = 0 ; i < arr.length ; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
-          for (let j = 0 ; j < arr[i].children.length ; j++) {
-            if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {	
-	      if(arr[i].children[j].children.length == 0)
+          for (let j = 0; j < arr[i].children.length; j++) {
+            if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
+              if (arr[i].children[j].children.length == 0)
                 return false;
-              for (let k = 0 ; k < arr[i].children[j].children.length ; k++) {
+              for (let k = 0; k < arr[i].children[j].children.length; k++) {
                 if (methodName.toLowerCase() === arr[i].children[j].children[k].label.toLowerCase()) {
                   return true;
                 }

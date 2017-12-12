@@ -99,6 +99,10 @@ export class ExceptionFilterComponent implements OnInit {
 
 
   saveKeywordData() {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let filePath = '';
     for (let key in this.exceptionfilter) {
       if (key == 'enableSourceCodeFilters') {

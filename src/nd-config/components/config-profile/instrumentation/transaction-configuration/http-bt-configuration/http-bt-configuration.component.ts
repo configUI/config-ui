@@ -201,6 +201,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   setSelectedValueOfBT(value) {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let filePath = '';
     for (let key in this.BusinessTransGlobalPattern) {
       if (key == 'BTRuleConfig') {

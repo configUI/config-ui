@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; 
 import { Router } from '@angular/router';
 import { ConfirmationService, SelectItem } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../services/config-utility.service';
@@ -40,7 +40,7 @@ export class ConfigProfileListComponent implements OnInit {
   }
 
   loadAgentList() {
-    let key = ['Java', 'NodeJS', 'Dot Net'];
+    let key = ['Dot Net','Java','NodeJS'];
     this.agentList = ConfigUiUtility.createDropdown(key);
 
   }

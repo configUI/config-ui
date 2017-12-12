@@ -1,0 +1,184 @@
+/*-----------------------------Fonts-------------------------------*/
+@charset "UTF-8";
+
+@font-face {
+  font-family: "kpi-icon";
+  src:url("../fonts/kpi-icon.eot");
+  src:url("../fonts/kpi-icon.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/kpi-icon.woff") format("woff"),
+    url("../fonts/kpi-icon.ttf") format("truetype"),
+    url("../fonts/kpi-icon.svg#kpi-icon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "kpi-icon" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="kpi-"]:before,
+[class*=" kpi-"]:before {
+  font-family: "kpi-icon" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.kpi-android:before {
+  content: "\e012";
+}
+.kpi-cpu:before {
+  content: "\e013";
+}
+.kpi-csc:before {
+  content: "\e014";
+}
+.kpi-data-center:before {
+  content: "\e015";
+}
+.kpi-db:before {
+  content: "\e016";
+}
+.kpi-ed:before {
+  content: "\e017";
+}
+.kpi-inventory-grid:before {
+  content: "\e018";
+}
+.kpi-iphone:before {
+  content: "\e019";
+}
+.kpi-kiosk:before {
+  content: "\e01a";
+}
+.kpi-kpi:before {
+  content: "\e01b";
+}
+.kpi-mcom:before {
+  content: "\e01c";
+}
+.kpi-offer-grid:before {
+  content: "\e01d";
+}
+.kpi-pvs:before {
+  content: "\e01e";
+}
+.kpi-total-kohls:before {
+  content: "\e01f";
+}
+.kpi-webstore:before {
+  content: "\e021";
+}
+.kpi-tablet:before {
+  content: "\e022";
+}
+.kpi-tier-1:before {
+  content: "\e023";
+}
+.kpi-response-time:before {
+  content: "\e024";
+}
+.kpi-total-mobile:before {
+  content: "\e000";
+}
+
+.kpicon {
+    height: 18px;
+    margin: 0;
+    padding-top: 2px;
+    overflow: hidden;
+    float: left;
+    font-size: 1.5em;
+}
+.topicon{
+    margin: 0;
+    
+    overflow: hidden;
+    float: left;
+    font-size: 2.5em;
+}
+.edCross.top-panel-nav-cross-icon {
+    left: 0 !important;
+}
+.ed-table .ui-datatable .ui-datatable-thead > tr > th {
+    padding: 0;
+    line-height: 22px;
+}
+/*-----------------------------ED CSS------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+body {
+    font-family: 'Roboto', sans-serif !important;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+}
+.ed-table .ui-datatable .ui-datatable-thead>tr>th {
+    font-size: 11px;
+    font-weight: 500;
+    padding-left: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+.edtable .ui-datatable th.ui-state-default {
+    word-wrap: break-word;
+}
+
+.ed-toolbar .ui-toolbar.ui-widget.ui-widget-header{
+        border: 0;
+        padding: 6px 0 0; 
+        border-radius: 0;
+        height: 30px;
+}
+.ed-kpi {
+    display: inline-block;
+    margin: 4px 2px 2px;
+    padding: 2px;
+    height: 90vh;
+    overflow-y: auto;
+    border-radius: 4px;
+  }
+.timeLabel {
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 11px;
+}
+.sampleTimeClass{
+    font-weight:500;
+}
+.loadingClass{
+    color: #000;
+    z-index: 100;
+}
+
+.ed-table .ui-widget-header span.ui-rowgroup-header-name {
+    font-weight: 500;
+    text-transform: uppercase;              
+}
+
+.kpi_pvs_pky_data {
+  word-wrap: break-word;
+}
+
+.graphtimeClass .ui-state-disabled, .ui-widget:disabled {
+    opacity: 0.70 !important;
+}
+
+.timePeriodDrpClass .ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):hover{
+  background:#C1C1C1 !important;
+}

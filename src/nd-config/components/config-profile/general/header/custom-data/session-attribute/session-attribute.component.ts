@@ -550,6 +550,10 @@ export class SessionAttributeComponent implements OnInit {
 
   /* set Value of All or Specific which Selected */
   getSelectedAtribute() {
+    if(this.saveDisable == true)
+    {
+        return;
+    }
     let sessionType = { sessionType: this.selectedSessionAttribute };
     this.configKeywordsService.getSessionAttributeValue(sessionType, this.profileId).subscribe(data => this.selectedSessionAttribute = data["sessionType"]);
   }

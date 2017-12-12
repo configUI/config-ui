@@ -1,6 +1,6 @@
 <p-dataTable class="nde-ui" [value]="enableSourceCodeFiltersTableData" [(selection)]="selectedExceptionFilterData" [rows]="10" [paginator]="enableSourceCodeFiltersTableData?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"><p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
+        <span style="float: left"><p-checkbox name="groupname" value="val1" [disabled]="saveDisable" [(ngModel)]="selectedValues" binary="true" (click)="saveKeywordData()"></p-checkbox></span>
         <span style="float: left"> Apply Exception Filter </span>
 
         <span style="float :right; margin-top:-3px">

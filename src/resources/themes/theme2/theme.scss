@@ -1478,6 +1478,11 @@ a {
     background: #0e335f;
     color: #f0f0f0;
 }*/
+/**** CSS for File Browser ****/
+.btn-fileExplorer{
+    background: #0e335f;
+    color: #f0f0f0; 
+}
 
 .editFavoriteDialog .mat-dialog-title{
     color: white;
@@ -2180,4 +2185,286 @@ button.capabilityButton.mat-raised-button{
 .ddr-accordion .ui-accordion-content{
 	    background : rgba(255, 255, 255, 0.5);
         border : 1px solid #fbfbfb;
+}
+/*-------------------NEW KPI UI--------------------*/
+.ed-kpi {
+    background-color: rgba(245, 245, 245, 0.8);
+    box-shadow: 0 0 4px 2px #565656;
+}
+.ed-table .ui-datatable .ui-datatable-thead>tr>th {
+    color: #fff;
+}
+.ed-toolbar .ui-toolbar.ui-widget.ui-widget-header{
+        background: rgba(255, 255, 255, 0.58);
+        border: 0;
+}
+.sampleTimeClass{
+    color:#282828;
+}
+.timeLabel {
+    color: #373e69;
+}
+.revenue-table .ui-datatable-even {
+    background-color: rgba(207, 225, 241, 0.35);
+}
+.revenue-table .ui-datatable-odd {
+    background-color: #fff;
+}
+.ed-table .ui-widget-header {
+    background: #fff;
+    border-bottom: 1.3px #375773 solid;
+}
+.kpigrid tr.ui-state-default {
+    border: 1px solid #646cab;
+}
+.kpi_multi_pvs.ui-state-default.ui-unselectable-text{
+    background: #336dab; /*rgb(65, 126, 191);*/
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_multi_cpu.ui-state-default.ui-unselectable-text{
+    background: #336dab; /*rgb(65, 126, 191);*/
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_multi_res.ui-state-default.ui-unselectable-text{
+    background: #295b90; /*rgb(65, 126, 191);*/
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_multi_pky.ui-state-default.ui-unselectable-text{
+    background:rgba(65, 126, 191,0.8);
+    color: #000;
+    font-weight: 500;
+}
+.kpi_multi_scs.ui-state-default.ui-unselectable-text{
+    background: #85B4E5;
+    color: #000;
+    font-weight: 500;
+}
+.kpi_pvs_pky_data.ui-state-default.ui-unselectable-text{
+    background: rgba(65, 126, 191,0.35);
+    color: #000;
+}
+.kpi_pvs_scs_data.ui-state-default.ui-unselectable-text{
+    background: rgba(169, 211, 255, 0.6);
+    color: #000;
+}
+.kpi_res_pky_data.ui-state-default.ui-unselectable-text{
+    background: rgba(65, 126, 191,0.35);
+    color: #000;
+}
+.kpi_res_scs_data.ui-state-default.ui-unselectable-text{
+    background: rgba(169, 211, 255, 0.6);
+    color: #000;
+}
+.kpi_cpu_pky_data.ui-state-default.ui-unselectable-text{
+    background: rgba(65, 126, 191,0.35);
+    color: #000;
+}
+.kpi_cpu_scs_data.ui-state-default.ui-unselectable-text{
+    background: rgba(169, 211, 255, 0.6);
+    color: #000;
+}
+.kpi_total.ui-state-default.ui-unselectable-text{
+    background: rgba(65, 126, 191,1);
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_updated_mins.ui-state-default.ui-unselectable-text{
+    background: #c3dbf5;
+    color: #000;
+    font-weight: 500;
+}
+.kpi_tier_name.ui-state-default.ui-unselectable-text{
+    background: #98adc3;
+    color: #000;
+    font-weight: 500;
+}
+
+  .kpiTierName.ui-state-default.ui-unselectable-text { background:#666;}
+  .kpiKohls.ui-state-default.ui-unselectable-text{background:rgba(183, 2, 41, 1) }
+  .kpiWebstore.ui-state-default.ui-unselectable-text{background:rgba(60, 138, 213, 1)}
+  .kpiTotalMobile.ui-state-default.ui-unselectable-text{background: #4D6939}
+ .kpiMCom.ui-state-default.ui-unselectable-text{background: #da7d53}
+ .kpiTablet.ui-state-default.ui-unselectable-text{background: #64707E}
+ .kpiIphone.ui-state-default.ui-unselectable-text{background: #8A0E6E}
+  .kpiAndroid.ui-state-default.ui-unselectable-text{background: #22899A}
+ .kpiKiosk.ui-state-default.ui-unselectable-text{background: #4B57B9}
+ .kpiCSC.ui-state-default.ui-unselectable-text{background:#b5a72c}
+
+  .kohlscss{background: rgba(255, 178, 195, 0.3);}
+  .webstorecss{background: rgba(170, 209, 247, 0.3);}
+  .totalMobilecss{background:rgba(177, 206, 156, 0.3);}
+ .mComcss{background: rgba(251, 205, 184, 0.3);}
+ .tabletcss{background: rgba(167, 179, 193, 0.3);}
+ .iphonecss{background:rgba(222, 168, 210, 0.3);}
+  .androidcss{background:rgba(94, 207, 226, 0.3);}
+ .kioskcss{background:rgba(186, 195, 243, 0.3);}
+ .kpiCsccss{background:rgba(218, 209, 132, 0.3);}
+ /*------------------DDR side bar -------------*/
+.sidedbar-accordion .ui-accordion .ui-accordion-header.ui-state-active 
+{   
+    background:#245fa0 ;
+} 
+
+ .sidedbar-accordion .ui-accordion-header.ui-state-default
+      {
+         background :  rgb(77, 135, 195) ;  
+         border: 1px #4d87c3 solid;
+       }
+
+ .sidedbar-accordion .ui-accordion-header > .fa {
+     color:#FFF; } 
+
+ .sidedbar-accordion
+     {
+         background: rgba(255, 255, 255, 0.7) ;
+     }
+     
+ .sidedbar-accordion .ui-accordion-content {
+     background: transparent;
+     border: 1px solid #fbfbfb; } 
+ 
+.sidedbar-accordion.ui-state-default a:link, .ui-state-default a:visited {
+         color: black ;
+     }
+
+
+/*-----------------------Dashboard Reports CSS--------------------*/
+.dashboardrpt-box  {
+    background-color: rgba(245, 245, 245, 0.8);
+}
+.dashboard-report-menu-left-slide {
+    background: #282828;
+    color: #fff;
+}
+.dashboard-report-menu-left-slide .ui-accordion .ui-accordion-header {
+    background: #313131;
+    border-bottom: 1px #464646 solid;
+    border-radius: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.dashboard-report-menu-left-slide .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #000;
+    color: #cecece;
+}
+
+.dashboard-report-menu-left-slide .ui-widget-content {
+    background: transparent; /*#3a3a3a;*/
+    color: #cecece;
+}
+.dashboard-report-menu-left-slide .ui-widget-content a {
+    color: #cecece;
+}
+.dashboard-reports-tempate-left-content {
+   border-bottom: 1px #2d2d2d solid;
+}
+
+.dashboard-reports-available-page-top-panel {
+    background: rgba(255, 255, 255, 0.9);
+}
+.dashboard-report-context-menu-item .ui-widget-content {
+    background: #417dbc;
+}
+.dashboard-report-context-menu-item .ui-widget-content a{
+    color: #fff;
+    background: transparent;
+}
+.dashboardreports .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+    border: 1px #cecece solid;
+    background: rgba(255, 255, 255, 0.75);
+}
+.dashboardreports legend.ui-fieldset-legend {
+    background: #f7f7f7;
+}
+.dashboard-report-summary-main-div .ui-state-default a:link {
+    color: #f5f5f5;
+}
+.dashboard-report-summary-main-div .ui-accordion .ui-accordion-header {
+    background: rgb(88, 147, 222);
+    border: 1px rgb(63, 109, 169) solid;
+}
+.dashboard-report-summary-main-div .ui-state-default {
+    color: #fff;
+}
+.dashboard-report-summary-main-div .ui-accordion .ui-accordion-header.ui-state-active {
+        background: rgb(36, 95, 160);
+        color: #f5f5f5;
+        border-bottom: 1px rgb(63, 109, 169) solid;
+        border-top: 1px rgb(63, 109, 169) solid;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+}
+.dashboardrpt-modal-header {
+    background: #282828;
+    color: #fff;
+}
+.dashboard-report-alert-box /deep/ .ui-dialog.ui-widget .ui-dialog-titlebar {
+    background: #073c77;
+    color: #e0e0e0;
+}
+.dashboard-report-alert-box /deep/ .ui-dialog .ui-dialog-titlebar-close {
+    color: #e0e0e0;
+}
+.dashboard-reports-excel-template-upload /deep/ span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
+    background: #359ce4;
+}
+
+/*-----------------NetOceanUI------------------*/
+.mat-button, .mat-raised-button, .mat-icon-button {
+    font-family: Roboto, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+}
+.NO-box {
+    background-color: rgba(245, 245, 245, 0.8);
+}
+.NO-header {
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
+    color: #000;
+    background: rgba(255, 255, 255, 0.25); 
+}
+.NO-accordian .ui-state-default a:link {
+    color: #fff;
+}
+.NO-accordian .ui-accordion .ui-accordion-header{
+    background: #5893de;
+    border: 1px #3f6da9 solid;
+}
+.NO-accordian .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #245fa0;
+    border: 1px #3f6da9 solid;
+}
+.NO-fieldset fieldset.ui-fieldset.ui-widget.ui-widget-content.ui-corner-all {
+    background: rgba(255, 255, 255, 0.8);
+}
+.NO-fieldset legend.ui-fieldset-legend.ui-unselectable-text {
+    background: rgba(255, 255, 255, 0.9);
+}
+.NO-accordian .ui-widget-content {
+    background: rgba(255, 255, 255, 0.58);
+}
+.NO-modal .ui-dialog.ui-widget .ui-dialog-titlebar{
+    background: #282828;
+    color: #fff;
+    height: 30px;
+    padding: 6px;
+}
+.NO-modal .ui-dialog-titlebar-close{
+    color: #fff;
+}
+.NO-modal .ui-panel-titlebar {
+    background: #c2daea;
+    border: 1px #073c77 solid;
+}
+.NO-modal .ui-panel .ui-panel-content {
+    background: transparent;
+    border: 1px #e6e6e6 solid;
+}
+.NO-modal .ui-button.ui-state-default {
+    background: #073c77;
 }

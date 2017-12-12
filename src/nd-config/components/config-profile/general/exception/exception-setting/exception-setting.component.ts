@@ -126,6 +126,15 @@ export class ExceptionSettingComponent implements OnInit {
       else
         this.exceptionData.exceptionTraceDepth = 20;
     }
+    else if(this.exception["instrExceptions"].value == 0 || this.exception["instrExceptions"].value == "0")
+      {
+        this.exceptionData = new ExceptionData();
+        this.exceptionData.instrumentException = false;
+        this.exceptionData.exceptionCapturing = false;
+        this.exceptionData.exceptionTrace = false;
+        this.exceptionData.exceptionType = false;
+        this.exceptionData.exceptionTraceDepth = 20;
+      }
     else {
       this.exceptionData = new ExceptionData();
         this.exceptionData.instrumentException = true;
