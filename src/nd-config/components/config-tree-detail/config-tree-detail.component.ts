@@ -204,21 +204,21 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.currentEntity = CONS.TOPOLOGY.INSTANCE;
       this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.serverId = event.data.nodeId;
-      
+
       //Update the status of AI and icon when AI process id completed wh[en its duration is completed
       this.configTopologyService.durationCompletion().subscribe(data => {
         that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
           that.topologyData = data
-          
+
           if (data.length != 0) {
             that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
               that.serverDisplayName = data['_body'];
-              
+
             })
           }
         });
       })
-        this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
+      this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
     }
 
     // this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
@@ -452,8 +452,8 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   /** To split the settings and assign to dialog
     * enableAutoInstrSession=1;minStackDepthAutoInstrSession=10;autoInstrTraceLevel=1;autoInstrSampleThreshold=120;
-    * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=5;autoInstrClassWeight=10;
-    * autoInstrSessionDuration=1800
+    * autoInstrPct=60;autoDeInstrPct=80;autoInstrMapSize=100000;autoInstrMaxAvgDuration=2;autoInstrClassWeight=10;
+    * autoInstrSessionDuration=1800;autoInstrRetainChanges=0;blackListForDebugSession=NA;
     */
   splitSettings(data) {
     let arr = data.split("=");
@@ -488,7 +488,20 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
 
     //For autoInstrSessionDuration
-    this.autoInstrObj.autoInstrSessionDuration = arr[10];
+    this.autoInstrObj.autoInstrSessionDuration = arr[10].substring(0, arr[10].lastIndexOf(";"));
+
+    //For autoInstrRetainChanges
+    if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
+      this.autoInstrObj.autoInstrRetainChanges = true;
+    else
+      this.autoInstrObj.autoInstrRetainChanges = false;
+
+    //For blackListForDebugSession
+    if (arr[12] != "NA")
+      this.autoInstrObj.blackListForDebugSession = true;
+    else
+      this.autoInstrObj.blackListForDebugSession = false;
+
 
 
   }
@@ -524,12 +537,35 @@ export class ConfigTreeDetailComponent implements OnInit {
   //Create auto instrumentation settings by merging them
   createSettings(data) {
     let setting;
-    setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
-      + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
-      + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
-      + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-      + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration;
+    if (data.autoInstrRetainChanges == true) {
+      if (data.blackListForDebugSession == true)
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=Path";
+      else
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=NA";
+    }
+    else {
+      if (data.blackListForDebugSession == true)
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=Path";
+      else
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=NA";
 
+    }
     return setting;
 
   }
@@ -577,7 +613,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         if (success == "success") {
           that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-              
+
               that.topologyData = data
             });
             that.configHomeService.getAIStartStopOperationValue(true);
@@ -611,15 +647,15 @@ export class ConfigTreeDetailComponent implements OnInit {
       let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, that.t_s_i_name, that.sessionName, function (data) {
 
         //Check for successful RTC connection  
-        if (data.length != 0 || !data[0]['contains']){
-        that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
-          that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-            
-            that.topologyData = data
-          });
+        if (data.length != 0 || !data[0]['contains']) {
+          that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
+            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+
+              that.topologyData = data
+            });
             that.configHomeService.getAIStartStopOperationValue(false);
-        })
-      }
+          })
+        }
       })
 
 
@@ -652,7 +688,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrMapSize != 100000)
       strSetting = strSetting + ";autoInstrMapSize=" + data.autoInstrMapSize
 
-    if (data.autoInstrMaxAvgDuration != 5)
+    if (data.autoInstrMaxAvgDuration != 2)
       strSetting = strSetting + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration
 
     if (data.autoInstrClassWeight != 10)
@@ -660,6 +696,15 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     if (data.autoInstrSessionDuration != 1800)
       strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
+
+    if (data.autoInstrRetainChanges != false)
+      strSetting = strSetting + ";autoInstrRetainChanges=1"
+
+    if (data.blackListForDebugSession != false)
+      strSetting = strSetting + ";blackListForDebugSession=Path"
+
+    else
+      strSetting = strSetting + ";blackListForDebugSession=NA"
 
     return strSetting;
 

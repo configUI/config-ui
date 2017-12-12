@@ -47,9 +47,11 @@ export class AutoInstrSettings{
     autoInstrPct: number = 60;
     autoDeInstrPct: number = 80;
     autoInstrMapSize: number = 100000;
-    autoInstrMaxAvgDuration: number = 5;
+    autoInstrMaxAvgDuration: number = 2;
     autoInstrClassWeight: number = 10;
     autoInstrSessionDuration: number = 1800;
+    autoInstrRetainChanges: boolean = false;
+    blackListForDebugSession: boolean = true;
 
 }
 
