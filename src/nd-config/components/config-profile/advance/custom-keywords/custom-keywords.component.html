@@ -3,8 +3,11 @@
         <p-header>
             <span class="configui-float-css">Custom Configuration list </span>
             <span class="configui-float">
-            <button pButton type="button" title="Add Custom configuration" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit Custom configuration" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
+                 <button pButton type="button" title="Add Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+                 <button pButton type="button" title="Add Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
+                 <button pButton type="button" title="Edit Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
+                 <button pButton type="button" title="Edit Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
+
             <!--<button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>-->
         </span>
         </p-header>
@@ -27,7 +30,8 @@
 
         <p-column class="tableCss config-ui" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
             <template class="config-ui" let-col let-customKeywordsData="rowData" pTemplate>
-            <md-slide-toggle  class="toggle-space config-ui" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
+	    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" class="toggle-space config-ui"  [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
+            <md-slide-toggle *ngIf="!isProfilePerm" class="toggle-space config-ui" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
         </template>
         </p-column>
     </p-dataTable>
@@ -44,19 +48,19 @@
             <!--<div class="ui-g-9">
                 <input name="keywordName" [disabled]="!isNew" type="text" size="50" pInputText [(ngModel)]="customKeywords.keywordName" required autofocus ngModel/>
             </div>-->
-            
+
             <div class="ui-g-6">
                 <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
                 <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
-            <div  class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
+            <div class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
                 <div class="ui-g-2">
                     <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open" label="Browse"></button>
                 </div>
             </div>
         </div>
 
-        <div class="ui-g custom-config-dialog" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
+        <div class="ui-g custom-config-dialog" *ngIf="customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
             <div class="ui-g-3">
                 <label>Path</label>
             </div>
@@ -66,7 +70,7 @@
         </div>
 
 
-        <div class="ui-g" *ngIf="customKeywords.keywordName!='NDHTTPRepHdrCfgListL1Fp' && customKeywords.keywordName!='NDHTTPReqHdrCfgListL1Fp' && customKeywords.keywordName!='ndHttpHdrCaptureFileList' && customKeywords.keywordName!='NDHTTPRepHdrCfgListFullFp'  && customKeywords.keywordName!='NDHTTPReqHdrCfgListFullFp' && customKeywords.keywordName!='NDAppLogFile' && customKeywords.keywordName!='ndBackendMonFile' && customKeywords.keywordName!='generateExceptionConfFile' && customKeywords.keywordName!='cavNVURLFile' && customKeywords.keywordName!='NDInterfaceFile'">
+        <div class="ui-g" *ngIf="customKeywords.keywordName!='NDHTTPRepHdrCfgListL1Fp' && customKeywords.keywordName!='ndHttpHdrCaptureFileList' && customKeywords.keywordName!='NDHTTPRepHdrCfgListFullFp' && customKeywords.keywordName!='NDAppLogFile' && customKeywords.keywordName!='ndBackendMonFile' && customKeywords.keywordName!='generateExceptionConfFile' && customKeywords.keywordName!='cavNVURLFile' && customKeywords.keywordName!='NDInterfaceFile'">
             <div class="ui-g-3">
                 <label>Value</label>
             </div>

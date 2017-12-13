@@ -2,9 +2,12 @@
     <p-header>
         <span style="float: left">  Enable/Disable Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
-            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
-            <button pButton type="button"  [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
-            <button pButton class="ui-button-danger" type="button" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+                 <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service entry point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
+                 <button pButton type="button"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" title="Edit service entry point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
+                 <button pButton class="ui-button-danger" type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+                 <button pButton class="ui-button-danger" type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
         </span>
     </p-header>
 
@@ -21,7 +24,8 @@
     </p-column>
     <p-column class="tableCss config-ui" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
         <template class="config-ui" let-col let-service="rowData" pTemplate>
-            <md-slide-toggle [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
+            <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="service[col.field]"></md-slide-toggle>
+            <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
         </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
@@ -41,9 +45,13 @@
     <p-header>
         <span style="float: left">  Enable/Disable Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
-            <button pButton type="button" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
-            <button pButton type="button"  [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
-            <button pButton class="ui-button-danger" type="button" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+                 <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service entry point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
+                 <button pButton type="button"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" title="Edit service entry point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
+                 <button pButton class="ui-button-danger" type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+                 <button pButton class="ui-button-danger" type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+
         </span>
     </p-header>
 
@@ -65,7 +73,8 @@
     </p-column>
     <p-column class="tableCss config-ui" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'7%'}">
         <template class="config-ui" let-col let-service="rowData" pTemplate>
-            <md-slide-toggle [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
+            <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="service[col.field]"></md-slide-toggle>
+            <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
         </template>
     </p-column>
     <p-column class="tableCss" field="desc" header="Description" [sortable]="true" [style]="{'width':'28%'}">

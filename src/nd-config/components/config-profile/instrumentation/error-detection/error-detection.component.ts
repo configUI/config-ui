@@ -44,15 +44,17 @@ export class ErrorDetectionComponent implements OnInit {
   keywordValue: Object;
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean = false;
+  isProfilePerm: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.configKeywordsService.toggleKeywordData();
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadErrorDetectionList();
-    if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-      this.saveDisable =  true;
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+       this.saveDisable =  true;
     if (this.configKeywordsService.keywordData != undefined) {
       this.keywordValue = this.configKeywordsService.keywordData;
     }
@@ -79,9 +81,9 @@ export class ErrorDetectionComponent implements OnInit {
 
   saveKeywordData() {
     if(this.saveDisable == true)
-    {
+      {
           return;
-    }
+      }
     let filePath = '';
     for (let key in this.errorDetection) {
       if (key == 'BTErrorRules') {

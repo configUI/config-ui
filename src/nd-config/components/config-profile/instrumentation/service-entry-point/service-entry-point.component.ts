@@ -61,6 +61,8 @@ export class ServiceEntryPointComponent implements OnInit {
 
   agentType: string = "";
   type: boolean;
+  isProfilePerm: boolean;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
 
     this.agentType = sessionStorage.getItem("agentType");
@@ -76,6 +78,7 @@ export class ServiceEntryPointComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadServiceEntryPoint();
 
     if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)

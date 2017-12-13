@@ -1,100 +1,101 @@
 <div class="ndegui-mainbox">
-<div class="configUI">
-    <div class="header"><i aria-hidden="true"></i>Application List
-        <span class="appIcon-css">
-          <!--  <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>-->
-            <button pButton type="button" title="Add an application" (click)="openAppDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit an application"(click)="editAppDialog()" icon="fa-pencil" ></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete application(s)" (click)="deleteApp()" icon="fa-trash"></button>
-        </span>
-    </div>
-
-    <!--For showing application list -->
-    <div class="config-ui-table-margin">
-        <p-dataTable class="nde-ui" [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
-
-            <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-
-            <p-column class="col-overflow" field="appName" header="Name" [sortable]="true" [style]="{'width':'20%'}">
-                <template let-col let-application="rowData" pTemplate>
-                <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
-            </template>
-            </p-column>
-            <p-column class="col-overflow" field="topoName" header="Topology applied" [sortable]="true" [style]="{'width':'20%'}">
-                <template let-col let-application="rowData" pTemplate>
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
-            </p-column>
-            <p-column class="col-overflow" field="userName" header="User name" [sortable]="true" [style]="{'width':'10%'}">
-                <template let-col let-application="rowData" pTemplate>
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
-            </p-column>
-            <p-column class="col-overflow" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'15%'}">
-                <template let-col let-application="rowData" pTemplate>
-
-                <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
-            </template>
-            </p-column>
-           <p-column class="col-overflow" field="appName" header="ND Controller Settings" [sortable]="true" [style]="{'width':'11%', 'text-align':'center'}">
-                <template let-col let-application="rowData" pTemplate>
-			<a (click)="routeToNDCKeywords(application['appId'])" title="Click to open '{{application[col.field]}}' ND Controller Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
-            </template>
-            </p-column>
-            <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
-                <template let-col let-application="rowData" pTemplate>
-                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-            </template>
-            </p-column>
-        </p-dataTable>
-    </div>
-
-</div>
-<!--Dialog for adding Application-->
-</div>
-<p-dialog class="profile-dialog" header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true" [resizable]="false">
-    <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Name</label>
-            </div>
-            <div class="ui-g-8">
-                <input name="appName" type="text" class="config_app" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Application name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
-            </div>
+    <div class="configUI">
+        <div class="header"><i aria-hidden="true"></i>Application List
+            <span class="appIcon-css">
+              <!--  <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>-->
+                <button pButton type="button" title="Add an application" [disabled]="isAppPerm" (click)="openAppDialog()" icon="fa-plus"></button>
+                <button pButton type="button" title="Edit an application" [disabled]="isAppPerm" (click)="editAppDialog()" icon="fa-pencil" ></button>
+                <button pButton type="button"class="ui-button-danger" title="Delete application(s)" [disabled]="isAppPerm" (click)="deleteApp()" icon="fa-trash"></button>
+            </span>
         </div>
-
-        <!--<div class="ui-g">
+    
+        <!--For showing application list -->
+        <div class="config-ui-table-margin">
+            <p-dataTable class="nde-ui" [value]="applicationData" [(selection)]="selectedApplicationData" [rows]="15" [paginator]="applicationData?.length > 15" [pageLinks]="3">
+    
+                <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+    
+                <p-column class="col-overflow" field="appName" header="Name" [sortable]="true" [style]="{'width':'20%'}">
+                    <template let-col let-application="rowData" pTemplate>
+                    <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
+                </template>
+                </p-column>
+                <p-column class="col-overflow" field="topoName" header="Topology applied" [sortable]="true" [style]="{'width':'20%'}">
+                    <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                </template>
+                </p-column>
+                <p-column class="col-overflow" field="userName" header="User name" [sortable]="true" [style]="{'width':'10%'}">
+                    <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                </template>
+                </p-column>
+                <p-column class="col-overflow" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'15%'}">
+                    <template let-col let-application="rowData" pTemplate>
+    
+                    <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
+                </template>
+                </p-column>
+               <p-column class="col-overflow" field="appName" header="ND Controller Settings" [sortable]="true" [style]="{'width':'14%', 'text-align':'center'}">
+                    <template let-col let-application="rowData" pTemplate>
+                <a (click)="routeToNDCKeywords(application['appId'])" title="Click to open '{{application[col.field]}}' ND Controller Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
+                </template>
+                </p-column>
+                <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">
+                    <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    
+    </div>
+    <!--Dialog for adding Application-->
+    </div>
+    <p-dialog class="profile-dialog" header="{{isNewApp ? 'New Application' : 'Edit Application'}}" *ngIf="addEditAppDialog" [(visible)]="addEditAppDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+        <form (ngSubmit)="saveEditApp(groupForm)" #groupForm="ngForm" ngNativeValidate>
+            <div class="ui-g">
                 <div class="ui-g-4">
-                    <label>User Name</label>
+                    <label>Name</label>
                 </div>
                 <div class="ui-g-8">
-                    <input name="userName" type="text" size="30" pInputText [disabled]="true" [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                        required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+                    <input name="appName" type="text" class="config_app" pInputText [(ngModel)]="applicationDetail.appName" title="Please enter valid application name. &#013;Application name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
                 </div>
-            </div>-->
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Topology</label>
             </div>
-            <div class="ui-g-8">
-                <input name="topoId" type="text" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
-                <p-dropdown name="topoId" [options]="topologySelectItem" placeholder="--Select Topology--" [style]="{'width':'72%','margin-left': '-19px'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+    
+            <!--<div class="ui-g">
+                    <div class="ui-g-4">
+                        <label>User Name</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input name="userName" type="text" size="30" pInputText [disabled]="true" [(ngModel)]="applicationDetail.userName" title="Please enter valid user name. &#013;Group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                            required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" ngModel />
+                    </div>
+                </div>-->
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Topology</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="applicationDetail.topoId" required ngModel/>
+                    <p-dropdown name="topoId" [options]="topologySelectItem" placeholder="--Select Topology--" [style]="{'width':'72%','margin-left': '-19px'}" [(ngModel)]="applicationDetail.topoId" appendTo="body" required ngModel></p-dropdown>
+                </div>
             </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Description</label>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Description</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea name="appDesc" rows="2" cols="31" class="config_app" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
+                </div>
             </div>
-            <div class="ui-g-8">
-                <textarea name="appDesc" rows="2" cols="31" class="config_app" pInputTextarea [(ngModel)]="applicationDetail.appDesc" ngModel></textarea>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+                </div>
+            </footer>
+        </form>
+    </p-dialog>
+    

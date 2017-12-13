@@ -31,7 +31,7 @@ export class ExceptionComponent implements OnInit {
   nodeData: NodeData;
   trData: TRData;
   className: string = "Exception Component";
-  
+  agentType:string = "";  
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();
@@ -48,8 +48,6 @@ export class ExceptionComponent implements OnInit {
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
-  agentType: string = "";
-
    constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
      private route: ActivatedRoute,
@@ -58,7 +56,7 @@ export class ExceptionComponent implements OnInit {
     private configHomeService: ConfigHomeService,
     private store: Store<KeywordList>
   ) {
-    this.agentType = sessionStorage.getItem("agentType");    
+    this.agentType = sessionStorage.getItem("agentType");
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -79,7 +77,7 @@ export class ExceptionComponent implements OnInit {
        this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
       this.index = params['tabId']
     });
 

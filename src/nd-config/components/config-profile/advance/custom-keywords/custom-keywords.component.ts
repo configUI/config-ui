@@ -44,9 +44,9 @@ export class CustomKeywordsComponent implements OnInit {
   //list holding keywordsNameList
   customKeywordsList = [];
 
-  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob","NDHTTPRepHdrCfgListL1Fp", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailmapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPRepHdrCfgListFullFp", "ASTraceLevel"];
+  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "NDHTTPReqHdrCfgListL1Fp", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailmapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "ASTraceLevel"];
   nodeJsCustomKeywordsList = ["ndExceptionFilterList", "enableBackendMonTrace", "enableForcedFPChain", "captureHttpTraceLevel", "maxCharInSeqBlob", "bciMaxNonServiceMethodsPerFP", "bciDataBufferMaxCount", "bciDataBufferMaxSize", "ASDataBufferSize", "ASDataBufferMaxCount", "NVCookie"];
-  dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp","NDHTTPReqHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
+  dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp", "NDHTTPReqHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
 
   subscription: Subscription;
 
@@ -57,6 +57,7 @@ export class CustomKeywordsComponent implements OnInit {
   isValueDisabled: boolean = false;
 
   agentType: string = "";
+  isProfilePerm: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
 
@@ -108,6 +109,7 @@ export class CustomKeywordsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => { this.profileId = params['profileId']; })
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);

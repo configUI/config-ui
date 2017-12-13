@@ -2,12 +2,15 @@
     <div class="tabsincontent">
         <div class="header">Exception settings
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" [disabled]="saveDisable  || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
-
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable  || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
+		<button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
+		<button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+		<button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable  || !enableGroupKeyword" label="Save"></button>
             </div>
         </div>
-    </div>
+<p-panel class="hideheader">
+  <div style="margin: 5px 0px" class="flowpathheader-accordion">
+   <div style="margin-top:17px"></div>
     <p-fieldset legend="Exception Settings" [toggleable]="true" [collapsed]="false">
         <div class="ui-g">
             <div class="ui-g-12">
@@ -42,11 +45,11 @@
                 <p-checkbox name="enableExceptionInSeqBlob" binary="true" label="Enable exception capturing in sequence Blob" [(ngModel)]="exception.enableExceptionInSeqBlob.value"></p-checkbox>
             </div>
         </div> -->
-    </p-fieldset>
+    </p-fieldset><br>
 
 
 
-    <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java' || agentType == '-'">
+    <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java'">
         <div class="ui-g-12">
             <span style="font-weight: bold">Source Code Capturing</span>
         </div>
@@ -75,4 +78,8 @@
             <p-radioButton name="enable" value=7 label="Stack trace with source code, class variables, method parameters, local variables , threadLocal variables and variables inside Objects only" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
         </div>
     </p-fieldset>
+</div>
+</p-panel>
+</div>
 </form>
+

@@ -1,41 +1,6 @@
 <div class="ui-g-12" id=top-div>
-    <div class="ui-g configUI_card-css">
-        <div class="ui-g-6" *ngIf="agentType == 'Java' || agentType == '-'">
-            <md-card>
-                <md-card-content>
-                    <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL SETTINGS</a></div>
-                    <div class="ui-g config-ui">
-                        <div class="ui-g-8 card-toggle">
-                            <div>
-                                <!--keywordGroup {{keywordGroup.general | json}}-->
-
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
-                            </div>
-                            <!--<div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread CPU Monitor</a></md-slide-toggle>
-                            </div>-->
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Capture Exception</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flowpath Header</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="ui-g-4">
-                            <i class="fa fa-users icon_big"></i>
-                        </div>
-                    </div>
-                </md-card-content>
-            </md-card>
-        </div>
-
-        <div class="ui-g-6" *ngIf="agentType == 'NodeJS'">
+        <div class="ui-g configUI_card-css">
+            <div class="ui-g-6"  *ngIf="agentType == 'Java' || agentType == '-'">
                 <md-card>
                     <md-card-content>
                         <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL SETTINGS</a></div>
@@ -44,16 +9,27 @@
                                 <div>
                                     <!--keywordGroup {{keywordGroup.general | json}}-->
     
-                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
                                 </div>
                                 <div>
-                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                    <md-slide-toggle  *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                </div>
+                                <!--<div>
+                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('thread_stats')" [(ngModel)]="keywordGroup.general.thread_stats.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">JVM Thread CPU Monitor</a></md-slide-toggle>
+                                </div>-->
+                                <div>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Capture Exception</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('exception')" [(ngModel)]="keywordGroup.general.exception.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Capture Exception</a></md-slide-toggle>
                                 </div>
                                 <div>
-                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Flowpath Header</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flowpath Header</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flowpath Header</a></md-slide-toggle>
                                 </div>
                                 <div>
-                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
                                 </div>
                             </div>
                             <div class="ui-g-4">
@@ -63,8 +39,7 @@
                     </md-card-content>
                 </md-card>
             </div>
-
-            <div class="ui-g-6" *ngIf="agentType == 'Dot Net'">
+            <div class="ui-g-6"  *ngIf="agentType =='NodeJS'">
                     <md-card>
                         <md-card-content>
                             <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL SETTINGS</a></div>
@@ -73,13 +48,20 @@
                                     <div>
                                         <!--keywordGroup {{keywordGroup.general | json}}-->
         
-                                        <md-slide-toggle [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
                                     </div>
                                     <div>
-                                        <md-slide-toggle [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                        <md-slide-toggle  *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
                                     </div>
                                     <div>
-                                        <md-slide-toggle [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Flowpath Header</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Flowpath Header</a></md-slide-toggle>
+                                    </div>
+                                    <div>
+                                        <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
                                     </div>
                                 </div>
                                 <div class="ui-g-4">
@@ -89,54 +71,35 @@
                         </md-card-content>
                     </md-card>
                 </div>
-        <div class="ui-g-6" *ngIf="agentType != 'NodeJS'">
-            <md-card>
-                <md-card-content>
-                    <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION SETTINGS</a></div>
-                    <div class="ui-g">
-                        <div class="ui-g-8">
-                            <ul class="intrumentation">
-                                <li *ngIf="agentType != 'NodeJS'">
-                                    <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Service Entry Point</a>
-                                </li>
-                                <li *ngIf="agentType != 'NodeJS'">
-                                    <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Integration Point Detection</a>
-                                </li>
-                                <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Transaction Configuration</a>
-                                </li>
-                                <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 3]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Instrument Monitors</a>
-                                </li>
-                                <li>
-                                    <a [routerLink]="['../../instrumentation', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error Detection</a>
-                                </li>
-                            </ul>
-                            <!--<div>
-                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('')" [(ngModel)]="instrumentation.service_entry_point"><a [routerLink]="['../../instrumentation', profileId, 0]" class="contents">Service Entry Point</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('')" [(ngModel)]="instrumentation.integration_pt_detection"><a [routerLink]="['../../instrumentation', profileId, 1]" class="contents">Integration Point Detection</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('')" [(ngModel)]="instrumentation.transaction_configuration"><a [routerLink]="['../../instrumentation', profileId, 2]" class="contents">Transaction Configuration</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('')" [(ngModel)]="instrumentation.instrument_monitors"><a [routerLink]="['../../instrumentation', profileId, 3]" class="contents">Instrument Monitors</a></md-slide-toggle>
-                            </div>
-                            <div>
-                                 <md-slide-toggle [disabled]="toggleDisable" (click)="change('')" [(ngModel)]="instrumentation.error_detection"><a [routerLink]="['../../instrumentation', profileId, 4]" class="contents">Error detection</a></md-slide-toggle>
-                            </div>-->
-                        </div>
-                        <div class="ui-g-4">
-                            <i class="fa fa-cube icon_big"></i>
-                        </div>
+                <div class="ui-g-6"  *ngIf="agentType =='Dot Net'">
+                        <md-card>
+                            <md-card-content>
+                                <div class="heading"><a [routerLink]="['../../general', profileId, 0]">GENERAL SETTINGS</a></div>
+                                <div class="ui-g config-ui">
+                                    <div class="ui-g-8 card-toggle">
+                                        <div>
+                                            <!--keywordGroup {{keywordGroup.general | json}}-->
+            
+                                            <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
+                                            <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('flowpath')" [(ngModel)]="keywordGroup.general.flowpath.enable"><a [routerLink]="['../../general', profileId, 0]" class="contents">Flowpath</a></md-slide-toggle>
+                                        </div>
+                                        <div>
+                                            <md-slide-toggle  *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                            <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('hotspot')" [(ngModel)]="keywordGroup.general.hotspot.enable"><a [routerLink]="['../../general', profileId, 1]" class="contents">Hotspot</a></md-slide-toggle>
+                                        </div>
+                                        <div>
+                                            <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
+                                            <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Instrumentation Profiles</a></md-slide-toggle>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-4">
+                                        <i class="fa fa-users icon_big"></i>
+                                    </div>
+                                </div>
+                            </md-card-content>
+                        </md-card>
                     </div>
-                </md-card-content>
-            </md-card>
-        </div>
-
-        <div class="ui-g-6" *ngIf="agentType == 'NodeJS'">
+            <div class="ui-g-6"  *ngIf="agentType != 'NodeJS'">
                 <md-card>
                     <md-card-content>
                         <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION SETTINGS</a></div>
@@ -144,13 +107,19 @@
                             <div class="ui-g-8">
                                 <ul class="intrumentation">
                                     <li>
-                                        <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Transaction Configuration</a>
+                                        <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Service Entry Point</a>
                                     </li>
                                     <li>
-                                        <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Instrument Monitors</a>
+                                        <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Integration Point Detection</a>
                                     </li>
                                     <li>
-                                        <a [routerLink]="['../../instrumentation', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error Detection</a>
+                                        <a [routerLink]="['../../instrumentation', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Transaction Configuration</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['../../instrumentation', profileId, 3]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Instrument Monitors</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['../../instrumentation', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error Detection</a>
                                     </li>
                                 </ul>
                             </div>
@@ -161,67 +130,69 @@
                     </md-card-content>
                 </md-card>
             </div>
-
-    </div>
-    <div class="ui-g configUI_card-css">
-        <div class="ui-g-6" *ngIf="agentType == 'Java' || agentType == '-'">
-            <md-card>
-                <md-card-content>
-                    <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
-                    <div class="ui-g config-ui">
-                        <div class="ui-g-8 card-toggle">
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
+            <div class="ui-g-6"  *ngIf="agentType == 'NodeJS'">
+                    <md-card>
+                        <md-card-content>
+                            <div class="heading"><a [routerLink]="['../../instrumentation', profileId, 0]">INSTRUMENTATION SETTINGS</a></div>
+                            <div class="ui-g">
+                                <div class="ui-g-8">
+                                    <ul class="intrumentation">
+                                        <li>
+                                            <a [routerLink]="['../../instrumentation', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Transaction Configuration</a>
+                                        </li>
+                                        <li>
+                                            <a [routerLink]="['../../instrumentation', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Instrument Monitors</a>
+                                        </li>
+                                        <li>
+                                            <a [routerLink]="['../../instrumentation', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error Detection</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="ui-g-4">
+                                    <i class="fa fa-cube icon_big"></i>
+                                </div>
                             </div>
-                            <!--<div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('backend_monitors')" [(ngModel)]="keywordGroup.advance.backend_monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Backend Monitor</a></md-slide-toggle>
-                            </div>-->
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
-                            </div>
-                            <div *ngIf="adminMode">
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Put Delay in Method</a></md-slide-toggle>
-                            </div>
-                            <div *ngIf="adminMode">
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
-                            </div>
-
-                            <!--<div *ngIf="adminMode" >
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Custom Keywords</a></md-slide-toggle>
-                            </div>-->
-                            <!--disabling of custom keywords-->
-                            <!-- <div *ngIf="adminMode">
-                                <md-slide-toggle [disabled]="true"><a [routerLink]="['../../advance', profileId, 4]">Custom Configuration</a></md-slide-toggle>
-                            </div> -->
-                        <div *ngIf="adminMode">
-                            <ul style="margin-left:-35px">
-                                    <a [routerLink]="['../../advance', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true" style="padding-right:7%"></i>Custom Configuration</a>     
-                            </ul>
-                        </div>
-                        </div>
-                        <div class="ui-g-4">
-                            <i class="fa fa-cog icon_big"></i>
-                        </div>
-                    </div>
-                </md-card-content>
-            </md-card>
+                        </md-card-content>
+                    </md-card>
+                </div>
         </div>
-
-        <div class="ui-g-6" *ngIf="agentType != 'Java' && agentType != '-'">
+        <div class="ui-g configUI_card-css">
+            <div class="ui-g-6" *ngIf="agentType == 'Java' || agentType == '-'">
                 <md-card>
                     <md-card-content>
                         <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
                         <div class="ui-g config-ui">
                             <div class="ui-g-8 card-toggle">
                                 <div>
-                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
                                 </div>
+                                <!--<div>
+                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('backend_monitors')" [(ngModel)]="keywordGroup.advance.backend_monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Backend Monitor</a></md-slide-toggle>
+                                </div>-->
                                 <div>
-                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
                                 </div>
+                                <div *ngIf="adminMode">
+				    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Put Delay in Method</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('delay')" [(ngModel)]="keywordGroup.advance.delay.enable"><a [routerLink]="['../../advance', profileId, 2]" class="contents">Put Delay in Method</a></md-slide-toggle>
+                                </div>
+                                <div *ngIf="adminMode">
+				    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('generate_exception')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 3]" class="contents">Generate Exception in Method</a></md-slide-toggle>
+                                </div>
+    
+                                <!--<div *ngIf="adminMode" >
+                                    <md-slide-toggle [disabled]="toggleDisable" (click)="change('customKeywords')" [(ngModel)]="keywordGroup.advance.generate_exception.enable"><a [routerLink]="['../../advance', profileId, 4]" class="contents">Custom Keywords</a></md-slide-toggle>
+                                </div>-->
+                                <!--disabling of custom keywords-->
+                                <!-- <div *ngIf="adminMode">
+                                    <md-slide-toggle [disabled]="true"><a [routerLink]="['../../advance', profileId, 4]">Custom Configuration</a></md-slide-toggle>
+                                </div> -->
                             <div *ngIf="adminMode">
                                 <ul style="margin-left:-35px">
-                                        <a [routerLink]="['../../advance', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true" style="padding-right:7%"></i>Custom Configuration</a>     
+                                        <a [routerLink]="['../../advance', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true" style="padding-right:7%"></i>Custom Configuration</a>     
                                 </ul>
                             </div>
                             </div>
@@ -232,23 +203,54 @@
                     </md-card-content>
                 </md-card>
             </div>
-        <div class="ui-g-6">
-            <md-card>
-                <md-card-content>
-
-                    <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION SETTINGS</a></div>
-                    <div class="ui-g config-ui">
-                        <div class="ui-g-8 card-toggle">
-                            <div>
-                                <md-slide-toggle [disabled]="toggleDisable" (click)="change('nvcookie')" [(ngModel)]="keywordGroup.product_integration.nvcookie.enable"><a [routerLink]="['../../integration', profileId, 0]" class="contents">NV-ND Sessions</a></md-slide-toggle>
+            <div class="ui-g-6" *ngIf="agentType != 'Java' && agentType != '-'">
+                    <md-card>
+                        <md-card-content>
+                            <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
+                            <div class="ui-g config-ui">
+                                <div class="ui-g-8 card-toggle">
+                                    <div>
+                                        <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('debug')" [(ngModel)]="keywordGroup.advance.debug.enable"><a [routerLink]="['../../advance', profileId, 0]" class="contents">Debug Level</a></md-slide-toggle>
+                                    </div>
+                                    <!--<div>
+                                        <md-slide-toggle [disabled]="toggleDisable" (click)="change('backend_monitors')" [(ngModel)]="keywordGroup.advance.backend_monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Backend Monitor</a></md-slide-toggle>
+                                    </div>-->
+                                    <div>
+                                        <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
+                                        <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('monitors')" [(ngModel)]="keywordGroup.advance.monitors.enable"><a [routerLink]="['../../advance', profileId, 1]" class="contents">Monitors</a></md-slide-toggle>
+                                    </div>
+                                <div>
+                                    <ul style="margin-left:-35px">
+                                            <a [routerLink]="['../../advance', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true" style="padding-right:7%"></i>Custom Configuration</a>
+                                    </ul>
+                                </div>
+                                </div>
+                                <div class="ui-g-4">
+                                    <i class="fa fa-cog icon_big"></i>
+                                </div>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            <div class="ui-g-6">
+                <md-card>
+                    <md-card-content>
+    
+                        <div class="heading"><a [routerLink]="['../../integration', profileId, 0]">PRODUCT INTEGRATION SETTINGS</a></div>
+                        <div class="ui-g config-ui">
+                            <div class="ui-g-8 card-toggle">
+                                <div>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.product_integration.nvcookie.enable"><a [routerLink]="['../../integration', profileId, 0]" class="contents">NV-ND Sessions</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('nvcookie')" [(ngModel)]="keywordGroup.product_integration.nvcookie.enable"><a [routerLink]="['../../integration', profileId, 0]" class="contents">NV-ND Sessions</a></md-slide-toggle>
+                                </div>
+                            </div>
+                            <div class="ui-g-4">
+                                <i class="fa fa-refresh icon_big"></i>
                             </div>
                         </div>
-                        <div class="ui-g-4">
-                            <i class="fa fa-refresh icon_big"></i>
-                        </div>
-                    </div>
-                </md-card-content>
-            </md-card>
+                    </md-card-content>
+                </md-card>
+            </div>
         </div>
     </div>
-</div>
