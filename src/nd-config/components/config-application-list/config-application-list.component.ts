@@ -59,7 +59,7 @@ export class ConfigApplicationListComponent implements OnInit {
   /**Getting application list data */
   loadApplicationData(): void {
     this.configApplicationService.getApplicationList().subscribe(data => {
-        this.applicationData = data
+        this.applicationData = data.reverse();
         this.loadTopologyData();
   });
   }
@@ -175,8 +175,9 @@ export class ConfigApplicationListComponent implements OnInit {
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
         this.applicationData=ImmutableArray.push(this.applicationData,data);
         this.configUtilityService.successMessage(Messages);
+        this.loadApplicationData();
       });
-    this.closeDialog();
+    this.closeDialog(); 
   }
 
   /**This method is used to edit application detail */
@@ -196,6 +197,8 @@ export class ConfigApplicationListComponent implements OnInit {
         this.configUtilityService.successMessage(Messages);
         //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.applicationData=ImmutableArray.replace(this.applicationData,data,index);
+        this.loadApplicationData();
+        this.selectedApplicationData.length = 0;
       });
     this.closeDialog();
   }
@@ -242,7 +245,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
     this.applicationData = deleteMany(this.applicationData, rowIndex);
     //clearing the array used for storing selected row
-    this.selectedApplicationData = [];
+    this.selectedApplicationData = [];  
   }
 
   routeToTree(selectedAppId, selectedAppName) {
@@ -253,6 +256,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   //Route to NDC Keyword 
   routeToNDCKeywords(selectedAppId){
+    sessionStorage.setItem("agentType", "");
     this.router.navigate([ROUTING_PATH + '/application-list/ndc-keywords-setting', selectedAppId])
   }
 
