@@ -21,6 +21,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   subscriptionKeywordGroup: Subscription;
 
   adminMode: boolean;
+  isProfilePerm: boolean;
   agentType: string = "";
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configHomeService: ConfigHomeService, private store: Store<KeywordList>) {
@@ -30,6 +31,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId']
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)

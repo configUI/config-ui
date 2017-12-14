@@ -34,6 +34,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverDisplayName: string = "";
   t_s_i_name: string = "";
   sessionName: string = "";
+  perm: boolean;
+  noProfilePerm: boolean;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -96,6 +98,11 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverId: any;
 
   ngOnInit() {
+     if(+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("TopologyAccess") == 4)
+     this.perm=true;
+     else
+     this.perm=false;
+     this.noProfilePerm=+sessionStorage.getItem("ProfileAccess") == 0 ? true: false;
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
     //no need to call when store used [TO DO's]
 
@@ -712,5 +719,8 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   }
 
+    accessMessage(){
+      this.configUtilityService.errorMessage("Permission Denied!!!")
+   }
 
 }

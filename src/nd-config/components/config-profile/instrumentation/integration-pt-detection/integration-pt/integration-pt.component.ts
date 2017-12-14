@@ -59,6 +59,7 @@ export class IntegrationPtComponent implements OnInit {
 
   endPoint: EndPoint[];
   agentType: string = "";
+  isProfilePerm: boolean;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
     this.agentType = sessionStorage.getItem("agentType");
@@ -75,6 +76,7 @@ export class IntegrationPtComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
@@ -86,22 +88,13 @@ export class IntegrationPtComponent implements OnInit {
 
   /**This method is called to load Data in Table */
   loadIntegrationPTDetectionList() {
-    this.route.params.subscribe((params: Params) => {
-      this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
-    });
+
     this.configKeywordsService.getIntegrationPTDetectionList(this.profileId).subscribe(data => {
       this.ipDetectionData = data["backendDetail"];
     });
   }
 
   loadBackendInfoList() {
-    this.route.params.subscribe((params: Params) => {
-      this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
-    });
     this.configKeywordsService.getBackendList(this.profileId).subscribe(data => {
       this.backendInfo = data;
       this.createBackendTypeSelectItem();
@@ -186,6 +179,10 @@ export class IntegrationPtComponent implements OnInit {
   }
 
   onRowSelect() {
+   if(this.isProfilePerm){
+     this.detailDialog = false;
+   }
+   else
     this.detailDialog = true;
     this.integrationDetail = cloneObject(this.selectedIpDetectionData);
   }

@@ -69,7 +69,6 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this.autoDiscoverDetail.agents = this.adrFile;
 
     }
-    
 
     createDropDown() {
         this._configKeywordsService.getInstrumentationProfileXMLFileList("").subscribe(data => {
@@ -107,9 +106,18 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     nodeExpand(event) {
         if (event.node.children.length == 0) {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
-            this._configKeywordsService.getClassDiscoverTreeData(nodeInfo, this.reqId, this.instanceFileName).subscribe(data => event.node.children = data.node);
+            this._configKeywordsService.getClassDiscoverTreeData(nodeInfo, this.reqId, this.instanceFileName).subscribe(data => 
+            {
+                if(!(data.node[0]["label"] == null))
+                {
+                    event.node.children = data.node
+                }
+                else
+                event.node["leaf"] = true;
+            });
+          }
         }
-    }
+    
 
     getValuesForSelectedList() {
         this.selectedNodes = [];

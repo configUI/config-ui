@@ -30,17 +30,19 @@ export class ConfigProfileListComponent implements OnInit {
   showMsg: boolean = false;
   displayErrMsg = [];
 
+  isProfilePerm: boolean;
   ROUTING_PATH = ROUTING_PATH;
 
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadProfileList();
     this.loadAgentList();
   }
 
   loadAgentList() {
-    let key = ['Dot Net', 'Java', 'NodeJS'];
+    let key = ['Dot Net','Java', 'NodeJS'];
     this.agentList = ConfigUiUtility.createDropdown(key);
 
   }
@@ -59,7 +61,6 @@ export class ConfigProfileListComponent implements OnInit {
       for (let i = 0; i < tempArray.length; i++) {
         this.profileData.push(tempArray[i]);
       }
-
     });
   }
 

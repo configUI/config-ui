@@ -41,6 +41,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   includedExceptionChk: boolean = true;
   excludedExceptionChk: boolean = true;
   agentType: string ="";
+  isProfilePerm: boolean;
 
   /**Value for the keyword ASPositiveThreadFilters
    * Thread1&Thread2&Thread3
@@ -76,6 +77,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+	this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
   }
 
   /*

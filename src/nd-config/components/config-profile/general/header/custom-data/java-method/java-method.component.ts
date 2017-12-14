@@ -137,7 +137,7 @@ export class JavaMethodComponent implements OnInit {
     this.DATA_TYPE.CHAR
   ];
 
-
+  isProfilePerm: boolean;
 
   //receiving data from store
   constructor(private route: ActivatedRoute, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
@@ -152,13 +152,14 @@ export class JavaMethodComponent implements OnInit {
 
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadJavaMethodBasedCustomData()
   }
 
   loadJavaMethodBasedCustomData() {
     this.route.params.subscribe((params: Params) => {this.profileId = params['profileId'];
-    if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-      this.saveDisable =  true;
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+       this.saveDisable =  true;
   });
     this.configCustomDataService.getMethodBasedCustomData(this.profileId).subscribe(data => {
       this.modifyData(data)

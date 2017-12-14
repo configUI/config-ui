@@ -30,12 +30,13 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   agents: any[] = [];
 
   instanceList: any[] = [];
-
+  isProfilePerm: boolean;
   adrFile: any;
 
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.autoDiscoverDetail = new AutoDiscoverData();
     this.loadNDAgentStatusData();
     this.loadAdrFiles();    

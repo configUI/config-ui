@@ -1,7 +1,7 @@
 <div class="">
     <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
         <span class="appIcon-css">
-            <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
+		<button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()" icon="fa-pencil" ></button>
         </span>
     </div>
 
@@ -10,7 +10,8 @@
 
         <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
             <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
-          <a class="hyperlink" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+                <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
+                <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
         </template>
             <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
                 <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
@@ -154,7 +155,7 @@
             </div>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
-            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Instrumentation from Instrumented classes when AI session is finished" binary="true" ngModel></p-checkbox>
+            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Instrumentation from Instrumented classes when AI session is finished " binary="true" ngModel></p-checkbox>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
             <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>

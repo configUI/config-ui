@@ -2,8 +2,12 @@
     <div class="tabsincontent">
         <div class="header">Integration Point Settings
             <div class="pull-right">
-                <button type="button" pButton icon="fa-refresh" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable" label="Save"></button>
+                     <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
+                     <button type="button"  pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
+                     <button type="submit" *ngIf="isProfilePerm" [disabled]="isProfilePerm" pButton icon="fa-check" label="Save"></button>
+                     <button type="submit" *ngIf="!isProfilePerm" pButton icon="fa-check" [disabled]="saveDisable" label="Save"></button>
+
+
             </div>
         </div>
         <p-panel class="hideheader">

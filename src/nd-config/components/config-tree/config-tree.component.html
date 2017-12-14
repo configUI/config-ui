@@ -1,4 +1,5 @@
-<p-checkbox name="enableAutoScaling" binary=true label="Show Server(s) and Instance(s)" (click)="showServerInstance()" [(ngModel)]="enableAutoScaling"></p-checkbox>
+<p-checkbox name="enableAutoScaling" binary=true label="Show Server(s) and Instance(s)" *ngIf="perm" [disabled]="perm" [(ngModel)]="enableAutoScaling"></p-checkbox>
+<p-checkbox *ngIf="!perm" name="enableAutoScaling" binary=true label="Show Server(s) and Instance(s)" (click)="showServerInstance()" [(ngModel)]="enableAutoScaling"></p-checkbox>
 <p></p>
 <p-tree [value]="files" 
         selectionMode="single" 

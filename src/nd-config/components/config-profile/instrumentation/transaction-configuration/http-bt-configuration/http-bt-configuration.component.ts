@@ -84,6 +84,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   isBTPatternBrowse: boolean = false;
 
+  isProfilePerm: boolean;
   subscription: Subscription;
 
   reqParamKeyCheck: boolean = false;
@@ -162,9 +163,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
         this.saveDisable =  true;
     });
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => {

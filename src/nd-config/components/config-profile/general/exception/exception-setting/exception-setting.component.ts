@@ -32,10 +32,11 @@ export class ExceptionSettingComponent implements OnInit {
   // selectedValue: string = 'unhandled';
   enableGroupKeyword: boolean;
   keywordValue: Object;
+  isProfilePerm: boolean;
   agentType: string = "";
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-    this.agentType = sessionStorage.getItem("agentType");    
+    this.agentType = sessionStorage.getItem("agentType");
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
     this.getKeywordData();
     configKeywordsService.toggleKeywordData();
@@ -46,10 +47,11 @@ export class ExceptionSettingComponent implements OnInit {
   exceptionForm: boolean = true;
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;      
       this.index = params['tabId'];
     });
 

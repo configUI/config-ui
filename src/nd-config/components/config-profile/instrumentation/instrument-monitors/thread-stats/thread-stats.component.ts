@@ -30,14 +30,15 @@ export class ThreadStatsComponent implements OnInit {
   /**It stores keyword data for showing in GUI */
   threadStats: Object;
   enableGroupKeyword: boolean;
-
+  isProfilePerm: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.getKeywordData();
-    if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-      this.saveDisable =  true;
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+       this.saveDisable =  true;
     console.log("hi",this.profileId);
   }
 

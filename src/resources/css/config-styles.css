@@ -1070,3 +1070,15 @@ body {
     float: left;
     font-size: 2.2em;
 }
+
+.dotnet-color {
+    color: blue;
+}
+
+.java-color {
+    color: rgba(255, 68, 0, 0.596);
+}
+
+.nodejs-color {
+    color: green;
+}

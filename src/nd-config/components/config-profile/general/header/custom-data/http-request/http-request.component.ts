@@ -55,6 +55,8 @@ export class HttpRequestComponent implements OnInit {
 
    selectedHTTPReqHdrType: string;
 
+   isProfilePerm: boolean;
+
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     this.customValueType = [];
     this.rulesDataInfo = [];
@@ -64,6 +66,7 @@ export class HttpRequestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadHTTPReqHeaderDetails();
   }
 
@@ -71,7 +74,7 @@ export class HttpRequestComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
     });
     this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => {this.doAssignHttpAttributeTableData(data);
       if (data["httpReqHdrType"] == "Specific") {
@@ -613,9 +616,9 @@ export class HttpRequestComponent implements OnInit {
   /* set Value of All or Specific which Selected */
   getSelectedHTTPReqHdr() {
     if(this.saveDisable == true)
-    {
+      {
         return;
-    }
+      }
     let httpReqHdrType = { httpReqHdrType: this.selectedHTTPReqHdrType };
     this.configKeywordsService.getHTTPRequestValue(httpReqHdrType, this.profileId).subscribe(data => this.selectedHTTPReqHdrType = data["httpReqHdrType"]);
 

@@ -62,11 +62,12 @@ export class HttpStatsMonitorsComponent implements OnInit {
 
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
-
+  isProfilePerm: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadHttpStatsMonitorList();
     this.loadFlowDumpData();
     this.loadHeaderType();
@@ -114,7 +115,6 @@ export class HttpStatsMonitorsComponent implements OnInit {
     {
         return;
     }
-
     let filePath = '';
     for (let key in this.HttpStatsMonitor) {
       if (key == 'HTTPStatsCondCfg') {
@@ -151,7 +151,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
     });
     this.configKeywordsService.getHttpStatsMonitorList(this.profileId).subscribe(data => {
       this.httpStatsMonitorData = data;
