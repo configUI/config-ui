@@ -13,15 +13,17 @@
             <div style="margin: 5px 0px" class="flowpathheader-accordion" *ngIf="agentType == 'Java' || agentType == '-'">
                             <p-fieldset legend="Hotspot Detection Settings" [toggleable]="true">
                                 <div class="ui-g">
-                                    <div class="ui-g-4" style="width: 23%;">
-                                        <label>Sampling interval for collecting thread information</label>
+                                    <div class="ui-g-2">
+                                        <label>Thread Sampling Interval</label>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
                                     </div>
                                     <div class="ui-g-2">
                                         <input name="sampleInterval" type="number" class="configui-hotspot-css" title="Set this to 0 if you don't need this feature" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}}
                                             required ngModel /> (ms)
                                     </div>
-                                    <div class="ui-g-3" style="width: 16%; margin-left: -2%;">
-                                        <label>Stack level for matching hotspot</label>
+                                    <div class="ui-g-3" style="margin-left: -47px;margin-top: 2px;">
+                                        <label>Consecutive matching samples to mark as Hotspot</label>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace"></i>
                                     </div>
                                     <div class="ui-g-1">
                                         <input name="matchCount" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
@@ -41,8 +43,9 @@
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
-                                    <div class="ui-g-4 configui-hotspot-css-2" style="width: 23%;">
-                                        <label>Max stack depth in sample for method hotspot</label>
+                                    <div class="ui-g-4 configui-hotspot-css-2">
+                                        <label>Maximum stack depth difference in consecutive matching samples</label>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="To consider a method as a Hotspot,search stuck methods in consecutive thread samples whose stack depth difference is not more than the specified value"></i>
                                     </div>
                                     <div class="ui-g-1">
                                         <input name="maxStackSizeDiff" disabled="{{!hotspot.ASMethodHotspots.value}}" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}}
@@ -60,12 +63,14 @@
                                     </div>-->
                                     <div class="ui-g-4">
                                         Compare top <input name="comparingDepth" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value" min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}}
-                                            required ngModel /> frames
+                                            required ngModel /> stack frames of same thread
+                                            <i class="fa fa-info-circle" aria-hidden="true" title="Compare top <{{hotspot.ASStackComparingDepth.value}}> stack frames of same thread in consecutive matching samples"></i>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <div class="ui-g-4" style="width: 21.5%;">
                                         <label>Thread names to be included in hotspot</label>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="Do not consider provided thread names for hotspot detection"></i>
                                         <!--<p-checkbox name="ExceptionChk" [(ngModel)]="includedExceptionChk" binary="true" ngModel label="Thread names to be included in hotspot"></p-checkbox>-->
                                     </div>
                                     <div class="ui-g-5 configui-hotspot-css-2">
@@ -75,6 +80,7 @@
                                 <div class="ui-g-12">
                                     <div class="ui-g-4" style="width: 21.5%;">
                                         <label>Thread names to be excluded in hotspot</label>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="Consider only provided thread names for hotspot detection from all threads of application"></i>
                                         <!--<p-checkbox name="ExceptionChk" [(ngModel)]="excludedExceptionChk" binary="true" ngModel ></p-checkbox>-->
                                     </div>
                                     <div class="ui-g-5 configui-hotspot-css-2">
@@ -113,8 +119,9 @@
                             <div *ngIf="agentType == 'NodeJS'" style="margin: 5px 0px" class="flowpathheader-accordion">                         
                                     <p-fieldset legend="Hotspot Detection Settings" [toggleable]="true">
                                             <div class="ui-g-12">
-                                              <div class="ui-g-4">
-                                                <label>Sampling interval for collecting thread information</label>
+                                              <div class="ui-g-2">
+                                                <label>Thread Sampling Interval</label>
+                                                <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
                                               </div>
                                               <div class="ui-g-2">
                                                 <input name="sampleInterval" type="number" class="configui-hotspot-css" title="Set this to 0 if you don't need this feature"
@@ -127,8 +134,9 @@
                             <div *ngIf="agentType == 'Dot Net'" style="margin: 5px 0px" class="flowpathheader-accordion">
                                     <p-fieldset legend="Hotspot Detection Settings" [toggleable]="true">
                                             <div class="ui-g-12">
-                                              <div class="ui-g-4">
-                                                <label>Sampling interval for collecting thread information</label>
+                                              <div class="ui-g-2">
+                                                <label>Thread Sampling Interval</label>
+                                                <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
                                               </div>
                                               <div class="ui-g-2">
                                                 <input name="sampleInterval" type="number" class="configui-hotspot-css" title="Set this to 0 if you don't need this feature"
@@ -136,7 +144,8 @@
                                                   required ngModel /> (ms)
                                               </div>
                                               <div class="ui-g-3">
-                                                <label>Stack level for matching hotspot</label>
+                                                <label>Consecutive matching samples to mark as Hotspot</label>
+                                                <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace"></i>
                                               </div>
                                               <div class="ui-g-2">
                                                 <input name="matchCount" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value"
@@ -149,7 +158,8 @@
                                                   <div class="ui-g-4">
                                                     Compare top <input name="comparingDepth" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASStackComparingDepth.value"
                                                       min={{hotspot.ASStackComparingDepth.min}} max={{hotspot.ASStackComparingDepth.max}} required ngModel
-                                                    /> frames
+                                                    /> stack frames of same thread
+                                                    <i class="fa fa-info-circle" aria-hidden="true" title="Compare top <{{hotspot.ASStackComparingDepth.value}}> stack frames of same thread in consecutive matching samples"></i>
                                                   </div>
                                                 </div>
                                               </p-fieldset>                      
