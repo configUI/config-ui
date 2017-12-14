@@ -39,6 +39,7 @@ export const DEL_TOPO_ROW_URL = `${SERVICE_URL}/dctopoassociation`;
 export const ATTACH_PROFTO_TOPO = `${SERVICE_URL}/custom/topology`;
 export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
 export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
+export const DELETE_TOPOLOGY = `${SERVICE_URL}/custom/topology/deletetopology`;
 
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`

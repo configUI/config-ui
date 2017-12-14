@@ -186,7 +186,7 @@ export class ConfigTopologyService {
       //When result=Error, then no RTC applied
       else {
         //Getting error if any and showing as toaster message
-        let err = data[0].substring(data[0].lastIndexOf(";") + 1)
+        let err = data[0].substring(data[0].lastIndexOf("result=Error;") + 1)
         this.configUtilityService.errorMessage("Could not stop: " + err);
         callback(data);
       }
@@ -227,6 +227,10 @@ export class ConfigTopologyService {
   //Update AI enable in Instance table and AI status from In progress to complete when duration for AI is completed
   durationCompletion() {
     return this._restApi.getDataByGetReqWithNoJson(`${URL.DURATION_OVER_UPDATION}`);
+  }
+
+  deleteTopology(ids: number[]): Observable<TopologyInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_TOPOLOGY}`, ids);
   }
 
 }
