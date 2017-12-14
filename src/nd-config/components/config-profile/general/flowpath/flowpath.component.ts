@@ -67,7 +67,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   keywordsData: Keywords;
 
   ngOnInit() {
-	this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false
+  this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false
+  if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
+    this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
   getKeywordData() {
