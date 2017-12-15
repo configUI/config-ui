@@ -61,6 +61,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         this.configHomeService.AIStartStopOpertationValueList(true);
       }
     }
+    if(autoIntrActive.length == 0){
+      this.configHomeService.AIStartStopOpertationValueList(false); 
+    }
     this.autoIntrComplete = autoIntrComplete;
     this.autoIntrActive = autoIntrActive;
     this.activeCount = "(Active: " + this.autoIntrActive.length + ")"
@@ -72,12 +75,12 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     //if test is offline mode, return (no run time changes)
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      console.log(this.className, "constructor", "No NO RUN TIme Changes");
-      this.configUtilityService.errorMessage("Test is not running")
-      return;
-    }
-    else {
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   console.log(this.className, "constructor", "No NO RUN TIme Changes");
+    //   this.configUtilityService.errorMessage("Test is not running")
+    //   return;
+    // }
+    // else {
       //Getting keywords data whose values are different from default values
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
@@ -92,7 +95,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
           that.configHomeService.AIStartStopOpertationValueList(false);
         }
       })
-    }
+    // }
   }
 
   openGUIForAutoInstrumentation(sessionFileName) {
@@ -100,7 +103,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
 
       if (data['_body'] == "Fail") {
-        this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
+        this.configUtilityService.errorMessage("Session file does not exists. Download it ");
         return;
       }
       else if (data['_body'] == "Empty") {
@@ -108,7 +111,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         return;
       }
       else if (data['_body'] == "WrongPattern") {
-        this.configUtilityService.errorMessage("Wrong Pattern: select other file");
+        this.configUtilityService.errorMessage("Wrong Pattern: select another file");
         return;
       }
 
