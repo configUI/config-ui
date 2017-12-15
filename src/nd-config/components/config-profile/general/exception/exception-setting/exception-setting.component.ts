@@ -48,6 +48,8 @@ export class ExceptionSettingComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if(this.saveDisable  || !this.enableGroupKeyword || this.isProfilePerm)
+      this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
