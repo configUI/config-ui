@@ -101,7 +101,7 @@
                         <p-header>
                             <span style="float: left;">  Argument type settings </span>
                             <span style="float: right; margin-top:-3px">
-                           <button pButton type="submit" title="Add a argument type settings" (click)="second=true" icon="fa-plus"></button>
+                           <button pButton type="submit" title="Add an argument type settings" (click)="second=true" icon="fa-plus"></button>
                            <button pButton type="button" title="Edit" (click)="openEditArgRulesDialog()" icon="fa-pencil" ></button>
                            <button pButton type="button"class="ui-button-danger" title="Delete argument type setting(s)" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
                         </span>
@@ -156,8 +156,8 @@
                                     <input name="btName" type="text"  pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required ngModel/>
                                 </div>
                             <div class="ui-g-4">
-                                    <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
-                                    <p-dropdown name="operationName" [options]="operationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" appendTo="body"></p-dropdown>
+                                    <input name="operationNameR" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                                    <p-dropdown name="operationNameR" [options]="operationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" appendTo="body"></p-dropdown>
                                 </div>
                             <div class="ui-g-4">
                                         <input name="value" type="text"  pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required (keydown.space)="$event.preventDefault()" required pattern="[a-zA-Z0-9]+[0-9a-zA-Z]*$" ngModel />

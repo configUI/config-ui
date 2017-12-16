@@ -17,7 +17,8 @@ export const LABEL = {
     AUTO_DISCOVER: 'Auto Discover',
     VIEW_AUDIT_LOG: 'View Audit Log',
     NDC_KEYWORDS: 'ND Controller',
-    AUTO_INSTRUMENTATION: 'Instrumentation Finder'
+    AUTO_INSTRUMENTATION: 'Instrumentation Finder',
+    AI: 'Auto Instrumentation'
 } 
 
 export const URL = {

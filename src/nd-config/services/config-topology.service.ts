@@ -233,4 +233,8 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReq(`${URL.DELETE_TOPOLOGY}`, ids);
   }
 
+  deleteAI(data): Observable<boolean> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_AI}`, data);
+  }
+
 }

@@ -295,6 +295,8 @@ export const GET_AI_STATUS = `${SERVICE_URL}/custom/autoinstrumentation/getstatu
 export const DOWNLOAD_FILE = `${SERVICE_URL}/custom/autoinstrumentation/downloadfile`;
 export const UPDATE_AI_ENABLE = `${SERVICE_URL}/custom/autoinstrumentation/updateaienable`;
 export const DURATION_OVER_UPDATION = `${SERVICE_URL}/custom/autoinstrumentation/updatewhencompleted`;
+export const DELETE_AI = `${SERVICE_URL}/custom/autoinstrumentation/delete`;
+
 
 
 
