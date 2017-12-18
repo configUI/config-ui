@@ -191,7 +191,8 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
         }
         else {
-          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN });
+          sessionStorage.setItem("agentType", "");
         }
       }
 

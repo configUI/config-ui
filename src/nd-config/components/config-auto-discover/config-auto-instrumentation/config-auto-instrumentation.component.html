@@ -38,10 +38,10 @@
           </p-column>
           <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
             <template let-col let-application="rowData" pTemplate>
-              <a class="hyperlink iconFontSize" title="Refresh" (click)="getAIStatus(application['instanceName'], application['sessionName'])">
+              <a class="hyperlink iconFontSize" style="color:rgb(4, 4, 161)" title="Refresh" (click)="getAIStatus(application['instanceName'], application['sessionName'])">
                 <i class="fa fa-refresh"></i>
               </a>
-              <a class="hyperlink iconFontSize" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])"
+              <a class="hyperlink iconFontSize" style="color:red" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])"
                 title="Stop">
                 <i class="fa fa-stop-circle"></i>
               </a>
@@ -83,13 +83,13 @@
           </p-column>
           <p-column class="col-overflow" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
             <template let-col let-application="rowData" pTemplate>
-              <a class="hyperlink iconFontSize" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download">
+              <a class="hyperlink iconFontSize" style="color:rgb(19, 69, 231)" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download">
                 <i class="fa fa-download"></i>
               </a>
-              <a class="hyperlink iconFontSize" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit">
+              <a class="hyperlink iconFontSize" style="color:rgb(17, 224, 86)" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit">
                 <i class="fa fa-edit"></i>
               </a>
-              <a class="hyperlink iconFontSize" (click)="delete(application['sessionName'], application['instanceName'])" title="Delete">
+              <a class="hyperlink iconFontSize" style="color:red" (click)="delete(application['sessionName'], application['instanceName'])" title="Delete">
                     <i class="fa fa-trash"></i>
                   </a>
             </template>
