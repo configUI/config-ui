@@ -25,8 +25,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
 
   //NodeJS keyword- excludeMethodOnRespTime
-  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader','captureMethodForAllFP','enableMethodBreakDownTime','excludeMethodOnRespTime'];
-
+  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP', 'enableMethodBreakDownTime'];
+  NodeJSkeywordList = ['bciInstrSessionPct', 'correlationIDHeader', 'excludeMethodOnRespTime'];
+  // DotNetKeywordList =['bciInstrSessionPct','enableCpuTime'];
 
   flowPath: Object;
   cpuTime: string = '1';
@@ -41,26 +42,39 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   // enableCaptureHeader: boolean = false;
   correlationIDHeader: any;
 
+
+
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.agentType = sessionStorage.getItem("agentType");
-    this.subscription = this.store.select("keywordData").subscribe(data => {
-      // this.flowPath = data
-      var keywordDataVal = {}
+    if (this.agentType == 'NodeJS') {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.NodeJSkeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
 
-      this.keywordList.map(function (key) {
-        keywordDataVal[key] = data[key];
-      })
+        this.flowPath = keywordDataVal;
+        this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
+        this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
+        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        this.configKeywordsService.toggleKeywordData();
+      });
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
 
-      this.flowPath = keywordDataVal;
-
-      this.cpuTime = this.flowPath['enableCpuTime'].value;
-      // this.enableCaptureHeader = this.flowPath['correlationIDHeader'];
-      this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
-      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
-      this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;                  
-    });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
-    this.configKeywordsService.toggleKeywordData();
+        this.flowPath = keywordDataVal;
+        this.cpuTime = this.flowPath['enableCpuTime'].value;
+        this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
+        this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
+        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        this.configKeywordsService.toggleKeywordData();
+      });
+    }
   }
   enableForcedFPChainSelectItem: SelectItem[];
   enableCpuTimeSelectItem: SelectItem[];
@@ -84,26 +98,30 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
     else
       this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
-
+    if (this.agentType == 'NodeJS') {
       if (this.excludeMethodOnRespTimeChk) {
         this.flowPath["excludeMethodOnRespTime"].value = 1;
       }
       else {
         this.flowPath["excludeMethodOnRespTime"].value = 0;
       }
+      sessionStorage.setItem("excludeMethodOnRespTime", String(this.flowPath["excludeMethodOnRespTime"].value));
+    }
+    else{
+      this.flowPath['enableCpuTime'].value = this.cpuTime;
+      this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime;
+    }
 
-    this.flowPath['enableCpuTime'].value = this.cpuTime;
-    this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime;
+
     this.keywordData.emit(this.flowPath);
-    sessionStorage.setItem("excludeMethodOnRespTime", String(this.flowPath["excludeMethodOnRespTime"].value));        
   }
 
   resetKeywordData() {
     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
     this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
-    this.cpuTime =  this.flowPath['enableCpuTime'].value;
+    this.cpuTime = this.flowPath['enableCpuTime'].value;
     this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
-    this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;        
+    this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
   }
 
   ngOnDestroy() {
