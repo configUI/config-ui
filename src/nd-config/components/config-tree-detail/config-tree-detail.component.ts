@@ -34,6 +34,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverDisplayName: string = "";
   t_s_i_name: string = "";
   sessionName: string = "";
+  perm: boolean;
+  noProfilePerm: boolean;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -96,6 +98,11 @@ export class ConfigTreeDetailComponent implements OnInit {
   serverId: any;
 
   ngOnInit() {
+     if(+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("TopologyAccess") == 4)
+     this.perm=true;
+     else
+     this.perm=false;
+     this.noProfilePerm=+sessionStorage.getItem("ProfileAccess") == 0 ? true: false;
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
     //no need to call when store used [TO DO's]
 
@@ -457,52 +464,54 @@ export class ConfigTreeDetailComponent implements OnInit {
     */
   splitSettings(data) {
     let arr = data.split("=");
-    //For enableAutoInstrSession
-    if (arr[1].substring(0, arr[1].lastIndexOf(";")) == 1)
-      this.autoInstrObj.enableAutoInstrSession = true;
-    else
-      this.autoInstrObj.enableAutoInstrSession = false;
 
-    //For minStackDepthAutoInstrSession
-    this.autoInstrObj.minStackDepthAutoInstrSession = arr[2].substring(0, arr[2].lastIndexOf(";"))
+    if (arr.length > 12) {
+      //For enableAutoInstrSession
+      if (arr[1].substring(0, arr[1].lastIndexOf(";")) == 1)
+        this.autoInstrObj.enableAutoInstrSession = true;
+      else
+        this.autoInstrObj.enableAutoInstrSession = false;
 
-    //For autoInstrTraceLevel
-    this.autoInstrObj.autoInstrTraceLevel = arr[3].substring(0, arr[3].lastIndexOf(";"))
+      //For minStackDepthAutoInstrSession
+      this.autoInstrObj.minStackDepthAutoInstrSession = arr[2].substring(0, arr[2].lastIndexOf(";"))
 
-    //For autoInstrSampleThreshold
-    this.autoInstrObj.autoInstrSampleThreshold = arr[4].substring(0, arr[4].lastIndexOf(";"))
+      //For autoInstrTraceLevel
+      this.autoInstrObj.autoInstrTraceLevel = arr[3].substring(0, arr[3].lastIndexOf(";"))
 
-    //For autoInstrPct
-    this.autoInstrObj.autoInstrPct = arr[5].substring(0, arr[5].lastIndexOf(";"))
+      //For autoInstrSampleThreshold
+      this.autoInstrObj.autoInstrSampleThreshold = arr[4].substring(0, arr[4].lastIndexOf(";"))
 
-    //For autoDeInstrPct
-    this.autoInstrObj.autoDeInstrPct = arr[6].substring(0, arr[6].lastIndexOf(";"))
+      //For autoInstrPct
+      this.autoInstrObj.autoInstrPct = arr[5].substring(0, arr[5].lastIndexOf(";"))
 
-    //For autoInstrMapSize
-    this.autoInstrObj.autoInstrMapSize = arr[7].substring(0, arr[7].lastIndexOf(";"))
+      //For autoDeInstrPct
+      this.autoInstrObj.autoDeInstrPct = arr[6].substring(0, arr[6].lastIndexOf(";"))
 
-    //For autoInstrMaxAvgDuration
-    this.autoInstrObj.autoInstrMaxAvgDuration = arr[8].substring(0, arr[8].lastIndexOf(";"))
+      //For autoInstrMapSize
+      this.autoInstrObj.autoInstrMapSize = arr[7].substring(0, arr[7].lastIndexOf(";"))
 
-    //For autoInstrClassWeight
-    this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
+      //For autoInstrMaxAvgDuration
+      this.autoInstrObj.autoInstrMaxAvgDuration = arr[8].substring(0, arr[8].lastIndexOf(";"))
 
-    //For autoInstrSessionDuration
-    this.autoInstrObj.autoInstrSessionDuration = arr[10].substring(0, arr[10].lastIndexOf(";"));
+      //For autoInstrClassWeight
+      this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
 
-    //For autoInstrRetainChanges
-    if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
-      this.autoInstrObj.autoInstrRetainChanges = true;
-    else
-      this.autoInstrObj.autoInstrRetainChanges = false;
+      //For autoInstrSessionDuration
+      this.autoInstrObj.autoInstrSessionDuration = arr[10].substring(0, arr[10].lastIndexOf(";"));
 
-    //For blackListForDebugSession
-    if (arr[12] != "NA")
-      this.autoInstrObj.blackListForDebugSession = true;
-    else
-      this.autoInstrObj.blackListForDebugSession = false;
+      //For autoInstrRetainChanges
+      if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
+        this.autoInstrObj.autoInstrRetainChanges = true;
+      else
+        this.autoInstrObj.autoInstrRetainChanges = false;
 
+      //For blackListForDebugSession
+      if (arr[12] != "NA")
+        this.autoInstrObj.blackListForDebugSession = true;
+      else
+        this.autoInstrObj.blackListForDebugSession = false;
 
+    }
 
   }
 
@@ -710,5 +719,8 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   }
 
+    accessMessage(){
+      this.configUtilityService.errorMessage("Permission Denied!!!")
+   }
 
 }

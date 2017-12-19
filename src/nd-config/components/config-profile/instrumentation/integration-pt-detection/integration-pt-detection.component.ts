@@ -31,28 +31,26 @@ export class IntegrationPtDetectionComponent implements OnInit {
   trData: TRData;
   saveDisable: boolean = false;
   className: string = "Integration Point Component";
+  agentType: string = "";
 
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
-  agentType: string ="";
-  
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
     private router: Router,
     private configProfileService: ConfigProfileService,
     private configHomeService: ConfigHomeService
-  ) { 
-    this.agentType = sessionStorage.getItem("agentType");
-    
-  }
+  ) {
+	this.agentType = sessionStorage.getItem("agentType");
+ }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
       this.index = params['tabId'];
     });
     this.loadKeywordData();

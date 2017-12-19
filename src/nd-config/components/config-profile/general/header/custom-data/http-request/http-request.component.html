@@ -17,9 +17,12 @@
     <p-header>     
         <span class="configui-float-css"> HTTP request header (s) </span>
         <span class="configui-float">`
-                       <button pButton type="button" title="Add" [disabled]="saveDisable" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit" [disabled]="saveDisable" (click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button" class="ui-button-danger" title="Delete" [disabled]="saveDisable" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+                       <button pButton type="button" title="Add" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddHTTPReqDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  icon="fa-pencil" ></button>
+                       <button pButton type="button" title="Edit" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editHTTPReqDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                       <button pButton type="button" class="ui-button-danger" title="Delete" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteHTTPReqHeader()" icon="fa-trash"></button>
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

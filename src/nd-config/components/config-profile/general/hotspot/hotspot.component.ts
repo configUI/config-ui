@@ -25,7 +25,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff'];
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff'];
 
   /**It stores keyword data for showing in GUI */
   hotspot: any;
@@ -41,6 +41,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   includedExceptionChk: boolean = true;
   excludedExceptionChk: boolean = true;
   agentType: string ="";
+  isProfilePerm: boolean;
 
   /**Value for the keyword ASPositiveThreadFilters
    * Thread1&Thread2&Thread3
@@ -76,6 +77,9 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+  this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+  if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
+    this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
   /*

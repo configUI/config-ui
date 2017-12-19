@@ -40,6 +40,7 @@ export class AdvanceComponent implements OnInit {
   msg = [];
   errMsg = [];
   agentType: string = "";
+  isAdminPerm: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
@@ -52,10 +53,11 @@ export class AdvanceComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isAdminPerm=sessionStorage.getItem("ndconfigGroup")== "configUI_Admin" ? true : false
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-       this.saveDisable =  true;
+        this.saveDisable =  true;
       this.index = params['tabId'];
     });
     this.loadKeywordData();

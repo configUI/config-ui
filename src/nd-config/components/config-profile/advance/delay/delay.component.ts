@@ -33,6 +33,8 @@ export class DelayComponent implements OnInit {
   subscription: Subscription;
   subscriptionEG: Subscription;
 
+  isProfilePerm: boolean;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, ) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -47,6 +49,9 @@ export class DelayComponent implements OnInit {
     this.configKeywordsService.toggleKeywordData();
   }
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+      this.configUtilityService.infoMessage("Reset and Save are disabled");
     //Calling splitDelayKeywordData method
     this.splitDelayKeywordData();
   }

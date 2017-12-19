@@ -50,6 +50,7 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       sessionStorage.setItem("selectedApplicationName", this.applicationName)
     });
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+       this.type = sessionStorage.getItem("agentType");
       let url = event["url"];
       if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
         if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {

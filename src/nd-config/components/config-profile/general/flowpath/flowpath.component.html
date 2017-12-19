@@ -3,8 +3,10 @@
     <div class="header">Flowpath settings
 
       <div class="pull-right">
-        <button type="button" pButton icon="fa-refresh" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
-        <button type="submit" pButton icon="fa-check" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
+        <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
+	<button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
+        <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+        <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
 
       </div>
     </div>
@@ -16,7 +18,8 @@
             <!--<div class = "ui-g-6">-->
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>Flowpath instrumentation percentage</label>
+              <label>Flowpath Instrumentation (%)</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="The specified percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
@@ -46,10 +49,11 @@
           <div class="ui-g-12">
             <div class="ui-g-1"></div>
             <!--<div class="ui-g-3">
-                            <p-checkbox name="enableCaptureHeader" label="Enable correlation ID using HTTP header" [(ngModel)]="enableCaptureHeader" binary="true"></p-checkbox>
+                            <p-checkbox name="enableCaptureHeader" label="Enable HTTP Header Name for CorrelationID" [(ngModel)]="enableCaptureHeader" binary="true"></p-checkbox>
                         </div>-->
                         <div class="ui-g-3">
-                            <label>Correlation ID using HTTP header</label>
+                            <label>HTTP Header Name for CorrelationID</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="HTTP header name used by application to pass correlationID across topology "></i>
                         </div>
                         <div class="ui-g-2">
                             <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} title="Please enter valid correlation ID header.   &#013;Please enter maximum upto 1024 characters.  &#013;Whitespaces are not allowed."
@@ -60,12 +64,13 @@
           </div>
           <div class="ui-g-12">
             <div class="ui-g-1"></div>
-            <div class="ui-g-3">
-              <label>Capture method for all Flow path</label>
+            <div class="ui-g-3" style="margin-left:4px;padding:0px">
+              <label>Capture callstacks of all offending business transaction(s)</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture method calling stack of slow/very slow/error business transaction(s) for all flowpath(s)" ></i>
             </div>
-            <div class="ui-g-2">
+            <div class="ui-g-2" style="padding:0px">
               <input name="captureMethodForAllFP" type="number" pInputText min={{flowPath.captureMethodForAllFP.min}} max={{flowPath.captureMethodForAllFP.max}}
-                [(ngModel)]="flowPath.captureMethodForAllFP.value" />
+                [(ngModel)]="flowPath.captureMethodForAllFP.value" style="width:95%" />
               <span></span>
             </div>
 
@@ -73,16 +78,17 @@
           <div class="ui-g-12">
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>CPU time capturing</label>
+              <label>CPU Profiling</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transaction(s)" ></i>
             </div>
             <div class="ui-g-1">
               <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
             <div class="ui-g-3 radioButtoncss">
-              <p-radioButton name="enableCpuTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="cpuTime"></p-radioButton>
+              <p-radioButton name="enableCpuTime" value="1" label="Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
             <div class="ui-g-3 configui-flowpath-css">
-              <p-radioButton name="enableCpuTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
+              <p-radioButton name="enableCpuTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
             <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem"  required ngModel></p-dropdown>-->
             <!--<div class="ui-g-2">
@@ -93,16 +99,17 @@
           <div class="ui-g-12">
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>Method breakdown time capturing</label>
+              <label>Capture Method Time Breakdown</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Combination of wait and sync time" ></i>
             </div>
             <div class="ui-g-1">
               <p-radioButton name="enableMethodBreakDownTime" value="0" label="Disable" [(ngModel)]="methodBreakDownTime"></p-radioButton>
             </div>
             <div class="ui-g-2 radioButtoncss">
-              <p-radioButton name="enableMethodBreakDownTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
+              <p-radioButton name="enableMethodBreakDownTime" value="1" label="Business Transaction Level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
             </div>
             <div class="ui-g-3 configui-flowpath-css">
-              <p-radioButton name="enableMethodBreakDownTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
+              <p-radioButton name="enableMethodBreakDownTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
             </div>
           </div>
           <!-- <div class="ui-g-12">
@@ -146,7 +153,8 @@
             <!--<div class = "ui-g-6">-->
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>Flowpath instrumentation percentage</label>
+              <label>Flowpath Instrumentation (%)</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="The specified percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
@@ -156,7 +164,8 @@
           <div class="ui-g-12">
             <div class="ui-g-1"></div>
             <div class="ui-g-3">
-              <label>Correlation ID using HTTP header</label>
+              <label>HTTP Header Name for CorrelationID</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="HTTP header name used by application to pass correlationID across topology "></i>
             </div>
             <div class="ui-g-2">
               <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text"
@@ -181,7 +190,8 @@
             <!--<div class = "ui-g-6">-->
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>Flowpath instrumentation percentage</label>
+              <label>Flowpath Instrumentation (%)</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="The specified percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
@@ -191,16 +201,17 @@
           <div class="ui-g-12">
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>CPU time capturing</label>
+              <label>CPU Profiling</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transaction(s)" ></i>
             </div>
             <div class="ui-g-1">
               <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
             <div class="ui-g-3 radioButtoncss">
-              <p-radioButton name="enableCpuTime" value="1" label="Enable at flowpath/ Business transaction level" [(ngModel)]="cpuTime"></p-radioButton>
+              <p-radioButton name="enableCpuTime" value="1" label="Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
             <div class="ui-g-3 configui-flowpath-css">
-              <p-radioButton name="enableCpuTime" value="3" label="Enable at method and flowpath level" [(ngModel)]="cpuTime"></p-radioButton>
+              <p-radioButton name="enableCpuTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
           </div>
 

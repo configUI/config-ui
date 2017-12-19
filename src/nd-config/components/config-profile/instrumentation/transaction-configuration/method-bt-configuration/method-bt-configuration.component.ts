@@ -92,7 +92,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //used to hold value of "type " i.e data type of return value or argument value whichever is selected
   type: string;
-
+  isProfilePerm: boolean;
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     let arrLabel = ['Numeric', 'String', 'Boolean', 'Char or byte'];
@@ -164,6 +164,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadBTMethodData();
   }
 
@@ -173,7 +174,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
     });
     //this.businessTransMethodInfo = data
     this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => {

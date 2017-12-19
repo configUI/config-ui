@@ -1143,3 +1143,15 @@ input[type="text" i]:disabled {
     overflow-y: scroll;
     height: 450px;
 }
+
+.dotnet-color {
+    color: blue;
+}
+
+.java-color {
+    color: rgba(255, 68, 0, 0.596);
+}
+
+.nodejs-color {
+    color: green;
+}

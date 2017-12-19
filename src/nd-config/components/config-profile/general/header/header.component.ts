@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   subscription: Subscription;
   subscriptionEG: Subscription;
-
+  isProfilePerm: boolean;
   enableGroupKeyword: boolean = false;
 
   /*holding keyword data and sending to its child component
@@ -73,6 +73,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+      this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.splitKeywordData(this.header)
   }
 

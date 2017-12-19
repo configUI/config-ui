@@ -41,7 +41,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     JDBC;
     REDIX;
     MONGODB;
-    CASSCENDRA;
+    CASSANDRA;
 
     //Variables for values of NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE keyword
     NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN;
@@ -163,6 +163,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     ];
 
     appId: number;
+    isAppPerm: boolean;
 
     constructor(private _configUtilityService: ConfigUtilityService,
         private confirmationService: ConfirmationService,
@@ -187,6 +188,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isAppPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
         // Getting data on Initial Load
         this.getNDCKeywords();
         this.loadDropDownVal();
@@ -241,7 +243,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.JDBC = val[0];
             this.REDIX = val[1];
             this.MONGODB = val[2];
-            this.CASSCENDRA = val[3];
+            this.CASSANDRA = val[3];
         }
 
         //NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE 3600000 600000
@@ -319,7 +321,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         data["NDDBU_RD_INST_COUNT_AND_SKIP"].value = this.NDDBU_RD_INST_COUNT_AND_SKIP_MIN + " " + this.NDDBU_RD_INST_COUNT_AND_SKIP_MAX;
 
         //ND_ENABLE_CAPTURE_DB_TIMING
-        data["ND_ENABLE_CAPTURE_DB_TIMING"].value = this.JDBC + " " + this.REDIX + " " + this.MONGODB + " " + this.CASSCENDRA;
+        data["ND_ENABLE_CAPTURE_DB_TIMING"].value = this.JDBC + " " + this.REDIX + " " + this.MONGODB + " " + this.CASSANDRA;
 
         //NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE
         data["NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE"].value = this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX;

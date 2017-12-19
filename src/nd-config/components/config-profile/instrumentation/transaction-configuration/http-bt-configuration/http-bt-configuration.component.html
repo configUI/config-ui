@@ -5,11 +5,13 @@
 
     <div class="ui-g-12" style="background: #ededf0">
         <div class="ui-g-3">
-            <p-radioButton name="BusinessTransaction" [disabled]="saveDisable" value="global" label="Global Configuration" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
             <i class="fa fa-info-circle" aria-hidden="true" title="Rule to create Business transaction names using URI and dynamic reqeust properties(HTTP Method, query parameters etc)."></i>
         </div>
         <div class="ui-g-9">
-            <p-radioButton name="BusinessTransaction" [disabled]="saveDisable" value="pattern" label="Pattern Configuration" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
             <i class="fa fa-info-circle" aria-hidden="true" title="Provide patterns of URI and dynamic request properties(HTTP Method, query parameters etc) to identify Businesss transactions."></i>
         </div>
     </div>
@@ -19,8 +21,10 @@
         <div class="ui-g-12 header-font-size">
             <div class="ui-g-6">URI used in Transaction Name</div>
             <div class="ui-g-6" style="text-align:right">
-                <button type="button" pButton icon="fa-refresh" [disabled]="saveDisable" (click)="resetBusinessTransaction()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" [disabled]="saveDisable" label="Save"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetBusinessTransaction()" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetBusinessTransaction()" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
@@ -67,7 +71,7 @@
         <div class="ui-g-12 padding-left-css" *ngIf="agentType == 'NodeJS'">
             <div class="ui-g-1"><label>Slow</label></div>
             <div class="ui-g-10">
-                <input name="slowThreshold" #slowthresh  style="text-align:right; width:70px " type="number" min=0 pInputText [(ngModel)]="globalBtDetail.slowDynamicThreshold" /> %
+                <input name="slowThreshold" #slowthresh style="text-align:right; width:70px " type="number" min=0 pInputText [(ngModel)]="globalBtDetail.slowDynamicThreshold" /> %
             </div>
         </div>
 
@@ -112,11 +116,14 @@
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business transaction pattern list</span>
             <span style="float: right; margin-top:-3px">
-
-                       <button pButton type="button" title="Browse" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
-                       <button pButton type="button" title="Add a Business transaction pattern" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit a Business transaction pattern" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
+                       <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
+                       <button pButton type="button" title="Add a Business transaction pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+		      <button pButton type="button" title="Add a Business transaction pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit a Business transaction pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+		      <button pButton type="button" title="Edit a Business transaction pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deletePattern()" icon="fa-trash"></button>
+		      <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'3%'}" selectionMode="multiple"></p-column>
@@ -219,13 +226,13 @@
                     <label>Slow</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="slowTransaction" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />(ms)
+                    <input name="slowTransaction" style="text-align:right;margin-top:4px" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />(ms)
                 </div>
                 <div class="ui-g-1 label">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="verySlowTransaction" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />(ms)
+                    <input name="verySlowTransaction" type="text" style="text-align:right;margin-top:4px" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />(ms)
                 </div>
             </div>
 
@@ -237,13 +244,13 @@
                     <label>Slow</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="slowDynamic" style="text-align:right" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowDynamicThreshold" ngModel /> %
+                    <input name="slowDynamic" style="text-align:right;margin-top:4px" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowDynamicThreshold" ngModel /> %
                 </div>
                 <div class="ui-g-1 label">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-3">
-                    <input name="verySlowDynamic" type="text" style="text-align:right" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowDynamicThreshold" ngModel /> %
+                    <input name="verySlowDynamic" type="text" style="text-align:right;margin-top:4px" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowDynamicThreshold" ngModel /> %
                 </div>
             </div>
 
@@ -306,7 +313,7 @@
                             <label>HTTP Method Type</label>
                         </div>
                         <div class="ui-g-7">
-                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'72.5%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
+                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70.3%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -325,7 +332,7 @@
 <p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
 
     <!-- This will look for this component in the ProductUI at this path -
-     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer-->
 
     <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>

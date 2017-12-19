@@ -41,16 +41,16 @@ export class InstrumentationProfilesComponent implements OnInit {
   subscriptionEG: Subscription;
   openFileExplorerDialog: boolean = false;
   isInstrProfileBrowse: boolean = false;
-
-  agentType: string = "";  
+  isProfilePerm: boolean;
+  agentType: string = ""; 
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService
   ) {
+     this.agentType = sessionStorage.getItem("agentType");
     // this.subscription = this.store.select("keywordData").subscribe(data => {
     //   this.instrProfiles = data;
     //   console.log( "constructor", "this.debug", this.instrProfiles);
     // });
-    this.agentType = sessionStorage.getItem("agentType");    
     this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.instrumentation_profiles.enable);
     this.configKeywordsService.toggleKeywordData();
   }
@@ -61,6 +61,9 @@ export class InstrumentationProfilesComponent implements OnInit {
    */
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+      this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.loadListOfXmlFiles();
     //let path = "C:\\Users\\compass-357\\Desktop\\Autodiscover\\fileReader.txt"
     this.configKeywordsService.fileListProvider.subscribe(data => {
@@ -86,6 +89,7 @@ export class InstrumentationProfilesComponent implements OnInit {
       });
 
   }
+
 
   //It will load the saved list of instrument Profiles
   loadInstrData() {
@@ -159,7 +163,7 @@ export class InstrumentationProfilesComponent implements OnInit {
         files.push(fileList[i]);
     }
     filesWithPath = files.join(";");
-    let that = this
+
     if(deepFilePathCopy.split(";").length != files.length)
     {
 	this.confirmationService.confirm({
@@ -167,8 +171,8 @@ export class InstrumentationProfilesComponent implements OnInit {
           header: 'Confirmation',
           icon: 'fa fa-question-circle',
           accept: () => {
-      filesWithPath = filesWithPath + "%" + that.agentType;
-		// let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
+    // let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
+    filesWithPath = filesWithPath + "%" + this.agentType
 		if(files.length != 0) {
     		  this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
       		    if (data.length < 1) {
@@ -178,7 +182,7 @@ export class InstrumentationProfilesComponent implements OnInit {
         	      this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
     		  },
       		  error => {
-        	    console.log("Error in browsing files");
+        	    console.log("Error in browsing xml files");
       		  }); 
 		} else {
 		  this.configUtilityService.errorMessage("All Selected files are already imported");
@@ -186,6 +190,7 @@ export class InstrumentationProfilesComponent implements OnInit {
            }
        	});	
      } else {
+      filesWithPath = filesWithPath + "%" + this.agentType
          this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
            if (data.length < 1) {
              this.configUtilityService.successMessage("Files imported successfully");
@@ -194,7 +199,7 @@ export class InstrumentationProfilesComponent implements OnInit {
              this.configUtilityService.infoMessage("Could not import these files -" + data + ". Files may be corrupted or contains invalid data");
           },
           error => {
-             console.log("Error in browsing files");
+             console.log("Error in browsing xml files");
          });
       }
      

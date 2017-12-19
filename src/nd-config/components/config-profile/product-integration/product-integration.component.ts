@@ -47,7 +47,7 @@ export class ProductIntegrationComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
       this.index = params['tabId'];
     });
     this.loadKeywordData();

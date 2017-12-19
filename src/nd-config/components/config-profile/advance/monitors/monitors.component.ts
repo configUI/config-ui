@@ -40,6 +40,7 @@ export class MonitorsComponent implements OnInit {
   nodeAsyncEventMonitorChk: boolean;
   nodeServerMonitorChk: boolean;
   agentType: string = "";
+  isProfilePerm: boolean;
 
   subscription: Subscription;
   subscriptionEG: Subscription;
@@ -148,6 +149,9 @@ export class MonitorsComponent implements OnInit {
       this.subscriptionEG.unsubscribe();
   }
   ngOnInit() {
+     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+     if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+      this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
 }

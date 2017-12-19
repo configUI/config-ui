@@ -22,7 +22,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   /* To show Complete auto instrumented list */
   autoIntrComplete: AutoIntrDTO[] = [];
-  selectedAutoIntrComplete: AutoIntrDTO;
+  selectedAutoIntrComplete: AutoIntrDTO[];
   activeCount: string;
 
   className: string = "Auto Instrument Component";
@@ -50,16 +50,17 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     let autoIntrComplete = [];
     let autoIntrActive = [];
     for (let i = 0; i < data.length; i++) {
-      if (data[i].status == "complete")
-      {
+      if (data[i].status == "complete") {
         autoIntrComplete.push(data[i])
-      //  this.configHomeService.AIStartStopOpertationValueList(false);
+        //  this.configHomeService.AIStartStopOpertationValueList(false);
       }
-      else
-      {
+      else {
         autoIntrActive.push(data[i]);
         this.configHomeService.AIStartStopOpertationValueList(true);
       }
+    }
+    if (autoIntrActive.length == 0) {
+      this.configHomeService.AIStartStopOpertationValueList(false);
     }
     this.autoIntrComplete = autoIntrComplete;
     this.autoIntrActive = autoIntrActive;
@@ -72,27 +73,27 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     //if test is offline mode, return (no run time changes)
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      console.log(this.className, "constructor", "No NO RUN TIme Changes");
-      this.configUtilityService.errorMessage("Test is not running")
-      return;
-    }
-    else {
-      //Getting keywords data whose values are different from default values
-      console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
-      const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-      strSetting = "enableAutoInstrSession=0;"
-      //Merging configuration and instance name with #
-      strSetting = strSetting + "#" + instanceName;
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   console.log(this.className, "constructor", "No NO RUN TIme Changes");
+    //   this.configUtilityService.errorMessage("Test is not running")
+    //   return;
+    // }
+    // else {
+    //Getting keywords data whose values are different from default values
+    console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
+    const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
+    strSetting = "enableAutoInstrSession=0;"
+    //Merging configuration and instance name with #
+    strSetting = strSetting + "#" + instanceName;
 
-      //Saving settings in database
-      this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function (data) {
-        if(data.length != 0 && data[0]['id']){
-          that.checkForCompleteOrActive(data);
-          that.configHomeService.AIStartStopOpertationValueList(false);
-        }
-      })
-    }
+    //Saving settings in database
+    this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, instanceName, sessionName, function (data) {
+      if (data.length != 0 && data[0]['id']) {
+        that.checkForCompleteOrActive(data);
+        that.configHomeService.AIStartStopOpertationValueList(false);
+      }
+    })
+    // }
   }
 
   openGUIForAutoInstrumentation(sessionFileName) {
@@ -100,7 +101,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
 
       if (data['_body'] == "Fail") {
-        this.configUtilityService.errorMessage("Session file is not there, firstly download this file.");
+        this.configUtilityService.errorMessage("Session file does not exists. Download it ");
         return;
       }
       else if (data['_body'] == "Empty") {
@@ -108,7 +109,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         return;
       }
       else if (data['_body'] == "WrongPattern") {
-        this.configUtilityService.errorMessage("Wrong Pattern: select other file");
+        this.configUtilityService.errorMessage("Wrong Pattern: select another file");
         return;
       }
 
@@ -138,6 +139,16 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
     this.configTopologyService.downloadFile(data).subscribe(data => {
       this.configUtilityService.successMessage("File downloaded successfully");
+    })
+  }
+
+  delete(sessionName, instanceName) {
+    let that =this;
+    this.configTopologyService.deleteAI(sessionName + "#" + instanceName).subscribe(data => {
+      this.configUtilityService.infoMessage("Deleted successfully");
+      this.configTopologyService.updateAIDetails().subscribe(data => {
+        that.checkForCompleteOrActive(data)
+      })
     })
   }
 

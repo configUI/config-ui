@@ -1,7 +1,7 @@
 <div class="">
     <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
         <span class="appIcon-css">
-            <button pButton type="button" title="Edit" (click)="editDialog()" icon="fa-pencil" ></button>
+		<button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()" icon="fa-pencil" ></button>
         </span>
     </div>
 
@@ -10,20 +10,21 @@
 
         <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
             <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
-          <a class="hyperlink" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+                <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
+                <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
         </template>
             <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
-                <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" [(ngModel)]=entity[col.field]></md-slide-toggle>
+                <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
         </template>
             <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
                 <span *ngIf="entity[col.field]== false" title="Start">
-                    <a class="hyperlink iconFontSize" (click)="openAutoInstrDialog(entity['instanceName'], entity['instanceId'])">
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" (click)="openAutoInstrDialog(entity['instanceName'], entity['instanceId'])">
                         <i class="fa fa-play-circle-o" ></i>
                     </a>
                    </span>
                  <span *ngIf="entity[col.field]== true" title="Stop">
-                    <a class="hyperlink iconFontSize" (click)="stopInstrumentation(entity['instanceName'], entity['instanceId'])">
-                        <i class="fa fa-stop-circle" [style]="{'width':'8%', 'text-align':'center'}"></i>
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" (click)="stopInstrumentation(entity['instanceName'], entity['instanceId'])">
+                        <i class="fa fa-stop-circle"></i>
                     </a>
                    </span>
               
@@ -66,7 +67,7 @@
         <!-- <br> -->
         <div class="ui-g-12">
             <div class="ui-g-4">
-                <label>Session Name</label>
+                <label>Session name</label>
             </div>
             <div class="ui-g-6">
                 <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
@@ -83,7 +84,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Min stacktrace depth for comparing methods in hotspot data for auto-instrumentation</label>
+                <label>Min Stacktrace depth for comparing methods in hotspot data for auto-instrumentation</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -92,7 +93,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Agent trace level</label>
+                <label>Agent Trace level</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -101,7 +102,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Sample threshold value</label>
+                <label>Sample Threshold value</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -137,7 +138,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Comparing average duration of methods</label>
+                <label>Comparing average duration of methods (in ms)</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -154,10 +155,10 @@
             </div>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
-            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove instrumentation from 	Instrumented classes when AI session is finish. " binary="true" ngModel></p-checkbox>
+            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Instrumentation from Instrumented classes when AI session is finished " binary="true" ngModel></p-checkbox>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
-            <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
+            <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">

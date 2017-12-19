@@ -45,11 +45,14 @@ export class ConfigApplicationListComponent implements OnInit {
   /**SelectItem for topology */
   topologySelectItem: SelectItem[];
 
+  isAppPerm: boolean;
+
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
 
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
+    this.isAppPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
     sessionStorage.setItem("agentType", "");
     this.loadApplicationData();
     // this.loadTopologyData();
@@ -177,7 +180,7 @@ export class ConfigApplicationListComponent implements OnInit {
         this.configUtilityService.successMessage(Messages);
         this.loadApplicationData();
       });
-    this.closeDialog(); 
+    this.closeDialog();
   }
 
   /**This method is used to edit application detail */
@@ -245,7 +248,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
     this.applicationData = deleteMany(this.applicationData, rowIndex);
     //clearing the array used for storing selected row
-    this.selectedApplicationData = [];  
+    this.selectedApplicationData = [];
   }
 
   routeToTree(selectedAppId, selectedAppName) {
@@ -256,6 +259,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   //Route to NDC Keyword 
   routeToNDCKeywords(selectedAppId){
+    sessionStorage.setItem("agentType", "");
     this.router.navigate([ROUTING_PATH + '/application-list/ndc-keywords-setting', selectedAppId])
   }
 

@@ -556,7 +556,7 @@ a {
 /* flow-path.components */
 
 .radioButtoncss {
-    width: 26%;
+    width: 15%;
 }
 
 .configui-flowpath-css {
@@ -1069,4 +1069,16 @@ body {
 .ndeicon {
     float: left;
     font-size: 2.2em;
+}
+
+.dotnet-color {
+    color: blue;
+}
+
+.java-color {
+    color: rgba(255, 68, 0, 0.596);
+}
+
+.nodejs-color {
+    color: green;
 }

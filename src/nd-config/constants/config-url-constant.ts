@@ -39,6 +39,7 @@ export const DEL_TOPO_ROW_URL = `${SERVICE_URL}/dctopoassociation`;
 export const ATTACH_PROFTO_TOPO = `${SERVICE_URL}/custom/topology`;
 export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
 export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
+export const DELETE_TOPOLOGY = `${SERVICE_URL}/custom/topology/deletetopology`;
 
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
@@ -294,6 +295,8 @@ export const GET_AI_STATUS = `${SERVICE_URL}/custom/autoinstrumentation/getstatu
 export const DOWNLOAD_FILE = `${SERVICE_URL}/custom/autoinstrumentation/downloadfile`;
 export const UPDATE_AI_ENABLE = `${SERVICE_URL}/custom/autoinstrumentation/updateaienable`;
 export const DURATION_OVER_UPDATION = `${SERVICE_URL}/custom/autoinstrumentation/updatewhencompleted`;
+export const DELETE_AI = `${SERVICE_URL}/custom/autoinstrumentation/delete`;
+
 
 
 

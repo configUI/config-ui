@@ -11,6 +11,7 @@ import { EntityInfo } from '../../interfaces/entity-info';
 import { NDAgentInfo } from '../../interfaces/nd-agent-info';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ConfigUiUtility } from '../../utils/config-utility';
+import { Http} from '@angular/http';
 import { Observable, } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { ImmutableArray } from '../../utils/immutable-array';
@@ -39,16 +40,43 @@ export class ConfigHomeComponent implements OnInit {
   topologyInfoMsg: string;
   topologyList = [];
   selectedTopology: string;
- 
+  topoPermission:boolean;
+  appPerm: boolean;
+  profilePerm: boolean;
+  noProfilePerm: boolean;
+  noAppPerm: boolean;
+  noTopoPerm:boolean;
+  isHomePermDialog: boolean;
   refreshIntervalTime = 30000;
   subscription: Subscription;
-  constructor(private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
+  
+  constructor(private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
-    this.loadHomeData();
-    this.getTestInfoDetails()
+    this.getTestInfoDetails();
     this.configHomeService.getAIStartStopOperationOnHome();
-   
+
+    var userName = sessionStorage.getItem('sesLoginName');
+    var passWord =  sessionStorage.getItem('sesLoginPass');
+    // let URL=sessionStorage.getItem('host');
+    // var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName + '&passWord=' + passWord
+    // this.http.get(url).map(res => res.json()).subscribe(data => {
+          sessionStorage.setItem("ProfileAccess","6");
+          sessionStorage.setItem("ApplicationAccess","6");
+          sessionStorage.setItem("TopologyAccess","6");
+          sessionStorage.setItem("InstrProfAccess","6");
+          sessionStorage.setItem("AutoDiscoverAccess","6");
+          this.appPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true: false;
+          this.profilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true: false;
+          this.topoPermission=+sessionStorage.getItem("TopologyAccess") == 4 ? true: false;
+          this.noProfilePerm=+sessionStorage.getItem("ProfileAccess") == 0 ? true: false;
+          this.noAppPerm=+sessionStorage.getItem("ApplicationAccess") == 0 ? true: false;
+          this.noTopoPerm=+sessionStorage.getItem("TopologyAccess") == 0 ? true: false;
+          if(this.noProfilePerm && this.noAppPerm && this.noTopoPerm)
+            this.isHomePermDialog=true;
+          this.loadHomeData();
+        //  });
+    
     let timer = Observable.timer(30000, this.refreshIntervalTime);
     this.subscription = timer.subscribe(t => this.getTestInfoDetails());
   }
@@ -99,12 +127,10 @@ export class ConfigHomeComponent implements OnInit {
           this.topologyInfo = (data.homeData[2].value).splice(0, data.homeData[2].value.length).reverse();
 
         this.agentsInfo = data.agentData;
-        // data.trData.switch = data.trData.status == 'running';
-        // data.trData.switch = (sessionStorage.getItem("isSwitch")) === 'true';
-       
       })
   }
 
+ // this method is used for get running test run status after 20 sec 
   getTestInfoDetails()
   {
     this.configHomeService.getTestRunStatus().subscribe(data => 
@@ -117,7 +143,8 @@ export class ConfigHomeComponent implements OnInit {
       }
     );
   }
-  importTopologyDialog() {
+ 
+ importTopologyDialog() {
     this.loadTopologyList();
     this.selectedTopology = "";
     this.importTopo = true;
@@ -142,7 +169,7 @@ export class ConfigHomeComponent implements OnInit {
   }
 
   routeToTreemain(selectedTypeId, selectedName, type) {
-    sessionStorage.setItem("agentType", "");    
+    sessionStorage.setItem("agentType", "");
     //Observable application name
     if (type == 'topology') {
       //it routes to (independent) topology screen
@@ -155,13 +182,20 @@ export class ConfigHomeComponent implements OnInit {
     }
   }
 
-  routeToConfiguration(selectedProfileId, selectedProfileName, entity, selectedProfileAgent) {
-    sessionStorage.setItem("agentType", selectedProfileAgent);    
+  routeToConfiguration(selectedProfileId, selectedProfileName, entity,selectedProfileAgent) {
+  sessionStorage.setItem("agentType", selectedProfileAgent);
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
       this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
 
     //Observable profile name
     this.configProfileService.profileNameObserver(selectedProfileName);
     this.router.navigate([this.ROUTING_PATH + '/profile/configuration', selectedProfileId]);
+  }
+  redirectToPage(){
+    if(+sessionStorage.getItem("AutoDiscoverAccess") != 0)
+      this.router.navigate(['/home/config/auto-discover']);
+    else
+      this.router.navigate(['/home/config/instrumentation-profile-maker']);
+    this.isHomePermDialog=false;
   }
 }

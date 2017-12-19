@@ -58,6 +58,8 @@ export class SessionAttributeComponent implements OnInit {
   counterEdit: number = 0;
   counterAttrAdd: number = 0;
 
+  isProfilePerm:boolean;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService) {
 
     this.customValueType = [];
@@ -70,6 +72,7 @@ export class SessionAttributeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadGetSessionAttribute();
   }
 
@@ -77,7 +80,7 @@ export class SessionAttributeComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
     });
     this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
       this.doAssignSessionAttributeTableData(data)
@@ -551,9 +554,9 @@ export class SessionAttributeComponent implements OnInit {
   /* set Value of All or Specific which Selected */
   getSelectedAtribute() {
     if(this.saveDisable == true)
-    {
+      {
         return;
-    }
+      }
     let sessionType = { sessionType: this.selectedSessionAttribute };
     this.configKeywordsService.getSessionAttributeValue(sessionType, this.profileId).subscribe(data => this.selectedSessionAttribute = data["sessionType"]);
   }

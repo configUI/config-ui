@@ -39,8 +39,12 @@ export class ConfigTreeComponent implements OnInit {
 
   subscription: Subscription;
   enableAutoScaling: boolean = false;
-
+  perm: boolean;
   ngOnInit() {
+    if(+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("TopologyAccess") ==4)
+      this.perm = true
+    else
+    this.perm=false;
    // this.loadTopologyTreeData();
     // this.loadEnableAutoScaling();
   }

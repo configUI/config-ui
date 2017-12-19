@@ -21,7 +21,7 @@ import { Messages, descMsg } from '../../../../../constants/config-constant'
 export class MethodMonitorsComponent implements OnInit {
 
   @Input()
-  profileId: number; 
+  profileId: number;
   @Output()
   keywordData = new EventEmitter();
   /**It stores method monitor-list data */
@@ -50,10 +50,12 @@ export class MethodMonitorsComponent implements OnInit {
   openFileExplorerDialog: boolean = false;
 
   isMethodMonitorBrowse: boolean = false;
+  isProfilePerm: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadMethodMonitorList();
 
     if (this.configKeywordsService.keywordData != undefined) {
@@ -133,7 +135,7 @@ export class MethodMonitorsComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+       this.saveDisable =  true;
     });
     this.configKeywordsService.getMethodMonitorList(this.profileId).subscribe(data => {
       this.methodMonitorData = data;

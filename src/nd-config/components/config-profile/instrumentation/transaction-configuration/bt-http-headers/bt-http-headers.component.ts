@@ -62,10 +62,12 @@ export class BTHTTPHeadersComponent implements OnInit {
     condCountEdit: number = 0;
 
     saveDisable: boolean = false;
+    isProfilePerm: boolean;
 
     constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     }
     ngOnInit() {
+        this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
         this.route.params.subscribe((params: Params) => {
             this.profileId = params['profileId'];
             if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)

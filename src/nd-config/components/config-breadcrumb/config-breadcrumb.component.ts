@@ -191,7 +191,8 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
         }
         else {
-          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN });
+          sessionStorage.setItem("agentType", "");
         }
       }
 
@@ -203,12 +204,16 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       }
 
       else if (url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER_TREE)) {
+        this.items.push({ routerLink: [`${BREADCRUMB.URL.AUTO_INSTRUMENTATION}`], label: BREADCRUMB.LABEL.AUTO_INSTRUMENTATION });
         this.items.push({ label: BREADCRUMB.LABEL.AUTO_DISCOVER })
+      }
+      else if(url.includes(".txt")){
+        this.items.push({ routerLink: [`${BREADCRUMB.URL.AUTO_INSTRUMENTATION}`], label: BREADCRUMB.LABEL.AUTO_INSTRUMENTATION });
+        this.items.push({ label: BREADCRUMB.LABEL.AI })
       }
       else if (url.startsWith(BREADCRUMB.URL.AUTO_INSTRUMENTATION)) {
         this.items.push({ label: BREADCRUMB.LABEL.AUTO_INSTRUMENTATION });
       }
-
       else if (url.startsWith(BREADCRUMB.URL.VIEW_AUDIT_LOG)) {
         this.items.push({ label: BREADCRUMB.LABEL.VIEW_AUDIT_LOG });
       }

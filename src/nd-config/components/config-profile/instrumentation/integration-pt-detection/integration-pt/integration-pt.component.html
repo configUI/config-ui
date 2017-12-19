@@ -2,7 +2,8 @@
     <p-header>
         <span style="float: left">Integration Point Detection Configuration</span>
         <span style="float :right; margin-top:-3px">
-            <button pButton type="button" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add integration point detection" ></button>
+              <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add integration point detection" ></button>
+              <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add integration point detection" ></button>
         </span>
     </p-header>
     <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
