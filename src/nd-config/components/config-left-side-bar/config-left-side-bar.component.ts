@@ -27,6 +27,11 @@ export class ConfigLeftSideBarComponent implements OnInit {
     // let URL=sessionStorage.getItem('host');
     // var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName + '&passWord=' + passWord
     // this.http.get(url).map(res => res.json()).subscribe(data => {
+      // sessionStorage.setItem("ProfileAccess",data["Profile"]);
+      // sessionStorage.setItem("ApplicationAccess",data["Application"]);
+      // sessionStorage.setItem("TopologyAccess",data["Topology"]);
+      // sessionStorage.setItem("InstrProfAccess",data["InstrumentationProfileMaker"]);
+      // sessionStorage.setItem("AutoDiscoverAccess",data["AutoDiscover"]);
           // if(+data["Profile"] == 0)
           //   this.noPerm.push("Profile");
 

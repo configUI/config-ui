@@ -24,6 +24,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   autoIntrComplete: AutoIntrDTO[] = [];
   selectedAutoIntrComplete: AutoIntrDTO[];
   activeCount: string;
+  isAutoPerm: boolean;
 
   className: string = "Auto Instrument Component";
 
@@ -32,6 +33,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     let that = this;
 
     // this.configTopologyService.getAIData().subscribe(data => {

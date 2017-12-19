@@ -27,14 +27,14 @@
                         <div class="ui-g-1"></div>
 
                         <div class="ui-g-2">
-                            <label>Delay time range(ms)</label>
+                            <label>Delay In Method</label>
                         </div>
 
                         <div class="ui-g-2">
-                            from: <input name="from" type="number" min="0" max="99999999" #from (input)="checkFrom(from,to)" class="configui-delay-css-2" [(ngModel)]="delayData.from" pInputText required ngModel/>
+                            from: <input name="from" type="number" min="0" max="99999999" #from (input)="checkFrom(from,to)" class="configui-delay-css-2" [(ngModel)]="delayData.from" pInputText required ngModel/>ms
                         </div>
                         <div class="ui-g-2">
-                            to: <input name="to" type="number" min="1" max="99999999" #to (input)="checkTo(from,to)" class="configui-delay-css-3" [(ngModel)]="delayData.to" pInputText required ngModel/>
+                            to: <input name="to" type="number" min="1" max="99999999" #to (input)="checkTo(from,to)" class="configui-delay-css-3" [(ngModel)]="delayData.to" pInputText required ngModel/>ms
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -42,11 +42,11 @@
                         <!--<div class = "ui-g-6">-->
 
                         <div class="ui-g-2">
-                            <p-checkbox name="cpuHogg" label="Is CPU hogg" [(ngModel)]="delayData.cpuHoggChk" binary="true"></p-checkbox>
+                            <p-checkbox name="cpuHogg" label="CPU hogg" [(ngModel)]="delayData.cpuHoggChk" binary="true"></p-checkbox>
                         </div>
 
                         <div class="ui-g-4">
-                            <i>(Add delay in any specified method using instrumentation)</i>
+                            <i>(Forcefully consume CPU in delaying methods)</i>
                         </div>
                     </div>
                     <div class="ui-g-12">

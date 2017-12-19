@@ -39,8 +39,8 @@
         <br>
         <div class="ui-g-12">
             <div align="center">
-                <button type="submit" pButton icon="fa-pencil" style="width:85px" [disabled]="isProfilePerm" label="Discover"></button>
-                <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" [disabled]="isProfilePerm" (click)="resetAllFields()"></button>
+                <button type="submit" pButton icon="fa-pencil" style="width:85px" [disabled]="isAutoPerm" label="Discover"></button>
+                <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" [disabled]="isAutoPerm" (click)="resetAllFields()"></button>
             </div>
         </div>
     </form>
@@ -58,7 +58,7 @@
                 <p-dropdown name="instance" class="auto-discover autosearchfield autodiscoverdropdown" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter"></p-dropdown>
             </div>
             <div class="ui-g-1">
-                <button [disabled]="isProfilePerm" type="submit" pButton icon="fa-check" label="Open"></button>
+                <button [disabled]="isAutoPerm" type="submit" pButton icon="fa-check" label="Open"></button>
             </div>
         </form>
     </div>

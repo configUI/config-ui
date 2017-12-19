@@ -1,6 +1,6 @@
 <p-dataTable *ngIf="type" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
     <p-header>
-        <span style="float: left">  Enable/Disable Service Entry Points</span>
+        <span style="float: left">Manage Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
                  <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service entry point"></button>
                  <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
@@ -12,17 +12,17 @@
     </p-header>
 
     <p-column [style]="{'width':'30px'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" field="entryType" header="Type" [sortable]="true" [style]="{'width':'20%'}">
+    <p-column class="tableCss" field="entryType" header="Service Entry Type" [sortable]="true" [style]="{'width':'20%'}">
         <template let-col let-service="rowData" pTemplate>
             <span title="{{service[col.field]}}">{{service[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" field="name" header="Name" [sortable]="true" [style]="{'width':'35%'}">
+    <p-column class="tableCss" field="name" header="Service Entry Name" [sortable]="true" [style]="{'width':'35%'}">
         <template let-col let-service="rowData" pTemplate>
             <span title="{{service[col.field]}}">{{service[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss config-ui" field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
+    <p-column class="tableCss config-ui" field="enabled" header="Enable Instrumentation" [sortable]="true" [style]="{'text-align':'center','width':'10%'}">
         <template class="config-ui" let-col let-service="rowData" pTemplate>
             <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="service[col.field]"></md-slide-toggle>
             <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="enableToggle(service)" [(ngModel)]="service[col.field]"></md-slide-toggle>
@@ -96,7 +96,7 @@
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Entry point type</label>
+                <label>Service Entry Type</label>
             </div>
             <div class="ui-g-8">
                 <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="serviceEntryPointDetail.entryTypeId" required ngModel/>
@@ -115,16 +115,16 @@
 
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Name</label>
+                <label>Service Entry Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" title="Please enter valid service entry point name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /). &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4: Service entry point name is of maximum 100 characters."
+                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" title="Please enter valid service entry name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /). &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4: Service entry point name is of maximum 100 characters."
                     required pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Fully qualified method name</label>
+                <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
                 <input name="fqm" type="text" size="60" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"  (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
@@ -132,7 +132,7 @@
         </div>
         <div class="ui-g config-ui">
             <div class="ui-g-4">
-                <label>Enable</label>
+                <label>Enable Instrumentation</label>
             </div>
             <div class="ui-g-4">
                 <md-slide-toggle [(ngModel)]="serviceEntryPointDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>

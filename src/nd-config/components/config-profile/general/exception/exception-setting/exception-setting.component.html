@@ -15,26 +15,26 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <p-checkbox label="Enable exception capturing" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="true"></p-checkbox>
+                    <p-checkbox label="Capture Exceptions" name="instrumentException" [(ngModel)]="exceptionData.instrumentException" binary="true"></p-checkbox>
                 </div>
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-7" style="margin-left: 16px">
-                    <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using logging API (java.util.logging, log4j, ATG logger) " name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
+                    <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using API (java.util.logging, log4j, ATG logger) " name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
                     </p-checkbox>
                 </div>
             </div>
             <div class="ui-g-12">
                 <!--<div class="ui-g-1"></div>-->
                 <div class="ui-g-5" style="margin-left: 16px">
-                    <label>Capture exception stack trace upto </label>
-                    <input type="number" disabled={{!exceptionData.instrumentException}} [min]=1 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/> frames
+                    <label>Capture top </label>
+                    <input type="number" disabled={{!exceptionData.instrumentException}} [min]=1 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/> frames of exception stack trace
                 </div>
             </div>
             <div class="ui-g-12">
                 <!--<div class="ui-g-1"></div>-->
                 <div class="ui-g-7" style="margin-left: 16px">
-                    <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception from not instrumented session also." name="exceptionCapturing" [(ngModel)]="exceptionData.exceptionCapturing" binary="true">
+                    <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception from un-instrumented flowpath(s)" name="exceptionCapturing" [(ngModel)]="exceptionData.exceptionCapturing" binary="true">
                     </p-checkbox>
                 </div>
             </div>
@@ -51,7 +51,7 @@
 
     <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java'">
         <div class="ui-g-12">
-            <span style="font-weight: bold">Source Code Capturing</span>
+            <span style="font-weight: bold">Trace Source Code</span>
         </div>
         <div class="ui-g-12">
             <p-radioButton name="enable" value=0 label="disable" [(ngModel)]="exception.enableExceptionsWithSourceAndVars.value"></p-radioButton>
