@@ -28,7 +28,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
   agent: any[];
   selectedAgent: string = "";
-  isProfilePerm: boolean;
+  isInstrPerm: boolean;
   
   //Edit XML Tree Node
   editXMLFile: boolean = false;
@@ -46,7 +46,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   saveXMLFileName: string = '';
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    this.isInstrPerm=+sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
 
     /* create Dropdown for xml files */
     this.xmlFormat = "No file selected";

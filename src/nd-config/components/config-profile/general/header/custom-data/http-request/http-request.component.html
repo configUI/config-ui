@@ -1,12 +1,12 @@
 <div class="ui-g-12 configui-session-css">
+    <div class="ui-g-2">
+          <p-radioButton name="httpRequest" label="None" value="None" [disabled]="saveDisable" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
+    </div>
+    <div class="ui-g-2">
+      <p-radioButton name="httpRequest" label="Extract Value" value="Specific" [disabled]="saveDisable" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
+    </div>
   <div class="ui-g-2">
     <p-radioButton name="httpRequest" label="All" value="All" [disabled]="saveDisable" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
-  </div>
-  <div class="ui-g-2">
-    <p-radioButton name="httpRequest" label="Specific" value="Specific" [disabled]="saveDisable" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
-  </div>
-  <div class="ui-g-2">
-        <p-radioButton name="httpRequest" label="None" value="None" [disabled]="saveDisable" [(ngModel)]="selectedHTTPReqHdrType" (click)="getSelectedHTTPReqHdr()"></p-radioButton>
   </div>
 </div>
 
@@ -26,17 +26,17 @@
                     </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-    <p-column class="col-overflow" field="headerName" header="Name" [sortable]="true">
+    <p-column class="col-overflow" field="headerName" header="Request Header Name" [sortable]="true">
         <template let-col let-application="rowData">
       <span></span>
     </template>
     </p-column>
-    <p-column class="col-overflow" field="dumpMode" header="Capture mode" [sortable]="true">
+    <p-column class="col-overflow" field="dumpMode" header="Capture Mode" [sortable]="true">
         <template let-col let-application="rowData">
       <span></span>
     </template>
     </p-column>
-    <p-column class="col-overflow" field="valueNames" header="Rules" [sortable]="true">
+    <p-column class="col-overflow" field="valueNames" header="Header Names" [sortable]="true">
         <template let-col let-application="rowData">
       <span></span>
     </template>
@@ -45,23 +45,23 @@
 </div>
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->
-<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP request header' : 'Edit HTTP request header'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP request header rules' : 'Edit HTTP request header rules'}}" *ngIf="httpRequestCustomDialog" [(visible)]="httpRequestCustomDialog" modal="modal" width="550" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveADDEditHTTPReqHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
-                    <label>Header name</label>
+                    <label>Request Header Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" title="Please enter valid Header name.  &#013;Please enter maximum upto 256 characters." required pattern="[a-zA-Z0-9_-]{0,256}" ngModel/>
+                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" title="Please enter valid Request Header name.  &#013;Please enter maximum upto 256 characters." required pattern="[a-zA-Z0-9_-]{0,256}" ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <p-checkbox name="complete" label="Complete" [(ngModel)]="httpRequestHdrDetail.complete" binary="false"></p-checkbox>
+                    <p-checkbox name="complete" label="Complete Value" [(ngModel)]="httpRequestHdrDetail.complete" binary="false"></p-checkbox>
                 </div>
                 <div class="ui-g-4">
-                    <p-checkbox name="specific" label="Specific" [(ngModel)]="httpRequestHdrDetail.specific" binary="false"></p-checkbox>
+                    <p-checkbox name="specific" label="Extract Value" [(ngModel)]="httpRequestHdrDetail.specific" binary="false"></p-checkbox>
                 </div>
             </div>
             <div class="ui-g-12" *ngIf="httpRequestHdrDetail.specific">
@@ -75,12 +75,12 @@
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                    <p-column class="col-overflow" field="valName" header="Display name" [sortable]="true">
+                    <p-column class="col-overflow" field="valName" header="Custom Header Name" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
                     </p-column>
-                    <p-column class="col-overflow" field="customValTypeName" header="Type" [sortable]="true">
+                    <p-column class="col-overflow" field="customValTypeName" header="Data Type" [sortable]="true">
                         <template let-col let-application="rowData" pTemplate type="body">
                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                     </template>
@@ -113,13 +113,13 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-2">
-                    <label>Name</label>
+                    <label>Custom Header Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Name.  &#013;Please enter maximum upto 50 characters." required pattern="[a-zA-Z0-9_-]*" ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Custom Header Name.  &#013;Please enter maximum upto 50 characters." required pattern="[a-zA-Z0-9_-]*" ngModel/>
                 </div>
                 <div class="ui-g-2">
-                    <label>Custom value</label>
+                    <label>Data Type</label>
                 </div>
                 <div class="ui-g-4">
                     <input name="customValueType" type="text" class='hidden-validator configinput' pInputText [(ngModel)]="rulesDataDetail.customValTypeName" required ngModel/>
