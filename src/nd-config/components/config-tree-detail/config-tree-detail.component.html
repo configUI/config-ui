@@ -84,7 +84,8 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Min Stacktrace depth for comparing methods in hotspot data for auto-instrumentation</label>
+                <label>Max stack depth to identify idle threads</label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="In AI, application agent will ignore idle threads, which has stack depth less than the provided value"></i>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -93,7 +94,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Agent Trace level</label>
+                <label>AI Debug level</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -102,7 +103,8 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Sample Threshold value</label>
+                <label>No.of thread samples to instrument methods</label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -111,7 +113,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Fraction of % for methods in the sample</label>
+                <label>Percentage of executing methods in thread sample(s) to be instrumented</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -120,7 +122,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Fraction of % for instrumented method that will be un-instrumented</label>
+                <label>Percentage of executing methods in Flowpath(s) to be un-instrumented</label>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -129,7 +131,8 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Map size to store classes and methods</label>
+                <label>Maximum method(s) to be considered for Auto Instrumentation</label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="Maximum unique method(s) without overloading which will be considered in Auto Instrumentation process"></i>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -138,7 +141,8 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Comparing average duration of methods (in ms)</label>
+                <label>Minimum average execution time of method for Instrumentation (in ms)</label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="Methods will be un-instrumemted if average execution time of method less than the provided value"></i>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -147,7 +151,8 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Weight of exception and exit point classes</label>
+                <label>Weightage of methods in stack traces having Exception/Integration point calls </label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
@@ -155,7 +160,8 @@
             </div>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
-            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Instrumentation from Instrumented classes when AI session is finished " binary="true" ngModel></p-checkbox>
+            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove AI session changes after it's completion" binary="true" ngModel></p-checkbox>
+            <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after the AI session completion"></i>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
             <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
