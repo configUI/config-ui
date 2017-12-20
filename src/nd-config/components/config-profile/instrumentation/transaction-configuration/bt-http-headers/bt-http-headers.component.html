@@ -1,6 +1,6 @@
 <p-dataTable class="nde-ui" [value]="btHttpHeadersInfo" [(selection)]="selectedHTTPHeaders" [rows]="12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> BT HTTP Headers list</span>
+        <span style="float: left"> Manage HTTP Headers Rules</span>
         <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Add HTTP header" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openHeader()" icon="fa-plus"></button>
                        <button pButton type="button" title="Add HTTP header" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
@@ -25,8 +25,7 @@
 </p-dataTable>
 
 <!--Dialog for adding BT HTTP headers-->
-<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT HTTP header' : 'Edit BT HTTP header'}}" *ngIf="addResReqHeaderDialog"
-    [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT HTTP Header' : 'Edit BT HTTP Header'}}" *ngIf="addResReqHeaderDialog" [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveAddEditHttpheaders()" ngNativeValidate>
 
         <div class="ui-g">
@@ -59,18 +58,17 @@
                     </div>
                 </div>-->
             <div class="ui-g-12">
-                <div class="ui-g-1">
-                    <label>Name</label>
+                <div class="ui-g-2">
+                    <label>Header Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="header" type="text" size="35" pattern="[a-zA-Z0-9_-]*" pInputText [(ngModel)]="btHttpHeadersDetail.headerName"
-                        required ngModel/>
+                    <input name="header" type="text" size="35" pattern="[a-zA-Z0-9_-]*" pInputText [(ngModel)]="btHttpHeadersDetail.headerName" required ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
                 <p-dataTable class="nde-ui" [rows]="4" [value]="headerConditionInfo" [pageLinks]="3" [(selection)]="selectedRequestHeader">
                     <p-header>
-                        <span style="float: left;">  Request header conditions </span>
+                        <span style="float: left;"> Request Header Rules</span>
                         <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Add a request header condition" (click)="openReqDialog()" icon="fa-plus"></button>
                         <button pButton type="button" title="Edit a request header condition" (click)="openEditReqDialog()" icon="fa-pencil" ></button>                       
@@ -83,12 +81,12 @@
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
-                    <p-column class="col-overflow" field="operation" header="Operation" [sortable]="true">
+                    <p-column class="col-overflow" field="operation" header="Match Criteria" [sortable]="true">
                         <template let-col let-application="rowData">
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
                     </p-column>
-                    <p-column class="col-overflow" field="hdrValue" header="Pattern" [sortable]="true">
+                    <p-column class="col-overflow" field="hdrValue" header="Match Value" [sortable]="true">
                         <template let-col let-application="rowData">
                             <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                         </template>
@@ -107,42 +105,40 @@
 
 <!--Dialog to add Request header-->
 
-<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add request header condition' : 'Edit request header condition'}}"
-modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="600" responsive="true" [resizable]="false">
-<form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
-    <div class="ui-g">
-        <div class="ui-g-12">
-            <div class="ui-g-4">
+<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add request header condition' : 'Edit request header condition'}}" modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="600" responsive="true" [resizable]="false">
+    <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
                     <label>BT Name</label>
                 </div>
-            <div class="ui-g-4">
-                <label>Operation</label>
+                <div class="ui-g-4">
+                    <label>Operation</label>
+                </div>
+                <div class="ui-g-4">
+                    <label>Pattern</label>
+                </div>
             </div>
-            <div class="ui-g-4">
-                <label>Pattern</label>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <input name="btname" type="text" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
+                        [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''" pInputText required ngModel/>
+                </div>
+                <div class="ui-g-4">
+                    <input name="type" type="text" class='hidden-validator' pInputText [(ngModel)]="headerConditionDetail.operation" required ngModel/>
+                    <p-dropdown name="operationName" [options]="operationName" [style]="{'width': '83%'}" [(ngModel)]="headerConditionDetail.operation" placeholder="--Select--" appendTo="body"></p-dropdown>
+                </div>
+                <div class="ui-g-4">
+                    <input name="hdrValue" type="text" pattern="[a-zA-Z0-9-%_./&]*" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''" pInputText
+                        required ngModel/>
+                </div>
             </div>
         </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                           <input name="btname" type="text" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]" [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''"
-                               pInputText required ngModel/>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeResponseDialog()" label="Cancel"></button>
             </div>
-            <div class="ui-g-4">
-                <input name="type" type="text" class='hidden-validator' pInputText [(ngModel)]="headerConditionDetail.operation"
-                    required ngModel/>
-                <p-dropdown name="operationName" [options]="operationName" [style]="{'width': '83%'}" [(ngModel)]="headerConditionDetail.operation" placeholder="--Select--" appendTo="body"></p-dropdown>
-            </div>
-            <div class="ui-g-4">
-                <input name="hdrValue" type="text" pattern="[a-zA-Z0-9-%_./&]*" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''"
-                    pInputText required ngModel/>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="submit" pButton icon="fa-check" label="Save"></button>
-            <button type="button" pButton icon="fa-close" (click)="closeResponseDialog()" label="Cancel"></button>
-        </div>
-    </footer>
-</form>
+        </footer>
+    </form>
 </p-dialog>
