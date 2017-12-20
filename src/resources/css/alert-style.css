@@ -44,7 +44,7 @@ app-alert-home .table-header-icon {
 
 
 app-alert-home .ui-datatable th.ui-state-default {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .alert .ui-widget-header {
@@ -85,10 +85,10 @@ app-alert-home .select-topology .ui-multiselect-label-container {
 
 /*History Table pane*/
 
-app-alert-home .detailTable .ui-datatable-thead>tr>th {
+/*app-alert-home .detailTable .ui-datatable-thead>tr>th {
     background: #082648 !important;
     color: #fff;
-}
+}*/
 
 
 /*history preset dropdown */
@@ -132,7 +132,7 @@ app-alert-home .mat-button-toggle-checked {
 }
 
 app-alert-home .mat-button-toggle {
-   
+    color: #000;
     padding: 10px;
 }
 
@@ -408,4 +408,12 @@ app-alert-home .ui-datepicker.ui-widget{
 app-alert-home .ui-confirmdialog.ui-dialog .ui-dialog-content{
   text-align: justify;
   display: inline-flex;
+}
+.chngrefreshkey .ui-dialog.ui-widget .ui-dialog-title {
+    margin: 0 0 1px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.mailSmsConfigSetting fieldset.ui-fieldset {
+    margin: 5px 0;
 }

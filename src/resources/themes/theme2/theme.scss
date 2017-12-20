@@ -1298,12 +1298,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
 
 .tabsincontent .header {
     color: #f0f0f0;
-    background: #282828;
+    background: #2a3950;
     border-bottom: 1px #bbb solid;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
-    background: #183D65;
+    background: #2a3950;
     color: #fff;
 }
 
@@ -1333,7 +1333,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
 
 .configUI .header {
     color: #fff;
-    background: #282828;
+    background: #2a3950;
     
 }
 
@@ -1670,7 +1670,7 @@ md-icon.dashboard-elapsed-time-icon.clr.fa.fa-clock-o.mat-icon {
  border: 1px solid #d2dfea;
 }
 .ndagent .ui-accordion .ui-accordion-header {
-    background: #282828;
+    background: #2a3950;
     color: #fff;
 }
 .favParamBtn{
@@ -2149,10 +2149,10 @@ button.capabilityButton.mat-raised-button{
     color: #fff;
 }
 .header-button {
-    background: #282828;
+    background: #2a3950;
 }
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
-    background: #282828;
+    background: #2a3950;
     color: #fff;
 }
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
@@ -2302,6 +2302,7 @@ button.capabilityButton.mat-raised-button{
   .androidcss{background:rgba(94, 207, 226, 0.3);}
  .kioskcss{background:rgba(186, 195, 243, 0.3);}
  .kpiCsccss{background:rgba(218, 209, 132, 0.3);}
+ i.topicon.kpi-kpi {color: #fff; }
  /*------------------DDR side bar -------------*/
 .sidedbar-accordion .ui-accordion .ui-accordion-header.ui-state-active 
 {   
@@ -2325,10 +2326,6 @@ button.capabilityButton.mat-raised-button{
  .sidedbar-accordion .ui-accordion-content {
      background: transparent;
      border: 1px solid #fbfbfb; } 
- 
-.sidedbar-accordion.ui-state-default a:link, .ui-state-default a:visited {
-         color: black ;
-     }
 
 
 /*-----------------------Dashboard Reports CSS--------------------*/
@@ -2467,4 +2464,35 @@ button.capabilityButton.mat-raised-button{
 }
 .NO-modal .ui-button.ui-state-default {
     background: #073c77;
+}
+/*---------------Alert Email SettingPopup---------------*/
+.mailSmsConfigSetting .ui-dialog-titlebar-close {
+    color: #fff;
+}
+
+.mailSmsConfigSetting fieldset.ui-fieldset{
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #d5d5d5;
+}
+.mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
+     background: rgba(255, 255, 255, 0.8);
+}
+.mailSmsConfigSetting .ui-widget-header {
+    background: #282828;
+    color: #cccccc;
+}
+.filters-container th{
+    color: #000;
+}
+//this is used to get unselected color in scenario left panel
+.scenario-left .ui-state-active {
+    background: transparent;
+}
+
+.nde-ui .ui-datatable .ui-datatable-header{
+    background: #2a3950;
+}
+
+.scenProDrp .ui-dropdown label.ui-dropdown-label {
+   color: #000;
 }
