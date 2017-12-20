@@ -9,103 +9,114 @@
 /*---------------Fonts CSS---------------*/
 
 @charset "UTF-8";
-
 @font-face {
-  font-family: "ndegui-icon";
-  src:url("../../fonts/ndegui-icon.eot");
-  src:url("../../fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"),
-    url("../../fonts/ndegui-icon.woff") format("woff"),
-    url("../../fonts/ndegui-icon.ttf") format("truetype"),
-    url("../../fonts/ndegui-icon.svg#ndegui-icon") format("svg");
-  font-weight: normal;
-  font-style: normal;
-
+    font-family: "ndegui-icon";
+    src: url("../../fonts/ndegui-icon.eot");
+    src: url("../../fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"), url("../../fonts/ndegui-icon.woff") format("woff"), url("../../fonts/ndegui-icon.ttf") format("truetype"), url("../../fonts/ndegui-icon.svg#ndegui-icon") format("svg");
+    font-weight: normal;
+    font-style: normal;
 }
 
 [data-icon]:before {
-  font-family: "ndegui-icon" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "ndegui-icon" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="ndegui-"]:before,
 [class*=" ndegui-"]:before {
-  font-family: "ndegui-icon" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "ndegui-icon" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .ndegui-application:before {
-  content: "\e000";
-}
-.ndegui-group:before {
-  content: "\e001";
-}
-.ndegui-home1:before {
-  content: "\e002";
-}
-.ndegui-instance:before {
-  content: "\e003";
-}
-.ndegui-instrmentation-profile:before {
-  content: "\e004";
-}
-.ndegui-nd-agent:before {
-  content: "\e005";
-}
-.ndegui-profile:before {
-  content: "\e006";
-}
-.ndegui-server:before {
-  content: "\e007";
-}
-.ndegui-tier:before {
-  content: "\e008";
-}
-.ndegui-topology:before {
-  content: "\e009";
-}
-.ndegui-auto-discover:before {
-  content: "\e00b";
-}
-.ndegui-audit-logs:before {
-  content: "\e00c";
-}
-.ndegui-data-collector:before {
-  content: "\e00a";
-}
-.ndegui-topology-1:before {
-  content: "\e00d";
-}
-.ndegui-dotnet:before {
-  content: "\e00e";
-}
-.ndegui-java:before {
-  content: "\e00f";
-}
-.ndegui-php:before {
-  content: "\e010";
-}
-.ndegui-nodejs:before {
-  content: "\e011";
+    content: "\e000";
 }
 
+.ndegui-group:before {
+    content: "\e001";
+}
+
+.ndegui-home1:before {
+    content: "\e002";
+}
+
+.ndegui-instance:before {
+    content: "\e003";
+}
+
+.ndegui-instrmentation-profile:before {
+    content: "\e004";
+}
+
+.ndegui-nd-agent:before {
+    content: "\e005";
+}
+
+.ndegui-profile:before {
+    content: "\e006";
+}
+
+.ndegui-server:before {
+    content: "\e007";
+}
+
+.ndegui-tier:before {
+    content: "\e008";
+}
+
+.ndegui-topology:before {
+    content: "\e009";
+}
+
+.ndegui-auto-discover:before {
+    content: "\e00b";
+}
+
+.ndegui-audit-logs:before {
+    content: "\e00c";
+}
+
+.ndegui-data-collector:before {
+    content: "\e00a";
+}
+
+.ndegui-topology-1:before {
+    content: "\e00d";
+}
+
+.ndegui-dotnet:before {
+    content: "\e00e";
+}
+
+.ndegui-java:before {
+    content: "\e00f";
+}
+
+.ndegui-php:before {
+    content: "\e010";
+}
+
+.ndegui-nodejs:before {
+    content: "\e011";
+}
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
-    font-weight:500;
+    font-weight: 500;
 }
 
 .nde-ui .ui-datatable .ui-datatable-tfoot>tr>td,
@@ -130,10 +141,10 @@
 }
 
 .ndegui-sidenav .mat-sidenav {
-    top: 30px;
+    top: 42px;
     height: 620px;
-    width:50px;
-    transform: translate3d(0,0,0)
+    width: 50px;
+    transform: translate3d(0, 0, 0)
 }
 
 .top-nav-bar {
@@ -150,7 +161,6 @@
     border-radius: 0px;
     border: 0;
     padding: 0.1em;
-
 }
 
 .top-nav-bar .ui-breadcrumb ul li.fa {
@@ -166,7 +176,6 @@
 /*.header-button {
     padding-top: 5px;
 }*/
-
 
 .configUI .header {
     font-size: 12px;
@@ -221,10 +230,13 @@
 .tabs-all .ui-tabview.ui-tabview-top>.ui-tabview-nav {
     padding: 0;
 }
+
+
 /*.tabs-all .ui-widget-header {
     padding: 4px;
 }
 */
+
 .tabs-all .ui-g {
     padding: 5px;
 }
@@ -248,6 +260,7 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
 .autoinst .hyperlink {
     cursor: pointer;
 }
@@ -303,8 +316,6 @@ input[type="number"] {
 
 
 /*For hiding scroll in tree node */
-
-
 
 .auto-config-tree .ui-tree .ui-tree-container {
     width: 125.3%;
@@ -420,7 +431,7 @@ ul.cav-menu-ul {
     display: inline-block;
     overflow: hidden;
     padding: 1px 0 0;
-    width:100%;
+    width: 100%;
 }
 
 
@@ -621,9 +632,11 @@ a {
 .configui-thread-css-2 {
     padding-left: 16px;
 }
-.configui-thread-css{
+
+.configui-thread-css {
     width: 12%;
 }
+
 
 /* Error-detection.css*/
 
@@ -709,9 +722,11 @@ a {
     border: 1px solid #c0c0c0;
     margin-bottom: 3px;
 }
+
 .pattern-dialog-border .ui-inputtext {
     transition: unset;
 }
+
 
 /* config-profile-list.components.css */
 
@@ -725,7 +740,11 @@ a {
     padding: 5px;
     font-size: 11px;
 }
+
+
 /* config-tree-detail.css */
+
+
 /*
 .toggle-space {
     margin: 1px 34%;
@@ -772,13 +791,12 @@ a {
     margin-left: -19px;
 }
 
-.browseTopCss .mat-button-focus-overlay{
+.browseTopCss .mat-button-focus-overlay {
     position: relative;
 }
 
-
-.config_align_dialog{
-    width:177px;
+.config_align_dialog {
+    width: 177px;
 }
 
 .slider_img .ui-widget-content .ui-state-default,
@@ -786,7 +804,9 @@ a {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAVCAYAAAAjODzXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZBQjgwQThDRjQ4ODExRTBBMzgxQjZGRjMwN0M4RjFGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZBQjgwQThERjQ4ODExRTBBMzgxQjZGRjMwN0M4RjFGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkFCODBBOEFGNDg4MTFFMEEzODFCNkZGMzA3QzhGMUYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkFCODBBOEJGNDg4MTFFMEEzODFCNkZGMzA3QzhGMUYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5U68QXAAAED0lEQVR42qyWzU9jVRjGz+29pdBSKJWAksmMGheTyAwLKCRE/gAXAq5MEHZujCtCov8CS5dOMgkLozALo0ZCYgTdkgyTAhqR8GUDmGKhQin97q3Pc3zP5FpnGJ16k6f33N7z/u77dc69lvrn4RwcHLxXq9XeKhaLt6vV6i3XdRO4/qVUKn0Ti8XuY05FXX/8Z4blHa+srLw2NDT0WVNTUyyTyaiTkxN1dnamQqGQCgaD+gzgw/X19XfHx8d3YVOrc+C5GT4B+AB4Y3h4+BEmxxzHUX6//7Es6y9/ASAoNjIy8mhhYaHXY98wQ//09/dHent7P8ekcLlc1gYtLS1ahCA61dzcrAKBgAb6fL7w4ODgp5xmvGiUQUf8s7OzH6J+N7LZrEJNVaVS0cZMIwEGaCCcA2jf8vLyR+yH/4NBSDgajb59eXmpbNvWqQNQTw6HwxrG2hKCplP5fF6LUbe3t78D+48ZUaMMOhKBZ7fYWPScN40ikYiGtLa2qkKhoPigXC6nx4wYdjdpT0caZdCREOoVMDcoAugxwWw6dr75H8vv8RjwJtrrGjfIoCMODIpIZYAp1ZsADNva2lRHR4dKJpOqu7tbR0SwiYg1xsGutLlsG2XQkcrp6Wm6q6vrJRqzuVhXnk2EjEaWncI8HQkh+/v7Z7CvktYog6vmanNzM07P0Tg6CjaVSa05p9NpHQnTyoZkdKurqw9pT21sbKw3wuAuE4WXb66trd3r6ekJcQI7npFwKRpDNiGjpLgCdnZ2Un19fe/D/geWRhifPAfjA9h/z/pW6TFS1DI6OnoHk22mjGIUhBHCZQc2YH7eK09NTd07Ojpahv1vrDMZe3t7rWNjY3fB8P0bxuTk5P3j4+PvyKAj7K7i7u7u1dLSkosd8tXOzs6AgfDM2mJV6J1xe3s7A8BCPB7/EnZbUF4YJTDyi4uLamBg4OXrGFtbW5cTExNfoJxfwe5nMmzZodlw2VQqdTE3N5fiNo0NKoRa20i5D5FUDw8Pc/Pz89vT09MPMO9bzN+ALsQJS96meTRtDowLZCiMngkKw0LDuolEIg/G3szMzNd4EZIRh/7g883bl03L9dwF3YZeh16BXuD2LUvsFPoV+kkykWIWPG9gMoLQDeiuMLhZdXgYfGgC+hHahI6hAoOxPJ8DtryAotCLUKeAHYn2Sh6ehNIG4HHEkge2if1NCSwkbDKy0O/iTFKu+X/NEUjN1BnKyPhcwJZcl8WZrIzduu+RmpQ4J44qKV1AsuVKP53L/bzM1wy7DlTzOOXKRDpXNPuFjCtP+CjycipiWxGnCxLAuShbV9a/faGZa0vK4Zjt2wM3D3Cv+Uw0ZXYkG/VZLT0po9Y1MKvuvjdjzzq89t6vOPdpnD8FGACiWVtxaofC7AAAAABJRU5ErkJggg==) 0 0 no-repeat
 }
 
+
 /*Remove this if causing Context Menu misplacement*/
+
 .configContextMenu .ui-menu.ui-menu-dynamic {
     position: fixed;
 }
@@ -799,89 +819,117 @@ a {
     width: 100%;
 }
 
-.config-dialog-error .ui-dialog .ui-dialog-content
-{
+.config-dialog-error .ui-dialog .ui-dialog-content {
     height: 350px;
     overflow: scroll;
 }
- 
+
+
 /*--------New Class Added for right pane------------*/
- .configui-rghtpane {
+
+.configui-rghtpane {
     margin-left: 60px;
     height: 340px;
     margin-top: 5px;
     overflow-y: auto;
     overflow-x: hidden;
- }
+}
 
 .configui-container {
     overflow: auto;
 }
+
 .stripbg .ui-toolbar {
     padding: 0px 5px;
 }
+
 .tabs-all .ui-tabview .ui-tabview-panel {
     padding: 6px;
     min-height: 400px;
     border-top: 0px;
 }
+
 .ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable {
     border: 1px solid #D5D5D5;
 }
+
+
 /*Added for bug Id-34109*/
+
 .configinput {
-   width :20%;
+    width: 20%;
 }
 
+
 /*For toogle button when checked*/
+
 .toggleChk .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
     background-color: rgb(92, 136, 48) !important;
 }
 
+
 /*For alignment of profile dialog*/
+
 .configUI-profile-dialog {
-    width : 210px;
+    width: 210px;
 }
+
 
 /*For alignment of method,exception monitor and custom keyword dialog*/
+
 .configUI-common-len {
-    width : 330px;
+    width: 330px;
 }
+
 
 /*For error detection dilog*/
+
 .configUI-error {
-    width : 300px;
+    width: 300px;
 }
 
+
 /* Added for fixed header Bug Id: 34605*/
+
 .nde-ui-auditLogTable .ui-widget-header.ui-datatable-scrollable-header {
     position: sticky;
     position: -webkit-sticky;
     position: -moz-sticky;
     position: -ms-sticky;
     position: -o-sticky;
-S    top: 0;
+    S top: 0;
     z-index: 100;
 }
 
+
 /* Added for formatting color issue in file manager*/
+
 .browser-color .ui-widget-header {
     background: #d4d1d1;
     color: #fff;
 }
 
+
 /* Added for disabled Css issue of any field*/
-textarea:disabled, input:not([type]):disabled, input[type="number" i]:disabled, input[type="text" i]:disabled {
-     background: #ececec;
-     color: #b7b7b7;
+
+textarea:disabled,
+input:not([type]):disabled,
+input[type="number" i]:disabled,
+input[type="text" i]:disabled {
+    background: #ececec;
+    color: #b7b7b7;
 }
 
+
 /* Added for padding issue in table header of file manager*/
+
 .headerCss .ui-widget-header {
     padding: 0px;
 }
 
+
 /* Added for loading spinner in file manager*/
+
 .loadingClass {
     position: absolute;
     left: 50%;
@@ -891,14 +939,17 @@ textarea:disabled, input:not([type]):disabled, input[type="number" i]:disabled, 
     pointer-events: none;
     color: #6E6E6E;
 }
+
+
 /*Added for formatting dropdown bug Id-34208*/
-.instrprofmaker .ui-dropdown .ui-dropdown-panel{
-   width : 100%;
+
+.instrprofmaker .ui-dropdown .ui-dropdown-panel {
+    width: 100%;
 }
 
 .instrprofscroll .ui-tree .ui-tree-container {
     width: 102%;
-    height:98.5%;
+    height: 98.5%;
     margin-top: -5px;
 }
 
@@ -909,13 +960,15 @@ textarea:disabled, input:not([type]):disabled, input[type="number" i]:disabled, 
     /* padding: 8px; */
 }
 
+
 /*Added for sroll in view  bugId-34210*/
+
 .instrprofileview .codeClass[_ngcontent-c67] {
     height: 420px;
 }
 
 body {
-    overflow :hidden;
+    overflow: hidden;
 }
 
 .mat-sidenav {
@@ -927,63 +980,83 @@ body {
     box-sizing: border-box;
     overflow-y: auto;
 }
+
 .autosearchfield .ui-dropdown-panel .ui-dropdown-filter-container {
     width: 100%;
 }
+
 .autodiscoverdropdown .ui-dropdown .ui-dropdown-panel {
-   margin: -3px 0px;
+    margin: -3px 0px;
 }
+
 .multiselectdropReqResp .ui-multiselect-panel {
-  width :100%;
+    width: 100%;
 }
+
 .ui-chkbox .ui-chkbox-box {
-  height:1em;
+    height: 1em;
 }
+
 .auditviewtableht .config-ui-table-margin {
-    height:507;
+    height: 507;
 }
 
 .config-view-audit div.ui-datatable-scrollable-body {
-        max-height: 386px!important;
+    max-height: 386px!important;
 }
 
+
 /* Added for disabled condition in custom configuration*/
-.custom-config-dialog input:not([type]):disabled, .custom-config-dialog input[type=number i]:disabled, .custom-config-dialog input[type=text i]:disabled, .custom-config-dialog textarea:disabled{
+
+.custom-config-dialog input:not([type]):disabled,
+.custom-config-dialog input[type=number i]:disabled,
+.custom-config-dialog input[type=text i]:disabled,
+.custom-config-dialog textarea:disabled {
     color: #000000;
 }
 
+
 /* Added for disabled condition in custom configuration*/
-.custom-config-dialog .ui-button .ui-state-disabled, .custom-config-dialog .ui-widget:disabled {
-    opacity:0.85;
+
+.custom-config-dialog .ui-button .ui-state-disabled,
+.custom-config-dialog .ui-widget:disabled {
+    opacity: 0.85;
 }
+
 
 /* Added for left padding in custom configuration*/
+
 .custom-browse {
-    padding-left:28px;
+    padding-left: 28px;
 }
+
+
 /*-------------------ND CONFIF NEW-----------*/
-
-
 
 .profile-dialog .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
     font-size: 12px;
     font-weight: 500;
 }
+
 .instrprofileheaderhght .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
     padding-top: 4px;
     height: 22px;
     padding-left: 6px;
 }
+
 .instrprofiletxtarea {
     background: white;
     height: 366px;
 }
+
 .instrprofileheaderhght .ui-panel .ui-panel-content {
     height: 411px;
 }
+
 .instrprof .ndegui-mainbox {
-    height:500px;
+    height: 500px;
 }
+
 .tabs-all .ui-panel .ui-panel-content {
     background: #fff;
     overflow-y: auto;
@@ -996,24 +1069,24 @@ body {
     margin-right: 3px;
 }
 
-.ndeicon{
-  float: left;
-  font-size: 2.2em;
+.ndeicon {
+    float: left;
+    font-size: 2.2em;
 }
 
-.dotnet-color{
+.dotnet-color {
     color: blue;
-  }
-  
-  .java-color{
-   color: rgba(255, 68, 0, 0.596);
-  }
-  
-  .nodejs-color{
+}
+
+.java-color {
+    color: rgba(255, 68, 0, 0.596);
+}
+
+.nodejs-color {
     color: green;
-  }
+}
 
 .bread_crumb .ui-widget-header .ui-state-active {
-   background : transparent;
-   border: 0px;
+    background: transparent;
+    border: 0px;
 }
