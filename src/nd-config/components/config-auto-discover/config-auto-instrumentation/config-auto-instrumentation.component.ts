@@ -138,7 +138,10 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   downloadFile(instance, session) {
     let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
     this.configTopologyService.downloadFile(data).subscribe(data => {
-      this.configUtilityService.successMessage("File downloaded successfully");
+      if(data['_body'] == "Error")
+        this.configUtilityService.errorMessage("Error while downloading files")
+      else
+        this.configUtilityService.successMessage("File downloaded successfully");
     })
   }
 
