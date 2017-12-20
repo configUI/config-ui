@@ -14,6 +14,7 @@ import { ConfigUiUtility } from '../../utils/config-utility';
 import { Http} from '@angular/http';
 import { Observable, } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
+import { ImmutableArray } from '../../utils/immutable-array';
 
 @Component({
   selector: 'app-config-home',
@@ -46,9 +47,7 @@ export class ConfigHomeComponent implements OnInit {
   noAppPerm: boolean;
   noTopoPerm:boolean;
   isHomePermDialog: boolean;
-
-  
-  refreshIntervalTime = 20000;
+  refreshIntervalTime = 30000;
   subscription: Subscription;
   
   constructor(private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
@@ -56,6 +55,7 @@ export class ConfigHomeComponent implements OnInit {
   ngOnInit() {
     this.getTestInfoDetails();
     this.configHomeService.getAIStartStopOperationOnHome();
+
     var userName = sessionStorage.getItem('sesLoginName');
     var passWord =  sessionStorage.getItem('sesLoginPass');
     // let URL=sessionStorage.getItem('host');
@@ -77,7 +77,7 @@ export class ConfigHomeComponent implements OnInit {
           this.loadHomeData();
         //  });
     
-    let timer = Observable.timer(20000, this.refreshIntervalTime);
+    let timer = Observable.timer(30000, this.refreshIntervalTime);
     this.subscription = timer.subscribe(t => this.getTestInfoDetails());
   }
 
@@ -98,8 +98,19 @@ export class ConfigHomeComponent implements OnInit {
         }
         else
           this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
+       
+        let tempArray = [];
+        for (let i = 0; i < data.homeData[1].value.length; i++) {
+          if (+data.homeData[1].value[i]["id"] == 1 || +data.homeData[1].value[i]["id"] == 777777 || +data.homeData[1].value[i]["id"] == 888888) {
+            tempArray.push(data.homeData[1].value[i]);
+          }
+        }
 
-        if (data.homeData[1].value.length > 5) {
+        data.homeData[1].value.splice(0,3);
+        for(let j=0;j<tempArray.length;j++){
+          data.homeData[1].value=ImmutableArray.push(data.homeData[1].value, tempArray[j]);
+        }
+        if (data.homeData[1].value.length >= 5) {
           this.profileInfoMsg = "(Last 5 Modified)";
 	        this.profileInfo = (data.homeData[1].value).splice(0, 5);
 	       //  Commenting below line as we are reciecing profiles in descending order from backend.

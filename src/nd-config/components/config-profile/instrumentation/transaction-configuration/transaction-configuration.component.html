@@ -1,11 +1,11 @@
 <p-tabView>
-    <p-tabPanel header="HTTP BT Configuration">
+    <p-tabPanel header="Configure Detection Rules">
         <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
     </p-tabPanel>
-    <p-tabPanel header="Method BT Configuration">
+    <p-tabPanel header="Split by Method Execution">
         <app-method-bt-configuration (keywordData)="saveKeywordData($event)"></app-method-bt-configuration>
     </p-tabPanel>
-    <p-tabPanel header="BT HTTP Headers">
+    <p-tabPanel header="Split by HTTP Headers">
         <bt-http-headers (keywordData)="saveKeywordData($event)"></bt-http-headers>
     </p-tabPanel>
 </p-tabView>

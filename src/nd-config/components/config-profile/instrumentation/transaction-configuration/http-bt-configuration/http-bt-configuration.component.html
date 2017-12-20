@@ -1,23 +1,25 @@
 <div class="ui-g">
     <div class="ui-g-6" style="margin-bottom:5px; font-weight: bold">
-        HTTP Business Transaction Configuration
+        Business Transaction Configuration Rule Type
     </div>
 
     <div class="ui-g-12" style="background: #ededf0">
         <div class="ui-g-3">
-            <p-radioButton name="BusinessTransaction" value="global" label="URI without query parameters" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
-            <p-radioButton name="BusinessTransaction" value="global" label="URI without query parameters" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <i class="fa fa-info-circle" aria-hidden="true" title="Rule to create Business transaction names using URI and dynamic reqeust properties(HTTP Method, query parameters etc)."></i>
         </div>
         <div class="ui-g-9">
-            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
-            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <i class="fa fa-info-circle" aria-hidden="true" title="Provide patterns of URI and dynamic request properties(HTTP Method, query parameters etc) to identify Businesss transactions."></i>
         </div>
     </div>
 </div>
 <div class="ui-g" *ngIf="selectedQueryPattern == 'global'" style="margin-bottom:10px; border: ridge;">
     <form (ngSubmit)="saveBusinessTransaction()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g-12 header-font-size">
-            <div class="ui-g-6"> Select part of URI used in transaction name </div>
+            <div class="ui-g-6">URI used in Transaction Name</div>
             <div class="ui-g-6" style="text-align:right">
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetBusinessTransaction()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetBusinessTransaction()" label="Reset"></button>
@@ -31,22 +33,22 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2 segment-type-css">
-                <p-radioButton name="partOfURI" label="Segment of URI" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
+                <p-radioButton name="partOfURI" label="Select" value="segmentOfURI" [(ngModel)]="segmentURI"></p-radioButton>
             </div>
             <div class="ui-g-2">
                 <p-dropdown name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
-            <div class="ui-g-2" style="margin-top:4px">
-                Segment(s) of URI in transaction</div>
             <div class="ui-g-2"> <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'first'  || globalBtDetail.segmentType == 'last'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
                     title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;For example 2 or 5" required pattern="[1-9]+[0-9]*" ngModel />
                 <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'segNo'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue" title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;Rule-2: Numeric characters separated by comma(,) are accepted.  &#013;For example 2 or 2,4"
                     required pattern="[1-9]+(,[1-9]+)*" ngModel />
             </div>
+            <div class="ui-g-2" style="margin-top:4px">
+                segment(s) of URI in Business Transaction</div>
         </div>
 
         <div class="ui-g-12 header-font-size">
-            <label>Transaction threshold</label>
+            <label>Transaction Response Time Threshold Value</label>
         </div>
 
         <div class="ui-g-12 padding-left-css">
@@ -80,7 +82,7 @@
             </div>
         </div>
         <div class="ui-g-12 header-font-size">
-            <p-checkbox name="dynamicReqType" label="Choose dynamic request type" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
+            <p-checkbox name="dynamicReqType" label="Select Dynamic Request properties" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
         </div>
 
         <div class="ui-g-12 padding-left-css">
@@ -165,17 +167,17 @@
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="paramKeyValue" header="Req param key value" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="paramKeyValue" header="Query HTTP Parameters Key" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="reqMethod" header="HTTP method" [sortable]="true" [style]="{'width':'6%'}">
+        <p-column class="col-overflow" field="reqMethod" header="HTTP Method Type" [sortable]="true" [style]="{'width':'6%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="headerKeyValue" header="Req header key value" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="headerKeyValue" header="HTTP Request Headers Key" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
@@ -197,7 +199,7 @@
                         <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                     </div>
                     <div class="ui-g-5">
-                        <p-checkbox name="include" label="Include this business transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
+                        <p-checkbox name="include" label="Exclude this business transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
                     </div>
                 </div>
 
@@ -218,7 +220,7 @@
 
             <div class="ui-g-12 pattern-dialog-border">
                 <div class="ui-g-3 label">
-                    <label>Transaction threshold (ms)</label>
+                    <label>Transaction Response Time Threshold Value</label>
                 </div>
                 <div class="ui-g-1 label">
                     <label>Slow</label>
@@ -254,12 +256,12 @@
 
             <div class="pattern-dialog-border">
                 <div class="ui-g-12">
-                    <p-checkbox name="dynamicPartReq" label="Dynamic part of request" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
+                    <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
                 </div>
                 <!-- <div class="ui-g-12" style="padding-left: 27px">
-                    <p-checkbox name="reqParamKey" label="Request parameters" [disabled]="!businessTransPatternDetail.dynamicPartReq" [(ngModel)]="reqParamKeyCheck" binary="false"></p-checkbox>
-                </div>
-                <div class="ui-g-12" style="padding-left: 27px">
+                    <p-checkbox name="reqParamKey" label="Query HTTP Parameters Key" [disabled]="!businessTransPatternDetail.dynamicPartReq" [(ngModel)]="reqParamKeyCheck" binary="false"></p-checkbox>
+                </div> -->
+                <!-- <div class="ui-g-12" style="padding-left: 27px">
                     <div class="ui-g-6">
                         <p-dataTable class="nde-ui" [rows]="2" [value]="reqParamInfo" [paginator]="5" [(selection)]="selectedReqParam" *ngIf="reqParamKeyCheck" [pageLinks]="2">
                             <p-header>
@@ -308,7 +310,7 @@
                 <div class="ui-g-12">
                     <div class="ui-g-6" style="padding-left: 20px">
                         <div class="ui-g-5">
-                            <label>Request header key</label>
+                            <label>HTTP Request Headers key</label>
                         </div>
                         <div class="ui-g-7">
                             <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
@@ -328,7 +330,7 @@
                 <div class="ui-g-12">
                     <div class="ui-g-6" style="padding-left: 20px">
                         <div class="ui-g-5">
-                            <label>Method type</label>
+                            <label>HTTP Method Type</label>
                         </div>
                         <div class="ui-g-7">
                             <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70.3%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>

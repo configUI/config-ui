@@ -3,7 +3,7 @@
     <div class="header">
       <i aria-hidden="true"></i> Topology List
       <span class="appIcon-css">
-        <button pButton type="button" class="ui-button-danger" title="Delete topology(s)" (click)="deleteTopology()" icon="fa-trash"></button>
+        <button pButton type="button" class="ui-button-danger" title="Delete topology(s)" [disabled] = "topoPerm" (click)="deleteTopology()" icon="fa-trash"></button>
       </span>
     </div>
     <div class="config-ui-table-margin">

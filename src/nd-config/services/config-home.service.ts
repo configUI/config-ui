@@ -69,6 +69,6 @@ export class ConfigHomeService {
 
   getTestRunStatus()
   {
-    return this._restApi.getDataByGetReq(URL.GET_TEST_RUN_STATUS);
+    return this._restApi.getDataByGetReqForRunningTestStatus(URL.GET_TEST_RUN_STATUS);
   }
 }
