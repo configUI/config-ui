@@ -3,6 +3,7 @@
     word-break:break-all;
     cursor:pointer;
     color:blue;
+    max-width:1000px;
 }
 
 .Ddr-popup-footer .ui-dialog-footer{

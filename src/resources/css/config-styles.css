@@ -261,6 +261,10 @@
     cursor: pointer;
 }
 
+.autoinst .hyperlink {
+    cursor: pointer;
+}
+
 .card-toggle .mat-slide-toggle-thumb {
     height: 16px;
     width: 16px;
@@ -720,7 +724,6 @@ a {
 }
 
 .pattern-dialog-border .ui-inputtext {
-    padding: 0em;
     transition: unset;
 }
 
@@ -894,7 +897,7 @@ a {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -o-sticky;
-    top: 0;
+    S top: 0;
     z-index: 100;
 }
 
@@ -1081,4 +1084,9 @@ body {
 
 .nodejs-color {
     color: green;
+}
+
+.bread_crumb .ui-widget-header .ui-state-active {
+    background: transparent;
+    border: 0px;
 }
