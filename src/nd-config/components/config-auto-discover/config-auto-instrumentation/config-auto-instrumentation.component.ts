@@ -24,6 +24,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   autoIntrComplete: AutoIntrDTO[] = [];
   selectedAutoIntrComplete: AutoIntrDTO[];
   activeCount: string;
+  isAutoPerm: boolean;
 
   className: string = "Auto Instrument Component";
 
@@ -32,6 +33,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     let that = this;
 
     // this.configTopologyService.getAIData().subscribe(data => {
@@ -138,7 +140,10 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   downloadFile(instance, session) {
     let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
     this.configTopologyService.downloadFile(data).subscribe(data => {
-      this.configUtilityService.successMessage("File downloaded successfully");
+      if(data['_body'] == "Error")
+        this.configUtilityService.errorMessage("Error while downloading files")
+      else
+        this.configUtilityService.successMessage("File downloaded successfully");
     })
   }
 

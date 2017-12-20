@@ -38,13 +38,19 @@
           </p-column>
           <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
             <template let-col let-application="rowData" pTemplate>
-              <a class="hyperlink iconFontSize" style="color:rgb(4, 4, 161)" title="Refresh" (click)="getAIStatus(application['instanceName'], application['sessionName'])">
+              <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="isAutoPerm">
                 <i class="fa fa-refresh"></i>
               </a>
-              <a class="hyperlink iconFontSize" style="color:red" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])"
-                title="Stop">
+              <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="!isAutoPerm" (click)="getAIStatus(application['instanceName'], application['sessionName'])">
+                <i class="fa fa-refresh"></i>
+              </a>
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm">
                 <i class="fa fa-stop-circle"></i>
               </a>
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])"
+              title="Stop">
+              <i class="fa fa-stop-circle"></i>
+            </a>
             </template>
           </p-column>
         </p-dataTable>
@@ -82,16 +88,25 @@
             </template>
           </p-column>
           <p-column class="col-overflow" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
-            <template let-col let-application="rowData" pTemplate>
-              <a class="hyperlink iconFontSize" style="color:rgb(19, 69, 231)" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download">
+            <template  let-col let-application="rowData" pTemplate>
+              <a class="autoinst iconFontSize" style="color:rgb(19, 69, 231)"  *ngIf="isAutoPerm" title="Download">
                 <i class="fa fa-download"></i>
               </a>
-              <a class="hyperlink iconFontSize" style="color:rgb(17, 224, 86)" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit">
+              <a class="autoinst iconFontSize"  style="color:rgb(19, 69, 231)"  *ngIf="!isAutoPerm" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download">
+                <i class="fa fa-download"></i>
+              </a>
+              <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="isAutoPerm" title="Edit">
                 <i class="fa fa-edit"></i>
               </a>
-              <a class="hyperlink iconFontSize" style="color:red" (click)="delete(application['sessionName'], application['instanceName'])" title="Delete">
+              <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm" title="Delete">
                     <i class="fa fa-trash"></i>
                   </a>
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'])" title="Delete">
+                    <i class="fa fa-trash"></i>
+                 </a>
             </template>
           </p-column>
         </p-dataTable>
