@@ -283,23 +283,23 @@ export class ConfigTreeDetailComponent implements OnInit {
       return;
     }
 
-    for (let i = 0; i < this.selectedTopologyData.length; i++) {
-      if (this.selectedTopologyData[0]["instanceType"] == "Java") {
-        this.configProfileService.getJavaTypeProfileList().subscribe(data => {
-          this.createProfileSelectItem1(data);
-        });
-      }
-      else if (this.selectedTopologyData[0]["instanceType"] == "Dot Net") {
-        this.configProfileService.getDotNetTypeProfileList().subscribe(data => {
-          this.createProfileSelectItem1(data);
-        });
-      }
-      else if (this.selectedTopologyData[0]["instanceType"] == "NodeJS") {
-        this.configProfileService.getNodeJSTypeProfileList().subscribe(data => {
-          this.createProfileSelectItem1(data);
-        });
-      }
-    }
+    // for (let i = 0; i < this.selectedTopologyData.length; i++) {
+    //   if (this.selectedTopologyData[0]["instanceType"] == "Java") {
+    //     this.configProfileService.getJavaTypeProfileList().subscribe(data => {
+    //       this.createProfileSelectItem1(data);
+    //     });
+    //   }
+    //   else if (this.selectedTopologyData[0]["instanceType"] == "Dot Net") {
+    //     this.configProfileService.getDotNetTypeProfileList().subscribe(data => {
+    //       this.createProfileSelectItem1(data);
+    //     });
+    //   }
+    //   else if (this.selectedTopologyData[0]["instanceType"] == "NodeJS") {
+    //     this.configProfileService.getNodeJSTypeProfileList().subscribe(data => {
+    //       this.createProfileSelectItem1(data);
+    //     });
+    //   }
+    // }
     this.changeProf = true;
     this.topoData = Object.assign({}, this.selectedTopologyData[0]);
     // this.selectedTopologyData.empty();
@@ -356,31 +356,29 @@ export class ConfigTreeDetailComponent implements OnInit {
     arr.sort();
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < data.length; j++) {
-        if (data[j].agent == "Java" || data[j].agent == "-") {
           if (data[j].profileName == arr[i]) {
             this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
           }
-        }
       }
     }
   }
 
-  /**This method is used to creating instance select item object */
-  createProfileSelectItem1(data) {
-    this.profileSelectItem = [];
-    let arr = []; //This variable is used to sort Profiles
-    for (let i = 0; i < data.length; i++) {
-      arr.push(data[i].profileName);
-    }
-    arr.sort();
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < data.length; j++) {
-        if (data[j].profileName == arr[i]) {
-          this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
-        }
-      }
-    }
-  }
+  // /**This method is used to creating instance select item object */
+  // createProfileSelectItem1(data) {
+  //   this.profileSelectItem = [];
+  //   let arr = []; //This variable is used to sort Profiles
+  //   for (let i = 0; i < data.length; i++) {
+  //     arr.push(data[i].profileName);
+  //   }
+  //   arr.sort();
+  //   for (let i = 0; i < arr.length; i++) {
+  //     for (let j = 0; j < data.length; j++) {
+  //       if (data[j].profileName == arr[i]) {
+  //         this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
+  //       }
+  //     }
+  //   }
+  // }
 
 
   // routeToConfiguration(selectedProfileId, selectedProfileName) {
