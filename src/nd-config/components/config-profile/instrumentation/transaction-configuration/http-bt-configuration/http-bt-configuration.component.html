@@ -258,10 +258,10 @@
                 <div class="ui-g-12">
                     <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
                 </div>
-                <div class="ui-g-12" style="padding-left: 27px">
+                <!-- <div class="ui-g-12" style="padding-left: 27px">
                     <p-checkbox name="reqParamKey" label="Query HTTP Parameters Key" [disabled]="!businessTransPatternDetail.dynamicPartReq" [(ngModel)]="reqParamKeyCheck" binary="false"></p-checkbox>
-                </div>
-                <div class="ui-g-12" style="padding-left: 27px">
+                </div> -->
+                <!-- <div class="ui-g-12" style="padding-left: 27px">
                     <div class="ui-g-6">
                         <p-dataTable class="nde-ui" [rows]="2" [value]="reqParamInfo" [paginator]="5" [(selection)]="selectedReqParam" *ngIf="reqParamKeyCheck" [pageLinks]="2">
                             <p-header>
@@ -285,8 +285,28 @@
                             </p-column>
                         </p-dataTable>
                     </div>
-                </div>
+                </div> -->
 
+                <div class="ui-g-12">
+                    <div class="ui-g-6" style="padding-left: 20px">
+                        <div class="ui-g-5">
+                            <label>Request parameter key</label>
+                        </div>
+                        <div class="ui-g-7">
+                            <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
+                                pattern="[a-zA-Z_]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
+                        </div>
+                    </div>
+                    <div class="ui-g-6">
+                        <div class="ui-g-2">
+                            <label>Value</label>
+                        </div>
+                        <div class="ui-g-8">
+                            <input name="reqParamValue" [disabled]="((!businessTransPatternDetail.dynamicPartReq) || (!this.businessTransPatternDetail.reqParamKey))" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamValue" title="Please enter valid value. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Cannot include special characters except /,@,|,-,*,? and underscore"
+                                pattern="[a-zA-Z0-9_\/.|@?*-]+$" (keydown.space)="$event.preventDefault()" />
+                        </div>
+                    </div>
+                </div>
                 <div class="ui-g-12">
                     <div class="ui-g-6" style="padding-left: 20px">
                         <div class="ui-g-5">

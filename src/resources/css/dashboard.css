@@ -894,6 +894,10 @@ td .md2-calendar-day {
     height: 242px;
 }
 
+#monitorUpDownInfoDialog .ui-datatable-scrollable-table-wrapper{
+    overflow-x: hidden;
+}
+
 #widgetSettingId .mat-select-trigger {
     width: auto;
 }
@@ -1024,6 +1028,8 @@ b {
 /*----------------STYLES FOR EMAIL SMS ALERT SETTINGS------------*/
 .mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
     padding: 1em 0em 1em 0em;
+    background: transparent;
+    border: 0px solid #d5d5d5!important;
 }
 .mailSmsConfigSetting .ui-fieldset-content-wrapper{
     margin-bottom: 10px;
@@ -1040,11 +1046,6 @@ b {
 
 .mailSmsConfigSetting .ui-widget-content{
     border: 1px solid #d5d5d5;
-}
-
-.mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
-    background: transparent;
-    border: 0px solid #d5d5d5!important;
 }
 .mailSmsConfigSetting .ui-widget-header {
     background: #282828;

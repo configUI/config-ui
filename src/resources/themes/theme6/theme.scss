@@ -102,9 +102,6 @@ body {
 .left-menu .ui-widget-content a{
      color:#3a3a3a;
 }
-.scen-table, .test-run-table, .ui-datatable .ui-datatable-data>tr>td {
-    color:#f0f0f0;
-}
 .test-run-table, .scen-table, .ui-datatable-odd {
     background-color: #ffe6c4;
 }
@@ -265,24 +262,20 @@ app-alert-home .ui-datatable th span.ui-column-title
 }
 app-alert-home .historyTable .ui-datatable th.ui-state-default
 {
-    background: #bd965c;
-    background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
-    background: -webkit-linear-gradient(top, #bd965c 0%,#aa6a20 100%);
-    background: linear-gradient(to bottom, #bd965c 0%,#aa6a20 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
+    background: rgb(234, 234, 234);
 }
 app-alert-home .ui-accordion .ui-accordion-header {
-   background: #63431e;
+   background: rgba(145, 145, 145, 0.5);
 }
 app-alert-home .ui-accordion .ui-accordion-header.ui-state-active {
-    background: #a0835d;
+    background: rgba(145, 145, 145, 0.5);
 }
 app-alert-home .ui-accordion .ui-accordion-header:hover {
-    background: #000;
+    background: rgba(145, 145, 145, 0.1);
 }
 
 app-alert-home .ui-accordion .ui-accordion-header a {
-    color: #f0f0f0;
+    color: #4a4a4a;
 }
 
 .top-panel{
@@ -1769,10 +1762,10 @@ div.section label {
 .filters-container .ui-widget-content .ui-state-highlight{
     background: #ccc;
 }
-.scen-table, .test-run-table, .ui-datatable .ui-datatable-data > tr > td span {
+.scen-table.ui-datatable .ui-datatable-data > tr > td span {
     color: #313131;
 }
-.scen-table, .test-run-table, .ui-datatable .ui-datatable-data > tr > td {
+.test-run-table.ui-datatable .ui-datatable-data > tr > td span {
     color: #313131;
 }
 .ndegui-mainbox {
@@ -1822,12 +1815,12 @@ div.section label {
     background-color: rgba(255, 255, 255, 0.65) ; 
 }
 app-alert-home .ui-widget-content .history-table-row-even {
-    background: #ffe6c4;
-    color: #fff;
+    background: #fff;
+    color: #313131;
 }
 app-alert-home .ui-widget-content .history-table-row-odd {
-    background: #dabc93;
-    color: #fff;
+    background: #fbfbfb;
+    color: #313131;
 }
 .total-recors
 {
@@ -1881,7 +1874,7 @@ app-alert-home .ui-widget-content .history-table-row-odd {
     background: rgba(148, 148, 148, 0.5)
 }
 .chngPassword .ui-widget-header{
-    background: #b18348;
+    background: rgba(148, 148, 148, 0.5);
 } 
 .chngPassword .ui-dialog.ui-widget .ui-dialog-titlebar {
     color: #fff;
@@ -1891,10 +1884,10 @@ app-alert-home .ui-widget-content .history-table-row-odd {
     margin: 0;
 }
 .chngrefreshkey .ui-widget-header{
-    background: #b18348;
+    background: rgba(145,145,145,0.5);
 } 
 .chngrefreshkey .ui-dialog.ui-widget .ui-dialog-titlebar {
-    color: #fff;
+    color: #4a4a4a;
     padding: 6px;
 }
 .chngrefreshkey .ui-widget-content {
@@ -2012,7 +2005,7 @@ md-card.buildCardClass.mat-card {
     background: #fff; /*#fdf5e1;*/
 }
 .chngPassword, .chngrefreshkey .ui-widget-content {
-     background:  #fffbf1;
+     background:  #fff;
 }
 .btn1, .btn2, .dashboard-alert-model-footer-btn, .dashboard-confirm-model-footer-btn, .transaction-alert-model-footer-btn  {
     background: #b5b5b5;
@@ -2180,7 +2173,7 @@ button.capabilityButton.mat-raised-button{
 
 /*------------ Added for alert inner TAB -----------------------------------*/
 .filters-container .ui-state-default a:link, .ui-state-default a:visited {
-    color: #e0e0e0;
+    color: #4a4a4a;
 }
 
 /* -------------------------- Dashboard Panel Setting Drop Down ------------------*/
@@ -2516,3 +2509,30 @@ button.capabilityButton.mat-raised-button{
 .NO-modal .ui-button.ui-state-default {
     background: rgba(244, 249, 255, 0.35);
 }
+/*---------------Alert Email SettingPopup---------------*/
+.mailSmsConfigSetting .ui-dialog-titlebar-close {
+    color: #4a4a4a;
+}
+.mailSmsConfigSetting fieldset.ui-fieldset{
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #d5d5d5;
+}
+.mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
+     background: rgba(255, 255, 255, 0.8);
+}
+.mailSmsConfigSetting .ui-widget-header {
+    background: rgba(148, 148, 148, 0.5);
+    color: rgb(74, 74, 74);
+}
+.filters-container th{
+    color: #000;
+}
+//this is used to get unselected color in scenario left panel
+.scenario-left .ui-state-active {
+    background: transparent;
+}
+
+.scenProDrp .ui-dropdown label.ui-dropdown-label {
+   color: #000;
+}
+

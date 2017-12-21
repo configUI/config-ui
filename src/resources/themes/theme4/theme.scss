@@ -95,9 +95,7 @@ body {
 .left-menu .ui-widget-content a{
      color:#3a3a3a;
 }
-.scen-table, .test-run-table, .ui-datatable .ui-datatable-data>tr>td {
-    color:#f0f0f0;
-}
+
 .test-run-table, .scen-table, .ui-datatable-odd {
     background-color: #72bfb6;
 }
@@ -316,7 +314,10 @@ md-icon.dashboard-menu-item-icon {
 
 .dashboard-panel-color {
     box-shadow: 0px 0 4px 2px rgba(82, 82, 82, 0.4);
-    background: rgba(0, 0, 0, 0.4);
+}
+.dashboard-panel.dashboard-panel-color.grid-item {
+    background: rgba(0, 0, 0, 0.58);
+    border: 1px #112e26 solid;
 }
 
 .scenario-left .ui-panelmenu-content {
@@ -615,13 +616,13 @@ md-icon.dashboard-menu-item-icon {
 .dashboard-lower-table .ui-widget-content .lower-panel-table-row-even {
     border: 1px solid #316a63;
     background: #D6EBE8;
-    color: #fff;
+    color: #000;
 }
 
 .dashboard-lower-table .ui-widget-content .lower-panel-table-row-odd {
     border: 1px solid #316a63;
     background: #72bfb6;
-    color: #fff;
+    color: #000;
 }
 
 
@@ -1723,7 +1724,10 @@ div.section label {
 .filters-container .ui-widget-content .ui-state-highlight{
     background: #ccc;
 }
-.scen-table, .test-run-table, .ui-datatable .ui-datatable-data > tr > td span {
+.scen-table .ui-datatable .ui-datatable-data > tr > td span {
+    color: #000;
+}
+.test-run-table .ui-datatable .ui-datatable-data > tr > td span {
     color: #000;
 }
 .ndegui-mainbox {
@@ -1784,11 +1788,11 @@ div.section label {
 }
 app-alert-home .ui-widget-content .history-table-row-even {
     background: #D6EBE8;
-    color: #fff;
+    color: #000;
 }
 app-alert-home .ui-widget-content .history-table-row-odd {
     background: #72bfb6;
-    color: #fff;
+    color: #000;
 }
 .total-recors
 {
@@ -2276,3 +2280,152 @@ md-card-subtitle.dashboard-data-widget-subtitle.mat-card-subtitle {
 .dashboard-reports-excel-template-upload /deep/ span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
     background: #1a6966;
 }
+/*-------------------NEW KPI UI--------------------*/
+.ed-kpi {
+    background-color: rgba(245, 245, 245, 0.8);
+    box-shadow: 0 0 4px 2px #565656;
+}
+.ed-table .ui-datatable .ui-datatable-thead>tr>th {
+    color: #fff;
+}
+.ed-toolbar .ui-toolbar.ui-widget.ui-widget-header{
+        background: rgba(255, 255, 255, 0.58);
+        border: 0;
+}
+.sampleTimeClass{
+    color:#282828;
+}
+.timeLabel {
+    color: #373e69;
+}
+.revenue-table .ui-datatable-even {
+    background-color: rgba(114, 191, 182, 0.28);
+}
+.revenue-table .ui-datatable-odd {
+    background-color: rgba(214, 235, 232, 0.3);
+}
+.ed-table .ui-widget-header {
+    background: #fff;
+    border-bottom: 1.3px #375773 solid;
+}
+.kpigrid tr.ui-state-default {
+    border: 1px solid #646cab;
+}
+.kpi_multi_pvs.ui-state-default.ui-unselectable-text{
+    background: #2b635b; /*rgb(65, 126, 191);*/
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_multi_cpu.ui-state-default.ui-unselectable-text{
+    background: #2b635b; /*rgb(65, 126, 191);*/
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_multi_res.ui-state-default.ui-unselectable-text{
+    background: #0e3529; /*rgb(65, 126, 191);*/
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_multi_pky.ui-state-default.ui-unselectable-text{
+    background: rgba(59, 121, 112, 0.8);
+    color: #000;
+    font-weight: 500;
+}
+.kpi_multi_scs.ui-state-default.ui-unselectable-text{
+    background: rgba(95, 173, 162, 0.8);
+    color: #000;
+    font-weight: 500;
+}
+.kpi_pvs_pky_data.ui-state-default.ui-unselectable-text{
+    background: rgb(173, 205, 194);
+    color: #000;
+}
+.kpi_pvs_scs_data.ui-state-default.ui-unselectable-text{
+    background: rgb(197, 239, 224);
+    color: #000;
+}
+.kpi_res_pky_data.ui-state-default.ui-unselectable-text{
+    background: rgb(173, 205, 194);
+    color: #000;
+}
+.kpi_res_scs_data.ui-state-default.ui-unselectable-text{
+    background: rgb(197, 239, 224);
+    color: #000;
+}
+.kpi_cpu_pky_data.ui-state-default.ui-unselectable-text{
+    background: rgb(173, 205, 194);
+    color: #000;
+}
+.kpi_cpu_scs_data.ui-state-default.ui-unselectable-text{
+    background: rgb(197, 239, 224);
+    color: #000;
+}
+.kpi_total.ui-state-default.ui-unselectable-text{
+    background: #144234;
+    color: #fff;
+    font-weight: 500;
+}
+.kpi_updated_mins.ui-state-default.ui-unselectable-text{
+    background: #99b5ac;
+    color: #000;
+    font-weight: 500;
+}
+.kpi_tier_name.ui-state-default.ui-unselectable-text{
+    background: #7ec5ad;
+    color: #000;
+    font-weight: 500;
+}
+
+  .kpiTierName.ui-state-default.ui-unselectable-text { background:#666;}
+  .kpiKohls.ui-state-default.ui-unselectable-text{background:rgba(183, 2, 41, 1) }
+  .kpiWebstore.ui-state-default.ui-unselectable-text{background:rgba(60, 138, 213, 1)}
+  .kpiTotalMobile.ui-state-default.ui-unselectable-text{background: #4D6939}
+ .kpiMCom.ui-state-default.ui-unselectable-text{background: #da7d53}
+ .kpiTablet.ui-state-default.ui-unselectable-text{background: #64707E}
+ .kpiIphone.ui-state-default.ui-unselectable-text{background: #8A0E6E}
+  .kpiAndroid.ui-state-default.ui-unselectable-text{background: #22899A}
+ .kpiKiosk.ui-state-default.ui-unselectable-text{background: #4B57B9}
+ .kpiCSC.ui-state-default.ui-unselectable-text{background:#b5a72c}
+
+  .kohlscss{background: rgba(255, 178, 195, 0.4);}
+  .webstorecss{background: rgba(170, 209, 247, 0.4);}
+  .totalMobilecss{background:rgba(177, 206, 156, 0.4);}
+ .mComcss{background: rgba(251, 205, 184, 0.4);}
+ .tabletcss{background: rgba(167, 179, 193, 0.4);}
+ .iphonecss{background:rgba(222, 168, 210, 0.4);}
+  .androidcss{background:rgba(94, 207, 226, 0.4);}
+ .kioskcss{background:rgba(186, 195, 243, 0.4);}
+ .kpiCsccss{background:rgba(218, 209, 132, 0.4);}
+
+ i.topicon.kpi-kpi {
+    color: #fff;
+}
+.top-panel-nav-cross-icon {
+    color: black;
+}
+
+
+/*---------------Alert Email SettingPopup---------------*/
+.mailSmsConfigSetting .ui-dialog-titlebar-close {
+    color: #fff;
+}
+.mailSmsConfigSetting fieldset.ui-fieldset{
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #d5d5d5;
+}
+.mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
+     background: rgba(255, 255, 255, 0.8);
+}
+.mailSmsConfigSetting .ui-widget-header {
+    background: rgb(37, 101, 109);
+    color: #fff;
+}
+//this is used to get unselected color in scenario left panel
+.scenario-left .ui-state-active {
+    background: transparent;
+}
+
+.scenProDrp .ui-dropdown label.ui-dropdown-label {
+   color: #000;
+}
+
