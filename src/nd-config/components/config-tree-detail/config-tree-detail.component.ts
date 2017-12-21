@@ -36,6 +36,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   sessionName: string = "";
   perm: boolean;
   noProfilePerm: boolean;
+  isAIPerm: boolean;
 
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
@@ -103,6 +104,11 @@ export class ConfigTreeDetailComponent implements OnInit {
      else
      this.perm=false;
      this.noProfilePerm=+sessionStorage.getItem("ProfileAccess") == 0 ? true: false;
+     if(+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("AutoDiscoverAccess") == 4 || +sessionStorage.getItem("AutoDiscoverAccess") ==0){
+       this.isAIPerm=true;
+     }
+     else
+     this.isAIPerm=false;
     this.selectedEntityArr = CONS.TOPOLOGY.TOPOLOGY;
     //no need to call when store used [TO DO's]
 
@@ -283,23 +289,23 @@ export class ConfigTreeDetailComponent implements OnInit {
       return;
     }
 
-    // for (let i = 0; i < this.selectedTopologyData.length; i++) {
-    //   if (this.selectedTopologyData[0]["instanceType"] == "Java") {
-    //     this.configProfileService.getJavaTypeProfileList().subscribe(data => {
-    //       this.createProfileSelectItem1(data);
-    //     });
-    //   }
-    //   else if (this.selectedTopologyData[0]["instanceType"] == "Dot Net") {
-    //     this.configProfileService.getDotNetTypeProfileList().subscribe(data => {
-    //       this.createProfileSelectItem1(data);
-    //     });
-    //   }
-    //   else if (this.selectedTopologyData[0]["instanceType"] == "NodeJS") {
-    //     this.configProfileService.getNodeJSTypeProfileList().subscribe(data => {
-    //       this.createProfileSelectItem1(data);
-    //     });
-    //   }
-    // }
+//    for (let i = 0; i < this.selectedTopologyData.length; i++) {
+//      if (this.selectedTopologyData[0]["instanceType"] == "Java") {
+//        this.configProfileService.getJavaTypeProfileList().subscribe(data => {
+//          this.createProfileSelectItem1(data);
+//        });
+//      }
+//      else if (this.selectedTopologyData[0]["instanceType"] == "Dot Net") {
+//        this.configProfileService.getDotNetTypeProfileList().subscribe(data => {
+//          this.createProfileSelectItem1(data);
+//        });
+//      }
+//      else if (this.selectedTopologyData[0]["instanceType"] == "NodeJS") {
+//        this.configProfileService.getNodeJSTypeProfileList().subscribe(data => {
+//          this.createProfileSelectItem1(data);
+//        });
+//      }
+//    }
     this.changeProf = true;
     this.topoData = Object.assign({}, this.selectedTopologyData[0]);
     // this.selectedTopologyData.empty();
@@ -356,29 +362,31 @@ export class ConfigTreeDetailComponent implements OnInit {
     arr.sort();
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < data.length; j++) {
+//      if (data[j].agent == "Java" || data[j].agent == "-") {
           if (data[j].profileName == arr[i]) {
             this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
           }
+//      }
       }
     }
   }
 
-  // /**This method is used to creating instance select item object */
-  // createProfileSelectItem1(data) {
-  //   this.profileSelectItem = [];
-  //   let arr = []; //This variable is used to sort Profiles
-  //   for (let i = 0; i < data.length; i++) {
-  //     arr.push(data[i].profileName);
-  //   }
-  //   arr.sort();
-  //   for (let i = 0; i < arr.length; i++) {
-  //     for (let j = 0; j < data.length; j++) {
-  //       if (data[j].profileName == arr[i]) {
-  //         this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
-  //       }
-  //     }
-  //   }
-  // }
+  /**This method is used to creating instance select item object */
+//  createProfileSelectItem1(data) {
+//    this.profileSelectItem = [];
+//    let arr = []; //This variable is used to sort Profiles
+//    for (let i = 0; i < data.length; i++) {
+//      arr.push(data[i].profileName);
+//    }
+//    arr.sort();
+//    for (let i = 0; i < arr.length; i++) {
+//      for (let j = 0; j < data.length; j++) {
+//        if (data[j].profileName == arr[i]) {
+//          this.profileSelectItem.push({ label: arr[i], value: data[j].profileId });
+//        }
+//      }
+//    }
+//  }
 
 
   // routeToConfiguration(selectedProfileId, selectedProfileName) {
@@ -462,54 +470,53 @@ export class ConfigTreeDetailComponent implements OnInit {
     */
   splitSettings(data) {
     let arr = data.split("=");
-
     if (arr.length > 12) {
-      //For enableAutoInstrSession
-      if (arr[1].substring(0, arr[1].lastIndexOf(";")) == 1)
-        this.autoInstrObj.enableAutoInstrSession = true;
-      else
-        this.autoInstrObj.enableAutoInstrSession = false;
+    //For enableAutoInstrSession
+    if (arr[1].substring(0, arr[1].lastIndexOf(";")) == 1)
+      this.autoInstrObj.enableAutoInstrSession = true;
+    else
+      this.autoInstrObj.enableAutoInstrSession = false;
 
-      //For minStackDepthAutoInstrSession
-      this.autoInstrObj.minStackDepthAutoInstrSession = arr[2].substring(0, arr[2].lastIndexOf(";"))
+    //For minStackDepthAutoInstrSession
+    this.autoInstrObj.minStackDepthAutoInstrSession = arr[2].substring(0, arr[2].lastIndexOf(";"))
 
-      //For autoInstrTraceLevel
-      this.autoInstrObj.autoInstrTraceLevel = arr[3].substring(0, arr[3].lastIndexOf(";"))
+    //For autoInstrTraceLevel
+    this.autoInstrObj.autoInstrTraceLevel = arr[3].substring(0, arr[3].lastIndexOf(";"))
 
-      //For autoInstrSampleThreshold
-      this.autoInstrObj.autoInstrSampleThreshold = arr[4].substring(0, arr[4].lastIndexOf(";"))
+    //For autoInstrSampleThreshold
+    this.autoInstrObj.autoInstrSampleThreshold = arr[4].substring(0, arr[4].lastIndexOf(";"))
 
-      //For autoInstrPct
-      this.autoInstrObj.autoInstrPct = arr[5].substring(0, arr[5].lastIndexOf(";"))
+    //For autoInstrPct
+    this.autoInstrObj.autoInstrPct = arr[5].substring(0, arr[5].lastIndexOf(";"))
 
-      //For autoDeInstrPct
-      this.autoInstrObj.autoDeInstrPct = arr[6].substring(0, arr[6].lastIndexOf(";"))
+    //For autoDeInstrPct
+    this.autoInstrObj.autoDeInstrPct = arr[6].substring(0, arr[6].lastIndexOf(";"))
 
-      //For autoInstrMapSize
-      this.autoInstrObj.autoInstrMapSize = arr[7].substring(0, arr[7].lastIndexOf(";"))
+    //For autoInstrMapSize
+    this.autoInstrObj.autoInstrMapSize = arr[7].substring(0, arr[7].lastIndexOf(";"))
 
-      //For autoInstrMaxAvgDuration
-      this.autoInstrObj.autoInstrMaxAvgDuration = arr[8].substring(0, arr[8].lastIndexOf(";"))
+    //For autoInstrMaxAvgDuration
+    this.autoInstrObj.autoInstrMaxAvgDuration = arr[8].substring(0, arr[8].lastIndexOf(";"))
 
-      //For autoInstrClassWeight
-      this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
+    //For autoInstrClassWeight
+    this.autoInstrObj.autoInstrClassWeight = arr[9].substring(0, arr[9].lastIndexOf(";"))
 
-      //For autoInstrSessionDuration
-      this.autoInstrObj.autoInstrSessionDuration = arr[10].substring(0, arr[10].lastIndexOf(";"));
+    //For autoInstrSessionDuration
+    this.autoInstrObj.autoInstrSessionDuration = arr[10].substring(0, arr[10].lastIndexOf(";"));
 
-      //For autoInstrRetainChanges
-      if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
-        this.autoInstrObj.autoInstrRetainChanges = true;
-      else
-        this.autoInstrObj.autoInstrRetainChanges = false;
+    //For autoInstrRetainChanges
+    if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
+      this.autoInstrObj.autoInstrRetainChanges = true;
+    else
+      this.autoInstrObj.autoInstrRetainChanges = false;
 
-      //For blackListForDebugSession
-      if (arr[12] != "NA")
-        this.autoInstrObj.blackListForDebugSession = true;
-      else
-        this.autoInstrObj.blackListForDebugSession = false;
+    //For blackListForDebugSession
+    if (arr[12] != "NA")
+      this.autoInstrObj.blackListForDebugSession = true;
+    else
+      this.autoInstrObj.blackListForDebugSession = false;
 
-    }
+   }
 
   }
 

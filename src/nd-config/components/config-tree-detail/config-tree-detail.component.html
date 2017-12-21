@@ -14,16 +14,23 @@
                 <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
         </template>
             <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
-                <md-slide-toggle (change)="disableProfInstance(entity['instanceId'], entity[col.field])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
+		<md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
+                <md-slide-toggle *ngIf="!perm" (change)="disableProfInstance(entity['instanceId'], entity[col.field])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
         </template>
             <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
                 <span *ngIf="entity[col.field]== false" title="Start">
-                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" (click)="openAutoInstrDialog(entity['instanceName'], entity['instanceId'])">
+                    <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
+                        <i class="fa fa-play-circle-o" ></i>
+                    </a>
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceName'], entity['instanceId'])">
                         <i class="fa fa-play-circle-o" ></i>
                     </a>
                    </span>
                  <span *ngIf="entity[col.field]== true" title="Stop">
-                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" (click)="stopInstrumentation(entity['instanceName'], entity['instanceId'])">
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="isAIPerm"  (click)="accessMessage()">
+                        <i class="fa fa-stop-circle"></i>
+                    </a>
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm" (click)="stopInstrumentation(entity['instanceName'], entity['instanceId'])">
                         <i class="fa fa-stop-circle"></i>
                     </a>
                    </span>
@@ -84,7 +91,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Max stack depth to identify idle threads</label>
+		<label>Max stack depth to identify idle threads</label>
                 <i class="fa fa-info-circle" aria-hidden="true" title="In AI, application agent will ignore idle threads, which has stack depth less than the provided value"></i>
             </div>
             <div class="ui-g-1"></div>
@@ -103,7 +110,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>No.of thread samples to instrument methods</label>
+		 <label>No.of thread samples to instrument methods</label>
                 <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
             </div>
             <div class="ui-g-1"></div>
@@ -131,7 +138,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Maximum method(s) to be considered for Auto Instrumentation</label>
+		<label>Maximum method(s) to be considered for Auto Instrumentation</label>
                 <i class="fa fa-info-circle" aria-hidden="true" title="Maximum unique method(s) without overloading which will be considered in Auto Instrumentation process"></i>
             </div>
             <div class="ui-g-1"></div>
@@ -141,7 +148,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Minimum average execution time of method for Instrumentation (in ms)</label>
+		<label>Minimum average execution time of method for Instrumentation (in ms)</label>
                 <i class="fa fa-info-circle" aria-hidden="true" title="Methods will be un-instrumemted if average execution time of method less than the provided value"></i>
             </div>
             <div class="ui-g-1"></div>
@@ -151,7 +158,7 @@
         </div>
         <div class="ui-g-12">
             <div class="ui-g-7">
-                <label>Weightage of methods in stack traces having Exception/Integration point calls </label>
+		<label>Weightage of methods in stack traces having Exception/Integration point calls </label>
                 <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
             </div>
             <div class="ui-g-1"></div>
@@ -160,7 +167,7 @@
             </div>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">
-            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove AI session changes after it's completion" binary="true" ngModel></p-checkbox>
+		<p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove AI session changes after it's completion" binary="true" ngModel></p-checkbox>
             <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after the AI session completion"></i>
         </div>
         <div class="ui-g-12" style="margin-left: 5px">

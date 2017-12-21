@@ -37,6 +37,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     instrFromLeftSideTree: string;
     instrFromRightSideTree: string;
     reqId: string;
+    isAutoPerm: boolean;
     constructor(private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
         this.leftSideTreeData = [];
         this.adrFile = sessionStorage.getItem("adrFile");
@@ -100,7 +101,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     }
 
     ngOnInit() {
-
+	this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     }
 
     nodeExpand(event) {
