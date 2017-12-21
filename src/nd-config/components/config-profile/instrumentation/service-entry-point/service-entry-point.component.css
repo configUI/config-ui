@@ -9,3 +9,4 @@
     color: rgba(255, 176, 0, 0.77) !important;
     height: 12px !important;
 }
+textarea { resize: none; }

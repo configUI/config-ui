@@ -54,7 +54,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   subscription: Subscription;
 
-  javaTypeEntryPointName = ["ATGServlet", "ApacheJsperService", "EntryForJBOSS", "EntryForWebLogicJSP", "ErrorPageEntry", "Genric", "HessianCallOut", "HttpServletService", "JMSCall", "glassFishJersey", "jerseyCall"];
+  javaTypeEntryPointName = ["ATGServlet", "ApacheJsperService", "EntryForJBOSS", "EntryForWebLogicJSP", "ErrorPageEntry", "Generic", "HessianCallOut", "HttpServletService", "JMSCall", "glassFishJersey", "jerseyCall"];
   javaTypeEntryPointId = ["11", "3", "8", "2", "9", "6", "10", "1", "7", "5", "4"];
   dotNetTypeEntryPoint = ["HttpServletService", "TXExit"];
   dotNetTypeEntryPointId = ["1", "12"];

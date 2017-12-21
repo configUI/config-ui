@@ -1,35 +1,8 @@
 .config-ui-auto {
-    padding-top: 165px
-}
-
-.instrumentation-css {
-    background-color: rgb(63, 81, 181) !important;
-    border: 1px solid rgb(63, 81, 181) !important;
+    padding-top: 175px
 }
 
 .unInstrumentation-css {
     background-color: #D84315 !important;
     border: 1px solid #D84315 !important;
-}
-
-.config_instr_hdr {
-    background: #006699;
-    margin-left: -6px;
-    border-radius: 3px;
-    margin-bottom: -7px;
-    color: white;
-    padding: 0
-}
-
-.config_Uninstr_hdr {
-    background: #006699;
-    margin-left: 6px;
-    border-radius: 3px;
-    margin-bottom: -7px;
-    color: white;
-    height: 33px;
-}
-
-.config-instr-save-botton {
-    background-color: rgb(63, 81, 181) !important;
 }

@@ -2,3 +2,4 @@
     margin-top: 21px;
     margin-left: 50px
 }
+textarea { resize: none; }

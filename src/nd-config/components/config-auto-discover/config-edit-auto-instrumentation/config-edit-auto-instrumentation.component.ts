@@ -30,6 +30,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     instrFromLeftSideTree: string;
     instrFromRightSideTree: string;
     reqId: string;
+    isAutoPerm: boolean;
     constructor(  private router: Router, private route: ActivatedRoute,private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
         this.leftSideTreeData = [];
         this.reqId = sessionStorage.getItem("configRequestID");
@@ -85,7 +86,9 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         this.rightSideTreeData = [];
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+	this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
+}
 
     nodeExpand(event) {
         if (event.node.children.length == 0) {
