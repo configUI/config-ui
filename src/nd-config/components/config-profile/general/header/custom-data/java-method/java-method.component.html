@@ -5,7 +5,7 @@
 <!--For showing Method Based Custom Data-->
 <p-dataTable class="nde-ui" [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6" [pageLinks]="3">
     <p-header>
-        <span class="configui-float-css"> Method based custom header rules</span>
+        <span class="configui-float-css"> Method Based Custom Header rule(s)</span>
         <span class="configui-float">
 
                        <button pButton type="button" title="Add" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
@@ -16,6 +16,7 @@
                        <button pButton type="button" class="ui-button-danger" title="Delete"  *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
                    </span>
     </p-header>
+    
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column class="col-overflow" field="fqm" [style]="{'width':'50%'}" header="Fully Qualified Method Name" [sortable]="true">
@@ -39,7 +40,7 @@
 
 
 <!--Dialog for adding -->
-<p-dialog class="profile-dialog" header="{{isNew ? 'Add Method rule to capture custom headers' : 'Edit Method rule to capture custom headers '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add Method Rule to Capture Custom Headers' : 'Edit Method rule to Capture Custom Headers '}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="700" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveEditData(fqmField)" id="addMethodBasedForm" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
@@ -124,19 +125,19 @@
                     </span>
                 </p-header>
                 <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                <p-column class="col-overflow" [style]="{'width':'30%'}" field="headerName" header="Header Name" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'width':'28%'}" field="headerName" header="Header Name" [sortable]="true">
                     <template let-col let-application="rowData">
                    <!--<span title="{{application[col.field]}}"><a [routerLink]="[ ROUTING_PATH + '/tree-main', application['dcId']]">{{application[col.field]}}</a></span>-->
              </template>
                 </p-column>
 
-                <p-column class="col-overflow" [style]="{'text-align':'right','width':'10%'}" field="indexVal" header="Argument Index" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'text-align':'right','width':'9%'}" field="indexVal" header="Argument Index" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
 
-                <p-column class="col-overflow" [style]="{'width':'15%'}" field="typeName" header="Data Type" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'width':'13%'}" field="typeName" header="Data Type" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -153,7 +154,7 @@
                     </template>
                 </p-column>
 
-                <p-column ngIfclass="col-overflow" field="mode" [style]="{'text-align':'right','width':'10%'}" header="Show in Method Calling Tree" [sortable]="true">
+                <p-column ngIfclass="col-overflow" field="mode" [style]="{'text-align':'right','width':'15%'}" header="Show in Method Calling Tree" [sortable]="true">
                     <template let-col let-application="rowData">
                        <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -249,7 +250,7 @@
                 <p-radioButton name="BusinessTransaction" value="0" label="Capture custom header" [(ngModel)]="returnTypeRules.mode"></p-radioButton>
             </div>
             <div class="ui-g-12 configui-java-css-2">
-                <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode " label="Display Custom header in method calling tree"></p-radioButton>
+                <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="returnTypeRules.mode " label="Display custom header in method calling tree"></p-radioButton>
             </div>
         </div>
         <footer>
@@ -282,12 +283,12 @@
                     <input name="indexVal" type="text" size="15" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.indexVal" required ngModel/>
                     <p-dropdown name="indexVal" [style]="{'width': '100%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" appendTo="body"></p-dropdown>
                 </div>
-                <div class="ui-g-2">
+                <div class="ui-g-1" style="margin-left:13px">
                         <label>Data Type</label>
                     </div>
                     <div class="ui-g-2 configui-java-css">
-                        <input name="type" type="text" size="15" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
-                        <p-dropdown name="type" [style]="{'width': '100%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--" appendTo="body"></p-dropdown>
+                        <input name="type" type="text" size="15" style="margin-left:30px" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
+                        <p-dropdown name="type" [style]="{'width': '100%','margin-left':'30px'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--" appendTo="body"></p-dropdown>
                     </div>
             </div>
 
@@ -393,7 +394,7 @@
                     <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="argumentTypeRules.mode "></p-radioButton>
                 </div>
                 <div class="ui-g-7">
-                    <label>Display Custom header in method calling tree</label>
+                    <label>Display custom header in method calling tree</label>
                 </div>
             </div>
         </div>
@@ -406,3 +407,4 @@
         </footer>
     </form>
 </p-dialog>
+
