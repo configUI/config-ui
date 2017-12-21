@@ -79,7 +79,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternInfo: BusinessTransPatternData[];
   businessTransPatternDetail: BusinessTransPatternData;
 
-  chkInclude: boolean = true;
+  chkInclude: boolean = false;
   saveDisable: boolean = false;
 
   isBTPatternBrowse: boolean = false;
@@ -361,7 +361,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.businessTransPatternDetail.verySlowTransaction = "5000";
     this.businessTransPatternDetail.slowDynamicThreshold = "10";
     this.businessTransPatternDetail.verySlowDynamicThreshold = "20";
-    this.chkInclude = true;
+    this.chkInclude = false;
     this.isNewApp = true;
     this.addEditPatternDialog = true;
     this.reqParamKeyCheck = false;
@@ -573,7 +573,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     //When add edit Pattern
     else {
-      if (this.selectedPatternData[0].btName != this.businessTransPatternDetail.btName) {
+      if (this.selectedPatternData[0].btName != this.businessTransPatternDetail.btName && this.selectedPatternData[0].urlName != this.businessTransPatternDetail.urlName) {
         if (this.checkAppNameAlreadyExist())
           return;
       }
