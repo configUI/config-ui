@@ -289,9 +289,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.reqParamInfo = [];
     }
     if (this.chkInclude == true)
-      this.businessTransPatternDetail.include = "include"
-    else
       this.businessTransPatternDetail.include = "exclude"
+    else
+      this.businessTransPatternDetail.include = "include"
     this.setDynamicValuesOFF();    //Method to set values when Dynamic part of request is disabled 
     /**
      * Condition to check if VALUE is filled and KEY is blank
@@ -382,9 +382,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
 
     if (this.selectedPatternData[0].include == "include")
-      this.chkInclude = true;
-    else
       this.chkInclude = false;
+    else
+      this.chkInclude = true;
 
     if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == "-") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.businessTransPatternDetail.dynamicPartReq = false;
@@ -464,9 +464,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /**This method is used to edit Pattern detail */
   editPattern(): void {
     if (this.chkInclude == true)
-      this.businessTransPatternDetail.include = "include";
-    else
       this.businessTransPatternDetail.include = "exclude";
+    else
+      this.businessTransPatternDetail.include = "include";
 
     if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
