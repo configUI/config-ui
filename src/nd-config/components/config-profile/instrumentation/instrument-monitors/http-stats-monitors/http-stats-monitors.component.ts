@@ -161,8 +161,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
   //This method loads Flow dump Mode values
   loadFlowDumpData() {
     this.flowDumpData = [];
-    var flowDumpLabel = ['Disable', 'Enable', 'Enable Forcefully'];
-    var flowDumpVal = ['0', '1', '2'];
+    var flowDumpLabel = ['Disable', 'Enable'];
+    var flowDumpVal = ['0', '1'];
     this.flowDumpData = ConfigUiUtility.createListWithKeyValue(flowDumpLabel, flowDumpVal);
   }
   //This method loads Header Type values

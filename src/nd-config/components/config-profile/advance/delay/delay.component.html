@@ -1,6 +1,6 @@
 <form *ngIf="delayData" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Put Delay In Method settings
+        <div class="header">Settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
@@ -15,7 +15,7 @@
                     <div class="ui-g-12">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-2">
-                            <label>Fully qualified method name</label>
+                            <label>Fully Qualified Method Name</label>
                         </div>
                         <div class="ui-g-4">
                             <input name="fullyQualifiedName" type="text" size="30" [(ngModel)]="delayData.fullyQualifiedName" pInputText title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
@@ -30,11 +30,24 @@
                             <label>Delay In Method</label>
                         </div>
 
-                        <div class="ui-g-2">
-                            from: <input name="from" type="number" min="0" max="99999999" #from (input)="checkFrom(from,to)" class="configui-delay-css-2" [(ngModel)]="delayData.from" pInputText required ngModel/>ms
+                        <div class="ui-g-1" style="width:3%;margin-top:3px">
+                            <label>from:</label>
                         </div>
-                        <div class="ui-g-2">
-                            to: <input name="to" type="number" min="1" max="99999999" #to (input)="checkTo(from,to)" class="configui-delay-css-3" [(ngModel)]="delayData.to" pInputText required ngModel/>ms
+                        <div class="ui-g-1" style="width:12%">
+                           <input name="from" type="number" min="0" max="99999999" #from (input)="checkFrom(from,to)" class="configui-delay-css-2" [(ngModel)]="delayData.from" pInputText required ngModel/>
+                        </div>
+                        <div class="ui-g-1" style="width:2%;padding-left:0px;margin-top:3px">
+                            <label>(ms)</label>
+                        </div>
+                        
+                        <div class="ui-g-1" style="width:4%;padding-left:30px;margin-top:3px">
+                            <label>to:</label>
+                        </div>
+                        <div class="ui-g-1" style="width:12%">
+                            <input name="to" type="number" min="1" max="99999999" #to (input)="checkTo(from,to)" class="configui-delay-css-3" [(ngModel)]="delayData.to" pInputText required ngModel/>
+                        </div>
+                        <div class="ui-g-1" style="width:2%;padding-left:0px;margin-top:3px">
+                            <label>(ms)</label>
                         </div>
                     </div>
                     <div class="ui-g-12">

@@ -56,7 +56,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath = keywordDataVal;
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }

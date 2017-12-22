@@ -1,6 +1,6 @@
 <form (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
         <div class="tabsincontent">
-            <div class="header">JVM Monitors
+            <div class="header">Settings
                 <div class="pull-right">
                     <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
                     <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
@@ -15,7 +15,7 @@
                     <div class="ui-g">
                         <div class="ui-g-1"></div>
                         <div class="ui-g-3">
-                            <p-checkbox name="enableJVMMonitor" label="Enable JVM thread CPU monitor" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
+                            <p-checkbox name="enableJVMMonitor" label="Enable CPU monitor on JVM thread" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
                         </div>
     
                         <div class="ui-g-12 configui-thread-css-1">
