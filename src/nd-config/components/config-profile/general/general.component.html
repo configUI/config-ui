@@ -9,7 +9,7 @@
     <p-tabPanel header="Exception" [selected]="index == 2">
       <app-exception *ngIf="index == 2" (keywordData)="saveKeywordData($event)"></app-exception>
     </p-tabPanel>
-    <p-tabPanel header="Flowpath Header" [selected]="index == 3">
+    <p-tabPanel header="Header" [selected]="index == 3">
       <app-header *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
     </p-tabPanel>
     <p-tabPanel header="Instrumentation Profiles" [selected]="index == 4">
@@ -26,7 +26,7 @@
       <p-tabPanel header="Hotspot" [selected]="index == 1">
         <app-hotspot *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-hotspot>
       </p-tabPanel>
-      <p-tabPanel header="Flowpath Header" [selected]="index == 2">
+      <p-tabPanel header="Header" [selected]="index == 2">
         <app-header *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
       </p-tabPanel>
       <p-tabPanel header="Instrumentation Profiles" [selected]="index == 3">

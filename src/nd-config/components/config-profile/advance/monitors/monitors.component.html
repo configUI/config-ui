@@ -1,6 +1,6 @@
 <form *ngIf="monitor" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Monitors settings
+        <div class="header">Settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
 		<button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
@@ -15,7 +15,7 @@
                 <div class="ui-g-12">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="Monitor business transactions" binary="true" ngModel></p-checkbox>
+                        <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="Monitor Business Transactions" binary="true" ngModel></p-checkbox>
                     </div>
                 </div>
                 <!--<div class="ui-g">
@@ -23,31 +23,31 @@
                 <div class="ui-g-12">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend monitor"></p-checkbox>
+                        <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend Monitor"></p-checkbox>
                     </div>
                 </div>
                 <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="eventLoopMonitor" [(ngModel)]="eventLoopMonitorChk" binary="true" ngModel label="Average time taken by event loop"></p-checkbox>
+                        <p-checkbox name="eventLoopMonitor" [(ngModel)]="eventLoopMonitorChk" binary="true" ngModel label="Average Time Taken by Event Loop"></p-checkbox>
                     </div>
                 </div>
                 <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="gcProfiler" [(ngModel)]="gcProfilerChk" binary="true" ngModel label="GC and heap usage information"></p-checkbox>
+                        <p-checkbox name="gcProfiler" [(ngModel)]="gcProfilerChk" binary="true" ngModel label="GC and Heap Usage Information"></p-checkbox>
                     </div>
                 </div>
                 <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-3">
-                        <p-checkbox name="nodeAsyncEventMonitor" [(ngModel)]="nodeAsyncEventMonitorChk" binary="true" ngModel label="Asynchronous events information"></p-checkbox>
+                        <p-checkbox name="nodeAsyncEventMonitor" [(ngModel)]="nodeAsyncEventMonitorChk" binary="true" ngModel label="Asynchronous Events Information"></p-checkbox>
                     </div>
                 </div>
                 <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
                     <div class="ui-g-1"></div>
                     <div class="ui-g-4">
-                        <p-checkbox name="nodeServerMonitor" [(ngModel)]="nodeServerMonitorChk" binary="true" ngModel label="Server request/response information on particular node server"></p-checkbox>
+                        <p-checkbox name="nodeServerMonitor" [(ngModel)]="nodeServerMonitorChk" binary="true" ngModel label="Server Request/Response Information on Particular Node Server"></p-checkbox>
                     </div>
                 </div>
                 <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
