@@ -1090,3 +1090,8 @@ body {
     background: transparent;
     border: 0px;
 }
+
+.headerhttpres .ui-multiselect-panel .ui-multiselect-items-wrapper {
+    overflow-x: hidden;
+    height: 95px;
+}

@@ -9,11 +9,11 @@
         <div class="ui-g-1">
             <label>Header type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="customValueType" [style]="{'width':'60%'}" (click)="changeSpecificReq()" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown>
+            <p-dropdown class="nde-ui" name="customValueType" [style]="{'width':'60%'}" (click)="changeSpecificReq()" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[0].headerMode == 'Specified')">
             <input type="text" size="30" class='hidden-validator' [(ngModel)]="data[0].headersName[0]" pInputText required ngModel/>
-            <p-multiSelect class="multiselectdropReqResp" [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
+            <p-multiSelect class="multiselectdropReqResp headerhttpres nde-ui" [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
@@ -40,11 +40,11 @@
         <div class="ui-g-1">
             <label>Header type</label></div>
         <div class="ui-g-2">
-            <p-dropdown name="headerModeResp" [style]="{'width':'60%'}" (click)="changeSpecificResp()"  [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
+            <p-dropdown class="nde-ui" name="headerModeResp" [style]="{'width':'60%'}" (click)="changeSpecificResp()"  [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
         </div>
         <div class="ui-g-8" *ngIf="(data[1].headerModeResp == 'Specified')">
             <input name="headerMode" type="text" size="30" class='hidden-validator' [(ngModel)]="data[1].headersNameResp[0]" pInputText required ngModel/>
-            <p-multiSelect class="multiselectdropReqResp" [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
+            <p-multiSelect class="multiselectdropReqResp headerhttpres nde-ui" [options]="specifiedResHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[1].headersNameResp"></p-multiSelect>
             <!--<p-dropdown name="customValueType" [disabled]="!(selectedHeader == 'Specified')" [style]="{'width':'80%'}" [options]="specifiedHeaderType" [(ngModel)]="selectedHeaderType"  required ngModel placeholder="Custom value Type"></p-dropdown>-->
         </div>
     </div>
