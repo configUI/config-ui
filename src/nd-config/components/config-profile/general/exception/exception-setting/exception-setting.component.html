@@ -1,6 +1,6 @@
 <form *ngIf="exceptionForm" (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Exception settings
+        <div class="header">Settings
             <div class="pull-right">
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable  || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
 		<button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
@@ -11,7 +11,7 @@
 <p-panel class="hideheader">
   <div style="margin: 5px 0px" class="flowpathheader-accordion">
    <div style="margin-top:17px"></div>
-    <p-fieldset legend="Exception Settings" [toggleable]="true" [collapsed]="false">
+    <p-fieldset legend="Exception" [toggleable]="true" [collapsed]="false">
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-3">
@@ -49,7 +49,7 @@
 
 
 
-    <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java'">
+    <p-fieldset legend="Advanced" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java'">
         <div class="ui-g-12">
             <span style="font-weight: bold">Trace Source Code</span>
         </div>

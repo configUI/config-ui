@@ -16,7 +16,6 @@
                        <button pButton type="button" class="ui-button-danger" title="Delete"  *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
                    </span>
     </p-header>
-    
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
     <p-column class="col-overflow" field="fqm" [style]="{'width':'50%'}" header="Fully Qualified Method Name" [sortable]="true">
@@ -287,8 +286,8 @@
                         <label>Data Type</label>
                     </div>
                     <div class="ui-g-2 configui-java-css">
-                        <input name="type" type="text" size="15" style="margin-left:30px" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
-                        <p-dropdown name="type" [style]="{'width': '100%','margin-left':'30px'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--" appendTo="body"></p-dropdown>
+                        <input name="type" type="text" size="15" style="margin-left:50px" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
+                        <p-dropdown name="type" [style]="{'width': '100%','margin-left':'50px'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--" appendTo="body"></p-dropdown>
                     </div>
             </div>
 

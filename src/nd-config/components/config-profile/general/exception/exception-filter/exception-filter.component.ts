@@ -27,6 +27,9 @@ export class ExceptionFilterComponent implements OnInit {
   saveDisable: boolean;
   profileId: number;
 
+  @Input()
+  data;
+
   /**This is to send data to parent component(General Screen Component) for save keyword data */
   @Output()
   keywordData = new EventEmitter();
@@ -69,6 +72,9 @@ export class ExceptionFilterComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if( this.data == false){
+        this.isProfilePerm=true;
+    }
     this.loadExceptionFilterList();
     this.createExceptionTypeSelectType();
     if (this.configKeywordsService.keywordData != undefined) {
