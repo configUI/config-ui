@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12" style="background:white; border: 1px solid lightgray">
-                    <p-tree [value]="leftSideTreeData" (onNodeExpand)="nodeExpand($event)" selectionMode="checkbox" [style]="{'height':'400px','width':'42.4em','margin':'-6px 0px -6px -6px'}" [(selection)]="instrFromLeftSideTree">
+                    <p-tree class="nde-ui" [value]="leftSideTreeData" (onNodeExpand)="nodeExpand($event)" selectionMode="checkbox" [style]="{'height':'400px','width':'42.4em','margin':'-6px 0px -6px -6px'}" [(selection)]="instrFromLeftSideTree">
                         <template let-col let-node="rowData" pTemplate>
                         <span  title="{{node[col.field]}}" class="node.icon">{{node[col.field]}}</span>
                     </template>
@@ -29,7 +29,7 @@
                     <div style="margin-top: 3px">Instrumented List</div>
                 </div>
                 <div class="ui-g-12" style="background:white; border: 1px solid lightgray">
-                    <p-tree [value]="rightSideTreeData" selectionMode="checkbox" [style]="{'height':'400px','width':'42.4em','margin':'-6px 0px -6px -6px'}" [(selection)]="instrFromRightSideTree"></p-tree>
+                    <p-tree class="nde-ui" [value]="rightSideTreeData" selectionMode="checkbox" [style]="{'height':'400px','width':'42.4em','margin':'-6px 0px -6px -6px'}" [(selection)]="instrFromRightSideTree"></p-tree>
                 </div>
             </div>
         </div>
