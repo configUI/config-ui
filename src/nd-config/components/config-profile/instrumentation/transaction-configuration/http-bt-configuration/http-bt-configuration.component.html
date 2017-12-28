@@ -44,7 +44,7 @@
                     required pattern="[1-9]+(,[1-9]+)*" ngModel />
             </div>
             <div class="ui-g-3" style="margin-top:4px;margin-left:-90px">
-                segment(s) of URI in Business Transaction</div>
+                Segment(s) of URI in Business Transaction</div>
         </div>
 
         <div class="ui-g-12 header-font-size">
@@ -53,19 +53,25 @@
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"><label>Slow</label></div>
-            <div class="ui-g-10">
-                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>(ms)
+            <div class="ui-g-1">
+                <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="globalBtDetail.slowTransaction" required/>
+            </div>
+            <div class="ui-g-1" style="margin-left: -27px;margin-top: 2px">
+                ms
             </div>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-1"> <label>Very slow</label> </div>
-            <div class="ui-g-10">
-                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />(ms)
+            <div class="ui-g-1">
+                <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />
             </div>
+            <div class="ui-g-1" style="margin-left: -27px;margin-top: 2px">
+                    ms
+                </div>
         </div>
         <div class="ui-g-12 header-font-size" *ngIf="agentType == 'NodeJS'">
-            <label>Dynamic threshold(Optional)</label>
+            <label>Dynamic Threshold(Optional)</label>
         </div>
 
         <div class="ui-g-12 padding-left-css" *ngIf="agentType == 'NodeJS'">
@@ -114,16 +120,16 @@
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
 	<p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]">
         <p-header [style]="{'height':'25px'}">
-            <span style="float: left;">Business transaction pattern list</span>
+            <span style="float: left;">Business Transaction Pattern list</span>
             <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
-                       <button pButton type="button" title="Add a Business transaction pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-		      <button pButton type="button" title="Add a Business transaction pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit a Business transaction pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="editPatternDialog()" icon="fa-pencil" ></button>
-		      <button pButton type="button" title="Edit a Business transaction pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deletePattern()" icon="fa-trash"></button>
-		      <button pButton type="button"class="ui-button-danger" title="Delete business transaction pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+		      <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+		      <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deletePattern()" icon="fa-trash"></button>
+		      <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'3%'}" selectionMode="multiple"></p-column>
@@ -132,7 +138,7 @@
         <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="matchType" header="Match type" [sortable]="true" [style]="{'width':'8%'}">
+        <p-column class="col-overflow" field="matchType" header="Match Type" [sortable]="true" [style]="{'width':'8%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
@@ -142,27 +148,27 @@
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="include" header="BT included" [sortable]="true" [style]="{'width':'6%'}">
+        <p-column class="col-overflow" field="include" header="BT Included" [sortable]="true" [style]="{'width':'6%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="slowTransaction" header="Slow transaction threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="slowTransaction" header="Slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow transaction threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="slowDynamicThreshold" header="Slow dynamic threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="slowDynamicThreshold" header="Slow Dynamic Threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="verySlowDynamicThreshold" header="Very slow dynamic threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="verySlowDynamicThreshold" header="Very slow Dynamic Threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
@@ -187,33 +193,33 @@
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
-<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add business transaction pattern' : 'Edit business transaction pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog" modal="modal" width="950" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="pattern-dialog-border">
                 <div class="ui-g-12">
-                    <div class="ui-g-3">
-                        <label>Business transaction name</label>
+                    <div class="ui-g-2">
+                        <label>Business Transaction Name</label>
                     </div>
                     <div class="ui-g-4">
                         <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                     </div>
-                    <div class="ui-g-5">
-                        <p-checkbox name="include" label="Exclude this business transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
+                    <div class="ui-g-4">
+                        <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
                     </div>
                 </div>
 
                 <div class="ui-g-12">
-                    <div class="ui-g-3">
-                        <label>URL pattern</label>
+                    <div class="ui-g-2">
+                        <label>URL Pattern</label>
                     </div>
                     <div class="ui-g-4">
                         <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$&=-]{0,249}$" title="Please enter valid url. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/ and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
                             [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
-                    <div class="ui-g-5">
+                    <div class="ui-g-4">
                         <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
-                        <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
+                        <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select Mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
                     </div>
                 </div>
             </div>
@@ -222,23 +228,25 @@
                 <div class="ui-g-3 label">
                     <label>Transaction Response Time Threshold Value</label>
                 </div>
-                <div class="ui-g-1 label">
+                <div class="ui-g-1 label" style="margin-left: 27px">
                     <label>Slow</label>
                 </div>
-                <div class="ui-g-3">
-                    <input name="slowTransaction" style="text-align:right;margin-top:4px" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />(ms)
+                <div class="ui-g-2" style="margin-left: -15px">
+                    <input name="slowTransaction" style="text-align:right;margin-top:4px" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />
                 </div>
-                <div class="ui-g-1 label">
+                <div class="ui-g-1" style="margin-left: -54px;margin-top: 7px">ms</div>
+                <div class="ui-g-1 label" style="margin-left: -20px">
                     <label>Very Slow</label>
                 </div>
-                <div class="ui-g-3">
-                    <input name="verySlowTransaction" type="text" style="text-align:right;margin-top:4px" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />(ms)
+                <div class="ui-g-2">
+                    <input name="verySlowTransaction" type="text" style="text-align:right;margin-top:4px" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />
                 </div>
+                <div class="ui-g-1" style="margin-left: -54px;margin-top: 7px">ms</div>
             </div>
 
             <div class="ui-g-12 pattern-dialog-border" *ngIf="agentType == 'NodeJS'">
                 <div class="ui-g-3 label">
-                    <label>Dynamic threshold (%)</label>
+                    <label>Dynamic Threshold (%)</label>
                 </div>
                 <div class="ui-g-1 label">
                     <label>Slow</label>
@@ -290,14 +298,14 @@
                 <div class="ui-g-12">
                     <div class="ui-g-6" style="padding-left: 20px">
                         <div class="ui-g-5">
-                            <label>Request parameter key</label>
+                            <label>Request Parameter Key</label>
                         </div>
                         <div class="ui-g-7">
                             <input name="reqParamKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqParamKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
                                 pattern="[a-zA-Z_-]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                         </div>
                     </div>
-                    <div class="ui-g-6">
+                    <div class="ui-g-6" style="margin-left: -40px">
                         <div class="ui-g-2">
                             <label>Value</label>
                         </div>
@@ -310,14 +318,14 @@
                 <div class="ui-g-12">
                     <div class="ui-g-6" style="padding-left: 20px">
                         <div class="ui-g-5">
-                            <label>HTTP Request Headers key</label>
+                            <label>HTTP Request Headers Key</label>
                         </div>
                         <div class="ui-g-7">
                             <input name="reqHeaderKey" disabled="{{!businessTransPatternDetail.dynamicPartReq}}" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
                                 pattern="[a-zA-Z_-]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                         </div>
                     </div>
-                    <div class="ui-g-6">
+                    <div class="ui-g-6" style="margin-left: -40px">
                         <div class="ui-g-2">
                             <label>Value</label>
                         </div>
@@ -354,11 +362,11 @@
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer-->
 
-     <app-config-nd-file-explorer></app-config-nd-file-explorer>
+     <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
 
 <!-- Dialog to open request parameter key and value -->
-<p-dialog class="profile-dialog" header="{{isNewParam ? 'Add details' : 'Edit details'}}" *ngIf="openReqKeyVal" [(visible)]="openReqKeyVal" modal="modal" width="350" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewParam ? 'Add Details' : 'Edit Details'}}" *ngIf="openReqKeyVal" [(visible)]="openReqKeyVal" modal="modal" width="350" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveReqParam()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g-12">
             <div class="ui-g-3">
