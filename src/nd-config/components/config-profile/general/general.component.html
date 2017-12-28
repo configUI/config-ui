@@ -12,7 +12,7 @@
     <p-tabPanel header="Header" [selected]="index == 3">
       <app-header *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
     </p-tabPanel>
-    <p-tabPanel header="Instrumentation Profiles" [selected]="index == 4">
+    <p-tabPanel header="Instrumentation Profile" [selected]="index == 4">
       <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
     </p-tabPanel>
   </p-tabView>
@@ -29,7 +29,7 @@
       <p-tabPanel header="Header" [selected]="index == 2">
         <app-header *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
       </p-tabPanel>
-      <p-tabPanel header="Instrumentation Profiles" [selected]="index == 3">
+      <p-tabPanel header="Instrumentation Profile" [selected]="index == 3">
         <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
       </p-tabPanel>
     </p-tabView>
@@ -43,7 +43,7 @@
         <p-tabPanel header="Hotspot" [selected]="index == 1">
           <app-hotspot *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-hotspot>
         </p-tabPanel>
-        <p-tabPanel header="Instrumentation Profiles" [selected]="index == 2">
+        <p-tabPanel header="Instrumentation Profile" [selected]="index == 2">
           <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
         </p-tabPanel>
       </p-tabView>
