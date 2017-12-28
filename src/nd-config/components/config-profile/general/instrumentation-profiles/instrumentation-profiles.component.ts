@@ -43,6 +43,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   isInstrProfileBrowse: boolean = false;
   isProfilePerm: boolean;
   agentType: string = ""; 
+  arr: any = [];
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService
   ) {
@@ -74,8 +75,14 @@ export class InstrumentationProfilesComponent implements OnInit {
   /** This method is used to creating instrProfile select item object **/
   createInstrProfileSelectItem(list) {
     this.instrProfileSelectItem = [];
+    let tempList = list;
+    for (let i = 0; i < tempList.length; i++) {
+      let temp:string[];
+      temp = tempList[i].split(".")
+      this.arr.push(temp[0])
+    }
     for (let i = 0; i < list.length; i++) {
-      this.instrProfileSelectItem.push({ value: list[i], label: list[i] });
+      this.instrProfileSelectItem.push({ value: list[i], label: this.arr[i] });
     }
     this.loadInstrData();
   }

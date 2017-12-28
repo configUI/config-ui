@@ -61,7 +61,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
   createDropDown(filename, callback) {
     this._configKeywordsService.getInstrumentationProfileXMLFileList(this.selectedAgent).subscribe(data => {
-      this.profileXMLFileList = ConfigUiUtility.createDropdown(data);
+      this.profileXMLFileList = ConfigUiUtility.createInstrProfileDropdown(data);
       if (filename !== "filename")
         this.selectedXMLFile = filename;
       callback();

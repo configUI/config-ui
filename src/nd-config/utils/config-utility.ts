@@ -16,6 +16,21 @@ export class ConfigUiUtility {
         return selectItemList;
     }
 
+    static createInstrProfileDropdown(list: any): SelectItem[] {
+        let selectItemList: SelectItem[] = [];
+
+        for (let index in list) {
+            if (list[index].indexOf("--Select") != -1) {
+                selectItemList.push({ label: list[index].split(".")[0] , value: ''});
+            }
+            else {
+                selectItemList.push({ label: list[index].split(".")[0] , value: list[index]});
+            }
+        }
+
+        return selectItemList;
+    }
+
     static createListWithKeyValue(arrLabel: string[], arrValue: string[]): SelectItem[] {
         let selectItemList = [];
 
