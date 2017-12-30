@@ -123,6 +123,7 @@ export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 export const GET_FILE_PATH = `${SERVICE_URL}/custom/profilekeywords/getfilepath`;
+export const UPDATE_CUSTOM_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/profilecustomkeywords`;
 //export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
 
 /*Instrumentation Profile List*/

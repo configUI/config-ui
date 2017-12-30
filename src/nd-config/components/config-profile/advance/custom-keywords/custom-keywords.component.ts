@@ -59,12 +59,34 @@ export class CustomKeywordsComponent implements OnInit {
   agentType: string = "";
   isProfilePerm: boolean;
 
+  custom_keyword: object;
+
+  customKeywordData:boolean;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.agentType = sessionStorage.getItem("agentType");
       this.createDataForTable(data)
+      var keywordDataVal = {}
+      if(this.agentType == "Java"){
+        this.javaCustomKeywordsList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+      }
+      else if(this.agentType == "NodeJS"){
+        this.nodeJsCustomKeywordsList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+      }
+      else if(this.agentType == "Dot Net"){
+        this.dotNetCustomKeywordsList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+      }
+      this.custom_keyword = keywordDataVal;
     });
+
   }
 
   //constructing tableData for table [all custom keywords list]
@@ -370,26 +392,33 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
 
-
-
-    for (let key in this.configKeywordsService.keywordData) {
+    for (let key in this.custom_keyword) {
       if (key == this.customKeywords.keywordName) {
-        this.configKeywordsService.keywordData[key].value = this.customKeywords.value;
-        this.configKeywordsService.keywordData[key].desc = this.customKeywords.description;
-        this.configKeywordsService.keywordData[key].type = "custom";
-        this.configKeywordsService.keywordData[key].enable = true;
+        this.custom_keyword[key].value = this.customKeywords.value;
+        this.custom_keyword[key].desc = this.customKeywords.description;
+        this.custom_keyword[key].type = "custom";
+        this.custom_keyword[key].enable = true;
         keywordExistFlag = true;
       }
     }
+
+    this.keywordData.emit(this.custom_keyword);
+    
     if (!keywordExistFlag) {
       this.configUtilityService.errorMessage(customKeywordMessage);
       return;
     }
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
-    // this.configUtilityService.successMessage(Messages);
+ 
     this.addEditDialog = false;
     this.isNew = false;
     this.selectedCustomKeywordsData = [];
+  }
+
+  //This method is called when user click on save button in header field
+  saveKeywordData(){
+    this.keywordData.emit(this.custom_keyword);
+    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    this.configUtilityService.successMessage(Messages);
   }
 
   openFileManager() {

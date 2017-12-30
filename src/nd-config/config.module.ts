@@ -117,10 +117,10 @@ import { CustomKeywordsComponent } from './components/config-profile/advance/cus
 import { BTHTTPHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-http-headers/bt-http-headers.component';
 
 import { HttpHeaderComponent } from './components/config-profile/general/header/http-header/http-header.component';
-import { CustomDataComponent } from './components/config-profile/general/header/custom-data/custom-data.component';
-import { HttpRequestComponent } from './components/config-profile/general/header/custom-data/http-request/http-request.component';
-import { SessionAttributeComponent } from './components/config-profile/general/header/custom-data/session-attribute/session-attribute.component';
-import { JavaMethodComponent } from './components/config-profile/general/header/custom-data/java-method/java-method.component';
+import { CustomDataComponent } from './components/config-profile/general/custom-data/custom-data.component';
+import { HttpRequestComponent } from './components/config-profile/general/custom-data/http-request/http-request.component';
+import { SessionAttributeComponent } from './components/config-profile/general/custom-data/session-attribute/session-attribute.component';
+import { JavaMethodComponent } from './components/config-profile/general/custom-data/java-method/java-method.component';
 import { NVCookieComponent } from './components/config-profile/product-integration/nvcookie/nvcookie.component';
 import { MethodMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/method-monitors/method-monitors.component';
 import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';

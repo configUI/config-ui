@@ -28,8 +28,12 @@
                                 <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Flowpath Header</a></md-slide-toggle>
                             </div>
                             <div>
-                                <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profile</a></md-slide-toggle>
-                                <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profile</a></md-slide-toggle>
+                                <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.custom_data.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Custom Data</a></md-slide-toggle>
+                                <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('custom_data')" [(ngModel)]="keywordGroup.general.custom_data.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Custom Data</a></md-slide-toggle>
+                            </div>
+                            <div>
+                                <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 5]" class="contents">Instrumentation Profile</a></md-slide-toggle>
+                                <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 5]" class="contents">Instrumentation Profile</a></md-slide-toggle>
                             </div>
                         </div>
                         <div class="ui-g-4">
@@ -60,8 +64,12 @@
                                     <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('header')" [(ngModel)]="keywordGroup.general.header.enable"><a [routerLink]="['../../general', profileId, 2]" class="contents">Flowpath Header</a></md-slide-toggle>
                                 </div>
                                 <div>
-                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Instrumentation Profile</a></md-slide-toggle>
-                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Instrumentation Profile</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.custom_data.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Custom Data</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('custom_data')" [(ngModel)]="keywordGroup.general.custom_data.enable"><a [routerLink]="['../../general', profileId, 3]" class="contents">Custom Data</a></md-slide-toggle>
+                                </div>
+                                <div>
+                                    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profile</a></md-slide-toggle>
+                                    <md-slide-toggle *ngIf="!isProfilePerm" [disabled]="toggleDisable" (click)="change('instrumentation_profiles')" [(ngModel)]="keywordGroup.general.instrumentation_profiles.enable"><a [routerLink]="['../../general', profileId, 4]" class="contents">Instrumentation Profile</a></md-slide-toggle>
                                 </div>
                             </div>
                             <div class="ui-g-4">

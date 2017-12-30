@@ -46,7 +46,8 @@ export class ConfigKeywordsService {
                hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, 
                thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, 
                exception: { enable: false, keywordList: ["instrExceptions","enableSourceCodeFilters","enableExceptionsWithSourceAndVars"] }, 
-               header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureCustomData", "captureHTTPRespFullFp"] }, 
+               header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] },
+               custom_data: { enable: false, keywordList: ["captureCustomData"] },
                instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] }
     },
     advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, 
@@ -81,6 +82,18 @@ export class ConfigKeywordsService {
         this.store.dispatch({ type: KEYWORD_DATA, payload: data });
       });
   }
+
+    /** For save all customkeywordData data */
+    saveProfileCustomKeywords(profileId, toggle?: string) {
+      this._restApi.getDataByPostReq(`${URL.UPDATE_CUSTOM_KEYWORDS_DATA}/${profileId}`, this.keywordData)
+        .subscribe(data => {
+          this.keywordData = data;
+          if (toggle != "toggle")
+            this.configUtilityService.successMessage(Messages);
+  
+          this.store.dispatch({ type: KEYWORD_DATA, payload: data });
+        });
+    }
 
 
   /**

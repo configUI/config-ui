@@ -43,13 +43,13 @@ export class HeaderComponent implements OnInit {
   httpReqFullFp: HttpReqFullFp;
   httpRespFullFp: HttpRespFullFp;
 
-  keywordList = ['captureCustomData', 'captureHTTPReqFullFp', 'captureHTTPRespFullFp'];
+  keywordList = ['captureHTTPReqFullFp', 'captureHTTPRespFullFp'];
 
   profileId: number;
 
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
-  *  to boolean value
-  */
+   *  to boolean value
+   */
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>, private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       if (!data)
@@ -150,52 +150,13 @@ export class HeaderComponent implements OnInit {
 
   saveKeywordData() {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
-    let flag;
-    this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
-      if (data["sessionType"] == "Specific" && data["attrList"].length == 0) {
-        this.configUtilityService.errorMessage("Provide session attribute(s) ");
-        flag = true;
-        return;
-      }
-      if (!flag) {
-        this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => {
-          if (data["httpReqHdrType"] == "Specific" && data["attrList"].length == 0) {
-            this.configUtilityService.errorMessage("Provide HTTP request header(s)");
-            return;
-          }
-          else {
-            this.getHeaderValues();
-          }
-        });
-      }
-    });
-  }
-
-  getHeaderValues() {
     let captureHttpReqFullFpVal = this.constructValHttpReqFullFp(this.httpKeywordObject[0]);
     let captureHttpRespFullFpVal = this.constructValHttpRespFullFp(this.httpKeywordObject[1]);
 
     this.header["captureHTTPReqFullFp"].value = captureHttpReqFullFpVal;
     this.header["captureHTTPRespFullFp"].value = captureHttpRespFullFpVal;
-    //this.header["captureCustomData"].value = String(this.header["captureCustomData"].value == '1');
-    this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
-    let filePath;
-    this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      if (this.header['captureCustomData'].value == false) {
-        filePath = "NA";
-      }
-      else {
-        filePath = data["_body"];
-        filePath = filePath + "/captureCustomData.cd";
-      }
-      this.header['captureCustomData'].path = filePath;
-      this.keywordData.emit(this.header);
-    });
+    this.keywordData.emit(this.header);
   }
-
-  /*
-  * t
-  */
 
   splitKeywordData(keywords) {
     this.httpReqFullFp = new HttpReqFullFp();
@@ -243,10 +204,6 @@ export class HeaderComponent implements OnInit {
 
   resetKeywordData() {
     this.header = cloneObject(this.configKeywordsService.keywordData);
-    if (this.header['captureCustomData'].value == "false")
-      this.header['captureCustomData'].value = false;
-    else
-      this.header['captureCustomData'].value = true;
     this.splitKeywordData(this.header);
   }
 

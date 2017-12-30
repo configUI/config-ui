@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConfigUiUtility } from '../../../../../../utils/config-utility';
-import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
-import { HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData } from '../../../../../../containers/instrumentation-data';
-import { httpReqHeaderInfo } from '../../../../../../interfaces/httpReqHeaderInfo';
-import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
+import { ConfigUiUtility } from '../../../../../utils/config-utility';
+import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData } from '../../../../../containers/instrumentation-data';
+import { httpReqHeaderInfo } from '../../../../../interfaces/httpReqHeaderInfo';
+import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
-import { deleteMany } from '../../../../../../utils/config-utility';
-import { ImmutableArray } from '../../../../../../utils/immutable-array';
-import { Messages } from '../../../../../../constants/config-constant'
+import { deleteMany } from '../../../../../utils/config-utility';
+import { ImmutableArray } from '../../../../../utils/immutable-array';
+import { Messages } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-http-request',
