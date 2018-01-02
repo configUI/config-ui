@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConfigKeywordsService } from '../../../../../../services/config-keywords.service';
-import { SessionAtrributeComponentsData, SessionTypeValueData } from '../../../../../../containers/instrumentation-data';
-import { ImmutableArray } from '../../../../../../utils/immutable-array';
-import { ConfigUiUtility } from '../../../../../../utils/config-utility';
+import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
+import { SessionAtrributeComponentsData, SessionTypeValueData } from '../../../../../containers/instrumentation-data';
+import { ImmutableArray } from '../../../../../utils/immutable-array';
+import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
-import { deleteMany } from '../../../../../../utils/config-utility';
+import { ConfigUtilityService } from '../../../../../services/config-utility.service';
+import { deleteMany } from '../../../../../utils/config-utility';
 
-import { Messages } from '../../../../../../constants/config-constant'
+import { Messages } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-session-attribute',

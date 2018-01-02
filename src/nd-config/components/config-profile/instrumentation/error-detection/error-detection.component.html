@@ -3,9 +3,9 @@
             <p-header>
                 <span class="configui-float-css">
                     <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
-                    <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveKeywordData()"></p-checkbox>
+                    <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
                 </span>
-                <span class="configui-float-css">Apply Error Rules </span>
+                <span class="configui-float-css">Enable Error Rules </span>
                 <span class="configui-float">
                     <button pButton type="button" title="Add an error detection" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
                     <button pButton type="button" title="Add an error detection" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddErrorDetectionDialog()" icon="fa-plus"></button>
@@ -13,6 +13,8 @@
                     <button pButton type="button" title="Edit an error detection" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditErrorDetectionDialog()" icon="fa-pencil"></button>
                     <button pButton type="button" class="ui-button-danger" title="Delete an error detection" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
                     <button pButton type="button" class="ui-button-danger" title="Delete an error detection"  *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteErrorDetection()" icon="fa-trash"></button>
+                    <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
+                    <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveErrorDetectionOnFile()" label="Save"></button>
                 </span>
             </p-header>
             <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>

@@ -191,8 +191,8 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
 
         }
         else {
-          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN });
-          sessionStorage.setItem("agentType", "");
+          this.items.push({ label: BREADCRUMB.LABEL.TREE_MAIN })
+	  sessionStorage.setItem("agentType", "");
         }
       }
 
@@ -202,7 +202,6 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
       else if (url == BREADCRUMB.URL.INSTRUMENTATION_PROFILE_MAKER) {
         this.items.push({ label: BREADCRUMB.LABEL.INSTRUMENTATION_PROFILE_MAKER })
       }
-
       else if (url.startsWith(BREADCRUMB.URL.AUTO_DISCOVER_TREE)) {
         this.items.push({ routerLink: [`${BREADCRUMB.URL.AUTO_INSTRUMENTATION}`], label: BREADCRUMB.LABEL.AUTO_INSTRUMENTATION });
         this.items.push({ label: BREADCRUMB.LABEL.AUTO_DISCOVER })

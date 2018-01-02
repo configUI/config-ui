@@ -102,11 +102,11 @@ export class MethodMonitorsComponent implements OnInit {
       if (key == 'ndMethodMonFile') {
         if (this.selectedValues == true) {
           this.methodMonitor[key]["value"] = "true";
-          this.configUtilityService.successMessage("Method Monitors settings are enabled");
+        //  this.configUtilityService.successMessage("Method Monitors settings are enabled");
         }
         else {
           this.methodMonitor[key]["value"] = "false";
-          this.configUtilityService.infoMessage("Method Monitors settings are disabled");
+         // this.configUtilityService.infoMessage("Method Monitors settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.methodMonitor[key];
@@ -346,6 +346,14 @@ export class MethodMonitorsComponent implements OnInit {
     } else {
       this.selectedMethodMonitorData.length = 0;
     }
+  }
+
+  saveMethodMonitorOnFile() {
+    this.saveKeywordData();
+    this.configKeywordsService.saveMethodMonitorData(this.profileId)
+      .subscribe(data => {
+        console.log("return type",data)
+      })
   }
 
   }

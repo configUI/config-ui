@@ -40,12 +40,11 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   nodeObj: Object = {};
   nodeTitle: string = '';
   addDialogHeader: string = '';
-  isConferMationAgentSelected : boolean;
 
   //Create XML Tree Node
   createXMLData: TreeNode[] = [];
   saveXMLFileName: string = '';
-
+  isConferMationAgentSelected : boolean;
   ngOnInit() {
     this.isInstrPerm=+sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
 
@@ -80,7 +79,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.isConferMationAgentSelected = true;
     }
     else
-     this.openFileExplorerDialog = true;
+      this.openFileExplorerDialog = true;
     this.isMakeXMLFile = true;
     this.isFromXML = true;
   }

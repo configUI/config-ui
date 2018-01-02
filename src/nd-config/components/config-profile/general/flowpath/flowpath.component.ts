@@ -27,14 +27,15 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   //NodeJS keyword- excludeMethodOnRespTime
   keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP', 'enableMethodBreakDownTime'];
   NodeJSkeywordList = ['bciInstrSessionPct', 'correlationIDHeader', 'excludeMethodOnRespTime'];
-  // DotNetKeywordList =['bciInstrSessionPct','enableCpuTime'];
-
+  
   flowPath: Object;
   cpuTime: string = '1';
   methodBreakDownTime: string = '1';
 
   agentType: string = "";
+
   isProfilePerm: boolean;
+
   subscription: Subscription;
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean = false;
@@ -56,7 +57,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath = keywordDataVal;
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -71,7 +72,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.cpuTime = this.flowPath['enableCpuTime'].value;
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -81,9 +82,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   keywordsData: Keywords;
 
   ngOnInit() {
-  this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false
-  if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
-    this.configUtilityService.infoMessage("Reset and Save are disabled");
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
+       this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
   getKeywordData() {

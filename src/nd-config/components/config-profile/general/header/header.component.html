@@ -1,6 +1,6 @@
 <form *ngIf="HeaderForm" (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
-        <div class="header">Flowpath Header settings
+        <div class="header">Settings
             <div class="pull-right">
                      <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
                      <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
@@ -11,12 +11,7 @@
         </div>
         <p-panel class="hideheader">
             <div style="margin: 5px 0px" class="flowpathheader-accordion">
-                <p-fieldset legend="HTTP Headers" [toggleable]="true">
                     <app-http-header [data]="httpKeywordObject"></app-http-header>
-                </p-fieldset><br>
-                <p-fieldset legend="Custom Data" [toggleable]="true" [collapsed]="true" >
-                    <app-custom-data [data]="header"></app-custom-data>
-                </p-fieldset>
             </div>
         </p-panel>
     </div>

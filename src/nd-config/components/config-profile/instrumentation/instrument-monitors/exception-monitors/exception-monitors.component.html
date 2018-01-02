@@ -2,9 +2,9 @@
     <p-header>
         <span class="configui-float-css">
                  <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
-                 <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveKeywordData()"></p-checkbox>
+                 <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
         </span>
-        <span class="configui-float-css"> Manage Exception Monitors </span>
+        <span class="configui-float-css"> Enable Exception Monitors </span>
         <span class="configui-float">
             <button pButton type="button" title="Browse" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
                  <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
@@ -14,6 +14,8 @@
                  <button pButton type="button" title="Edit an exception monitor" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditExceptionMonitorDialog()" icon="fa-pencil"></button>
                  <button pButton class="ui-button-danger" type="button" title="Delete exception monitor(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
                  <button pButton class="ui-button-danger" type="button" title="Delete exception monitor(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteExceptionMonitor()" icon="fa-trash"></button>
+                 <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
+                 <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveExceptionMonitorOnFile()" label="Save"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -37,7 +39,8 @@
 
 <!--Dialog for exception monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNewExceptionMonitor ? 'Add Exception to Monitor' : 'Edit Exception to Monitor'}}" *ngIf="addEditExceptionMonitorDialog" [(visible)]="addEditExceptionMonitorDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewExceptionMonitor ? 'Add Exception to Monitor' : 'Edit Exception to Monitor'}}" *ngIf="addEditExceptionMonitorDialog" [(visible)]="addEditExceptionMonitorDialog" modal="modal" width="500" responsive="true"
+    [resizable]="false">
     <form (ngSubmit)="saveExceptionMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">

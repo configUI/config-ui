@@ -1,18 +1,18 @@
 
 
-// const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
- const SERVICE_URL = '/configUI';
+//const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-export const ROUTING_PATH: string = "";
+// export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-//  export const ROUTING_PATH: string = "/home/config";
+ export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -85,6 +85,7 @@ export const ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileservic
 export const ENABLE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
 export const DEL_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/delete`;
 export const EDIT_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/updateServiceEntry`;
+export const SAVE_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso/save`;
 
 /*Url for Toggle */
 export const UPDATE_TOGGLE_PROFSEPASSOC = `${SERVICE_URL}/custom/profileserviceentryasso`;
@@ -111,6 +112,7 @@ export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/custom/backenddetection/getba
 export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`;
 export const UPDATE_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/updatebackend`;
 export const DEL_INTEGRATION_POINTS = `${SERVICE_URL}/custom/backenddetection/delete`;
+export const SAVE_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection/save`;
 
 
 //export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
@@ -124,6 +126,7 @@ export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
 export const GET_FILE_PATH = `${SERVICE_URL}/custom/profilekeywords/getfilepath`;
 //export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/updatekeywords`;
+export const UPDATE_CUSTOM_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords/profilecustomkeywords`;
 
 /*Instrumentation Profile List*/
 export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles`;
@@ -136,6 +139,11 @@ export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
 export const EDIT_ROW_METHOD_MONITOR_URL = `${SERVICE_URL}/custom/methodmonitor/updateMethodMonitor`;
 export const UPLOAD_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/uploadfile`;
 
+export const SAVE_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/save`;
+
+
+
+
 /* URL for exception monitors  */
 export const FETCH_EXCEPTION_MON_TABLEDATA = `${SERVICE_URL}/custom/exceptionmonitor`;
 export const ADD_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor`;
@@ -143,11 +151,14 @@ export const DEL_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor/del
 export const EDIT_ROW_EXCEPTION_MONITOR_URL = `${SERVICE_URL}/custom/exceptionmonitor/updateExceptionMonitor`;
 export const UPLOAD_EXCEPTION_MONITOR_FILE = `${SERVICE_URL}/custom/exceptionmonitor/uploadfile`;
 
+export const SAVE_EXCEPTION_MONITOR = `${SERVICE_URL}/custom/exceptionmonitor/save`;
+
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
 export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
 export const DEL_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection/delete`;
 export const EDIT_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection/updateErrorDetection`;
+export const SAVE_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection/save`;
 
 
 /*URL for Http Stats Condition*/
@@ -159,6 +170,8 @@ export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/l
 export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`;
 export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
 export const DEL_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition/delete`;
+
+export const SAVE_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition/save`;
 
 /*URL for RUNTIME changes*/
 export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topology`;
@@ -264,7 +277,7 @@ export const DISCOVER_DATA = `${SERVICE_URL}/custom/autodiscover/getautodiscover
 
 export const GET_AUTO_DISCOVER_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getallAutoDiscoverData`;
 export const GET_CLASS_DISCOVER_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getAutoDiscoverClassData`;
-
+export const GET_AUTO_DISCOVER_SELECTED_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getSelectedAutoDiscoverData`;
 export const GET_SELECTED_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/getSelectedNodeTreeData`;
 export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/uninstrumentationfqmdata`;
 
@@ -296,6 +309,7 @@ export const DOWNLOAD_FILE = `${SERVICE_URL}/custom/autoinstrumentation/download
 export const UPDATE_AI_ENABLE = `${SERVICE_URL}/custom/autoinstrumentation/updateaienable`;
 export const DURATION_OVER_UPDATION = `${SERVICE_URL}/custom/autoinstrumentation/updatewhencompleted`;
 export const DELETE_AI = `${SERVICE_URL}/custom/autoinstrumentation/delete`;
+export const CHECK_INSTRUEMENTATION_XML_FILE_EXIST = `${SERVICE_URL}/custom/autoinstrumentation/checkinstrumentationxmlfileexist`;
 
 
 

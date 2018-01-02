@@ -1,12 +1,15 @@
 <div id=top-div>
     <p-dataTable class="nde-ui config-ui" [value]="customKeywordsDataList" [(selection)]="selectedCustomKeywordsData">
         <p-header>
-            <span class="configui-float-css">Custom Configuration List </span>
+            <span class="configui-float-css">Custom Configuration List
+                </span>
             <span class="configui-float">
                  <button pButton type="button" title="Add Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
                  <button pButton type="button" title="Add Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
                  <button pButton type="button" title="Edit Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
                  <button pButton type="button" title="Edit Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
+                 <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+                 <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveKeywordData()" label="Save"></button>
 
             <!--<button pButton class="ui-button-danger" type="button" title="Delete method monitor" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>-->
         </span>
@@ -14,25 +17,25 @@
         <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
         <p-column class="tableCss" field="keywordName" header="Name" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
-            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
-        </template>
+                <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </template>
         </p-column>
         <p-column class="tableCss" field="value" header="Value" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
-            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
-        </template>
+                <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </template>
         </p-column>
         <p-column class="tableCss" field="description" header="Description" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
-            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
-        </template>
+                <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </template>
         </p-column>
 
         <p-column class="tableCss config-ui" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
             <template class="config-ui" let-col let-customKeywordsData="rowData" pTemplate>
-	    <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" class="toggle-space config-ui"  [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
-            <md-slide-toggle *ngIf="!isProfilePerm" class="toggle-space config-ui" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
-        </template>
+                <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" class="toggle-space config-ui" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
+                <md-slide-toggle *ngIf="!isProfilePerm" class="toggle-space config-ui" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
+            </template>
         </p-column>
     </p-dataTable>
 </div>

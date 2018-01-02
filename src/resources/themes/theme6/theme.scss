@@ -2172,7 +2172,7 @@ button.capabilityButton.mat-raised-button{
 }
 
 /*------------ Added for alert inner TAB -----------------------------------*/
-.filters-container .ui-state-default a:link, .ui-state-default a:visited {
+.filters-container .ui-state-default a:link a:visited {
     color: #4a4a4a;
 }
 
@@ -2535,4 +2535,16 @@ button.capabilityButton.mat-raised-button{
 .scenProDrp .ui-dropdown label.ui-dropdown-label {
    color: #000;
 }
+.main-box-scen {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+/*-------Test Run Component---------*/
+.totalTestRunCard .IconClass, md-card-title{ color: #1b1c29 ; }
+.totalArchieveCard .IconClass, md-card-title{ color:   #248471 ; }
+.totalLockedTestsCard .IconClass, md-card-title{ color : #a93455 ;}
+.totalScriptsCard  .IconClass, md-card-title{ color: #633994 ;}
+.totalScenarioCard .IconClass, md-card-title{  color: #d2833a ;}
+.totalRunningCard .IconClass, md-card-title{  color: #000 ; }
+
 

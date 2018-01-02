@@ -1,17 +1,17 @@
 import { Component,Input, OnInit } from '@angular/core';
-import { ConfigCustomDataService } from '../../../../../../services/config-customdata.service';
+import { ConfigCustomDataService } from '../../../../../services/config-customdata.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
-import { ConfigUiUtility } from '../../../../../../utils/config-utility';
-import { ConfigUtilityService } from '../../../../../../services/config-utility.service';
-import { deleteMany } from '../../../../../../utils/config-utility';
-import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../../containers/method-based-custom-data';
+import { ConfigUiUtility } from '../../../../../utils/config-utility';
+import { ConfigUtilityService } from '../../../../../services/config-utility.service';
+import { deleteMany } from '../../../../../utils/config-utility';
+import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../containers/method-based-custom-data';
 
-import { ImmutableArray } from '../../../../../../utils/immutable-array';
+import { ImmutableArray } from '../../../../../utils/immutable-array';
 
-import { Messages } from '../../../../../../constants/config-constant'
+import { Messages } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-java-method',

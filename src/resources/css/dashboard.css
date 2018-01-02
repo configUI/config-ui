@@ -1027,9 +1027,9 @@ b {
 
 /*----------------STYLES FOR EMAIL SMS ALERT SETTINGS------------*/
 .mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
-    padding: 1em 0em 1em 0em;
-    background: transparent;
-    border: 0px solid #d5d5d5!important;
+    padding: 1em 0em 1em 0em !important;
+    background: transparent !important;
+    border: 0px solid #d5d5d5 !important;
 }
 .mailSmsConfigSetting .ui-fieldset-content-wrapper{
     margin-bottom: 10px;
@@ -1054,4 +1054,8 @@ b {
 
 .mailSmsConfigSetting .ui-dialog .ui-dialog-content {
     overflow: hidden;
+}
+
+.monocoloricon .material-icons {
+    font-size: 18px; 
 }

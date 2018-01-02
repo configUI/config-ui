@@ -15,15 +15,15 @@
                                 <div class="ui-g">
                                     <div class="ui-g-2">
                                         <label>Thread Sampling Interval</label>
-                                        <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="Interval in milliseconds for collecting Thread sample."></i>
                                     </div>
                                     <div class="ui-g-2">
                                         <input name="sampleInterval" type="number" class="configui-hotspot-css" title="Set this to 0 if you don't need this feature" pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}}
-                                            required ngModel /> (ms)
+                                            required ngModel /> ms
                                     </div>
                                     <div class="ui-g-3" style="margin-left: -47px;margin-top: 2px;">
-                                        <label>Consecutive matching samples to mark as Hotspot</label>
-                                        <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace"></i>
+                                        <label>Consecutive matching samples to detect as Hotspot</label>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace to detect Hotspot thread."></i>
                                     </div>
                                     <div class="ui-g-1">
                                         <input name="matchCount" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value" min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required ngModel/>
@@ -39,13 +39,13 @@
                                     </div>-->
 
                                     <div class="ui-g-6">
-                                        <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value" binary="true" ngModel label=" Enable Method Hotspot sensor"></p-checkbox>
+                                        <p-checkbox name="ASMethodHotspots" [(ngModel)]="hotspot.ASMethodHotspots.value" binary="true" ngModel label=" Enable Method Hotspot"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="ui-g-12">
                                     <div class="ui-g-4 configui-hotspot-css-2">
                                         <label>Maximum Stack depth difference in consecutive matching samples</label>
-                                        <i class="fa fa-info-circle" aria-hidden="true" title="To consider a method as a Hotspot,search stuck methods in consecutive thread samples whose stack depth difference is not more than the specified value"></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title="To consider a method as a Hotspot,compare same methods in consecutive thread samples whose stack depth difference is not more than the specified value."></i>
                                     </div>
                                     <div class="ui-g-1">
                                         <input name="maxStackSizeDiff" disabled="{{!hotspot.ASMethodHotspots.value}}" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}} max={{hotspot.maxStackSizeDiff.max}}
@@ -121,12 +121,12 @@
                                             <div class="ui-g-12">
                                               <div class="ui-g-2">
                                                 <label>Thread Sampling Interval</label>
-                                                <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
+                                                <i class="fa fa-info-circle" aria-hidden="true" title="Interval in milliseconds for collecting Thread sample."></i>
                                               </div>
                                               <div class="ui-g-2">
                                                 <input name="sampleInterval" type="number" class="configui-hotspot-css" title="Set this to 0 if you don't need this feature"
                                                   pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}}
-                                                  required ngModel /> (ms)
+                                                  required ngModel /> ms
                                               </div>
                                             </div>
                                           </p-fieldset>
@@ -136,16 +136,16 @@
                                             <div class="ui-g-12">
                                               <div class="ui-g-2">
                                                 <label>Thread Sampling Interval</label>
-                                                <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
+                                                <i class="fa fa-info-circle" aria-hidden="true" title="Interval in milliseconds for collecting Thread sample."></i>
                                               </div>
                                               <div class="ui-g-2">
                                                 <input name="sampleInterval" type="number" class="configui-hotspot-css" title="Set this to 0 if you don't need this feature"
                                                   pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}} max={{hotspot.ASSampleInterval.max}}
-                                                  required ngModel /> (ms)
+                                                  required ngModel /> ms
                                               </div>
                                               <div class="ui-g-3">
-                                                <label>Consecutive matching samples to mark as Hotspot</label>
-                                                <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace"></i>
+                                                <label>Consecutive matching samples to detect as Hotspot</label>
+                                                <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace to detect Hotspot thread."></i>
                                               </div>
                                               <div class="ui-g-2">
                                                 <input name="matchCount" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value"

@@ -2,9 +2,9 @@
     <p-header>
         <span class="configui-float-css">
             <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
-            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveKeywordData()"></p-checkbox>
+            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
         </span>
-        <span class="configui-float-css"> Manage Method Monitors </span>
+        <span class="configui-float-css"> Enable Method Monitors </span>
         <span class="configui-float">
             <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
@@ -14,6 +14,8 @@
             <button pButton type="button" title="Edit a method monitor" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditMethodMonitorDialog()" icon="fa-pencil"></button>
             <button pButton class="ui-button-danger" type="button" title="Delete method monitor(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
             <button pButton class="ui-button-danger" type="button" title="Delete method monitor(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteMethodMonitor()" icon="fa-trash"></button>
+            <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
+            <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveMethodMonitorOnFile()" label="Save"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>

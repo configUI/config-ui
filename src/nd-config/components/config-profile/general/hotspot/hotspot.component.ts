@@ -77,9 +77,9 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-  this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-  if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
-    this.configUtilityService.infoMessage("Reset and Save are disabled");
+	this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+        if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
+	    this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
   /*

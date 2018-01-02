@@ -99,22 +99,27 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   }
 
   openGUIForAutoInstrumentation(sessionFileName) {
-    sessionFileName = sessionFileName + "_AI.txt";
+    
     this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
 
-      if (data['_body'] == "Fail") {
+     var status = data['_body'].split("#");
+    
+     if (status[1] == "NotEmpty" && status[0] == "Empty") {
+        this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName + "_AI.txt"]);
+     }
+     else if (status[0] == "Fail") {
         this.configUtilityService.errorMessage("Session file does not exists. Download it ");
         return;
       }
-      else if (data['_body'] == "Empty") {
+      else if (status[0] == "Empty") {
         this.configUtilityService.errorMessage("Session file is empty.");
         return;
       }
-      else if (data['_body'] == "WrongPattern") {
+      else if (status[0] == "WrongPattern") {
         this.configUtilityService.errorMessage("Wrong Pattern: select another file");
         return;
       }
-
+      sessionFileName = sessionFileName + "_AI.txt";
       this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);
     });
 

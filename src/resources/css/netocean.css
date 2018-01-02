@@ -129,3 +129,68 @@
 .NO-modal .labelformgroup{
     font-weight: 400;
 }
+
+/*changes for the code mirror*/
+
+.requestTrace .CodeMirror {
+    height: 250px;
+    width: 650px;
+}
+
+.responseData .CodeMirror {
+    height: 250px;
+    width: 650px;
+}
+
+.addRequest .CodeMirror {
+    height: 320px;
+    width: 650px;
+}
+
+.addResponse  .CodeMirror {
+    height: 320px;
+    width: 650px;
+}
+
+.addRequestForTemplate .CodeMirror {
+    height: 120px;
+    width: 1270px;
+}
+
+.addResponseForTemplate  .CodeMirror {
+    height: 120px;
+    width: 1270px;
+}
+
+.testRequest.CodeMirror {
+    height: 320px;
+    width: 150px;
+}
+
+.testResponse .CodeMirror {
+    height: 320px;
+    width: 150px;
+}
+
+.addrequestRec .CodeMirror {
+    height: 150px;
+    width: 650px;
+}
+
+.addresprec  .CodeMirror {
+    height: 150px;
+    width: 650px;
+}
+
+ .CodeMirror-scroll {
+    z-index: 0 !important;
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+.mat-tab-body .mat-tab-body-active {
+    overflow: hidden !important;
+}
+

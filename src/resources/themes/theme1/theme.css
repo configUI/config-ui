@@ -3118,13 +3118,45 @@ p-datatable.kpigrid {
 
 .mailSmsConfigSetting .ui-widget-header {
   background: #282828;
-  color: #cccccc; }
+  color: #ccc; }
 
-.filters-container th {
-  color: #000; }
+.filters-container .ui-datepicker.ui-widget .ui-datepicker-calendar th {
+  background: #dbdbdb;
+  color: #4a4a4a; }
+
+.alert-maintenance-wrapper .ui-datepicker.ui-widget .ui-datepicker-calendar th {
+  background: #dbdbdb;
+  color: #4a4a4a; }
 
 .scenario-left .ui-state-active {
   background: transparent; }
 
 .scenProDrp .ui-dropdown label.ui-dropdown-label {
+  color: #000; }
+
+.mat-button, .mat-raised-button, .mat-icon-button {
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 500; }
+
+.main-box-scen {
+  background: rgba(245, 245, 245, 0.62); }
+
+/*-------Test Run Component---------*/
+.totalTestRunCard .IconClass, md-card-title {
+  color: #1b1c29; }
+
+.totalArchieveCard .IconClass, md-card-title {
+  color: #248471; }
+
+.totalLockedTestsCard .IconClass, md-card-title {
+  color: #a93455; }
+
+.totalScriptsCard .IconClass, md-card-title {
+  color: #633994; }
+
+.totalScenarioCard .IconClass, md-card-title {
+  color: #d2833a; }
+
+.totalRunningCard .IconClass, md-card-title {
   color: #000; }

@@ -16,6 +16,7 @@ export class ConfigUiUtility {
         return selectItemList;
     }
 
+// This method is created for showing xml files in dropdown without .xml extension
     static createInstrProfileDropdown(list: any): SelectItem[] {
         let selectItemList: SelectItem[] = [];
 

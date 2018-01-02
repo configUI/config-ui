@@ -17,9 +17,9 @@ export class ConfigTopologyListComponent implements OnInit {
 
   topologyData: TopologyInfo[];
   selectedTopology: TopologyInfo[];
-  topoPerm: boolean;
 
   ROUTING_PATH = ROUTING_PATH;
+  topoPerm: boolean;
 
   ngOnInit() {
     this.topoPerm=+sessionStorage.getItem("TopologyAccess") == 4 ? true: false;

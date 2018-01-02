@@ -19,7 +19,7 @@
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
               <label>Flowpath Instrumentation (%)</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
@@ -53,7 +53,7 @@
                         </div>-->
                         <div class="ui-g-3">
                             <label>HTTP Header Name for CorrelationID</label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID across Topology "></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID."></i>
                         </div>
                         <div class="ui-g-2">
                             <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} title="Please enter valid correlation ID header.   &#013;Please enter maximum upto 1024 characters.  &#013;Whitespaces are not allowed."
@@ -66,7 +66,7 @@
             <div class="ui-g-1"></div>
             <div class="ui-g-3" style="margin-left:4px;padding:0px">
               <label>Capture callstacks of all offending business transaction(s)</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Capture method calling stack of slow/very slow/error business transaction(s) for all flowpath(s)" ></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath" ></i>
             </div>
             <div class="ui-g-2" style="padding:0px">
               <input name="captureMethodForAllFP" type="number" pInputText min={{flowPath.captureMethodForAllFP.min}} max={{flowPath.captureMethodForAllFP.max}}
@@ -79,7 +79,7 @@
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
               <label>CPU Profiling</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transaction(s)" ></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transactions" ></i>
             </div>
             <div class="ui-g-1">
               <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
@@ -99,8 +99,8 @@
           <div class="ui-g-12">
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
-              <label>Capture Method Time Breakdown</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Combination of wait and sync time" ></i>
+              <label>Capture Time Breakdown</label>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture wait and sync time" ></i>
             </div>
             <div class="ui-g-1">
               <p-radioButton name="enableMethodBreakDownTime" value="0" label="Disable" [(ngModel)]="methodBreakDownTime"></p-radioButton>
@@ -154,7 +154,7 @@
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
               <label>Flowpath Instrumentation (%)</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
@@ -165,7 +165,7 @@
             <div class="ui-g-1"></div>
             <div class="ui-g-3">
               <label>HTTP Header Name for CorrelationID</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID across Topology "></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID."></i>
             </div>
             <div class="ui-g-2">
               <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text"
@@ -191,7 +191,7 @@
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
               <label>Flowpath Instrumentation (%)</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
@@ -202,7 +202,7 @@
             <div class="ui-g-1"> </div>
             <div class="ui-g-3">
               <label>CPU Profiling</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transaction(s)" ></i>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transactions" ></i>
             </div>
             <div class="ui-g-1">
               <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
