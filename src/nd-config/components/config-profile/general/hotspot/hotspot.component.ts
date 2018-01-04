@@ -25,7 +25,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff'];
+  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff','ASDepthFilter'];
 
   /**It stores keyword data for showing in GUI */
   hotspot: any;
@@ -33,11 +33,11 @@ export class HotspotComponent implements OnInit, OnDestroy {
   bindIncluded: boolean = false;
   bindExcluded: boolean = false;
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  // subscriptionEG: Subscription;
   exceptionName: string[];
   includedException;
   excludedException;
-  enableGroupKeyword: boolean = false;
+  // enableGroupKeyword: boolean = false;
   includedExceptionChk: boolean = true;
   excludedExceptionChk: boolean = true;
   agentType: string ="";
@@ -71,14 +71,14 @@ export class HotspotComponent implements OnInit, OnDestroy {
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
         console.log(this.className, "constructor", "this.hotspot", this.hotspot);
       });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
+    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.hotspot.enable);
     this.configKeywordsService.toggleKeywordData();
   }
 
 
   ngOnInit() {
   this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-  if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
+  if(this.saveDisable || this.isProfilePerm)
     this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
@@ -142,7 +142,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
     if (this.subscription)
       this.subscription.unsubscribe();
-    if(this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if(this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
 }

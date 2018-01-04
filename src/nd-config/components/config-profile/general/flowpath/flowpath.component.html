@@ -3,10 +3,10 @@
     <div class="header">Settings
 
       <div class="pull-right">
-        <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" (click)="resetKeywordData()" label="Reset"></button>
+        <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
 	<button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
         <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
-        <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
+        <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
 
       </div>
     </div>
@@ -16,14 +16,14 @@
 
           <div class="ui-g-12">
             <!--<div class = "ui-g-6">-->
-            <div class="ui-g-1"> </div>
+            <!-- <div class="ui-g-1"> </div> -->
             <div class="ui-g-3">
               <label>Flowpath Instrumentation (%)</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
-                [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                [(ngModel)]="flowPath.bciInstrSessionPct.value" style="width:80%" required />
             </div>
           </div>
 
@@ -47,7 +47,7 @@
 
 
           <div class="ui-g-12">
-            <div class="ui-g-1"></div>
+            <!-- <div class="ui-g-1"></div> -->
             <!--<div class="ui-g-3">
                             <p-checkbox name="enableCaptureHeader" label="Enable HTTP Header Name for CorrelationID" [(ngModel)]="enableCaptureHeader" binary="true"></p-checkbox>
                         </div>-->
@@ -57,26 +57,24 @@
                         </div>
                         <div class="ui-g-2">
                             <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} title="Please enter valid correlation ID header.   &#013;Please enter maximum upto 1024 characters.  &#013;Whitespaces are not allowed."
-                                pattern="[^\s]{0,1024}$" ngModel/>
+                                pattern="[^\s]{0,1024}$" style="width:80%" ngModel/>
                             <span></span>
                         </div>
 
           </div>
           <div class="ui-g-12">
-            <div class="ui-g-1"></div>
-            <div class="ui-g-3" style="margin-left:4px;padding:0px">
-              <label>Capture callstacks of all offending business transaction(s)</label>
-              <i class="fa fa-info-circle" aria-hidden="true" title="Capture method calling stack of slow/very slow/error business transaction(s) for all flowpath(s)" ></i>
-            </div>
-            <div class="ui-g-2" style="padding:0px">
-              <input name="captureMethodForAllFP" type="number" pInputText min={{flowPath.captureMethodForAllFP.min}} max={{flowPath.captureMethodForAllFP.max}}
-                [(ngModel)]="flowPath.captureMethodForAllFP.value" style="width:95%" />
-              <span></span>
+            <!-- <div class="ui-g-1"></div> -->
+            <div class="ui-g-6" style="padding-left:6px">
+              <!-- <input name="captureMethodForAllFP" type="number" pInputText min={{flowPath.captureMethodForAllFP.min}} max={{flowPath.captureMethodForAllFP.max}}
+                [(ngModel)]="flowPath.captureMethodForAllFP.value" style="width:80%" />
+              <span></span> -->
+              <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
+              <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath" ></i>
             </div>
 
           </div>
           <div class="ui-g-12">
-            <div class="ui-g-1"> </div>
+            <!-- <div class="ui-g-1"> </div> -->
             <div class="ui-g-3">
               <label>CPU Profiling</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transaction(s)" ></i>
@@ -97,7 +95,7 @@
                         </div>-->
           </div>
           <div class="ui-g-12">
-            <div class="ui-g-1"> </div>
+            <!-- <div class="ui-g-1"> </div> -->
             <div class="ui-g-3">
               <label>Capture Method Time Breakdown</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="Combination of wait and sync time" ></i>
@@ -151,18 +149,18 @@
         <div class="ui-g">
           <div class="ui-g-12">
             <!--<div class = "ui-g-6">-->
-            <div class="ui-g-1"> </div>
+            <!-- <div class="ui-g-1"> </div> -->
             <div class="ui-g-3">
               <label>Flowpath Instrumentation (%)</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
             </div>
             <div class="ui-g-2">
               <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}}
-                [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                [(ngModel)]="flowPath.bciInstrSessionPct.value" style="width:80%" required />
             </div>
           </div>
           <div class="ui-g-12">
-            <div class="ui-g-1"></div>
+            <!-- <div class="ui-g-1"></div> -->
             <div class="ui-g-3">
               <label>HTTP Header Name for CorrelationID</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID across Topology "></i>
@@ -171,11 +169,11 @@
               <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text"
                 size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}}
                 title="Please enter valid correlation ID header.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed."
-                pattern="[^\s]{0,49}$" ngModel/>
+                pattern="[^\s]{0,49}$" style="width:80%" ngModel/>
               <span></span>
             </div>
             <div class="ui-g-12" style="margin-left: -3px">
-              <div class="ui-g-1"></div>
+              <!-- <div class="ui-g-1"></div> -->
               <div class="ui-g-5">
                   <p-checkbox name="excludeMethodOnRespTime" [(ngModel)]="excludeMethodOnRespTimeChk" binary="true" ngModel label="Enable excluding of methods which are taking more time then keyword value"></p-checkbox>
               </div>
@@ -188,7 +186,7 @@
 
           <div class="ui-g-12">
             <!--<div class = "ui-g-6">-->
-            <div class="ui-g-1"> </div>
+            <!-- <div class="ui-g-1"> </div> -->
             <div class="ui-g-3">
               <label>Flowpath Instrumentation (%)</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of flowpath(s) will be captured from all the session(s) monitored by application agent"></i>
@@ -199,7 +197,7 @@
             </div>
           </div>
           <div class="ui-g-12">
-            <div class="ui-g-1"> </div>
+            <!-- <div class="ui-g-1"> </div> -->
             <div class="ui-g-3">
               <label>CPU Profiling</label>
               <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transaction(s)" ></i>

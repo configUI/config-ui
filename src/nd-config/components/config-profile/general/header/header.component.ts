@@ -28,9 +28,9 @@ export class HeaderComponent implements OnInit {
   HeaderForm: boolean = true;
 
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  // subscriptionEG: Subscription;
   isProfilePerm: boolean;
-  enableGroupKeyword: boolean = false;
+  // enableGroupKeyword: boolean = false;
 
   /*holding keyword data and sending to its child component
   * i.e so that when its values is changed at child
@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
       })
       this.header = keywordDataVal;
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.header.enable);
+    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.header.enable);
     this.configKeywordsService.toggleKeywordData();
     this.httpKeywordObject = [];
   }
@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+    if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.splitKeywordData(this.header)
   }

@@ -27,9 +27,9 @@ export class NVCookieComponent implements OnInit {
   ndSession: Object;
   ndSessionData: NDSessionData;
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  //subscriptionEG: Subscription;
 
-  enableGroupKeyword: boolean;
+  //enableGroupKeyword: boolean;
   isProfilePerm: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -39,13 +39,13 @@ export class NVCookieComponent implements OnInit {
       })
       this.ndSession = keywordDataVal;
     });
-    this.enableGroupKeyword = this.configKeywordsService.keywordGroup.product_integration.nvcookie.enable;
+    //this.enableGroupKeyword = this.configKeywordsService.keywordGroup.product_integration.nvcookie.enable;
 
   }
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+    if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.splitNDSessionKeywordValue();
 

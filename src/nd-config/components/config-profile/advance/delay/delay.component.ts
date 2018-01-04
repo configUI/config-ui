@@ -29,9 +29,9 @@ export class DelayComponent implements OnInit {
   /**It stores keyword data for showing in GUI */
   delay: Object;
   delayData: DelayData;
-  enableGroupKeyword: boolean;
+  // enableGroupKeyword: boolean;
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  // subscriptionEG: Subscription;
 
   isProfilePerm: boolean;
 
@@ -45,12 +45,12 @@ export class DelayComponent implements OnInit {
       this.delay = keywordDataVal;
       console.log(this.className, "constructor", "this.delay", this.delay);
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.delay.enable);
+    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.delay.enable);
     this.configKeywordsService.toggleKeywordData();
   }
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+    if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     //Calling splitDelayKeywordData method
     this.splitDelayKeywordData();
@@ -131,8 +131,8 @@ export class DelayComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if (this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if (this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
    checkFrom(from, to) {
     if (this.delayData.from >= this.delayData.to) {

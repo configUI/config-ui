@@ -29,8 +29,7 @@ export class DebugComponent {
   keywordList = ['enableBciDebug',
                   'enableBciError',
                   'InstrTraceLevel',
-                  'ndMethodMonTraceLevel',
-                  'ASDepthFilter',
+                  'ndMethodMonTraceLevel', 
                   'captureErrorLogs'  // its value = 0/1/2  related to capturing exception related logs
                   ];
 
@@ -38,9 +37,9 @@ export class DebugComponent {
   debug: Object;
   agentType: string = "";
   isProfilePerm: boolean;
-  enableGroupKeyword: boolean;
+  //enableGroupKeyword: boolean;
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  //subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.agentType = sessionStorage.getItem("agentType");    
@@ -52,13 +51,13 @@ export class DebugComponent {
       this.debug = keywordDataVal;
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
+    //this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
     this.configKeywordsService.toggleKeywordData();
   }
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+    if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
@@ -74,7 +73,7 @@ export class DebugComponent {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if (this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if (this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
 }

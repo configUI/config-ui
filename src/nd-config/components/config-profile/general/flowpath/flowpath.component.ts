@@ -36,12 +36,12 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   agentType: string = "";
   isProfilePerm: boolean;
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  // subscriptionEG: Subscription;
   enableGroupKeyword: boolean = false;
   excludeMethodOnRespTimeChk: boolean;
   // enableCaptureHeader: boolean = false;
   correlationIDHeader: any;
-
+  captureMethodForAllFPChk: boolean;
 
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
@@ -56,7 +56,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath = keywordDataVal;
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -71,7 +71,8 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.cpuTime = this.flowPath['enableCpuTime'].value;
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -111,6 +112,12 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       sessionStorage.setItem("excludeMethodOnRespTime", String(this.flowPath["excludeMethodOnRespTime"].value));
     }
     else{
+      if (this.captureMethodForAllFPChk) {
+        this.flowPath["captureMethodForAllFP"].value = 1;
+      }
+      else {
+        this.flowPath["captureMethodForAllFP"].value = 0;
+      }
       this.flowPath['enableCpuTime'].value = this.cpuTime;
       this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime;
     }
@@ -125,12 +132,13 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     this.cpuTime = this.flowPath['enableCpuTime'].value;
     this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
     this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
+    this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
   }
 
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if (this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if (this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
 }

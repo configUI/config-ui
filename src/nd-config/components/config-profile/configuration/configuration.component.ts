@@ -39,7 +39,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     });
     this.loadAdminInfo();
     this.loadKeywordData();
-    let isTrue = false;
    /* // This is done because this.keywordGroup.general.exception.enable gives us "false" when enabled
     if (sessionStorage.getItem('exceptionCapturing') != 'true' && sessionStorage.getItem('exceptionCapturingSeqBlob') != "1" && sessionStorage.getItem('exceptionCapturingAdvanceSetting') == "0") {
       this.keywordGroup.general.exception.enable = false;
@@ -52,9 +51,9 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     }
 */
     // This is done because if all the two keywords of monitor are disabled then the toggle in the configuration screen will also be disabled 
-    if (sessionStorage.getItem('enableBTMonitor') != "1" && sessionStorage.getItem('enableBackendMonitor') != "1") {
-      this.keywordGroup.advance.monitors.enable=false;
-    }
+    // if (sessionStorage.getItem('enableBTMonitor') != "1" && sessionStorage.getItem('enableBackendMonitor') != "1") {
+    //   this.keywordGroup.advance.monitors.enable=false;
+    // }
   }
   //This method is used to see whether it is admin mode or not
   loadAdminInfo(): void {
@@ -80,41 +79,41 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
   }
 
-  /**This is used to enable/disable groupkeyword values. */
-  change(selectedKeywordGroup) {
-    if(this.toggleDisable == true)
-      {
-        return;
-      }
-    for (let moduleName in this.keywordGroup) {
-      let keywordGroupList = this.keywordGroup[moduleName];
+   /**This is used to enable/disable groupkeyword values. */
+  // change(selectedKeywordGroup) {
+  //   if(this.toggleDisable == true)
+  //     {
+  //       return;
+  //     }
+  //   for (let moduleName in this.keywordGroup) {
+  //     let keywordGroupList = this.keywordGroup[moduleName];
 
-      //keywordKey -> flowpath, hotspot...
-      for (let keywordKey in keywordGroupList) {
+  //     //keywordKey -> flowpath, hotspot...
+  //     for (let keywordKey in keywordGroupList) {
 
-        //Checking selected keywordGroup string with stored groupkeyword list key
-        if (selectedKeywordGroup == keywordKey) {
+  //       //Checking selected keywordGroup string with stored groupkeyword list key
+  //       if (selectedKeywordGroup == keywordKey) {
 
-          let keywordList = keywordGroupList[keywordKey].keywordList;
+  //         let keywordList = keywordGroupList[keywordKey].keywordList;
 
-          for (let i = 0; i < keywordList.length; i++) {
-            //When toggle moving for disable
-            if (keywordGroupList[keywordKey].enable) {
-              //Setting 0 value for disable keyword
-              this.configKeywordsService.keywordData[keywordList[i]].value = "0";
-            }
-            else {
-              //Setting Default value for enable keyword
-              this.configKeywordsService.keywordData[keywordList[i]].value = this.configKeywordsService.keywordData[keywordList[i]].defaultValue;
-            }
-          }
-        }
-      }
-    }
-    //saving keyword values
-    var toggle = "toggle"
-    this.configKeywordsService.saveProfileKeywords(this.profileId,toggle);
-  }
+  //         for (let i = 0; i < keywordList.length; i++) {
+  //           //When toggle moving for disable
+  //           if (keywordGroupList[keywordKey].enable) {
+  //             //Setting 0 value for disable keyword
+  //             this.configKeywordsService.keywordData[keywordList[i]].value = "0";
+  //           }
+  //           else {
+  //             //Setting Default value for enable keyword
+  //             this.configKeywordsService.keywordData[keywordList[i]].value = this.configKeywordsService.keywordData[keywordList[i]].defaultValue;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   //saving keyword values
+  //   var toggle = "toggle"
+  //   this.configKeywordsService.saveProfileKeywords(this.profileId,toggle);
+  // }
 
   ngOnDestroy() {
     if (this.subscription)

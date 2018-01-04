@@ -30,9 +30,9 @@ export class GenerateExceptionComponent implements OnInit {
   genException: Object;
   genExceptionData: GenExceptionData;
   subscription: Subscription;
-  subscriptionEG: Subscription;
+  // subscriptionEG: Subscription;
   exceptionType: SelectItem[];
-  enableGroupKeyword: boolean;
+  // enableGroupKeyword: boolean;
 
   isProfilePerm: boolean;
   // Items to be displayed in Exception Type drop-down menu
@@ -64,12 +64,12 @@ export class GenerateExceptionComponent implements OnInit {
       this.genException = keywordDataVal;
       console.log(this.className, "constructor", "this.genException", this.genException);
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.generate_exception.enable);
+    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.generate_exception.enable);
     this.configKeywordsService.toggleKeywordData();
   }
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+    if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.createExceptionTypeSelectType();
     this.GenExceptionKeywordValue();
@@ -130,8 +130,8 @@ export class GenerateExceptionComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if (this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if (this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
 }
 //Contains generateExceptionInMethod Keyword variables

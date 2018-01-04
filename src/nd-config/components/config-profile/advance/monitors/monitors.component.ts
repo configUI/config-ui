@@ -43,8 +43,8 @@ export class MonitorsComponent implements OnInit {
   isProfilePerm: boolean;
 
   subscription: Subscription;
-  subscriptionEG: Subscription;
-  enableGroupKeyword: boolean;
+  // subscriptionEG: Subscription;
+  // enableGroupKeyword: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.agentType = sessionStorage.getItem("agentType");
     if (this.agentType == 'NodeJS') {
@@ -62,7 +62,7 @@ export class MonitorsComponent implements OnInit {
         this.nodeAsyncEventMonitorChk = this.monitor["nodeAsyncEventMonitor"].value == 0 ? false : true;
         this.nodeServerMonitorChk = this.monitor["nodeServerMonitor"].value == 0 ? false : true;
         console.log(this.className, "constructor", "this.monitors", this.monitor);
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -76,7 +76,7 @@ export class MonitorsComponent implements OnInit {
         this.monitor = keywordDataVal;
         this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
         this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
-        this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -145,12 +145,12 @@ export class MonitorsComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if (this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if (this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
   ngOnInit() {
      this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-     if(this.saveDisable || !this.enableGroupKeyword || this.isProfilePerm)
+     if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 

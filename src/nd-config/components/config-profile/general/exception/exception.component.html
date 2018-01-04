@@ -3,7 +3,7 @@
       <app-exception-setting [data]="exception" (keywordData)="saveKeywordData($event)"></app-exception-setting>
   </p-tabPanel>
   <p-tabPanel header="Filter" *ngIf="agentType == 'Java'">
-      <app-exception-filter [data]="enableGroupKeyword" (keywordData)="saveKeywordData($event)"></app-exception-filter>
+      <app-exception-filter (keywordData)="saveKeywordData($event)"></app-exception-filter>
   </p-tabPanel>
 </p-tabView>
 

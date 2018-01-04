@@ -545,6 +545,9 @@ a {
     list-style-type: none;
 }
 
+.configCard {
+    margin-top: -11px;
+}
 
 /*exception css */
 

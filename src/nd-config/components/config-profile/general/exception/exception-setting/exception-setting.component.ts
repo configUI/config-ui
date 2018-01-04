@@ -28,16 +28,16 @@ export class ExceptionSettingComponent implements OnInit {
   exception: Object;
   /**These are those keyword which are used in current screen. */
   keywordList: string[] = ['instrExceptions', 'enableExceptionsWithSourceAndVars'];
-  subscriptionEG: Subscription;
+  // subscriptionEG: Subscription;
   // selectedValue: string = 'unhandled';
-  enableGroupKeyword: boolean;
+  // enableGroupKeyword: boolean;
   keywordValue: Object;
   isProfilePerm: boolean;
   agentType: string = "";
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.agentType = sessionStorage.getItem("agentType");
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
+    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.exception.enable);
     this.getKeywordData();
     configKeywordsService.toggleKeywordData();
   }
@@ -48,7 +48,7 @@ export class ExceptionSettingComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable  || !this.enableGroupKeyword || this.isProfilePerm)
+    if(this.saveDisable  || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
@@ -189,8 +189,8 @@ export class ExceptionSettingComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    if (this.subscriptionEG)
-      this.subscriptionEG.unsubscribe();
+    // if (this.subscriptionEG)
+    //   this.subscriptionEG.unsubscribe();
   }
 
 }
