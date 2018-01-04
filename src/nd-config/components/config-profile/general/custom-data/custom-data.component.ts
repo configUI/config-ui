@@ -98,11 +98,7 @@ export class CustomDataComponent implements OnInit {
         filePath = "NA";
         this.custom_data['captureCustomData'].value = false;
       }
-<<<<<<< HEAD
-      
-=======
       this.custom_data['captureCustomData'].path = filePath;
->>>>>>> a56155083fd483a78db408771e939d6f28198b38
       this.keywordData.emit(this.custom_data);
     });
   }
