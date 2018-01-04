@@ -1,9 +1,9 @@
-<p-dataTable class="nde-ui" [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect()">
+<p-dataTable class="nde-ui" [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData" (onRowSelect)="onRowSelect()" [rows]="12" [paginator]="ipDetectionData?.length > 12" [pageLinks]="3">
     <p-header>
             <span class="configui-float-css">
                     <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxtrue" binary="true" [disabled]="true"></p-checkbox>
                 </span>
-        <span style="float: left">Apply Integration Point(s)</span>
+        <span style="float: left">Enable Integration Point(s)</span>
         <span style="float :right; margin-top:-3px">
               <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add integration point detection" ></button>
               <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add integration point detection" ></button>

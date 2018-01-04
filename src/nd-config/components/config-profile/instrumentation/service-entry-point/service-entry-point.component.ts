@@ -392,7 +392,8 @@ export class ServiceEntryPointComponent implements OnInit {
   saveServiceEntryOnFile() {
     this.configKeywordsService.saveServiceEntryData(this.profileId)
       .subscribe(data => {
-        console.log("data",data)
+        console.log("return type",data);
+	this.configUtilityService.successMessage("Saved Successfully");
       })
   }
 

@@ -19,6 +19,15 @@ export class ConfigHomeService {
 
   private _trData: TRData;
 
+  private selectedValueOfBT = new Subject<boolean>();
+  selectedValueOfBT$ = this.selectedValueOfBT.asObservable();
+
+
+  public callTosetSelectedValueOfBT(data)
+  {
+       this.selectedValueOfBT.next(data);
+  }
+
   public getAIStartStopOperationValue(data)
   {
        this.AIStartStopOpertation.next(data);

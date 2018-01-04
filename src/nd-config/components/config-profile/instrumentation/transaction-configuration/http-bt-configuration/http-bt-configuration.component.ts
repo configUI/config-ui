@@ -16,6 +16,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { Messages } from '../../../../../constants/config-constant';
+import { ConfigHomeService } from '../../../../../services/config-home.service';
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -111,9 +112,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
     private store: Store<KeywordList>,
     private configUtilityService: ConfigUtilityService,
     private confirmationService: ConfirmationService,
+    private configHomeService: ConfigHomeService
     // private log: Logger,
   ) {
     
+    this.configHomeService.selectedValueOfBT$.subscribe(data =>{ 
+      this.setSelectedValueOfBT(data);
+    });
+
     this.agentType = sessionStorage.getItem("agentType");
     
     this.segmentList = [];
@@ -203,6 +209,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   setSelectedValueOfBT(value) {
+    if(value == true){
+      value = this.selectedQueryPattern;
+    }
+    this.saveBusinessTransaction();
     if(this.saveDisable == true)
     {
         return;
@@ -585,7 +595,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   checkAppNameAlreadyExist(): boolean {
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
       if (this.businessTransPatternInfo[i].urlName== this.businessTransPatternDetail.urlName) {
-        this.configUtilityService.errorMessage("URL pattern already exists");
+        this.configUtilityService.errorMessage("BT pattern already exists");
         return true;
       }
     }

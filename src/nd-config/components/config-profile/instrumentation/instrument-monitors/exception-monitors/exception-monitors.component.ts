@@ -322,8 +322,12 @@ export class ExceptionMonitorsComponent implements OnInit {
       let str1:string;
       str=filepath.substring(filepath.lastIndexOf("/"),filepath.length)
       str1=str.substring(str.lastIndexOf("."),str.length);
-      if(!(str1==".txt")){
-        this.configUtilityService.errorMessage("Extension(s) other than .txt are not supported");
+      let type:boolean=true;
+      if(str1==".txt" || str1==".eml"){
+        type=false;
+      }
+      if(type){
+        this.configUtilityService.errorMessage("Extension(s) other than .txt and .eml are not supported");
         return
       }
       

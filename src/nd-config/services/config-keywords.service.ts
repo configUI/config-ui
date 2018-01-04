@@ -364,6 +364,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
 
+    /* Save data on file for BT Transaction window*/
+    saveBusinessTransMethodData(profileId): Observable<BusinessTransMethodInfo> {
+      return this._restApi.getDataByPostReq(`${URL.SAVE_BT_TRANSACTION}/${profileId}`);
+    }
+
   /*Add Pattern Bt Data*/
   deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByPostReq(`${URL.DEL_BT_PATTERN_DETAILS}/${profileId}`, data);

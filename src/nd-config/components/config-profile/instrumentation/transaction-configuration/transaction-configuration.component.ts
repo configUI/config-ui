@@ -37,6 +37,7 @@ export class TransactionConfigurationComponent implements OnInit {
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
+  checkboxenable:boolean=true;
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -165,5 +166,12 @@ export class TransactionConfigurationComponent implements OnInit {
           }
         }
       }
+      saveBTTransactionOnFile() {
+      this.configKeywordsService.saveBusinessTransMethodData(this.profileId)
+      .subscribe(data => {
+        console.log("return type",data)
+    })
+    this.configHomeService.callTosetSelectedValueOfBT(true);
+    }
     }
     

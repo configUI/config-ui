@@ -1095,3 +1095,6 @@ body {
     overflow-x: hidden;
     height: 95px;
 }
+.exception .ui-datatable .ui-datatable-scrollable-body {
+    overflow-x: hidden;
+}
