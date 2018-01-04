@@ -22,8 +22,8 @@ export class ConfigLeftSideBarComponent implements OnInit {
   constructor(private http: Http,private router: Router) { }
 
   ngOnInit() {
-  // var userName = sessionStorage.getItem('sesLoginName');
-  //   var passWord =  sessionStorage.getItem('sesLoginPass');
+  var userName = sessionStorage.getItem('sesLoginName');
+    var passWord =  sessionStorage.getItem('sesLoginPass');
     // let URL=sessionStorage.getItem('host');
     // var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName + '&passWord=' + passWord
     // this.http.get(url).map(res => res.json()).subscribe(data => {
@@ -32,20 +32,21 @@ export class ConfigLeftSideBarComponent implements OnInit {
       // sessionStorage.setItem("TopologyAccess",data["Topology"]);
       // sessionStorage.setItem("InstrProfAccess",data["InstrumentationProfileMaker"]);
       // sessionStorage.setItem("AutoDiscoverAccess",data["AutoDiscover"]);
-          // if(+data["Profile"] == 0)
-          //   this.noPerm.push("Profile");
+      
+      //     if(+data["Profile"] == 0)
+      //       this.noPerm.push("Profile");
 
-          // if(+data["Application"] == 0)
-          //   this.noPerm.push("Application");
+      //     if(+data["Application"] == 0)
+      //       this.noPerm.push("Application");
 
-          // if(+data["Topology"] == 0)
-          //   this.noPerm.push("Topology");
+      //     if(+data["Topology"] == 0)
+      //       this.noPerm.push("Topology");
 
-          //   if(+data["AutoDiscover"] == 0)
-          //   this.noPerm.push("Auto Discover");
+      //       if(+data["AutoDiscover"] == 0)
+      //       this.noPerm.push("Auto Discover");
 
-          // if(+data["InstrumentationProfileMaker"] == 0)
-          //   this.noPerm.push("Instrumentation Profile Maker");
+      //     if(+data["InstrumentationProfileMaker"] == 0)
+      //       this.noPerm.push("Instrumentation Profile Maker");
 
           /* Main Menu Array.  */
           this.navMenuArray = [
@@ -58,14 +59,14 @@ export class ConfigLeftSideBarComponent implements OnInit {
             { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
           ];
         
-          // for(let i=0;i<this.navMenuArray.length;i++){
-          //   for(let j=0;j<this.noPerm.length;j++){
-          //     if (this.navMenuArray[i]['label'] == this.noPerm[j]) {
-          //       this.navMenuArray.splice(i,1);
-          //       i--;
-          //     }
-          //   }
-          // }
+        //   for(let i=0;i<this.navMenuArray.length;i++){
+        //     for(let j=0;j<this.noPerm.length;j++){
+        //       if (this.navMenuArray[i]['label'] == this.noPerm[j]) {
+        //         this.navMenuArray.splice(i,1);
+        //         i--;
+        //       }
+        //     }
+        //   }
         //   if(this.navMenuArray.length == 3){
         //     for(let m=0;m<this.navMenuArray.length;m++){
         //     if(this.navMenuArray[m]['label'] == "Auto Discover")
@@ -79,7 +80,7 @@ export class ConfigLeftSideBarComponent implements OnInit {
         //     this.router.navigate(['/home/config/auto-discover']);
         //   }
         // }
-        //  });
+      //   });
   }
 
 }

@@ -54,7 +54,7 @@ export class ServiceEntryPointComponent implements OnInit {
 
   subscription: Subscription;
 
-  javaTypeEntryPointName = ["ATGServlet", "ApacheJsperService", "EntryForJBOSS", "EntryForWebLogicJSP", "ErrorPageEntry", "Generic", "HessianCallOut", "HttpServletService", "JMSCall", "glassFishJersey", "jerseyCall"];
+  javaTypeEntryPointName = ["ATGServlet", "ApacheJsperService", "EntryForJBOSS", "EntryForWebLogicJSP", "ErrorPageEntry", "Generic", "HessianCallOut", "HttpServletService", "JMSCall", "GlassFishJersey", "JerseyCall"];
   javaTypeEntryPointId = ["11", "3", "8", "2", "9", "6", "10", "1", "7", "5", "4"];
   dotNetTypeEntryPoint = ["HttpServletService", "TXExit"];
   dotNetTypeEntryPointId = ["1", "12"];
@@ -62,6 +62,7 @@ export class ServiceEntryPointComponent implements OnInit {
   agentType: string = "";
   type: boolean;
   isProfilePerm: boolean;
+  checkboxtrue:boolean=true;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
 
@@ -86,7 +87,7 @@ export class ServiceEntryPointComponent implements OnInit {
    
     if (this.agentType == "Java")
       this.entryPointType = ConfigUiUtility.createListWithKeyValue(this.javaTypeEntryPointName, this.javaTypeEntryPointId);
-    else if (this.agentType == "Dot Net")
+      else if (this.agentType == "Dot Net")
       this.entryPointType = ConfigUiUtility.createListWithKeyValue(this.dotNetTypeEntryPoint, this.dotNetTypeEntryPointId);
     else
       this.loadEntryPointTypeList();    
@@ -388,6 +389,12 @@ export class ServiceEntryPointComponent implements OnInit {
     }
     return -1;
   }
-
+  saveServiceEntryOnFile() {
+    this.configKeywordsService.saveServiceEntryData(this.profileId)
+      .subscribe(data => {
+        console.log("return type",data);
+	this.configUtilityService.successMessage("Saved Successfully");
+      })
+  }
 
 }

@@ -1,3 +1,15 @@
+<form (ngSubmit)="saveBTTransactionOnFile()" #form="ngForm" ngNativeValidate>
+    <div class="tabsincontent">
+        <div class="header">
+            <p-checkbox name="bttransaction" label="Enable Business Transaction" [(ngModel)]="checkboxenable" [disabled]="checkboxenable" binary="true">
+            </p-checkbox>
+
+            <div class="pull-right">
+                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
+
+            </div>
+        </div>
 <p-tabView>
     <p-tabPanel header="Configure Detection Rules">
         <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
@@ -9,6 +21,8 @@
         <bt-http-headers (keywordData)="saveKeywordData($event)"></bt-http-headers>
     </p-tabPanel>
 </p-tabView>
+    </div>
+</form>
 
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
 width="500" responsive="true">

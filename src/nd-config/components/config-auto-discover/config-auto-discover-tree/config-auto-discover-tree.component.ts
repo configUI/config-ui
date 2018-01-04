@@ -34,12 +34,15 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     pckName: string = '';
     saveCheck: boolean = false;
 
-    instrFromLeftSideTree: string;
+    instrFromLeftSideTree: TreeNode[];
     instrFromRightSideTree: string;
     reqId: string;
     isAutoPerm: boolean;
+    selectedArr: any[] = [];
+    isNodeSelected:boolean;
     constructor(private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
         this.leftSideTreeData = [];
+        this.isNodeSelected =false;
         this.adrFile = sessionStorage.getItem("adrFile");
         let temp = this.adrFile.split(".adr")
         this.instanceFileName = temp[0];
@@ -55,16 +58,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         }
 
         this._configKeywordsService.getAutoDiscoverTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
-            if(data.node[0].children.length != 0)
-            {
-             this.leftSideTreeData = data.node;
-            }
-             else
-            {
-                this.configUtilityService.errorMessage("Auto discover method file is empty.");
-                return;
-            }           
-            this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+            this.getleftSideTreeData(data);
         });
         this.autoDiscoverDetail = new AutoDiscoverData();
         this.autoDiscoverDetail.agents = this.adrFile;
@@ -97,7 +91,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
     clearFields() {
         this.instrfileName = "";
-        this.rightSideTreeData = [];
+    //    this.rightSideTreeData = [];
     }
 
     ngOnInit() {
@@ -112,16 +106,48 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
                 if(!(data.node[0]["label"] == null))
                 {
                     event.node.children = data.node
+                    for(let i = 0 ; i < event.node.children.length; i++)
+                    {
+                        if(event.node.children[i].selected == true)
+                        this.selectedArr.push(event.node.children[i]);
+                    }
+                    this.instrFromLeftSideTree = this.selectedArr;
                 }
                 else
-                event.node["leaf"] = true;
+                    event.node["leaf"] = true;
             });
           }
         }
     
+        getleftSideTreeData(data)
+        {  
+            this.instrFromLeftSideTree = [];
+            this.selectedArr = [];
+            if(data.node[0].children.length != 0)
+            {
+             this.leftSideTreeData = data.node;
+             for(let i = 0 ; i < data.node[0].children.length; i++)
+             {
+                 if(data.node[0].children[i].selected == true)
+                   this.selectedArr.push(data.node[0].children[i]);
+             }
+             this.instrFromLeftSideTree = this.selectedArr;
+            }
+             else
+            {
+                this.configUtilityService.errorMessage("Auto discover method file is empty.");
+                return;
+            }           
+            this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+        }
 
     getValuesForSelectedList() {
         this.selectedNodes = [];
+        if(this.isNodeSelected == false)
+        {
+            this.configUtilityService.errorMessage("Same Package,Class and Method name already instrumented");
+            return;  
+        }
         this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
         if (this.selectedNodes.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
@@ -130,8 +156,18 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
         this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
-            this.configUtilityService.successMessage("Instrumentation data Successfully");
+            this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
+               this.getleftSideTreeData(data);
+               this.isNodeSelected = false;
+               this.configUtilityService.successMessage("Instrumentation data Successfully");
+            });
+           
         });
+    }
+
+    onNodeSelect()
+    {
+        this.isNodeSelected = true;
     }
 
     removeValuesFromSelectedList() {
@@ -143,10 +179,14 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             return;
         }
         this._configKeywordsService.getUninstrumentaionTreeData(this.selectedNodes, this.reqId, this.instanceFileName ).subscribe(data => {
-
+           
             this.rightSideTreeData = data.backendDetailList;
+            this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
+                this.getleftSideTreeData(data);
+                this.configUtilityService.successMessage("UnInstrumentation data Successfully");
+             });
+
             this.instrFromRightSideTree = '';
-            this.configUtilityService.successMessage("UnInstrumentation data Successfully");
         });
     }
 

@@ -120,11 +120,11 @@ export class HttpStatsMonitorsComponent implements OnInit {
       if (key == 'HTTPStatsCondCfg') {
         if (this.selectedValues == true) {
           this.HttpStatsMonitor[key]["value"] = "true";
-          this.configUtilityService.successMessage("Http Stats monitors are enabled");
+        //  this.configUtilityService.successMessage("Http Stats monitors are enabled");
         }
         else {
           this.HttpStatsMonitor[key]["value"] = "false";
-          this.configUtilityService.infoMessage("Http Stats Monitors are disabled");
+         // this.configUtilityService.infoMessage("Http Stats Monitors are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.HttpStatsMonitor[key];
@@ -427,6 +427,13 @@ export class HttpStatsMonitorsComponent implements OnInit {
         return i;
       }
     } return -1;
+  }
+  saveHttpStatsMonitorOnFile() {
+    this.saveKeywordData();
+    this.configKeywordsService.saveHttpStatsMonitorData(this.profileId)
+      .subscribe(data => {
+	console.log("return type",data);
+      })
   }
 }
 

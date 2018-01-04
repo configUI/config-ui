@@ -97,11 +97,11 @@ export class ExceptionMonitorsComponent implements OnInit {
       if (key == 'ndExceptionMonFile') {
         if (this.selectedValues == true) {
           this.exceptionMonitor[key]["value"] = "true";
-          this.configUtilityService.successMessage("Exception Monitors settings are enabled");
+         // this.configUtilityService.successMessage("Exception Monitors settings are enabled");
         }
         else {
           this.exceptionMonitor[key]["value"] = "false";
-          this.configUtilityService.infoMessage("Exception Monitors settings are disabled");
+         // this.configUtilityService.infoMessage("Exception Monitors settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
@@ -322,8 +322,12 @@ export class ExceptionMonitorsComponent implements OnInit {
       let str1:string;
       str=filepath.substring(filepath.lastIndexOf("/"),filepath.length)
       str1=str.substring(str.lastIndexOf("."),str.length);
-      if(!(str1==".txt")){
-        this.configUtilityService.errorMessage("Extension(s) other than .txt are not supported");
+      let type:boolean=true;
+      if(str1==".txt" || str1==".eml"){
+        type=false;
+      }
+      if(type){
+        this.configUtilityService.errorMessage("Extension(s) other than .txt and .eml are not supported");
         return
       }
       
@@ -342,5 +346,12 @@ export class ExceptionMonitorsComponent implements OnInit {
         this.configUtilityService.successMessage("File uploaded successfully");
        });
     }
+  }
+  saveExceptionMonitorOnFile() {
+    this.saveKeywordData();
+    this.configKeywordsService.saveExceptionMonitorData(this.profileId)
+      .subscribe(data => {
+
+      })
   }
 }

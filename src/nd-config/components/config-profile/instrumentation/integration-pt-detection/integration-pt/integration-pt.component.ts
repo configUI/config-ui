@@ -60,6 +60,7 @@ export class IntegrationPtComponent implements OnInit {
   endPoint: EndPoint[];
   agentType: string = "";
   isProfilePerm: boolean;
+  checkboxtrue:boolean=true;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
     this.agentType = sessionStorage.getItem("agentType");
@@ -309,7 +310,13 @@ export class IntegrationPtComponent implements OnInit {
       }
     });
   }
-
+  saveIntegrationPointOnFile() {
+    this.configKeywordsService.saveIntegrationPointData(this.profileId)
+      .subscribe(data => {
+	this.configUtilityService.successMessage("Saved Successfully");
+        console.log("return type",data)
+      })
+  }
 
 }
 

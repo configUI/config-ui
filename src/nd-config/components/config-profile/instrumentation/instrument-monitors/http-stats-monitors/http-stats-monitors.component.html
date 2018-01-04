@@ -3,9 +3,9 @@
         <p-header>
             <span class="configui-float-css">
                 <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
-                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveKeywordData()"></p-checkbox>
+                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
             </span>
-            <span class="configui-float-css">Manage HTTP Stats Monitors</span>
+            <span class="configui-float-css">Enable HTTP Stats Monitors</span>
             <span class="configui-float">
                 <button pButton type="button" title="Add a HTTP stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
                 <button pButton type="button" title="Add a HTTP stats condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>
@@ -13,6 +13,8 @@
                 <button pButton type="button" title="Edit a HTTP stats Condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditHTTPStatsDialog()" icon="fa-pencil"></button>
                 <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
                 <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteHTTPStats()" icon="fa-trash"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveHttpStatsMonitorOnFile()" label="Save"></button>
             </span>
         </p-header>
         <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>

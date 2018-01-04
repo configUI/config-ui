@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-// import { CavTopPanelNavigationService } from '../../../main/services/cav-top-panel-navigation.service';
-// import { CavConfigService } from '../../../main/services/cav-config.service';
+//import { CavTopPanelNavigationService } from '../../../main/services/cav-top-panel-navigation.service';
+//import { CavConfigService } from '../../../main/services/cav-config.service';
 
 import './config-rxjs-import';
 
@@ -11,17 +11,14 @@ import {ConfigUtilityService} from './config-utility.service';
 @Injectable()
 export class ConfigRestApiService {
 
-  constructor(
-    //  private _navService: CavTopPanelNavigationService,
-    //  private _productConfig: CavConfigService, 
-     private http: Http, private configUtilityService: ConfigUtilityService) { }
+  constructor(private http: Http, private configUtilityService: ConfigUtilityService) { }
 
   className: string = "ConfigRestApiService";
 
   // Fetch data
 
   getDataByGetReq(url: string): Observable<any> {
-    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
+   // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -33,7 +30,6 @@ export class ConfigRestApiService {
       //...errors if any
       .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error')})
   }
-
 
   getDataByGetReqForRunningTestStatus(url: string): Observable<any> {
     // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
@@ -51,7 +47,7 @@ export class ConfigRestApiService {
 
     // Fetch data
   getDataByGetReqWithNoJson(url: string): Observable<any> {
-    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
+  //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -64,7 +60,7 @@ export class ConfigRestApiService {
   }
 
   getDataByPostReq(url: string, body?: any): Observable<any> {
-    // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+   // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
@@ -83,28 +79,8 @@ export class ConfigRestApiService {
       .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
   }
 
-  getDataByPostReqWithNoJSON(url: string, body?: any): Observable<any> {
-    // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
-    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
-    if(body == undefined)
-      body = {};
-    let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
-    let options = new RequestOptions({ headers: headers });// Create a request option
-    
-    console.info(this.className, "getDataByPostReq", "URL", url, "Body", body);
-
-    return this.http.post(url, body, options) // ...using post request
-      // ...and calling .json() on the response to return data
-      .map((res: Response) => {
-        this.configUtilityService.progressBarEmit({flag: false, color: 'primary'});
-        return res;
-      })
-      //...errors if any
-      .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
-  }
-
   getDataByPutReq(url: string, body?: Object): Observable<any> {
-    // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+  //  url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });// Create a request option
     
@@ -118,7 +94,7 @@ export class ConfigRestApiService {
   }
 /*  Get Agent Info according selected DC */
   getAgentDataByGetReq(url: string): Observable<any> {
-    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url;
+   // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -133,7 +109,7 @@ export class ConfigRestApiService {
 
 /* This method is used for get value in xml format */
  getXMLDataByPostReq(url: string, body?: any): Observable<any> {
-    // url = this._productConfig.getURLByActiveDC() + url;
+  //  url = this._productConfig.getURLByActiveDC() + url;
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
@@ -151,4 +127,23 @@ export class ConfigRestApiService {
       .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
   }
 
+  getDataByPostReqWithNoJSON(url: string, body?: any): Observable<any> {
+   // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+    if(body == undefined)
+      body = {};
+    let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });// Create a request option
+    
+    console.info(this.className, "getDataByPostReq", "URL", url, "Body", body);
+
+    return this.http.post(url, body, options) // ...using post request
+      // ...and calling .json() on the response to return data
+      .map((res: Response) => {
+        this.configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        return res;
+      })
+      //...errors if any
+      .catch((error: any) => { this.configUtilityService.progressBarEmit({flag: true, color: 'warn'}); return Observable.throw(error.json().error || 'Server Error' )});
+  }
 }

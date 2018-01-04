@@ -1965,6 +1965,12 @@ app-alert-home .ui-widget-content .history-table-row-odd {
 .ddr-table .ui-datatable th.ui-state-default span {
     color: #000000;
 }
+/* For DDR table table row selection color*/
+.ddr-table .ui-datatable .ui-datatable-data tr.ui-state-highlight {
+    background: #68bde6;
+    color: #000;
+    border-color: #6497ca;
+}
 
 /*This is the CSS for the Highlight health check monitor window table row*/
 
@@ -2481,8 +2487,11 @@ button.capabilityButton.mat-raised-button{
     background: #282828;
     color: #cccccc;
 }
-.filters-container th{
-    color: #000;
+.alert-maintenance-wrapper .ui-datepicker.ui-widget .ui-datepicker-calendar th {
+    background: #3b77b7;
+}
+.filters-container .ui-datepicker.ui-widget .ui-datepicker-calendar th {
+    background-color: #3e7bbb;
 }
 //this is used to get unselected color in scenario left panel
 .scenario-left .ui-state-active {
@@ -2496,3 +2505,14 @@ button.capabilityButton.mat-raised-button{
 .scenProDrp .ui-dropdown label.ui-dropdown-label {
    color: #000;
 }
+.main-box-scen {
+    background: rgba(245, 245, 245, 0.5);
+}
+
+/*-------Test Run Component---------*/
+.totalTestRunCard .IconClass, md-card-title{ color: #1b1c29 ; }
+.totalArchieveCard .IconClass, md-card-title{ color:   #248471 ; }
+.totalLockedTestsCard .IconClass, md-card-title{ color : #a93455 ;}
+.totalScriptsCard  .IconClass, md-card-title{ color: #633994 ;}
+.totalScenarioCard .IconClass, md-card-title{  color: #d2833a ;}
+.totalRunningCard .IconClass, md-card-title{  color: #000 ; }

@@ -57,7 +57,7 @@ export class ConfigKeywordsService {
     },
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
-  
+
   constructor(private _restApi: ConfigRestApiService, private store: Store<Object>, private configUtilityService: ConfigUtilityService) { }
 
   /** For Getting all keywordData data */
@@ -94,8 +94,6 @@ export class ConfigKeywordsService {
           this.store.dispatch({ type: KEYWORD_DATA, payload: data });
         });
     }
-
-
   /**
  * This method is used to enable/disable toggle button.
  */
@@ -171,6 +169,10 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPutReq(url, data);
   }
 
+  saveServiceEntryData(profileId): Observable<ServiceEntryPoint> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_SERVICE_ENTRY_POINTS}/${profileId}`);
+  }
+
   /**For Integration PT Detection */
   getIntegrationPTDetectionList(profileId): Observable<IntegrationPT[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_TABLEDATA}/${profileId}`);
@@ -186,6 +188,9 @@ export class ConfigKeywordsService {
 
   addIntegrationPTDetectionData(profileId, data): Observable<AddIPDetection> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
+  }
+  saveIntegrationPointData(profileId): Observable<AddIPDetection> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_NEW_BACKEND_POINT}/${profileId}`);
   }
 
   addIPNamingAndExit(profileId, backendId, data): Observable<NamingRuleAndExitPoint> {
@@ -215,6 +220,9 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_ERROR_DETECTION}/${profileId}`, data);
   }
 
+  saveErrorDetectionData(profileId): Observable<ErrorDetection> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_ERROR_DETECTION}/${profileId}`);
+  }
 
   getExceptionMonitorList(profileId): Observable<ExceptionMonitorData[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_EXCEPTION_MON_TABLEDATA}/${profileId}`);
@@ -254,9 +262,13 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_EXCEPTION_MONITOR_FILE}/${profileId}`, filePath);
 }
 
+saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
+  return this._restApi.getDataByPostReq(`${URL.SAVE_EXCEPTION_MONITOR}/${profileId}`);
+}
   getListOfXmlFiles(profileId, agentType): Observable<string[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_INSTR_PROFILE_LIST}/${agentType}`);
   }
+
 
   /*  FETCH SESSION ATTRIBUTE TABLEDATA
    */
@@ -300,6 +312,11 @@ export class ConfigKeywordsService {
   deleteHttpStatsMonitorData(data, profileId): Observable<HttpStatsMonitorData> {
     return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_STATS_COND}/${profileId}`, data);
   }
+
+  saveHttpStatsMonitorData(profileId): Observable<HttpStatsMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_HTTP_STATS_COND}/${profileId}`);
+  }
+
 
 
   /**
@@ -351,6 +368,11 @@ export class ConfigKeywordsService {
   addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
+
+    /* Save data on file for BT Transaction window*/
+    saveBusinessTransMethodData(profileId): Observable<BusinessTransMethodInfo> {
+      return this._restApi.getDataByPostReq(`${URL.SAVE_BT_TRANSACTION}/${profileId}`);
+    }
 
   /*Add Pattern Bt Data*/
   deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
@@ -507,6 +529,10 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
   }
 
+  saveMethodMonitorData(profileId){ 
+    return this._restApi.getDataByPostReq(`${URL.SAVE_METHOD_MONITOR_FILE}/${profileId}`);
+  }
+
   /** Method to copy selected xml files in instrProfiles */
   copyXmlFiles(filesWithPath, profileId): Observable<string[]> {
     return this._restApi.getDataByPostReq(`${URL.COPY_XML_FILES}/${profileId}`, filesWithPath);
@@ -566,7 +592,10 @@ export class ConfigKeywordsService {
   saveInsrumentationFileInXMLFormat(xmlFileName, reqId, fileName) {
     return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}?reqId=${reqId + ','+ fileName}`, xmlFileName);
   }
-
+  
+   getAutoDiscoverSelectedTreeData(adrFile, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_SELECTED_TREE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
+  }
   /* GEt Activity Log Data */
   getActivityLogData() {
     return this._restApi.getDataByGetReq(`${URL.GET_ACTIVITY_LOG_DATA}`);
@@ -607,7 +636,9 @@ export class ConfigKeywordsService {
   saveInsrumentationFileXMLFormat(xmlFileName, reqId) {
     return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_FILE}?reqId=${reqId}`, xmlFileName);
   }
-
+  checkInsrumentationXMLFileExist(xmlFileName, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.CHECK_INSTRUEMENTATION_XML_FILE_EXIST}?reqId=${reqId}`, xmlFileName);
+  }
 
 }
 

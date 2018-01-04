@@ -89,11 +89,11 @@ export class ErrorDetectionComponent implements OnInit {
       if (key == 'BTErrorRules') {
         if (this.selectedValues == true) {
           this.errorDetection[key]["value"] = "true";
-          this.configUtilityService.successMessage("Error Detection settings are enabled");
+         // this.configUtilityService.successMessage("Error Detection settings are enabled");
         }
         else {
           this.errorDetection[key]["value"] = "false";
-          this.configUtilityService.infoMessage("Error detection settings disabled");
+         // this.configUtilityService.infoMessage("Error detection settings disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.errorDetection[key];
@@ -295,5 +295,13 @@ export class ErrorDetectionComponent implements OnInit {
       to.setCustomValidity('');
     }
     from.setCustomValidity('');
+  }
+  saveErrorDetectionOnFile() {
+    this.saveKeywordData();
+    this.configKeywordsService.saveErrorDetectionData(this.profileId)
+      .subscribe(data => {
+        console.log("return type",data)
+
+      })
   }
 }

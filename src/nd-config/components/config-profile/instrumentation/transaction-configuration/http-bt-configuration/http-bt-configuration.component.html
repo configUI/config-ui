@@ -6,25 +6,23 @@
     <div class="ui-g-12" style="background: #ededf0">
         <div class="ui-g-3">
             <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
-            <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('global')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" [(ngModel)]="selectedQueryPattern"></p-radioButton>
             <i class="fa fa-info-circle" aria-hidden="true" title="Rule to create Business transaction names using URI and dynamic reqeust properties(HTTP Method, query parameters etc)."></i>
         </div>
         <div class="ui-g-9">
             <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
-            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="setSelectedValueOfBT('pattern')" [(ngModel)]="selectedQueryPattern"></p-radioButton>
+            <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable"  [(ngModel)]="selectedQueryPattern"></p-radioButton>
             <i class="fa fa-info-circle" aria-hidden="true" title="Provide patterns of URI and dynamic request properties(HTTP Method, query parameters etc) to identify Businesss transactions."></i>
         </div>
     </div>
 </div>
 <div class="ui-g" *ngIf="selectedQueryPattern == 'global'" style="margin-bottom:10px; border: ridge;">
-    <form (ngSubmit)="saveBusinessTransaction()" #groupForm="ngForm" ngNativeValidate>
+    <form  #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g-12 header-font-size">
             <div class="ui-g-6">URI used in Transaction Name</div>
             <div class="ui-g-6" style="text-align:right">
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetBusinessTransaction()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetBusinessTransaction()" label="Reset"></button>
-                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
-                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
@@ -341,7 +339,7 @@
                             <label>HTTP Method Type</label>
                         </div>
                         <div class="ui-g-7">
-                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'70.3%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
+                            <p-dropdown name="reqMethod" [disabled]="!businessTransPatternDetail.dynamicPartReq" [style]="{'width':'72.5%'}" [options]="methodTypeList" placeholder="--Select method--" [(ngModel)]="businessTransPatternDetail.reqMethod" appendTo="body"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -362,7 +360,7 @@
     <!-- This will look for this component in the ProductUI at this path -
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer-->
 
-     <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+     <app-config-nd-file-explorer></app-config-nd-file-explorer>
 </p-dialog>
 
 <!-- Dialog to open request parameter key and value -->

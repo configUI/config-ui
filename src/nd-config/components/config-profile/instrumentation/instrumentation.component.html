@@ -3,7 +3,7 @@
         <p-tabPanel header="Service Entry Point" [selected]="index == 0" *ngIf="agentType != 'NodeJS'">
             <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-service-entry-point>
         </p-tabPanel>
-        <p-tabPanel header="Integration Point Detection" [selected]="index == 1" *ngIf="agentType != 'NodeJS'">
+        <p-tabPanel header="Integration Point" [selected]="index == 1" *ngIf="agentType != 'NodeJS'">
             <app-integration-pt-detection *ngIf="index == 1" [profileId]="profileId"></app-integration-pt-detection>
         </p-tabPanel>
 

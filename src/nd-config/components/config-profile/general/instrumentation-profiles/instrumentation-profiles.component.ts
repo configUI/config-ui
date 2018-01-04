@@ -115,10 +115,10 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   saveKeywordData(data) {
     let value = this.instrProfiles;
-    if(value[0]==null || value[0]==""){
-      this.configUtilityService.infoMessage("Please select file(s)");
-      return;
-    }
+    // if(value[0]==null || value[0]==""){
+    //   this.configUtilityService.infoMessage("Please select file(s)");
+    //   return;
+    // }
     let keywordData = this.configKeywordsService.keywordData;
     let keyword = {}
     if (keywordData.hasOwnProperty("instrProfile")) {
@@ -173,15 +173,16 @@ export class InstrumentationProfilesComponent implements OnInit {
 
     if(deepFilePathCopy.split(";").length != files.length)
     {
-	     this.confirmationService.confirm({
+	this.confirmationService.confirm({
           message: 'Selection contains already added files. Are you sure that you want to upload unique files?',	
           header: 'Confirmation',
           icon: 'fa fa-question-circle',
           accept: () => {
-      // let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
-      filesWithPath = filesWithPath + "%" + this.agentType
-		  if(files.length != 0) {
+		filesWithPath = filesWithPath + "%" + this.agentType
+		// let filesWith = "C:/Users/compass-165/Documents/xmlfiles/xmlfile1.txt;C:/Users/compass-165/Documents/xmlfiles/2.xml;C:/Users/compass-165/Documents/xmlfiles/3.xml";
+		if(files.length != 0) {
     		  this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
+                     this.loadListOfXmlFiles();
       		    if (data.length < 1) {
         	      this.configUtilityService.successMessage("Files imported successfully");
       		    }
@@ -191,15 +192,15 @@ export class InstrumentationProfilesComponent implements OnInit {
       		  error => {
         	    console.log("Error in browsing xml files");
       		  }); 
-		  } else {
+		} else {
 		  this.configUtilityService.errorMessage("All Selected files are already imported");
 	 	}	
            }
        	});	
      } else {
-      filesWithPath = filesWithPath + "%" + this.agentType
+    	 filesWithPath = filesWithPath + "%" + this.agentType
          this.configKeywordsService.copyXmlFiles(filesWithPath, this.profileId).subscribe(data => {
-          this.loadListOfXmlFiles();
+         this.loadListOfXmlFiles();
            if (data.length < 1) {
              this.configUtilityService.successMessage("Files imported successfully");
             }
