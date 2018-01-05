@@ -38,7 +38,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   // subscriptionEG: Subscription;
-  enableGroupKeyword: boolean = false;
+  // enableGroupKeyword: boolean = false;
   excludeMethodOnRespTimeChk: boolean;
   // enableCaptureHeader: boolean = false;
   correlationIDHeader: any;
@@ -84,7 +84,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(!this.enableGroupKeyword || this.saveDisable || this.isProfilePerm)
+    if(this.saveDisable || this.isProfilePerm)
        this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
