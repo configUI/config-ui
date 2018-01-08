@@ -38,6 +38,7 @@ export class TransactionConfigurationComponent implements OnInit {
   msg = [];
   errMsg = [];
   checkboxenable:boolean=true;
+  isProfilePerm: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -49,6 +50,7 @@ export class TransactionConfigurationComponent implements OnInit {
  }
 
   ngOnInit() {
+    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
