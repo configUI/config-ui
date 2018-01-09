@@ -583,18 +583,60 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     //When add edit Pattern
     else {
-      if (this.selectedPatternData[0].btName != this.businessTransPatternDetail.btName && this.selectedPatternData[0].urlName != this.businessTransPatternDetail.urlName) {
+      if (this.businessTransPatternDetail.dynamicPartReq == false || this.businessTransPatternDetail.dynamicPartReq == undefined) {
+        this.businessTransPatternDetail.reqHeaderKey = null;
+        this.businessTransPatternDetail.reqParamKey = null;
+        this.businessTransPatternDetail.reqMethod = "-";
+      }
+      if ((this.selectedPatternData[0].btName == this.businessTransPatternDetail.btName) && (this.selectedPatternData[0].urlName == this.businessTransPatternDetail.urlName) && (this.selectedPatternData[0].reqParamKey == this.businessTransPatternDetail.reqParamKey) && (this.selectedPatternData[0].reqHeaderKey == this.businessTransPatternDetail.reqHeaderKey) && (this.selectedPatternData[0].reqMethod == this.businessTransPatternDetail.reqMethod)) {
+        this.editPattern();
+      }
+      else {
         if (this.checkAppNameAlreadyExist())
           return;
+        else
+          this.editPattern();
       }
-      this.editPattern();
     }
   }
 
   /**This method is used to validate the name of Pattern is already exists. */
   checkAppNameAlreadyExist(): boolean {
+    if (this.businessTransPatternDetail.dynamicPartReq == false || this.businessTransPatternDetail.dynamicPartReq == undefined) {
+      this.businessTransPatternDetail.reqHeaderKey = null;
+      this.businessTransPatternDetail.reqParamKey = null;
+      this.businessTransPatternDetail.reqMethod = "-";
+    }
+    if (this.businessTransPatternDetail.dynamicPartReq == true) {
+      if (this.businessTransPatternDetail.reqHeaderKey != null || this.businessTransPatternDetail.reqHeaderKey != undefined) {
+        if (this.businessTransPatternDetail.reqHeaderKey == "")
+          this.businessTransPatternDetail.reqHeaderKey = null;
+        this.businessTransPatternDetail.reqHeaderKey = this.businessTransPatternDetail.reqHeaderKey;
+      }
+      else {
+        this.businessTransPatternDetail.reqHeaderKey = null;
+      }
+      if (this.businessTransPatternDetail.reqParamKey != null || this.businessTransPatternDetail.reqParamKey != undefined) {
+        if (this.businessTransPatternDetail.reqParamKey == "")
+          this.businessTransPatternDetail.reqParamKey = null
+        this.businessTransPatternDetail.reqParamKey = this.businessTransPatternDetail.reqParamKey;
+      }
+      else {
+        this.businessTransPatternDetail.reqParamKey = null;
+      }
+      if (this.businessTransPatternDetail.reqMethod != undefined || this.businessTransPatternDetail.reqMethod != null){
+        this.businessTransPatternDetail.reqMethod = this.businessTransPatternDetail.reqMethod;
+      }
+      else {
+        this.businessTransPatternDetail.reqMethod = "-";
+      }
+    }
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
-      if (this.businessTransPatternInfo[i].urlName== this.businessTransPatternDetail.urlName) {
+      if (this.businessTransPatternInfo[i].urlName == this.businessTransPatternDetail.urlName &&
+        this.businessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName
+        && this.businessTransPatternInfo[i].reqParamKey == this.businessTransPatternDetail.reqParamKey &&
+        this.businessTransPatternInfo[i].reqHeaderKey == this.businessTransPatternDetail.reqHeaderKey
+        && this.businessTransPatternInfo[i].reqMethod == this.businessTransPatternDetail.reqMethod) {
         this.configUtilityService.errorMessage("BT pattern already exists");
         return true;
       }
