@@ -425,9 +425,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
 
-  disableProfInstance(instanceId, flag) {
-
-    this.configTopologyService.disableProfInstance(instanceId, flag).subscribe(data => {
+  disableProfInstance(instanceId, flag, profileId) {
+    this.configTopologyService.disableProfInstance(instanceId, flag, profileId).subscribe(data => {
       if (data.enabled == "true") {
         this.configUtilityService.infoMessage("Instance enabled sucessfully.");
       }
@@ -717,8 +716,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.blackListForDebugSession != false)
       strSetting = strSetting + ";blackListForDebugSession=Path"
 
-    else
-      strSetting = strSetting + ";blackListForDebugSession=NA"
+    // else
+    //   strSetting = strSetting + ";blackListForDebugSession=NA"
 
     return strSetting;
 
