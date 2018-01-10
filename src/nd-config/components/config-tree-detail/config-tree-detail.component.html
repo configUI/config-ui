@@ -1,184 +1,185 @@
 <div class="">
-    <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
-        <span class="appIcon-css">
-		<button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()" icon="fa-pencil" ></button>
-        </span>
+        <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
+            <span class="appIcon-css">
+            <button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()" icon="fa-pencil" ></button>
+            </span>
+        </div>
+    
+        <p-dataTable class="nde-ui toggleChk" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+    
+            <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
+                <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
+                    <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
+                    <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+            </template>
+                <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
+            <md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
+                    <md-slide-toggle *ngIf="!perm" (change)="disableProfInstance(entity['instanceId'], entity[col.field], entity['profileId'])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
+            </template>
+                <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
+                    <span *ngIf="entity[col.field]== false" title="Start">
+                        <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
+                            <i class="fa fa-play-circle-o" ></i>
+                        </a>
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'])">
+                            <i class="fa fa-play-circle-o" ></i>
+                        </a>
+                       </span>
+                     <span *ngIf="entity[col.field]== true" title="Stop">
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="isAIPerm"  (click)="accessMessage()">
+                            <i class="fa fa-stop-circle"></i>
+                        </a>
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm" (click)="stopInstrumentation(entity['instanceDisplayName'], entity['instanceId'])">
+                            <i class="fa fa-stop-circle"></i>
+                        </a>
+                       </span>
+                  
+                  </template>
+            </p-column>
+        </p-dataTable>
+    
     </div>
-
-    <p-dataTable class="nde-ui toggleChk" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-
-        <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
-            <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
-                <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
-                <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
-        </template>
-            <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
-		<md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
-                <md-slide-toggle *ngIf="!perm" (change)="disableProfInstance(entity['instanceId'], entity[col.field], entity['profileId'])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
-        </template>
-            <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
-                <span *ngIf="entity[col.field]== false" title="Start">
-                    <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
-                        <i class="fa fa-play-circle-o" ></i>
-                    </a>
-                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'])">
-                        <i class="fa fa-play-circle-o" ></i>
-                    </a>
-                   </span>
-                 <span *ngIf="entity[col.field]== true" title="Stop">
-                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="isAIPerm"  (click)="accessMessage()">
-                        <i class="fa fa-stop-circle"></i>
-                    </a>
-                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm" (click)="stopInstrumentation(entity['instanceDisplayName'], entity['instanceId'])">
-                        <i class="fa fa-stop-circle"></i>
-                    </a>
-                   </span>
-              
-              </template>
-        </p-column>
-    </p-dataTable>
-
-</div>
-
-
-<!--Dialog for changing profile-------->
-<p-dialog class="profile-dialog" header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true" [resizable]="false">
-    <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
-
-        <div class="ui-g">
-            <div class="ui-g-4">
-                <label>Profile</label>
+    
+    
+    <!--Dialog for changing profile-------->
+    <p-dialog class="profile-dialog" header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true" [resizable]="false">
+        <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
+    
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Profile</label>
+                </div>
+                <div class="ui-g-8">
+                    <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
+                    <p-dropdown name="profileId" [options]="profileSelectItem" [(ngModel)]="topoData.profileId" [style]="{'width':'70%','margin-left':'-75px'}" appendTo="body" required ngModel></p-dropdown>
+                </div>
             </div>
-            <div class="ui-g-8">
-                <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <p-dropdown name="profileId" [options]="profileSelectItem" [(ngModel)]="topoData.profileId" [style]="{'width':'70%','margin-left':'-75px'}" appendTo="body" required ngModel></p-dropdown>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+                </div>
+            </footer>
+        </form>
+    </p-dialog>
+    
+    <!-- Dialog for Auto Instrumentation settings -->
+    <p-dialog class="profile-dialog" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" responsive="true">
+        <form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
+    
+            <!-- <div class="ui-g" style="margin-left: 10px">
+                <p-checkbox name="enableAutoInstrSession" disabled=true [(ngModel)]="autoInstrObj['enableAutoInstrSession']" label="Enable Auto Instrumentation" binary="true" ngModel></p-checkbox>
+            </div> -->
+            <!-- <br> -->
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Session name</label>
+                </div>
+                <div class="ui-g-6">
+                    <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
+                </div>
             </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+                    <label>Session duration (in seconds)</label>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrSessionDuration" [(ngModel)]="autoInstrObj['autoInstrSessionDuration']" pInputText min=120 class="text-width" required ngModel>
+                </div>
             </div>
-        </footer>
-    </form>
-</p-dialog>
-
-<!-- Dialog for Auto Instrumentation settings -->
-<p-dialog class="profile-dialog" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" responsive="true">
-    <form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
-
-        <!-- <div class="ui-g" style="margin-left: 10px">
-            <p-checkbox name="enableAutoInstrSession" disabled=true [(ngModel)]="autoInstrObj['enableAutoInstrSession']" label="Enable Auto Instrumentation" binary="true" ngModel></p-checkbox>
-        </div> -->
-        <!-- <br> -->
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label>Session name</label>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+            <label>Maximum stack depth to identify idle threads</label>
+                    <i class="fa fa-info-circle" aria-hidden="true" title="In Auto Instrumentation, application agent will ignore idle threads, which has stack depth less than the provided value"></i>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="minStackDepthAutoInstrSession" [(ngModel)]="autoInstrObj['minStackDepthAutoInstrSession']" pInputText min=0 max=1000 class="text-width" required ngModel>
+                </div>
             </div>
-            <div class="ui-g-6">
-                <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+                    <label>Auto Instrumentation Debug level</label>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrTraceLevel" [(ngModel)]="autoInstrObj['autoInstrTraceLevel']" pInputText min=0 max=6 class="text-width" max=5 required ngModel>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-                <label>Session duration (in seconds)</label>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+             <label>Number of thread samples to instrument methods</label>
+                    <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrSampleThreshold" [(ngModel)]="autoInstrObj['autoInstrSampleThreshold']" pInputText min=0 max=5000 class="text-width" required ngModel>
+                </div>
             </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrSessionDuration" [(ngModel)]="autoInstrObj['autoInstrSessionDuration']" pInputText min=120 class="text-width" required ngModel>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+                    <label>Percentage of executing methods in thread sample(s) to be instrumented</label>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-		<label>Maximum stack depth to identify idle threads</label>
-                <i class="fa fa-info-circle" aria-hidden="true" title="In Auto Instrumentation, application agent will ignore idle threads, which has stack depth less than the provided value"></i>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+                    <label>Percentage of executing methods in Flowpath(s) to be un-instrumented</label>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                </div>
             </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="minStackDepthAutoInstrSession" [(ngModel)]="autoInstrObj['minStackDepthAutoInstrSession']" pInputText min=0 max=1000 class="text-width" required ngModel>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+            <label>Maximum method(s) to be considered for Auto Instrumentation</label>
+                    <i class="fa fa-info-circle" aria-hidden="true" title="Maximum unique method(s) without overloading which will be considered in Auto Instrumentation process"></i>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrMapSize" [(ngModel)]="autoInstrObj['autoInstrMapSize']" pInputText min=0 max=10000000 class="text-width" required ngModel>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-                <label>Auto Instrumentation Debug level</label>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+            <label>Minimum average execution time of method for Instrumentation (in seconds)</label>
+                    <i class="fa fa-info-circle" aria-hidden="true" title="Methods will be un-instrumemted if average execution time of method less than the provided value"></i>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrMaxAvgDuration" [(ngModel)]="autoInstrObj['autoInstrMaxAvgDuration']" pInputText min=0 max=100 class="text-width" required ngModel>
+                </div>
             </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrTraceLevel" [(ngModel)]="autoInstrObj['autoInstrTraceLevel']" pInputText min=0 max=6 class="text-width" max=5 required ngModel>
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+            <label>Weightage of methods in stack traces having Exception/Integration point calls </label>
+                    <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                </div>
+                <div class="ui-g-1"></div>
+                <div class="ui-g-4">
+                    <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=0 max=10000 class="text-width" required ngModel>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-		 <label>Number of thread samples to instrument methods</label>
-                <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
+            <div class="ui-g-12" style="margin-left: 5px">
+            <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Auto Instrumentation session changes after it's completion" binary="true" ngModel></p-checkbox>
+                <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after Auto Instrumentation session completion"></i>
             </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrSampleThreshold" [(ngModel)]="autoInstrObj['autoInstrSampleThreshold']" pInputText min=0 max=5000 class="text-width" required ngModel>
+            <div class="ui-g-12" style="margin-left: 5px">
+                <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
             </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-                <label>Percentage of executing methods in thread sample(s) to be instrumented</label>
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-                <label>Percentage of executing methods in Flowpath(s) to be un-instrumented</label>
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-		<label>Maximum method(s) to be considered for Auto Instrumentation</label>
-                <i class="fa fa-info-circle" aria-hidden="true" title="Maximum unique method(s) without overloading which will be considered in Auto Instrumentation process"></i>
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrMapSize" [(ngModel)]="autoInstrObj['autoInstrMapSize']" pInputText min=0 max=10000000 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-		<label>Minimum average execution time of method for Instrumentation (in seconds)</label>
-                <i class="fa fa-info-circle" aria-hidden="true" title="Methods will be un-instrumemted if average execution time of method less than the provided value"></i>
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrMaxAvgDuration" [(ngModel)]="autoInstrObj['autoInstrMaxAvgDuration']" pInputText min=0 max=100 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-7">
-		<label>Weightage of methods in stack traces having Exception/Integration point calls </label>
-                <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=0 max=10000 class="text-width" required ngModel>
-            </div>
-        </div>
-        <div class="ui-g-12" style="margin-left: 5px">
-		<p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Auto Instrumentation session changes after it's completion" binary="true" ngModel></p-checkbox>
-            <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after Auto Instrumentation session completion"></i>
-        </div>
-        <div class="ui-g-12" style="margin-left: 5px">
-            <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-play" label="Start"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeAutoInstrDialog()" label="Cancel"></button>
-                <button type="button" pButton icon="fa-refresh" (click)="resetToDefault()" style="margin-right: 199px" label="Reset to default"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-play" label="Start"></button>
+                    <button type="button" pButton icon="fa-close" (click)="closeAutoInstrDialog()" label="Cancel"></button>
+                    <button type="button" pButton icon="fa-refresh" (click)="resetToDefault()" style="margin-right: 199px" label="Reset to default"></button>
+                </div>
+            </footer>
+        </form>
+    </p-dialog>
+    

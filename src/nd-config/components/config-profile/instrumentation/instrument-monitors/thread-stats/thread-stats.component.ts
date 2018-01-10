@@ -23,7 +23,7 @@ export class ThreadStatsComponent implements OnInit {
 
   jvmThreadStats: JVMThreadStats;
 
- subscription: Subscription;
+  subscription: Subscription;
   /**These are those keyword which are used in current screen. */;
   keywordList: string[] = ['enableJVMThreadMonitor'];
 
@@ -31,15 +31,14 @@ export class ThreadStatsComponent implements OnInit {
   threadStats: Object;
   enableGroupKeyword: boolean;
   isProfilePerm: boolean;
-  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) { 
   }
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.getKeywordData();
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-       this.saveDisable =  true;
-    console.log("hi",this.profileId);
+       this.saveDisable =  true; 
   }
 
   //method to split enableJVMThreadMonitor keyword value
@@ -55,13 +54,13 @@ export class ThreadStatsComponent implements OnInit {
     if (this.threadStats["enableJVMThreadMonitor"].value == 0) {
       this.jvmThreadStats = new JVMThreadStats();
       this.jvmThreadStats.jvm = false;
-      this.jvmThreadStats.cpu = null;
-      // this.jvmThreadStats.deleteVector = false;
+      this.jvmThreadStats.cpu = 5;
+      // this.jvmThreadStats.deleteVector = false; 
     }
     if (this.threadStats["enableJVMThreadMonitor"].value == 1) {
       this.jvmThreadStats = new JVMThreadStats();
       this.jvmThreadStats.jvm = false;
-      this.jvmThreadStats.cpu = null;
+      this.jvmThreadStats.cpu = 5;
       // this.jvmThreadStats.deleteVector = false;
     }
   }
@@ -125,7 +124,7 @@ export class ThreadStatsComponent implements OnInit {
       return key;
     }
     else{
-    let key = `${this.jvmThreadStats.jvm == true ? 1 : 0}%20${this.jvmThreadStats.cpu}%20${this.jvmThreadStats.jvm == true ? 1 : 0}`;
+    let key = `${this.jvmThreadStats.jvm == true ? 1 : 0}%20${this.jvmThreadStats.cpu}%200`;
     return key;
     }
   }
@@ -138,5 +137,5 @@ export class ThreadStatsComponent implements OnInit {
 }
 class JVMThreadStats {
   jvm;
-  cpu;
+  cpu: number=5;
 }

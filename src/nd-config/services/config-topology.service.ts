@@ -94,8 +94,8 @@ export class ConfigTopologyService {
   }
 
   /**For disable Profile at instance level */
-  disableProfInstance(instanceId, flag) {
-    return this._restApi.getDataByPutReq(`${URL.TOGGLED_INSTANCE_STATE}/${instanceId}/${flag}`);
+  disableProfInstance(instanceId, flag, profileID) {
+    return this._restApi.getDataByPutReq(`${URL.TOGGLED_INSTANCE_STATE}/${instanceId}/${flag}/${profileID}`);
   }
 
   getTopologyStructure(topoId) {

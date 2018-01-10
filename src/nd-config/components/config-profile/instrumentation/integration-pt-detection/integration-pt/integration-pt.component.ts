@@ -60,7 +60,7 @@ export class IntegrationPtComponent implements OnInit {
   endPoint: EndPoint[];
   agentType: string = "";
   isProfilePerm: boolean;
-  checkboxtrue:boolean=true;
+  checkboxtrue: boolean = true;
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
     this.agentType = sessionStorage.getItem("agentType");
@@ -71,17 +71,17 @@ export class IntegrationPtComponent implements OnInit {
       })
       this.integrationPoints = keywordDataVal;
     });
-   
+
     // this.loadIntegrationPTDetectionList();
     // this.loadBackendInfoList();
   }
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-        this.saveDisable =  true;
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable = true;
     });
     this.loadIntegrationPTDetectionList();
     this.loadBackendInfoList();
@@ -135,15 +135,14 @@ export class IntegrationPtComponent implements OnInit {
     }
     this.addIPDetectionDetail.fqm = this.addIPDetectionDetail.fqm.trim();
     this.addIPDetectionDetail.agent = this.agentType;
-    if(this.agentType == "Java"){
+    if (this.agentType == "Java") {
       this.addIPDetectionDetail.module = "-";
     }
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)
       .subscribe(data => {
         //Getting index for set data in main array table data.
         let index = this.getTableIndex(data.backendTypeId);
-        let that = this;
-        let filePath;
+
         //Insert data in main table after inserting integration point detection in DB
         let endPointData: EndPoint = new EndPoint();
         endPointData.id = data.id;
@@ -151,26 +150,15 @@ export class IntegrationPtComponent implements OnInit {
         endPointData.enabled = data.enabled;
         endPointData.fqm = data.fqm;
         endPointData.name = data.name;
-        if(this.agentType == "Java"){
+        if (this.agentType == "Java") {
           endPointData.agent = "Java";
           endPointData.module = "-";
         }
-        else if(this.agentType == "Dot Net")
-        {
-            endPointData.agent = "Dot Net";
+        else if (this.agentType == "Dot Net") {
+          endPointData.agent = "Dot Net";
         }
         // this.ipDetectionData[index].lstEndPoints.push(endPointData);
 
-        that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-
-          //For sending Runtime Changes
-
-          filePath = data["_body"];
-          that.integrationPoints['NDEntryPointsFile'].path = filePath + "/NDEntryPointFile.txt";;
-          that.integrationPoints['ndBackendNamingRulesFile'].path = filePath + "/BackendNamingRule.txt";
-
-          that.keywordData.emit(that.integrationPoints);
-        });
         this.ipDetectionData[index].lstEndPoints = ImmutableArray.push(this.ipDetectionData[index].lstEndPoints, endPointData);
         this.loadIntegrationPTDetectionList();
         this.configUtilityService.successMessage(Messages);
@@ -180,11 +168,11 @@ export class IntegrationPtComponent implements OnInit {
   }
 
   onRowSelect() {
-   if(this.isProfilePerm){
-     this.detailDialog = false;
-   }
-   else
-    this.detailDialog = true;
+    if (this.isProfilePerm) {
+      this.detailDialog = false;
+    }
+    else
+      this.detailDialog = true;
     this.integrationDetail = cloneObject(this.selectedIpDetectionData);
   }
 
@@ -205,7 +193,7 @@ export class IntegrationPtComponent implements OnInit {
     this.namingRuleAndExitPoint.userName = this.integrationDetail.namingRule.userName;
     this.namingRuleAndExitPoint.lstEndPoints = [];
     this.namingRuleAndExitPoint.query = this.integrationDetail.namingRule.query;
-    
+
     for (let i = 0; i < this.integrationDetail.lstEndPoints.length; i++) {
       this.namingRuleAndExitPoint.lstEndPoints[i] = { id: this.integrationDetail.lstEndPoints[i].id, enabled: this.integrationDetail.lstEndPoints[i].enabled };;
     }
@@ -225,7 +213,6 @@ export class IntegrationPtComponent implements OnInit {
           that.integrationPoints['ndBackendNamingRulesFile'].path = filePath + "/BackendNamingRule.txt";
           that.keywordData.emit(that.integrationPoints);
         });
-
         this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
         this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
         this.loadIntegrationPTDetectionList();
@@ -313,10 +300,18 @@ export class IntegrationPtComponent implements OnInit {
   saveIntegrationPointOnFile() {
     this.configKeywordsService.saveIntegrationPointData(this.profileId)
       .subscribe(data => {
-	this.configUtilityService.successMessage("Saved Successfully");
-        console.log("return type",data)
+        this.configUtilityService.successMessage("Saved Successfully");
+        let that = this;
+        let filePath;
+        that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
+          //For sending Runtime Changes
+          filePath = data["_body"];
+          that.integrationPoints['NDEntryPointsFile'].path = filePath + "/NDEntryPointFile.txt";;
+          that.integrationPoints['ndBackendNamingRulesFile'].path = filePath + "/BackendNamingRule.txt";
+          that.keywordData.emit(that.integrationPoints);
+        });
+        console.log("return type", data)
       })
   }
-
 }
 
