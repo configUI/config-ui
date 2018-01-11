@@ -74,6 +74,12 @@
                             <i>(Forcefully delaying by auto-instrumenting the method if not mentioned in instrumentation profiles)</i>
                         </div>
                     </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2">
+                            <p-checkbox name="stackTrace" label="Dump stack trace" [(ngModel)]="delayData.stackTraceChk" binary="true"></p-checkbox>
+                        </div>
+                    </div>
                 </div>
             </div>
         </p-panel>

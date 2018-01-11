@@ -486,9 +486,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         return;
       }
     } else if (this.nodeObj['type'] === 'class') {
-      var regex = /[.]/g;
+      var regex = /[.<>]/g;
       if (regex.test(this.nodeLabel)) {
-        this._configUtilityService.errorMessage('Method Name should not contain dot(.)');
+        this._configUtilityService.errorMessage('Method Name should not contain dot(.) or angular braces(<>)');
+        return;
+      }
+      if(this.nodeLabel.includes("&lt;init&gt;")){
+        this._configUtilityService.errorMessage('Invalid method name');
         return;
       }
       else{
