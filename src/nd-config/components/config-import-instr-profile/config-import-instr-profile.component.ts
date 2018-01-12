@@ -486,11 +486,21 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         return;
       }
     } else if (this.nodeObj['type'] === 'class') {
-	
-      if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') == -1) {
-        this._configUtilityService.errorMessage('Method Name should be like [methodName(xyz) or methodName()]');
+      var regex = /[.<>]/g;
+      if (regex.test(this.nodeLabel)) {
+        this._configUtilityService.errorMessage('Method Name should not contain dot(.) or angular braces(<>)');
         return;
       }
+      if(this.nodeLabel.includes("&lt;init&gt;")){
+        this._configUtilityService.errorMessage('Invalid method name');
+        return;
+      }
+      else{
+      if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') == -1) {
+        this._configUtilityService.errorMessage('Method Name should contain brackets i.e m1(arg) or m1()');
+        return;
+      }
+    }
     }
 
     if (this.nodeLabel.split(' ').length > 1) {

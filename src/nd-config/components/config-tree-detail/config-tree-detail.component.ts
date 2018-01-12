@@ -716,8 +716,8 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.blackListForDebugSession != false)
       strSetting = strSetting + ";blackListForDebugSession=Path"
 
-    else
-      strSetting = strSetting + ";blackListForDebugSession=NA"
+    // else
+    //   strSetting = strSetting + ";blackListForDebugSession=NA"
 
     return strSetting;
 

@@ -240,8 +240,20 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   loadBTPatternData(): void {
-
-    this.configKeywordsService.getBusinessTransPatternData(this.profileId).subscribe(data => this.businessTransPatternInfo = data);
+    this.configKeywordsService.getBusinessTransPatternData(this.profileId).subscribe(data =>{
+      for(let i=0;i<data.length;i++){
+        if(data[i].paramKeyValue == null || data[i].paramKeyValue == "NA"){
+          data[i].paramKeyValue = "-";
+        }
+        if (data[i].reqMethod == null ){
+          data[i].reqMethod = "-";
+        }
+        if (data[i].headerKeyValue == null || data[i].headerKeyValue == "NA"){
+          data[i].headerKeyValue = "-";
+        }
+      }
+       this.businessTransPatternInfo = data;
+      });
   }
 
   doAssignBusinessTransData(data) {
@@ -747,6 +759,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
       //Temporary path of the BT Pattern file to run locally,independently from Product UI
       // let filepath = "";
       this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
+        for(let i=0;i<data.length;i++){
+          if(data[i].paramKeyValue == null || data[i].paramKeyValue == "NA"){
+            data[i].paramKeyValue = "-";
+          }
+          if (data[i].reqMethod == null ){
+            data[i].reqMethod = "-";
+          }
+          if (data[i].headerKeyValue == null || data[i].headerKeyValue == "NA"){
+            data[i].headerKeyValue = "-";
+          }
+        }
         if (data.length == this.businessTransPatternInfo.length) {
           this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
           return;

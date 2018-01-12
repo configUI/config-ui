@@ -56,7 +56,7 @@ export class ConfigHomeComponent implements OnInit {
 
   ngOnInit() {
     this.getTestInfoDetails();
-    this.configHomeService.getAIStartStopOperationOnHome();
+    // this.configHomeService.getAIStartStopOperationOnHome();
     var userName = sessionStorage.getItem('sesLoginName');
     var passWord =  sessionStorage.getItem('sesLoginPass');
     // let URL=sessionStorage.getItem('host');

@@ -93,7 +93,7 @@ export class HeaderComponent implements OnInit {
       httpReqFullFpVal = '2';
     if (httpReqkeyword.enableHttpReq && httpReqkeyword.headerMode != 0) {
       httpReqFullFpVal = "3%20"
-      if (httpReqkeyword.headerMode != 'ALL') {
+      if (httpReqkeyword.headerMode != 'All') {
         let val = '';
         for (var i = 0; i < httpReqkeyword.headersName.length; i++) {
           if (i == (httpReqkeyword.headersName.length - 1))
@@ -104,6 +104,7 @@ export class HeaderComponent implements OnInit {
         httpReqFullFpVal = httpReqFullFpVal + val + "%20";
       }
       else {
+        console.log("htttttttttt.." , httpReqFullFpVal)
         httpReqFullFpVal = httpReqFullFpVal + "ALL%20";
         httpReqkeyword.headersName = [];
       }
@@ -124,7 +125,7 @@ export class HeaderComponent implements OnInit {
     if (httpRespKeyword.enableHttpResp && httpRespKeyword.headerModeResp != 0) {
       httpRespFullFpVal = "2%20"
 
-      if (httpRespKeyword.headerModeResp != 'ALL') {
+      if (httpRespKeyword.headerModeResp != 'All') {
         let val = '';
         for (var i = 0; i < httpRespKeyword.headersNameResp.length; i++) {
           if (i == (httpRespKeyword.headersNameResp.length - 1))

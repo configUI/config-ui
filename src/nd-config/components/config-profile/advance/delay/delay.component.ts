@@ -49,19 +49,20 @@ export class DelayComponent implements OnInit {
     this.configKeywordsService.toggleKeywordData();
   }
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || this.isProfilePerm)
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if (this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     //Calling splitDelayKeywordData method
     this.splitDelayKeywordData();
   }
 
   /**Value for the keyword putDelayInMethod is
-   * 20:33:1:0%20system%3BObject
+   * 20:33:1:0:0%20system%3BObject
    * 20-from
    * 33-to
    * 1-cpuHoggChk 1-true, 0-false
    * 0-autoInstrumentChk 1-true, 0-false
+   * 0-stackTraceChk 1- true, 0-false
    * system;object- fqm, ; is replaced by %3B
    */
 
@@ -86,6 +87,12 @@ export class DelayComponent implements OnInit {
           this.delayData.autoInstrumentChk = true;
         else
           this.delayData.autoInstrumentChk = false;
+        if(arrColon.length > 3){
+          if (arrColon[4] == "1")
+             this.delayData.stackTraceChk = true;
+          else
+            this.delayData.stackTraceChk = false;
+        }
       }
     }
     else {
@@ -96,6 +103,7 @@ export class DelayComponent implements OnInit {
         this.delayData.to = "1";
         this.delayData.cpuHoggChk = false;
         this.delayData.autoInstrumentChk = false;
+        this.delayData.stackTraceChk = false;
       }
       else if (this.delay["putDelayInMethod"].value == 1) {
         this.delayData.fullyQualifiedName = "";
@@ -103,6 +111,7 @@ export class DelayComponent implements OnInit {
         this.delayData.to = "1";
         this.delayData.cpuHoggChk = false;
         this.delayData.autoInstrumentChk = false;
+        this.delayData.stackTraceChk = false;
       }
 
     }
@@ -124,7 +133,7 @@ export class DelayComponent implements OnInit {
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {
     let fqm = this.delayData.fullyQualifiedName.split(";").join("%3B");
-    let delayKeywordVaule = `${this.delayData.from}:${this.delayData.to}:${this.delayData.cpuHoggChk == true ? 1 : 0}:${this.delayData.autoInstrumentChk == true ? 1 : 0}%20${fqm}`;
+    let delayKeywordVaule = `${this.delayData.from}:${this.delayData.to}:${this.delayData.cpuHoggChk == true ? 1 : 0}:${this.delayData.autoInstrumentChk == true ? 1 : 0}:${this.delayData.stackTraceChk == true ? 1 : 0}%20${fqm}`;
     return delayKeywordVaule;
   }
 
@@ -134,7 +143,7 @@ export class DelayComponent implements OnInit {
     // if (this.subscriptionEG)
     //   this.subscriptionEG.unsubscribe();
   }
-   checkFrom(from, to) {
+  checkFrom(from, to) {
     if (this.delayData.from >= this.delayData.to) {
       from.setCustomValidity('From value must be less than To value.');
     }
@@ -162,4 +171,5 @@ class DelayData {
   to: string;
   cpuHoggChk: boolean;
   autoInstrumentChk: boolean;
+  stackTraceChk: boolean;
 }
