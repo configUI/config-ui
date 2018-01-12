@@ -16,7 +16,8 @@ export const INTEGRATION_TYPE = {
     HADOOP: 'HADOOP',
     CUSTOM: 'CUSTOM',
     REDIS:'REDIS',
-    MONGO:'MONGO'
+    MONGO:'MONGO',
+    Cloudant_NoSQL : 'Cloudant NoSQL'
 }
 
 export const Messages = "Saved Successfully"

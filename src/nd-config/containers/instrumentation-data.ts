@@ -118,6 +118,8 @@ export class MethodMonitorData {
     methodName: string;
     methodDisplayName: string;
     methodDesc: string;
+    module:string;
+    agent: string;
 }
 
 export class ExceptionMonitor {
