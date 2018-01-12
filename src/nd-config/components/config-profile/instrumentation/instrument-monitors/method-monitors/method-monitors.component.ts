@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'; 
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
@@ -52,9 +52,14 @@ export class MethodMonitorsComponent implements OnInit {
   isMethodMonitorBrowse: boolean = false;
   isProfilePerm: boolean;
 
+  agentType: string = "";
+  type: boolean;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
+    this.agentType = sessionStorage.getItem("agentType");
+    this.type = this.agentType == "Java" || this.agentType == "NodeJS" ? true : false;
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadMethodMonitorList();
 
@@ -210,6 +215,10 @@ export class MethodMonitorsComponent implements OnInit {
         return;
       }
     }
+    this.methodMonitorDetail.agent = this.agentType
+    if(this.agentType == "Java" || this.agentType == "NodeJS"){
+      this.methodMonitorDetail.module = "-";
+    }
     this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getMethodMonitorIndex();
@@ -248,6 +257,10 @@ export class MethodMonitorsComponent implements OnInit {
     }
     this.methodMonitorDetail.methodName = this.methodMonitorDetail.methodName.trim();
     this.methodMonitorDetail.methodDisplayName = this.methodMonitorDetail.methodDisplayName.trim();
+    this.methodMonitorDetail.agent = this.agentType
+    if(this.agentType == "Java" || this.agentType == "NodeJS"){
+      this.methodMonitorDetail.module = "-";
+    }
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         //Insert data in main table after inserting Method Monitor in DB

@@ -149,6 +149,11 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
             </div>
+            <div class="ui-g" *ngSwitchCase="IP.Cloudant_NoSQL">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
+            </div>
             <div class="ui-g" *ngSwitchDefault>
             </div>
         </div>
