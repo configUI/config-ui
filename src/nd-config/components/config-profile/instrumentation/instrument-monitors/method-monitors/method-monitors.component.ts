@@ -215,6 +215,7 @@ export class MethodMonitorsComponent implements OnInit {
         return;
       }
     }
+
     this.methodMonitorDetail.agent = this.agentType
     if(this.agentType == "Java" || this.agentType == "NodeJS"){
       this.methodMonitorDetail.module = "-";

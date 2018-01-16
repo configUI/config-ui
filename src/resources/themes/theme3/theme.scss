@@ -16,14 +16,57 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($candy-app-theme);
+/*--------------Fonts-----------*/
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/ProductUI/resources/fonts/roboto-v18-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('/ProductUI/resources/fonts/roboto-v18-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-500 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/ProductUI/resources/fonts/roboto-v18-latin-500.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Medium'), local('Roboto-Medium'),
+       url('/ProductUI/resources/fonts/roboto-v18-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-500.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+/* roboto-700 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/ProductUI/resources/fonts/roboto-v18-latin-700.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+       url('/ProductUI/resources/fonts/roboto-v18-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/ProductUI/resources/fonts/roboto-v18-latin-700.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
 body {
-    font-family: 'Open Sans', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    font-size: 11px;
-    background: url(images/1.jpg) center repeat fixed #000;
+    font-size: 11px; color: #d6d6d6;
+    /*background: url(images/4.jpg) center repeat fixed #000;*/
+    background: url('/ProductUI/resources/themes/theme3/images/2.jpg') fixed center #383844;
+    background-size: 100% 100%;
 }
 /*----------------Themeing CSS------------------*/
 .cavContentArea .grid{
@@ -31,16 +74,16 @@ body {
 }
 .cavContentArea .grid-item{
     box-shadow: 0px 0 4px 2px rgba(0,0,0,0.2);
-    background: #808080;
-    background: -moz-radial-gradient(center, ellipse cover, #808080 0%, #737373 100%);
+    background: rgba(75,75,75,0.5);
+    /*background: -moz-radial-gradient(center, ellipse cover, #808080 0%, #737373 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #808080 0%,#737373 100%);
-    background: radial-gradient(ellipse at center, #808080 0%,#737373 100%);
+    background: radial-gradient(ellipse at center, #808080 0%,#737373 100%);*/
     border-radius: 4px;
-    opacity: 0.8;
-    border: 1px #525252 solid;
+    opacity: 0.95;
+    border: 1px #3a3a3a solid;
 }
 .mat-sidenav{
-    background: rgba(82, 82, 82, 0.3);
+    background: #080808;
     box-shadow: 0 6px 6px -3px rgba(0,0,0,.3), 0 10px 14px 1px rgba(0,0,0,.24), 0 4px 18px 3px rgba(0,0,0,.22);
 }
 .left-nav .icon {
@@ -62,29 +105,32 @@ body {
     color:#000;
 }
 .login-settings {
-    color: #eaeaea;
+    color: #d6d6d6;
     font-weight: 600;
 }
 .login-settings .totalscen-btn .ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
     border: 1px solid rgba(210, 210, 210, 0.44);
-    color: #fff;
+    color: #d6d6d6;
     background: rgb(0, 0, 0);
    /* box-shadow: 0 0 1px 1px #a9a9a9;*/
 }
 
 .main-box {
-    background-color: rgba(2, 2, 2, 0.65);
+    background-color: rgba(45,45,45,0.5);
 }
 .main-box-alert{
-    background-color: rgba(2, 2, 2, 0.65);
+    background-color: rgba(45,45,45,0.5);
+}
+.ndegui-mainbox {
+    background: rgba(45,45,45,0.5);
 }
 .test-run-table .ui-datatable th.ui-state-default {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+    background: #1E1E1E;
+    /*background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
     background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
     background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: #fff;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );*/
+    color: #d6d6d6;
     padding: 4px;
 }
 .test-run-table, .scen-table .ui-datatable th.ui-state-default span{
@@ -94,172 +140,172 @@ body {
     color:#f0f0f0;
 }
 .left-menu .ui-widget-content a{
-     color:#3a3a3a;
+     color:#d6d6d6;
 }
 
 .test-run-table, .scen-table, .ui-datatable-odd {
-    background-color: #505050;
+    border: 1px #6b6b6b solid;
+    background: #3e3e3e;
+    color: #cacaca;
 }
 .test-run-table, .scen-table,.ui-datatable-even {
-    background-color: #191919;
+    border: 1px #6b6b6b solid;
+    background: #313131;
+    color: #cacaca;
 }
 .test-run-table, .scen-table, .ui-datatable tbody > tr.ui-widget-content {
-    border-color: #757575;
+    border-color: #6b6b6b;
 }
 .section_button label {
-    background: ghostwhite;
+    background: ghost#d6d6d6;
 }
 .section-downloadas label {
     background: rgba(0, 0, 0, 0.94);
-    color: #fff;
+    color: #d6d6d6;
 }
 .scenleft-tree {
     background:rgba(255, 255, 255, 0.5);
 }
 .scenario .ui-breadcrumb {
-    background: #282828;
-    color: #fff;
+    background: #000;
+    color: #d6d6d6;
     border:0;
     border-radius: 0;
 }
 .scenario .ui-breadcrumb ul li a {
-    color: #fff;
+    color: #d6d6d6;
 }
 .lbl .ui-chkbox-label {
-    color: #000;
+    color: #d6d6d6;
 }
 .dashboard-nav-menu-header {
-    color: #fff;
+    color: #d6d6d6;
     background: #525252;
 }
 .dashboard-sql-query .ui-datatable th.ui-state-default {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    background: #1d1d1d;
     color: #fff;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .dashboard-sql-query-toolbar .ui-toolbar{
-    background: #282828;
+    background: rgba(255, 255, 255, 0.3);
+    color: #d6d6d6;
+    border: 0;
 }
 .ui-panelmenu-header {
     background: #f3f2f5;
 }
 /*----------------RUN COMMAND---------------*/
 .mainDivRunCommand .ui-widget-header {
-    background: rgb(49, 49, 49);
-    color:#fff;
+    background: #080808;
+    color:#d6d6d6;
 }
 #outputHeaderDiv {
-    background: #808080;
-    color: #fff;
+    background: #080808;
+    color: #d6d6d6;
 }
 .runCommand-btn .btnClass{
     background: #000;
-    color: #fff;
+    color: #d6d6d6;
     border: 1px #252525 solid;
 }
 .rcnavbar-a {
     background: #000;
-    color: #fff;
+    color: #d6d6d6;
 }
 .rc-footer {
     background-color: rgba(49, 49, 49, 0.85);
 }
 .panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active a {
     background: #2d2d2d;
-    color: #fff;
+    color: #d6d6d6;
 }
 .panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default a {
     background: #6699c8;
-     color: #fff;
+     color: #d6d6d6;
 }
 .commandListClass .ui-datatable th.ui-state-default {
-    background: #417ebf;
-    background: -moz-linear-gradient(top, #417ebf 0%, #3b77b6 100%);
-    background: -webkit-linear-gradient(top, #417ebf 0%,#3b77b6 100%);
-    background: linear-gradient(to bottom, #417ebf 0%,#3b77b6 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#417ebf', endColorstr='#3b77b6',GradientType=0 );
+    background: #1d1d1d;
     color: #fff;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 #downloadTxBtn{
-   color: #FFFFFF;
+   color: #d6d6d6;
    background: #6b6b6b;
    border: 1px solid #6b6b6b;
 }
 .transaction-details-filedset{
-    background: rgba(181, 181, 181, 0.62);
+    /*background: rgba(181, 181, 181, 0.62);*/
     border: 0px #a9a9a9 solid;
 }
 .txBtn{
-    color: #FFFFFF;
-    background: #282828;
-    border: 1px solid #0b2138;
+    color: #d6d6d6;
+    background: #060606;
+    border: 1px solid #313131;
     margin-right: 5px;
 }
 #txDetailWinId .ui-datatable .ui-datatable-thead>tr>th {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: #fff;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 #txDetailWinId div.ui-datatable-scrollable-body {
     background:transparent;
 }
 .rc-schmanage .ui-datatable th.ui-state-default {
         background: #676767;
-        color: #fff;
+        color: #d6d6d6;
 }
 .rc-modal a{
-        color: #fff;
+        color: #d6d6d6;
 }
 
 /*--------------------Fav-----------*/
 .favBtn{
-    background: #000;
-    color: #eaeaea;
+    border: 1px solid rgba(210, 210, 210, 0.44); 
+    color: #d6d6d6;
+    background: black;
  
 }
 .organiseFavoriteDialog .mat-dialog-title{
-    color: white;
-    background-color: #767676;
+    color: #d6d6d6;
+    background-color: #5a5a5a;
    
 }
 
 
 /*----------------Alert CSS----------------------*/
 app-alert-home .ui-datatable th.ui-state-default {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color:  #fff;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 app-alert-home .ui-datatable th span.ui-column-title
 {
-  color:#fff;
+  color:#d6d6d6;
 }
 .alert-top-panel {
-    background: #717171;
-    color:#fff;
+    background: #4a4a4a;
+    color:#d6d6d6;
 }
 app-alert-home .historyTable .ui-datatable th.ui-state-default
 {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );;
+    background: #1d1d1d;
+    color: #fff;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 app-alert-home .ui-accordion .ui-accordion-header {
-   background: #424242;
+    background: #1d1d1d;
+    border: 1px #4a4a4a solid;
 }
 app-alert-home .ui-accordion .ui-accordion-header.ui-state-active {
-    background: #888888;
+    background: #45484d;
+    border: 1px #4a4a4a solid;
 }
 app-alert-home .ui-accordion .ui-accordion-header:hover {
     background: #000;
@@ -286,18 +332,18 @@ app-alert-home .ui-state-default {
 }
 /*----------------END-------------------*/
 md-icon.dashboard-menu-item-icon {
-    color: #fff;
+    color: #d6d6d6;
 }
 .dashboard-menu-item-text {
     color: #cacaca !important;
 }
 
 .mat-sidenav mat-icon {
-    color: white;
+    color: #d6d6d6;
 }
 
 .mat-sidenav div {
-    color: #000;
+    color: #cacaca;
 }
 
 .dashboard-panel-header-color {
@@ -313,16 +359,16 @@ md-icon.dashboard-menu-item-icon {
     color:#dadada;
 }
 .dashboard-panel.dashboard-panel-color.grid-item{
-    box-shadow: 0px 0 4px 2px rgba(82, 82, 82, 0.4);
-    background: #353535;
-    background: -moz-radial-gradient(center, ellipse cover, #353535 0%, #2d2d2d 100%);
+    /*box-shadow: 0px 0 4px 2px rgba(82, 82, 82, 0.4);*/
+    background: rgba(52,52,52,0.42);
+   /* background: -moz-radial-gradient(center, ellipse cover, #353535 0%, #2d2d2d 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #353535 0%,#2d2d2d 100%);
     background: radial-gradient(ellipse at center, #353535 0%,#2d2d2d 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353535', endColorstr='#2d2d2d',GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353535', endColorstr='#2d2d2d',GradientType=1 );*/
 }
 
 .scenario-left .ui-panelmenu-content {
-    background: #717171;
+    background: #4a4a4a;
     border: 0;
 }
 
@@ -335,24 +381,26 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-lower-section {
-    background: #8a8a8a;
+    background: #3a3a3a;
 }
 .dashboard-lower-section .ui-toolbar {
-    background: #282828;
+    background: #000;
     border: 0;
+    border-top: 2px #c00 solid;
 }
 .dashboard-lower-section button.ui-button.ui-state-default, .ui-button.ui-state-default {
     border: 1px solid #525252;
-    color: #fff;
+    color: #d6d6d6;
     background: rgba(0, 0, 0, 0.55);
 }
 .dashboard-lower-section .ui-datatable th.ui-state-default{
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+    background: #1d1d1d;
+    /*background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
     background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
     background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: #fff;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );*/
+    color: #d6d6d6;
+    border: 1px #6b6b6b solid;
 }
 .dashboard-lower-section .ui-widget-content .lower-panel-table-row-odd{
     background: #d0d0d0;
@@ -365,15 +413,15 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .mat-select-value {
-    color: white;
+    color: #d6d6d6;
 }
 
 .mat-select-trigger {
-    color: white;
+    color: #d6d6d6;
 }
 
 .mat-select-arrow {
-    color: white;
+    color: #d6d6d6;
 }
 
 
@@ -389,14 +437,14 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .mat-card {
-    background:rgba(255, 255, 255, 0.3);
+    background:#212121;
 }
 
 
 /*For navigation link on top panel.*/
 
 .top-panel-nav-icon {
-    color: #fff;
+    color: #d6d6d6;
     font-size: 20px;
 }
 
@@ -412,7 +460,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-sidenav {
-    background: #282828;
+    background: #080808;
     box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
 }
 
@@ -421,13 +469,13 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-sub-menu .ui-menuitem-link:hover {
-    color: white;
-    font-weight:500;
+    color: #d6d6d6;
+    font-weight:400;
     background: rgba(255,255,255, 0.25);
 }
 
 .dashboard-panel-context-menu .ui-menuitem-active .ui-menuitem-link:hover {
-    color: white;
+    color: #d6d6d6;
     font-weight: bold;
     background: rgba(255,255,255, 0.5);
 }
@@ -451,10 +499,12 @@ md-icon.dashboard-menu-item-icon {
     background: #282828;
 }
 .customTitleBar .ui-accordion-header .fa {
-    color: #fff;
+    color: #d6d6d6;
 }
 .customTitleBar .ui-accordion-header.ui-state-active {
-        background: #6d6d6d;
+    background: #45484d;
+    border: 1px #1d1d1d solid;
+    border-bottom: 0;
 }
 
 /*------------------- Tree component css start-------------------*/
@@ -464,16 +514,16 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-tree-component .mat-tab-label {
-    background-color: #fff;
+    background-color: #d6d6d6;
 }
 
 .dashboard-tree-component .mat-select-trigger {
     color: grey;
-    background-color: ghostwhite;
+    background: #464646;
 }
 
 .dashboard-tree-component .ui-menuitem-active .ui-menuitem-link:hover {
-    color: white;
+    color: #d6d6d6;
     font-weight: bold;
     background: #778cf5;
 }
@@ -483,23 +533,23 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .mat-select-value-text {
-    color: #1d1919;
+    color: #d6d6d6;
 }
 
 .mat-select-arrow {
-    color: black;
+    color: #d6d6d6;
 }
 
 .dashboard-tree-graph-node {
-    color: blue;
+    color: #a8a8f3;
 }
 
 .dashboard-tree-group-node {
-    color: #800080;
+    color: #fbd3fb;
 }
 
 .dashboard-tree-metrics-node {
-    color: #d35b37;
+    color: #fbbaa6;
 }
 
 .dashboard-tree-tier-node {
@@ -532,7 +582,7 @@ md-icon.dashboard-menu-item-icon {
 /*------------------- Tree component css End-------------------*/
 
 .ui-panelmenu-content {
-    background: rgba(217, 226, 226, 0.99);
+    background: #4a4a4a;
 }
 
 .dashboard-nav-panel-menu .ui-panelmenu-header {
@@ -551,7 +601,7 @@ md-icon.dashboard-menu-item-icon {
 /*-----------Start Configuration css------------*/
 
 .dashboard-setting-win-fieldSets {
-    border: 1px solid #e0e0e0;
+    /*border: 1px solid #e0e0e0;*/
 }
 
 .dashboard-setting-win-perconfigcheckbox .ui-chkbox .ui-chkbox-box {
@@ -575,12 +625,12 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-setting-win-configdialog {
-    background: #767676;
-    color: white;
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 
 .dashboard-setting-win-tabs {
-    color: black;
+    color: #cacaca;
 }
 .dashboard-sub-menu .ui-menu, .ui-menu .ui-menu-child{
     background: #353535;
@@ -597,7 +647,7 @@ md-icon.dashboard-menu-item-icon {
     color:#f6f6f6;
 }
 .dashboard-sub-menu  .ui-widget-content a {
-    color:#fff;
+    color:#d6d6d6;
 }
 
 /*-----------End Configuration css------------*/
@@ -611,15 +661,15 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-lower-table .ui-widget-content .lower-panel-table-row-even {
-    border: 1px solid #D5D5D5;
-    background: #757575;
-    color: #fff;
+    border: 1px #6b6b6b solid;;
+    background: #313131;
+    color: #cacaca
 }
 
 .dashboard-lower-table .ui-widget-content .lower-panel-table-row-odd {
-    border: 1px solid #D5D5D5;
-    background: #505050;
-    color: #fff;
+    border: 1px #6b6b6b solid;
+    background: #3e3e3e;
+    color: #cacaca;
 }
 
 
@@ -638,16 +688,16 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-open-CustomDialog h2 {
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-open-CustomDialog .dialogclose {
-    background: #3f51b5
+    background: rgb(90, 90, 90);
 }
 
 .dashboard-open-CustomDialog .mat-dialog-title {
-    background-color: #3f51b5;
-    color: white;
+    background: rgb(90, 90, 90);
+    color: #d6d6d6;
 }
 
 
@@ -657,15 +707,15 @@ md-icon.dashboard-menu-item-icon {
 /*------------------------  graph time window css-------------- */
 
 .graph-dialog-title {
-    background: black;
+    background: transparent;
 }
 
 .graph-icon {
-    color: white;
+    color: #d6d6d6;
 }
 
 .graphOption {
-    background-color: #f2f5f9;
+  /*  background-color: #f2f5f9;*/
 }
 
 
@@ -675,7 +725,7 @@ md-icon.dashboard-menu-item-icon {
 /*--------------Derived Component Css Start ------------------------*/
 
 .dashboard-open-derivedDialog .block2 {
-    border: 1px solid #ADADAD;
+    /*border: 1px solid #ADADAD;*/
 }
 
 .dashboard-open-derivedDialog .mat-select-value {
@@ -683,8 +733,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-open-derivedDialog .mat-dialog-title {
-    background-color: #767676;
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-open-derivedDialog .deriveddialogclose {
@@ -692,8 +741,8 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-open-derivedDialog1 .mat-dialog-title {
-    background-color: #282828;
-    color: white;
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 
 .dashboard-open-derivedDialog1 .deriveddialogclose {
@@ -701,11 +750,11 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-open-derivedDialog1 .dashboard-open-derivedDialog h2 {
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-open-derivedDialog1 .derivedadvanced {
-    border: 1px solid black;
+    border: 1px solid #4a4a4a;
 }
 
 .dashboard-open-derivedDialog1 .block2 {
@@ -713,7 +762,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-gdf-advanced .derivedadvanced {
-    border: 1px solid black;
+    border: 1px solid #4a4a4a;
 }
 
 .dashboard-gdf-advanced .block2 {
@@ -721,7 +770,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-gdf-advanced .legendLbl2 {
-    color: #399394;
+    color: #d6d6d6;
 }
 
 .dashboard-gdf-selection .deriveddialogclose {
@@ -729,11 +778,11 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-gdf-selection .dashboard-open-derivedDialog .mat-select-placeholder {
-    color: black;
+    color: #d6d6d6;
 }
 
 .dashboard-gdf-selection .derivedadvanced {
-    border: 1px solid black;
+    border: 1px solid #4a4a4a;
 }
 
 .dashboard-gdf-selection .block2 {
@@ -741,7 +790,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-gdf-selection .dashboardspecified {
-    border: 1px solid black;
+    border: 1px solid #4a4a4a;
 }
 
 
@@ -751,43 +800,41 @@ md-icon.dashboard-menu-item-icon {
 /*This is the CSS for the Highlight compare window table row*/
 
 .ui-widget-content .compare-table-selected-row {
-    background-color: #96c3eb;
+    background: #96c3eb;
     color: black;
 }
 .dashboard-compare-Dialog .ui-datatable th.ui-state-default{
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color:#fff;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .dashboard-compare-Dialog .ui-widget-content .compare-table-row-even {
-    border: 1px solid #D5D5D5;
-    background: #191919;
-    color: #f0f0f0;
+    border: 1px #6b6b6b solid;
+    background: #212121;
+    color: #dadada;
 }
 
 .dashboard-compare-Dialog .ui-widget-content .compare-table-row-odd {
-    border: 1px solid #D5D5D5;
-    background: #505050;
-    color: #f0f0f0;
+    border: 1px #6b6b6b solid;
+    background: #3e3e3e;
+    color: #dadada;
 }
 
 
 /* For compare window */
 
 .dashboard-compare-Dialog .mat-dialog-title {
-    background-color: #767676;
-    color: white;
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 
 .dashboard-compare-Dialog h2 {
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-compare-Dialog .mat-select-trigger {
-    color: black;
+    color: #cacaca;
 }
 .dashboard-open-derivedDialog .mat-select-trigger{
     color: #666;
@@ -797,41 +844,41 @@ md-icon.dashboard-menu-item-icon {
 /*-----------------Compare Compoment Css ---------*/
 
 .dashboard-data-load-spinner path {
-    stroke: white;
+    stroke: #d6d6d6;
 }
 
 
 /*----------------widget setting ---------------*/
 
 .dashboard-widget-setting-dialog {
-    color: white;
-    background-color: black;
+    color: #d6d6d6;
+    background : #5a5a5a;
 }
 
 
 /*-----------Start Open Merge css------------*/
 
 .dashboard-open-mergeDialog .mat-dialog-title {
-    color: white;
+    color: #d6d6d6;
     background-color: #7d7d7d;
 }
 
 .dashboard-open-mergeDialog h2 {
-    color: white;
+    color: #d6d6d6;
 }
 
 .selected-hirarchy {
     background: #1f1f1f;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .dashboard-open-mergehelpDialog .mat-dialog-title {
     background-color: #282828;
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-open-mergehelpDialog h2 {
-    color: white;
+    color: #d6d6d6;
 }
 
 .contentHelpMerge tr:nth-child(even) {
@@ -840,12 +887,12 @@ md-icon.dashboard-menu-item-icon {
 
 .contentHelpMerge th {
     background-color: #2e7a78;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .contentHelpMerge .heading {
     background: #3d7170;
-    color: #fff;
+    color: #d6d6d6;
     border-bottom: 1px #ccc solid;
 }
 
@@ -862,9 +909,9 @@ md-icon.dashboard-menu-item-icon {
     background: #6b6b6b;
 }
 .openMerge .ui-widget-content {
-    border: 1px solid #D5D5D5;
-    background: #cacaca;
-    color: #222222;
+    background: rgba(8, 8, 8, 0.25);
+    border: 1px #4a4a4a solid;
+    color: #d6d6d6;
 }
 
 /*-----------End Open Merge css------------*/
@@ -883,7 +930,7 @@ md-icon.dashboard-menu-item-icon {
 
 .dashboard-scenario-HeadingDiv {
     background-color: black;
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-scenario-InnerDiv-Single {
@@ -902,7 +949,7 @@ md-icon.dashboard-menu-item-icon {
 
 .dashboard-server-diff-HeadingDiv {
     background-color: black;
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-server-diff-InnerDiv {
@@ -915,8 +962,9 @@ md-icon.dashboard-menu-item-icon {
 /*-------------------Scenario Main GUI--------------------*/
 /*Scenario---------*/
 .scen-gui-backg, .scenTab .ui-tabview.ui-widget-content {
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 4px 1px #878787;
+    background: transparent;
+    /*box-shadow: 0 0 4px 1px #878787;*/
+    color: #d6d6d6;
 }
 
 .scenario .ui-toolbar {
@@ -929,7 +977,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .scenario-left .ui-panelmenu .ui-panelmenu-header.ui-state-active, .ui-panelmenu .ui-panelmenu-header.ui-state-active a{
-    background: #a9a9a9;
+   /* background: #a9a9a9;*/
 }
 
 .scenario-left .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
@@ -942,32 +990,33 @@ md-icon.dashboard-menu-item-icon {
 /** Global Header in scenario */
 .scen-global-header {
     background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+    /*background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
     background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
     background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );*/
+    color: #d6d6d6;
 }
 
 .scen-table .ui-datatable.ui-widget.ui-datatable-resizable {
-    background: rgba(109, 109, 109, 0.26);
+    /*background: rgba(109, 109, 109, 0);*/
 }
 
 .scenario .ui-grid.ui-grid-responsive.ui-fluid.ui-grid-pad {
-    background: rgba(245, 245, 245, 0.65);
+   border-bottom: 1px #8c8c8c solid;
 }
 
 .scen-table .ui-datatable th.ui-state-default{
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+    background: #1d1d1d;
+    /*background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
     background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
     background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: #fff;
-    padding: 4px;;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );*/
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .scen-lefttree{
-    background:#282828;
+    background:#080808;
 }
 
 .scen-table .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
@@ -978,16 +1027,16 @@ md-icon.dashboard-menu-item-icon {
     color:#e4e4e4;
 }
 .scenario .ui-toolbar label {
-    color: white;
+    color: #d6d6d6;
 }
 
 .scen-title-span span {
     margin-left: 15px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #d6d6d6;
 }
 
 .scenVUser span {
-    color: #282828;
+    color: #cacaca;
 }
 
 .scenario .toolbarIcon.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only {
@@ -997,63 +1046,65 @@ md-icon.dashboard-menu-item-icon {
 
 .scenmodal .ui-dialog-titlebar.ui-widget-header {
     background: #282828;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .scenmodal span.fa.fa-fw.fa-close {
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .accordHeader .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
-    background: #282828;
+    background: #45484d;
+    border: 1px #4a4a4a solid;
 }
 
 .accordHeader .ui-accordion-header.ui-state-default.ui-corner-all {
-    background: #a9a9a9;
-    border: 1px #9e9e9e solid;
+    background: #1d1d1d;
+    border: 1px #4a4a4a solid;
 }
 
 .accordHeader span.fa.fa-fw.fa-caret-down {
-    color: #fff;
+    color: #d6d6d6;
 }
 
 /*--------For dropdown arrow caret-----------*/
   .accordHeader span.fa.fa-fw.fa-caret-down.ui-clickable {
-    color: #000;
+    color: #d6d6d6;
 }
 
 .accordian-css .ui-state-default a:link{
-    color: #fff;
+    color: #d6d6d6;
     font-weight: normal;
 }
 .accordHeader .ui-accordion .ui-accordion-header a {
     font-weight: inherit;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .accordHeader .ui-accordion .ui-accordion-content.ui-widget-content {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(48, 48, 48, 0.42);
+    border: 1px #4a4a4a solid
 }
 
 .logsDrpDwn, .scenario, .scenmodal, span.fa.fa-fw.fa-caret-down.ui-c{
-    color: black;
+    color: #d6d6d6;
 }
 
 .buttonList, span.fa.fa-fw.fa-caret-down.ui-c.ui-button-icon-left{
-    color: #fff; 
+    color: #d6d6d6; 
 }
 
 .scen-panel .ui-panel .ui-panel-titlebar {
     padding: 4px;
-    background: #ffffff;
+    background: #000;
 }
 
 .scen-panel .ui-panel .ui-panel-content {
-    background: rgb(238, 240, 245);
+    background: #4a4a4a;
 }
 
 .scenTab li.ui-state-default.ui-corner-top.ui-tabview-selected.ui-state-active {
-    background: #2f5556;
+    background: #0d0d0d;
 }
 
 .scenTab .ui-tabview .ui-tabview-nav > li.ui-state-default {
@@ -1061,7 +1112,8 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .scenTab .ui-tabview-panels {
-    background: rgba(255, 255, 255, 0.73);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #262626;
 }
 
 .scenario-left .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
@@ -1075,7 +1127,7 @@ md-icon.dashboard-menu-item-icon {
 /*for pick list in scenario*/
 .scen-pickList .ui-picklist-caption.ui-widget-header.ui-corner-tl.ui-corner-tr {    
     background: rgb(125, 167, 211);    
-    color: #fff;    
+    color: #d6d6d6;    
     text-align: left;
 }
 
@@ -1088,11 +1140,11 @@ md-icon.dashboard-menu-item-icon {
 
 .wizard-dialog .ui-dialog .ui-dialog-titlebar {
    background: #1c526b;
-    color: white;
+    color: #d6d6d6;
 }
 
 .wizard-dialog .ui-dialog .ui-dialog-buttonpane {
-    background:  ghostwhite ;
+    background:  ghost#d6d6d6 ;
 }
 .wizard-dialog .ui-widget-overlay .ui-dialog-mask{
     background: rgba(31, 34, 38, 0.55);
@@ -1115,7 +1167,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-active{
-    background: #fff;
+    background: #d6d6d6;
 }
 .dashboard-update-user-session-rate-tab .ui-state-default a:link,{
     color: #000;
@@ -1123,20 +1175,18 @@ md-icon.dashboard-menu-item-icon {
 
 .dashboard-update-user-session-text-header {
     background: hsla(0, 0%, 10%, 0.8);
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .dashboard-update-user-session-text-header .ui-widget-header {
-    color: white;
+    color: #d6d6d6;
 }
 
 .dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    background: #1d1d1d;
     color: #fff;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 
 .dashboard-update-user-session-dataTable>table .ui-widget-content ui-datatable-odd {
@@ -1144,13 +1194,13 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-update-user-session-dataTable .ui-datatable-odd {
-    background: #505050;
-    color: #f0f0f0;
+    background: #3e3e3e;
+    color: #dadada;
 }
 
 .dashboard-update-user-session-dataTable tr.ui-widget-content.ui-datatable-even {
-    background: #191919;
-    color: #f0f0f0;
+    background: #212121;
+    color: #dadada;
 }
 
 /*--------------END CODE-----------------*/
@@ -1162,108 +1212,102 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .accessLog-theme {
-    background-color: rgba(255, 255, 255, 0.55);
-    color:#000;
+    /*background-color: rgba(255, 255, 255, 0.55); */
+    color:#dbdbdb;
 }
 .accessLog-theme-lower{
-        background: rgba(255, 255, 255, 0.8);
+        /*background: rgba(58, 58, 58, 0.8);*/
 }
 
 .accessLog-middle-component {
-     background-color: white;;
+     background-color: #d6d6d6;;
 }
 
 .accessLog-dialogHeader {
-    background-color:black;
+    background :black;
 }
 
 .accessLog-dialogHeaderText {
-    color: white;
+    color: #d6d6d6;
 }
 .dialogHeaderBackground {
-  background:#767676;
-  color: #fff;
+  background:#5a5a5a;
+  color: #d6d6d6;
 }
 
 .accessLog-applyButton, .accessLog-cancelButton {
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgba(210, 210, 210, 0.44);
     color: #fff;
-    background: rgba(0, 0, 0, 0.75);
-    box-shadow: 0 0 5px 1px #b1b1b1;
+    background: black;
 }
-
 .accessLog-successMsg {
     color:green;
 }
-
 .accessLog-errMsg {
    color:red; 
 }
-
 .accessLog-help-Content tr:nth-child(even){ 
     background-color: #f2f2f2
     }
-
 .accessLog-help-Content th {
     background-color: #4CAF50;
-    color: white;
+    color: #d6d6d6;
     }
-
 .access-log-table .ui-datatable .ui-datatable-thead>tr>th { 
-        background: #45484d;
-        background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-        background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-        background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-        color: white;
-        padding: 6px;
+        background: #1d1d1d;
+        color: #d6d6d6;
+        padding: 4px;
+        border: 1px #6b6b6b solid;
 }
 
 .access-log-footer .ui-datatable .ui-datatable-tfoot>tr>td { 
     background: black;
-    color: white;
+    color: #d6d6d6;
 }
 
 .accessLogButtonText .mat-button, .mat-icon-button, .mat-raised-button {
-    color: white;
+    color: #d6d6d6;
 }
 .file-manager-table .ui-datatable th.ui-state-default {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: #fff;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .file-manager-table .ui-datatable-odd {
-    background: #505050;
+    background: #3e3e3e;
+    color: #dadada;
 }
 .dialogData {
     background: #cecece;
 }
+.mat-button, .mat-raised-button, .mat-icon-button {
+    font-family: Roboto, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+}
 /*---------------------------Import Access Log Css--------------------------------------------*/
 
 .scheduleTabPanel{
-    background: #fff;
+    background: #d6d6d6;
 }
 
 .rc-modal .ui-dialog .ui-dialog-titlebar {
     background: #282828;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 /******* For Config UI ************/
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: white;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .ndagent .ui-widget-content {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(8, 8, 8, 0.25);
+    border: 1px #4a4a4a solid;
 }
 .nde-ui .ui-datatable-odd {
    /* background-color: #e8f4ff;*/
@@ -1273,8 +1317,6 @@ md-icon.dashboard-menu-item-icon {
     /*background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12);*/
 }
-
-
 
 /*.config-ui button[md-icon-button] {
     border-bottom: 1px #353535 solid;
@@ -1287,7 +1329,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .top-nav-bar {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 .custom-breadcrumb .ui-breadcrumb {
         color:#e2e2e2;
@@ -1302,7 +1344,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .header-content {
-    color: #fff;
+    color: #d6d6d6;
     background: rgba(40, 40, 40, 0.95);
 }
 
@@ -1320,10 +1362,11 @@ md-icon.dashboard-menu-item-icon {
 
 .tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
     background: #565656;
-    color: #fff;
+    color: #d6d6d6;
 }
 .tabs-all .ui-tabview .ui-tabview-panel {
-    border: 1px #c5c5c5 solid;
+   border: 1px #4a4a4a solid;
+   background: transparent;
 }
 
 .tabs-all .ui-tabview .ui-tabview-nav>li.ui-state-default {
@@ -1336,53 +1379,50 @@ md-icon.dashboard-menu-item-icon {
     color: #c1c1c1;
 }
 .tabs-all .ui-widget-header {
-    background: #3e3e3e;
-    color:  #fff;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    border: 1px #4a4a4a solid;
 }
 
 .tabs-all .ui-panel .ui-panel-content {
-    background: #fff;
+    background: transparent;
 }
 
 .tabsincontent .header {
-    color: #fff;
-    background: #353535;
+    color: #d6d6d6;
+    background: #1d1d1d;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
     background: #183D65;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .flowpathheader-accordion {
-    color: #000;
+    color: #cacaca;
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .flowpathheader-accordion .ui-accordion .ui-accordion-header.ui-state-active {
     background: #ececec;
 }
-
 .config-tree .ui-tree {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(8, 8, 8, 0.58);
+    border: 1px #0d0d0d solid;
 }
-
 .ui-datatable-odd {
     /*background-color: #e8f4ff;*/
 }
-
-.configUI {
-    background: rgba(255, 255, 255, 0.65);
+.configUI.auditviewtableht {
+    background: rgba(51, 51, 51, 0.5);
 }
 
 .configUI .header {
-    color: #fff;
-    background: #45484d;
-    background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    color: #d6d6d6;
+    background: #1d1d1d;
 }
 
 .cav-toolbar {
@@ -1392,113 +1432,76 @@ md-icon.dashboard-menu-item-icon {
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
     background-color: #77d218;
 }
-
-
 /* config header */
-
 .md-card-subtitle-css {
-    background: #45484d;
-    background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );;
+    background: #1d1d1d;
 }
-
 .header-Name {
-    color: white;
+    color: #d6d6d6;
 }
-
 .ndegui-card {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(70, 70, 70, 0.55);
     border-radius: 4px;
 }
-
 .button-color {
     background-color: #4cae4c;
     border-color: #449d44;
 }
-
 ul.cav-menu-ul {
-    color: white;
+    color: #d6d6d6;
 }
-
 .mat-button-focus-overlay {
-    background: white;
+    background: #d6d6d6;
 }
-
-
 /*
 button[md-icon-button] {
     background: #000000;
 }*/
-
 .iconCss {
     color: #e6e6e6;
 }
-
-
 /* configuration.component.css */
-
 #top-div {
-    background: rgba(0, 0, 0, 0.51);
-    box-shadow: 0 0 6px 2px #565656;
+    background: rgba(70, 70, 70, 0.51);
+    box-shadow: 0 0 2px 2px #565656;
     border-radius:4px;
 }
-
 a {
-    color: white;
+    color: #cacaca;
 }
-
 #top-div .heading {
     border-bottom: 1px #777 solid;
 }
-
 .configUI_card-css .mat-card {
-    background: rgba(2, 2, 2, 0.85);
+    background: #1d1d1d;
 }
-
 .icon_big {
     color: #a5a5a5;
 }
-
-
 /*session-attribute.css */
-
 .configui-session-css {
-    background: #f6f7f9
+   /* background: #f6f7f9*/
 }
-
-
 /* config-profile-list.components.css */
-
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
     background: #282828;
-    color: #fff;
+    color: #d6d6d6;
 }
-
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
-    color: #fff;
+    color: #d6d6d6;
 }
-
-
 /* config-top-nav-bar.component.css */
-
 .stripbg {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.5);
 }
-
-
 /* config-tree-main.components.css */
-
 .mytreeview {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(0, 0, 0, 0.2);
 }
-
 .mytreeview .header {
-    color: #fff;
-    background: #45484d;
-    background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    color: #d6d6d6;
+    background: #1d1d1d;
 }
-
 .config-ui .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
     background-color: #77d218 !important;
 }
@@ -1525,30 +1528,34 @@ a {
 }
 
 .editFavoriteDialog .mat-dialog-title{
-    color: white;
-    background-color: #282828;
+    color: #d6d6d6;
+    background-color: #5a5a5a;
 }
 .favEdit{
-    background: #000;
-    color: #fff;
+    border: 1px solid rgba(210, 210, 210, 0.44);
+    color: #d6d6d6;
+    background: black;
 
 }
  .favoFileMgmtDialog .mat-dialog-title{
-    color: white;
-    background-color: #282828;
+    color: #d6d6d6;
+    background-color: #5a5a5a;
 }
 .btn-select, .btn-add-folder, .btn-create-folder, .btn-cancel-folder, .btn-upload  {
-    color: #fff;
-    background: #bdbdbd;
+    border: 1px solid rgba(210, 210, 210, 0.44); 
+    color: #d6d6d6;
+    background: black;
 }
 .glb-allbtn {
-    border: 1px solid #e0e0e0;
-    color: #fff;
-    background: #282828;
-    box-shadow: 0 0 1px 1px #a9a9a9;
+    border: 1px solid rgba(33, 150, 243, 0.42);
+    color: #d6d6d6;
+    background: black;
 }
 button.glb-allbtn.mat-raised-button{
-    color: #fff;
+    color: #d6d6d6;
+}
+.product-test-run-show-table .ui-datatable-emptymessage {
+    background: #000;
 }
 /*
 .loading {
@@ -1565,32 +1572,32 @@ button.glb-allbtn.mat-raised-button{
 }*/
 .dashboard-menu-nav-split-icon {
     font-size: 1px;
-    border-bottom: 1px #313131 solid;
-    border-top: 0px #313131 solid;
-    border-left: 0px #313131 solid;
-    border-right: 0px #313131 solid;
+    border-bottom: 1px #191919 solid;
+    border-top: 0px #191919 solid;
+    border-left: 0px #191919 solid;
+    border-right: 0px #191919 solid;
 }
 .dashboard-tree-component {
     background: rgba(255, 255, 255, 0.7);  
 }
 .dashboard-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-right, span.ui-treenode-icon.fa.fa-fw.fa-hdd-o{
-    color:#000;
+    color:#d6d6d6;
 }
 
 .dashboard-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-down, span.ui-treenode-icon.fa.fa-fw.fa-newspaper-o, span.ui-treenode-icon.fa.fa-fw.fa-line-chart{
-    color:#282828;
+    color:#d6d6d6;
 }
 .dashboard-custom-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-right, span.ui-treenode-icon.fa.fa-fw.fa-hdd-o{
-    color:#000;
+    color:#cacaca;
 }
 .dashboard-custom-tree-metrics-node span.ui-tree-toggler.fa.fa-fw.fa-caret-down, span.ui-treenode-icon.fa.fa-fw.fa-newspaper-o, span.ui-treenode-icon.fa.fa-fw.fa-line-chart{
-    color:#282828;
+    color:#d6d6d6;
 }
 .dashboard-custom-tree-metrics-node span.ui-treenode-label.ui-corner-all {
-    color: #000;
+    color: #d6d6d6;
 }
 button.dashboard-tree-action-buttion.mat-mini-fab {
-    background: transparent;
+    background: #42A5F5;
 }
 button.md-fab.pieChartInTD.mat-mini-fab {
     background: #42A5F5;
@@ -1600,42 +1607,51 @@ button.md-fab.pieChartInTD.mat-mini-fab {
 }
 .trnssidenav-piechart{
     background: #afafaf;
-    box-shadow: 0 0 4px 1px white;
-    border: 1px #fff solid;
+    box-shadow: 0 0 4px 1px #d6d6d6;
+    border: 1px #d6d6d6 solid;
 }
 .dashboard-elapsed-time-icon .clr{
-    color: #fff;
+    color: #d6d6d6;
 }
 .sql-btn{
     background: #000;
     box-shadow: 0 0 3px 1px #525252;
-    color: #fff; 
+    color: #d6d6d6; 
 }
 #outputMainBodyDiv {
-    background: rgba(255, 255, 255, 0.79);
+    background: rgb(74, 74, 74);
     border: solid #eee;
 }
 .mainDivRunCommand .ui-panel .ui-panel-content {
-    background: rgb(202, 202, 202);
+    background: #4a4a4a;
+    color: #d6d6d6;
+}
+.mainDivRunCommand .ui-widget-content {
+    background: #1d1d1d;
+    color: #d6d6d6;
+}
+.dashboard-sql-query .ui-widget-content {
+    background: #1d1d1d;
+    color: #d6d6d6;
 }
 .dashboard-setting-win-tabs .mat-tab-label-active {
-    background: #9fceff;
+    background: #489ef7;
 }
 .dashboard-corelation-dialog {   
     background: #282828;
 }
 .dashboard-corelation-dialog span{   
     font-size: 16px;
-    color: #fff;
+    color: #d6d6d6;
 }
 .selected-alert-type{
     background: #101010;
 }
 .historyleftpane .ui-accordion .ui-accordion-header .fa {
-    color: #fff;
+    color: #d6d6d6;
 }
 .openMerge .ui-state-default a:link,{
-    color: #fff;
+    color: #d6d6d6;
 }
 .left-nav button[md-icon-button] {
    border-top: 0px #c00 solid;
@@ -1645,21 +1661,22 @@ button.md-fab.pieChartInTD.mat-mini-fab {
 }
 .dashboard-pagination .ui-paginator .ui-paginator-page.ui-state-active {
     background: #000;
-    color: #ffffff;
+    color: #d6d6d6;
     border-color: #6f6f6f;
 }
 app-alert-home .mat-button-toggle-checked {
-    color: #fff;
-   background: #000;
+   color: #d6d6d6;
+   background: #4a4a4a;
 }
 .alert-nav-item {
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(0, 0, 0, 0.55);
 }
+
 .bottom-panel{
   background: rgba(99, 99, 99, 0.5);
 }
 .bottom-panel label{
-  color: #fff;
+  color: #d6d6d6;
 }
 md-icon.dashboard-elapsed-time-icon.clr.fa.fa-clock-o.mat-icon {
     color: #f5f5f5;
@@ -1671,25 +1688,25 @@ md-icon.dashboard-elapsed-time-icon.clr.fa.fa-clock-o.mat-icon {
     color: #000;
 }
 .dashboard-data-widget-subtitle{
-    color:#fff;
+    color:#d6d6d6;
 }
 .dashboard-data-widget-footer{
     color: #f9f9f9;
 }
 #txDetailWinId .mat-tab-label {
-    color: white;
+    color: #d6d6d6;
 }
 .ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active {
-    color:#282828;
+   /* color:#282828;*/
 }
 div.section label {
     color: #f0f0f0;
 }
 div.section .ui-dropdown .ui-dropdown-label {
-    color:#000;
+    color:#cacaca;
 }
 .main-box span.ui-chkbox-icon.ui-c.fa.fa-check {
-    color: #000;
+    color: #dedede;
 }
 .dashboard-sub-menu .ui-widget-content a {
     color: #d2d2d2;
@@ -1724,10 +1741,10 @@ div.section .ui-dropdown .ui-dropdown-label {
    background: rgba(197, 197, 197, 0.65);
 }
 .filters-container .ui-widget-content .ui-state-highlight{
-    background: #ccc;
+    background: #000;
 }
 .main-box .ui-datatable .ui-datatable-data > tr > td span {
-    color: #f0f0f0;
+    color: #dadada;
 }
 .main-box .ui-datatable .ui-datatable-data>tr>td {
     color:#f0f0f0;
@@ -1736,7 +1753,7 @@ div.section .ui-dropdown .ui-dropdown-label {
     color: #f0f0f0;
 }
 .main-box-alert .ui-dropdown-panel .ui-dropdown-item {
-    color: #78909C;
+    color: #d8e4ea;
 } 
 .mat-button-toggle {
     color: rgba(0, 0, 0, 0.97);
@@ -1747,9 +1764,7 @@ div.section .ui-dropdown .ui-dropdown-label {
 .active-alert .ui-datatable-odd {
     background: #505050;
 }
-.ndegui-mainbox {
-    background: rgba(255, 255, 255, 0.6);
-}
+
 .dashboard-lower-section .ui-widget-content .ui-state-highlight{
     background: #666;
 }
@@ -1764,18 +1779,20 @@ div.section .ui-dropdown .ui-dropdown-label {
 }
 
 .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default{
-    background: #f7f7f7;
+    background: #3a3a3a;
+    border: 1px #868686 solid;
+    color: #d6d6d6;
 }
 #txDetailWinId .md2-datepicker-input{
     background: #FAFAFA;
-    color: white;
+    color: #d6d6d6;
 }
 #txDetailWinId .md2-datepicker-input{
     background: #FAFAFA;
     color: black;
 }
 #txDetailWinId .mat-input-placeholder{
-       color: white;
+       color: #d6d6d6;
 }
 #txDetailWinId .ui-accordion .ui-accordion-content{
     border: 1px solid cadetblue;
@@ -1798,31 +1815,36 @@ div.section .ui-dropdown .ui-dropdown-label {
     background:transparent;
 }
 .display-label{
-    color: white;
+    color: #d6d6d6;
 }
  app-alert-home .mat-sidenav {
-    background-color: rgba(255, 255, 255, 0.65) ; 
+    background-color: #080808; 
 }
 app-alert-home .ui-widget-content .history-table-row-even {
     background: #757575;
-    color: #fff;
+    color: #d6d6d6;
 }
 app-alert-home .ui-widget-content .history-table-row-odd {
     background: #505050;
-    color: #fff;
+    color: #d6d6d6;
 }
 .total-recors
 {
-  color: #fff;
+  color: #d6d6d6;
 }
 .totalTestRunCard, .totalArchieveCard, .totalLockedTestsCard, .totalScriptsCard, .totalScenarioCard, .totalRunningCard {
- background: #EDEDED;  width: auto; cursor: pointer;border: 1px solid #b9b9b9;
+ background: #1d1d1d;  width: auto; cursor: pointer;border: 0px solid #b9b9b9;
 }
 .ndagent .ui-accordion .ui-accordion-header {
-    background: #282828;
-    color:#fff;
+    background: #1d1d1d;
+    color:#d6d6d6;
+    border-top: 1px solid #ff5454;
 }
-
+.ndagent .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #666;
+    color:#d6d6d6;
+    border-top: 1px solid #666;
+}
 app-alert-home .ui-widget-content .history-table-double-selected-row {
     background: #000;
 }
@@ -1830,46 +1852,48 @@ app-alert-home .ui-widget-content .history-table-double-selected-row {
     background: #000;
 }
 .favParamBtn{
-    color: #FFFFFF;
-    background: #2399e5;
-    border: 1px solid #0b2138;
+    border: 1px solid rgba(210, 210, 210, 0.44);
+    color: #fff;
+    background: black;
 }
 .favoriteParamNdFilter .mat-dialog-title{
-    color: white;
-    background-color: #282828;
+    color: #d6d6d6;
+    background: #5a5a5a;
 }
 .saveDialogBox .mat-dialog-title{
-    color: white;
-    background-color: #282828;
+    color: #d6d6d6;
+    background: #5a5a5a;
 }
-
-
-
-
 /*-------Added on 10072017---------*/
 .mat-menu-content .ui-state-default {
     background: #282828;
 }
+.mat-menu-content {
+    background: #4a4a4a;
+}
+.mat-menu-item {
+    color: #d6d6d6;
+}
 
 .addFavoriteDialog .mat-dialog-title{
-    color: #fff;
-    background: #767676;
+    color: #d6d6d6;
+    background: #5a5a5a;
 }
 .chngPassword .ui-widget-header{
-    background: #767676;
+    background: #5a5a5a;
 } 
 .chngPassword .ui-dialog.ui-widget .ui-dialog-titlebar {
-    color: #fff;
+    color: #d6d6d6;
     padding: 6px;
 }
 .chngPassword .ui-widget-content {
     margin: 0;
 }
 .chngrefreshkey .ui-widget-header{
-    background: #767676;
+    background: #5a5a5a;
 } 
 .chngrefreshkey .ui-dialog.ui-widget .ui-dialog-titlebar {
-    color: #fff;
+    color: #d6d6d6;
     padding: 6px;
 }
 .chngrefreshkey .ui-widget-content {
@@ -1878,7 +1902,7 @@ app-alert-home .ui-widget-content .history-table-double-selected-row {
 
 /*---------Added on 12072017-----------*/
 .lastReleaseClass {
-    color: #fff;
+    color: #d6d6d6;
 }
 md-card.buildCardClass.mat-card {
     background-color: #000;
@@ -1888,31 +1912,31 @@ md-card.buildCardClass.mat-card {
 }
 .lastRelease-table, .diskgrid-table, th {
     background: #1d1d1d;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 .ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active {
     background-color: #45484d;
-    color: #fff;}
+    color: #d6d6d6;}
 
 .lastRelease-table tr:nth-of-type(odd) {
-    background: #505050;
-    color: #fff;
+    background: #3e3e3e;
+    color: #dadada;
 }
 .lastRelease-table tr:nth-of-type(even) {
-    background: #737373;
-    color: #fff;
+    background: #212121;
+    color: #dadada;
 }
 .diskgrid-table tr:nth-of-type(odd) {
-    background: #505050;
-    color: #fff;
+    background: #3e3e3e;
+    color: #dadada;
 }
 .diskgrid-table tr:nth-of-type(even) {
-    background: #737373;
-    color: #fff;
+    background: #212121;
+    color: #dadada;
 }
 .diskgrid-table td{
-  border: 1px #bdbdbd solid;
+  border: 1px #6b6b6b solid;
 }
 
 .dashboard-top-panel .mat-button-focus-overlay {
@@ -1920,22 +1944,20 @@ md-card.buildCardClass.mat-card {
     margin: -4px 0 0 0;
 }
 .grphtab-view .ui-treetable th.ui-state-default{
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color: #fff;
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .grphtab-view tbody:nth-of-type(odd) {
-    background: #191919;
-    color: #fff;
+    background: #3e3e3e;
+    color: #dadada;;
     border-bottom: 1px #9c9c9c solid;
     border-top: 1px #9c9c9c solid;      
 }
 .grphtab-view tbody:nth-of-type(even) {
-    background: #505050;
-    color: #fff;
+    background: #212121;
+    color: #dadada;
     border-bottom: 1px #9c9c9c solid;
     border-top: 1px #9c9c9c solid;
 }
@@ -1944,20 +1966,20 @@ md-card.buildCardClass.mat-card {
 }
 
 .dashboard-tree-component .dashboard-tree-context-menu {
-    background: #353535;
-    border-color: #353535;
+    background: #1d1d1d;
+    border-color: #4a4a4a;
 }
 .dashboard-tree-context-menu a.ui-menuitem-link.ui-corner-all{
     color:#dedede;
 }
 .dashboard-tree-component .ui-widget-content .ui-state-highlight {
-    background: rgba(222, 222, 222, 0.66);
-    color: #e4e4e4;
+    background: rgb(78, 78, 78);
+    color: #eaeaea;
     padding: 2px;
 }
 .dashboard-top-panel .ui-menu{
-    background: #353535;
-    border-color: #353535;
+    background: #1d1d1d;
+    border-color: #4a4a4a;
 }
 
 .dashboard-panel-selected {
@@ -1965,19 +1987,15 @@ md-card.buildCardClass.mat-card {
     box-shadow: 0 0 12px 5px #c5c5c5;
 }
 
-
  /*---------------Timeslot Management --------------*/
 .timeslot-table .ui-datatable th.ui-state-default{
-   background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+    background: #1d1d1d;
     color: #fff;
-    padding: 6px;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 .timeslot-header {
-    background: #767676;
+    background: #5a5a5a;
     color: #dadada;
 }
 .timeslot-main .ui-paginator{
@@ -1985,11 +2003,11 @@ md-card.buildCardClass.mat-card {
 }
 .timeslot-top{
     background: rgba(66, 66, 66, 0.5);
-    color: #fff;
+    color: #d6d6d6;
 }
 .timeslot-popup-header .mat-dialog-title{
-    background: #767676;
-    color: #fff;
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 .timeslot-popup-footer {
     background: #f9f9f9;
@@ -1997,11 +2015,8 @@ md-card.buildCardClass.mat-card {
 }
 
 /*-------------NewAddon17072017----------------*/
-.mat-dialog-container {
-    background:  #ededed; /*#fdf5e1;*/
-}
 .chngPassword, .chngrefreshkey .ui-widget-content {
-     background:  #ededed;
+     background: #1d1d1d;
 }
 .btn1, .btn2, .dashboard-alert-model-footer-btn, .dashboard-confirm-model-footer-btn,  .transaction-alert-model-footer-btn, .td-confirm-model-footer-btn {
     background:#000;
@@ -2010,8 +2025,8 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
     color:#f0f0f0;
 }
 .dashboard-alert-model-header, .dashboard-confirm-model-header, .transaction-alert-model-header, .td-confirm-model-header{
-    background: #767676;
-    color:#fff;
+    background: #5a5a5a;
+    color:#d6d6d6;
 }
 .top-panel-nav-cross-icon {
     color: red;
@@ -2029,7 +2044,7 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
 
 .ui-tabview.ui-widget-content {
     border: 0px none;
-    background: #b7aeae;
+    background: #080808;
 }
 
 .ui-tabview .ui-tabview-panel {
@@ -2068,92 +2083,71 @@ button.btn1, button.btn2, button.dashboard-alert-model-footer-btn, button.dashbo
 }
 
 .health-chk-mon .ui-datatable th.ui-state-default{
-    background: #45484d;
-    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
-    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
-    background: linear-gradient(to bottom, #45484d 0%,#000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
-    color:#fff;
-}
-.health-chk-mon .ui-widget-content .healthChkMon-table-row-even {
-    border: 1px solid #D5D5D5;
-    background: #191919;
-    color: #f0f0f0;
+    background: #1d1d1d;
+    color: #fff;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
 
+.health-chk-mon .ui-widget-content .healthChkMon-table-row-even {
+    border: 1px solid #4a4a4a;
+    background: #212121;
+    color: #dadada;
+}
 .health-chk-mon .ui-widget-content .healthChkMon-table-row-odd {
-    border: 1px solid #D5D5D5;
-    background: #505050;
-    color: #f0f0f0;
+    border: 1px solid #4a4a4a;
+    background: #3e3e3e;
+    color: #dadada;
 }
 /*--------------CSS For FileUpload-----------------*/
   .uploadFiles .ui-fileupload-choose.ui-button.ui-widget {
     background: #314184; 
 }
 
-
-
-
-
 /*Access Control css */
-
 .mainDiv{
 /*theme1*/
      background: #202020;
 }
-
 .tabheader {
-  
     background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    color: #e0e0e0;
+    color: #d6d6d6;
 }
-
 .controltab .mat-tab-label, .mat-tab-link {
     color: rgba(240, 235, 235, 0.87);
 }
-
-
 .mdcardbackgrnd{
 /*theme5*/
   background: #202020;
     /*padding: 0px*/
 }
-
-
 .compotable .ui-datatable th.ui-state-default {
-   background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
-    color :white
+    background: #1d1d1d;
+    color: #fff;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
 }
-
 .compotable .ui-datatable tbody > tr.ui-widget-content{
-  color: white;
+  color: #d6d6d6;
 }
-
 .mdcardtoprightbackgrnd {
   background: rgb(80, 80, 80);
 }
-    
-
 .toprightheader{
-    /*theme5*/
-    background: #191919;
-    color: #fafafa;   
+    background: #4a4a4a;
+    color: #d6d6d6;   
 }
-
  .permissionpanel .ui-panel .ui-panel-titlebar{
-     background: #191919;;
-      color :white
+     background: #4a4a4a;
+      color :#d6d6d6;
  }
-
  .permissionTree{
     background: rgb(32, 32, 32);
  }
 
-
  .permissionTree  .ui-widget-content .ui-state-highlight {
     background: rgba(89, 91, 95, 0.41);
 }
-
 .capabilitytable .ui-widget-content .ui-state-highlight {
     background: rgba(89, 91, 95, 0.41);
 } 
@@ -2170,42 +2164,42 @@ color: rgba(44, 20, 141, 0.94)
 }
 
 .permissionpanel .ui-panel .ui-panel-content {
-    background: #ffffff;
+    background: #4a4a4a;
 }
-
- .permissionpanel .ui-panel .ui-panel-titlebar{
-    color: #fff8da;
+.permissionGroup.mat-radio-disabled .mat-radio-label-content {
+    color: rgba(255, 255, 255, 0.63)
+}
+ .permissionpanel .ui-panel .ui-panel-titlebar {
+    color: #d6d6d6;
  }
-
  .permissionGroup .mat-radio-button.mat-accent .mat-radio-inner-circle {
     background-color: #595b5f;
 }
 .permissionGroup .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color:  #595b5f;
 }
-
 .capabilityButton {
   color:black;
 }
-
 .capabilitydropdown .mat-select-value-text {
-  color: white
+  color: #d6d6d6
 }
-
 /* css for add new layout window*/
 .addLayoutDialog .mat-dialog-title{
-    color: white;
-    background-color: #282828;
+    color: #d6d6d6;
+    background: #282828;
 }
 
 /*--------ProductUI widget Header backgrounds----------*/
 .handle {
- 	background: #151515;
-    color: #fff;
+ 	background: rgba(0, 0, 0, 0.4);
+    color: #f3f3f3;
+    border-bottom: 1px #313131 solid;
 }
+.totalRunningCard .IconClass, md-card-title{  color: #f7f7f7 !important; }
 .header
 {
-	color: #fff;
+	color: #d6d6d6;
 }
 .handle.alertHeader{
   background: #151515;
@@ -2218,46 +2212,40 @@ color: rgba(44, 20, 141, 0.94)
 
 table{
     border-collapse: collapse;
-    box-shadow: 0 0 0 0 #fff;
+    box-shadow: 0 0 0 0 #d6d6d6;
 }
 th{
     font-size: 11px;
     font-weight: 400;
     padding: 4px;
-    border: 1px #1d1d1d solid;
+    border: 1px #6b6b6b solid;
 }
 td {
     font-size: 11px;
     font-weight: 400;
     padding: 3px;
-    border: 1px #1d1d1d solid;
+    border: 1px #6b6b6b solid;
 }
 /*----------New AccessControl CSS--------------*/
 .accessControl-box {
-    background: radial-gradient(ellipse at center, #808080 0%, #737373 100%);
+    background: rgba(45,45,45,0.5);
 }
 .tabheader {
-    background: #151515;
-    color: #e2e2e2;
+    background: #1d1d1d;
+    color: #d6d6d6;
 }
 .AC-leftpane{
     background: rgba(0, 0, 0, 0.62);
 }
-
-.toprightheader{
-    /*theme5*/
-    background: #151515;
-    color: #fafafa;   
-}
 .AC-rightpane {
-    background: rgba(189, 189, 189, 0.62);
+    background: rgba(53, 53, 53, 0.18);
 }
 .AC-left-search label {
-    color: #fff;
+    color: #d6d6d6;
 }
  .permissionpanel .ui-panel .ui-panel-titlebar{
-    background: #151515;
-    color: #fafafa;
+    background: #1d1d1d;
+    color: #d6d6d6;
  }
  md-card.permissionTree.mat-card{
     overflow: auto;
@@ -2267,7 +2255,7 @@ td {
     /*background: rgb(231, 205, 149);*/
 }
 .permissionTree{
-  background: rgba(190, 220, 234, 0.15);
+  background: #080808;
  }
 
 button.capabilityButton.mat-raised-button{
@@ -2282,59 +2270,60 @@ button.capabilityButton.mat-raised-button{
     background: rgba(255, 255, 255, 0.9);
 }
 .accessControl-box .ui-widget-header {
-    background: #ccc;
+    background: #1d1d1d;
+    border: 1px #1d1d1d solid;
 }
 .compotable .ui-datatable .ui-datatable-data tr.ui-state-hover, .ui-datatable .ui-datatable-data tr.ui-state-highlight {
   border-color: #462f12;
 }
 /* -------------------------- ProductUICSS ------------------*/
 .cardTitleClass{
-    color: #fff;
+    color: #d6d6d6;
 }
 .mat-card-subtitle {
-  color: #282828; 
+  color: #c1c1c1; 
 }
 
 /*-----------------------Dashboard Reports CSS--------------------*/
 .dashboardrpt-box  {
-    background-color: rgba(242, 254, 255, 0.5);
+    background-color: rgba(45, 45, 45, 0.5);
 }
 .dashboard-report-menu-left-slide {
-    background: rgba(0, 0, 0, 0.52);
-    color: #fff;
+    background: #080808;
+    color: #d6d6d6;
 }
 .dashboard-report-menu-left-slide /deep/ .ui-accordion .ui-accordion-header a {
-    color: white;
+    color: #cacaca;
 }
 .dashboard-report-custom-name-span {
-    color: white;
+    color: #cacaca;
 }
 .dashboard-compare-data-table-div /deep/ span.ui-cell-data{
-    color: white;
+    color: #cacaca;
 }
 .dashboard-summary-report-main-div {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-hierarchial-custom-name-span {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-summary-custom-name-span {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-excel-custom-name-span {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-menu-left-slide .ui-accordion .ui-accordion-header {
-    background: #767676;
+    background: #424242;
     border-bottom: 1px #163a3c solid;
     border-radius: 0;
     border-top: 0;
     border-left: 0;
     border-right: 0;
-    color: #fff;
+    color: #d6d6d6;
 }
 .dashboard-report-menu-left-slide .ui-accordion .ui-accordion-header.ui-state-active {
-    background: #767676;
+    background: #4a4a4a;
     color: #cecece;
 }
 .dashboard-reports-selection-innerdiv /deep/ .ui-widget-content a {
@@ -2352,21 +2341,22 @@ button.capabilityButton.mat-raised-button{
 }
 
 .dashboard-reports-available-page-top-panel {
-    background: rgba(255, 255, 255, 0.9);
+    background: #1d1d1d;
 }
 .dashboard-report-context-menu-item .ui-widget-content {
     background: rgb(52, 132, 120);
 }
 .dashboard-report-context-menu-item .ui-widget-content a{
-    color: #fff;
+    color: #d6d6d6;
     background: transparent;
 }
 .dashboardreports .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
-    border: 1px #cecece solid;
-    background: rgba(255, 255, 255, 0.75);
+    border: 1px #4a4a4a solid;
+    background: rgba(0, 0, 0, 0.12);
 }
 .dashboardreports legend.ui-fieldset-legend {
-    background: #f7f7f7;
+    border: 1px #4a4a4a solid;
+    background: rgba(0, 0, 0, 0.8);
 }
 .dashboard-report-summary-main-div .ui-state-default a:link {
     color: #f5f5f5;
@@ -2375,7 +2365,7 @@ button.capabilityButton.mat-raised-button{
     background: black;
 }
 .dashboard-report-summary-main-div .ui-state-default {
-    color: #fff;
+    color: #d6d6d6;
 }
 .dashboard-report-summary-main-div .ui-accordion .ui-accordion-header.ui-state-active {
         background: black;
@@ -2387,47 +2377,47 @@ button.capabilityButton.mat-raised-button{
         border-radius: 0;
 }
 .dashboardrpt-modal-header {
-    background: #767676;
-    color: #fff;
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 .dashboard-excel-report-main-div, .dashboard-compare-report-main-div, .ui-widget-content .ui-state-highlight{
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-compare-viewby-span {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-alert-box /deep/ .ui-dialog.ui-widget .ui-dialog-titlebar {
-    background: #767676;
-    color: white;
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 .dashboard-report-alert-box /deep/ .ui-dialog .ui-dialog-titlebar-close {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-reports-pattern-main-div /deep/ .dashboard-setting-win-tabs .mat-tab-label-active {
     background: black;
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-set-data-table-div /deep/ span.ui-cell-data {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-compare-data-table-div /deep/ span.ui-cell-data {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-context-menu-item /deep/ .ui-contextmenu.ui-menu.ui-widget.ui-widget-content.ui-corner-all.ui-helper-clearfix.ui-menu-dynamic.ui-shadow {
     background-color: #767676;
 }
 .dashboard-report-pattern-exp-text-div /deep/ input.dashboard-pattern-exp-text.ng-untouched.ng-pristine.ui-inputtext.ui-corner-all.ui-state-default.ui-widget.ui-state-filled {
     color: black;
-    background: white;
+    background: #d6d6d6;
 }
 .dashboard-reports-header-type-span {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-stats-reports-type-span2 {
-    color: white;
+    color: #d6d6d6;
 }
 .dashboard-report-compare-event-span {
-    color: white;    
+    color: #d6d6d6;    
 }
 .dashboard-available-reports-name {
     color: #cecece;
@@ -2444,7 +2434,7 @@ button.capabilityButton.mat-raised-button{
     box-shadow: 0 0 4px 2px #565656;
 }
 .ed-table .ui-datatable .ui-datatable-thead>tr>th {
-    color: #fff;
+    color: #d6d6d6;
 }
 .ed-toolbar .ui-toolbar.ui-widget.ui-widget-header{
         background: rgba(255, 255, 255, 0.58);
@@ -2464,7 +2454,7 @@ button.capabilityButton.mat-raised-button{
 }
 .ed-table .ui-widget-header {
     background: #272727;
-    color: #fff;
+    color: #d6d6d6;
     border-bottom: 1.3px #e8e8e8 solid;
 }
 .ed-table .ui-datatable tbody > tr.ui-widget-content {
@@ -2475,17 +2465,17 @@ button.capabilityButton.mat-raised-button{
 }
 .kpi_multi_pvs.ui-state-default.ui-unselectable-text{
     background: #292929; /*rgb(65, 126, 191);*/
-    color: #fff;
+    color: #d6d6d6;
     font-weight: 500;
 }
 .kpi_multi_cpu.ui-state-default.ui-unselectable-text{
     background: #292929; /*rgb(65, 126, 191);*/
-    color: #fff;
+    color: #d6d6d6;
     font-weight: 500;
 }
 .kpi_multi_res.ui-state-default.ui-unselectable-text{
     background: #080808; /*rgb(65, 126, 191);*/
-    color: #fff;
+    color: #d6d6d6;
     font-weight: 500;
 }
 .kpi_multi_pky.ui-state-default.ui-unselectable-text{
@@ -2524,7 +2514,7 @@ button.capabilityButton.mat-raised-button{
 }
 .kpi_total.ui-state-default.ui-unselectable-text{
     background: #000;
-    color: #fff;
+    color: #d6d6d6;
     font-weight: 500;
 }
 .kpi_updated_mins.ui-state-default.ui-unselectable-text{
@@ -2534,7 +2524,7 @@ button.capabilityButton.mat-raised-button{
 }
 .kpi_tier_name.ui-state-default.ui-unselectable-text{
     background: #000;
-    color: #fff;
+    color: #d6d6d6;
     font-weight: 500;
 }
 
@@ -2560,7 +2550,7 @@ button.capabilityButton.mat-raised-button{
  .kpiCsccss{background: rgba(181, 167, 44, 0.35);}
 
  i.topicon.kpi-kpi {
-    color: #fff;
+    color: #d6d6d6;
 }
 .top-panel-nav-cross-icon {
     color: red;
@@ -2573,18 +2563,30 @@ p-datatable.kpigrid {
 }
 /*---------------Alert Email SettingPopup---------------*/
 .mailSmsConfigSetting .ui-dialog-titlebar-close {
-    color: #fff;
+    color: #d6d6d6;
 }
 .mailSmsConfigSetting fieldset.ui-fieldset{
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid #d5d5d5;
+    background: rgba(0,0, 0, 0.15);
+    border: 1px solid #4a4a4a;
+}
+.mailSmsConfigSetting .ui-dialog .ui-dialog-content {
+    background: #1d1d1d;
+    color: #d6d6d6;
+}
+.mailSmsConfigSetting .ui-widget-content{
+    color: #d6d6d6;
+    border:0;
+}
+.mailSmsConfigSetting .ui-widget-header {
+    background: #5a5a5a;
+    color: #d6d6d6;
 }
 .mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
      background: rgba(255, 255, 255, 0.8);
 }
 .mailSmsConfigSetting .ui-widget-header {
     background: rgb(118, 118, 118);
-    color: #fff;
+    color: #d6d6d6;
 }
 .general-setting .mat-slide-toggle-bar {
     background-color: rgb(74, 74, 74);
@@ -2605,8 +2607,408 @@ p-datatable.kpigrid {
 .alert-maintenance-wrapper .ui-datepicker.ui-widget .ui-datepicker-calendar th {
     background: #656565;
 }
+
+/*------------NEW BLACK THEME CSS------------*/
+.main-box .ui-inputtext {
+    background: #282828;
+       /* border: 1px #4a4a4a solid;*-/
+}
+.main-box .ui-state-default {
+    border: 1px solid #666;
+    background: #4a4a4a;
+    color:  #cacaca;
+}
+.mat-menu-content {
+    background: #5d5d5d;
+}
+.mat-menu-item {
+    color: #f3f3f3;
+}
+
+.mat-select-underline {
+    background-color: rgb(255, 64, 129);
+}
+.mat-checkbox-frame {
+    border-color: rgba(255, 64, 129, 0.59);
+}
+.mat-radio-outer-circle {
+    border-color: rgba(255, 64, 129, 0.59);
+}
+.mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-trigger, .mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-arrow {
+    color: #5770ff;
+}
+textarea:disabled, input:not([type]):disabled, input[type="number"]:disabled, input[type="text"]:disabled {
+    background: #282828;
+    color: #d6d6d6;
+    padding: 2px;
+    border-radius: 2px;
+}
+.mat-input-placeholder {
+    color: rgb(220, 220, 220);
+}
+
+.main-box-scen .ui-widget-header {
+    border: 1px solid #000;
+    color: #d6d6d6;
+    background: #000;
+}
+
+.replay-main-div {
+   /* background: #45484d;
+    color: #d6d6d6;*/
+}
+
+
+.ui-inputtext, .ui-widget-content .ui-inputtext, .ui-widget-header .ui-inputtext {
+    background: #282828;
+    border: 1px #4a4a4a solid;
+    color: #d6d6d6;
+}
+.ui-dropdown .ui-dropdown-trigger {
+    border-color: transparent;
+}
+.ui-widget-content {
+    /*color: #d6d6d6;*
+    background: #4a4a4a;*/
+}
+
+.ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active {
+    border: 1px solid #c1c1c1;
+    background: #d6d6d6;
+    color: #000;
+}
+.ui-state-default {
+    background: #4a4a4a;
+    color: #d6d6d6;
+     border: 1px solid #3a3a3a;
+}
+.ui-datatable .ui-selection-column .ui-chkbox-box, .ui-datatable .ui-selection-column .ui-radiobutton-box {
+    background: #3a3a3a;
+    color:#c1c1c1;
+}
+fieldset {
+    border: 1px solid #4a4a4a;
+}
+legend {
+    color: #d6d6d6;
+}
 .main-box-scen {
-    background: rgba(2, 2, 2, 0.7);
+    background-color: rgba(45,45,45,0.75);
+}
+.mat-dialog-container {
+        color: #cacaca;
+        background: #1d1d1d;
+}
+.txDetailMain {
+    color: #cacaca;
+}
+.dashboard-tree-component .ui-widget-content {
+    color: #d6d6d6;
+    border: 1px #1d1d1d solid;
+    background: #1d1d1d;
+} 
+.cdk-overlay-pane .mat-select-arrow {
+    color: #d6d6d6;
+}
+.dashboard-compare-Dialog .md2-datepicker-button {
+    color: rgba(255, 255, 255, 0.8);
+}
+[aria-disabled=true] .mat-select-underline {
+    background: #4a4a4a;
+}
+.dashboard-compare-Dialog .md2-datepicker-value{
+    color: #cacaca;
+}
+.dashboard-compare-Dialog .md2-datepicker-disabled {
+        color: rgba(255, 255, 255, 0.4);
+}
+textarea {
+    border: 1px solid #666;
+    background: #4a4a4a;
+    color: #cacaca;
+}
+.ndagent .ui-widget-header {
+    border: 1px solid #000;
+    background: #666;
+}
+.ui-button.ui-button-info.ui-state-default {
+    border: 1px solid rgba(210, 210, 210, 0.44);
+    color: #d6d6d6;
+    background: black;
+}
+.mat-slide-toggle-content {
+    font: 400 12px/20px Roboto, "Helvetica", sans-serif;
+}
+.dotnet-color{
+    color: #8989fb;
+  }
+.java-color{
+   color: rgb(255, 174, 144);
+  }
+.nodejs-color{
+    color: #4cff4c;
+  }
+.ui-widget {
+    font-family: "Roboto", sans-serif;
+}
+.instrprofiletxtarea {
+    background: #282828;
+    border: 1px #4a4a4a solid;
+}
+.tabs-all .ui-tabview:not(.ui-ribbon) .ui-tabview-nav {
+    background: #323232;
+}
+.mat-card-subtitle, .mat-card-content, .mat-card-header .mat-card-title {
+    font-size: 11px;
+}
+.tabs-all .ui-tabview.ui-widget-content{
+    background: rgba(51, 51, 51, 0.41);
+}
+
+.tabsincontent {
+    border: 1px #666 solid;
+}
+.tabsincontent .ui-widget-content{
+    background: rgba(45, 45, 45, 0.4);
+}
+.setting-box-alert .ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable {
+    border: 1px solid #4a4a4a;
+}
+.setting-box-alert  app-alert-home .ui-widget-content .ui-state-default {
+    border: 1px solid #4a4a4a;
+}
+.mat-tab-label, .mat-tab-link {
+    font-family: "Roboto", sans-serif;
+    font-size: 11px;
+}
+input, select {
+    background: #282828;
+    border: 1px #4a4a4a solid; 
+    color: #f3f3f3;
+}
+.dashboard-open-derivedDialog1 .mat-tab-label{
+    color: #d6d6d6;
+    opacity: 1;
+}
+.file-manager-table .ui-widget-header {
+    background: #4a4a4a;
+    border: 1px solid #7d7d7d;
+}
+.mat-dialog-title {
+    background: #5a5a5a;
+    color: #d6d6d6;
+}
+.mat-input-underline, .mat-select-underline {
+    background-color:  #E91E63;
+}
+.favoriteFile-Path{
+    border: 1px solid #3a3a3a;          
+    background: #3a3a3a;
+}
+.mat-tab-label, .mat-tab-link {
+    color: rgb(255, 255, 255);
+}
+
+app-alert-home .mat-button-toggle {
+    color: #cacaca;
+}
+.main-box-alert .ui-widget-header {
+    border: 0;
+    color: #d6d6d6;
+    background: #151515;
+}
+.dashboard-reports-preset-viewby-setting-accordion /deep/ .ui-accordion .ui-accordion-header a {
+    background: #1d1d1d;
+    color: #cacaca;
+}
+.dashboard-report-preset-datepicker-inner-div .md2-datepicker-disabled .md2-datepicker-button {
+    color: rgb(90, 90, 90);
+}
+textarea:disabled, input:not([type]):disabled, input[type="number"]:disabled, input[type="text"]:disabled {
+   background: #5a5a5a;
+    color: #d6d6d6;
+}
+.ui-datatable th.ui-state-default {
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
+}
+.dashboard-compare-data-table-div .md2-datepicker-button {
+   color: rgb(82, 82, 82);
+}
+.dashboard-compare-data-table-div .md2-datepicker-value {
+    color: #f3f3f3;
+}
+.dashboard-tree-header-icon {
+    color: #d6d6d6;
+}
+app-alert-home .ui-accordion .ui-accordion-content {
+    background: rgba(8, 8, 8, 0.25);
+    border: 1px #4a4a4a solid;
+}
+.historyleftpane .ui-widget-content {
+    background: #282828;
+    border: 1px #525252 solid;
+    color: #d6d6d6;
+}
+.filters-container .ui-widget-header {
+    border: 1px solid #d9d9d9;
+    color: #1b1d1f;
+    background: #000;
+}
+app-alert-home .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+    border: 1px solid #4a4a4a;
+    background: #1d1d1d;
+}
+app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
+    border: 1px solid rgb(78, 78, 78);
+}
+.alert-maintenance-wrapper .ui-widget-content {
+    background: #282828;
+    border: 1px #525252 solid;
+}
+.organiseFavoriteDialog .ui-widget-content {
+    color: #d6d6d6;
+}
+.ui-dialog .ui-dialog-content {
+    background: #4a4a4a;
+    color: #d6d6d6;
+}
+.main-box-scen .ui-widget-header {
+    border: 1px solid #2e2e2e;
+    background: #000;
+    color: #d6d6d6;
+    /* background: linear-gradient(180deg,#f6f7f9 0,#ebedf0); */
+}
+.main-box-scen .ui-widget-content {
+    color: #d6d6d6;
+    background: #1d1d1d;
+}
+.left-menu .ui-menu {
+    background: #4a4a4a;
+}
+.alignAccessLog .ui-widget-content {
+    background: #1d1d1d;
+    color: #d6d6d6;
+}
+.mat-select-trigger {
+    font-size: 12px;
+}
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  /*  line-height: 24px;*/
+}
+.md2-select-value, .mat-option {
+    color: #d6d6d6 !important;
+}
+.mat-select-content, .md2-select-content,  .mat-select-panel-done-animating {
+    background: #353535;
+}
+
+.dashboard-show-graph-data-accordain-tab .ui-state-default {
+     background: #45484d;
+    border: 1px #4a4a4a solid;
+    color: #d6d6d6;
+}
+.open-total-scenlabel {
+    background: #000;
+}
+.chngPassword .ui-dialog-content{
+    background: #1d1d1d;
+}
+.chngrefreshkey .ui-dialog-content{
+    background: #1d1d1d;
+}
+.ui-datatable .ui-datatable-data tr.ui-state-highlight {
+    border-color: #462f12;
+    background: #000;
+}
+.chngPassword .ui-widget-content {
+    background: #1d1d1d;
+    color: #d6d6d6;
+}
+.dashboard-sub-menu .ui-widget-header {
+    background: #1d1d1d;
+    border: 0;
+    font-size: 12px;
+    padding: 4px;
+}
+.ui-panelmenu .ui-panelmenu-header.ui-state-active {
+    border-color: #2196f3;
+    background: #2196F3;
+    color: #fff;
+}
+.cpyfvrlink .ui-widget-content, .ui-dialog .ui-dialog-content {
+     background: #1d1d1d;
+ }
+ .cpyfvrlink  .ui-widget-header {
+     background: #5a5a5a;
+     color: #d6d6d6;
+ }
+ .ui-widget-content {
+     color: #d6d6d6;
+ }
+ .configui-tree-css .ui-widget-content {
+     background: #1d1d1d;
+ }
+ 
+ .tabs-all .ui-widget-content {
+      background: #1d1d1d;
+ }/*
+ .configui-rghtpane .ui-widget-content {
+      background: #1d1d1d;
+ }*/
+ .tabs-all .ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable {
+    border: 1px solid #4a4a4a;
+}
+.profile-dialog .ui-dropdown-panel .ui-dropdown-list {
+    background: #4a4a4a;
+}
+.section_margin .ui-dropdown-panel .ui-dropdown-list {
+    background: #4a4a4a;
+}
+.ddruiscroll .ui-widget-header {
+    background: #080808;
+    border: 1px #4a4a4a solid;
+    color: #d6d6d6;
+}
+.ddrbreadcrumb .ui-breadcrumb.ui-widget.ui-widget-header {
+    background: #080808;
+    color: #d6d6d6;
+}
+.table-css .ui-datatable .ui-datatable-data>tr>td {
+    border: 1px solid #1d1d1d;
+    background: #1d1d1d;
+}
+.configUI {
+    background: transparent;
+}
+.configUI .ui-widget-content{
+    background: #1d1d1d;
+}
+.profile-dialog.ui-dropdown-panel .ui-dropdown-list {
+    background: #4a4a4a;
+}
+.md2-select-content, .md2-select-panel-done-animating {
+    background: #353535 !important;
+}
+.customTitleBar .ui-widget-content {
+    background: #1d1d1d;
+}
+.ddr-box .ui-treetable th.ui-state-default{
+    background: #1d1d1d;
+    color: #d6d6d6;
+    padding: 4px;
+    border: 1px #6b6b6b solid;
+}
+.ddr-box .ui-widget-content {
+    background: #1d1d1d;
+}
+.dashboard-single-panel-view {
+    background: rgba(45, 45, 45, 0.45);
+    border: 1px #4a4a4a solid;
+
 }
 
 /*-------Test Run Component---------*/
@@ -2615,4 +3017,38 @@ p-datatable.kpigrid {
 .totalLockedTestsCard .IconClass, md-card-title{ color : #a93455 ;}
 .totalScriptsCard  .IconClass, md-card-title{ color: #633994 ;}
 .totalScenarioCard .IconClass, md-card-title{  color: #d2833a ;}
-.totalRunningCard .IconClass, md-card-title{  color: #000 ; }
+.totalRunningCard .IconClass, md-card-title{  color: #d6d6d6 ; }
+
+
+/*-- DDR Table text color --*/
+.ddr-table-right, .ddr-table-left {
+    color:lightblue;
+}
+.sidebarUI-sidenav {
+  box-shadow: 0 0 2px 2px #565656;
+  background: #080808;
+}
+.sidebarUI-sidenav .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #45484d;
+    border: 1px #4a4a4a solid;
+}
+.sidebarUI-sidenav .ui-accordion .ui-accordion-header {
+    background: #1d1d1d;
+    border: 1px #4a4a4a solid;
+}
+.sidedbar-accordion .ui-widget-content {
+    background: #080808; 
+}
+.AC-rghtpane-box {
+    background: transparent;
+    border: 1px #4a4a4a solid;
+}
+label {
+    color: #d6d6d6;
+}
+.AC-rightpane .mat-card {
+    color: #d6d6d6;
+}
+.AC-rightpane .ui-widget-content {
+    background: #080808;
+}

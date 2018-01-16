@@ -898,6 +898,14 @@ td .md2-calendar-day {
     overflow-x: hidden;
 }
 
+/* for Transaction-detail Unexcuted tx's table */
+.unExecutedTxDialog .ui-datatable .ui-datatable-scrollable-body {
+   max-height: 400px;
+    min-height: 360px;
+    height: 370px;
+    background-color: #cfe1f1
+}
+
 #widgetSettingId .mat-select-trigger {
     width: auto;
 }
@@ -1044,13 +1052,6 @@ b {
     max-height: 85px;
 }
 
-.mailSmsConfigSetting .ui-widget-content{
-    border: 1px solid #d5d5d5;
-}
-.mailSmsConfigSetting .ui-widget-header {
-    background: #282828;
-    color: #cccccc;
-}
 
 .mailSmsConfigSetting .ui-dialog .ui-dialog-content {
     overflow: hidden;
@@ -1058,4 +1059,7 @@ b {
 
 .monocoloricon .material-icons {
     font-size: 18px; 
+}
+.chngPassword .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    font-size: 12px;
 }

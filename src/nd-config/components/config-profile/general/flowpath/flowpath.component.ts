@@ -27,18 +27,16 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   //NodeJS keyword- excludeMethodOnRespTime
   keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP', 'enableMethodBreakDownTime'];
   NodeJSkeywordList = ['bciInstrSessionPct', 'correlationIDHeader', 'excludeMethodOnRespTime'];
-  
+
   flowPath: Object;
   cpuTime: string = '1';
   methodBreakDownTime: string = '1';
 
   agentType: string = "";
-
   isProfilePerm: boolean;
-
   subscription: Subscription;
   // subscriptionEG: Subscription;
-  // enableGroupKeyword: boolean = false;
+  //enableGroupKeyword: boolean = false;
   excludeMethodOnRespTimeChk: boolean;
   // enableCaptureHeader: boolean = false;
   correlationIDHeader: any;
@@ -83,9 +81,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   keywordsData: Keywords;
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || this.isProfilePerm)
-       this.configUtilityService.infoMessage("Reset and Save are disabled");
+  this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false
+  if(this.saveDisable || this.isProfilePerm)
+    this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
   getKeywordData() {

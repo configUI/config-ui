@@ -96,7 +96,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
-      if (data[key]['type'] == 'custom' && data[key]['enable'] == true) {
+      if (data[key]['type'] == 'custom' && data[key]['enable'] == true && !(data[key]['assocId'] == -1)) {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
         this.customKeywords.keywordName = key;
@@ -414,8 +414,13 @@ export class CustomKeywordsComponent implements OnInit {
     this.selectedCustomKeywordsData = [];
   }
 
-  //This method is called when user click on save button in header field
+// This method is called when user click on the save button given in header field
   saveKeywordData(){
+    
+    if(this.customKeywordsDataList.length < 1){
+      this.configUtilityService.errorMessage("Could not save: Data table is empty");
+      return;
+    }
     this.keywordData.emit(this.custom_keyword);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configUtilityService.successMessage(Messages);

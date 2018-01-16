@@ -42,18 +42,12 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP","enableMethodBreakDownTime"] }, 
-               hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, 
-               thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, 
-               exception: { enable: false, keywordList: ["instrExceptions","enableSourceCodeFilters","enableExceptionsWithSourceAndVars"] }, 
-               header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] },
-               custom_data: { enable: false, keywordList: ["captureCustomData"] },
-               instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] }
-    },
-    advance: { debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, 
-               delay: { enable: false, keywordList: ['putDelayInMethod'] },
-               generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] },
-               monitors: { enable: false, keywordList: ["enableBTMonitor", "enableBackendMonitor"] }
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP","enableMethodBreakDownTime"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions","enableSourceCodeFilters","enableExceptionsWithSourceAndVars"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] }, custom_data: { enable: false, keywordList: ["captureCustomData"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    advance: {
+      debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
+      // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
+      generate_exception: { enable: false, keywordList: ['generateExceptionInMethod'] },
+      monitors: { enable: false, keywordList: ["enableBTMonitor", "enableBackendMonitor"] }
     },
     product_integration: { nvcookie: { enable: false, keywordList: ["enableNDSession"] } }
   }
@@ -83,7 +77,7 @@ export class ConfigKeywordsService {
       });
   }
 
-    /** For save all customkeywordData data */
+    /** For save all keywordData data */
     saveProfileCustomKeywords(profileId, toggle?: string) {
       this._restApi.getDataByPostReq(`${URL.UPDATE_CUSTOM_KEYWORDS_DATA}/${profileId}`, this.keywordData)
         .subscribe(data => {
@@ -94,6 +88,7 @@ export class ConfigKeywordsService {
           this.store.dispatch({ type: KEYWORD_DATA, payload: data });
         });
     }
+
   /**
  * This method is used to enable/disable toggle button.
  */

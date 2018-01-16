@@ -2105,7 +2105,7 @@ fieldset.marginClassTop.fieldsetClass {
 .dashboard-update-user-session-text-header .ui-widget-header {
   color: white; }
 
-.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
+.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default, .fieldSetClass {
   background: #bd965c;
   background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
   background: -webkit-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
@@ -2118,11 +2118,11 @@ fieldset.marginClassTop.fieldsetClass {
 
 .dashboard-update-user-session-dataTable .ui-datatable-odd {
   background: #ffe6c4;
-  color: #f0f0f0; }
+  color: #222222; }
 
 .dashboard-update-user-session-dataTable tr.ui-widget-content.ui-datatable-even {
   background: #dabc93;
-  color: #f0f0f0; }
+  color: #222222; }
 
 /*--------------END CODE-----------------*/
 /* -----------------------------------Import access log css---------------------------*/
@@ -3396,6 +3396,11 @@ p-datatable.kpigrid {
 .main-box-scen {
   background: rgba(255, 255, 255, 0.55); }
 
+.mat-button, .mat-raised-button, .mat-icon-button {
+  font-family: Roboto, sans-serif;
+  font-size: 11px;
+  font-weight: 500; }
+
 /*-------Test Run Component---------*/
 .totalTestRunCard .IconClass, md-card-title {
   color: #1b1c29; }
@@ -3414,3 +3419,15 @@ p-datatable.kpigrid {
 
 .totalRunningCard .IconClass, md-card-title {
   color: #000; }
+
+/*-- DDR Table text color --*/
+.ddr-table-right, .ddr-table-left {
+  color: blue; }
+
+.sidebarUI-sidenav {
+  box-shadow: 0 0 6px 2px #565656;
+  background: #fafafa; }
+
+.AC-rghtpane-box {
+  background: white;
+  border: 1px #4a4a4a solid; }

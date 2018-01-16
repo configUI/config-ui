@@ -1153,7 +1153,7 @@ fieldset.marginClassTop.fieldsetClass {
     color: white;
 }
 
-.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
+.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default, .fieldSetClass {
     background: #bd965c;
     background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
     background: -webkit-linear-gradient(top, #bd965c 0%,#aa6a20 100%);
@@ -1248,7 +1248,7 @@ fieldset.marginClassTop.fieldsetClass {
 
 .accessLogButtonText .mat-button, .mat-icon-button, .mat-raised-button {
     color: #4a4a4a;
-    border: 1px solid rgba(128, 159, 179, 0.5);
+    border: 1px solid rgba(128, 159, 179, 0);
 }
 .file-manager-table .ui-datatable th.ui-state-default {
     background: #eaeaea;
@@ -2455,11 +2455,6 @@ button.capabilityButton.mat-raised-button{
 .kpiCSC.ui-state-default.ui-unselectable-text {background:rgba(218, 209, 132, 1);}
 
 /*-----------------NetOceanUI------------------*/
-.mat-button, .mat-raised-button, .mat-icon-button {
-    font-family: Roboto, sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-}
 .NO-box {
      background-color: rgba(255, 255, 255, 0.55);
 }
@@ -2547,4 +2542,15 @@ button.capabilityButton.mat-raised-button{
 .totalScenarioCard .IconClass, md-card-title{  color: #d2833a ;}
 .totalRunningCard .IconClass, md-card-title{  color: #000 ; }
 
-
+/*-- DDR Table text color --*/
+.ddr-table-right, .ddr-table-left {
+    color:blue;
+}
+.sidebarUI-sidenav {
+  box-shadow: 0 0 6px 2px #565656;
+  background: rgba(250, 250, 250, 1.7);
+}
+.AC-rghtpane-box {
+    background: white;
+    border: 1px #4a4a4a solid;
+}
