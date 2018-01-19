@@ -255,6 +255,7 @@ export const EDIT_ROW_EXCEPTION_FILTER_URL = `${SERVICE_URL}/custom/exceptionfil
 export const DEL_EXCEPTION_FILTER = `${SERVICE_URL}/custom/exceptionfilters/delete`;
 
 export const UPLOAD_EXCEPTION_FILTER_FILE = `${SERVICE_URL}/custom/exceptionfilters/uploadfile`;
+export const SAVE_ADVANCE_EXCEPTION_FILTER = `${SERVICE_URL}/custom/exceptionfilters/writefile`;
 
 /**** URL for BT HTTP Headers */
 export const BT_HTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader`;

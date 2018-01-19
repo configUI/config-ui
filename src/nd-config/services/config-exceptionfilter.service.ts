@@ -24,7 +24,7 @@ export class ConfigExceptionFilterService {
   }
 
 
-  	 getExceptionFilterData(profileId): Observable<EnableSourceCodeFilters[]> {
+  getExceptionFilterData(profileId): Observable<EnableSourceCodeFilters[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_EXCETION_FILTERS_MON_TABLEDATA}/${profileId}`);
   }
 
@@ -42,6 +42,10 @@ export class ConfigExceptionFilterService {
    uploadExceptionFilterFile(filePath, profileId){
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_EXCEPTION_FILTER_FILE}/${profileId}`, filePath);
   }
-
+  
+  /** Writing the exception filters to the file when save button in header field is clicked*/
+  writeExceptionFilterFile(profileId): Observable<EnableSourceCodeFilters> {
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.SAVE_ADVANCE_EXCEPTION_FILTER}/${profileId}`);
+  }
 
 }
