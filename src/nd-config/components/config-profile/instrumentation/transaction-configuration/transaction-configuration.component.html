@@ -1,13 +1,12 @@
-<form (ngSubmit)="saveBTTransactionOnFile()" #form="ngForm" ngNativeValidate>
+<form #form="ngForm" ngNativeValidate>
     <div class="tabsincontent">
         <div class="header">
             <p-checkbox name="bttransaction" label="Enable Business Transaction" [(ngModel)]="checkboxenable" [disabled]="checkboxenable" binary="true">
             </p-checkbox>
 
             <div class="pull-right">
-                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
-                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
-
+                <button type="button" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+                <button type="button" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveBTTransactionOnFile()" label="Save"></button>
             </div>
         </div>
 <p-tabView>

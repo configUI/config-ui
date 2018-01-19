@@ -2,7 +2,7 @@
 
 window.arrColorThemesForCPU = ['#5655BB', '#8888E0', '#489449', '#83CD82', '#FE2F2F', '#FEA8A8', '#000'];
 window.arrColorThemes = ['#3A99D9', '#F1C330', '#7CB5EC', '#434348'];
-window.bgColorThemes = ['rgba(255,255,255,0.2)', 'rgba(0,0,0,0)'];
+window.bgColorThemes = ['rgba(0,0,0,0.0)', 'rgba(0,0,0,0)'];
 
 function loadHighchartTheme() {
     window.theme = {

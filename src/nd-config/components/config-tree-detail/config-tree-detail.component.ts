@@ -33,6 +33,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   agentType: string = "";
   serverDisplayName: string = "";
   t_s_i_name: string = "";
+  insName: string = ""; //to store tier, server and instacne name with >
   sessionName: string = "";
   perm: boolean;
   noProfilePerm: boolean;
@@ -449,6 +450,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
     //Getting data of settings from database if user has already saved this instance settings
     let instanceName = this.splitTierServInsName(this.currentInstanceName);
+    this.insName = this.createTierServInsName(this.currentInstanceName)
     this.autoInstrDto.sessionName = instanceName
     this.autoInstrDto.instanceId = this.currentInsId;
 
@@ -524,8 +526,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   applyAutoInstr() {
     this.showInstr = false;
 
-    //Setting Tier_Server_Instane in instance name
-    this.autoInstrDto.instanceName = this.splitTierServInsName(this.currentInstanceName)
+    //Setting Tier>Server>Instane in instance name
+    this.autoInstrDto.instanceName = this.createTierServInsName(this.currentInstanceName)
 
     //Merging all the settings in the format( K1=Val1;K2=Val2;K3=Val3... )
     this.autoInstrDto.configuration = this.createSettings(this.autoInstrObj);
@@ -545,6 +547,12 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.t_s_i_name = this.tierName + "_" + this.serverDisplayName + "_" + instanceName
     this.sessionName = this.t_s_i_name
     return this.t_s_i_name;
+  }
+
+  // Create Tier>Server>Instance name
+  createTierServInsName(instanceName) {
+    let name = this.tierName + ">" + this.serverDisplayName + ">" + instanceName
+    return name;
   }
 
   //Create auto instrumentation settings by merging them
@@ -618,7 +626,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
 
       //Merging configuration and instance name with #
-      strSetting = strSetting + "#" + this.t_s_i_name;
+      strSetting = strSetting + "#" + this.insName;
 
       //Saving settings in database
       let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
@@ -654,7 +662,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       strSetting = "enableAutoInstrSession=0;"
       this.t_s_i_name = this.splitTierServInsName(instanceName)
       //Merging configuration and instance name with #
-      strSetting = strSetting + "#" + this.t_s_i_name;
+      strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
 
       //Saving settings in database
       let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, that.t_s_i_name, that.sessionName, function (data) {

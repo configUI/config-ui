@@ -116,13 +116,14 @@
 }
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .nde-ui .ui-datatable .ui-datatable-tfoot>tr>td,
 .nde-ui .ui-datatable .ui-datatable-data>tr>td {
     height: 26px;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .nde-ui .ui-datatable thead tr {
@@ -209,10 +210,6 @@
     overflow: hidden;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
-}
-
-.table-css .ui-datatable .ui-datatable-data>tr>td {
-    border: 1px #adadad solid;
 }
 
 .tabs-all {
@@ -545,9 +542,6 @@ a {
     list-style-type: none;
 }
 
-.configCard {
-    margin-top: -11px;
-}
 
 /*exception css */
 
@@ -611,7 +605,7 @@ a {
 
 .configui-session-css-2 {
     /*margin-bottom: 10px;*/
-    border: ridge;
+    /*border: ridge;*/
 }
 
 
@@ -763,7 +757,7 @@ a {
 .mytreeview .header {
     width: 100%;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
     padding: 6px;
     -webkit-box-shadow: none;
@@ -900,7 +894,7 @@ a {
     position: -moz-sticky;
     position: -ms-sticky;
     position: -o-sticky;
-    S top: 0;
+    top: 0;
     z-index: 100;
 }
 
@@ -919,8 +913,8 @@ textarea:disabled,
 input:not([type]):disabled,
 input[type="number" i]:disabled,
 input[type="text" i]:disabled {
-    background: #ececec;
-    color: #b7b7b7;
+    /*  background: #ececec;
+     color: #b7b7b7;*/
 }
 
 
@@ -958,7 +952,6 @@ input[type="text" i]:disabled {
 
 .configUI {
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.65);
     /*box-shadow: 0 0 8px 1px #2d2d2d;*/
     /* padding: 8px; */
 }
@@ -1048,7 +1041,6 @@ body {
 }
 
 .instrprofiletxtarea {
-    background: white;
     height: 366px;
 }
 
@@ -1061,7 +1053,6 @@ body {
 }
 
 .tabs-all .ui-panel .ui-panel-content {
-    background: #fff;
     overflow-y: auto;
     max-height: 400px;
     padding-top: 0px;
@@ -1098,6 +1089,11 @@ body {
     overflow-x: hidden;
     height: 95px;
 }
+
+.configCard {
+    margin-top: -11px;
+}
+
 .exception .ui-datatable .ui-datatable-scrollable-body {
     overflow-x: hidden;
 }

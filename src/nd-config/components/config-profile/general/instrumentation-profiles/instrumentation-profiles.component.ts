@@ -115,10 +115,10 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   saveKeywordData(data) {
     let value = this.instrProfiles;
-    // if(value[0]==null || value[0]==""){
-    //   this.configUtilityService.infoMessage("Please select file(s)");
-    //   return;
-    // }
+//    if(value[0]==null || value[0]==""){
+//    this.configUtilityService.infoMessage("Please select file(s)");
+//    return;
+//    }
     let keywordData = this.configKeywordsService.keywordData;
     let keyword = {}
     if (keywordData.hasOwnProperty("instrProfile")) {

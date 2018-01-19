@@ -42,8 +42,7 @@
 
 <!--Dialog for method monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom Configuration' : 'Edit Custom Configuration'}}" *ngIf="addEditDialog"
-    [(visible)]="addEditDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom Configuration' : 'Edit Custom Configuration'}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
@@ -54,10 +53,8 @@
             </div>-->
 
             <div class="ui-g-6">
-                <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName"
-                    required ngModel/>
-                <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName"
-                    placeholder="--Select--" appendTo="body"></p-dropdown>
+                <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
+                <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
             <div class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
                 <div class="ui-g-2">
@@ -71,8 +68,7 @@
                 <label>Path</label>
             </div>
             <div class="ui-g-9">
-                <input name="path" [disabled]="true" type="text" size="50" pInputText [(ngModel)]="customKeywords.value" (keydown.space)="$event.preventDefault()"
-                    ngModel/>
+                <input name="path" [disabled]="true" type="text" size="50" pInputText [(ngModel)]="customKeywords.value" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>
 
@@ -82,8 +78,7 @@
                 <label>Value</label>
             </div>
             <div class="ui-g-9">
-                <input name="value" type="text" size="50" class="configUI-common-len" pInputText [(ngModel)]="customKeywords.value" (keydown.space)="$event.preventDefault()"
-                    ngModel/>
+                <input name="value" type="text" size="50" class="configUI-common-len" pInputText [(ngModel)]="customKeywords.value" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -91,8 +86,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-9">
-                <textarea name="Desc" rows="2" cols="50" class="configUI-common-len" pInputTextarea [(ngModel)]="customKeywords.description"
-                    ngModel></textarea>
+                <textarea name="Desc" rows="2" cols="50" class="configUI-common-len" pInputTextarea [(ngModel)]="customKeywords.description" ngModel></textarea>
             </div>
         </div>
         <footer>
@@ -105,8 +99,7 @@
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss " [resizable]="false " header="File Manager " *ngIf="openFileExplorerDialog "
-    [(visible)]="openFileExplorerDialog " modal="modal " width="650 " responsive="true ">
+<p-dialog class="profile-dialog browseTopCss " [resizable]="false " header="File Manager " *ngIf="openFileExplorerDialog " [(visible)]="openFileExplorerDialog " modal="modal " width="650 " responsive="true ">
 
     <!-- This will look for this component in the ProductUI at this path -
          ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->

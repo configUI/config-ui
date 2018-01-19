@@ -32,3 +32,14 @@
 .ddr-toolbar button.ui-button.ui-state-default {
     font-size: 10px;
 }
+
+.ddr-table-right{
+    text-align: right;
+    cursor: pointer;
+}
+
+.ddr-table-left{
+    text-align: left;
+    cursor: pointer;
+}
+

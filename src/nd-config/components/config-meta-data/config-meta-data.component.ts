@@ -49,53 +49,66 @@ export class ConfigMetaDataComponent implements OnInit, OnDestroy {
       this.type = sessionStorage.getItem("agentType");
       sessionStorage.setItem("selectedApplicationName", this.applicationName)
     });
+
+    if(sessionStorage.getItem("MetaDataUrl") == null)
+    this.isMetaDataDisplay = false;
+  else
+    this.getMetaDataInfo(sessionStorage.getItem("MetaDataUrl")); 
+
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-       this.type = sessionStorage.getItem("agentType");
       let url = event["url"];
-      if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
-        if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
-          this.isMetaDataDisplay = true;
-          
-          this.label = `Profile Name: ${this.profileName}`;
-        }
-        else {
-          this.isMetaDataDisplay = false;
-        }
-      }
-      else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)) {
-        this.isMetaDataDisplay = false;
-      }
-      else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
-        this.isMetaDataDisplay = true;
+      this.getMetaDataInfo(url);
+      sessionStorage.setItem("MetaDataUrl", url);
+    });
+  }
+
+  getMetaDataInfo(url)
+  {
+    this.type = sessionStorage.getItem("agentType");
     
-        if (this.applicationName == undefined)
-          this.applicationName = sessionStorage.getItem("selectedApplicationName");
-
-        this.label = `Application Name: ` + this.applicationName
-
-        if(url.startsWith(BREADCRUMB.URL.TREE_PROFILE)){
-          if(this.applicationName != "undefined")
-            this.label = `Application Name: ` + this.applicationName + ", " + `Profile Name: ${this.profileName}`;
-          else
-            this.label = `Profile Name: ${this.profileName}`;
-        }
+    if (url.startsWith(BREADCRUMB.URL.PROFILE)) {
+      if (!url.startsWith(BREADCRUMB.URL.PROFILE_LIST)) {
+        this.isMetaDataDisplay = true;
         
-        if (!this.applicationName) {
-          let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
-          this.getAppName(appId);
-        }
-      }
-      else if(url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS)){
-        let appId = url.substring(url.lastIndexOf("/") + 1);
-        this.configApplicationService.getAppName(appId).subscribe(data => {
-          this.isMetaDataDisplay = true;
-          this.label = `Application Name: ` + data["_body"]
-        })
+        this.label = `Profile Name: ${this.profileName}`;
       }
       else {
         this.isMetaDataDisplay = false;
       }
-    });
+    }
+    else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN_TOPOLOGY)) {
+      this.isMetaDataDisplay = false;
+    }
+    else if (url.startsWith(BREADCRUMB.URL.TREE_MAIN)) {
+      this.isMetaDataDisplay = true;
+  
+      if (this.applicationName == undefined)
+        this.applicationName = sessionStorage.getItem("selectedApplicationName");
+
+      this.label = `Application Name: ` + this.applicationName
+
+      if(url.startsWith(BREADCRUMB.URL.TREE_PROFILE)){
+        if(this.applicationName != "undefined")
+          this.label = `Application Name: ` + this.applicationName + ", " + `Profile Name: ${this.profileName}`;
+        else
+          this.label = `Profile Name: ${this.profileName}`;
+      }
+      
+      if (!this.applicationName) {
+        let appId = url.substring(url.lastIndexOf("/") + 1, url.length);
+        this.getAppName(appId);
+      }
+    }
+    else if(url.startsWith(BREADCRUMB.URL.NDC_KEYWORDS)){
+      let appId = url.substring(url.lastIndexOf("/") + 1);
+      this.configApplicationService.getAppName(appId).subscribe(data => {
+        this.isMetaDataDisplay = true;
+        this.label = `Application Name: ` + data["_body"]
+      })
+    }
+    else {
+      this.isMetaDataDisplay = false;
+    }
   }
 
   /*
