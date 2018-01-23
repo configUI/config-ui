@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy ,Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
@@ -15,23 +15,21 @@ import { ConfigCustomDataService } from '../../../../services/config-customdata.
 })
 export class CustomDataComponent implements OnInit {
 
-  @Input() 
+  @Input()
   saveDisable: boolean;
   data;
   subscription: Subscription;
-  
+
 
   @Output()
   keywordData = new EventEmitter();
 
- custom_data:Object;
- isProfilePerm: boolean;
- enableGroupKeyword: boolean = false;
- subscriptionEG: Subscription;
- profileId: number;
- captureCustomData: boolean;
- keywordList = ['captureCustomData'];
-  constructor(private configUtilityService: ConfigUtilityService, private route: ActivatedRoute ,private configKeywordsService: ConfigKeywordsService,private configCustomDataService: ConfigCustomDataService, private store: Store<Object>) {
+  custom_data: Object;
+  isProfilePerm: boolean;
+  profileId: number;
+  captureCustomData: boolean;
+  keywordList = ['captureCustomData'];
+  constructor(private configUtilityService: ConfigUtilityService, private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       if (!data)
         return;
@@ -46,24 +44,24 @@ export class CustomDataComponent implements OnInit {
         keywordDataVal[key] = data[key];
       })
       this.custom_data = keywordDataVal;
-      if(this.custom_data['captureCustomData'].value == true){
+      if (this.custom_data['captureCustomData'].value == true) {
         this.captureCustomData = true;
       }
-      else{
+      else {
         this.captureCustomData = false;
       }
     });
-    this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.custom_data.enable);
     this.configKeywordsService.toggleKeywordData();
   }
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false
   }
 
   saveKeywordData() {
     this.route.params.subscribe((params: Params) => this.profileId = params['profileId']);
     let flag;
+    let flag1;
     this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
       if (data["sessionType"] == "Specific" && data["attrList"].length == 0) {
         this.configUtilityService.errorMessage("Provide session attribute(s) ");
@@ -74,10 +72,19 @@ export class CustomDataComponent implements OnInit {
         this.configKeywordsService.getFetchHTTPReqHeaderTable(this.profileId).subscribe(data => {
           if (data["httpReqHdrType"] == "Specific" && data["attrList"].length == 0) {
             this.configUtilityService.errorMessage("Provide HTTP request header(s)");
+            flag1 = true;
             return;
           }
-          else {
-            this.getHeaderValues();
+          if (!flag1) {
+            this.configKeywordsService.getFetchHTTPRepHeaderTable(this.profileId).subscribe(data => {
+              if (data["httpReqHdrType"] == "Specific" && data["attrList"].length == 0) {
+                this.configUtilityService.errorMessage("Provide HTTP response header(s)");
+                return;
+              }
+              else {
+                this.getHeaderValues();
+              }
+            });
           }
         });
       }
@@ -89,16 +96,16 @@ export class CustomDataComponent implements OnInit {
     this.configCustomDataService.updateCaptureCustomDataFile(this.profileId);
     let filePath;
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-      if(this.captureCustomData == true){
+      if (this.captureCustomData == true) {
         filePath = data["_body"];
         filePath = filePath + "/captureCustomData.cd";
         this.custom_data['captureCustomData'].value = true;
       }
-      else{
+      else {
         filePath = "NA";
         this.custom_data['captureCustomData'].value = false;
       }
-      this.custom_data['captureCustomData'].path = filePath;      
+      this.custom_data['captureCustomData'].path = filePath;
       this.keywordData.emit(this.custom_data);
     });
   }

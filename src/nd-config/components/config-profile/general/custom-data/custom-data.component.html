@@ -6,7 +6,7 @@
 
             <div class="pull-right">
                 <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
-                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable || !enableGroupKeyword" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
 
             </div>
         </div>
@@ -20,6 +20,9 @@
             </p-tabPanel>
             <p-tabPanel header="HTTP Request Header">
                 <app-http-request [saveDisable]="saveDisable"></app-http-request>
+            </p-tabPanel>
+            <p-tabPanel header="HTTP Response Header">
+                <app-http-response [saveDisable]="saveDisable"></app-http-response>
             </p-tabPanel>
         </p-tabView>
     </div>

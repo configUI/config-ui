@@ -316,8 +316,11 @@ export const DELETE_AI = `${SERVICE_URL}/custom/autoinstrumentation/delete`;
 export const CHECK_INSTRUEMENTATION_XML_FILE_EXIST = `${SERVICE_URL}/custom/autoinstrumentation/checkinstrumentationxmlfileexist`;
 
 
-
-
-
+export const DEL_HTTP_REP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/delete`;
+export const ADD_HTTP_REP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/addhttprephdr`;
+export const FETCH_HTTPREP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/gethttprephdr`;
+export const ADD_RULES_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/addhttprephdrrules`;
+export const UPDATE_HTTP_REP_TYPE = `${SERVICE_URL}/custom/httprepbasedcapturing/updatehttpreptype`;
+export const UPDATE_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/edithttprephdr`;
 
 

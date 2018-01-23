@@ -11,12 +11,13 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import { Subscription } from 'rxjs/Subscription';
 
-import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
+import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 import { ConfigUtilityService } from '../services/config-utility.service';
 import { Messages, customKeywordMessage } from '../constants/config-constant'
 
@@ -635,5 +636,30 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.CHECK_INSTRUEMENTATION_XML_FILE_EXIST}?reqId=${reqId}`, xmlFileName);
   }
 
+  /* Edit Http Response Header Info */
+  editHTTPRepHeaderData(data): Observable<HTTPResponseHdrComponentData> {
+    let url = `${URL.UPDATE_HTTPREPHDR}/${data.httpAttrId}`;
+    return this._restApi.getDataByPostReq(url, data);
+  }
+
+  /* Add Http response header Info */
+  addHTTPRepHeaderData(data, profileId): Observable<HTTPResponseHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_HTTP_REP_HDR}/${profileId}`, data);
+  }
+
+  /* delete Http response header Info */
+  deleteHTTPRepHeaderData(data, profileId): Observable<HTTPResponseHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_REP_HDR}`, data);
+  }
+
+  /** get the HTTP Response Header Type */
+  getHTTPResponseValue(data, profileId): Observable<HTTPResponseHdrComponentData> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_HTTP_REP_TYPE}/${profileId}`, data);
+  }
+
+  /*  FETCH HTTP RESPONSE HEADER TABLEDATA */
+  getFetchHTTPRepHeaderTable(profileId): Observable<httpRepHeaderInfo[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREP_HDR}/${profileId}`);
+  }
 }
 

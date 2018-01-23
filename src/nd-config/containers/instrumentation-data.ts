@@ -320,3 +320,27 @@ export class RequestParamData{
     key: any;
     value: any;
 }
+
+export class HTTPResponseHdrComponentData {
+    attrMode?: number;
+    attrValues?: RulesHTTPResponseHdrComponentData[];
+    httpRepHdrBasedId: number;
+    headerName: string;
+    dumpMode: number;
+    specific?: boolean;
+    complete?: boolean;
+    valueNames?:string;
+    attrType: string;
+    httpAttrId?: number;
+    rules?: RulesHTTPResponseHdrComponentData[];
+}
+
+export class RulesHTTPResponseHdrComponentData {
+    ruleId: number;
+    valName: string;
+    lb: string;
+    rb: string;
+    id: number;
+    customValTypeName: string;
+    type: number;
+}

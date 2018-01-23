@@ -126,7 +126,7 @@ export class UrlCapturingComponent implements OnInit {
       this.enableFormatIPResourceURL = false;
         this.urlCapturingData.includeParameter = false;
         this.urlCapturingData.urlOffset = 0;
-        this.urlCapturingData.maxChar = 256;
+        this.urlCapturingData.maxChar = 50;
     }
   }
 
@@ -153,7 +153,7 @@ export class UrlCapturingComponent implements OnInit {
          if (this.urlCapturingData.maxChar != null)
             formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
          else
-            formatIPVal = formatIPVal + "%20256";
+            formatIPVal = formatIPVal + "%2050";
 
       return formatIPVal;
      }

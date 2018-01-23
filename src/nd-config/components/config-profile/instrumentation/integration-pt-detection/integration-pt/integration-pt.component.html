@@ -100,7 +100,7 @@
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Integration Point Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
         <div *ngIf="agentType =='Java'">
-            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HADOOP || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO">
+            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL">
                 <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rules</label>
             </div>
         </div>
@@ -116,10 +116,10 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service name </md-checkbox>
             </div>
-            <div class="ui-g config-ui" *ngSwitchCase="IP.HADOOP">
+            <!-- <div class="ui-g config-ui" *ngSwitchCase="IP.HADOOP">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table name </md-checkbox>
-            </div>
+            </div> -->
             <div *ngIf="agentType =='Java'">
                 <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>

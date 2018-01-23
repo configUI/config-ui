@@ -1,0 +1,165 @@
+<div class="ui-g-12 configui-session-css">
+    <div class="ui-g-2">
+        <p-radioButton name="httpResponse" label="None" value="None" [disabled]="saveDisable" [(ngModel)]="selectedHTTPRepHdrType"
+            (click)="getSelectedHTTPRepHdr()"></p-radioButton>
+    </div>
+    <div class="ui-g-2">
+        <p-radioButton name="httpResponse" label="Extract Value" value="Specific" [disabled]="saveDisable" [(ngModel)]="selectedHTTPRepHdrType"
+            (click)="getSelectedHTTPRepHdr()"></p-radioButton>
+    </div>
+    <div class="ui-g-2">
+        <p-radioButton name="httpResponse" label="All" value="All" [disabled]="saveDisable" [(ngModel)]="selectedHTTPRepHdrType"
+            (click)="getSelectedHTTPRepHdr()"></p-radioButton>
+    </div>
+</div>
+
+<div class="ui-g configui-session-css-2" *ngIf="selectedHTTPRepHdrType == 'Specific'">
+    <!--For showing HTTP Response Header list -->
+    <p-dataTable [value]="httpResponseHdrComponentInfo" class="nde-ui" [(selection)]="selectedHTTPRepHeader" [rows]="5" [paginator]="httpResponseHdrComponentInfo?.length > 5 "
+        [pageLinks]="3">
+        <p-header>
+            <span class="configui-float-css">HTTP Response Header based Custom Header rule(s)</span>
+            <span class="configui-float">
+                <button pButton type="button" title="Add" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+                <button pButton type="button" title="Add" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddHTTPRepDialog()" icon="fa-plus"></button>
+                <button pButton type="button" title="Edit" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  icon="fa-pencil" ></button>
+                <button pButton type="button" title="Edit" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editHTTPRepDialog()" icon="fa-pencil" ></button>
+                <button pButton type="button" class="ui-button-danger" title="Delete" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                <button pButton type="button" class="ui-button-danger" title="Delete" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteHTTPRepHeader()" icon="fa-trash"></button>
+            </span>
+        </p-header>
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column class="col-overflow" field="headerName" header="Response Header Name" [sortable]="true">
+            <template let-col let-application="rowData">
+                <span></span>
+            </template>
+        </p-column>
+        <p-column class="col-overflow" field="dumpMode" header="Capture Mode" [sortable]="true">
+            <template let-col let-application="rowData">
+                <span></span>
+            </template>
+        </p-column>
+        <p-column class="col-overflow" field="valueNames" header="Header Names" [sortable]="true">
+            <template let-col let-application="rowData">
+                <span></span>
+            </template>
+        </p-column>
+    </p-dataTable>
+</div>
+
+<!--Dialog for ADD and Edit HTTP Response Header (s)-->
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP Response Header rule(s)' : 'Edit HTTP Response Header rule(s)'}}"
+    *ngIf="httpResponseCustomDialog" [(visible)]="httpResponseCustomDialog" modal="modal" width="550" responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveADDEditHTTPRepHeader()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Response Header Name</label>
+                </div>
+                <div class="ui-g-5">
+                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpResponseHdrDetail.headerName" title="Please enter valid Response Header name.  &#013;Please enter maximum upto 256 characters."
+                        required pattern="[a-zA-Z0-9_-]{0,256}" ngModel/>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-checkbox name="complete" label="Complete Value" [(ngModel)]="httpResponseHdrDetail.complete" binary="false"></p-checkbox>
+                </div>
+                <div class="ui-g-4">
+                    <p-checkbox name="specific" label="Extract Value" [(ngModel)]="httpResponseHdrDetail.specific" binary="false"></p-checkbox>
+                </div>
+            </div>
+            <div class="ui-g-12" *ngIf="httpResponseHdrDetail.specific">
+                <p-dataTable class="nde-ui" [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="5" [paginator]="rulesDataInfo?.length > 5"
+                    [pageLinks]="3">
+                    <p-header>
+                        <span class="configui-float-css">Extraction rule(s)</span>
+                        <span class="configui-float">
+                           <button pButton type="button" title="Add" (click)="openHTTPRepTypeValueDialog()" icon="fa-plus"></button>
+                           <button pButton type="button" title="Edit" (click)="openEditHTTPRepTypeDialog()" icon="fa-pencil" ></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete" (click)="deleteRules()" icon="fa-trash"></button>
+                        </span>
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column class="col-overflow" field="valName" header="Custom Header Name" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="customValTypeName" header="Data Type" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="lb" header="Left Bound" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="rb" header="Right Bound" [sortable]="true">
+                        <template let-col let-application="rowData" pTemplate type="body">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!--Dialog for ADD Value Types-->
+<p-dialog class="profile-dialog" header="{{!isNewRule ? 'Add Extraction rule ' : 'Edit Extraction rule'}}" *ngIf="rulesDialog"
+    [(visible)]="rulesDialog" modal="modal" width="590" responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label>Custom Header Name</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Custom Header Name.  &#013;Please enter maximum upto 50 characters."
+                        required pattern="[a-zA-Z0-9_-]*" ngModel/>
+                </div>
+                <div class="ui-g-2">
+                    <label>Data Type</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="customValueType" type="text" class='hidden-validator configinput' pInputText [(ngModel)]="rulesDataDetail.customValTypeName"
+                        required ngModel/>
+                    <p-dropdown name="customValueType" [style]="{'width':'90%'}" [options]="customValueType" [(ngModel)]="rulesDataDetail.customValTypeName"
+                        required ngModel placeholder="--Select type--"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    <label>Left Bound</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" autofocus title="Please enter valid Left bound.  &#013;Please enter maximum upto 50 characters."
+                        pattern="[^]{0,49}$" ngModel/>
+                </div>
+                <div class="ui-g-2">
+                    <label>Right Bound</label>
+                </div>
+                <div class="ui-g-4">
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" autofocus title="Please enter valid Right bound.  &#013;Please enter maximum upto 50 characters."
+                        pattern="[^]{0,49}$" ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="rulesDialog = false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+
+</p-dialog>

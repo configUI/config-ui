@@ -136,6 +136,7 @@ import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywo
 import { ConfigAutoInstrumentationComponent } from './components/config-auto-discover/config-auto-instrumentation/config-auto-instrumentation.component';
 import { ConfigEditAutoInstrumentationComponent } from './components/config-auto-discover/config-edit-auto-instrumentation/config-edit-auto-instrumentation.component';
 import { ExceptionCapturingComponent } from './components/config-profile/general/exception-capturing/exception-capturing.component';
+import { HttpResponseComponent } from './components/config-profile/general/custom-data/http-response/http-response.component';
 
 // not commit in cvs
 import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
@@ -209,7 +210,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigNDCKeywordsSettingComponent,
     ConfigAutoInstrumentationComponent,
     ConfigEditAutoInstrumentationComponent,
-    ExceptionCapturingComponent
+    ExceptionCapturingComponent,
+    HttpResponseComponent
   ],
   imports: [
    // CommonModule,
