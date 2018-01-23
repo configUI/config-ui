@@ -3,6 +3,7 @@ import { ConfigKeywordsService } from '../../services/config-keywords.service';
 import { ConfigUiUtility } from '../../utils/config-utility';
 import { ConfigUtilityService } from '../../services/config-utility.service';
 import { Messages } from '../../constants/config-constant';
+import { ConfigHomeService } from '../../services/config-home.service';
 
 /**Added for XML Edit feature */
 import { TreeNode, MenuItem } from 'primeng/primeng';
@@ -18,7 +19,7 @@ declare var Prism;
 
 export class ConfigImportInstrProfileComponent implements OnInit {
 
-  constructor(private _configKeywordsService: ConfigKeywordsService, private _configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) { }
+  constructor(private _configKeywordsService: ConfigKeywordsService, private _configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private configHomeService: ConfigHomeService) { }
 
   xmlFormat: any;
   profileXMLFileList: any[];
@@ -29,7 +30,8 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   agent: any[];
   selectedAgent: string = "";
   isInstrPerm: boolean;
-  
+  details = []
+
   //Edit XML Tree Node
   editXMLFile: boolean = false;
   parsedXMLData: TreeNode[];
@@ -40,13 +42,16 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   nodeObj: Object = {};
   nodeTitle: string = '';
   addDialogHeader: string = '';
+  openDetailsDialog: boolean = false;
+  openRTCInfoDialog: boolean = false;
+  rtcMsg = [];
 
   //Create XML Tree Node
   createXMLData: TreeNode[] = [];
   saveXMLFileName: string = '';
-  isConferMationAgentSelected : boolean;
+  isConferMationAgentSelected: boolean;
   ngOnInit() {
-    this.isInstrPerm=+sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
+    this.isInstrPerm = +sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
 
     /* create Dropdown for xml files */
     this.xmlFormat = "No file selected";
@@ -54,7 +59,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     this._configKeywordsService.fileListProvider.subscribe(data => {
       this.getFileList(data);
     });
-    let agentVal = ['Dot Net','Java','NodeJS'];
+    let agentVal = ['Dot Net', 'Java', 'NodeJS'];
     this.agent = ConfigUiUtility.createDropdown(agentVal);
   }
 
@@ -67,15 +72,14 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     });
   }
 
-  getAgentSpecificFiles(val){
-    this.createDropDown("filename", () => {});    
+  getAgentSpecificFiles(val) {
+    this.createDropDown("filename", () => { });
   }
 
   /**used to open file manager */
   isFromXML: boolean = true;
   openFileManager() {
-    if(this.selectedAgent == "")
-    {
+    if (this.selectedAgent == "") {
       this.isConferMationAgentSelected = true;
     }
     else
@@ -88,30 +92,30 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   getFileList(path) {
     if (this.isMakeXMLFile == true) {
       this.isMakeXMLFile = false;
-     if (path.includes(";")) {
-       this._configUtilityService.errorMessage("Multiple files cannot be imported");
-       return;
-     }
-     if(this.isFromXML) {
-       if (!path.includes(".txt")) {
-         this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
-         return;
-       }
-     }
-    let filename = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
+      if (path.includes(";")) {
+        this._configUtilityService.errorMessage("Multiple files cannot be imported");
+        return;
+      }
+      if (this.isFromXML) {
+        if (!path.includes(".txt")) {
+          this._configUtilityService.errorMessage("File extension not matched (i.e .txt)");
+          return;
+        }
+      }
+      let filename = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
       filename = filename + ".xml";
       path = path + "@" + this.userName;
       this._configKeywordsService.getInstrumentationProfileXMLData(path).subscribe(data => {
         // const xml = beautify(data._body);
         this.xmlFormat = data._body;
-	this.xmlFormat = Prism.highlight(data._body, Prism.languages.markup);
-        if (this.xmlFormat == ""){
+        this.xmlFormat = Prism.highlight(data._body, Prism.languages.markup);
+        if (this.xmlFormat == "") {
           this._configUtilityService.errorMessage("Files contains no data or invalid data");
           return;
         }
         else
           this._configUtilityService.successMessage("File imported successfully");
-        this.createDropDown(filename, () => {});
+        this.createDropDown(filename, () => { });
       });
     }
 
@@ -142,7 +146,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this._configUtilityService.errorMessage("Select a file to Edit");
       return;
     }
-    this.parsedXMLData  = [];
+    this.parsedXMLData = [];
     this._configKeywordsService.editXMLDataFromSelectedXMLFile(this.selectedXMLFile).subscribe(data => {
       this.parsedXMLData = data['backendDetailList'];
     });
@@ -201,7 +205,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'command': (event) => {
             this.confirmationService.confirm({
               message: 'Are you sure that you want to perform this action?',
-	      header: 'Confirmation',
+              header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
               }
@@ -232,7 +236,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'command': (event) => {
             this.confirmationService.confirm({
               message: 'Are you sure that you want to perform this action?',
-	      header: 'Confirmation',
+              header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
               }
@@ -250,7 +254,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'command': (event) => {
             this.confirmationService.confirm({
               message: 'Are you sure that you want to perform this action?',
-	      header: 'Confirmation',
+              header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
               }
@@ -275,7 +279,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
       // Adding Package
       if (type === 'All') {
-	if (this.checkForDuplicacy('All', label, null, null, xmlDataArr)) {
+        if (this.checkForDuplicacy('All', label, null, null, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Package Entry is not allowed");
           return;
         }
@@ -286,12 +290,12 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentClassNode': null,
           'selected': false,
           'leaf': false,
-	  'expanded': true,
+          'expanded': true,
           'children': []
         };
         xmlDataArr[0]['children'].push(obj);
       } else if (type === 'package') {  // Add class
-	if (this.checkForDuplicacy('package', this.nodeObj['parentPackageNode'], label, null, xmlDataArr)) {
+        if (this.checkForDuplicacy('package', this.nodeObj['parentPackageNode'], label, null, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Class Entry is not allowed");
           return;
         }
@@ -302,7 +306,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentClassNode': this.toTitleCase(label),
           'selected': false,
           'leaf': false,
-	  'expanded': true,
+          'expanded': true,
           'children': []
         };
 
@@ -320,7 +324,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         let packageName = this.nodeObj['parentPackageNode'];
         let className = this.nodeObj['parentClassNode'];
 
-	if (this.checkForDuplicacy('class', packageName, className, label, xmlDataArr)) {
+        if (this.checkForDuplicacy('class', packageName, className, label, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Method Entry is not allowed");
           return;
         }
@@ -332,7 +336,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentClassNode': this.nodeObj['parentClassNode'],
           'selected': false,
           'leaf': false,
-	  'expanded': true,
+          'expanded': true,
           'children': []
         };
 
@@ -369,7 +373,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   /**delete node from tree */
   deleteNodeFromTree(type, label, contextMenuEvent) {
     try {
-      
+
       let xmlDataArr = [];
       if (this.nodeObj['isCreate']) {
         xmlDataArr = this.createXMLData;
@@ -469,8 +473,8 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   /** Dialog OK operation function */
   addXMLNodeToTree() {
 
-     if (this.nodeObj['type'] === 'All') {
-      if (this.nodeLabel.split('.').length == 0 || (this.nodeLabel.split('.')[1] == "" || this.nodeLabel.split('.')[0] == "") ) {
+    if (this.nodeObj['type'] === 'All') {
+      if (this.nodeLabel.split('.').length == 0 || (this.nodeLabel.split('.')[1] == "" || this.nodeLabel.split('.')[0] == "")) {
         this._configUtilityService.errorMessage('Package Name should be like [xyz.abc]');
         return;
       }
@@ -479,7 +483,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         this._configUtilityService.errorMessage('Package Name should not special character except `.` ');
         return;
       }
-    } else if (this.nodeObj['type'] === 'package' ) {
+    } else if (this.nodeObj['type'] === 'package') {
       var regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
       if (regex.test(this.nodeLabel)) {
         this._configUtilityService.errorMessage('Class Name should not contain special Characters');
@@ -491,16 +495,16 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         this._configUtilityService.errorMessage('Method Name should not contain dot(.) or angular braces(<>)');
         return;
       }
-      if(this.nodeLabel.includes("&lt;init&gt;")){
+      if (this.nodeLabel.includes("&lt;init&gt;")) {
         this._configUtilityService.errorMessage('Invalid method name');
         return;
       }
-      else{
-      if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') == -1) {
-        this._configUtilityService.errorMessage('Method Name should contain brackets i.e m1(arg) or m1()');
-        return;
+      else {
+        if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') == -1) {
+          this._configUtilityService.errorMessage('Method Name should contain brackets i.e m1(arg) or m1()');
+          return;
+        }
       }
-    }
     }
 
     if (this.nodeLabel.split(' ').length > 1) {
@@ -520,7 +524,6 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
   /**Saving XML Node to XML File */
   saveModifiedXMLNodes(flag) {
-
     let dataToBeUploaded = [];
     let fileName = '';
 
@@ -559,83 +562,157 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       fileName = this.selectedXMLFile.split('.')[0];
     }
 
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to save the changes?',	
-      header: 'Confirmation',
-      accept: () => {
-        let uploadArray = [];
+    var trMsg = ""
+    if (sessionStorage.getItem("isTrNumber") == "null") {
+      trMsg = "TRNotRunning"
+    }
+    else {
+      trMsg = sessionStorage.getItem("isTrNumber")
+    }
+    //Send "RTC" msg to show the only those levels of topology which is applied at the time of test run
+    this._configKeywordsService.getSelectedProfileDetails(this.selectedXMLFile, trMsg).subscribe(data => {
+      this.details = data["_body"];
+      var msg = this.details.toString().substring(0, this.details.toString().length - 1);
+      let confirmMsg = ""
+      if (msg != "") {
+        confirmMsg = "<div>Selected instrumentation profile is used in topology. Click on 'Details' for more information<br></div>"
+          + "<br>Are you sure you want to save changes?"
+      }
+      else {
+        confirmMsg = "Are you sure that you want to save changes?"
+      }
+      this.confirmationService.confirm({
+        message: confirmMsg + '',
+        header: 'Confirmation',
+        accept: () => {
+          let uploadArray = [];
 
-        // Convert Tree Nodes to P.C.M or P.C or P array format so to save in hidden file
-        for (let i = 0; i < dataToBeUploaded.length; i++) {
-          let packageName = dataToBeUploaded[i].label;
-          if (dataToBeUploaded[i].children.length === 0) {
-            uploadArray.push(packageName);
-          } else {
-            for (let j = 0; j < dataToBeUploaded[i].children.length; j++) {
-              let className = dataToBeUploaded[i].children[j].label;
-              if (dataToBeUploaded[i].children[j].children.length === 0) {
-                uploadArray.push(`${packageName}.${className}`);
-              } else {
-                let methodList = dataToBeUploaded[i].children[j].children;
-                for (let k = 0; k < methodList.length; k++) {
-                  let methodName = methodList[k].label;
-                  uploadArray.push(`${packageName}.${className}.${methodName}`);
+          // Convert Tree Nodes to P.C.M or P.C or P array format so to save in hidden file
+          for (let i = 0; i < dataToBeUploaded.length; i++) {
+            let packageName = dataToBeUploaded[i].label;
+            if (dataToBeUploaded[i].children.length === 0) {
+              uploadArray.push(packageName);
+            } else {
+              for (let j = 0; j < dataToBeUploaded[i].children.length; j++) {
+                let className = dataToBeUploaded[i].children[j].label;
+                if (dataToBeUploaded[i].children[j].children.length === 0) {
+                  uploadArray.push(`${packageName}.${className}`);
+                } else {
+                  let methodList = dataToBeUploaded[i].children[j].children;
+                  for (let k = 0; k < methodList.length; k++) {
+                    let methodName = methodList[k].label;
+                    uploadArray.push(`${packageName}.${className}.${methodName}`);
+                  }
                 }
               }
             }
           }
+
+          // Creating Obj to be send to server
+          let obj = {};
+          obj['fileName'] = fileName;
+          obj['data'] = uploadArray;
+          obj['isCreate'] = flag;
+          obj['userName'] = sessionStorage.getItem('sesLoginName');
+          let that = this
+          this._configKeywordsService.saveInstrumentedDataInXMLFile(obj).subscribe(data1 => {
+            //if test is online mode, return (run time changes)
+            if (this.configHomeService.trData.switch == true && this.configHomeService.trData.status != null) {
+
+              this._configKeywordsService.rtcInstrProfile(this.details + "%" + this.selectedXMLFile, sessionStorage.getItem("sesLoginName")).subscribe(data => {
+                this.rtcMsg = []
+                if (data1['status'] === 'ok') {
+                  this._configUtilityService.successMessage("File saved successfully")
+                  if (data.length > 0) {
+                    for (let i = 0; i < data.length; i++) {
+
+                      //Result=Ok case
+                      if (data[i].includes("Ok")) {
+                        data[i] = data[i].substring(data[i].indexOf("Ok;") + 3, data[i].lastIndexOf("=")) + "  (Success)"
+                        this.rtcMsg.push(data[i])
+
+                      }
+                      //PartialError case
+                      else if (data[i].includes("PartialError")) {
+                        data[i] = data[i].substring(data[i].indexOf("Error;") + 6, data[i].lastIndexOf("=")) + "  (Partial Error)"
+                        this.rtcMsg.push(data[i])
+                      }
+
+                      // Error case
+                      else if (data[i].includes("Error")) {
+                        data[i] = data[i].substring(data[i].indexOf("Error;") + 6, data[i].lastIndexOf("=")) + "  (Error)"
+                        this.rtcMsg.push(data[i])
+                      }
+
+                    }
+                    this.openRTCInfoDialog = true;
+                  }
+                  // Filling Drop Down with newly created file
+                  this.createDropDown(fileName, () => {
+                    this.saveXMLFileName = '';
+                    this.saveXMLFileName = '';
+                    this.clearWindow();
+                  });
+                }
+              })
+
+            }
+            else {
+              if (data1['status'] === 'ok') {
+                this._configUtilityService.successMessage('File Saved Successfully');
+
+                // Filling Drop Down with newly created file
+                this.createDropDown(fileName, () => {
+                  this.saveXMLFileName = '';
+                  this.saveXMLFileName = '';
+                  this.clearWindow();
+                });
+              }
+
+            }
+          });
+
         }
-
-        // Creating Obj to be send to server
-        let obj = {};
-        obj['fileName'] = fileName;
-        obj['data'] = uploadArray;
-        obj['isCreate'] = flag;
-        obj['userName'] = sessionStorage.getItem('sesLoginName');
-        this._configKeywordsService.saveInstrumentedDataInXMLFile(obj).subscribe(data => {
-          if (data['status'] === 'ok') {
-            this._configUtilityService.successMessage('File Saved Successfully');
-
-            // Filling Drop Down with newly created file
-            this.createDropDown(fileName, () => {
-	      this.saveXMLFileName = '';
-	      this.saveXMLFileName = '';
-              this.clearWindow();
-	    });
-          }
-        });
-
-      }
-    });
+      });
+    })
   }
 
   /**
    * This method is responsible for deleting Selected XML file
    */
   deleteSelectedXMLFile() {
-    
+
     //If no file selected
-    if( this.selectedXMLFile == '' || this.selectedXMLFile == undefined) {
+    if (this.selectedXMLFile == '' || this.selectedXMLFile == undefined) {
       this._configUtilityService.errorMessage("No File Selected");
       return;
     }
 
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete the selected File?',
-      header: 'Confirmation',
-      accept: () => {
-        let fileName = this.selectedXMLFile.split('.')[0];
-        this._configKeywordsService.deleteXMLFile(fileName).subscribe(data => {
-          if (data['status'] === 'OK') {
-            this._configUtilityService.successMessage('File Deleted Successfully');
-             // Filling Drop Down with newly created file
-            this.createDropDown("filename", () => {
-	      this.clearWindow();
-	    });
+    //Checking if selected XML file is applied to any profile or not
+    this._configKeywordsService.getSelectedProfileDetails(this.selectedXMLFile, "TRNotRunning").subscribe(data => {
+      this.details = data["_body"];
+      if (this.details.toString() != "") {
+        this._configUtilityService.errorMessage("Could not delete. Selected instrumentation profile is used in topology. Click on 'Details' for more information")
+      }
+      else {
+        this.confirmationService.confirm({
+          message: 'Are you sure that you want to delete the selected File?',
+          header: 'Confirmation',
+          accept: () => {
+            let fileName = this.selectedXMLFile.split('.')[0];
+            this._configKeywordsService.deleteXMLFile(fileName).subscribe(data => {
+              if (data['status'] === 'OK') {
+                this._configUtilityService.successMessage('File Deleted Successfully');
+                // Filling Drop Down with newly created file
+                this.createDropDown("filename", () => {
+                  this.clearWindow();
+                });
+              }
+            });
           }
         });
       }
-    });
+    })
   }
 
   /** Handling Expand and collapse of tree Nodes */
@@ -686,20 +763,20 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   }
 
   /** Check for duplicate entry while adding nodes */
-  checkForDuplicacy(type , pckgName, className, methodName, arrToIterate) {
+  checkForDuplicacy(type, pckgName, className, methodName, arrToIterate) {
     let arr = arrToIterate[0]['children'];
     if (type === 'All') {
-      for (let i = 0 ; i < arr.length ; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
           return true;
         }
       }
     } else if (type === 'package') {
-      for (let i = 0 ; i < arr.length ; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
-	  if(arr[i].children.length == 0)
+          if (arr[i].children.length == 0)
             return false;
-          for (let j = 0 ; j < arr[i].children.length ; j++) {
+          for (let j = 0; j < arr[i].children.length; j++) {
             if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
               return true;
             }
@@ -707,13 +784,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         }
       }
     } else if (type === 'class') {
-      for (let i = 0 ; i < arr.length ; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
-          for (let j = 0 ; j < arr[i].children.length ; j++) {
-            if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {	
-	      if(arr[i].children[j].children.length == 0)
+          for (let j = 0; j < arr[i].children.length; j++) {
+            if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
+              if (arr[i].children[j].children.length == 0)
                 return false;
-              for (let k = 0 ; k < arr[i].children[j].children.length ; k++) {
+              for (let k = 0; k < arr[i].children[j].children.length; k++) {
                 if (methodName.toLowerCase() === arr[i].children[j].children[k].label.toLowerCase()) {
                   return true;
                 }
@@ -724,5 +801,25 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  //To show the dialog which contains details of instr profile that where is it applied
+  openDetails() {
+    if (this.selectedXMLFile === undefined || this.selectedXMLFile === "") {
+      this._configUtilityService.errorMessage("Select a file to view its details");
+      return;
+    }
+
+    //Send "TRNotRunning" message to get the details of everywhere where selected file is applied
+    this._configKeywordsService.getSelectedProfileDetails(this.selectedXMLFile, "TRNotRunning").subscribe(data => {
+      if (data["_body"] != "") {
+        this.details = data["_body"].split("&")
+        this.details.pop()
+      }
+      else {
+        this.details = ["Selected instrumentation profile is not applied anywhere"]
+      }
+      this.openDetailsDialog = true;
+    })
   }
 }

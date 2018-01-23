@@ -1,8 +1,8 @@
 
 
-//const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+// const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
-//const  SERVICE_URL = 'http://localhost:8090';
+// const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -179,6 +179,7 @@ export const RUNTIME_CHANGE_TIER = `${SERVICE_URL}/custom/runtimechange/tier`;
 export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server`;
 export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
 export const RUNTIME_CHANGE_AUTO_INSTR = `${SERVICE_URL}/custom/runtimechange/autoinstrumentation`;
+export const RUNTIME_CHANGE_INSTR_PROFILE = `${SERVICE_URL}/custom/runtimechange/editinstrumentationprofile`;
 
 
 /* URL for ND Agent Status */
@@ -268,6 +269,7 @@ export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttp
 export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
 export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
 export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
+export const GET_INSTR_PROFILE_DETAILS = `${SERVICE_URL}/custom/instrumentation/getinstrprofiledetails`;
 
 /*Edit Instrumentation Profile */
 export const EDIT_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/generatetreenodefromxml`;

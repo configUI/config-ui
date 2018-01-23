@@ -39,8 +39,11 @@
             <div class="ui-g-1" style="width: 8%;" *ngIf="selectedAgent=='Java'">
                 <button pButton type="button" label="Delete" icon="fa-trash" [disabled]="isInstrPerm" (click)="deleteSelectedXMLFile()" title="Delete Selected XML File"></button>
             </div>
-            <div class="ui-g-1" style="width: 6%;" *ngIf="selectedAgent!=''">
+            <div class="ui-g-1" style="width: 7.5%;" *ngIf="selectedAgent!=''">
                 <button pButton type="button" label="Clear" icon="fa-eraser" (click)="clearWindow()" title="Clear all data from window"></button>
+            </div>
+            <div class="ui-g-1" style="width: 7%;" *ngIf="selectedAgent!=''">
+                <button pButton type="button" label="Details" icon="fa-info-circle" (click)="openDetails()" title="Show where selected instrumentation profile is used"></button>
             </div>
         </div>
 
@@ -120,6 +123,34 @@
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="isConferMationAgentSelected=false" label="OK"></button>
+        </div>
+    </footer>
+</p-dialog>
+
+<!-- Dialog to show selected instr profile info -->
+<p-dialog class="profile-dialog" header="Instrumentation profile details" *ngIf="openDetailsDialog" [(visible)]="openDetailsDialog" responsive="true" modal=true width="500" [resizable]="true">
+    <ul>
+        <li *ngFor="let e of details">
+           <span>{{e}}</span>
+        </li>
+       </ul>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="openDetailsDialog=false" label="OK"></button>
+        </div>
+    </footer>
+</p-dialog>
+
+<!-- Dialog to open RTC information -->
+<p-dialog class="profile-dialog" header="Runtime changes information" *ngIf="openRTCInfoDialog" [(visible)]="openRTCInfoDialog" responsive="true" modal=true width="400" [resizable]="true">
+    <ul>
+        <li *ngFor="let e of rtcMsg">
+           <span>{{e}}</span>
+        </li>
+       </ul>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="openRTCInfoDialog=false" label="OK"></button>
         </div>
     </footer>
 </p-dialog>

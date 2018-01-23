@@ -203,16 +203,6 @@ export class IntegrationPtComponent implements OnInit {
       .subscribe(data => {
         //Getting index for set data in main array table data.
         let index = this.getTableIndex(data.backendTypeId);
-        let that = this;
-        let filePath;
-        that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-
-          //For sending Runtime Changes                    
-          filePath = data["_body"];
-          that.integrationPoints['NDEntryPointsFile'].path = filePath + "/NDEntryPointFile.txt";
-          that.integrationPoints['ndBackendNamingRulesFile'].path = filePath + "/BackendNamingRule.txt";
-          that.keywordData.emit(that.integrationPoints);
-        });
         this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
         this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
         this.loadIntegrationPTDetectionList();
