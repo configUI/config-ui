@@ -661,5 +661,17 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   getFetchHTTPRepHeaderTable(profileId): Observable<httpRepHeaderInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREP_HDR}/${profileId}`);
   }
+  /*this method is used to get details of selected instr profile*/
+  getSelectedProfileDetails(data, msg) {
+
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INSTR_PROFILE_DETAILS}/${msg}`, data);
+  }
+
+  /**Sending RTC for instrumentation profile maker */
+  rtcInstrProfile(data, userName): Observable<String[]>{
+    return this._restApi.getDataByPostReq(`${URL.RUNTIME_CHANGE_INSTR_PROFILE}/${userName}`, data)
+  }
+
+
 }
 
