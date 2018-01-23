@@ -1979,7 +1979,7 @@ app-alert-home .ui-state-default {
 .dashboard-update-user-session-text-header .ui-widget-header {
   color: white; }
 
-.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
+.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default, .fieldSetClass {
   background: #474747;
   color: #fff; }
 
@@ -3136,7 +3136,7 @@ p-datatable.kpigrid {
 
 .mat-button, .mat-raised-button, .mat-icon-button {
   font-family: Roboto, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500; }
 
 .main-box-scen {
@@ -3160,3 +3160,11 @@ p-datatable.kpigrid {
 
 .totalRunningCard .IconClass, md-card-title {
   color: #000; }
+
+/*-- DDR Table text color --*/
+.ddr-table-right, .ddr-table-left {
+  color: blue; }
+
+.sidebarUI-sidenav {
+  box-shadow: 0 0 6px 2px #565656;
+  background: #fafafa; }

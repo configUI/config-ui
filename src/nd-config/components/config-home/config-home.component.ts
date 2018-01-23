@@ -12,7 +12,6 @@ import { NDAgentInfo } from '../../interfaces/nd-agent-info';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ConfigUiUtility } from '../../utils/config-utility';
 import { Http} from '@angular/http';
-import { Observable, } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { ImmutableArray } from '../../utils/immutable-array';
 
@@ -55,31 +54,28 @@ export class ConfigHomeComponent implements OnInit {
   constructor(private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
-    this.getTestInfoDetails();
-    // this.configHomeService.getAIStartStopOperationOnHome();
-    var userName = sessionStorage.getItem('sesLoginName');
-    var passWord =  sessionStorage.getItem('sesLoginPass');
-    // let URL=sessionStorage.getItem('host');
-    // var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName + '&passWord=' + passWord
-    // this.http.get(url).map(res => res.json()).subscribe(data => {
-      sessionStorage.setItem("ProfileAccess","6");
-      sessionStorage.setItem("ApplicationAccess","6");
-      sessionStorage.setItem("TopologyAccess","6");
-      sessionStorage.setItem("InstrProfAccess","6");
-      sessionStorage.setItem("AutoDiscoverAccess","6");
-      this.appPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true: false;
-      this.profilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true: false;
-      this.topoPermission=+sessionStorage.getItem("TopologyAccess") == 4 ? true: false;
-      this.noProfilePerm=+sessionStorage.getItem("ProfileAccess") == 0 ? true: false;
-      this.noAppPerm=+sessionStorage.getItem("ApplicationAccess") == 0 ? true: false;
-      this.noTopoPerm=+sessionStorage.getItem("TopologyAccess") == 0 ? true: false;
-      if(this.noProfilePerm && this.noAppPerm && this.noTopoPerm)
-        this.isHomePermDialog=true;
-      this.loadHomeData();
-       //  });
-    
-    let timer = Observable.timer(30000, this.refreshIntervalTime);
-    this.subscription = timer.subscribe(t => this.getTestInfoDetails());
+    //this.configHomeService.getAIStartStopOperationOnHome();
+// this.configHomeService.getAIStartStopOperationOnHome();
+var userName = sessionStorage.getItem('sesLoginName');
+var passWord =  sessionStorage.getItem('sesLoginPass');
+// let URL=sessionStorage.getItem('host');
+// var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName + '&passWord=' + passWord
+// this.http.get(url).map(res => res.json()).subscribe(data => {
+  sessionStorage.setItem("ProfileAccess","6");
+  sessionStorage.setItem("ApplicationAccess","6");
+  sessionStorage.setItem("TopologyAccess","6");
+  sessionStorage.setItem("InstrProfAccess","6");
+  sessionStorage.setItem("AutoDiscoverAccess","6");
+  this.appPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true: false;
+  this.profilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true: false;
+  this.topoPermission=+sessionStorage.getItem("TopologyAccess") == 4 ? true: false;
+  this.noProfilePerm=+sessionStorage.getItem("ProfileAccess") == 0 ? true: false;
+  this.noAppPerm=+sessionStorage.getItem("ApplicationAccess") == 0 ? true: false;
+  this.noTopoPerm=+sessionStorage.getItem("TopologyAccess") == 0 ? true: false;
+  if(this.noProfilePerm && this.noAppPerm && this.noTopoPerm)
+    this.isHomePermDialog=true;
+  this.loadHomeData();
+       ///  });
   }
 
   loadTopologyList(){
@@ -100,7 +96,7 @@ export class ConfigHomeComponent implements OnInit {
         else
           this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
 
-       
+       // This is done to remove default profiles if we are having the other profiles to show in home screen
         let tempArray = [];
         for (let i = 0; i < data.homeData[1].value.length; i++) {
           if (+data.homeData[1].value[i]["id"] == 1 || +data.homeData[1].value[i]["id"] == 777777 || +data.homeData[1].value[i]["id"] == 888888) {
@@ -132,20 +128,6 @@ export class ConfigHomeComponent implements OnInit {
       })
   }
 
- // this method is used for get running test run status after 20 sec 
-  getTestInfoDetails()
-  {
-    this.configHomeService.getTestRunStatus().subscribe(data => 
-    {
-      data.trData.switch = true;
-      if(sessionStorage.getItem("isSwitch") === 'false')
-        data.trData.switch = false;
-      this.configHomeService.setTrData(data.trData);
-      this.configHomeService.trData = data.trData;
-      }
-    );
-  }
- 
  importTopologyDialog() {
     this.loadTopologyList();
     this.selectedTopology = "";

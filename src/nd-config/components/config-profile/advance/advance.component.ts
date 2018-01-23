@@ -96,7 +96,6 @@ export class AdvanceComponent implements OnInit {
     this.flag = true;
      for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
-       this.configKeywordsService.keywordData[key].enable = true
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.triggerRunTimeChanges(keywordData);

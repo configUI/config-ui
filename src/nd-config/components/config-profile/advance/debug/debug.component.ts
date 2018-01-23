@@ -37,9 +37,9 @@ export class DebugComponent {
   debug: Object;
   agentType: string = "";
   isProfilePerm: boolean;
-  //enableGroupKeyword: boolean;
+ // enableGroupKeyword: boolean;
   subscription: Subscription;
-  //subscriptionEG: Subscription;
+ // subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
 
     this.agentType = sessionStorage.getItem("agentType");    
@@ -51,7 +51,7 @@ export class DebugComponent {
       this.debug = keywordDataVal;
       console.log(this.className, "constructor", "this.debug", this.debug);
     });
-    //this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
+   // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
     this.configKeywordsService.toggleKeywordData();
   }
 
@@ -73,7 +73,7 @@ export class DebugComponent {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
-    // if (this.subscriptionEG)
-    //   this.subscriptionEG.unsubscribe();
+   // if (this.subscriptionEG)
+   //   this.subscriptionEG.unsubscribe();
   }
 }

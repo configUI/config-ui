@@ -2083,7 +2083,7 @@ md-icon.dashboard-menu-item-icon {
 .dashboard-update-user-session-text-header .ui-widget-header {
   color: white; }
 
-.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default {
+.dashboard-update-user-session-dataTable .ui-datatable th.ui-state-default, .fieldSetClass {
   background: #3b7970;
   background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
   background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
@@ -3285,6 +3285,11 @@ i.topicon.kpi-kpi {
 .main-box-scen {
   background: rgba(255, 255, 255, 0.4); }
 
+.mat-button, .mat-raised-button, .mat-icon-button {
+  font-family: Roboto, sans-serif;
+  font-size: 11px;
+  font-weight: 500; }
+
 /*-------Test Run Component---------*/
 .totalTestRunCard .IconClass, md-card-title {
   color: #1b1c29; }
@@ -3303,3 +3308,15 @@ i.topicon.kpi-kpi {
 
 .totalRunningCard .IconClass, md-card-title {
   color: #000; }
+
+/*-- DDR Table text color --*/
+.ddr-table-right, .ddr-table-left {
+  color: blue; }
+
+.sidebarUI-sidenav {
+  box-shadow: 0 0 6px 2px #565656;
+  background: #fafafa; }
+
+.AC-rghtpane-box {
+  background: white;
+  border: 1px #4a4a4a solid; }

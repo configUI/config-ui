@@ -103,15 +103,20 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
             this._configKeywordsService.getClassDiscoverTreeData(nodeInfo, this.reqId, this.instanceFileName).subscribe(data => 
             {
+                if(data["selected"] == true)
+                {
+                   this.instrFromLeftSideTree.push(event.node);
+                }
+              
                 if(!(data.node[0]["label"] == null))
                 {
                     event.node.children = data.node
                     for(let i = 0 ; i < event.node.children.length; i++)
                     {
                         if(event.node.children[i].selected == true)
-                        this.selectedArr.push(event.node.children[i]);
+                        this.instrFromLeftSideTree.push(event.node.children[i]);
                     }
-                    this.instrFromLeftSideTree = this.selectedArr;
+                 //    this.instrFromLeftSideTree = this.selectedArr;
                 }
                 else
                     event.node["leaf"] = true;

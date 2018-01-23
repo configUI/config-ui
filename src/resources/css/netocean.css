@@ -194,3 +194,8 @@
     overflow: hidden !important;
 }
 
+.showRequest .CodeMirror {
+    height: 120px;
+    width: 550px;
+}
+

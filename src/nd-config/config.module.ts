@@ -103,7 +103,6 @@ import { ErrorDetectionComponent } from './components/config-profile/instrumenta
 import { ConfigProfileRoutingComponent } from './components/config-profile/config-profile-routing/config-profile-routing.component';
 import { FlowpathComponent } from './components/config-profile/general/flowpath/flowpath.component';
 import { HotspotComponent } from './components/config-profile/general/hotspot/hotspot.component';
-import { ExceptionComponent } from './components/config-profile/general/exception/exception.component';
 import { HeaderComponent } from './components/config-profile/general/header/header.component';
 import { InstrumentationProfilesComponent } from './components/config-profile/general/instrumentation-profiles/instrumentation-profiles.component';
 import { HTTPBTConfigurationComponent } from './components/config-profile/instrumentation/transaction-configuration/http-bt-configuration/http-bt-configuration.component';
@@ -126,8 +125,6 @@ import { MethodMonitorsComponent } from './components/config-profile/instrumenta
 import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
-import { ExceptionFilterComponent } from './components/config-profile/general/exception/exception-filter/exception-filter.component';
-import { ExceptionSettingComponent } from './components/config-profile/general/exception/exception-setting/exception-setting.component';
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
 import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
@@ -138,7 +135,7 @@ import { ConfigViewAuditLogComponent } from './components/config-view-audit-log/
 import { ConfigNDCKeywordsSettingComponent } from './components/config-ndc-keywords-setting/config-ndc-keywords-setting.component';
 import { ConfigAutoInstrumentationComponent } from './components/config-auto-discover/config-auto-instrumentation/config-auto-instrumentation.component';
 import { ConfigEditAutoInstrumentationComponent } from './components/config-auto-discover/config-edit-auto-instrumentation/config-edit-auto-instrumentation.component';
-
+import { ExceptionCapturingComponent } from './components/config-profile/general/exception-capturing/exception-capturing.component';
 
 // not commit in cvs
 import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
@@ -179,7 +176,6 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigProfileRoutingComponent,
     FlowpathComponent,
     HotspotComponent,
-    ExceptionComponent,
     HeaderComponent,
     ThreadStatsComponent,
     InstrumentationProfilesComponent,
@@ -201,8 +197,6 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
     CustomKeywordsComponent,
-    ExceptionFilterComponent,
-    ExceptionSettingComponent,
     ExceptionMonitorsComponent,
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
@@ -214,7 +208,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigViewAuditLogComponent,
     ConfigNDCKeywordsSettingComponent,
     ConfigAutoInstrumentationComponent,
-    ConfigEditAutoInstrumentationComponent
+    ConfigEditAutoInstrumentationComponent,
+    ExceptionCapturingComponent
   ],
   imports: [
    // CommonModule,

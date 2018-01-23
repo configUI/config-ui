@@ -130,15 +130,21 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         if (event.node.children.length == 0) {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
             this._configKeywordsService.getClassMethodTreeData(nodeInfo, this.reqId).subscribe(data => {
-                    if(!(data.node[0]["label"] == null))
+            
+                    if(data["selected"] == true)
+                    {
+                      this.instrFromLeftSideTree.push(event.node);
+                    }
+
+                   if(!(data.node[0]["label"] == null))
                     {
                         event.node.children = data.node
                         for(let i = 0 ; i < event.node.children.length; i++)
                         {
                             if(event.node.children[i].selected == true)
-                            this.selectedArr.push(event.node.children[i]);
+                            this.instrFromLeftSideTree.push(event.node.children[i]);
                         }
-                        this.instrFromLeftSideTree = this.selectedArr;
+                      //  this.instrFromLeftSideTree = this.selectedArr;
                     }
                     else
                     event.node["leaf"] = true;

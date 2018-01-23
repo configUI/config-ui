@@ -104,7 +104,6 @@ export class HeaderComponent implements OnInit {
         httpReqFullFpVal = httpReqFullFpVal + val + "%20";
       }
       else {
-        console.log("htttttttttt.." , httpReqFullFpVal)
         httpReqFullFpVal = httpReqFullFpVal + "ALL%20";
         httpReqkeyword.headersName = [];
       }
