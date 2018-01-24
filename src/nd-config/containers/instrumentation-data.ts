@@ -308,6 +308,25 @@ export class BTHTTPHeaderConditions{
 
 }
 
+/** BT RESPONSE HEADERS  */
+export class BTResponseHeaderData{
+    id: number = 0;
+    headerId: number;
+    headerName: string;
+    headerValType: string;
+    hdrBtNames: string;
+    conditions: BTResponseHeaderConditions[];
+}
+
+/** BT HTTP HEADERS CONDITIONS */
+export class BTResponseHeaderConditions{
+    id: number = 0;
+    hdrCondId: number;
+    btName: string;
+    operation: string;
+    hdrValue: string;
+}
+
 export class UrlCapturingData{
     includeParameter: boolean = false;
     urlOffset: number;

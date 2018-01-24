@@ -11,7 +11,7 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import { Subscription } from 'rxjs/Subscription';
 
-import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData, BTResponseHeaderData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
@@ -489,8 +489,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_RULES_BT}`, listOfIds);
   }
 
-
-
   /** Add BT HTTP REQUEST HEADERS */
   addBtHttpHeaders(data, profileId) {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
@@ -513,6 +511,30 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   /* Edit  BT HTTP Headers Info */
   editBTHTTPHeaders(data): Observable<BTHTTPHeaderData> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
+  }
+
+  /** Add BT HTTP RESPONSE HEADERS */
+  addBtResponseHeaders(data, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_RESPONSE_HDR_URL}/${profileId}`, data);
+  }
+  /** Get all BT RESPONSE header data */
+  getBTResponseHdrData(profileId): Observable<BTResponseHeaderData[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BTRESPONSE_HDR_URL}/${profileId}`);
+  }
+
+  /** Delete BT RESPONSE headers Info */
+  deleteBTResponseHeaders(data, profileId): Observable<BTResponseHeaderData> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_BT_RESPONSE_HDR}/${profileId}`, data);
+  }
+
+  /** Delete RESPONSE Headers Conditions  */
+  deleteResponseHdrConditions(listOfIds) {
+    return this._restApi.getDataByPostReq(`${URL.DEL_RESPONSE_HDR_COND}`, listOfIds);
+  }
+
+  /* Edit  BT RESPONSE Headers Info */
+  editBTResponseHeaders(data): Observable<BTResponseHeaderData> {
+    return this._restApi.getDataByPostReq(`${URL.EDIT_BTRESPONSE_HEADER}/${data.headerId}`, data);
   }
 
   /** Method to upload file */
