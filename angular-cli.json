@@ -37,6 +37,7 @@
         ],
         "scripts": [
             "scripts/utility.js",
+            "../node_modules/prismjs/prism.js",
             "../node_modules/hammerjs/hammer.min.js",
             "vendors/prettyprint/js/prettify.js"
         ],
