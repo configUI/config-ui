@@ -114,6 +114,7 @@ import { DelayComponent } from './components/config-profile/advance/delay/delay.
 import { GenerateExceptionComponent } from './components/config-profile/advance/generate-exception/generate-exception.component';
 import { CustomKeywordsComponent } from './components/config-profile/advance/custom-keywords/custom-keywords.component';
 import { BTHTTPHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-http-headers/bt-http-headers.component';
+import { BTResponseHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-response-headers/bt-response-headers.component';
 
 import { HttpHeaderComponent } from './components/config-profile/general/header/http-header/http-header.component';
 import { CustomDataComponent } from './components/config-profile/general/custom-data/custom-data.component';
@@ -211,7 +212,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigAutoInstrumentationComponent,
     ConfigEditAutoInstrumentationComponent,
     ExceptionCapturingComponent,
-    HttpResponseComponent
+    HttpResponseComponent,
+    BTResponseHeadersComponent
   ],
   imports: [
    // CommonModule,
