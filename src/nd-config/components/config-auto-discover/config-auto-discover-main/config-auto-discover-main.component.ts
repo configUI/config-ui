@@ -58,7 +58,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
       if (data[i].at == "Java" && data[i].st == "Active") {
 
         this.agentLabel.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
-        this.agentValue.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
+        this.agentValue.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
       }
      this.agents = ConfigUiUtility.createListWithKeyValue(this.agentLabel, this.agentValue);
 
