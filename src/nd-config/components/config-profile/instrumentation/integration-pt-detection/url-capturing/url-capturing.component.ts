@@ -121,6 +121,14 @@ export class UrlCapturingComponent implements OnInit {
         this.urlCapturingData.urlOffset = arr[1];
         this.urlCapturingData.maxChar = arr[2];
     }
+
+   else if(this.urlCapturing["formatIPResourceURL"].value == "1"){
+      this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = true;
+        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.urlOffset = 0;
+        this.urlCapturingData.maxChar = 50;
+    }
     else {
       this.urlCapturingData = new UrlCapturingData();
       this.enableFormatIPResourceURL = false;

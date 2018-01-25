@@ -286,7 +286,7 @@ export class JavaMethodComponent implements OnInit {
       this.openAddArgumentRulesDialog();
     }
     else {
-      this.methodBasedCustomData.argumentTypeData = this.argumentTypeData;
+      this.methodBasedCustomData.argumentTypeData = this.argumentTypeData; 
       this.methodBasedCustomData.returnTypeData = this.returnTypeData;
 
       if (!this.isNew) {
@@ -517,7 +517,7 @@ export class JavaMethodComponent implements OnInit {
       this.returnTypeRules.operatorValue = "-" ;
     }
     if(this.returnTypeRules.operation== 'EXTRACT_SUBPART'){
-       this.returnTypeRules.operatorValue = this.leftBoundReturn + "-" + this.rightBoundReturn ;
+       this.returnTypeRules.operatorValue = this.returnTypeRules.lb + "-" + this.returnTypeRules.rb ;
     }
     if(!this.isNew){
 
@@ -542,6 +542,9 @@ export class JavaMethodComponent implements OnInit {
             val.indexVal = that.returnTypeRules.indexVal;
             val.type = that.returnTypeRules.type;
             val.mode = that.returnTypeRules.mode;
+            val.headerVal = that.returnTypeRules.headerVal;
+            val.lb = that.returnTypeRules.lb;
+            val.rb = that.returnTypeRules.rb;
           }
         })
         this.selectedReturnRules = [];
@@ -580,6 +583,9 @@ export class JavaMethodComponent implements OnInit {
             val.indexVal = that.returnTypeRules.indexVal;
             val.type = that.returnTypeRules.type;
             val.mode = that.returnTypeRules.mode;
+            val.headerVal = that.returnTypeRules.headerVal;
+            val.lb = that.returnTypeRules.lb;
+            val.rb = that.returnTypeRules.rb;
           }
         })
         this.selectedReturnRules = [];
@@ -607,7 +613,7 @@ export class JavaMethodComponent implements OnInit {
       this.argumentTypeRules.operatorValue = "-" ;
     }
      if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
-       this.argumentTypeRules.operatorValue = this.leftBoundArgument + "-" + this.rightBoundArgument ;
+       this.argumentTypeRules.operatorValue = this.argumentTypeRules.lb + "-" + this.argumentTypeRules.rb ;
     }
 
 
@@ -628,7 +634,10 @@ export class JavaMethodComponent implements OnInit {
             val.operationName = that.argumentTypeRules.operationName
             val.operatorValue = that.argumentTypeRules.operatorValue
             val.type = that.argumentTypeRules.type
-            val.typeName = that.getTypeName(that.argumentTypeRules.type) ;
+            val.typeName = that.getTypeName(that.argumentTypeRules.type)
+            val.headerVal = that.argumentTypeRules.headerVal;
+            val.lb = that.argumentTypeRules.lb;
+            val.rb = that.argumentTypeRules.rb;
           }
         })
         this.selectedArgumentRules = [];
@@ -659,7 +668,10 @@ export class JavaMethodComponent implements OnInit {
             val.operationName = that.argumentTypeRules.operationName
             val.operatorValue = that.argumentTypeRules.operatorValue
             val.type = that.argumentTypeRules.type
-            val.typeName = that.getTypeName(that.argumentTypeRules.type) ;
+            val.typeName = that.getTypeName(that.argumentTypeRules.type)
+            val.headerVal = that.argumentTypeRules.headerVal;
+            val.lb = that.argumentTypeRules.lb;
+            val.rb = that.argumentTypeRules.rb;
           }
         })
         this.selectedArgumentRules = [];

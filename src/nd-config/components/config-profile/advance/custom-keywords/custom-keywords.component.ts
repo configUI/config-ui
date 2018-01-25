@@ -162,9 +162,23 @@ export class CustomKeywordsComponent implements OnInit {
   }
 
   //enabling /disabling keyword in ndsettings.txt
-  enableKeyword(keyword) {
-    this.configKeywordsService.keywordData[keyword.keywordName].enable = !keyword.enable;
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+  // enableKeyword(keyword) {
+  //   this.configKeywordsService.keywordData[keyword.keywordName].enable = !keyword.enable;
+  //   this.configKeywordsService.saveProfileKeywords(this.profileId); 
+  // }
+ 
+  // This method is used to delete(disable) the keyword
+  deleteCustomKeywords(){
+    for(let key in this.custom_keyword){
+      for(let i =0;i<this.selectedCustomKeywordsData.length;i++){
+        if(key == this.selectedCustomKeywordsData[i].keywordName){
+          this.custom_keyword[key].enable = false;
+          this.custom_keyword[key].value = this.custom_keyword[key].defaultValue;
+        }
+      }
+    }
+    this.keywordData.emit(this.custom_keyword);
+    this.selectedCustomKeywordsData = [];
   }
 
   /* After saving custom keywords,store is updated and constructor of this component
@@ -416,14 +430,7 @@ export class CustomKeywordsComponent implements OnInit {
 
 // This method is called when user click on the save button given in header field
   saveKeywordData(){
-    
-    if(this.customKeywordsDataList.length < 1){
-      this.configUtilityService.errorMessage("Could not save: Data table is empty");
-      return;
-    }
-    this.keywordData.emit(this.custom_keyword);
     this.configKeywordsService.saveProfileKeywords(this.profileId);
-    this.configUtilityService.successMessage(Messages);
   }
 
   openFileManager() {

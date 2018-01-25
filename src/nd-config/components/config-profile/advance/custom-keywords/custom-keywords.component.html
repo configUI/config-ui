@@ -8,6 +8,8 @@
                  <button pButton type="button" title="Add Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
                  <button pButton type="button" title="Edit Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
                  <button pButton type="button" title="Edit Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil"></button>
+                 <button pButton type="button" class="ui-button-danger" title="Delete Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                 <button pButton type="button" class="ui-button-danger" title="Delete Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteCustomKeywords()" icon="fa-trash"></button>
                  <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
                  <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveKeywordData()" label="Save"></button>
 
@@ -31,12 +33,12 @@
             </template>
         </p-column>
 
-        <p-column class="tableCss config-ui" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
+        <!-- <p-column class="tableCss config-ui" field="enable" header="Enabled" [sortable]="true" [style]="{'text-align':'center','width':'13%'}">
             <template class="config-ui" let-col let-customKeywordsData="rowData" pTemplate>
                 <md-slide-toggle *ngIf="isProfilePerm" [disabled]="isProfilePerm" class="toggle-space config-ui" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
                 <md-slide-toggle *ngIf="!isProfilePerm" class="toggle-space config-ui" (click)="enableKeyword(customKeywordsData)" [(ngModel)]="customKeywordsData[col.field]"></md-slide-toggle>
             </template>
-        </p-column>
+        </p-column> -->
     </p-dataTable>
 </div>
 
