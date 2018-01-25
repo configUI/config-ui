@@ -42,6 +42,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   correlationIDHeader: any;
   captureMethodForAllFPChk: boolean;
 
+  childCpuFp: boolean = false;
+  childBrkDown: boolean = false;
+
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.agentType = sessionStorage.getItem("agentType");
@@ -67,9 +70,23 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         })
 
         this.flowPath = keywordDataVal;
-        this.cpuTime = this.flowPath['enableCpuTime'].value;
+        if(this.flowPath['enableCpuTime'].value.includes("%20")){
+          this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0,1);
+          this.childCpuFp = true;
+        }
+        else{
+          this.cpuTime = this.flowPath['enableCpuTime'].value
+        }
+
+        if(this.flowPath['enableMethodBreakDownTime'].value.includes("%20")){
+          this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0,1);
+          this.childBrkDown = true;
+        }
+        else{
+          this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value
+        }
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
-        this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
+        // this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
         this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
         // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
         this.configKeywordsService.toggleKeywordData();
@@ -117,8 +134,22 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       else {
         this.flowPath["captureMethodForAllFP"].value = 0;
       }
-      this.flowPath['enableCpuTime'].value = this.cpuTime;
-      this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime;
+      if(this.cpuTime == "0" || this.childCpuFp == false){
+        this.flowPath['enableCpuTime'].value = this.cpuTime
+        this.childCpuFp = false
+      }
+      else if(this.childCpuFp == true){
+         this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
+      }
+
+      if(this.methodBreakDownTime == "0" || this.childBrkDown == false){
+        this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime
+        this.childBrkDown = false
+      }
+      else if(this.childBrkDown == true){
+         this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime + "%201";
+      }
+
     }
 
 
@@ -128,8 +159,22 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   resetKeywordData() {
     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
     this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
-    this.cpuTime = this.flowPath['enableCpuTime'].value;
-    this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
+    if(this.flowPath['enableCpuTime'].value.includes("%20")){
+      this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0,1);
+      this.childCpuFp = true;
+    }
+    else{
+      this.cpuTime = this.flowPath['enableCpuTime'].value
+    }
+
+    if(this.flowPath['enableMethodBreakDownTime'].value.includes("%20")){
+      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0,1);
+      this.childBrkDown = true;
+    }
+    else{
+      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value
+    }
+    
     this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
     this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
   }

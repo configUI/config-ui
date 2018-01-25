@@ -88,6 +88,9 @@
             <div class="ui-g-3 configui-flowpath-css">
               <p-radioButton name="enableCpuTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
             </div>
+            <div class="ui-g-2 configui-flowpath-css">
+              <p-checkbox name="childCpuFp" label="Include child flowpath" [disabled]="cpuTime == 0" [(ngModel)]="childCpuFp" binary="true"></p-checkbox>
+            </div>
             <!--<p-dropdown name="enableForcedFPChain" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableForcedFPChain.value" [options]="enableForcedFPChainSelectItem"  required ngModel></p-dropdown>-->
             <!--<div class="ui-g-2">
                             <p-dropdown name="enableCpuTime" [style]="{'width': '100%'}" scrollHeight="150px" [(ngModel)]="flowPath.enableCpuTime.value"
@@ -103,11 +106,14 @@
             <div class="ui-g-1">
               <p-radioButton name="enableMethodBreakDownTime" value="0" label="Disable" [(ngModel)]="methodBreakDownTime"></p-radioButton>
             </div>
-            <div class="ui-g-2 radioButtoncss">
+            <div class="ui-g-3 radioButtoncss">
               <p-radioButton name="enableMethodBreakDownTime" value="1" label="Business Transaction Level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
             </div>
             <div class="ui-g-3 configui-flowpath-css">
               <p-radioButton name="enableMethodBreakDownTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="methodBreakDownTime"></p-radioButton>
+            </div>
+            <div class="ui-g-2 configui-flowpath-css">
+              <p-checkbox name="childBrkDown" label="Include child flowpath" [disabled]="methodBreakDownTime == 0" [(ngModel)]="childBrkDown" binary="true"></p-checkbox>
             </div>
           </div>
           <!-- <div class="ui-g-12">
