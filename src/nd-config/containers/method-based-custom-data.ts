@@ -21,12 +21,15 @@ export class ReturnTypeData{
      type:number | string;
      typeName:string;
      mode:string|number = 0;
+     headerVal: string;
+     lb: string;
+     rb: string;
 
 }
 
 export class ArgumentTypeData{
-    id:number;
-    argTypeId: number;
+     id:number;
+     argTypeId: number;
      headerName: string;
      operationName:string;
      operatorValue:string;
@@ -34,4 +37,7 @@ export class ArgumentTypeData{
      indexVal:number | string;
      typeName:string;
      mode:string|number;
+     headerVal: string;
+     lb: string;
+     rb: string;
 }
