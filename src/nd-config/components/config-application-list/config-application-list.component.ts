@@ -19,6 +19,8 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
 
 import { Messages, descMsg } from '../../constants/config-constant';
+import { ConfigUiUtility } from '../../utils/config-utility';
+import { ConfigTopologyService } from '../../services/config-topology.service';
 
 @Component({
   selector: 'app-config-application-list',
@@ -27,7 +29,7 @@ import { Messages, descMsg } from '../../constants/config-constant';
 })
 export class ConfigApplicationListComponent implements OnInit {
 
-  constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router) { }
+  constructor(private configApplicationService: ConfigApplicationService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router, private configTopologyService: ConfigTopologyService) { }
 
   /**It stores application-list data */
   applicationData: ApplicationData[] = [];
@@ -52,7 +54,7 @@ export class ConfigApplicationListComponent implements OnInit {
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
-    this.isAppPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
+    this.isAppPerm = +sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
     sessionStorage.setItem("agentType", "");
     this.loadApplicationData();
     // this.loadTopologyData();
@@ -62,20 +64,18 @@ export class ConfigApplicationListComponent implements OnInit {
   /**Getting application list data */
   loadApplicationData(): void {
     this.configApplicationService.getApplicationList().subscribe(data => {
-        this.applicationData = data.reverse();
-        this.loadTopologyData();
-  });
+      this.applicationData = data.reverse();
+      this.loadTopologyData();
+    });
   }
 
   /**Getting topology list. further we will optimize. */
   loadTopologyData(): void {
-    let data: MainInfo;
-    this.configHomeService.getMainData()
-      .subscribe(data => {
-        data = data;
-        this.topologyInfo = data.homeData[2].value;
-        this.createTopologySelectItem();
-      })
+    this.topologySelectItem = []
+    this.configHomeService.getTopologyList().subscribe(data => {
+      data = data.sort();
+      this.topologySelectItem = ConfigUiUtility.createListWithKeyValue(data, data);
+    })
   }
 
   /**For showing add application dialog */
@@ -83,7 +83,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.applicationDetail = new ApplicationData();
     this.isNewApp = true;
     this.addEditAppDialog = true;
-    this.createTopologySelectItem();
+    // this.createTopologySelectItem();
   }
 
   /**For showing edit application dialog */
@@ -115,15 +115,23 @@ export class ConfigApplicationListComponent implements OnInit {
         //Get Selected Applications's AppId
         let selectedApp = this.selectedApplicationData;
         let arrAppIndex = [];
+        let arrId = [];
         for (let index in selectedApp) {
+          
           arrAppIndex.push(selectedApp[index].appId);
+          arrId.push(selectedApp[index].topoId)
+
         }
+        let that = this;
+        //delete appication
         this.configApplicationService.deleteApplicationData(arrAppIndex)
-          .subscribe(data => {
-            this.deleteApplications(arrAppIndex);
+        .subscribe(data => {
+          this.deleteApplications(arrAppIndex);
+          //Delete topology associated with it
+          this.configTopologyService.deleteTopology(arrId).subscribe(data => {
             this.configUtilityService.infoMessage("Deleted Successfully");
-          })
-           // this.configUtilityService.infoMessage("Deleted Successfully");
+            })
+        })
       },
       reject: () => {
 
@@ -170,16 +178,22 @@ export class ConfigApplicationListComponent implements OnInit {
         return;
       }
     }
-    this.configApplicationService.addApplicationData(this.applicationDetail)
-      .subscribe(data => {
-        //Insert data in main table after inserting application in DB
-        // this.applicationData.push(data);
+    this.configHomeService.importTopology(this.applicationDetail.topoName).subscribe(data => {
+      for(let i=0;i<data.length;i++){
+        if(data[i].name == this.applicationDetail.topoName)
+          this.applicationDetail.topoId = data[i].id
+      }
+      this.configApplicationService.addApplicationData(this.applicationDetail)
+        .subscribe(data => {
+          //Insert data in main table after inserting application in DB
+          // this.applicationData.push(data);
 
-        //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
-        this.applicationData=ImmutableArray.push(this.applicationData,data);
-        this.configUtilityService.successMessage(Messages);
-        this.loadApplicationData();
-      });
+          //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+          this.applicationData = ImmutableArray.push(this.applicationData, data);
+          this.configUtilityService.successMessage(Messages);
+          this.loadApplicationData();
+        });
+    });
     this.closeDialog();
   }
 
@@ -199,7 +213,7 @@ export class ConfigApplicationListComponent implements OnInit {
         // this.applicationData[index] = data;
         this.configUtilityService.successMessage(Messages);
         //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
-        this.applicationData=ImmutableArray.replace(this.applicationData,data,index);
+        this.applicationData = ImmutableArray.replace(this.applicationData, data, index);
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });
@@ -224,17 +238,17 @@ export class ConfigApplicationListComponent implements OnInit {
   /***** This method is used to creating topology select item object *****/
   createTopologySelectItem() {
     let appTopoIdArr = [];
-    this.applicationData.map(function(val){
-        appTopoIdArr.push(+val.topoId)
+    this.applicationData.map(function (val) {
+      appTopoIdArr.push(+val.topoId)
     })
     this.topologySelectItem = [];
-   if(this.topologyInfo != null){
-    for (let i = 0; i < this.topologyInfo.length; i++) {
-      if((appTopoIdArr.indexOf(+this.topologyInfo[i].id) == -1)){
-        this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
+    if (this.topologyInfo != null) {
+      for (let i = 0; i < this.topologyInfo.length; i++) {
+        if ((appTopoIdArr.indexOf(+this.topologyInfo[i].id) == -1)) {
+          this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
+        }
       }
     }
-   }
   }
 
   /**This method is used to delete application */
@@ -258,7 +272,7 @@ export class ConfigApplicationListComponent implements OnInit {
   }
 
   //Route to NDC Keyword 
-  routeToNDCKeywords(selectedAppId){
+  routeToNDCKeywords(selectedAppId) {
     sessionStorage.setItem("agentType", "");
     this.router.navigate([ROUTING_PATH + '/application-list/ndc-keywords-setting', selectedAppId])
   }
