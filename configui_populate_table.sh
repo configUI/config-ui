@@ -556,9 +556,9 @@ INSERT INTO config.conditional_operator(opt_id,val_id,operators) VALUES
 (16,2,'!PRESENT');
 
 INSERT INTO config.bussiness_trans_global(bt_global_id, complete, dynamic_req_type, dynamic_req_value, http_method, request_header, request_param, segment_type, segment_uri,segment_value, slow_transaction, uri_type, very_slow_transaction, profile_id, slow_threshold, very_slow_threshold) VALUES
-(1, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 1, '10', '20'),
-(2, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 777777, '10', '20'),
-(3, false, false,'httpMethod', true, false, false, 'first', true, 2, 3000, 'segmentOfURI', 5000, 888888, '10', '20');
+(1, false, false,'httpMethod', true, false, false, 'FromFirst', true, 2, 3000, 'segmentOfURI', 5000, 1, '10', '20'),
+(2, false, false,'httpMethod', true, false, false, 'FromFirst', true, 2, 3000, 'segmentOfURI', 5000, 777777, '10', '20'),
+(3, false, false,'httpMethod', true, false, false, 'FromFirst', true, 2, 3000, 'segmentOfURI', 5000, 888888, '10', '20');
 
 INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_max, ndc_def_value,ndc_key_val )VALUES 
 (1,'NDC_WAIT_TIME_AFTER_TEST_IS_OVER','','','30','30'),

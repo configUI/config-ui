@@ -231,6 +231,8 @@ export class BusinessTransGlobalData {
     uriType: string;
     slowDynamicThreshold: string;
     verySlowDynamicThreshold: string;
+    segmentNoVal: string;
+    segmentNo: string;
 }
 
 export class SessionAtrributeComponentsData {

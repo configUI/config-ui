@@ -123,8 +123,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.agentType = sessionStorage.getItem("agentType");
     
     this.segmentList = [];
-    let arrLabel = ['First', 'Last', 'Segment Number'];
-    let arrValue = ['first', 'last', 'segNo'];
+    let arrLabel = ['First', 'Last'];
+    let arrValue = ['FromFirst', 'FromLast'];
     this.segmentList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
 
     this.matchModeList = [];
@@ -155,7 +155,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.globalBtDetail.dynamicReqValue = "httpMethod";
 
-    this.globalBtDetail.segmentType = 'first';
+    this.globalBtDetail.segmentType = 'FromFirst';
 
     // this.globalBtDetail.segmentURI = 'segmentOfURI';
 
@@ -164,6 +164,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.globalBtDetail.requestParam = '';
 
     this.globalBtDetail.dynamicReqType = false;
+
+    this.globalBtDetail.segmentNo = '';
 
     //this.segmentURI = 'segmentOfURI';
   }
@@ -177,6 +179,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     });
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => {
        this.doAssignBusinessTransData(data) });
+
     this.getKeywordData();
     this.loadBTPatternData();
     this.configKeywordsService.fileListProvider.subscribe(data => {
@@ -268,6 +271,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.globalBtDetail.requestParam = "";
       if (this.globalBtDetail.requestHeader == 'false')
         this.globalBtDetail.requestHeader = "";
+        if(this.globalBtDetail.dynamicReqValue == 'segmentNo'){
+          if(this.globalBtDetail.segmentNo.includes("%2C")){
+            this.globalBtDetail.segmentNo = this.globalBtDetail.segmentNo.replace(/%2C/g, ",")
+          }
+        }
+
 
     }
     else {
@@ -282,18 +291,28 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /* Save all values of Business Transaction */
   saveBusinessTransaction() {
-
     this.globalBtDetail.uriType = this.segmentURI;
     if (this.globalBtDetail.dynamicReqValue == "httpMethod")
       this.globalBtDetail.httpMethod = true;
     else
       this.globalBtDetail.httpMethod = false;
 
+      if(this.globalBtDetail.dynamicReqValue == 'segmentNo'){
+        if(this.globalBtDetail.segmentNo.includes(",")){
+          this.globalBtDetail.segmentNo = this.globalBtDetail.segmentNo.replace(/\,/g , "%2C")
+        }
+      }
     this.globalBtDetail.verySlowTransaction = "" + this.globalBtDetail.verySlowTransaction;
     this.globalBtDetail.slowTransaction = "" + this.globalBtDetail.slowTransaction;
 
-
-    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => this.configUtilityService.successMessage(Messages));
+    this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => 
+      {
+        if(this.globalBtDetail.segmentNo.includes("%2C")){
+          this.globalBtDetail.segmentNo = this.globalBtDetail.segmentNo.replace(/%2C/g, ",")
+        }
+        this.configUtilityService.successMessage(Messages)
+      }
+      );
   }
 
   /**This method is used to add Pattern detail */
