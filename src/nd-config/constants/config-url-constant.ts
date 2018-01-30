@@ -1,6 +1,6 @@
 
 
-// const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
+// const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -26,6 +26,7 @@ export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
 export const ADD_ROW_APP_URL = `${SERVICE_URL}/custom/application`;
 export const DEL_ROW_APP_URL = `${SERVICE_URL}/custom/application/delete`;
 export const GET_APP_NAME = `${SERVICE_URL}/custom/application/getappname`;
+export const ADD_TOPO_DETAILS = `${SERVICE_URL}/custom/application/addtopodetails`;
 
 /* Url for DCDetail */
 export const DC_TABLE_DATA_URL = `${SERVICE_URL}/application`;

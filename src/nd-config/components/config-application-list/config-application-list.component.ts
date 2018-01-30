@@ -47,6 +47,9 @@ export class ConfigApplicationListComponent implements OnInit {
   /**SelectItem for topology */
   topologySelectItem: SelectItem[];
 
+  /**To store all topology name  */
+  topoNameList = []
+
   isAppPerm: boolean;
 
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
@@ -74,7 +77,8 @@ export class ConfigApplicationListComponent implements OnInit {
     this.topologySelectItem = []
     this.configHomeService.getTopologyList().subscribe(data => {
       data = data.sort();
-      this.topologySelectItem = ConfigUiUtility.createListWithKeyValue(data, data);
+      this.topoNameList = data
+      this.createTopologySelectItem(this.topoNameList)
     })
   }
 
@@ -83,7 +87,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.applicationDetail = new ApplicationData();
     this.isNewApp = true;
     this.addEditAppDialog = true;
-    // this.createTopologySelectItem();
+    this.createTopologySelectItem(this.topoNameList);
   }
 
   /**For showing edit application dialog */
@@ -115,11 +119,11 @@ export class ConfigApplicationListComponent implements OnInit {
         //Get Selected Applications's AppId
         let selectedApp = this.selectedApplicationData;
         let arrAppIndex = [];
-        let arrId = [];
+        // let arrId = [];
         for (let index in selectedApp) {
           
           arrAppIndex.push(selectedApp[index].appId);
-          arrId.push(selectedApp[index].topoId)
+          // arrId.push(selectedApp[index].topoId)
 
         }
         let that = this;
@@ -128,9 +132,9 @@ export class ConfigApplicationListComponent implements OnInit {
         .subscribe(data => {
           this.deleteApplications(arrAppIndex);
           //Delete topology associated with it
-          this.configTopologyService.deleteTopology(arrId).subscribe(data => {
+          // this.configTopologyService.deleteTopology(arrId).subscribe(data => {
             this.configUtilityService.infoMessage("Deleted Successfully");
-            })
+            // })
         })
       },
       reject: () => {
@@ -178,7 +182,9 @@ export class ConfigApplicationListComponent implements OnInit {
         return;
       }
     }
-    this.configHomeService.importTopology(this.applicationDetail.topoName).subscribe(data => {
+    let arr = []
+    arr.push(this.applicationDetail.topoName)
+    this.configApplicationService.addTopoDetails(arr).subscribe(data => {
       for(let i=0;i<data.length;i++){
         if(data[i].name == this.applicationDetail.topoName)
           this.applicationDetail.topoId = data[i].id
@@ -236,16 +242,16 @@ export class ConfigApplicationListComponent implements OnInit {
   }
 
   /***** This method is used to creating topology select item object *****/
-  createTopologySelectItem() {
-    let appTopoIdArr = [];
+  createTopologySelectItem(data) {
+    let appTopoArr = [];
     this.applicationData.map(function (val) {
-      appTopoIdArr.push(+val.topoId)
+      appTopoArr.push(val.topoName)
     })
     this.topologySelectItem = [];
-    if (this.topologyInfo != null) {
-      for (let i = 0; i < this.topologyInfo.length; i++) {
-        if ((appTopoIdArr.indexOf(+this.topologyInfo[i].id) == -1)) {
-          this.topologySelectItem.push({ value: this.topologyInfo[i].id, label: this.topologyInfo[i].name });
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        if ((!appTopoArr.includes(data[i]))) {
+          this.topologySelectItem.push({ value: data[i], label: data[i] });
         }
       }
     }
