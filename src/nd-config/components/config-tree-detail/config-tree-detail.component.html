@@ -13,10 +13,10 @@
                     <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
                     <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
             </template>
-                <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
+                <!-- <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
             <md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
                     <md-slide-toggle *ngIf="!perm" (change)="disableProfInstance(entity['instanceId'], entity[col.field], entity['profileId'])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
-            </template>
+            </template> -->
                 <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
                     <span *ngIf="entity[col.field]== false" title="Start">
                         <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
