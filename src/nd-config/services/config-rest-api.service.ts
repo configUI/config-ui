@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-//import { CavTopPanelNavigationService } from '../../../main/services/cav-top-panel-navigation.service';
-//import { CavConfigService } from '../../../main/services/cav-config.service';
+import { CavTopPanelNavigationService } from './cav-top-panel-navigation.service';
+import { CavConfigService } from './cav-config.service';
 
 import './config-rxjs-import';
 
