@@ -196,7 +196,11 @@ export class ConfigTreeDetailComponent implements OnInit {
       //this.selectedTopologyData :TierInfo[];
       this.tierName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.SERVER;
-      this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
+      this.topologyData.filter(row => 
+        {
+          console.log("tier" , row.tierId)
+          console.log("rooooo ", row)
+           if (row.tierId == event.data.nodeId) this.tierEntity = row })
       sessionStorage.setItem("serverId", event.data.nodeId);
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);
       this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
@@ -260,16 +264,30 @@ export class ConfigTreeDetailComponent implements OnInit {
       colHeader = ["Display name", "Actual name", "Profile applied"];
       colField = ["serverDisplayName", "serverName", "profileName"];
     }
+    //Hiding toggle at instance level
+    // else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
+
+    //   // check whether it is application topology screen or topology details screen
+    //   if (this.url.includes("/tree-main/topology/")) {
+    //     colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled"];
+    //     colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled"];
+    //   }
+    //   else {
+    //     colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
+    //     colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "aiEnable"];
+    //   }
+    // }
+
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
 
       // check whether it is application topology screen or topology details screen
       if (this.url.includes("/tree-main/topology/")) {
-        colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled"];
-        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled"];
+        colHeader = ["Display name", " Name", "Description", "Profile applied"];
+        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName"];
       }
       else {
-        colHeader = ["Display name", " Name", "Description", "Profile applied", "Enabled", "Auto-Instrumentation"];
-        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "enabled", "aiEnable"];
+        colHeader = ["Display name", " Name", "Description", "Profile applied", "Auto-Instrumentation"];
+        colField = ["instanceDisplayName", "instanceName", "instanceDesc", "profileName", "aiEnable"];
       }
     }
 
@@ -439,10 +457,10 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   //To open auto instr configuration dialog
   openAutoInstrDialog(name, id) {
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
-      return;
-    }
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+    //   return;
+    // }
     this.currentInsId = id;
     this.currentInstanceName = name;
     this.autoInstrObj = new AutoInstrSettings();
@@ -507,9 +525,9 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //For autoInstrRetainChanges
     if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
-      this.autoInstrObj.autoInstrRetainChanges = true;
-    else
       this.autoInstrObj.autoInstrRetainChanges = false;
+    else
+      this.autoInstrObj.autoInstrRetainChanges = true;
 
     //For blackListForDebugSession
     if (arr[12] != "NA")
@@ -564,20 +582,6 @@ export class ConfigTreeDetailComponent implements OnInit {
           + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
           + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
           + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=Path";
-      else
-        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
-          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
-          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
-          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=NA";
-    }
-    else {
-      if (data.blackListForDebugSession == true)
-        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
-          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
-          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
-          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
           + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=Path";
       else
         setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
@@ -585,6 +589,20 @@ export class ConfigTreeDetailComponent implements OnInit {
           + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
           + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
           + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=NA";
+    }
+    else {
+      if (data.blackListForDebugSession == true)
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=Path";
+      else
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=NA";
 
     }
     return setting;
@@ -718,7 +736,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrSessionDuration != 1800)
       strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
 
-    if (data.autoInstrRetainChanges != false)
+    if (data.autoInstrRetainChanges != true)
       strSetting = strSetting + ";autoInstrRetainChanges=1"
 
     if (data.blackListForDebugSession != false)

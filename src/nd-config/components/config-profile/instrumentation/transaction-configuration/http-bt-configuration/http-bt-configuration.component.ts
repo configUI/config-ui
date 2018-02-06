@@ -307,10 +307,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.configKeywordsService.addGlobalData(this.globalBtDetail, this.profileId).subscribe(data => 
       {
+        if(this.globalBtDetail.segmentNo != null){
         if(this.globalBtDetail.segmentNo.includes("%2C")){
           this.globalBtDetail.segmentNo = this.globalBtDetail.segmentNo.replace(/%2C/g, ",")
         }
-        this.configUtilityService.successMessage(Messages)
+      }
       }
       );
   }
