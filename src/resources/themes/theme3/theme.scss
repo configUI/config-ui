@@ -65,7 +65,7 @@ body {
     padding: 0;
     font-size: 11px; color: #d6d6d6;
     /*background: url(images/4.jpg) center repeat fixed #000;*/
-    background: url('/ProductUI/resources/themes/theme3/images/2.jpg') fixed center #383844;
+    background: url('images/2.jpg') fixed center #383844;
     background-size: 100% 100%;
 }
 /*----------------Themeing CSS------------------*/
@@ -2430,27 +2430,35 @@ button.capabilityButton.mat-raised-button{
 }
 /*-------------------NEW KPI UI--------------------*/
 .ed-kpi {
-    background-color: rgba(252, 252, 252, 0.8);
-    box-shadow: 0 0 4px 2px #565656;
+    background-color: rgba(45, 45, 45, 0.4);
+    box-shadow: 0 0 2px 2px #565656;
+}
+.ed-kpi .ui-widget-header {
+    border: 1px solid #4a4a4a;
+    color: #d6d6d6;
+    background: #080808;
 }
 .ed-table .ui-datatable .ui-datatable-thead>tr>th {
     color: #d6d6d6;
 }
 .ed-toolbar .ui-toolbar.ui-widget.ui-widget-header{
-        background: rgba(255, 255, 255, 0.58);
+        background: rgba(25, 25, 25, 0.65);
+        color: #d6d6d6;
         border: 0;
 }
 .sampleTimeClass{
-    color:#282828;
+    color:#d6d6d6;
 }
 .timeLabel {
-    color: #373e69;
+    color: #b3b3b3;
 }
-.revenue-table .ui-datatable-even {
-    background-color: rgb(80, 80, 80);
+.revenue-table, .kpigrid, .ui-datatable-even {
+    background: #212121;
+    color: #dadada;
 }
-.revenue-table .ui-datatable-odd {
-    background-color: rgb(123, 123, 123);
+.revenue-table, .kpigrid, .ui-datatable-odd {
+    background: #3e3e3e;
+    color: #dadada;
 }
 .ed-table .ui-widget-header {
     background: #272727;
@@ -2480,37 +2488,37 @@ button.capabilityButton.mat-raised-button{
 }
 .kpi_multi_pky.ui-state-default.ui-unselectable-text{
     background: rgba(41, 41, 41, 0.87);
-    color: #f5f5f5;
+    color: #d6d6d6;
     font-weight: 500;
 }
 .kpi_multi_scs.ui-state-default.ui-unselectable-text{
     background: rgba(41, 41, 41, 0.77);
-    color: #f5f5f5;
+    color: #d6d6d6;
     font-weight: 500;
 }
 .kpi_pvs_pky_data.ui-state-default.ui-unselectable-text{
     background: rgba(68, 68, 68, 0.82);
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 .kpi_pvs_scs_data.ui-state-default.ui-unselectable-text{
     background: rgba(89, 89, 89, 0.69);
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 .kpi_res_pky_data.ui-state-default.ui-unselectable-text{
     background: rgba(68, 68, 68, 0.82);
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 .kpi_res_scs_data.ui-state-default.ui-unselectable-text{
     background: rgba(89, 89, 89, 0.69);
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 .kpi_cpu_pky_data.ui-state-default.ui-unselectable-text{
     background: rgba(68, 68, 68, 0.82);
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 .kpi_cpu_scs_data.ui-state-default.ui-unselectable-text{
     background: rgba(89, 89, 89, 0.69);
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 .kpi_total.ui-state-default.ui-unselectable-text{
     background: #000;
@@ -2559,7 +2567,7 @@ p-datatable.kpigrid {
     font-weight: 500;
 }
 .ed-kpi .ui-widget-content {
-    color: #f5f5f5;
+    color: #d6d6d6;
 }
 /*---------------Alert Email SettingPopup---------------*/
 .mailSmsConfigSetting .ui-dialog-titlebar-close {
@@ -2908,8 +2916,13 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
 
 .dashboard-show-graph-data-accordain-tab .ui-state-default {
      background: #45484d;
-    border: 1px #4a4a4a solid;
-    color: #d6d6d6;
+     border: 1px #4a4a4a solid;
+     color: #d6d6d6;
+}
+.dashboard-show-graph-data-accordain-tab .ui-accordion .ui-accordion-header.ui-state-active {
+     background: #45484d;
+     border: 1px #4a4a4a solid;
+     color: #d6d6d6;
 }
 .open-total-scenlabel {
     background: #000;
@@ -2978,7 +2991,7 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
     color: #d6d6d6;
 }
 .table-css .ui-datatable .ui-datatable-data>tr>td {
-    border: 1px solid #1d1d1d;
+    border: 1px solid #4a4a4a;
     background: #1d1d1d;
 }
 .configUI {
@@ -3037,7 +3050,10 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
     border: 1px #4a4a4a solid;
 }
 .sidedbar-accordion .ui-widget-content {
-    background: #080808; 
+    background: #353535; 
+}
+.sidebarUI-sidenav.ui-widget-content {
+    background: #353535; 
 }
 .AC-rghtpane-box {
     background: transparent;
@@ -3051,4 +3067,13 @@ label {
 }
 .AC-rightpane .ui-widget-content {
     background: #080808;
+}
+.dashboard-show-graph-data-accordain .ui-accordion-content.ui-widget-content {
+    background: #1d1d1d;
+}
+
+/*---------Script Execution Logs---------------*/
+.srptexc-header  {
+    background: #5a5a5a;
+    color: #d6d6d6;
 }

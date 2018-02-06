@@ -71,7 +71,6 @@ import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigCustomDataService } from './services/config-customdata.service';
 //import { ApiService } from '../file-explorer/services/api.service';
 
-
 /**Config UI Component */
 import { AppComponentForConfig } from './config.component';
 import { ConfigMainComponent } from './components/config-main/config-main.component';
@@ -262,5 +261,3 @@ import { AlertConfigService } from './services/alert-config-service';
     bootstrap: [AppComponentForConfig]
 })
 export class AppModuleForConfig { }
-
-

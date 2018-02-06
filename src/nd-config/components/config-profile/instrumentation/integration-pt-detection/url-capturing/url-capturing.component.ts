@@ -121,20 +121,12 @@ export class UrlCapturingComponent implements OnInit {
         this.urlCapturingData.urlOffset = arr[1];
         this.urlCapturingData.maxChar = arr[2];
     }
-
-   else if(this.urlCapturing["formatIPResourceURL"].value == "1"){
-      this.urlCapturingData = new UrlCapturingData();
-      this.enableFormatIPResourceURL = true;
-        this.urlCapturingData.includeParameter = false;
-        this.urlCapturingData.urlOffset = 0;
-        this.urlCapturingData.maxChar = 50;
-    }
     else {
       this.urlCapturingData = new UrlCapturingData();
       this.enableFormatIPResourceURL = false;
         this.urlCapturingData.includeParameter = false;
         this.urlCapturingData.urlOffset = 0;
-        this.urlCapturingData.maxChar = 50;
+        this.urlCapturingData.maxChar = 256;
     }
   }
 
@@ -161,7 +153,7 @@ export class UrlCapturingComponent implements OnInit {
          if (this.urlCapturingData.maxChar != null)
             formatIPVal = formatIPVal + "%20" + this.urlCapturingData.maxChar;
          else
-            formatIPVal = formatIPVal + "%2050";
+            formatIPVal = formatIPVal + "%20256";
 
       return formatIPVal;
      }

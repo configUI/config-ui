@@ -9,41 +9,42 @@
                 <button type="button" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveBTTransactionOnFile()" label="Save"></button>
             </div>
         </div>
-        <p-tabView>
-            <p-tabPanel header="Configure Detection Rules">
-                <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
-            </p-tabPanel>
-            <p-tabPanel header="Split by Method Execution">
-                <app-method-bt-configuration (keywordData)="saveKeywordData($event)"></app-method-bt-configuration>
-            </p-tabPanel>
-            <p-tabPanel header="Split by HTTP Headers">
-                <bt-http-headers (keywordData)="saveKeywordData($event)"></bt-http-headers>
-            </p-tabPanel>
-            <p-tabPanel header="Split by Response Headers">
+<p-tabView>
+    <p-tabPanel header="Configure Detection Rules">
+        <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
+    </p-tabPanel>
+    <p-tabPanel header="Split by Method Execution">
+        <app-method-bt-configuration (keywordData)="saveKeywordData($event)"></app-method-bt-configuration>
+    </p-tabPanel>
+    <p-tabPanel header="Split by HTTP Headers">
+        <bt-http-headers (keywordData)="saveKeywordData($event)"></bt-http-headers>
+    </p-tabPanel>
+     <p-tabPanel header="Split by Response Headers">
                 <bt-response-headers (keywordData)="saveKeywordData($event)"></bt-response-headers>
-            </p-tabPanel>
-        </p-tabView>
+     </p-tabPanel>
+</p-tabView>
     </div>
 </form>
 
-<p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal" width="500" responsive="true">
-    <div style="max-height: 500px; overflow-y: auto;">
-        Runtime changes successfully applied on:
-        <ul>
-            <li *ngFor="let err of msg">
-                <span>{{err}}</span>
-            </li>
-        </ul>
-        Error while applying Runtime changes on:
-        <ul>
-            <li *ngFor="let e of errMsg">
-                <span>{{e}}</span>
-            </li>
-        </ul>
-    </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-            <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
-        </div>
-    </footer>
+<p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
+width="500" responsive="true">
+<div style="max-height: 500px; overflow-y: auto;">
+  Runtime changes successfully applied on: 
+  <ul>
+   <li *ngFor="let err of msg">
+      <span>{{err}}</span>
+   </li>
+  </ul>
+  Error while applying Runtime changes on:
+  <ul>
+    <li *ngFor="let e of errMsg">
+       <span>{{e}}</span>
+    </li>
+   </ul>
+</div>
+<footer>
+  <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+    <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
+  </div>
+</footer>
 </p-dialog>

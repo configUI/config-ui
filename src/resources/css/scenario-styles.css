@@ -56,6 +56,12 @@
     padding: 4px;
 }
 
+.scen-table-resize .ui-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+}
+
 .wizard-dialog .ui-dialog {
     height: 466px;
     top: 30px ;
@@ -141,4 +147,12 @@
     overflow-x: hidden;
     height: 85vh;
     padding: 4px;
+}
+
+.scen-tbl-rdt .ui-datatable-thead {
+    display: none;
+}
+
+.scen-tbl-rdt .ui-datatable tbody > tr.ui-widget-content {
+    border: 1px #fff solid;
 }
