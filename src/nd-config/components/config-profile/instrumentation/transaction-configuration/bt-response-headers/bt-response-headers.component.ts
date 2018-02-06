@@ -187,6 +187,7 @@ export class BTResponseHeadersComponent implements OnInit {
 
     //Opens edit Response Headers dialog
     openEditResponseHeader() {
+        this.selectedResponseHeader = [];
         this.btResponseHeadersDetail = new BTResponseHeaderData();
         if (!this.selectedResponseHeaders || this.selectedResponseHeaders.length < 1) {
             this.configUtilityService.errorMessage("Select a row to edit");

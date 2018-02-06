@@ -504,6 +504,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           this._configUtilityService.errorMessage('Method Name should contain brackets i.e m1(arg) or m1()');
           return;
         }
+      else
+      {
+       this.nodeLabel= this.nodeLabel.replace(/\./g,'/');
+      }
       }
     }
 

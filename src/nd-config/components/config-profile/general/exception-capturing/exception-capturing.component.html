@@ -94,8 +94,8 @@
                         scrollable="true" scrollHeight="300px" resizableColumns="true">
                         <p-header>
                             <span style="float: left">
-                                    <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
-                                    <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox></span>{{selectedValues}}
+                                           <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
+                                    <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox></span>
                             <span style="float: left"> Enable Exception Filter </span>
 
                             <span style="float :right; margin-top:-3px">
@@ -177,7 +177,7 @@
                         <!-- This will look for this component in the ProductUI at this path -
                                      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-                        <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+                         <app-config-nd-file-explorer></app-config-nd-file-explorer>
                     </p-dialog>
                 </p-fieldset>
             </div>

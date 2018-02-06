@@ -206,6 +206,7 @@ export class BTHTTPHeadersComponent implements OnInit {
 
     //Opens edit HTTP Headers dialog
     openEditHttpHeader() {
+         this.selectedRequestHeader = [];
         this.btHttpHeadersDetail = new BTHTTPHeaderData();
         if (!this.selectedHTTPHeaders || this.selectedHTTPHeaders.length < 1) {
             this.configUtilityService.errorMessage("Select a row to edit");

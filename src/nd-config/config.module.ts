@@ -48,6 +48,9 @@ import {
   FileUploadModule
 } from 'primeng/primeng';
 
+/**Perfect Scrollbar module */
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import 'hammerjs';
 
 /** Routing Module */
@@ -69,7 +72,7 @@ import { ConfigUtilityService } from './services/config-utility.service';
 import { ConfigHomeService } from './services/config-home.service';
 import { ConfigKeywordsService } from './services/config-keywords.service';
 import { ConfigCustomDataService } from './services/config-customdata.service';
-//import { ApiService } from '../file-explorer/services/api.service';
+import { ApiService } from '../file-explorer/services/api.service';
 
 
 /**Config UI Component */
@@ -115,7 +118,6 @@ import { GenerateExceptionComponent } from './components/config-profile/advance/
 import { CustomKeywordsComponent } from './components/config-profile/advance/custom-keywords/custom-keywords.component';
 import { BTHTTPHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-http-headers/bt-http-headers.component';
 import { BTResponseHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-response-headers/bt-response-headers.component';
-
 import { HttpHeaderComponent } from './components/config-profile/general/header/http-header/http-header.component';
 import { CustomDataComponent } from './components/config-profile/general/custom-data/custom-data.component';
 import { HttpRequestComponent } from './components/config-profile/general/custom-data/http-request/http-request.component';
@@ -126,8 +128,10 @@ import { MethodMonitorsComponent } from './components/config-profile/instrumenta
 import { ExceptionMonitorsComponent } from './components/config-profile/instrumentation/instrument-monitors/exception-monitors/exception-monitors.component';
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
+import { ConfigNdFileExplorerComponent } from '../file-explorer/components/config-nd-file-explorer/config-nd-file-explorer.component';
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
+import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
 import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
 import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
 import { ConfigAutoDiscoverTreeComponent } from './components/config-auto-discover/config-auto-discover-tree/config-auto-discover-tree.component';
@@ -139,14 +143,9 @@ import { ConfigEditAutoInstrumentationComponent } from './components/config-auto
 import { ExceptionCapturingComponent } from './components/config-profile/general/exception-capturing/exception-capturing.component';
 import { HttpResponseComponent } from './components/config-profile/general/custom-data/http-response/http-response.component';
 
-// not commit in cvs
-import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
-import { AuthenticationService } from './services/authentication.service';
-import {CavConfigService } from './services/cav-config.service';
-import { CavDataApiService } from './services/cav-data-api.service';
-import { CavTopPanelNavigationService } from './services/cav-top-panel-navigation.service';
-import { TimerService } from './services/timer.service';
-import { AlertConfigService } from './services/alert-config-service';
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -199,6 +198,7 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigTopHeaderNavBarComponent,
     PipeForFpDump,
     CustomKeywordsComponent,
+    ConfigNdFileExplorerComponent,
     ExceptionMonitorsComponent,
     BTHTTPHeadersComponent,
     IntegrationPtComponent,
@@ -212,17 +212,18 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigAutoInstrumentationComponent,
     ConfigEditAutoInstrumentationComponent,
     ExceptionCapturingComponent,
-    HttpResponseComponent,
-    BTResponseHeadersComponent
+    BTResponseHeadersComponent,
+    HttpResponseComponent
   ],
   imports: [
-   // CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
+    // BrowserModule,
+    // BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     ConfigRoutingModule,
     MaterialModule,
+    PerfectScrollbarModule.forRoot(),
     StoreModule.provideStore({ keywordData: keywordReducer, ndcKeywordData: ndcKeywordReducer }),
     InputTextModule,
     DataTableModule,
@@ -255,9 +256,9 @@ import { AlertConfigService } from './services/alert-config-service';
   ],
 
   providers: [
-   // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
-   AlertConfigService, TimerService, CavTopPanelNavigationService, CavDataApiService ,CavConfigService, AuthenticationService,CavMenuNavigatorService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
-   // ApiService,
+    { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
+    ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
+    ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]
 })

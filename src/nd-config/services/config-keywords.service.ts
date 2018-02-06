@@ -11,16 +11,15 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import { Subscription } from 'rxjs/Subscription';
 
-import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData, BTResponseHeaderData } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,BTResponseHeaderData,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
-import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 import { ConfigUtilityService } from '../services/config-utility.service';
 import { Messages, customKeywordMessage } from '../constants/config-constant'
-
+import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 
 @Injectable()
 export class ConfigKeywordsService {
@@ -489,6 +488,8 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_RULES_BT}`, listOfIds);
   }
 
+
+
   /** Add BT HTTP REQUEST HEADERS */
   addBtHttpHeaders(data, profileId) {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_HDR_URL}/${profileId}`, data);
@@ -536,7 +537,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   editBTResponseHeaders(data): Observable<BTResponseHeaderData> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTRESPONSE_HEADER}/${data.headerId}`, data);
   }
-
   /** Method to upload file */
   uploadFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_FILE}/${profileId}`, filePath);
@@ -658,6 +658,17 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.CHECK_INSTRUEMENTATION_XML_FILE_EXIST}?reqId=${reqId}`, xmlFileName);
   }
 
+  /*this method is used to get details of selected instr profile*/
+  getSelectedProfileDetails(data, msg) {
+
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INSTR_PROFILE_DETAILS}/${msg}`, data);
+  }
+
+  /**Sending RTC for instrumentation profile maker */
+  rtcInstrProfile(data, userName): Observable<String[]>{
+    return this._restApi.getDataByPostReq(`${URL.RUNTIME_CHANGE_INSTR_PROFILE}/${userName}`, data)
+  }
+
   /* Edit Http Response Header Info */
   editHTTPRepHeaderData(data): Observable<HTTPResponseHdrComponentData> {
     let url = `${URL.UPDATE_HTTPREPHDR}/${data.httpAttrId}`;
@@ -683,17 +694,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   getFetchHTTPRepHeaderTable(profileId): Observable<httpRepHeaderInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREP_HDR}/${profileId}`);
   }
-  /*this method is used to get details of selected instr profile*/
-  getSelectedProfileDetails(data, msg) {
-
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INSTR_PROFILE_DETAILS}/${msg}`, data);
-  }
-
-  /**Sending RTC for instrumentation profile maker */
-  rtcInstrProfile(data, userName): Observable<String[]>{
-    return this._restApi.getDataByPostReq(`${URL.RUNTIME_CHANGE_INSTR_PROFILE}/${userName}`, data)
-  }
-
 
 }
 

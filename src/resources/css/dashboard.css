@@ -1063,3 +1063,10 @@ b {
 .chngPassword .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
     font-size: 12px;
 }
+
+
+@-moz-document url-prefix() {
+    #favMozSupport{
+       padding-right: 25px;
+   }
+}

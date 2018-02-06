@@ -164,7 +164,8 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.childCpuFp = true;
     }
     else{
-      this.cpuTime = this.flowPath['enableCpuTime'].value
+      this.cpuTime = this.flowPath['enableCpuTime'].value;
+      this.childCpuFp = false;
     }
 
     if(this.flowPath['enableMethodBreakDownTime'].value.includes("%20")){
@@ -172,7 +173,8 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.childBrkDown = true;
     }
     else{
-      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value
+      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
+      this.childBrkDown = false;
     }
     
     this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;

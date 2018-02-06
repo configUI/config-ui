@@ -50,7 +50,7 @@ export class AutoInstrSettings{
     autoInstrMaxAvgDuration: number = 2;
     autoInstrClassWeight: number = 10;
     autoInstrSessionDuration: number = 1800;
-    autoInstrRetainChanges: boolean = false;
+    autoInstrRetainChanges: boolean = true;
     blackListForDebugSession: boolean = true;
 
 }

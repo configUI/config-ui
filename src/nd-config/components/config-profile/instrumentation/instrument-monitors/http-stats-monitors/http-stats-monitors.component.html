@@ -131,8 +131,8 @@
                     <label>Match with</label>
                 </div>
         <div class="ui-g-3" >
-                    <input name="ComparisonValue" class="config_align_dialog" *ngIf="selectedOthersOp || selectedNumericOp == 15 || selectedNumericOp == 16 || selectedStringOp == 13 || selectedStringOp == 14" pattern="[A-Za-z0-9]{1,99}"  type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus  ngModel/>
-                    <input name="ComparisonValue" class="config_align_dialog" *ngIf="!selectedOthersOp && selectedNumericOp != 15 && selectedNumericOp != 16 && selectedStringOp != 13 && selectedStringOp != 14" pattern="[A-Za-z0-9]{1,99}"  type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
+                    <input name="ComparisonValue" class="config_align_dialog" *ngIf="selectedOthersOp || selectedNumericOp == 15 || selectedNumericOp == 16 || selectedStringOp == 13 || selectedStringOp == 14" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus  ngModel/>
+                    <input name="ComparisonValue" class="config_align_dialog" *ngIf="!selectedOthersOp && selectedNumericOp != 15 && selectedNumericOp != 16 && selectedStringOp != 13 && selectedStringOp != 14" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
                 </div>
                 <div class="ui-g-1"></div>
                 <div class="ui-g-2" style="width:23%">

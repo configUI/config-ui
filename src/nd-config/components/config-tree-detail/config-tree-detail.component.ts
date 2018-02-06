@@ -507,9 +507,9 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //For autoInstrRetainChanges
     if (arr[11].substring(0, arr[11].lastIndexOf(";")) == 1)
-      this.autoInstrObj.autoInstrRetainChanges = true;
-    else
       this.autoInstrObj.autoInstrRetainChanges = false;
+    else
+      this.autoInstrObj.autoInstrRetainChanges = true;
 
     //For blackListForDebugSession
     if (arr[12] != "NA")
@@ -564,20 +564,6 @@ export class ConfigTreeDetailComponent implements OnInit {
           + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
           + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
           + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=Path";
-      else
-        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
-          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
-          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
-          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=NA";
-    }
-    else {
-      if (data.blackListForDebugSession == true)
-        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
-          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
-          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
-          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
           + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=Path";
       else
         setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
@@ -585,6 +571,20 @@ export class ConfigTreeDetailComponent implements OnInit {
           + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
           + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
           + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=NA";
+    }
+    else {
+      if (data.blackListForDebugSession == true)
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=Path";
+      else
+        setting = "enableAutoInstrSession=1;minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
+          + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+          + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
+          + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=NA";
 
     }
     return setting;
@@ -718,7 +718,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrSessionDuration != 1800)
       strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
 
-    if (data.autoInstrRetainChanges != false)
+    if (data.autoInstrRetainChanges != true)
       strSetting = strSetting + ";autoInstrRetainChanges=1"
 
     if (data.blackListForDebugSession != false)

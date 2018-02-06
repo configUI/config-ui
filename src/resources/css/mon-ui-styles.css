@@ -1,0 +1,216 @@
+.mon-ui .ui-treetable  .ui-treetable -thead>tr>th {
+    font-weight: 600;
+}
+
+.mon-ui .ui-treetable  .ui-treetable -tfoot>tr>td,
+.mon-ui .ui-treetable  .ui-treetable  table-data>tr>td {
+    height: 26px;
+    text-overflow: ellipsis;
+}
+
+.mon-ui .ui-treetable  thead tr {
+    height: 24px;
+}
+
+.mon-ui .ui-treetable th.ui-state-default 
+{
+  background: linear-gradient(to bottom, #417ebf 0%, #3b77b6 100%);
+  color: white;
+  padding: 12em 0 0 ;
+}
+
+.ui-treetable table {
+  border-collapse: collapse;
+}
+
+.ui-treetable th span.ui-column-title {
+ transform: rotate(90deg);
+ transform-origin: left top 0;
+
+}
+
+.mon-ui .ui-treetable  th span.ui-column-title
+{
+   transform: rotate(-90deg); 
+   display: block;
+   text-align: left;
+   /*padding: 12em 0 0;*/
+}
+
+.monitorHeader
+{
+  width:176px;
+  transform: rotate(0deg);
+}
+
+.mon-ui .ui-treetable  th:first-child  span.ui-column-title  
+{
+    transform: rotate(0deg); 
+    display: block;
+    /* width: 176px !important; */
+    text-align: center;
+    padding-bottom: 18px;
+    font-size: 17px;
+}
+
+/* for rotating the up-arrow icon in the tree table */
+.fa-rotate-45 {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.mon-ui .ui-datatable .ui-datatable-thead>tr>th {
+    font-weight: 600;
+}
+
+.mon-ui .ui-datatable .ui-datatable-tfoot>tr>td,
+.mon-ui .ui-datatable .ui-datatable-data>tr>td {
+    height: 26px;
+    text-overflow: ellipsis;
+}
+
+.mon-ui .ui-datatable thead tr {
+    height: 24px;
+}
+
+.mon-ui .ui-datatable .ui-datatable-header{
+  text-align: left;
+  height: 31px;
+}
+
+.homefieldSet
+{
+  margin: 5px 0px; 
+}
+
+.homedropdown
+{
+  padding: .25em 2em .25em .25em;
+  width: 224px;
+}
+
+/** Configuration home screen css **/
+#top-div {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 6px 2px #565656;
+    border-radius: 4px;
+    overflow-x: scroll;
+    overflow-y: auto;
+    max-height: 529px;
+}
+
+.mon-hometable .ui-datatable th.ui-state-default{
+  background: rgba(65, 126, 191, 0.9);
+  color:#fff;
+}
+
+.mon-hometable .ui-datatable .ui-datatable-thead>tr>th{
+  font-weight: 100;
+}
+
+.mbeanDrpdown{
+  width: 22.64%
+}
+
+/* for home screen main div */
+.main-box{
+   background: rgba(245, 245, 245, 0.6);
+}
+
+.monConfigPanel ,.ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all{
+  background: #183D65;
+  color: #fff;
+  height: 27px;
+}
+
+.configure .ui-accordion .ui-accordion-header {
+    padding: .1em .2em .1em 0.1em ;
+}
+.ui-accordion .ui-accordion-header a {
+    font-size: 1em;
+    font-weight: 500;
+    display: block;
+    padding: .5em .5em .5em 2em;
+    color: #fff;
+}
+
+.configure .ui-accordion .ui-accordion-header {
+    background: #2a3950;
+    color: #fff !important;
+}
+.accordian-css .ui-state-default a:link {
+    color: #fff;
+}
+
+/* for accordion content height */
+.mon-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content{
+  display: -webkit-box;
+  overflow-y: auto;
+  max-height: 370px;
+
+}
+
+mon-ui-config-datatable .ui-datatable{
+ margin-bottom: 30px;
+}
+
+/* for datatable header in the configuration screen of each monitor  */
+.mon-ui-config-datatable .ui-datatable .ui-datatable-header{
+  text-align: left;
+  height: 31px;
+  margin-top: 39px;
+}
+
+/* for datatable css in the configuration screen of each monitor */
+.mon-ui-config-datatable .ui-datatable th.ui-state-default{
+  background: rgba(65, 126, 191, 0.9);
+  color :#fff;
+}
+
+/* Css for the configured-data datatable */
+.configured-datatable  .ui-datatable th.ui-state-default{
+  background: rgba(65, 126, 191, 0.9);
+  color :#fff;
+}
+
+/* Css for the header of the configured-data datatable */
+.configured-datatable .ui-datatable .ui-datatable-header{
+  text-align: left;
+  height: 31px;
+}
+
+/*Css for each render-comp span*/
+span .spanClass {
+  padding-right: 50px;
+  line-height: 25px;
+  margin: 10px 0;
+}
+
+/*Css for each render-comp inner span*/
+.innerSpanClass{
+  padding-right: 71px;
+}
+
+.tableCss
+{
+ padding-bottom: 26px;
+ width: 100%
+}
+
+/* for setting height of dropdown in span for each rendered comp*/
+.spanClass2 .ui-dropdown {
+  line-height: 20px;
+}
+
+/* for setting line height of spinner in span for each rendered comp */
+.spanClass2 .ui-spinner {
+  line-height: 17px;
+
+}
+
+.fieldSetCss{
+  margin: 12px;
+}

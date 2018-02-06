@@ -47,7 +47,7 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "enableSourceCodeFilters":{"defaultValue": "false", "min": "1", "max": "1024", "assocId": -1, "value": "false", "keyId": 44},
 "ndExceptionMonFile":{"defaultValue":"false","min":"","max":"","assocId":-1,"value":"false","keyId":45},
 "maxQueryDetailsmapSize":{"defaultValue": "1000000", "min": "0", "max": "10000000", "assocId": -1, "value": "1000000", "keyId": 46},
-"formatIPResourceURL":{"defaultValue":"1","min":"0","max":"512","assocId":-1,"value":"0","keyId":47},
+"formatIPResourceURL":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":47},
 "enableIPResourceURL":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":48},
 "dumpDefaultCassandraQuery":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":49},
 "enableTransformThreadSubClass":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":50},

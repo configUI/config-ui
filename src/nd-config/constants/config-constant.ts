@@ -7,16 +7,16 @@ export const TOPOLOGY = {
 
 export const INTEGRATION_TYPE = {
     HTTP: 'HTTP',
-    WS: 'WS',
+    WS: 'Web Services',
     JDBC: 'JDBC',
-    COHERENCE: 'COHERENCE',
+    COHERENCE: 'Coherence',
     RMI: 'RMI',
-    MEM_CACHE: 'MEM CACHE',
-    CLOUDANT: 'CLOUDANT',
-    HADOOP: 'HADOOP',
-    CUSTOM: 'CUSTOM',
-    REDIS:'REDIS',
-    MONGO:'MONGO',
+    MEM_CACHE: 'Mem Cache',
+    CLOUDANT: 'Cloudant',
+    HADOOP: 'Hadoop',
+    CUSTOM: 'Custom',
+    REDIS:'Redis',
+    MONGO:'Mongo',
     Cloudant_NoSQL : 'Cloudant NoSQL'
 }
 
