@@ -6,6 +6,7 @@ import { ConfigUtilityService } from '../../services/config-utility.service';
 import { Router } from '@angular/router';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
+import { ConfigHomeService } from '../../services/config-home.service'
 @Component({
   selector: 'app-config-topology-list',
   templateUrl: './config-topology-list.component.html',
@@ -13,17 +14,24 @@ import { ConfirmationService } from 'primeng/components/common/confirmationservi
 })
 export class ConfigTopologyListComponent implements OnInit {
 
-  constructor(private configTopologyService: ConfigTopologyService, private configApplicationService: ConfigApplicationService, private router: Router, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) { }
+  constructor(private configTopologyService: ConfigTopologyService, private configHomeService: ConfigHomeService, private configApplicationService: ConfigApplicationService, private router: Router, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) { }
 
   topologyData: TopologyInfo[];
   selectedTopology: TopologyInfo[];
 
   ROUTING_PATH = ROUTING_PATH;
   topoPerm: boolean;
+  topologyNameList = []
 
   ngOnInit() {
     this.topoPerm=+sessionStorage.getItem("TopologyAccess") == 4 ? true: false;
-    this.loadTopologyList();
+    this.configHomeService.getTopologyList().subscribe(data => {
+      data = data.sort();
+      this.topologyNameList = data;
+      this.configApplicationService.addTopoDetails(this.topologyNameList).subscribe(data => {
+        this.loadTopologyList();
+      })
+    })
   }
 
   loadTopologyList() {

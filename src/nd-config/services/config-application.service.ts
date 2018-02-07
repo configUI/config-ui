@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import {ConfigRestApiService} from './config-rest-api.service';
 import { ApplicationInfo } from '../interfaces/application-info';
 import * as URL from '../constants/config-url-constant';
+import { EntityInfo } from '../interfaces/entity-info';
 
 @Injectable()
 export class ConfigApplicationService {
@@ -44,6 +45,10 @@ export class ConfigApplicationService {
 
   getAppName(appId): Observable<String>{
     return this._restApi.getDataByGetReqWithNoJson(`${URL.GET_APP_NAME}/${appId}`);
+  }
+
+  addTopoDetails(topoName): Observable<EntityInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_TOPO_DETAILS}`, topoName);
   }
   
 }
