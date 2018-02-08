@@ -37,7 +37,7 @@
                 <p-dropdown class="nde-ui" name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2">
-                 <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'FromFirst'  || globalBtDetail.segmentType == 'FromLast'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
+                <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'FromFirst'  || globalBtDetail.segmentType == 'FromLast'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
                     title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;For example 2 or 5" required pattern="[1-9]+[0-9]*" ngModel />
             </div>
             <div class="ui-g-3" style="margin-top:4px;margin-left:-90px">
@@ -112,14 +112,14 @@
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
-                <div class="ui-g-2">
-                    <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue4" value="segmentNo" label="Segment number" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
-                </div>
-                <div class="ui-g-10">
-                    <input name="segmentNo" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'segmentNo') || !globalBtDetail.dynamicReqType)" size="32" pInputText [(ngModel)]="globalBtDetail.segmentNo " title="Please enter valid header value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (,)"
-                        (keydown.space)="$event.preventDefault()" pattern="[0-9,]+[0-9]*$" required />
-                </div>
+            <div class="ui-g-2">
+                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue4" value="segmentNo" label="Segment number" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
+            <div class="ui-g-10">
+                <input name="segmentNo" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'segmentNo') || !globalBtDetail.dynamicReqType)" size="32" pInputText [(ngModel)]="globalBtDetail.segmentNo " title="Please enter valid header value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (,)"
+                    (keydown.space)="$event.preventDefault()" pattern="[0-9,]+[0-9]*$" required />
+            </div>
+        </div>
     </form>
 </div>
 <!--For showing Business Transaction Pattern(s) list -->
@@ -220,7 +220,7 @@
                         <label>URL Pattern</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$&=-]{0,249}$" title="Please enter valid url. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/ and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
+                        <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%:#$&=-]{0,249}$" title="Please enter valid url. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
                             [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
                     <div class="ui-g-4">
