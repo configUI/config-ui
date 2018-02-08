@@ -23,7 +23,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
   xmlFormat: any;
   profileXMLFileList: any[];
-  selectedXMLFile: string;
+  selectedXMLFile: string = "";
   isMakeXMLFile: boolean;
   openFileExplorerDialog: boolean = false;
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
@@ -573,6 +573,8 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     else {
       trMsg = sessionStorage.getItem("isTrNumber")
     }
+    if(this.selectedXMLFile == "")
+       this.selectedXMLFile = " "
     //Send "RTC" msg to show the only those levels of topology which is applied at the time of test run
     this._configKeywordsService.getSelectedProfileDetails(this.selectedXMLFile, trMsg).subscribe(data => {
       this.details = data["_body"];

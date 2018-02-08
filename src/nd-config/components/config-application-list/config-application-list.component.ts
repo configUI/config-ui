@@ -250,7 +250,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.topologySelectItem = [];
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
-        if ((!appTopoArr.includes(data[i]))) {
+        if (!(appTopoArr.indexOf(data[i]) > -1)) {
           this.topologySelectItem.push({ value: data[i], label: data[i] });
         }
       }

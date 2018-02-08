@@ -89,8 +89,8 @@
 
         <div class="header-Name">TOPOLOGY LIST {{topologyInfoMsg}}</div>
         <div class="header-button">
-          <a> <button pButton type="button" title="Import topologies" label="Import Topologies" *ngIf="topoPermission" [disabled]="topoPermission" class="button-color" icon="fa-download"></button></a>
-          <a (click)="importTopologyDialog()"> <button pButton type="button" title="Import topologies" label="Import Topologies" class="button-color" icon="fa-download" *ngIf="!topoPermission"></button></a>
+          <!-- <a> <button pButton type="button" title="Import topologies" label="Import Topologies" *ngIf="topoPermission" [disabled]="topoPermission" class="button-color" icon="fa-download"></button></a>
+          <a (click)="importTopologyDialog()"> <button pButton type="button" title="Import topologies" label="Import Topologies" class="button-color" icon="fa-download" *ngIf="!topoPermission"></button></a> -->
           <a  [routerLink]="[ ROUTING_PATH + '/topology-list']"><button pButton type="button" title="Show topology list" label="Show All" icon="fa-info" class="ui-button-info"></button></a>
         </div>
       </md-card-subtitle>

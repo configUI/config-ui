@@ -229,8 +229,8 @@ export class ConfigTreeDetailComponent implements OnInit {
           that.topologyData = data
 
           if (data.length != 0) {
-            that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data => {
-              that.serverDisplayName = data['_body'];
+            that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data2 => {
+              that.serverDisplayName = data2['_body'];
 
             })
           }
@@ -679,11 +679,12 @@ export class ConfigTreeDetailComponent implements OnInit {
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
       strSetting = "enableAutoInstrSession=0;"
       this.t_s_i_name = this.splitTierServInsName(instanceName)
+      let name = this.createTierServInsName(instanceName)
       //Merging configuration and instance name with #
       strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
 
       //Saving settings in database
-      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, that.t_s_i_name, that.sessionName, function (data) {
+      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, name, this.t_s_i_name, function (data) {
 
         //Check for successful RTC connection  
         if (data.length != 0 || !data[0]['contains']) {
