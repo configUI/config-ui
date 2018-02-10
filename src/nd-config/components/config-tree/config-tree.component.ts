@@ -102,6 +102,16 @@ export class ConfigTreeComponent implements OnInit {
   loadNode(event) {
     console.log("ConfigTreeComponent", "constructor", "event.node", event.node);
     if (event.node.data == "Topology") {
+      if(this.dcId != undefined){
+        this.configTopologyService.getTopologyTreeDetail(this.dcId).subscribe(data => {
+        this.createTreeTierData(data);
+      });
+      }
+      else{
+        this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
+        this.createTreeTierData(data);
+      })
+    }
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
       this.nodeId = event.node.id;
       //This is done showing and hiding leaf icon on the basis of auto scaling
@@ -143,6 +153,21 @@ export class ConfigTreeComponent implements OnInit {
     }
     this.files = data;
   }
+
+    /**This method is using for Add Image on Parent like Tier */
+    createTreeTierData(data) {
+      for (let i in data) {
+        let node: TreeNode = data[i];
+        this.addNodeInImage(node);
+        node.styleClass = "node-class";
+  
+        for (let j = 0; j < node.children.length; j++) {
+          let childNode: TreeNode = node.children[j];
+          this.addNodeInImage(childNode);
+        }
+      }
+      this.files[0].children = data[0].children;
+    }
 
   /**This method is using for Add Image on Children like Server/Instance */
   createChildTreeData(data, event) {

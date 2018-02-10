@@ -198,8 +198,6 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       this.topologyData.filter(row => 
         {
-          console.log("tier" , row.tierId)
-          console.log("rooooo ", row)
            if (row.tierId == event.data.nodeId) this.tierEntity = row })
       sessionStorage.setItem("serverId", event.data.nodeId);
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => this.topologyData = data);

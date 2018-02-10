@@ -212,6 +212,13 @@ export class ConfigApplicationListComponent implements OnInit {
         return;
       }
     }
+    let arr = []
+    arr.push(this.applicationDetail.topoName)
+    this.configApplicationService.addTopoDetails(arr).subscribe(data => {
+      for(let i=0;i<data.length;i++){
+        if(data[i].name == this.applicationDetail.topoName)
+          this.applicationDetail.topoId = data[i].id
+      }
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {
         let index = this.getAppIndex(this.applicationDetail.appId);
@@ -224,6 +231,7 @@ export class ConfigApplicationListComponent implements OnInit {
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });
+    });
     this.closeDialog();
   }
 
