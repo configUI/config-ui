@@ -92,6 +92,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
   /**For showing edit application dialog */
   editAppDialog(): void {
+    this.createTopologySelectItem(this.topoNameList);
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
       this.configUtilityService.errorMessage("Select an application to edit");
       return;

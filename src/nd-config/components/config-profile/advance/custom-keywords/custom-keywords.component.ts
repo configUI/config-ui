@@ -169,16 +169,29 @@ export class CustomKeywordsComponent implements OnInit {
  
   // This method is used to delete(disable) the keyword
   deleteCustomKeywords(){
-    for(let key in this.custom_keyword){
-      for(let i =0;i<this.selectedCustomKeywordsData.length;i++){
-        if(key == this.selectedCustomKeywordsData[i].keywordName){
-          this.custom_keyword[key].enable = false;
-          this.custom_keyword[key].value = this.custom_keyword[key].defaultValue;
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        for(let key in this.custom_keyword){
+          for(let i =0;i<this.selectedCustomKeywordsData.length;i++){
+            if(key == this.selectedCustomKeywordsData[i].keywordName){
+              this.custom_keyword[key].enable = false;
+              this.custom_keyword[key].value = this.custom_keyword[key].defaultValue;
+            }
+          }
         }
+        for(let key in this.custom_keyword){
+          this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
+        }
+        
+        this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
+        this.selectedCustomKeywordsData = [];
+      },
+      reject: () => {
       }
-    }
-    this.keywordData.emit(this.custom_keyword);
-    this.selectedCustomKeywordsData = [];
+    });
   }
 
   /* After saving custom keywords,store is updated and constructor of this component
@@ -416,13 +429,17 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
 
-    this.keywordData.emit(this.custom_keyword);
+    for(let key in this.custom_keyword){
+      this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
+    } 
+
+    this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
     
     if (!keywordExistFlag) {
       this.configUtilityService.errorMessage(customKeywordMessage);
       return;
     }
- 
+  
     this.addEditDialog = false;
     this.isNew = false;
     this.selectedCustomKeywordsData = [];
@@ -430,7 +447,8 @@ export class CustomKeywordsComponent implements OnInit {
 
 // This method is called when user click on the save button given in header field
   saveKeywordData(){
-    this.configKeywordsService.saveProfileKeywords(this.profileId);
+    this.keywordData.emit(this.custom_keyword);
+    // this.configKeywordsService.saveProfileKeywords(this.profileId);
   }
 
   openFileManager() {
