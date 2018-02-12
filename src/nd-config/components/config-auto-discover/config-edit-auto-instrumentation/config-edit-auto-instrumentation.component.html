@@ -37,7 +37,7 @@
         <div class="ui-g-12 " style="background-color:white">
             <div style="float:right">
                 <span>Save instrumentation profile as</span>
-                <span><input type="text" [(ngModel)]="instrfileName" size=25 pInputText (keydown.space)="$event.preventDefault()" (keydown.dot)="$event.preventDefault()"></span>
+                <span><input type="text" onkeypress="return String.fromCharCode(event.charCode).match(/[_\-a-zA-Z0-9 ]/g) != null" [(ngModel)]="instrfileName" size=25 pInputText (keydown.space)="$event.preventDefault()"></span>
                 <span><button type="button" [disabled] = "isAutoPerm" (click)="saveInstrumentationFile()" pButton label="Save " icon="fa-save "></button></span>
             </div>
         </div>

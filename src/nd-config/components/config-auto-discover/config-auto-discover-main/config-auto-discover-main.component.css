@@ -3,3 +3,13 @@
     margin-left: 50px
 }
 textarea { resize: none; }
+
+.config_auto-discover-agent{
+    margin-top: 25px;
+    margin-left: 50px
+}
+
+.config_auto_discover-agenttype {
+    margin-left: 6px;
+    padding: 0;
+}

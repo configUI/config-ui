@@ -56,7 +56,8 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             let configRequestId = `${userName}-${Math.random()}-${timestamp}`;
             sessionStorage.setItem('configRequestID', configRequestId);
         }
-
+        let agentType = sessionStorage.getItem("agentType");
+        this.adrFile = this.adrFile + "@" + agentType;
         this._configKeywordsService.getAutoDiscoverTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
             this.getleftSideTreeData(data);
         });
@@ -73,6 +74,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
     // Save Instrumentation File 
     saveInstrumentationFile() {
+        let agentType = sessionStorage.getItem("agentType");
         if (this.instrfileName == "" || this.instrfileName == null) {
             this.configUtilityService.errorMessage("Provide a file name to save it");
             return;
@@ -82,6 +84,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
+        this.instrfileName = this.instrfileName + "@" + agentType;
         this._configKeywordsService.saveInsrumentationFileInXMLFormat(this.instrfileName, this.reqId, this.instanceFileName).subscribe(data =>
             console.log(data));
         this.configUtilityService.successMessage("Saved successfully");
@@ -161,6 +164,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
         this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
+            this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
                this.getleftSideTreeData(data);
                this.isNodeSelected = false;
@@ -186,6 +190,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this._configKeywordsService.getUninstrumentaionTreeData(this.selectedNodes, this.reqId, this.instanceFileName ).subscribe(data => {
            
             this.rightSideTreeData = data.backendDetailList;
+            this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
                 this.getleftSideTreeData(data);
                 this.configUtilityService.successMessage("UnInstrumentation data Successfully");
