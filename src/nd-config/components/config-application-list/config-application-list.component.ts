@@ -185,11 +185,11 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-    this.configApplicationService.addTopoDetails(arr).subscribe(data => {
-      for(let i=0;i<data.length;i++){
-        if(data[i].name == this.applicationDetail.topoName)
-          this.applicationDetail.topoId = data[i].id
-      }
+    // this.configApplicationService.addTopoDetails(arr).subscribe(data => {
+    //   for(let i=0;i<data.length;i++){
+    //     if(data[i].name == this.applicationDetail.topoName)
+    //       this.applicationDetail.topoId = data[i].id
+    //   }
       this.configApplicationService.addApplicationData(this.applicationDetail)
         .subscribe(data => {
           //Insert data in main table after inserting application in DB
@@ -200,7 +200,7 @@ export class ConfigApplicationListComponent implements OnInit {
           this.configUtilityService.successMessage(Messages);
           this.loadApplicationData();
         });
-    });
+    // });
     this.closeDialog();
   }
 
@@ -214,11 +214,11 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-    this.configApplicationService.addTopoDetails(arr).subscribe(data => {
-      for(let i=0;i<data.length;i++){
-        if(data[i].name == this.applicationDetail.topoName)
-          this.applicationDetail.topoId = data[i].id
-      }
+    // this.configApplicationService.addTopoDetails(arr).subscribe(data => {
+    //   for(let i=0;i<data.length;i++){
+    //     if(data[i].name == this.applicationDetail.topoName)
+    //       this.applicationDetail.topoId = data[i].id
+    //   }
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {
         let index = this.getAppIndex(this.applicationDetail.appId);
@@ -231,7 +231,7 @@ export class ConfigApplicationListComponent implements OnInit {
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });
-    });
+    // });
     this.closeDialog();
   }
 
