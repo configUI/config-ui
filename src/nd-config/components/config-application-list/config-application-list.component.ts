@@ -104,6 +104,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.isNewApp = false;
     this.addEditAppDialog = true;
     this.applicationDetail = Object.assign({}, this.selectedApplicationData[0]);
+    this.topologySelectItem.push({label:this.selectedApplicationData[0].topoName, value:this.selectedApplicationData[0].topoName})
   }
 
   /**This method is used to delete application */
