@@ -333,5 +333,6 @@ export const FETCH_HTTPREP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/ge
 export const ADD_RULES_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/addhttprephdrrules`;
 export const UPDATE_HTTP_REP_TYPE = `${SERVICE_URL}/custom/httprepbasedcapturing/updatehttpreptype`;
 export const UPDATE_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/edithttprephdr`;
+export const DELETE_HTTPREPHDR_RULES =  `${SERVICE_URL}/custom/httprepbasedcapturing/deletehttpreprules`;
 
 

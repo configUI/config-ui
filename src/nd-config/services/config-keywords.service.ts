@@ -669,6 +669,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.RUNTIME_CHANGE_INSTR_PROFILE}/${userName}`, data)
   }
 
+    /* Delete Http Response Header Rules  */
+  deleteHttpRespRules(data) {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREPHDR_RULES}`, data);
+  }
+
   /* Edit Http Response Header Info */
   editHTTPRepHeaderData(data): Observable<HTTPResponseHdrComponentData> {
     let url = `${URL.UPDATE_HTTPREPHDR}/${data.httpAttrId}`;

@@ -338,14 +338,14 @@ export class HttpResponseComponent implements OnInit {
         *  from backend side
         */
         this.arrTestRunData = [];
-        this.configKeywordsService.deleteHttpRules(this.httpAtrributeDelete).subscribe(data => {
+        this.configKeywordsService.deleteHttpRespRules(this.httpAtrributeDelete).subscribe(data => {
             let that = this;
             this.httpAtrributeDelete = [];
             //Edit call, sending row data to service
             this.configKeywordsService.editHTTPRepHeaderData(this.httpResponseHdrDetail).subscribe(data => {
                 // this.modifyData(data);
                 this.httpResponseHdrComponentInfo.map(function (val) {
-                    if (val.httpRepHdrBasedId == data.httpRepHdrBasedId) {
+                    if (val.httpRepHdrBasedId == data.httpRepHdrBasedId) {   
                         // val = data
                         val = data;
                     }
