@@ -4,6 +4,7 @@ export class AutoDiscoverData{
     classFilters: any;
     methodFilters: any;
     status:string;
+    agentType: string;
 }
 
 export class AutoDiscoverTreeData {

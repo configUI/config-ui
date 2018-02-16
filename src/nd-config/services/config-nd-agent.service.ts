@@ -20,8 +20,8 @@ export class ConfigNdAgentService {
     return this._restApi.getDataByGetReq(URL.FETCH_CMON_TABLEDATA);
   }
 
-   getInstanceList(): Observable<any[]>{
-    return this._restApi.getDataByGetReq(URL.FETCH_AUTO_DISCOVERED_INSTANCE);
+   getInstanceList(agentType): Observable<any[]>{
+    return this._restApi.getDataByPostReq(URL.FETCH_AUTO_DISCOVERED_INSTANCE,agentType);
   }
 
      discoverData(data): Observable<AutoDiscoverData>{

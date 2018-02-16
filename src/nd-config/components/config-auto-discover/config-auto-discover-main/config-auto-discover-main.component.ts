@@ -32,30 +32,38 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   instanceList: any[] = [];
   isAutoPerm: boolean;
   adrFile: any;
+  agent :  any[]=[];
+  selectedAgent : string;
+  agentTypeLabel: any[] = [];
+  agentTypeValue: any[] = [];
 
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
     this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     this.autoDiscoverDetail = new AutoDiscoverData();
-    this.loadNDAgentStatusData();
-    this.loadAdrFiles();    
+    // this.loadNDAgentStatusData();
+    // this.loadAdrFiles();    
     this.autoDiscoverDetail.discoveryMode = 1;
+    this.agentTypeLabel = ["DotNet" , "Java"];
+    this.agentTypeValue = ["DotNet", "Java"];
+    this.agent = ConfigUiUtility.createListWithKeyValue(this.agentTypeLabel, this.agentTypeValue);
   }
-
+  onChange()
+  {
+    this.loadAdrFiles();
+        this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
+          this.ndAgentStatusData = data;
+           this.getConnectedAgentsList(data,this.selectedAgent); 
+        });
   /**Getting application list data */
-  loadNDAgentStatusData(): void {
-    this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
-      this.ndAgentStatusData = data;
-       this.getConnectedAgentsList(data); 
-    });
 
-  }
+}
 
   /**Get list of agents from ND agent info */
-  getConnectedAgentsList(data) {
+  getConnectedAgentsList(data, agentType) {
     for (var i = 0; i < data.length; i++) {
-      if (data[i].at == "Java" && data[i].st == "Active") {
+      if (data[i].at == agentType && data[i].st == "Active") {
 
         this.agentLabel.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
         this.agentValue.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
@@ -67,7 +75,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
 
   /** Load list of instances  */
   loadAdrFiles() {
-    this.configNdAgentService.getInstanceList().subscribe(data => {
+    this.configNdAgentService.getInstanceList(this.selectedAgent).subscribe(data => {
       let arr = [];
       for (let i = 0; i < data.length; i++) {
         let temp = data[i].split(".adr")
@@ -93,18 +101,16 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
       this.configUtilityService.errorMessage("Choose a discovery mode");
       return;
     }
-
+    this.autoDiscoverDetail.agentType = this.selectedAgent;
     this.configNdAgentService.discoverData(this.autoDiscoverDetail).subscribe(data => {
       this.autoDiscoverDetail = data;
       this.loadAdrFiles();
-     
       if(data.status == 'empty' && data.discoveryMode == '1')
         this.configUtilityService.errorMessage("Discovered class name or method name is wrong.");
       else if(data.status == 'empty' && data.discoveryMode == '0')
         this.configUtilityService.errorMessage("Auto discover method file is empty");
       else
         this.configUtilityService.successMessage("Data discovered successfully");   
- 
    })
 
   }
@@ -118,6 +124,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
 
   openAdrFile() {
     sessionStorage.setItem("adrFile", this.adrFile + ".adr");
+    sessionStorage.setItem("agentType",this.selectedAgent);
     this.router.navigate([this.ROUTING_PATH + '/auto-discover-tree']);
   }
 }
