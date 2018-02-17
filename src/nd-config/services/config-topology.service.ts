@@ -76,7 +76,10 @@ export class ConfigTopologyService {
 
   /* Changing Profile To Topology */
   updateAttachedProfTopo(data): Observable<Object> {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`);
+    if(data.dcTopoId == 0)
+        return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO_BY_TOPOID}/${data.topoId}/${data.profileId}`);
+    else
+        return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`);
   }
 
   /* Changing Profile to Tier */
