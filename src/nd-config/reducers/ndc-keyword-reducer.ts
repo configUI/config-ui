@@ -8,7 +8,7 @@ const DEFAULT_DATA = {
 "NDC_WAIT_TIME_AFTER_TEST_IS_OVER":{"ndcKeyId":1,"defaultValue":"30","min":"","max":"","value":"30","assocId":-1},
 "NDC_CONTROL_MSG_ACK_TIMEOUT":{"ndcKeyId":2,"defaultValue":"10","min":"","max":"","value":"10","assocId":-1},
 "NDC_CONTROL_THREAD_EPOLL_TIMEOUT":{"ndcKeyId":3,"defaultValue":"10","min":"","max":"","value":"10","assocId":-1},
-"NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR":{"ndcKeyId":4,"defaultValue":"0","min":"","max":"","value":"0","assocId":-1},
+"NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR":{"ndcKeyId":4,"defaultValue":"2","min":"","max":"","value":"2","assocId":-1},
 "NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI":{"ndcKeyId":5,"defaultValue":"300","min":"","max":"","value":"300","assocId":-1},
 "NDP_TR_RUNNING_STATUS_POLL_INTERVAL":{"ndcKeyId":6,"defaultValue":"500","min":"","max":"","value":"500","assocId":-1},
 "NDP_NEW_RAW_DATA_POLL_INTERVAL":{"ndcKeyId":7,"defaultValue":"500","min":"","max":"","value":"500","assocId":-1},
