@@ -37,6 +37,8 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   agentTypeLabel: any[] = [];
   agentTypeValue: any[] = [];
 
+  isAgentSelected:boolean;
+
   ROUTING_PATH = ROUTING_PATH;
 
   ngOnInit() {
@@ -48,9 +50,19 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
     this.agentTypeLabel = ["DotNet" , "Java"];
     this.agentTypeValue = ["DotNet", "Java"];
     this.agent = ConfigUiUtility.createListWithKeyValue(this.agentTypeLabel, this.agentTypeValue);
+    if(this.selectedAgent  == null || this.selectedAgent  == ""){
+      this.isAgentSelected =true;
+    }
+    else {
+      this.isAgentSelected =false;
+    }
   }
   onChange()
   {
+     if(this.selectedAgent  == null)
+      this.isAgentSelected =true;
+    else
+      this.isAgentSelected =false;
     this.loadAdrFiles();
         this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
           this.ndAgentStatusData = data;

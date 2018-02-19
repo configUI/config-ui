@@ -14,7 +14,7 @@
         </div>
         <div class="ui-g-4" style="margin-top:19px">
             <input name="agents" type="text" class='hidden-validator' pInputText [(ngModel)]="autoDiscoverDetail.agents" required ngModel/>
-            <p-dropdown name="agents" class="auto-discover" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--" filter="filter"></p-dropdown>
+            <p-dropdown name="agents" class="auto-discover" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
         </div>
     </div>
 
@@ -24,10 +24,10 @@
                 Discovery mode
             </div>
             <div class="ui-g-4">
-                <p-radioButton name="discover" value="1" label="Discover by filter" [(ngModel)]="autoDiscoverDetail.discoveryMode"></p-radioButton>
+                <p-radioButton name="discover" value="1" label="Discover by filter" [(ngModel)]="autoDiscoverDetail.discoveryMode" [disabled]="isAgentSelected"></p-radioButton>
             </div>
             <div class="ui-g-5">
-                <p-radioButton name="discover" value="0" label="Discover all" [(ngModel)]="autoDiscoverDetail.discoveryMode"></p-radioButton>
+                <p-radioButton name="discover" value="0" label="Discover all" [(ngModel)]="autoDiscoverDetail.discoveryMode" [disabled]="isAgentSelected"></p-radioButton>
             </div>
         </div>
         <div class="ui-g-12">
@@ -47,8 +47,10 @@
     <br>
     <div class="ui-g-12">
         <div align="center">
-            <button type="submit" pButton icon="fa-pencil" style="width:85px" [disabled]="isAutoPerm" label="Discover"></button>
-            <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" [disabled]="isAutoPerm" (click)="resetAllFields()"></button>
+            <button type="submit" pButton icon="fa-pencil" style="width:85px" *ngIf = "isAutoPerm"  [disabled]="isAutoPerm" label="Discover"></button>
+       <button type="submit" pButton icon="fa-pencil" style="width:85px" *ngIf = "!isAutoPerm" [disabled]="isAgentSelected" label="Discover"></button>
+            <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" *ngIf = "isAutoPerm" [disabled]="isAutoPerm" (click)="resetAllFields()"></button>
+    <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" *ngIf = "!isAutoPerm" [disabled]="isAgentSelected" (click)="resetAllFields()"></button>
         </div>
     </div>
 </form>
@@ -63,10 +65,10 @@
         <div class="ui-g-2" style="margin-left:50px">Autodiscovered Instance(s)</div>
         <div class="ui-g-4">
             <input name="instance" type="text" class='hidden-validator' [(ngModel)]="adrFile" pInputText required ngModel/>
-            <p-dropdown name="instance" class="auto-discover autosearchfield autodiscoverdropdown" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter"></p-dropdown>
+            <p-dropdown name="instance" class="auto-discover autosearchfield autodiscoverdropdown" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
         </div>
         <div class="ui-g-1">
-            <button type="submit" pButton icon="fa-check" label="Open"></button>
+            <button type="submit" pButton icon="fa-check" label="Open" [disabled]="isAgentSelected" ></button>
         </div>
     </form>
 </div>
