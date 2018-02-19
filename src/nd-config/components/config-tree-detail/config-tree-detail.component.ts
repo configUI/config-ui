@@ -133,10 +133,13 @@ export class ConfigTreeDetailComponent implements OnInit {
       let arr = this.url.split("/");
       if (arr.indexOf("tree-main") != -1) {
         if (arr.indexOf("topology") != -1) {
-          this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data => this.topologyData = data);
+          this.configTopologyService.getTopologyStructureTableData(this.topoId).subscribe(data =>{ this.topologyData = data
+          }
+          );
         }
         else {
-          this.configTopologyService.getTopologyDetail(this.dcId).subscribe(data => this.topologyData = data);
+          this.configTopologyService.getTopologyDetail(this.dcId).subscribe(data => {this.topologyData = data
+          });
         }
       }
     })
@@ -331,7 +334,8 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   saveEditProfile(): void {
     if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
-      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => { 
+        this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.TIER)
       this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER)
@@ -348,6 +352,10 @@ export class ConfigTreeDetailComponent implements OnInit {
     let that = this;
     this.topologyData.forEach(function (val) {
       if (that.currentEntity == CONS.TOPOLOGY.TOPOLOGY && val.dcTopoId == data.dcTopoId) {
+        val.profileId = data.profileId
+        val.profileName = data.profileName
+      }
+      else if (that.currentEntity == CONS.TOPOLOGY.TOPOLOGY && val.topoId == data.topoId) {
         val.profileId = data.profileId
         val.profileName = data.profileName
       }

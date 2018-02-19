@@ -200,9 +200,9 @@ export class ConfigApplicationListComponent implements OnInit {
           this.applicationData = ImmutableArray.push(this.applicationData, data);
           this.configUtilityService.successMessage(Messages);
           this.loadApplicationData();
+          this.closeDialog();
         });
     // });
-    this.closeDialog();
   }
 
   /**This method is used to edit application detail */
@@ -226,14 +226,14 @@ export class ConfigApplicationListComponent implements OnInit {
         this.selectedApplicationData.length = 0;
         this.selectedApplicationData.push(data);
         // this.applicationData[index] = data;
-        this.configUtilityService.successMessage(Messages);
         //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.applicationData = ImmutableArray.replace(this.applicationData, data, index);
+        this.configUtilityService.successMessage(Messages);
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });
-    // });
-    this.closeDialog();
+      this.closeDialog();
+      // });
   }
 
   /**For close add/edit application dialog box */
