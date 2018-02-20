@@ -215,7 +215,9 @@ export class ConfigProfileListComponent implements OnInit {
     this.profileDetail.agent = "Java"
 
     this.configProfileService.importProfile(this.profileDetail).subscribe(data => {
-      console.log("success");
+      this.profileData = ImmutableArray.push(this.profileData, data);
+      this.configUtilityService.successMessage("Imported successfully");
+      this.loadProfileList();
     })
   }
 

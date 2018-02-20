@@ -70,7 +70,7 @@ export class ConfigProfileService {
   }
 
   importProfile(data): Observable<any>{
-    return this._restApi.getDataByPostReqWithNoJSON(URL.IMPORT_PROFILE, data);
+    return this._restApi.getDataByPostReq(URL.IMPORT_PROFILE, data);
   }
 
 }
