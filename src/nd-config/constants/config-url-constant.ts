@@ -336,4 +336,6 @@ export const UPDATE_HTTP_REP_TYPE = `${SERVICE_URL}/custom/httprepbasedcapturing
 export const UPDATE_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/edithttprephdr`;
 export const DELETE_HTTPREPHDR_RULES =  `${SERVICE_URL}/custom/httprepbasedcapturing/deletehttpreprules`;
 
+/**URL for import/export profile */
+export const IMPORT_PROFILE = `${SERVICE_URL}/custom/importexport/importprofile`
 

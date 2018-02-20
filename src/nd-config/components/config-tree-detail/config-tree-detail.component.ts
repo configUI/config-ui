@@ -568,14 +568,14 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   // Create Tier_Server_Instance name
   splitTierServInsName(instanceName) {
-    this.t_s_i_name = this.tierName + "_" + this.serverDisplayName + "_" + instanceName
+    this.t_s_i_name = this.tierName + "_" + this.serverName + "_" + instanceName
     this.sessionName = this.t_s_i_name
     return this.t_s_i_name;
   }
 
   // Create Tier>Server>Instance name
   createTierServInsName(instanceName) {
-    let name = this.tierName + ">" + this.serverDisplayName + ">" + instanceName
+    let name = this.tierName + ">" + this.serverName + ">" + instanceName
     return name;
   }
 
