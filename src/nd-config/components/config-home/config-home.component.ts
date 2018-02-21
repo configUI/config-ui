@@ -78,26 +78,27 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
        ///  });
   }
 
-  loadTopologyList(){
+  // loadTopologyList(){
+  // }
+  
+  /**Getting topology list , application list and profile list. */
+  loadHomeData(): void {
+    // this.loadTopologyList();
     this.configHomeService.getTopologyList().subscribe(data => {
       data = data.sort();
       this.topologyList = ConfigUiUtility.createListWithKeyValue(data, data);
-    })
-  }
-
-  /**Getting topology list , application list and profile list. */
-  loadHomeData(): void {
-    this.configHomeService.getMainData()
-      .subscribe(data => {
-        if (data.homeData[0].value.length > 5) {
-          this.applicationMsg = "(Last 5 Modified)";
-          this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
-        }
-        else
+      this.configApplicationService.addTopoDetails(data).subscribe(data => {
+        this.configHomeService.getMainData()
+        .subscribe(data => {
+          if (data.homeData[0].value.length > 5) {
+            this.applicationMsg = "(Last 5 Modified)";
+            this.applicationInfo = (data.homeData[0].value).slice(data.homeData[0].value.length - 5, data.homeData[0].value.length).reverse();
+          }
+          else
           this.applicationInfo = (data.homeData[0].value).splice(0, data.homeData[0].value.length).reverse();
-
-       // This is done to remove default profiles if we are having the other profiles to show in home screen
-        let tempArray = [];
+          
+          // This is done to remove default profiles if we are having the other profiles to show in home screen
+          let tempArray = [];
         for (let i = 0; i < data.homeData[1].value.length; i++) {
           if (+data.homeData[1].value[i]["id"] == 1 || +data.homeData[1].value[i]["id"] == 777777 || +data.homeData[1].value[i]["id"] == 888888) {
             tempArray.push(data.homeData[1].value[i]);
@@ -111,28 +112,30 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
         if (data.homeData[1].value.length >= 5) {
           this.profileInfoMsg = "(Last 5 Modified)";
 	        this.profileInfo = (data.homeData[1].value).splice(0, 5);
-	       //  Commenting below line as we are reciecing profiles in descending order from backend.
-         // this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length - 5, data.homeData[1].value.length).reverse();
+          //  Commenting below line as we are reciecing profiles in descending order from backend.
+          // this.profileInfo = (data.homeData[1].value).slice(data.homeData[1].value.length - 5, data.homeData[1].value.length).reverse();
         }
         else
-          this.profileInfo = (data.homeData[1].value).splice(0, data.homeData[1].value.length);
-
+        this.profileInfo = (data.homeData[1].value).splice(0, data.homeData[1].value.length);
+        
         if (data.homeData[2].value.length > 5) {
           this.topologyInfoMsg = "(Last 5 Modified)";
           this.topologyInfo = (data.homeData[2].value).slice(data.homeData[2].value.length - 5, data.homeData[2].value.length).reverse();
         }
         else
-          this.topologyInfo = (data.homeData[2].value).splice(0, data.homeData[2].value.length).reverse();
-
+        this.topologyInfo = (data.homeData[2].value).splice(0, data.homeData[2].value.length).reverse();
+          
         this.agentsInfo = data.agentData;
       })
-  }
-
- importTopologyDialog() {
-    this.loadTopologyList();
-    this.selectedTopology = "";
-    this.importTopo = true;
-  }
+    })
+  })
+    }
+    
+  //   importTopologyDialog() {
+  //   this.loadTopologyList();
+  //   this.selectedTopology = "";
+  //   this.importTopo = true;
+  // }
 
   importTopology(): void {
     this.configHomeService.importTopology(this.selectedTopology).subscribe(data => {

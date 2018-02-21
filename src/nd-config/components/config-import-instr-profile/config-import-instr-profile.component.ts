@@ -73,6 +73,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   }
 
   getAgentSpecificFiles(val) {
+    if(val != "Java" ){
+      this.createXMLInstrumentation = false;
+      this.editXMLFile = false;
+    }
     this.createDropDown("filename", () => { });
   }
 

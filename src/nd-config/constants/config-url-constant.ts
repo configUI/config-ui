@@ -1,6 +1,6 @@
 
 
-// const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+// const  SERVICE_URL = 'http://10.10.40.7:8004/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
@@ -38,6 +38,7 @@ export const FETCH_TOPO_TABLE_URL = `${SERVICE_URL}/custom/topology`;
 export const FETCH_TOPO_TREE_URL = `${SERVICE_URL}/custom/tree/ng/topology`;
 export const DEL_TOPO_ROW_URL = `${SERVICE_URL}/dctopoassociation`;
 export const ATTACH_PROFTO_TOPO = `${SERVICE_URL}/custom/topology`;
+export const ATTACH_PROFTO_TOPO_BY_TOPOID = `${SERVICE_URL}/custom/topology/editprofile`;
 export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
 export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 export const DELETE_TOPOLOGY = `${SERVICE_URL}/custom/topology/deletetopology`;
@@ -335,4 +336,6 @@ export const UPDATE_HTTP_REP_TYPE = `${SERVICE_URL}/custom/httprepbasedcapturing
 export const UPDATE_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/edithttprephdr`;
 export const DELETE_HTTPREPHDR_RULES =  `${SERVICE_URL}/custom/httprepbasedcapturing/deletehttpreprules`;
 
+/**URL for import/export profile */
+export const IMPORT_PROFILE = `${SERVICE_URL}/custom/importexport/importprofile`
 

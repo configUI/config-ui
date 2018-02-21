@@ -104,6 +104,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.isNewApp = false;
     this.addEditAppDialog = true;
     this.applicationDetail = Object.assign({}, this.selectedApplicationData[0]);
+    this.topologySelectItem.push({label:this.selectedApplicationData[0].topoName, value:this.selectedApplicationData[0].topoName})
   }
 
   /**This method is used to delete application */
@@ -185,11 +186,11 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-    this.configApplicationService.addTopoDetails(arr).subscribe(data => {
-      for(let i=0;i<data.length;i++){
-        if(data[i].name == this.applicationDetail.topoName)
-          this.applicationDetail.topoId = data[i].id
-      }
+    // this.configApplicationService.addTopoDetails(arr).subscribe(data => {
+    //   for(let i=0;i<data.length;i++){
+    //     if(data[i].name == this.applicationDetail.topoName)
+    //       this.applicationDetail.topoId = data[i].id
+    //   }
       this.configApplicationService.addApplicationData(this.applicationDetail)
         .subscribe(data => {
           //Insert data in main table after inserting application in DB
@@ -199,9 +200,9 @@ export class ConfigApplicationListComponent implements OnInit {
           this.applicationData = ImmutableArray.push(this.applicationData, data);
           this.configUtilityService.successMessage(Messages);
           this.loadApplicationData();
+          this.closeDialog();
         });
-    });
-    this.closeDialog();
+    // });
   }
 
   /**This method is used to edit application detail */
@@ -214,25 +215,25 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-    this.configApplicationService.addTopoDetails(arr).subscribe(data => {
-      for(let i=0;i<data.length;i++){
-        if(data[i].name == this.applicationDetail.topoName)
-          this.applicationDetail.topoId = data[i].id
-      }
+    // this.configApplicationService.addTopoDetails(arr).subscribe(data => {
+    //   for(let i=0;i<data.length;i++){
+    //     if(data[i].name == this.applicationDetail.topoName)
+    //       this.applicationDetail.topoId = data[i].id
+    //   }
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {
         let index = this.getAppIndex(this.applicationDetail.appId);
         this.selectedApplicationData.length = 0;
         this.selectedApplicationData.push(data);
         // this.applicationData[index] = data;
-        this.configUtilityService.successMessage(Messages);
         //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.applicationData = ImmutableArray.replace(this.applicationData, data, index);
+        this.configUtilityService.successMessage(Messages);
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });
-    });
-    this.closeDialog();
+      this.closeDialog();
+      // });
   }
 
   /**For close add/edit application dialog box */

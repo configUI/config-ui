@@ -207,4 +207,18 @@ export class ConfigProfileListComponent implements OnInit {
     return -1;
   }
 
+  importProfile(){
+    this.profileDetail = new ProfileData()
+    this.profileDetail.profileName = "pppp"
+    this.profileDetail.profileDesc = "pppp"
+    this.profileDetail.userName = this.userName
+    this.profileDetail.agent = "Java"
+
+    this.configProfileService.importProfile(this.profileDetail).subscribe(data => {
+      this.profileData = ImmutableArray.push(this.profileData, data);
+      this.configUtilityService.successMessage("Imported successfully");
+      this.loadProfileList();
+    })
+  }
+
 }

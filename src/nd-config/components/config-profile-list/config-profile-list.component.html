@@ -2,6 +2,7 @@
 <div class="configUI">
   <div class="header"><i aria-hidden="true"></i> Profile List
     <span class="appIcon-css">
+        <button pButton type="button" title="Import" [disabled]="isProfilePerm" (click)="importProfile()" icon="fa-download"></button>
             <button pButton type="button" title="Add Profile" [disabled]="isProfilePerm" (click)="openProfileDialog()" icon="fa-plus"></button>
             <button pButton type="button"class="ui-button-danger" title="Delete Profile(s)" [disabled]="isProfilePerm" (click)="deleteProfile()" icon="fa-trash"></button>
         </span>
