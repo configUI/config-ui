@@ -30,6 +30,11 @@ export class CustomDataComponent implements OnInit {
   captureCustomData: boolean;
   keywordList = ['captureCustomData'];
   constructor(private configUtilityService: ConfigUtilityService, private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>) {
+    this.route.params.subscribe((params: Params) => {
+      this.profileId = params['profileId'];
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+          this.saveDisable = true;
+  });
     this.subscription = this.store.select("keywordData").subscribe(data => {
       if (!data)
         return;

@@ -48,10 +48,10 @@
         <!-- <div class="ui-g-2">
             <p-dropdown class="nde-ui" name="headerModeResp" [style]="{'width':'60%'}" (click)="changeSpecificResp()"  [options]="resHeaderTypes" [(ngModel)]="data[1].headerModeResp" required ngModel></p-dropdown>
         </div> -->
-        <div class="ui-g-2">
+        <div class="ui-g-1">
             <p-radioButton name="headerModeResp" label="All" value="All" [disabled]="saveDisable" [(ngModel)]="data[1].headerModeResp" (click)="changeSpecificResp()"></p-radioButton>
         </div>
-        <div class="ui-g-2">
+        <div class="ui-g-1">
             <p-radioButton name="headerModeResp" label="Specified" value="Specified" [disabled]="saveDisable" [(ngModel)]="data[1].headerModeResp" (click)="changeSpecificResp()"></p-radioButton>
         </div>
         <div class="ui-g-7" *ngIf="(data[1].headerModeResp == 'Specified')">

@@ -84,7 +84,7 @@ export class SessionAttributeComponent implements OnInit {
     });
     this.configKeywordsService.getFetchSessionAttributeTable(this.profileId).subscribe(data => {
       this.doAssignSessionAttributeTableData(data)
-      if (data["sessionType"] == "specific") {
+      if (data["sessionType"] == "Specific") {
         this.selectedSessionAttribute = "Specific";
       }
       else if (data["sessionType"] == "All")

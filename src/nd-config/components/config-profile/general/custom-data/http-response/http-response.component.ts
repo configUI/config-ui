@@ -78,7 +78,7 @@ export class HttpResponseComponent implements OnInit {
         });
         this.configKeywordsService.getFetchHTTPRepHeaderTable(this.profileId).subscribe(data => {
             this.doAssignHttpAttributeTableData(data);
-            if (data["httpReqHdrType"] == "Specific") {
+            if (data["httpRepHdrType"] == "Specific") {
                 this.selectedHTTPRepHdrType = "Specific";
             }
             else if (data["httpRepHdrType"] == "All")
@@ -616,7 +616,7 @@ export class HttpResponseComponent implements OnInit {
 
     /* set Value of All or Specific which Selected */
     getSelectedHTTPRepHdr() {
-        if (this.saveDisable == true) {
+        if (this.saveDisable == true) { 
             return;
         }
         let httpRepHdrType = { httpRepHdrType: this.selectedHTTPRepHdrType };
