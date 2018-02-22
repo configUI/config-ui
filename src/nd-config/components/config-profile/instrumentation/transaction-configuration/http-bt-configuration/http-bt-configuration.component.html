@@ -196,13 +196,9 @@
         </p-column>
         <p-column class="col-overflow" header="Sub BT detail" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-<<<<<<< HEAD
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog()" label="Detail"></button>
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="!isProfilePerm" (click)="openSubPatternDetailDialog()" label="Detail"></button>
-=======
-              <button pButton type="button" title="View Business Transaction Pattern Child" *ngIf="!isProfilePerm" [disabled]="isProfilePerm" (click)="openPatternChildListDialog(application)" label="View Child"></button>
-              <button pButton type="button" title="View Business Transaction Pattern Child" *ngIf="isProfilePerm" [disabled]="!isProfilePerm" (click)="openPatternChildListDialog(application)" label="View Child"></button>
->>>>>>> b9b730bfc2b0f0c77ce693b1f54f47f0bcedc647
+              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
+              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="!isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
+
             </template>
         </p-column>
 
