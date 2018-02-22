@@ -1,39 +1,39 @@
 <form (ngSubmit)="saveKeywordData(form)" #form="ngForm" ngNativeValidate>
-        <div class="tabsincontent">
-            <div class="header">Settings
-                <div class="pull-right">
-                    <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
-                    <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
-                    <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
-                    <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
+    <div class="tabsincontent">
+        <div class="header">Settings
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
+            </div>
+        </div>
+        <p-panel class="hideheader">
+            <div>
+
+
+                <div class="ui-g">
+                    <!-- <div class="ui-g-1"></div> -->
+                    <div class="ui-g-3">
+                        <p-checkbox name="enableJVMMonitor" label="Enable CPU monitor on JVM thread" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
+                    </div>
+
+                    <div class="ui-g-12 configui-thread-css-1">
+                        <!-- <div class="ui-g-1"></div> -->
+                        <div class="ui-g-6 configui-exception-css">
+                            <label>Do not report thread with CPU utilization less than or equal to </label>
+                            <input disabled="{{!jvmThreadStats.jvm}}" class="configui-thread-css" [min]=0 [max]=100 name="cpuFilter" type="number" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/> %
+                        </div>
+                    </div>
+                    <!--<div class="ui-g-12">
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-2" style="margin-left: 16px">
+                            <p-checkbox disabled="{{!jvmThreadStats.jvm}}" name="doNotDelVector" label="Do not delete Vector" [(ngModel)]="jvmThreadStats.deleteVector" binary="true"></p-checkbox>
+                        </div>
+                    </div>-->
                 </div>
             </div>
-            <p-panel class="hideheader">
-                <div>
-    
-    
-                    <div class="ui-g">
-                        <div class="ui-g-1"></div>
-                        <div class="ui-g-3">
-                            <p-checkbox name="enableJVMMonitor" label="Enable CPU monitor on JVM thread" [(ngModel)]="jvmThreadStats.jvm" binary="true"></p-checkbox>
-                        </div>
-    
-                        <div class="ui-g-12 configui-thread-css-1">
-                            <div class="ui-g-1"></div>
-                            <div class="ui-g-6 configui-exception-css">
-                                <label>Do not report thread with CPU utilization less than or equal to </label>
-                                <input disabled="{{!jvmThreadStats.jvm}}" class="configui-thread-css" [min]=0 [max]=100 name="cpuFilter" type="number" pInputText [(ngModel)]="jvmThreadStats.cpu" required ngModel/> %
-                            </div>
-                        </div>
-                        <!--<div class="ui-g-12">
-                            <div class="ui-g-1"></div>
-                            <div class="ui-g-2" style="margin-left: 16px">
-                                <p-checkbox disabled="{{!jvmThreadStats.jvm}}" name="doNotDelVector" label="Do not delete Vector" [(ngModel)]="jvmThreadStats.deleteVector" binary="true"></p-checkbox>
-                            </div>
-                        </div>-->
-                    </div>
-                </div>
-            </p-panel>
-        </div>
-    </form>
-    
+        </p-panel>
+    </div>
+</form>
+

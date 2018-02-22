@@ -5,12 +5,12 @@
                 </span>
         <span style="float: left">Enable Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
-                 <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service entry point"></button>
-                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
+                 <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service Entry Point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service Entry Point"></button>
                  <button pButton type="button"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" title="Edit service entry point"></button>
-                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit Service Entry Point"></button>
                  <button pButton class="ui-button-danger" type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash" title="Delete Service Entry points(s)"></button>
-                 <button pButton class="ui-button-danger" type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+                 <button pButton class="ui-button-danger" type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry Point(s)"></button>
                  <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
                  <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveServiceEntryOnFile()" label="Save"></button>
         </span>
@@ -51,14 +51,14 @@
             <span class="configui-float-css">
                     <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxtrue" binary="true" [disabled]="true"></p-checkbox>
                 </span>
-        <span style="float: left">  Enable Service Entry Points</span>
+        <span style="float: left">  Enable Service Entry Point(s)</span>
         <span style="float :right; margin-top:-3px">
-                 <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service entry point"></button>
-                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service entry point"></button>
+                 <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service Entry Point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service Entry Point"></button>
                  <button pButton type="button"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" title="Edit service entry point"></button>
-                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit service entry point"></button>
+                 <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditServiceEntryDialog()" icon="fa-pencil" title="Edit Service Entry Point"></button>
                  <button pButton class="ui-button-danger" type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash" title="Delete Service Entry points(s)"></button>
-                 <button pButton class="ui-button-danger" type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry points(s)"></button>
+                 <button pButton class="ui-button-danger" type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteServiceEntryPoint()" icon="fa-trash" title="Delete Service Entry Point(s)"></button>
                  <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
                  <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveServiceEntryOnFile()" label="Save"></button>
 
@@ -101,7 +101,7 @@
 </p-dataTable>
 
 <!--Dialog for New Service Entry -->
-<p-dialog class="profile-dialog" header="{{isNewServiceEntryPoint ? 'Add Service entry point' : 'Edit Service entry point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewServiceEntryPoint ? 'Add Service Entry Point' : 'Edit Service Entry Point'}}" *ngIf="addEditServiceEntryDialog" [(visible)]="addEditServiceEntryDialog" modal="modal" width="700" responsive="true" [resizable]="false">
 
     <form (ngSubmit)="saveServiceEntryPointService()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -128,7 +128,7 @@
                 <label>Service Entry Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" title="Please enter valid service entry name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /). &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4: Service entry point name is of maximum 100 characters."
+                <input name="name" type="text" size="60" pInputText [(ngModel)]="serviceEntryPointDetail.name" title="Please Enter valid Service Entry Name. &#013;Rule 1: It will accept alphanumeric characters.  &#013;Rule 2: It will not accept special charcters other then (. @ # & - _ /). &#013;Rule 3: It will not accept whitespaces. &#013;Rule 4: Service entry point name is of maximum 100 characters."
                     required pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>

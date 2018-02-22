@@ -1,14 +1,14 @@
 <!--For showing Business Transaction Pattern(s) list -->
 <p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Manage Method Business Transaction Rules </span>
+        <span style="float: left"> Manage Method Business Transaction Rule(s)</span>
         <span style="float: right; margin-top:-3px">
-                           <button pButton type="button" title="Add a method Business transaction" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
-                           <button pButton type="button" title="Add a method Business transaction" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
-                           <button pButton type="button" title="Edit a method Business transaction " *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" ></button>
-                           <button pButton type="button" title="Edit a method Business transaction " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
-                           <button pButton type="button"class="ui-button-danger" title="Delete method business transaction(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
-                           <button pButton type="button"class="ui-button-danger" title="Delete method business transaction(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
+                           <button pButton type="button" title="Add a Method Business Transaction" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+                           <button pButton type="button" title="Add a Method Business Transaction" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
+                           <button pButton type="button" title="Edit a Method Business Transaction " *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" ></button>
+                           <button pButton type="button" title="Edit a Method Business Transaction " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete Method Business Transaction(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete Method Business Transaction(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
                         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -46,16 +46,16 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <p-radioButton name="enableArgumentType" value="returnType" label="BT rule based on return type" [(ngModel)]="enableArgumentType"></p-radioButton>
+                    <p-radioButton name="enableArgumentType" value="returnType" label="BT Rule Based on Return Type" [(ngModel)]="enableArgumentType"></p-radioButton>
                 </div>
                 <div class="ui-g-12" *ngIf="enableArgumentType=='returnType'">
                     <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                         <p-header>
-                            <span style="float: left;">  Return Value rules </span>
+                            <span style="float: left;">  Return Type Value Rule(s) </span>
                             <span style="float: right; margin-top:-3px">
                            <button pButton type="submit" title="Add Return Type Value Rule" (click)="first=true" icon="fa-plus"></button>
                            <button pButton type="button" title="Edit" (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
-                           <button pButton type="button"class="ui-button-danger" title="Delete return type setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete Return Type Setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
                         </span>
                         </p-header>
                         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -85,10 +85,10 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <p-radioButton name="enableArgumentType" value="argument" label="BT rule based on argument" [(ngModel)]="enableArgumentType"></p-radioButton>
+                    <p-radioButton name="enableArgumentType" value="argument" label="BT Rule Based on Argument" [(ngModel)]="enableArgumentType"></p-radioButton>
                 </div>
                 <!--<div class="ui-g-2">
-                            <label> Argument index</label>
+                            <label> Argument Index</label>
                         </div>-->
                 <div class="ui-g-3" style="margin-top: -5px">
                     <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
@@ -99,7 +99,7 @@
             <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
                 <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'" [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
                     <p-header>
-                        <span style="float: left;">  Argument Rules </span>
+                        <span style="float: left;"> Argument Rule(s) </span>
                         <span style="float: right; margin-top:-3px">
                            <button pButton type="submit" title="Add Argument Rule" (click)="second=true" icon="fa-plus"></button>
                            <button pButton type="button" title="Edit" (click)="openEditArgRulesDialog()" icon="fa-pencil" ></button>
@@ -176,7 +176,7 @@
 
 <!-- Add new Argument type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add Argument Rule' :'Edit Argument rule'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="600" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add Argument Rule' :'Edit Argument Rule'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="600" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

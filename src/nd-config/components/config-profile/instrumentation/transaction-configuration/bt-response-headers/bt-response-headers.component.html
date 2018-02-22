@@ -1,13 +1,13 @@
 <p-dataTable class="nde-ui" [value]="btResponseHeadersInfo" [(selection)]="selectedResponseHeaders" [rows]="12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Manage Response Headers Rules</span>
+        <span style="float: left"> Manage Response Headers Rule(s)</span>
         <span style="float: right; margin-top:-3px">
-            <button pButton type="button" title="Add Response header" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openHeader()" icon="fa-plus"></button>
-            <button pButton type="button" title="Add Response header" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit Response header " *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openEditResponseHeader()" icon="fa-pencil" ></button>
-            <button pButton type="button" title="Edit Response header " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditResponseHeader()" icon="fa-pencil" ></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete Response header(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteBTResponseHeaders()" icon="fa-trash"></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete Response header(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteBTResponseHeaders()" icon="fa-trash"></button>
+            <button pButton type="button" title="Add Response Header" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openHeader()" icon="fa-plus"></button>
+            <button pButton type="button" title="Add Response Header" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit Response Header " *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openEditResponseHeader()" icon="fa-pencil" ></button>
+            <button pButton type="button" title="Edit Response Header " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditResponseHeader()" icon="fa-pencil" ></button>
+            <button pButton type="button"class="ui-button-danger" title="Delete Response Header(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteBTResponseHeaders()" icon="fa-trash"></button>
+            <button pButton type="button"class="ui-button-danger" title="Delete Response Header(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteBTResponseHeaders()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -68,11 +68,11 @@
             <div class="ui-g-12">
                 <p-dataTable class="nde-ui" [rows]="4" [value]="headerConditionInfo" [pageLinks]="3" [(selection)]="selectedResponseHeader">
                     <p-header>
-                        <span style="float: left;"> Response Header Rules</span>
+                        <span style="float: left;"> Response Header Rule(s)</span>
                         <span style="float: right; margin-top:-3px">
-                       <button pButton type="button" title="Add a response header condition" (click)="openResDialog()" icon="fa-plus"></button>
-                        <button pButton type="button" title="Edit a response header condition" (click)="openEditResDialog()" icon="fa-pencil" ></button>                       
-                       <button pButton type="button"class="ui-button-danger" title="Delete response header condition(s)" (click)="deleteResHdr()" icon="fa-trash"></button>
+                       <button pButton type="button" title="Add a Response Header Condition" (click)="openResDialog()" icon="fa-plus"></button>
+                        <button pButton type="button" title="Edit a Response Header Condition" (click)="openEditResDialog()" icon="fa-pencil" ></button>                       
+                       <button pButton type="button"class="ui-button-danger" title="Delete Response Header Condition(s)" (click)="deleteResHdr()" icon="fa-trash"></button>
                     </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -105,7 +105,7 @@
 
 <!--Dialog to add Response header-->
 
-<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add response header condition' : 'Edit response header condition'}}" modal="modal" *ngIf="addResDialog" [(visible)]="addResDialog" width="600" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add Response Header Condition' : 'Edit Response Header Condition'}}" modal="modal" *ngIf="addResDialog" [(visible)]="addResDialog" width="600" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">

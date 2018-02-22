@@ -18,7 +18,7 @@
     <p-dataTable [value]="httpResponseHdrComponentInfo" class="nde-ui" [(selection)]="selectedHTTPRepHeader" [rows]="5" [paginator]="httpResponseHdrComponentInfo?.length > 5 "
         [pageLinks]="3">
         <p-header>
-            <span class="configui-float-css">HTTP Response Header based Custom Header rule(s)</span>
+            <span class="configui-float-css">HTTP Response Header based Custom Header Rule(s)</span>
             <span class="configui-float">
                 <button pButton type="button" title="Add" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
                 <button pButton type="button" title="Add" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddHTTPRepDialog()" icon="fa-plus"></button>
@@ -48,7 +48,7 @@
 </div>
 
 <!--Dialog for ADD and Edit HTTP Response Header (s)-->
-<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP Response Header rule(s)' : 'Edit HTTP Response Header rule(s)'}}"
+<p-dialog class="profile-dialog" header="{{isNew ? 'Add HTTP Response Header Rule(s)' : 'Edit HTTP Response Header Rule(s)'}}"
     *ngIf="httpResponseCustomDialog" [(visible)]="httpResponseCustomDialog" modal="modal" width="550" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveADDEditHTTPRepHeader()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -73,7 +73,7 @@
                 <p-dataTable class="nde-ui" [value]="rulesDataInfo" [(selection)]="selectedRulesData" [rows]="5" [paginator]="rulesDataInfo?.length > 5"
                     [pageLinks]="3">
                     <p-header>
-                        <span class="configui-float-css">Extraction rule(s)</span>
+                        <span class="configui-float-css">Extraction Rule(s)</span>
                         <span class="configui-float">
                            <button pButton type="button" title="Add" (click)="openHTTPRepTypeValueDialog()" icon="fa-plus"></button>
                            <button pButton type="button" title="Edit" (click)="openEditHTTPRepTypeDialog()" icon="fa-pencil" ></button>
@@ -114,7 +114,7 @@
 </p-dialog>
 
 <!--Dialog for ADD Value Types-->
-<p-dialog class="profile-dialog" header="{{!isNewRule ? 'Add Extraction rule ' : 'Edit Extraction rule'}}" *ngIf="rulesDialog"
+<p-dialog class="profile-dialog" header="{{!isNewRule ? 'Add Extraction Rule ' : 'Edit Extraction Rule'}}" *ngIf="rulesDialog"
     [(visible)]="rulesDialog" modal="modal" width="590" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">

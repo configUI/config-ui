@@ -1094,6 +1094,10 @@ body {
     margin-top: -11px;
 }
 
-.exception .ui-datatable .ui-datatable-scrollable-body {
+/* .exception .ui-datatable .ui-datatable-scrollable-body {
     overflow-x: hidden;
+} */
+
+.exceptionpanel .ui-panel-content {
+    overflow-x: hidden;   
 }
