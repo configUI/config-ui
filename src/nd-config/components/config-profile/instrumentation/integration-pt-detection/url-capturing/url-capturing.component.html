@@ -15,19 +15,19 @@
                 <div class="ui-g">
 
                     <div class="ui-g-12">
-                        <div class="ui-g-1"></div>
+                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-5">
                             <p-checkbox name="enableURLCapturing" label="Enable endpoint URL capturing" [(ngModel)]="enableFormatIPResourceURL" binary="false"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12">
-                        <div class="ui-g-1"> </div>
+                        <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-5" style="padding-left:25px">
                             <p-checkbox [disabled]="!this.enableFormatIPResourceURL" name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12">
-                        <div class="ui-g-1"> </div>
+                        <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3" style="padding-left:25px">
                             <label>Skip characters from URL</label>
                         </div>
@@ -35,7 +35,7 @@
                             <input [disabled]="!this.enableFormatIPResourceURL" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
                         </div>
 
-                        <div class="ui-g-1"></div>
+                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-2">
                             <label>Max character limit in URL</label>
                         </div>
@@ -46,14 +46,14 @@
 
                 </div>
                 <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
+                    <!-- <div class="ui-g-1"></div> -->
                     <div class="ui-g-3">
                         <label>Enable dumping of default cassandra query</label>
                     </div>
                     <div class="ui-g-1">
                         <input name="dumpDefaultCassandraQuery" type="number" min="0" max="1" [(ngModel)]="urlCapturing['dumpDefaultCassandraQuery']['value']" pInputText required ngModel/>
                     </div>
-                    <div class="ui-g-1"></div>
+                    <!-- <div class="ui-g-1"></div> -->
                     <div class="ui-g-2">
                         <label>Enable url capturing feature</label>
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="ui-g-12">
-                    <div class="ui-g-1"></div>
+                    <!-- <div class="ui-g-1"></div> -->
                     <div class="ui-g-3">
                         <label>Enable transformation of thread subclasses</label>
                     </div>

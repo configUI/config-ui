@@ -7,12 +7,12 @@
         <div class="ui-g-3">
             <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
             <p-radioButton name="BusinessTransaction" value="global" label="Global Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" [(ngModel)]="selectedQueryPattern"></p-radioButton>
-            <i class="fa fa-info-circle" aria-hidden="true" title="Rule to create Business transaction names using URI and dynamic reqeust properties(HTTP Method, query parameters etc)."></i>
+            <i class="fa fa-info-circle" aria-hidden="true" title="Rule to Create Business Transaction Name(s) using URI and Dynamic Reqeust Properties(HTTP Method, Query Parameter(s) etc)."></i>
         </div>
         <div class="ui-g-9">
             <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" [(ngModel)]="selectedQueryPattern"></p-radioButton>
             <p-radioButton name="BusinessTransaction" value="pattern" label="Pattern Configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" [(ngModel)]="selectedQueryPattern"></p-radioButton>
-            <i class="fa fa-info-circle" aria-hidden="true" title="Provide patterns of URI and dynamic request properties(HTTP Method, query parameters etc) to identify Businesss transactions."></i>
+            <i class="fa fa-info-circle" aria-hidden="true" title="Provide Pattern(s) of URI and Dynamic Request Properties(HTTP Method, Query Parameter(s) etc .) to identify Businesss Transactions."></i>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
                 <p-dropdown class="nde-ui" name="segmentType" [disabled]="!(segmentURI == 'segmentOfURI')" [style]="{'width':'70%'}" [options]="segmentList" [(ngModel)]="globalBtDetail.segmentType"></p-dropdown>
             </div>
             <div class="ui-g-2">
-                <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'FromFirst'  || globalBtDetail.segmentType == 'FromLast'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
+                 <input name="segmentValue" style="text-align:right" [disabled]="!(segmentURI == 'segmentOfURI')" *ngIf="globalBtDetail.segmentType == 'FromFirst'  || globalBtDetail.segmentType == 'FromLast'" type="text" style="width: 50%" pInputText [(ngModel)]="globalBtDetail.segmentValue"
                     title="Please enter Segment(s) of URI in valid format. &#013;Rule-1: Numeric characters alone are accepted.  &#013;For example 2 or 5" required pattern="[1-9]+[0-9]*" ngModel />
             </div>
             <div class="ui-g-3" style="margin-top:4px;margin-left:-90px">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="ui-g-12 padding-left-css">
-            <div class="ui-g-1"> <label>Very slow</label> </div>
+            <div class="ui-g-1"> <label>Very Slow</label> </div>
             <div class="ui-g-1">
                 <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:70px" type="number" min=1 pInputText [(ngModel)]="globalBtDetail.verySlowTransaction" required />
             </div>
@@ -79,18 +79,18 @@
         </div>
 
         <div class="ui-g-12 padding-left-css" *ngIf="agentType == 'NodeJS'">
-            <div class="ui-g-1"> <label>Very slow</label> </div>
+            <div class="ui-g-1"> <label>Very Slow</label> </div>
             <div class="ui-g-10">
                 <input name="verySlowThreshold" #vslowthresh style="text-align:right ; width:70px" type="number" min=0 pInputText [(ngModel)]="globalBtDetail.verySlowDynamicThreshold" /> %
             </div>
         </div>
         <div class="ui-g-12 header-font-size">
-            <p-checkbox name="dynamicReqType" label="Select Dynamic Request properties" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
+            <p-checkbox name="dynamicReqType" label="Select Dynamic Request Properties" [(ngModel)]="globalBtDetail.dynamicReqType" binary="true"></p-checkbox>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue1" value="requestParam" label="Query parameter" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue1" value="requestParam" label="Query Parameter" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10 ">
                 <input name="requestParam" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestParam') || !globalBtDetail.dynamicReqType) " size="32" pInputText [(ngModel)]="globalBtDetail.requestParam" title="Please enter valid parameter value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (.-_%@$)"
@@ -99,34 +99,34 @@
         </div>
 
         <div class="ui-g-12 padding-left-css">
-            <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue2" value="httpMethod" label="Use HTTP request method(GET/POST/PUT) in transaction names" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+            <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue2" value="httpMethod" label="Use HTTP Request Method(GET/POST/PUT) in Transaction names" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
         </div>
 
         <div class="ui-g-12 padding-left-css">
             <div class="ui-g-2">
-                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue3" value="requestHeader" label="HTTP header" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue3" value="requestHeader" label="HTTP Header" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
             </div>
             <div class="ui-g-10">
-                <input name="requestHeader" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" size="32" pInputText [(ngModel)]="globalBtDetail.requestHeader " title="Please enter valid header value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (.-_%@$)"
+                <input name="requestHeader" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'requestHeader') || !globalBtDetail.dynamicReqType)" size="32" pInputText [(ngModel)]="globalBtDetail.requestHeader " title="Please enter valid Header Value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (.-_%@$)"
                     (keydown.space)="$event.preventDefault()" pattern="[a-zA-Z0-9]+[a-zA-Z0-9_%@.$-]*$" required />
             </div>
         </div>
         <div class="ui-g-12 padding-left-css">
-            <div class="ui-g-2">
-                <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue4" value="segmentNo" label="Segment number" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                <div class="ui-g-2">
+                    <p-radioButton [disabled]="!globalBtDetail.dynamicReqType" name="dynamicReqValue4" value="segmentNo" label="Segment Number" [(ngModel)]="globalBtDetail.dynamicReqValue"></p-radioButton>
+                </div>
+                <div class="ui-g-10">
+                    <input name="segmentNo" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'segmentNo') || !globalBtDetail.dynamicReqType)" size="32" pInputText [(ngModel)]="globalBtDetail.segmentNo " title="Please enter valid header value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (,)"
+                        (keydown.space)="$event.preventDefault()" pattern="[0-9,]+[0-9]*$" required />
+                </div>
             </div>
-            <div class="ui-g-10">
-                <input name="segmentNo" type="text" [disabled]="(!(globalBtDetail.dynamicReqValue == 'segmentNo') || !globalBtDetail.dynamicReqType)" size="32" pInputText [(ngModel)]="globalBtDetail.segmentNo " title="Please enter valid header value. &#013;Rule 1 :Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 :In between alphanumeric character only these special character accepted (,)"
-                    (keydown.space)="$event.preventDefault()" pattern="[0-9,]+[0-9]*$" required />
-            </div>
-        </div>
     </form>
 </div>
 <!--For showing Business Transaction Pattern(s) list -->
 <div class="ui-g" *ngIf="selectedQueryPattern == 'pattern'" style="margin-bottom:10px; border: ridge;">
-    <p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]">
+    <p-dataTable class="nde-ui" [value]="businessTransPatternInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]" scrollable="true" scrollHeight="270px">
         <p-header [style]="{'height':'25px'}">
-            <span style="float: left;">Business Transaction Pattern list</span>
+            <span style="float: left;">Business Transaction Pattern List</span>
             <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
@@ -164,7 +164,7 @@
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="verySlowTransaction" header="Very slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="verySlowTransaction" header="Very Slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
@@ -174,7 +174,7 @@
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="verySlowDynamicThreshold" header="Very slow Dynamic Threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column *ngIf="agentType == 'NodeJS'" class="col-overflow" field="verySlowDynamicThreshold" header="Very Slow Dynamic Threshold(%)" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
@@ -220,7 +220,7 @@
                         <label>URL Pattern</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%:#$&=-]{0,249}$" title="Please enter valid url. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
+                        <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$:&=-]{0,249}$" title="Please enter valid URL. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
                             [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
                     <div class="ui-g-4">
@@ -270,7 +270,7 @@
 
             <div class="pattern-dialog-border">
                 <div class="ui-g-12">
-                    <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
+                    <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request Properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
                 </div>
                 <!-- <div class="ui-g-12" style="padding-left: 27px">
                     <p-checkbox name="reqParamKey" label="Query HTTP Parameters Key" [disabled]="!businessTransPatternDetail.dynamicPartReq" [(ngModel)]="reqParamKeyCheck" binary="false"></p-checkbox>

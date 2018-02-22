@@ -3,10 +3,10 @@
             <span class="configui-float-css">
                     <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxtrue" binary="true" [disabled]="true"></p-checkbox>
                 </span>
-        <span style="float: left">Enable Integration Point(s)</span>
+        <span style="float: left">Enable Integration Points</span>
         <span style="float :right; margin-top:-3px">
-              <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add integration point detection" ></button>
-              <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add integration point detection" ></button>
+              <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Integration Point Detection" ></button>
+              <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add Integration Point Detection" ></button>
               <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
               <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveIntegrationPointOnFile()" label="Save"></button>
         </span>
@@ -14,7 +14,7 @@
     <!--<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>-->
     <p-column class="tableCss" field="type" header="Integration Point Type" [sortable]="true">
         <template let-col let-integrationPTDetection="rowData" pTemplate>
-            <span class="hyperlink" title=" Click to open {{integrationPTDetection[col.field]}} details">{{integrationPTDetection[col.field]}}</span>
+            <span class="hyperlink" title=" Click to Open {{integrationPTDetection[col.field]}} details">{{integrationPTDetection[col.field]}}</span>
         </template>
     </p-column>
     <p-column class="tableCss" field="detail" header="Description" [sortable]="true">
@@ -27,7 +27,7 @@
 
 <!--Dialog for Adding New Integration PT Detection-->
 
-<p-dialog class="profile-dialog" header="New integration point detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection"
+<p-dialog class="profile-dialog" header="New Integration Point Detection" *ngIf="displayNewIPDetection" [(visible)]="displayNewIPDetection"
     modal="modal" width="700" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveAddIntegrationPTDetection()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -101,7 +101,7 @@
         <!--Integration Point Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
         <div *ngIf="agentType =='Java'">
             <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL">
-                <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rules</label>
+                <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rule(s)</label>
             </div>
         </div>
         <div class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
@@ -109,7 +109,7 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> ServiceName </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service Name </md-checkbox>
             </div>
             <div class="ui-g config-ui" *ngSwitchCase="IP.RMI">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
@@ -132,11 +132,11 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database product name</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database product version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver name</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User name </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
 
                 <!--Host Port Query String, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
             </div>
@@ -160,7 +160,7 @@
 
         <div class="ui-g config-ui">
             <div class="ui-g-12">
-                <label style="font-weight: bolder;font-size: larger">Integration Exit Points</label>
+                <label style="font-weight: bolder;font-size: larger">Integration Exit Point(s)</label>
                 <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstEndPoints">
                     <div class="ui-g-8">
                         <label>{{endPoints.name}}</label>
@@ -174,7 +174,7 @@
                         <div>
                             <button *ngIf="endPoints.customEntry == true || endPoints.isCustomEntry == true" pButton class="ui-button-danger" type="button"
                                 (click)="deleteIP(endPoints)" title="Delete custom integration point" icon="fa-trash"></button>
-                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-defined custom integration point"
+                            <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-Defined Custom Integration Point"
                                 icon="fa-trash"></button>
 
                         </div>

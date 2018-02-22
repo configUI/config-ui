@@ -23,7 +23,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
   xmlFormat: any;
   profileXMLFileList: any[];
-  selectedXMLFile: string = "";
+  selectedXMLFile: string="";
   isMakeXMLFile: boolean;
   openFileExplorerDialog: boolean = false;
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
@@ -50,6 +50,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   createXMLData: TreeNode[] = [];
   saveXMLFileName: string = '';
   isConferMationAgentSelected: boolean;
+  viewXMLInstrumentation:boolean;
   ngOnInit() {
     this.isInstrPerm = +sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
 
@@ -61,6 +62,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     });
     let agentVal = ['Dot Net', 'Java', 'NodeJS'];
     this.agent = ConfigUiUtility.createDropdown(agentVal);
+    this.viewXMLInstrumentation = false
   }
 
   createDropDown(filename, callback) {
@@ -77,6 +79,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.createXMLInstrumentation = false;
       this.editXMLFile = false;
     }
+    this.viewXMLInstrumentation = false; 
     this.createDropDown("filename", () => { });
   }
 
@@ -128,6 +131,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
   /* this method is used for get xml data  on selected a xml file from dropdown*/
   showSelectedXmlFileData() {
+    this.viewXMLInstrumentation = true;
     if (this.selectedXMLFile === undefined || this.selectedXMLFile === "") {
       this._configUtilityService.errorMessage("Select a file to View");
       return;
@@ -482,15 +486,15 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         this._configUtilityService.errorMessage('Package Name should be like [xyz.abc]');
         return;
       }
-      var regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/g;
+      var regex = /[ !@%^&*()+\-=\[\]{};':"\\|,<>\/?]/g;
       if (regex.test(this.nodeLabel)) {
-        this._configUtilityService.errorMessage('Package Name should not special character except `.` ');
+        this._configUtilityService.errorMessage('Package Name should not contain special character except `.`,`_` and `$`');
         return;
       }
     } else if (this.nodeObj['type'] === 'package') {
-      var regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+      var regex = /[ !@#%^&*()+\-=\[\]{};':"\\|,.<>\/?]/g;
       if (regex.test(this.nodeLabel)) {
-        this._configUtilityService.errorMessage('Class Name should not contain special Characters');
+        this._configUtilityService.errorMessage('Class Name should not contain special Characters except `_` and `$`');
         return;
       }
     } else if (this.nodeObj['type'] === 'class') {
@@ -578,7 +582,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       trMsg = sessionStorage.getItem("isTrNumber")
     }
     if(this.selectedXMLFile == "")
-       this.selectedXMLFile = " "
+      this.selectedXMLFile = " "
     //Send "RTC" msg to show the only those levels of topology which is applied at the time of test run
     this._configKeywordsService.getSelectedProfileDetails(this.selectedXMLFile, trMsg).subscribe(data => {
       this.details = data["_body"];

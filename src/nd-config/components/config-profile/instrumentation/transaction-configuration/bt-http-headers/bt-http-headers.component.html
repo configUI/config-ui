@@ -1,13 +1,13 @@
 <p-dataTable class="nde-ui" [value]="btHttpHeadersInfo" [(selection)]="selectedHTTPHeaders" [rows]="12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Manage HTTP Headers Rules</span>
+        <span style="float: left"> Manage HTTP Headers Rule(s)</span>
         <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Add HTTP header" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openHeader()" icon="fa-plus"></button>
                        <button pButton type="button" title="Add HTTP header" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
                         <button pButton type="button" title="Edit HTTP header " *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openEditHttpHeader()" icon="fa-pencil" ></button>
                         <button pButton type="button" title="Edit HTTP header " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditHttpHeader()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete HTTP header(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteBTHTTPHeaders()" icon="fa-trash"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete HTTP header(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteBTHTTPHeaders()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete HTTP Header(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteBTHTTPHeaders()" icon="fa-trash"></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete HTTP Header(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteBTHTTPHeaders()" icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -68,7 +68,7 @@
             <div class="ui-g-12">
                 <p-dataTable class="nde-ui" [rows]="4" [value]="headerConditionInfo" [pageLinks]="3" [(selection)]="selectedRequestHeader">
                     <p-header>
-                        <span style="float: left;"> Request Header Rules</span>
+                        <span style="float: left;"> Request Header Rule(s)</span>
                         <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Add a request header condition" (click)="openReqDialog()" icon="fa-plus"></button>
                         <button pButton type="button" title="Edit a request header condition" (click)="openEditReqDialog()" icon="fa-pencil" ></button>                       
@@ -105,7 +105,7 @@
 
 <!--Dialog to add Request header-->
 
-<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add request header condition' : 'Edit request header condition'}}" modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="600" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add Request Header Condition' : 'Edit Request Header Condition'}}" modal="modal" *ngIf="addReqDialog" [(visible)]="addReqDialog" width="600" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
