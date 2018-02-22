@@ -128,7 +128,6 @@
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business Transaction Pattern List</span>
             <span style="float: right; margin-top:-3px">
-                       <button pButton type="button" title="Add a Business Transaction Pattern Child" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openPatternChildListDialog()" label="Child" icon="fa-plus"></button> -->
                        <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternDialog()" icon="fa-plus"></button>
