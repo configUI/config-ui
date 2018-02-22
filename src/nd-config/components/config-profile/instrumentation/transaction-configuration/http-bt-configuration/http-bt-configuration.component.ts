@@ -115,6 +115,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   subBusinessTransPatternDetail : BusinessTransPatternData[];
   isNewSubApp: boolean = false;
   selectedSubPatternData: any;
+  businessTransPatternChildInfo : BusinessTransPatternData[];
+
+  selectedBtId: number;
+  
 
   constructor(private route: ActivatedRoute,
     private configKeywordsService: ConfigKeywordsService,
@@ -927,12 +931,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /**
    * code for add child for BT Pattern 
    */
-  openSubPatternDetailDialog()
+  openPatternChildListDialog(application)
   {
   //  this.businessTransPatternChildInfo = [];
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.detailOfSubBTPatternDialog=true;
-    console.log(" hello ");
+    this.selectedBtId = application.btId
   }
   openAddSubPatternDialog()
   {
@@ -946,8 +950,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
     if(this.chkInclude == true)
       this.businessTransPatternDetail.include = "include";
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey +"=" + this.businessTransPatternDetail.reqHeaderValue;
-    // this.subBusinessTransPatternInfo = ImmutableArray.push(this.subBusinessTransPatternInfo, this.businessTransPatternDetail);
-    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.businessTransPatternDetail.parentBtId)
+
+    //this.businessTransPatternChildInfo = ImmutableArray.push(this.businessTransPatternChildInfo, this.businessTransPatternDetail);
+    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
     .subscribe(data => {
       //Insert data in main table after inserting application in DB
       // this.businessTransPatternInfo.push(data);
@@ -985,3 +990,4 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
   
 }
+
