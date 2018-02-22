@@ -128,14 +128,16 @@
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business Transaction Pattern list</span>
             <span style="float: right; margin-top:-3px">
+                       <button pButton type="button" title="Add a Business Transaction Pattern Child" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openPatternChildListDialog()" label="Child" icon="fa-plus"></button>
+                       <button pButton type="button" title="Add a Business Transaction Pattern Child" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openPatternChildListDialog()" label="Child" icon="fa-plus"></button>
                        <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternDialog()" icon="fa-plus"></button>
-		      <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
+		               <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddPatternDialog()" icon="fa-plus"></button>
                        <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="editPatternDialog()" icon="fa-pencil" ></button>
-		      <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+		               <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
                        <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deletePattern()" icon="fa-trash"></button>
-		      <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
+		               <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
                     </span>
         </p-header>
         <p-column [style]="{'width':'3%'}" selectionMode="multiple"></p-column>
@@ -191,8 +193,14 @@
         </p-column>
         <p-column class="col-overflow" field="headerKeyValue" header="HTTP Request Headers Key" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-      </template>
+              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="col-overflow" header="View Child" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+              <button pButton type="button" title="View Business Transaction Pattern Child" *ngIf="!isProfilePerm" [disabled]="isProfilePerm" (click)="openPatternChildListDialog()" label="View Child"></button>
+              <button pButton type="button" title="View Business Transaction Pattern Child" *ngIf="isProfilePerm" [disabled]="!isProfilePerm" (click)="openPatternChildListDialog()" label="View Child"></button>
+            </template>
         </p-column>
 
     </p-dataTable>
@@ -396,6 +404,159 @@
             <div class="ui-dialog-buttonpane ui-widget-content">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
                 <button type="button" pButton icon="fa-close" (click)="closeReqKeyValDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Dialog for ADD and Edit Pattern Child-->
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern Child' : 'Edit Business Transaction Pattern Child'}}" *ngIf="listOfBTPatternChildDialog" [(visible)]="listOfBTPatternChildDialog" modal="modal" width="950" responsive="true"
+    [resizable]="false">
+    <div class="ui-g-12 pattern-dialog-border">
+        <p-dataTable class="nde-ui" [value]="businessTransPatternChildInfo" [(selection)]="selectedPatternData" [rows]="10" [paginator]="businessTransPatternInfo?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]">
+            <p-header>
+                <span style="float: left;">Business Transaction Pattern list</span>
+                <span style="float: right; margin-top:-3px">
+                       <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternChildDialog()" icon="fa-plus"></button>
+		               <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddPatternChildDialog()" icon="fa-plus"></button>
+                       <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+		               <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editPatternDialog()" icon="fa-pencil" ></button>
+                       <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deletePattern()" icon="fa-trash"></button>
+		               <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deletePattern()" icon="fa-trash"></button>
+                    </span>
+            </p-header>
+            <p-column [style]="{'width':'1%'}" selectionMode="multiple"></p-column>
+            <p-column class="col-overflow" field="btName" header="Name" [sortable]="true" [style]="{'width':'9%'}">
+                <template let-col let-application="rowData" pTemplate type="body">
+        <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+      </template>
+            </p-column>
+            <p-column class="col-overflow" field="include" header="BT Included" [sortable]="true" [style]="{'width':'6%'}">
+                <template let-col let-application="rowData" pTemplate type="body">
+            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+          </template>
+            </p-column>
+            <p-column class="col-overflow" field="slowDynamicThreshold" header="Slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'10%'}">
+                <template let-col let-application="rowData" pTemplate type="body">
+                  <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+                </template>
+            </p-column>
+
+            <p-column class="col-overflow" field="verySlowDynamicThreshold" header="Very Slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'10%'}">
+                <template let-col let-application="rowData" pTemplate type="body">
+                 <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
+               </template>
+            </p-column>
+            <p-column class="col-overflow" field="headerKeyValue" header="HTTP Request Headers Key" [sortable]="true" [style]="{'width':'9%'}">
+                <template let-col let-application="rowData" pTemplate type="body">
+                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+               </template>
+            </p-column>
+        </p-dataTable>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content">
+            <button type="button" pButton icon="fa-check" (click)="savePatternChildTransList()" label="Save"></button>
+            <button type="button" pButton icon="fa-close" (click)="closePatternChildListDialog()" label="Cancel"></button>
+        </div>
+    </footer>
+</p-dialog>
+
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern Child' : 'Edit Business Transaction Pattern Child'}}" *ngIf="addEditChildPatternDialog" [(visible)]="addEditChildPatternDialog" modal="modal" width="750" responsive="true"
+    [resizable]="false">
+    <form (ngSubmit)="saveADDEditBTPatternChildTrans()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+
+            <div class="ui-g-12">
+                <div class="ui-g-3">
+                    <label>Business Transaction Name</label>
+                </div>
+                <div class="ui-g-5">
+                    <input name="btName" type="text" size="30" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
+                </div>
+                <div class="ui-g-4">
+                    <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkChildInclude" binary="false"></p-checkbox>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4 label">
+                    <label>Transaction Response Time Threshold Value</label>
+                </div>
+                <div class="ui-g-1 label" style="margin-left: 7px;margin-top: 7px">
+                    <label>Slow</label>
+                </div>
+                <div class="ui-g-2" style="margin-left: -15px">
+                    <input name="slowDynamicThreshold" style="text-align:right;margin-top:4px" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowDynamicThreshold" required ngModel />
+                </div>
+                <div class="ui-g-1" style="margin-left: -19px;margin-top: 7px">ms</div>
+                <div class="ui-g-1 label" style="margin-left: -20px;margin-top: 7px">
+                    <label>Very Slow</label>
+                </div>
+                <div class="ui-g-2">
+                    <input name="slowDynamicThreshold" type="text" style="text-align:right;margin-top:4px" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowDynamicThreshold" required ngModel />
+                </div>
+                <div class="ui-g-1" style="margin-left: -19px;margin-top: 7px">ms</div>
+            </div>
+
+            <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
+                <div class="ui-g-3 label">
+                    <label>Dynamic Threshold (%)</label>
+                </div>
+                <div class="ui-g-1 label">
+                    <label>Slow</label>
+                </div>
+                <div class="ui-g-3">
+                    <input name="slowDynamic" style="text-align:right;margin-top:4px" type="text" size="10" pInputText [(ngModel)]="businessTransPatternDetail.slowDynamicThreshold" ngModel /> %
+                </div>
+                <div class="ui-g-1 label">
+                    <label>Very Slow</label>
+                </div>
+                <div class="ui-g-3">
+                    <input name="verySlowDynamic" type="text" style="text-align:right;margin-top:4px" size="10" pInputText [(ngModel)]="businessTransPatternDetail.verySlowDynamicThreshold" ngModel /> %
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <!-- <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox> -->
+
+                <div class="ui-g-6">
+                    <div class="ui-g-5">
+                        <label>HTTP Request Headers Key</label>
+                    </div>
+                    <div class="ui-g-7">
+                        <input name="reqHeaderKey" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
+                            pattern="[a-zA-Z_-]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-2">
+                        <label>Value</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input name="reqHeaderValue" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Cannot include special characters except /,@,|,-,*,? and underscore"
+                            pattern="[a-zA-Z0-9_\/.|@&=?*-]+$" (keydown.space)="$event.preventDefault()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeAddEditChildBTDialog()" label="Cancel"></button>
             </div>
         </footer>
     </form>

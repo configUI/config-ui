@@ -211,7 +211,7 @@ export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
     slowDynamicThreshold: string;
     verySlowDynamicThreshold: string;
     agent: string;
-
+    parentBtId:number;
 }
 
 export class BusinessTransGlobalData {

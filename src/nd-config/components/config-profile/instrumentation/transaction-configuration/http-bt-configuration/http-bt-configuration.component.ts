@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
-import { BusinessTransPatternData, BusinessTransGlobalData, RequestParamData } from '../../../../../containers/instrumentation-data';
+import { BusinessTransPatternData, BusinessTransGlobalData, RequestParamData} from '../../../../../containers/instrumentation-data';
 
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
@@ -31,7 +31,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   keywordData = new EventEmitter();
 
   profileId: number;
-
+  parentBtId: number;
   /* Assign data to Global Bt */
   globalBtDetail: BusinessTransGlobalData;
 
@@ -106,6 +106,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
   keywordList: string[] = ['BTRuleConfig'];
   BusinessTransGlobalPattern: Object;
   agentType: string = "";  
+
+  // keywords for add child Bt pattern
+  listOfBTPatternChildDialog : boolean;
+  addEditChildPatternDialog: boolean;
+  chkChildInclude: string;
+  businessTransPatternChildInfo : BusinessTransPatternData[];
+  
 
   constructor(private route: ActivatedRoute,
     private configKeywordsService: ConfigKeywordsService,
@@ -185,6 +192,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
+    this.businessTransPatternChildInfo = [];
   }
 
   getKeywordData() {
@@ -352,7 +360,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     let tempParam = this.createKeyValString();
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
-    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
+    this.parentBtId = -1;
+    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         // this.businessTransPatternInfo.push(data);
@@ -912,4 +921,49 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.openReqKeyVal = false;
     this.selectedReqParam = [];
   }
+
+  /**
+   * code for add child for BT Pattern 
+   */
+  openPatternChildListDialog()
+  {
+  //  this.businessTransPatternChildInfo = [];
+    this.businessTransPatternDetail = new BusinessTransPatternData();
+    this.listOfBTPatternChildDialog=true;
+    console.log(" hello ");
+  }
+  openAddPatternChildDialog()
+  {
+    this.chkInclude = false;
+    this.businessTransPatternDetail = new BusinessTransPatternData();
+    this.addEditChildPatternDialog = true; 
+  }
+  saveADDEditBTPatternChildTrans()
+  {
+    if(this.chkInclude == true)
+    this.businessTransPatternDetail.include = "include";
+    this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey +"=" + this.businessTransPatternDetail.reqHeaderValue;
+    //this.businessTransPatternChildInfo = ImmutableArray.push(this.businessTransPatternChildInfo, this.businessTransPatternDetail);
+    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.businessTransPatternDetail.parentBtId)
+    .subscribe(data => {
+      //Insert data in main table after inserting application in DB
+      // this.businessTransPatternInfo.push(data);
+      this.businessTransPatternInfo = ImmutableArray.push(this.businessTransPatternInfo, data);
+      this.configUtilityService.successMessage(Messages);
+    });
+    this.addEditChildPatternDialog = false; 
+  }
+  savePatternChildTransList()
+  {
+    this.listOfBTPatternChildDialog = false; 
+  }
+  closeAddEditChildBTDialog()
+  {
+    this.addEditChildPatternDialog = false; 
+  }
+  closePatternChildListDialog()
+  {
+    this.listOfBTPatternChildDialog = false;
+  }
+  
 }
