@@ -267,6 +267,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         }
       }
       this.businessTransPatternInfo = data;
+      console.log(this.businessTransPatternInfo , " = " ,data)
     });
   }
 
@@ -1000,9 +1001,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
       return;
     }
     if (this.selectedSubPatternData[0]["include"] == "include")
-      this.selectedSubPatternData[0]["include"] = true;
+      this.chkInclude = true;
     else
-      this.selectedSubPatternData[0]["include"] = false;
+      this.chkInclude = false;
 
     this.businessTransPatternDetail = Object.assign({}, this.selectedSubPatternData[0]);
     this.addEditSubPatternDialog = true;

@@ -196,8 +196,8 @@
         </p-column>
         <p-column class="col-overflow" *ngIf="agentType != 'NodeJS'" header="Sub BT detail" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="!isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
+              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm || application.headerKeyValue == 'undefined' || application.headerKeyValue == '-' || application.headerKeyValue == ''" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
+              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
 
             </template>
         </p-column>
@@ -241,20 +241,20 @@
                 <div class="ui-g-3 label">
                     <label>Transaction Response Time Threshold Value</label>
                 </div>
-                <div class="ui-g-1 label" style="margin-left: 27px">
+                <div class="ui-g-1 label" style="margin-left: 15px; margin-right: -27px;">
                     <label>Slow</label>
                 </div>
-                <div class="ui-g-2" style="margin-left: -15px">
-                    <input name="slowTransaction" (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />
+                <div class="ui-g-2" style="margin-left: -4px">
+                    <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />
                 </div>
-                <div class="ui-g-1" style="margin-left: -54px;margin-top: 7px">ms</div>
-                <div class="ui-g-1 label" style="margin-left: -20px">
+                <div class="ui-g-1" style="margin-left: -27px;margin-top: 5px">ms</div>
+                <div class="ui-g-1 label" style="margin-left: -30px; margin-right: -8px">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-2">
-                    <input name="verySlowTransaction" (input)="checkSlow(slow, vslow)" style="text-align:right; width:70px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />
+                    <input name="verySlowTransaction" #vslow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />
                 </div>
-                <div class="ui-g-1" style="margin-left: -54px;margin-top: 7px">ms</div>
+                <div class="ui-g-1" style="margin-left: -30px;margin-top: 5px">ms</div>
             </div>
 
             <div class="ui-g-12 pattern-dialog-border" *ngIf="agentType == 'NodeJS'">
@@ -469,7 +469,7 @@
                     <label>Business Transaction Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="btName" type="text" size="30" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
+                    <input name="btName" type="text" size="32" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                 </div>
                 <div class="ui-g-4">
                     <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
