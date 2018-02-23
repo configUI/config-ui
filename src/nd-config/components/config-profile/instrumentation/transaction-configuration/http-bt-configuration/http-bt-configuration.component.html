@@ -468,10 +468,10 @@
                 <div class="ui-g-3">
                     <label>Business Transaction Name</label>
                 </div>
-                <div class="ui-g-5">
+                <div class="ui-g-4">
                     <input name="btName" type="text" size="32" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                 </div>
-                <div class="ui-g-4">
+                <div class="ui-g-4" style="margin-left: 10px;">
                     <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
                 </div>
             </div>
@@ -499,19 +499,19 @@
             <div class="ui-g-12">
                 <!-- <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox> -->
                 <div class="ui-g-6">
-                    <div class="ui-g-5">
+                    <div class="ui-g-6">
                         <label>HTTP Request Headers Key</label>
                     </div>
-                    <div class="ui-g-7">
+                    <div class="ui-g-6">
                         <input name="reqHeaderKey" type="text" size="25" [disabled]="true" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
                             pattern="[a-zA-Z_-]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
                     </div>
                 </div>
                 <div class="ui-g-6">
-                    <div class="ui-g-2">
+                    <div class="ui-g-2" style="margin-left: 70px; margin-top: 4px;">
                         <label>Value</label>
                     </div>
-                    <div class="ui-g-8">
+                    <div class="ui-g-7">
                         <input name="reqHeaderValue" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Cannot include special characters except /,@,|,-,*,? and underscore"
                             pattern="[a-zA-Z0-9_\/.|@&=?*-]+$" (keydown.space)="$event.preventDefault()" />
                     </div>
