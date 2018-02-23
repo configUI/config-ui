@@ -243,10 +243,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
       filePath = data["_body"];
       if (value == 'pattern') {
-        filePath = filePath + "/btPattern.btr";
+        filePath = filePath + "/btPattern.btr;BTTConfig=" + filePath + "/btPatternThreshold.btt";
       }
       else
-        filePath = filePath + "/btGlobal.btr"
+        filePath = filePath + "/btGlobal.btr;BTTConfig=" + filePath + "/btGlobalThreshold.btt";
       this.BusinessTransGlobalPattern['BTRuleConfig'].path = filePath;
       this.keywordData.emit(this.BusinessTransGlobalPattern);
     });
@@ -556,8 +556,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     let tempParam = this.createKeyValString();
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
-    this.parentBtId = -1;
-    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
+    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
@@ -930,8 +929,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
   openSubPatternDetailDialog(application) {
     this.subBusinessTransPatternInfo = [];
     this.businessTransPatternDetail = new BusinessTransPatternData();
-    this.detailOfSubBTPatternDialog = true;
     this.selectedBtId = application.btId
+    this.detailOfSubBTPatternDialog = true;
+    this.configKeywordsService.getSubBtPattern(this.profileId, this.selectedBtId).subscribe(data => {
+      this.subBusinessTransPatternInfo = data
+    })
   }
   openAddSubPatternDialog() {
     this.isNewSubApp = true;
@@ -948,6 +950,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
 
+      this.businessTransPatternDetail.agent = this.agentType;
     if (this.isNewSubApp == true) {
       //this.subBusinessTransPatternInfo = ImmutableArray.push(this.subBusinessTransPatternInfo, this.businessTransPatternDetail);
       this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
@@ -959,21 +962,22 @@ export class HTTPBTConfigurationComponent implements OnInit {
         });
     }
     else {
+      this.businessTransPatternDetail.parentBtId = this.selectedBtId
       // let index = this.getSubPatternIndex(this.businessTransPatternDetail.id);
       // this.subBusinessTransPatternInfo = ImmutableArray.replace(this.subBusinessTransPatternInfo, this.businessTransPatternDetail, index);
-      this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
+      this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
         .subscribe(data => {
           let index = this.getSubPatternIndex(this.businessTransPatternDetail.id);
-          this.selectedPatternData.length = 0;
           if (data.reqHeaderValue != null && data.reqHeaderKey != null)
-            data.headerKeyValue = data.headerKeyValue;
+          data.headerKeyValue = data.headerKeyValue;
           else
-            data.headerKeyValue = "-";
-
-          this.selectedPatternData.push(data);
+          data.headerKeyValue = "-";
+          
+          this.selectedSubPatternData.push(data);
           // this.selectedPatternData[0].paramKeyValue = data.reqParamKeyVal
           this.subBusinessTransPatternInfo = ImmutableArray.replace(this.subBusinessTransPatternInfo, data, index);
           this.configUtilityService.successMessage(Messages);
+          this.selectedSubPatternData = []
         });
     }
 
