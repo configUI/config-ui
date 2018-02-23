@@ -113,6 +113,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   subBusinessTransPatternInfo: BusinessTransPatternData[];
   isNewSubApp: boolean = false;
   selectedSubPatternData: any;
+  reqHeaderKey: string;
 
   selectedBtId: number;
 
@@ -557,7 +558,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
     this.parentBtId = -1;
-    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
+    this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
@@ -931,12 +932,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.subBusinessTransPatternInfo = [];
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.detailOfSubBTPatternDialog = true;
+    this.reqHeaderKey = application.reqHeaderKey;
     this.selectedBtId = application.btId
   }
   openAddSubPatternDialog() {
     this.isNewSubApp = true;
     this.chkInclude = false;
     this.businessTransPatternDetail = new BusinessTransPatternData();
+    this.businessTransPatternDetail.reqHeaderKey = this.reqHeaderKey;
+    this.businessTransPatternDetail.slowTransaction = "3000";
+    this.businessTransPatternDetail.verySlowTransaction = "5000";
     this.addEditSubPatternDialog = true;
   }
   saveADDEditSubBTPatternTrans() {
@@ -945,23 +950,22 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "include";
     else
       this.businessTransPatternDetail.include = "exclude";
-  
+    if (this.businessTransPatternDetail.reqHeaderValue == "" || this.businessTransPatternDetail.reqHeaderValue == null || this.businessTransPatternDetail.reqHeaderValue == undefined)
+      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
+    else
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
 
     if (this.isNewSubApp == true) {
-      //this.subBusinessTransPatternInfo = ImmutableArray.push(this.subBusinessTransPatternInfo, this.businessTransPatternDetail);
+      this.businessTransPatternDetail.agent = this.agentType;
       this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
         .subscribe(data => {
           //Insert data in main table after inserting application in DB
-          // this.businessTransPatternInfo.push(data);
           this.subBusinessTransPatternInfo = ImmutableArray.push(this.subBusinessTransPatternInfo, data);
           this.configUtilityService.successMessage(Messages);
         });
     }
     else {
-      // let index = this.getSubPatternIndex(this.businessTransPatternDetail.id);
-      // this.subBusinessTransPatternInfo = ImmutableArray.replace(this.subBusinessTransPatternInfo, this.businessTransPatternDetail, index);
-      this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
+      this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
         .subscribe(data => {
           let index = this.getSubPatternIndex(this.businessTransPatternDetail.id);
           this.selectedPatternData.length = 0;
@@ -971,14 +975,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
             data.headerKeyValue = "-";
 
           this.selectedPatternData.push(data);
-          // this.selectedPatternData[0].paramKeyValue = data.reqParamKeyVal
           this.subBusinessTransPatternInfo = ImmutableArray.replace(this.subBusinessTransPatternInfo, data, index);
           this.configUtilityService.successMessage(Messages);
         });
     }
-
+    this.selectedSubPatternData = [];
     this.addEditSubPatternDialog = false;
   }
+
   editSubPatternDialog() {
     if (!this.selectedSubPatternData || this.selectedSubPatternData.length < 1) {
       this.configUtilityService.errorMessage("Select a row to edit");
@@ -988,10 +992,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row to edit");
       return;
     }
-    if (this.selectedSubPatternData["include"] == "include")
-    this.businessTransPatternDetail.include = "true";
+    if (this.selectedSubPatternData[0]["include"] == "include")
+      this.selectedSubPatternData[0]["include"] = true;
     else
-    this.businessTransPatternDetail.include = "false";
+      this.selectedSubPatternData[0]["include"] = false;
 
     this.businessTransPatternDetail = Object.assign({}, this.selectedSubPatternData[0]);
     this.addEditSubPatternDialog = true;
@@ -999,6 +1003,34 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   }
 
+  deleteSubPattern() {
+    if (!this.selectedSubPatternData || this.selectedSubPatternData.length < 1) {
+      this.configUtilityService.errorMessage("Select rows to be deleted");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected Applications's AppId
+        let selectedApp = this.selectedSubPatternData;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+
+          arrAppIndex.push(selectedApp[index].id);
+        }
+        this.configKeywordsService.deleteBusinessTransPattern(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteSubPatternBusinessTransactions(arrAppIndex);
+            this.selectedSubPatternData = [];
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
   /**This method returns selected application row on the basis of selected row */
   getSubPatternIndex(appId: any): number {
     for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
@@ -1008,8 +1040,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     return -1;
   }
-  saveSubPatternTransList() {
-    this.detailOfSubBTPatternDialog = false;
+  /**This method is used to delete Pattern from Data Table */
+  deleteSubPatternBusinessTransactions(arrIndex) {
+    let rowIndex: number[] = [];
+
+    for (let index in arrIndex) {
+      rowIndex.push(this.getSubPatternIndex(arrIndex[index]));
+    }
+    this.subBusinessTransPatternInfo = deleteMany(this.subBusinessTransPatternInfo, rowIndex);
   }
   closeAddEditSubBTDialog() {
     this.addEditSubPatternDialog = false;
