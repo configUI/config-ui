@@ -939,6 +939,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.getSubBtPattern(this.profileId, this.selectedBtId).subscribe(data => {
       this.subBusinessTransPatternInfo = data
     })
+    this.selectedSubPatternData = [];
   }
   openAddSubPatternDialog() {
     this.isNewSubApp = true;
