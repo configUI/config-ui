@@ -196,7 +196,7 @@
         </p-column>
         <p-column class="col-overflow" *ngIf="agentType != 'NodeJS'" header="Sub BT detail" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm || application.headerKeyValue == 'undefined' || application.headerKeyValue == '-' || application.headerKeyValue == ''" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
+              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm || application.headerKeyValue == 'undefined' || application.headerKeyValue == '-' || application.reqHeaderValue == null || application.reqHeaderValue == ''" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
               <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
 
             </template>
@@ -513,7 +513,7 @@
                     </div>
                     <div class="ui-g-7">
                         <input name="reqHeaderValue" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Cannot include special characters except /,@,|,-,*,? and underscore"
-                            pattern="[a-zA-Z0-9_\/.|@&=?*-]+$" (keydown.space)="$event.preventDefault()" />
+                            pattern="[a-zA-Z0-9_\/.|@&=?*-]+$" (keydown.space)="$event.preventDefault()" required ngModel/>
                     </div>
                 </div>
             </div>
