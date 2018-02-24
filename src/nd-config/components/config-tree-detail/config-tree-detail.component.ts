@@ -536,7 +536,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.autoInstrObj.autoInstrRetainChanges = true;
 
     //For blackListForDebugSession
-    if (arr[12] != "NA")
+    if (arr[12] == "Path")
       this.autoInstrObj.blackListForDebugSession = true;
     else
       this.autoInstrObj.blackListForDebugSession = false;
@@ -594,7 +594,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
           + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
           + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0;blackListForDebugSession=NA";
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=0";
     }
     else {
       if (data.blackListForDebugSession == true)
@@ -608,7 +608,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
           + ";autoInstrPct=" + data.autoInstrPct + ";autoDeInstrPct=" + data.autoDeInstrPct + ";autoInstrMapSize=" + data.autoInstrMapSize
           + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration + ";autoInstrClassWeight=" + data.autoInstrClassWeight
-          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1;blackListForDebugSession=NA";
+          + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration + ";autoInstrRetainChanges=1";
 
     }
     return setting;
@@ -746,7 +746,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (data.autoInstrRetainChanges != true)
       strSetting = strSetting + ";autoInstrRetainChanges=1"
 
-    if (data.blackListForDebugSession != false)
+    if (data.blackListForDebugSession == true)
       strSetting = strSetting + ";blackListForDebugSession=Path"
 
     // else

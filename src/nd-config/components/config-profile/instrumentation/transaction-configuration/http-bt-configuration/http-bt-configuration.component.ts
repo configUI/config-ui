@@ -266,8 +266,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
           data[i].headerKeyValue = "-";
         }
       }
+      
       this.businessTransPatternInfo = data;
-      console.log(this.businessTransPatternInfo , " = " ,data)
     });
   }
 
