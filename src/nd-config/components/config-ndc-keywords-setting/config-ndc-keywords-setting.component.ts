@@ -30,12 +30,12 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     NDC_TRACING_LEVEL_SIZE;
 
     //Variables for values of NDDBU_TRACE_LEVEL keyword
-    NDDBU_TRACE_LEVEL_VAL;
-    NDDBU_TRACE_LEVEL_SIZE;
+    // NDDBU_TRACE_LEVEL_VAL;
+    // NDDBU_TRACE_LEVEL_SIZE;
 
     //Variables for values of NDDBU_RD_INST_COUNT_AND_SKIP keyword
-    NDDBU_RD_INST_COUNT_AND_SKIP_MIN;
-    NDDBU_RD_INST_COUNT_AND_SKIP_MAX;
+    // NDDBU_RD_INST_COUNT_AND_SKIP_MIN;
+    // NDDBU_RD_INST_COUNT_AND_SKIP_MAX;
 
     //Variables for values of ND_ENABLE_CAPTURE_DB_TIMING keyword
     JDBC;
@@ -115,7 +115,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'NDC_DATA_THD_TERM_RETRY_INTERVAL_MSEC',
         'SND_RESP_TO_BCI_ON_DATA_CONN',
         'NDC_LOG_BCI_AGGREGATE_RAW_DATA',
-        'NDDBU_TRACE_LEVEL',
+        // 'NDDBU_TRACE_LEVEL',
         'NDP_SEQ_BLOB_IN_FILE_FLAG',
         'NDP_SEQ_BLOB_IN_FILE_MIN_SIZE',
         'NDP_SEQ_BLOB_COMPRESSION_BUFFER_INIT_SIZE',
@@ -128,10 +128,10 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'NDP_ENABLE_SQL_RECORD',
         'NDP_ENABLE_BCIARG',
         'NDDBU_TMP_FILE_PATH',
-        'NDDBU_RD_INST_COUNT_AND_SKIP',
+        // 'NDDBU_RD_INST_COUNT_AND_SKIP',
         'NDDBU_CHUNK_SIZE',
         'NDDBU_IDLE_TIME',
-        'NDDBU_NUM_CYCLES',
+        // 'NDDBU_NUM_CYCLES',
         'NDP_FORCE_ADD_URC_FOR_MISSING_FP_MAPPING_RECORD',
         'NDP_FREE_FP_MIN_SQB_SIZE',
         'NDP_RAW_DATA_BUF_SIZE',
@@ -225,17 +225,17 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.NDC_TRACING_LEVEL_SIZE = val[1];
         }
         //NDDBU_TRACE_LEVEL 1 10
-        if (data.NDDBU_TRACE_LEVEL.value.includes(" ")) {
-            let val = data.NDDBU_TRACE_LEVEL.value.split(" ");
-            this.NDDBU_TRACE_LEVEL_VAL = val[0];
-            this.NDDBU_TRACE_LEVEL_SIZE = val[1];
-        }
+        // if (data.NDDBU_TRACE_LEVEL.value.includes(" ")) {
+        //     let val = data.NDDBU_TRACE_LEVEL.value.split(" ");
+        //     this.NDDBU_TRACE_LEVEL_VAL = val[0];
+        //     // this.NDDBU_TRACE_LEVEL_SIZE = val[1];
+        // }
         //NDDBU_RD_INST_COUNT_AND_SKIP  0 5
-        if (data.NDDBU_RD_INST_COUNT_AND_SKIP.value.includes(" ")) {
-            let val = data.NDDBU_RD_INST_COUNT_AND_SKIP.value.split(" ");
-            this.NDDBU_RD_INST_COUNT_AND_SKIP_MIN = val[0];
-            this.NDDBU_RD_INST_COUNT_AND_SKIP_MAX = val[1];
-        }
+        // if (data.NDDBU_RD_INST_COUNT_AND_SKIP.value.includes(" ")) {
+        //     let val = data.NDDBU_RD_INST_COUNT_AND_SKIP.value.split(" ");
+        //     this.NDDBU_RD_INST_COUNT_AND_SKIP_MIN = val[0];
+        //     this.NDDBU_RD_INST_COUNT_AND_SKIP_MAX = val[1];
+        // }
 
         //ND_ENABLE_CAPTURE_DB_TIMING 1 0 0 0
         if (data.ND_ENABLE_CAPTURE_DB_TIMING.value.includes(" ")) {
@@ -315,10 +315,10 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         data["NDC_TRACING_LEVEL"].value = this.NDC_TRACING_LEVEL_VAL + " " + this.NDC_TRACING_LEVEL_SIZE;
 
         //For NDDBU_TRACE_LEVEL
-        data["NDDBU_TRACE_LEVEL"].value = this.NDDBU_TRACE_LEVEL_VAL + " " + this.NDDBU_TRACE_LEVEL_SIZE;
+        // data["NDDBU_TRACE_LEVEL"].value = this.NDDBU_TRACE_LEVEL_VAL + " " + this.NDDBU_TRACE_LEVEL_SIZE;
 
         //NDDBU_RD_INST_COUNT_AND_SKIP
-        data["NDDBU_RD_INST_COUNT_AND_SKIP"].value = this.NDDBU_RD_INST_COUNT_AND_SKIP_MIN + " " + this.NDDBU_RD_INST_COUNT_AND_SKIP_MAX;
+        // data["NDDBU_RD_INST_COUNT_AND_SKIP"].value = this.NDDBU_RD_INST_COUNT_AND_SKIP_MIN + " " + this.NDDBU_RD_INST_COUNT_AND_SKIP_MAX;
 
         //ND_ENABLE_CAPTURE_DB_TIMING
         data["ND_ENABLE_CAPTURE_DB_TIMING"].value = this.JDBC + " " + this.REDIX + " " + this.MONGODB + " " + this.CASSANDRA;

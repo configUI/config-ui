@@ -616,7 +616,7 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (53,'NDP_ENABLE_BCIARG','','','1','1'),
 (54,'NDDBU_CHUNK_SIZE','','','134217728','134217728'),
 (55,'NDDBU_IDLE_TIME','','','5','5'),
-(56,'NDDBU_NUM_CYCLES','','','1','1'),
+
 (57,'NDP_FORCE_ADD_URC_FOR_MISSING_FP_MAPPING_RECORD','','','0','0'),
 (58,'NDP_FREE_FP_MIN_SQB_SIZE','','','32768','32768'),
 (59,'NDP_RAW_DATA_BUF_SIZE','','','262144','262144'),
@@ -642,9 +642,7 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (79,'NDC_MAX_CTRL_CON','','','400','400'),
 (80,'NDP_MAX_SQL_INDEX_FROM_BCI','','','4096','4096'),
 (81,'NDC_TRACING_LEVEL','','','1 50','1 50'),
-(82,'NDDBU_TRACE_LEVEL','','','1 10','1 10'),
 (83,'NDP_SEQ_BLOB_IN_FILE_FLAG','','','1 B 10000','1 B 10000'),
-(84,'NDDBU_RD_INST_COUNT_AND_SKIP','','','0 5','0 5'),
 (85,'NDC_HS_ST_IN_FILE_FLAG','','','1 B','1 B'),
 (86,'ND_ENABLE_CAPTURE_DB_TIMING','','','1 0 0 0','1 0 0 0'),
 (87,'NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE','','','3600000 600000','3600000 600000'),
