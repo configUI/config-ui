@@ -96,7 +96,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
-      if (data[key]['type'] == 'custom' && data[key]['enable'] == true && !(data[key]['assocId'] == -1)) {
+      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'pre-custom')) {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
         this.customKeywords.keywordName = key;
