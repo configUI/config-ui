@@ -239,4 +239,8 @@ export class ConfigTopologyService {
   deleteAI(data): Observable<boolean> {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_AI}`, data);
   }
+
+  getTopologyDCID(testRunNo){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPOLOGY_DC_ID}`, testRunNo);
+  }
 }

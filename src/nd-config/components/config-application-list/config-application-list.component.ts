@@ -284,7 +284,9 @@ export class ConfigApplicationListComponent implements OnInit {
   routeToTree(selectedAppId, selectedAppName) {
     //Observable app name
     this.configApplicationService.applicationNameObserver(selectedAppName);
+    sessionStorage.setItem("showserverinstance", "false");
     this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
+
   }
 
   //Route to NDC Keyword 
