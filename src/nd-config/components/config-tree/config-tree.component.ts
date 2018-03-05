@@ -41,21 +41,23 @@ export class ConfigTreeComponent implements OnInit {
   enableAutoScaling: boolean = false;
   perm: boolean;
   ngOnInit() {
-    if(+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("TopologyAccess") ==4)
+    if (+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("TopologyAccess") == 4)
       this.perm = true
     else
-    this.perm=false;
-   // this.loadTopologyTreeData();
+      this.perm = false;
+
+
+    // this.loadTopologyTreeData();
     // this.loadEnableAutoScaling();
   }
 
- /*  loadEnableAutoScaling() {
-    this.configHomeService.getMainData()
-      .subscribe(data => {
-        this.enableAutoScaling = data.enableAutoScaling;
-      }
-     );
-  } */
+  /*  loadEnableAutoScaling() {
+     this.configHomeService.getMainData()
+       .subscribe(data => {
+         this.enableAutoScaling = data.enableAutoScaling;
+       }
+      );
+   } */
 
   /*
   * Here request for tree where topology acts as root node gives response
@@ -67,7 +69,7 @@ export class ConfigTreeComponent implements OnInit {
   loadTopologyTreeData(): void {
 
     this.route.params.subscribe((params: Params) => {
-    this.dcId = params['dcId']
+      this.dcId = params['dcId']
       this.topoId = params['topoId']
     });
     let url;
@@ -101,23 +103,23 @@ export class ConfigTreeComponent implements OnInit {
 
   loadNode(event) {
     console.log("ConfigTreeComponent", "constructor", "event.node", event.node);
+    sessionStorage.setItem("showserverinstance", "false");
     if (event.node.data == "Topology") {
-      if(this.dcId != undefined){
+      if (this.dcId != undefined) {
         this.configTopologyService.getTopologyTreeDetail(this.dcId).subscribe(data => {
-        this.createTreeTierData(data);
-      });
+          this.createTreeTierData(data);
+        });
       }
-      else{
+      else {
         this.configTopologyService.getTopologyStructure(this.topoId).subscribe(data => {
-        this.createTreeTierData(data);
-      })
-    }
+          this.createTreeTierData(data);
+        })
+      }
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
       this.nodeId = event.node.id;
       //This is done showing and hiding leaf icon on the basis of auto scaling
-      for(var i = 0 ; i < event.node.children.length ; i++)
-      {
-        if(!this.enableAutoScaling)
+      for (var i = 0; i < event.node.children.length; i++) {
+        if (!this.enableAutoScaling)
           event.node.children[i].leaf = true;
         else
           event.node.children[i].leaf = false;
@@ -145,7 +147,42 @@ export class ConfigTreeComponent implements OnInit {
       let node: TreeNode = data[i];
       this.addNodeInImage(node);
       node.styleClass = "node-class";
-
+      if (sessionStorage.getItem("showserverinstance") == "true") {
+        this.enableAutoScaling = true;
+        if (this.dcId != undefined) {
+          this.configTopologyService.getTopologyTreeDetail(this.dcId).subscribe(data1 => {
+            this.createTreeTierData(data1);
+            
+            let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': this.files[0]["id"], nodeLabel: this.files[0]["label"], nodeExpanded: false }
+            this.getTableData.emit({ data })
+            this.files[0].expanded = true;
+            setTimeout(() => {
+              if(this.files[0].children.length != 0)
+             {
+              this.configTopologyService.getTierTreeDetail(this.files[0].children[0]["id"], this.files[0].children[0]["profileId"]).subscribe(nodes => {
+                this.createChildTreeDataAIGui(nodes, this.files[0].children[0])
+                let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': this.files[0].children[0]["id"], nodeLabel: this.files[0].children[0]["label"], nodeExpanded: false }
+                this.getTableData.emit({ data });
+                this.files[0].children[0].expanded = true;
+                setTimeout(() => {
+                  if(this.files[0].children[0].children.length != 0)
+                  {
+                  this.configTopologyService.getServerTreeDetail(this.files[0].children[0].children[0]["id"], this.files[0].children[0].children[0]["profileId"]).subscribe(nodes => {
+                    this.createChildTreeDataAIGui(nodes, this.files[0].children[0].children[0])
+                    this.files[0].children[0].children[0].expanded = true;
+                    let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': this.files[0].children[0].children[0]["id"], nodeLabel: this.files[0].children[0].children[0]["label"], nodeExpanded: false }
+                    this.getTableData.emit({ data })
+                  });
+                }
+                }, 1250)
+              });
+            }
+            }, 1250)
+          });
+        }
+        
+      }
+     
       for (let j = 0; j < node.children.length; j++) {
         let childNode: TreeNode = node.children[j];
         this.addNodeInImage(childNode);
@@ -154,20 +191,21 @@ export class ConfigTreeComponent implements OnInit {
     this.files = data;
   }
 
-    /**This method is using for Add Image on Parent like Tier */
-    createTreeTierData(data) {
-      for (let i in data) {
-        let node: TreeNode = data[i];
-        this.addNodeInImage(node);
-        node.styleClass = "node-class";
-  
-        for (let j = 0; j < node.children.length; j++) {
-          let childNode: TreeNode = node.children[j];
-          this.addNodeInImage(childNode);
-        }
+  /**This method is using for Add Image on Parent like Tier */
+  createTreeTierData(data) {
+   
+    for (let i in data) {
+      let node: TreeNode = data[i];
+      this.addNodeInImage(node);
+      node.styleClass = "node-class";
+
+      for (let j = 0; j < node.children.length; j++) {
+        let childNode: TreeNode = node.children[j];
+        this.addNodeInImage(childNode);
       }
-      this.files[0].children = data[0].children;
     }
+    this.files[0].children = data[0].children;
+  }
 
   /**This method is using for Add Image on Children like Server/Instance */
   createChildTreeData(data, event) {
@@ -176,6 +214,15 @@ export class ConfigTreeComponent implements OnInit {
       this.addNodeInImage(node);
     }
     event.node.children = data;
+  }
+
+  /**This method is using for Add Image on Children like Server/Instance during when we redirect from AI Gui */
+  createChildTreeDataAIGui(data, event) {
+    for (let i in data) {
+      let node: TreeNode = data[i];
+      this.addNodeInImage(node);
+    }
+    event.children = data;
   }
 
   /**
@@ -229,23 +276,22 @@ export class ConfigTreeComponent implements OnInit {
     for (let i = 0; i < this.files.length; i++) {
       if (!this.enableAutoScaling && this.files[i].children) {
         for (let j = 0; j < this.files[i].children.length; j++) {
-          if(this.files[i].children[j].children)
-          this.files[i].children[j].children = [];
+          if (this.files[i].children[j].children)
+            this.files[i].children[j].children = [];
           this.files[i].children[j]["leaf"] = true;
         }
       }
       //This is done showing and hiding leaf icon on the basis of auto scaling
-      else if(this.enableAutoScaling && this.files[i].children)
-      {
+      else if (this.enableAutoScaling && this.files[i].children) {
         for (let j = 0; j < this.files[i].children.length; j++) {
-          if(this.files[i].children[j].children)
-          this.files[i].children[j]["leaf"] = false;
+          if (this.files[i].children[j].children)
+            this.files[i].children[j]["leaf"] = false;
           this.files[i].children[j]["expanded"] = false;
         }
       }
     }
-    if(this.nodeId != undefined){
-    let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': this.nodeId, nodeLabel: this.nodeLabel}
+    if (this.nodeId != undefined) {
+      let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': this.nodeId, 'nodeLabel': this.nodeLabel }
       this.getTableData.emit({ data })
     }
   }
