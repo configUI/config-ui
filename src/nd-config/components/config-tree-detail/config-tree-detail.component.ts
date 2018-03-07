@@ -96,6 +96,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   currentInstanceName: string;
   currentInsId: number;
+  currentInsType: string;
 
   serverId: any;
 
@@ -462,12 +463,13 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To open auto instr configuration dialog
-  openAutoInstrDialog(name, id) {
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
-      return;
-    }
+  openAutoInstrDialog(name, id, type) {
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+    //   return;
+    // }
     this.currentInsId = id;
+    this.currentInsType = type;
     this.currentInstanceName = name;
     this.autoInstrObj = new AutoInstrSettings();
     this.autoInstrDto = new AutoIntrDTO();
@@ -477,6 +479,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     this.insName = this.createTierServInsName(this.currentInstanceName)
     this.autoInstrDto.sessionName = instanceName
     this.autoInstrDto.instanceId = this.currentInsId;
+    this.autoInstrDto.type = this.currentInsType
 
     this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
