@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, SelectItem } from 'primeng/primeng';
 import { ConfigUtilityService } from '../../services/config-utility.service';
 import { ConfigProfileService } from '../../services/config-profile.service'
+import { ConfigKeywordsService } from '../../services/config-keywords.service';
 //  import { ProfileInfo } from '../../interfaces/profile-info';
 import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
@@ -17,7 +18,7 @@ import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router) { }
+  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService) { }
 
   profileData: ProfileData[];
   selectedProfileData: ProfileData[];
@@ -33,12 +34,18 @@ export class ConfigProfileListComponent implements OnInit {
   isProfilePerm: boolean;
   ROUTING_PATH = ROUTING_PATH;
 
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;  
+  isProfileListBrowse: boolean = false;
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadProfileList();
     this.loadAgentList();
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
+    });
   }
 
   loadAgentList() {
@@ -207,18 +214,47 @@ export class ConfigProfileListComponent implements OnInit {
     return -1;
   }
 
-  importProfile(){
-    this.profileDetail = new ProfileData()
-    this.profileDetail.profileName = "pppp"
-    this.profileDetail.profileDesc = "pppp"
-    this.profileDetail.userName = this.userName
-    this.profileDetail.agent = "Java"
+  exportProfile(){
+    if (!this.selectedProfileData || this.selectedProfileData.length < 1) {
+      this.configUtilityService.errorMessage("Select a profile to export");
+      return;
+    }
+    if (this.selectedProfileData.length > 1) {
+      this.configUtilityService.errorMessage("Select only one profile to export")
+      return;
+    }
 
-    this.configProfileService.importProfile(this.profileDetail).subscribe(data => {
-      this.profileData = ImmutableArray.push(this.profileData, data);
-      this.configUtilityService.successMessage("Imported successfully");
-      this.loadProfileList();
+    this.configProfileService.exportProfile(this.selectedProfileData[0].profileName,this.userName).subscribe(data => {
+      this.configUtilityService.successMessage("Exported successfully");
     })
+
   }
 
+ /**used to open file manager
+  */
+  openFileManager() {
+    this.openFileExplorerDialog = true;
+    this.isProfileListBrowse = true;
+  }
+    
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+   ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+    
+   /* dialog window & set relative path */
+   uploadFile(filepath) {
+     if (this.isProfileListBrowse == true) {
+       this.isProfileListBrowse = false;
+       this.openFileExplorerDialog = false;
+       //Temporary path of the Method Monitor file to run locally,independently from Product UI
+       //let filepath = "";
+       if(!filepath.includes(".zip")){
+         return;
+       }
+       this.configProfileService.importProfile(filepath,this.userName).subscribe(data => {
+        this.configUtilityService.successMessage("Imported successfully");
+        this.loadProfileList();
+        });
+        }
+      }
+    
 }

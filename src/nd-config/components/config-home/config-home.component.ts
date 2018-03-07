@@ -157,6 +157,7 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
 
   routeToTreemain(selectedTypeId, selectedName, type) {
     sessionStorage.setItem("agentType", "");
+    sessionStorage.setItem("showserverinstance", "false");
     //Observable application name
     if (type == 'topology') {
       //it routes to (independent) topology screen

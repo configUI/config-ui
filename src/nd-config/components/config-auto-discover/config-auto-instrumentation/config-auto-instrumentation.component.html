@@ -1,10 +1,13 @@
 <div>
-  <p-accordion class="ndagent">
-    <p-accordionTab header="Active Auto Instrumentation(s) {{activeCount}}" [selected]="true">
-      <!--For showing application list -->
-      <div class="config-ui-AutoAI-height">
-        <p-dataTable class="nde-ui" [value]="autoIntrActive" [(selection)]="selectedAutoIntrActive" [rows]="5" [paginator]="autoIntrActive?.length > 5"
-          [pageLinks]="3">
+    <div style="text-align:right;">
+        <button *ngIf="isTestRun" [disabled]="!isTestRun" type="button" title="Start Auto Instrumentation" pButton (click)="redirectGuiAIToInstance()" icon="fa fa-play-circle-o" label="Start"></button>
+        <button *ngIf="!isTestRun" [disabled]="!isTestRun" type="button" title="Run a test to Start Auto Instrumentation" pButton (click)="redirectGuiAIToInstance()" icon="fa fa-play-circle-o" label="Start"></button>
+    </div>
+    <p-accordion class="ndagent">
+        <p-accordionTab header="Active Auto Instrumentation(s) {{activeCount}}" [selected]="true">
+            <!--For showing application list -->
+            <div class="config-ui-AutoAI-height">
+                <p-dataTable class="nde-ui" [value]="autoIntrActive" [(selection)]="selectedAutoIntrActive" [rows]="5" [paginator]="autoIntrActive?.length > 5" [pageLinks]="3">
 
           <p-column class="col-overflow" field="instanceName" header="Instance Name" [sortable]="true" [style]="{'width':'20%'}">
             <template let-col let-application="rowData" pTemplate>
@@ -13,34 +16,34 @@
               <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
               <span title="Dot Net" *ngIf="application['type'] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="startTime" header="Start Time" [sortable]="true" [style]="{'width':'13%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="startTime" header="Start Time" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="duration" header="Duration(in sec)" [sortable]="true" [style]="{'width':'10%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="duration" header="Duration(in sec)" [sortable]="true" [style]="{'width':'10%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="endTime" header="Expected End Time" [sortable]="true" [style]="{'width':'13%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="endTime" header="Expected End Time" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time (in HH:MM:SS)" [sortable]="true" [style]="{'width':'15%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time (in HH:MM:SS)" [sortable]="true" [style]="{'width':'15%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="instanceName" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
+                        <template let-col let-application="rowData" pTemplate>
               <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="isAutoPerm">
                 <i class="fa fa-refresh"></i>
               </a>
@@ -55,46 +58,45 @@
               <i class="fa fa-stop-circle"></i>
             </a>
             </template>
-          </p-column>
-        </p-dataTable>
-      </div>
+                    </p-column>
+                </p-dataTable>
+            </div>
 
 
-    </p-accordionTab>
-    <p-accordionTab header="Auto Instrumented List">
-      <div class="config-ui-AutoAI-height">
-        <p-dataTable class="nde-ui" [value]="autoIntrComplete" [(selection)]="selectedAutoIntrComplete" [rows]="5" [paginator]="autoIntrComplete?.length > 5"
-          [pageLinks]="3">
-          <p-column class="col-overflow" header="Instance Name" field="instanceName" [sortable]="true" [style]="{'width':'20%'}">
-            <template let-col let-application="rowData" pTemplate>
+        </p-accordionTab>
+        <p-accordionTab header="Auto Instrumented List">
+            <div class="config-ui-AutoAI-height">
+                <p-dataTable class="nde-ui" [value]="autoIntrComplete" [(selection)]="selectedAutoIntrComplete" [rows]="5" [paginator]="autoIntrComplete?.length > 5" [pageLinks]="3">
+                    <p-column class="col-overflow" header="Instance Name" field="instanceName" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
               <span title="Java" *ngIf="application['type'] == 'Java'"><i class="icon ndegui-java java-color" ></i></span>
               <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
               <span title="Dot Net" *ngIf="application['type'] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" header="Start Time" field="startTime" [sortable]="true" [style]="{'width':'13%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" header="Start Time" field="startTime" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" header="End Time" field="endTime" [sortable]="true" [style]="{'width':'13%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" header="End Time" field="endTime" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" header="Duration(in sec)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" header="Duration(in sec)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
-          </p-column>
-          <p-column class="col-overflow" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
-            <template  let-col let-application="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="col-overflow" header="Operation" [style]="{'width':'8%', 'text-align':'center'}">
+                        <template let-col let-application="rowData" pTemplate>
               <a class="autoinst iconFontSize" style="color:rgb(19, 69, 231)"  *ngIf="isAutoPerm" title="Download">
                 <i class="fa fa-download"></i>
               </a>
@@ -114,9 +116,9 @@
                     <i class="fa fa-trash"></i>
                  </a>
             </template>
-          </p-column>
-        </p-dataTable>
-      </div>
-    </p-accordionTab>
-  </p-accordion>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
 </div>

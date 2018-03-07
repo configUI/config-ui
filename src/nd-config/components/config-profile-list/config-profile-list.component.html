@@ -1,43 +1,44 @@
 <div class="ndegui-mainbox">
-<div class="configUI">
-  <div class="header"><i aria-hidden="true"></i> Profile List
-    <span class="appIcon-css">
-        <button pButton type="button" title="Import" [disabled]="isProfilePerm" (click)="importProfile()" icon="fa-download"></button>
-            <button pButton type="button" title="Add Profile" [disabled]="isProfilePerm" (click)="openProfileDialog()" icon="fa-plus"></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete Profile(s)" [disabled]="isProfilePerm" (click)="deleteProfile()" icon="fa-trash"></button>
-        </span>
+  <div class="configUI">
+    <div class="header"><i aria-hidden="true"></i> Profile List
+      <span class="appIcon-css">
+      <button pButton type="button" title="Export" [disabled]="isProfilePerm" (click)="exportProfile()" icon="fa-upload" label="Export"></button>
+      <button pButton type="button" title="Import" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-download" label="Import"></button>
+      <button pButton type="button" title="Add Profile" [disabled]="isProfilePerm" (click)="openProfileDialog()" icon="fa-plus"></button>
+      <button pButton type="button"class="ui-button-danger" title="Delete Profile(s)" [disabled]="isProfilePerm" (click)="deleteProfile()" icon="fa-trash"></button>
+    </span>
 
+    </div>
+    <div class="config-ui-table-margin">
+      <p-dataTable [value]="profileData" [rows]="15" [(selection)]="selectedProfileData" [paginator]="profileData?.length > 15"
+        [pageLinks]="3" class="nde-ui">
+        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
+          <template let-col let-profile="rowData" pTemplate>
+            <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
+          </template>
+        </p-column>
+        <p-column class="tableCss" field="agent" header="Agent" [sortable]="true" [style]="{'width':'11%'}">
+          <template class="tableCss" let-col let-profile="rowData" pTemplate>
+            <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+            <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+            <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Java'"><i class="icon ndegui-java java-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
+            <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == '-'">{{profile[col.field]}}</span>
+          </template>
+        </p-column>
+        <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
+          <template let-col let-profile="rowData" pTemplate>
+            <span class="timpStamp-float-css" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+          </template>
+        </p-column>
+        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
+          <template let-col let-profile="rowData" pTemplate>
+            <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
+          </template>
+        </p-column>
+      </p-dataTable>
+    </div>
   </div>
-  <div class="config-ui-table-margin">
-    <p-dataTable [value]="profileData" [rows]="15" [(selection)]="selectedProfileData" [paginator]="profileData?.length > 15"
-      [pageLinks]="3" class="nde-ui">
-      <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-      <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
-        <template let-col let-profile="rowData" pTemplate>
-          <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
-        </template>
-      </p-column>
-      <p-column class="tableCss" field="agent" header="Agent" [sortable]="true" [style]="{'width':'11%'}">
-        <template class="tableCss" let-col let-profile="rowData" pTemplate>
-          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
-          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
-          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Java'"><i class="icon ndegui-java java-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
-          <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == '-'">{{profile[col.field]}}</span>              
-        </template>
-      </p-column>
-      <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
-        <template let-col let-profile="rowData" pTemplate>
-          <span class="timpStamp-float-css" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
-        </template>
-      </p-column>
-      <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
-        <template let-col let-profile="rowData" pTemplate>
-          <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
-        </template>
-      </p-column>
-    </p-dataTable>
-  </div>
-</div>
 </div>
 <!--Dialog for Adding New Profile -->
 
@@ -49,7 +50,8 @@
         <label>Name</label>
       </div>
       <div class="ui-g-8">
-        <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Profile name is of maximum 30 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+        <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName"
+          title="Please enter valid profile name. &#013;Profile name is of maximum 30 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
           autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
       </div>
     </div>
@@ -58,9 +60,10 @@
         <label>Agent</label>
       </div>
       <div class="ui-g-8">
-        <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.agent" required ngModel/>
-        <p-dropdown [options]="agentList" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.agent"
-        (ngModelChange)="getAgentSpecificProfiles($event)" placeholder="Select an agent"></p-dropdown>
+        <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.agent"
+          required ngModel/>
+        <p-dropdown [options]="agentList" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.agent" (ngModelChange)="getAgentSpecificProfiles($event)"
+          placeholder="Select an agent"></p-dropdown>
       </div>
     </div>
     <div class="ui-g">
@@ -68,8 +71,9 @@
         <label>Copy profile</label>
       </div>
       <div class="ui-g-8">
-        <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.parentProfileId" required ngModel/>
-        <p-dropdown [options]="profileListItem" name="dropdown1" [style]="{'width':'210px'}" required  [(ngModel)]="profileDetail.parentProfileId"
+        <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.parentProfileId"
+          required ngModel/>
+        <p-dropdown [options]="profileListItem" name="dropdown1" [style]="{'width':'210px'}" required [(ngModel)]="profileDetail.parentProfileId"
           placeholder="Select a Profile to be copied" appendTo="body"></p-dropdown>
       </div>
     </div>
@@ -78,7 +82,8 @@
         <label>Description</label>
       </div>
       <div class="ui-g-8">
-        <textarea name="profileDesc" rows="2" cols="30" class="configUI-profile-dialog" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
+        <textarea name="profileDesc" rows="2" cols="30" class="configUI-profile-dialog" pInputTextarea [(ngModel)]="profileDetail.profileDesc"
+          ngModel></textarea>
       </div>
     </div>
     <footer>
@@ -90,8 +95,8 @@
   </form>
 </p-dialog>
 
-<p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg" modal="modal"
-  width="300" responsive="true">
+<p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg"
+  modal="modal" width="300" responsive="true">
   Profile cannot be deleted as it is applied at following level(s) : <br>
   <ul>
     <li *ngFor="let msg of displayErrMsg">
@@ -103,4 +108,13 @@
       <button type="button" pButton (click)="showMsg=false" icon="fa-check" label="Ok"></button>
     </div>
   </footer>
+</p-dialog>
+
+<!--Dialog to open import file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+  modal="modal" width="650" responsive="true" [resizable]="false">
+  <!-- This will look for this component in the ProductUI at this path -
+  ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+
+  <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer>  -->
 </p-dialog>
