@@ -194,13 +194,13 @@
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-        <p-column class="col-overflow" *ngIf="agentType != 'NodeJS'" header="Sub BT detail" [style]="{'width':'9%'}">
+        <!-- <p-column class="col-overflow" *ngIf="agentType != 'NodeJS'" header="Sub BT detail" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
               <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm || application.headerKeyValue == 'undefined' || application.headerKeyValue == '-' || application.reqHeaderValue == null || application.reqHeaderValue == ''" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
               <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
 
             </template>
-        </p-column>
+        </p-column> -->
 
     </p-dataTable>
 </div>

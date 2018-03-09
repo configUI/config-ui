@@ -29,7 +29,7 @@
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">
-            <input name="btName" style="text-align:right; width:15%" type="number" min=0 max="9999" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" autofocus required ngModel/>
+            <input name="btName" style="text-align:right; width:15%" type="number" min=0 max="255" [disabled]="!data[0].captureMode" pInputText [(ngModel)]="data[0].briefVal" autofocus required ngModel/>
             <label style="margin-right: 5px"> characters</label>
         </div>
     </div>

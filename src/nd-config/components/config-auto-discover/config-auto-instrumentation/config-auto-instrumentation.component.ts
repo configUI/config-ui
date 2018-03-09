@@ -6,6 +6,7 @@ import { ConfigUtilityService } from '../../../services/config-utility.service';
 import * as URL from '../../../constants/config-url-constant';
 import { Router } from '@angular/router';
 import { ROUTING_PATH } from '../../../constants/config-url-constant';
+import { ConfigApplicationService } from '../../../services/config-application.service';
 
 
 
@@ -25,15 +26,21 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   selectedAutoIntrComplete: AutoIntrDTO[];
   activeCount: string;
   isAutoPerm: boolean;
-
+  isTestRun: boolean;
   className: string = "Auto Instrument Component";
 
   constructor(private configTopologyService: ConfigTopologyService, private router: Router, private configUtilityService: ConfigUtilityService,
-    private configHomeService: ConfigHomeService
+    private configHomeService: ConfigHomeService, private configApplicationService: ConfigApplicationService
   ) { }
 
   ngOnInit() {
-    this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
+    let TrNumber = sessionStorage.getItem("isTrNumber");
+    if (TrNumber == null || TrNumber == "null" || TrNumber == undefined || TrNumber == '')
+      this.isTestRun = false;
+    else
+      this.isTestRun = true;
+
+    this.isAutoPerm = +sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     let that = this;
 
     // this.configTopologyService.getAIData().subscribe(data => {
@@ -99,15 +106,15 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   }
 
   openGUIForAutoInstrumentation(sessionFileName) {
-    
+
     this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
 
-     var status = data['_body'].split("#");
-    
-     if (status[1] == "NotEmpty" && status[0] == "Empty") {
+      var status = data['_body'].split("#");
+
+      if (status[1] == "NotEmpty" && status[0] == "Empty") {
         this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName + "_AI.txt"]);
-     }
-     else if (status[0] == "Fail") {
+      }
+      else if (status[0] == "Fail") {
         this.configUtilityService.errorMessage("Session file does not exists. Download it ");
         return;
       }
@@ -145,15 +152,15 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   downloadFile(instance, session) {
     let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
     this.configTopologyService.downloadFile(data).subscribe(data => {
-      if(data['_body'] == "Error")
-      this.configUtilityService.errorMessage("Error while downloading files")
+      if (data['_body'] == "Error")
+        this.configUtilityService.errorMessage("Error while downloading files")
       else
-      this.configUtilityService.successMessage("File downloaded successfully");
+        this.configUtilityService.successMessage("File downloaded successfully");
     })
   }
 
   delete(sessionName, instanceName) {
-    let that =this;
+    let that = this;
     this.configTopologyService.deleteAI(sessionName + "#" + instanceName).subscribe(data => {
       this.configUtilityService.infoMessage("Deleted successfully");
       this.configTopologyService.updateAIDetails().subscribe(data => {
@@ -162,4 +169,22 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     })
   }
 
+  redirectGuiAIToInstance() {
+    let dcId;
+    let testRunNo = sessionStorage.getItem("isTrNumber");
+    this.configTopologyService.getTopologyDCID(testRunNo).subscribe(data => {
+      dcId = data._body;
+     
+      sessionStorage.setItem("showserverinstance", "true");
+      this.configApplicationService.getApplicationList().subscribe(data => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].dcId.toString() == dcId)
+          {
+            this.configApplicationService.applicationNameObserver(data[i].appName)
+            this.router.navigate([ROUTING_PATH + '/tree-main/' + dcId]);
+          }
+        }
+      });
+    })
+  }
 }
