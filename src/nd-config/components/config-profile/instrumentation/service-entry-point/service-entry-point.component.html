@@ -154,7 +154,7 @@
                 <label>Description</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="desc" rows="2" cols="60" pInputTextarea [(ngModel)]="serviceEntryPointDetail.desc" ngModel></textarea>
+                <textarea name="desc" rows="2" cols="60" pInputTextarea [(ngModel)]="serviceEntryPointDetail.desc" pattern="[^|]*" ngModel></textarea>
             </div>
         </div>
         <footer>

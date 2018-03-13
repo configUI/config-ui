@@ -7,7 +7,6 @@
       <button pButton type="button" title="Add Profile" [disabled]="isProfilePerm" (click)="openProfileDialog()" icon="fa-plus"></button>
       <button pButton type="button"class="ui-button-danger" title="Delete Profile(s)" [disabled]="isProfilePerm" (click)="deleteProfile()" icon="fa-trash"></button>
     </span>
-
     </div>
     <div class="config-ui-table-margin">
       <p-dataTable [value]="profileData" [rows]="15" [(selection)]="selectedProfileData" [paginator]="profileData?.length > 15"
@@ -96,7 +95,7 @@
 </p-dialog>
 
 <p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg"
-  modal="modal" width="300" responsive="true">
+  modal="modal" width="420" responsive="true">
   Profile cannot be deleted as it is applied at following level(s) : <br>
   <ul>
     <li *ngFor="let msg of displayErrMsg">
