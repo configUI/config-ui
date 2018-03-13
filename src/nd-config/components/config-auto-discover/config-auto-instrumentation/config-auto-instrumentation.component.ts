@@ -61,6 +61,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     for (let i = 0; i < data.length; i++) {
       if (data[i].status == "complete") {
         autoIntrComplete.push(data[i])
+        autoIntrComplete = autoIntrComplete.sort()
         //  this.configHomeService.AIStartStopOpertationValueList(false);
       }
       else {
