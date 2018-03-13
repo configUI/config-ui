@@ -14,7 +14,7 @@
               <span title="{{application[col.field]}}">{{application[col.field]}}</span> 
               <span title="Java" *ngIf="application['type'] == 'Java'"><i class="icon ndegui-java java-color" ></i></span>
               <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
-              <span title="Dot Net" *ngIf="application['type'] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
+              <span title="Dot Net" *ngIf="application['type'] == 'Dot Net' || application['type'] == 'DotNet'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
             </template>
                     </p-column>
                     <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
@@ -72,7 +72,7 @@
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
               <span title="Java" *ngIf="application['type'] == 'Java'"><i class="icon ndegui-java java-color" ></i></span>
               <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
-              <span title="Dot Net" *ngIf="application['type'] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
+              <span title="Dot Net" *ngIf="application['type'] == 'Dot Net' || application['type'] == 'DotNet'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
             </template>
                     </p-column>
                     <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
@@ -100,19 +100,19 @@
               <a class="autoinst iconFontSize" style="color:rgb(19, 69, 231)"  *ngIf="isAutoPerm" title="Download">
                 <i class="fa fa-download"></i>
               </a>
-              <a class="autoinst iconFontSize"  style="color:rgb(19, 69, 231)"  *ngIf="!isAutoPerm" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download">
+              <a class="autoinst iconFontSize"  style="color:rgb(19, 69, 231)"  *ngIf="!isAutoPerm" (click)="downloadFile(application['instanceName'], application['sessionName'],application['type'])" title="Download">
                 <i class="fa fa-download"></i>
               </a>
               <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="isAutoPerm" title="Edit">
                 <i class="fa fa-edit"></i>
               </a>
-              <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit">
+              <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation(application['sessionName'],application['type'])" title="Edit">
                 <i class="fa fa-edit"></i>
               </a>
               <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm" title="Delete">
                     <i class="fa fa-trash"></i>
                   </a>
-              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'])" title="Delete">
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'],application['type'])" title="Delete">
                     <i class="fa fa-trash"></i>
                  </a>
             </template>
@@ -122,3 +122,8 @@
         </p-accordionTab>
     </p-accordion>
 </div>
+
+
+<a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation('DotNet_Windows-server64_StockTraderWebAppPool','Dot Net')" title="Edit">
+    <i class="fa fa-edit"></i>
+</a>
