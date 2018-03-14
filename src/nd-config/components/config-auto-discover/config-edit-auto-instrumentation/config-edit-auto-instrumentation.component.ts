@@ -33,6 +33,10 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     isAutoPerm: boolean;
     selectedArr:any[];
     isNodeSelected: boolean;
+    sessionFileNameWithAgentType : string;
+    agentType: string;
+    instrfileNameWithExtension :string;
+    instrfileNameWithAgentType :string;
     constructor( private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
          this.leftSideTreeData = [];
          this.selectedArr = [];
@@ -48,13 +52,18 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
             //Getting aplication's Id from URL
             this.route.params.subscribe((params: Params) => {
                 this.sessionFileName = params['sessionFileName'];
+                   var arr = this.sessionFileName.split("#");
+                   this.sessionFileName = arr[0];
+                   this.agentType = arr[1];
            });
-           this.showSessionName = this.sessionFileName.split(".txt")[0];
-       
+        
+        this.showSessionName = this.sessionFileName.split(".txt")[0];
+    
 
      /**
      * this service get instrumented data and put in Right side tree
      */
+    this.sessionFileName = this.sessionFileName + "#" + this.agentType;
         this._configKeywordsService.getAutoInstrumentatedData(this.sessionFileName, this.reqId).subscribe(data => {
          
             this.rightSideTreeData = data.backendDetailList;
@@ -83,17 +92,23 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
 
     // Save Instrumentation File 
     saveInstrumentationFile() {
-       
         if (this.instrfileName == "" || this.instrfileName == null) {
             this.configUtilityService.errorMessage("Provide a file name to save it");
             return;
         }
+        if(this.agentType == "Java"){
+            this.instrfileNameWithExtension = this.instrfileName +".xml";
+         }
+         else{
+            this.instrfileNameWithExtension = this.instrfileName +".txt";
+         }
         if (this.rightSideTreeData.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
-        this._configKeywordsService.checkInsrumentationXMLFileExist((this.instrfileName +".xml"), this.reqId).subscribe(data =>
+        this._configKeywordsService.checkInsrumentationXMLFileExist((this.instrfileNameWithExtension), this.reqId).subscribe(data =>
         {
+            this.instrfileNameWithExtension= "";   
             if(data.Status == "true")
              {
                 this.confirmationService.confirm({
@@ -102,9 +117,11 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
                     icon: 'fa fa-trash',
                     accept: () => {
                       //Get Selected Applications's AppId
-                      this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileName, this.reqId).subscribe(data =>
+                      this.instrfileNameWithAgentType = this.instrfileName + "#" + this.agentType;
+                      this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileNameWithAgentType, this.reqId).subscribe(data =>
                         {
                             this.instrfileName = "";
+                            this.instrfileNameWithAgentType = "";
                             this.configUtilityService.successMessage("Saved successfully");
                         });
                     },
@@ -114,10 +131,12 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
              }
              else
              {
+                this.instrfileNameWithAgentType = this.instrfileName + "#" + this.agentType;
                   //Get Selected Applications's AppId
-                  this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileName, this.reqId).subscribe(data =>
+                  this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileNameWithAgentType, this.reqId).subscribe(data =>
                     {
                         this.instrfileName = "";
+                        this.instrfileNameWithAgentType = "";
                         this.configUtilityService.successMessage("Saved successfully");
                     });
              }

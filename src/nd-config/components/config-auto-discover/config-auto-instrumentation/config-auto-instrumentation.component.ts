@@ -42,14 +42,8 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
     this.isAutoPerm = +sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     let that = this;
-
-    // this.configTopologyService.getAIData().subscribe(data => {
-    //   //Checking is auto instrumentation is in running state or complete
-    //   this.checkForCompleteOrActive(data)
-    // })
-
     this.configTopologyService.updateAIDetails().subscribe(data => {
-      this.checkForCompleteOrActive(data)
+    this.checkForCompleteOrActive(data)
     })
 
   }
@@ -82,13 +76,6 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
-    //if test is offline mode, return (no run time changes)
-    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-    //   console.log(this.className, "constructor", "No NO RUN TIme Changes");
-    //   this.configUtilityService.errorMessage("Test is not running")
-    //   return;
-    // }
-    // else {
     //Getting keywords data whose values are different from default values
     console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
     const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
@@ -106,14 +93,13 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     // }
   }
 
-  openGUIForAutoInstrumentation(sessionFileName) {
-
-    this.configTopologyService.getSessionFileExistOrNot(sessionFileName).subscribe(data => {
-
+  openGUIForAutoInstrumentation(sessionFileName,AgentType) {
+    let sessionFileNameWithAgentType : string;
+    sessionFileNameWithAgentType = sessionFileName + "_AI.txt" + "#" + AgentType;
+    this.configTopologyService.getSessionFileExistOrNot(sessionFileNameWithAgentType).subscribe(data => {
       var status = data['_body'].split("#");
-
       if (status[1] == "NotEmpty" && status[0] == "Empty") {
-        this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName + "_AI.txt"]);
+        this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileNameWithAgentType]);
       }
       else if (status[0] == "Fail") {
         this.configUtilityService.errorMessage("Session file does not exists. Download it ");
@@ -128,7 +114,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
         return;
       }
       sessionFileName = sessionFileName + "_AI.txt";
-      this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileName]);
+      this.router.navigate([ROUTING_PATH + '/auto-discover/auto-instrumentation', sessionFileNameWithAgentType]);
     });
 
   }
@@ -150,8 +136,8 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     })
   }
 
-  downloadFile(instance, session) {
-    let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session
+  downloadFile(instance, session, agentType) {
+    let data = instance + "|" + sessionStorage.getItem("isTrNumber") + "|" + session + "#" + agentType;
     this.configTopologyService.downloadFile(data).subscribe(data => {
       if (data['_body'] == "Error")
         this.configUtilityService.errorMessage("Error while downloading files")
@@ -160,9 +146,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     })
   }
 
-  delete(sessionName, instanceName) {
+  delete(sessionName, instanceName, agentType) {
     let that = this;
-    this.configTopologyService.deleteAI(sessionName + "#" + instanceName).subscribe(data => {
+    this.configTopologyService.deleteAI(sessionName + "#" + instanceName + "#" + agentType).subscribe(data => {
       this.configUtilityService.infoMessage("Deleted successfully");
       this.configTopologyService.updateAIDetails().subscribe(data => {
         that.checkForCompleteOrActive(data)
