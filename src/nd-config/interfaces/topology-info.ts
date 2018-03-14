@@ -67,4 +67,5 @@ export class AutoIntrDTO{
     sessionName: string;
     instanceId: number;
     type: string;
+    triggerScreen: string;
 }

@@ -282,9 +282,14 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.serverId = event.data.nodeId;
 
-      //Update the status of AI and icon when AI process id completed wh[en its duration is completed
+      //Update the status of AI and icon when AI process id completed when its duration is completed
       this.configTopologyService.durationCompletion().subscribe(data => {
         that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
+          for(let i = 0; i < data.length; i++){
+            if(data[i].instanceDesc.endsWith("#AI")){
+              data[i].instanceDesc = data[i].instanceDesc.substring(0, data[i].instanceDesc.lastIndexOf("#"))
+            }
+          }
           that.topologyData = data;
           if ((that.topologyData.length == 0) && (this.showserverinstance == "true")) {
             sessionStorage.setItem("showserverinstance", "false");
@@ -738,6 +743,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
         //Check for successful RTC connection
         if (success == "success") {
+          
           that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
 
@@ -751,7 +757,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName, id) {
+  stopInstrumentation(instanceName, id, desc) {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
@@ -765,7 +771,15 @@ export class ConfigTreeDetailComponent implements OnInit {
       //Getting keywords data whose values are different from default values
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-      strSetting = "enableAutoInstrSession=0;"
+
+      //If radio button for AI is selected
+      if(desc.endsWith("#AI"))
+        strSetting = "enableAutoInstrSession=0;"
+
+      //If radio button for DD is selected
+      else{
+          strSetting = "enableDDAI=0;";
+        }
       this.t_s_i_name = this.splitTierServInsName(instanceName)
       let name = this.createTierServInsName(instanceName)
       //Merging configuration and instance name with #
