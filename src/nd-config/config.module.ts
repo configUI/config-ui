@@ -137,7 +137,7 @@ import { ConfigAutoInstrumentationComponent } from './components/config-auto-dis
 import { ConfigEditAutoInstrumentationComponent } from './components/config-auto-discover/config-edit-auto-instrumentation/config-edit-auto-instrumentation.component';
 import { ExceptionCapturingComponent } from './components/config-profile/general/exception-capturing/exception-capturing.component';
 import { HttpResponseComponent } from './components/config-profile/general/custom-data/http-response/http-response.component';
-
+import {DynamicDiagnosticsComponent} from './components/dynamic-diagnostics/dynamic-diagnostics.component'
 // not commit in cvs
 import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -212,7 +212,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ConfigEditAutoInstrumentationComponent,
     ExceptionCapturingComponent,
     HttpResponseComponent,
-    BTResponseHeadersComponent
+    BTResponseHeadersComponent,
+    DynamicDiagnosticsComponent
   ],
   imports: [
    // CommonModule,
