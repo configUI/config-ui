@@ -1,11 +1,12 @@
 
-import { Component, OnInit,Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
 import { ConfigProfileService } from '../../services/config-profile.service';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 import * as URL from '../../constants/config-url-constant';
+import { ConfigUtilityService } from '../../services/config-utility.service';
 
 @Component({
     selector: 'app-dynamic-diagnostics',
@@ -43,13 +44,13 @@ export class DynamicDiagnosticsComponent implements OnInit {
     tierName: string;
     serverName: string;
 
-    AIDDGUI:number;
-    BTNameList:string[];
-    constructor(private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService) {
+    AIDDGUI: number;
+    BTNameList: string[];
+    constructor(private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
-       this.AIDDGUI = 0;
-       this.serverId = this.passAIDDSettings[5];
+        this.AIDDGUI = 0;
+        this.serverId = this.passAIDDSettings[5];
         this.serverName = this.passAIDDSettings[4];
         this.tierName = this.passAIDDSettings[3];
         this.loadAIDDGUI(this.passAIDDSettings[0], this.passAIDDSettings[1], this.passAIDDSettings[2]);
@@ -75,7 +76,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
             //Get settings from data if not null else create a new object
             if (data['_body'] != "")
                 this.splitSettings(data['_body']);
-           // this.showInstr = true;
+            // this.showInstr = true;
         })
     }
 
@@ -133,9 +134,9 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 this.autoInstrObj.blackListForDebugSession = false;
 
         }
-        
+
     }
-    
+
     //To apply auto instrumentation
     applyAutoInstr() {
         //Setting Tier>Server>Instane in instance name
@@ -150,7 +151,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionDuration.toString()
 
         //Send Runtime Changes
-        this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto,"AI");
+        this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto, "AI");
 
     }
 
@@ -174,36 +175,49 @@ export class DynamicDiagnosticsComponent implements OnInit {
             //Merging configuration and instance name with #
             strSetting = strSetting + "#" + this.insName;
 
-            if(type == "AI"){
-            //Saving settings in database
-            let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
-                //Check for successful RTC connection
-                if (success == "success") {
-                    that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
-                        that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-                            that.topologyData.emit(data);
-                        });
-                        that.configHomeService.getAIStartStopOperationValue(true);
-                    })
-                }
-            })
+            if (type == "AI") {
+                //Saving settings in database
+                let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
+                    //Check for successful RTC connection
+                    if (success == "success") {
+                        that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
+                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+                                that.topologyData.emit(data);
+                            });
+                            that.configHomeService.getAIStartStopOperationValue(true);
+                        })
+                    }
+                })
+            }
+            else {
+                this.configTopologyService.applyDDAI(data).subscribe(res => {
+                    //Check for successful RTC connection
+                    if (res["_body"].includes("result=Ok")) {
+                        this.configUtilityService.infoMessage("Auto Instrumentation started")
+                        that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
+                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+                                that.topologyData.emit(data);
+                            });
+                            that.configHomeService.getAIStartStopOperationValue(true);
+                        })
+                    }
+                    else {
+                        this.configUtilityService.errorMessage("Could not start:" + res["_body"].substring("result=Error", res["_body"].lastIndexOf(";")))
+                        return
+                    }
+                })
+            }
         }
-        else{
-            this.configTopologyService.applyDDAI(data).subscribe(data => {
-                console.log("data" , data)
-            })
-        }
-         }
     }
 
-    applyDDAI(){
+    applyDDAI() {
         this.closeAIDDGui.emit(false);
         //Setting Tier>Server>Instane in instance name
         this.ddAIData.sessionName = this.createTierServInsName(this.currentInstanceName)
 
         //Merging all the settings in the format( K1=Val1;K2=Val2;K3=Val3... )
         /***make changes here?///////////////////????? */
-        
+
         this.autoInstrDto.configuration = this.createSettings(this.autoInstrObj);
         this.ddAIData.tier = this.tierName
         this.ddAIData.server = this.serverName
@@ -214,7 +228,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrDto.duration = this.ddAIData.duration.toString()
 
         //Send Runtime Changes
-        this.startAutoInstrumentation(this.ddAIData, this.autoInstrDto, "DD")    
+        this.startAutoInstrumentation(this.ddAIData, this.autoInstrDto, "DD")
     }
 
     //Reset the values of auto instrumentation settings to default
@@ -275,59 +289,58 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     }
 
- 
-    
-  //Getting the settings value which are different from default values
-  getSettingForRTC(data) {
-    let strSetting = "";
-    //Storing enableAutoInstrSession keyword value as it will always be different from default value i.e., 0
-    strSetting = "enableAutoInstrSession=1%20" + this.sessionName;
 
-    //Comparing all the setting's value with their default value, if they dont match then append in strSetting variable
-    if (data.minStackDepthAutoInstrSession != 10)
-      strSetting = strSetting + ";minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
 
-    if (data.autoInstrTraceLevel != 1)
-      strSetting = strSetting + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel
+    //Getting the settings value which are different from default values
+    getSettingForRTC(data) {
+        let strSetting = "";
+        //Storing enableAutoInstrSession keyword value as it will always be different from default value i.e., 0
+        strSetting = "enableAutoInstrSession=1%20" + this.sessionName;
 
-    if (data.autoInstrSampleThreshold != 120)
-      strSetting = strSetting + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
+        //Comparing all the setting's value with their default value, if they dont match then append in strSetting variable
+        if (data.minStackDepthAutoInstrSession != 10)
+            strSetting = strSetting + ";minStackDepthAutoInstrSession=" + data.minStackDepthAutoInstrSession
 
-    if (data.autoInstrPct != 60)
-      strSetting = strSetting + ";autoInstrPct=" + data.autoInstrPct
+        if (data.autoInstrTraceLevel != 1)
+            strSetting = strSetting + ";autoInstrTraceLevel=" + data.autoInstrTraceLevel
 
-    if (data.autoDeInstrPct != 80)
-      strSetting = strSetting + ";autoDeInstrPct=" + data.autoDeInstrPct
+        if (data.autoInstrSampleThreshold != 120)
+            strSetting = strSetting + ";autoInstrSampleThreshold=" + data.autoInstrSampleThreshold
 
-    if (data.autoInstrMapSize != 100000)
-      strSetting = strSetting + ";autoInstrMapSize=" + data.autoInstrMapSize
+        if (data.autoInstrPct != 60)
+            strSetting = strSetting + ";autoInstrPct=" + data.autoInstrPct
 
-    if (data.autoInstrMaxAvgDuration != 2)
-      strSetting = strSetting + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration
+        if (data.autoDeInstrPct != 80)
+            strSetting = strSetting + ";autoDeInstrPct=" + data.autoDeInstrPct
 
-    if (data.autoInstrClassWeight != 10)
-      strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
+        if (data.autoInstrMapSize != 100000)
+            strSetting = strSetting + ";autoInstrMapSize=" + data.autoInstrMapSize
 
-    if (data.autoInstrSessionDuration != 1800)
-      strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
+        if (data.autoInstrMaxAvgDuration != 2)
+            strSetting = strSetting + ";autoInstrMaxAvgDuration=" + data.autoInstrMaxAvgDuration
 
-    if (data.autoInstrRetainChanges != true)
-      strSetting = strSetting + ";autoInstrRetainChanges=1"
+        if (data.autoInstrClassWeight != 10)
+            strSetting = strSetting + ";autoInstrClassWeight=" + data.autoInstrClassWeight
 
-    if (data.blackListForDebugSession == true)
-      strSetting = strSetting + ";blackListForDebugSession=Path"
+        if (data.autoInstrSessionDuration != 1800)
+            strSetting = strSetting + ";autoInstrSessionDuration=" + data.autoInstrSessionDuration
 
-    // else
-    //   strSetting = strSetting + ";blackListForDebugSession=NA"
+        if (data.autoInstrRetainChanges != true)
+            strSetting = strSetting + ";autoInstrRetainChanges=1"
 
-    return strSetting;
+        if (data.blackListForDebugSession == true)
+            strSetting = strSetting + ";blackListForDebugSession=Path"
 
-  }
+        // else
+        //   strSetting = strSetting + ";blackListForDebugSession=NA"
 
- //Close AI and DD Dialog 
-  closeAutoInstrDDDialog()
-  {
-    this.closeAIDDGui.emit(false);
-  }
+        return strSetting;
+
+    }
+
+    //Close AI and DD Dialog 
+    closeAutoInstrDDDialog() {
+        this.closeAIDDGui.emit(false);
+    }
 }
 
