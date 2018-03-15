@@ -32,6 +32,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   perm: boolean;
   noProfilePerm: boolean;
   isAIPerm: boolean;
+  t_s_i_name: string;
 
   passAIDDSettings: string[];
   constructor(private configTopologyService: ConfigTopologyService,
@@ -544,16 +545,19 @@ export class ConfigTreeDetailComponent implements OnInit {
   //To open auto instr configuration dialog
   openAutoInstrDialog(name, id, type) {
     
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
-      return;
-    }
-    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName];
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+    //   return;
+    // }
+    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId];
     this.showInstr = true;
    }
 
    closeAIDDDialog(isCloseAIDDDialog){
+    //  if(isCloseAIDDDialog == false)
     this.showInstr = isCloseAIDDDialog;
+    // else
+    // this.topologyData = isCloseAIDDDialog;
    }
 
    ngOnDestroy() {
@@ -562,6 +566,70 @@ export class ConfigTreeDetailComponent implements OnInit {
     }
   }
 
+  setTopologyData(data){ 
+    alert(data);  
+    this.topologyData = data;
+  }
+
+  //To stop auto-insrumentation
+  stopInstrumentation(instanceName, id, desc) {
+    let that = this;
+    console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
+    let strSetting = "";
+    this.currentInsId = id
+          //If radio button for AI is selected
+          if(desc.endsWith("#AI"))
+          strSetting = "enableAutoInstrSession=0;"
+  
+        //If radio button for DD is selected
+        else{
+            strSetting = "enableDDAI=0;";
+          }
+    //if test is offline mode, return (no run time changes)
+    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+      console.log(this.className, "constructor", "No NO RUN TIme Changes");
+      return;
+    }
+
+    else {
+      //Getting keywords data whose values are different from default values
+      console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
+      const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
+      strSetting = "enableAutoInstrSession=0;"
+      this.t_s_i_name = this.splitTierServInsName(instanceName)
+      let name = this.createTierServInsName(instanceName)
+      //Merging configuration and instance name with #
+      strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
+
+      //Saving settings in database
+      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, name, this.t_s_i_name, function (data) {
+
+        //Check for successful RTC connection  
+        if (data.length != 0 || !data[0]['contains']) {
+          that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
+            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+
+              that.topologyData = data;
+            });
+            that.configHomeService.getAIStartStopOperationValue(false);
+          })
+        }
+      })
+    }
+  }
+
+      // Create Tier_Server_Instance name
+      splitTierServInsName(instanceName) {
+        this.t_s_i_name = this.tierName + "_" + this.serverName + "_" + instanceName
+        // this.sessionName = this.t_s_i_name
+        return this.t_s_i_name;
+    }
+
+    // Create Tier>Server>Instance name
+    createTierServInsName(instanceName) {
+        let name = this.tierName + ">" + this.serverName + ">" + instanceName
+        return name;
+    }
     accessMessage() {
     this.configUtilityService.errorMessage("Permission Denied!!!")
   }

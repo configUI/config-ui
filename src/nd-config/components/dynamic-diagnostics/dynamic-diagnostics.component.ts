@@ -14,6 +14,7 @@ import * as URL from '../../constants/config-url-constant';
 })
 export class DynamicDiagnosticsComponent implements OnInit {
     @Output() closeAIDDGui: EventEmitter<any> = new EventEmitter();
+    @Output() topologyData1: EventEmitter<Object> = new EventEmitter();
     @Input() passAIDDSettings: string;
     className: string = "Dynamic Diagnostics Component";
     //  AutoInstrument Object creation
@@ -32,7 +33,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     showInstr: boolean = false;
 
     serverId: any;
-    topologyData: any[];
+    // topologyData: any[];
     topologyEntity: TopologyInfo;
     tierEntity: TierInfo;
     serverEntity: ServerInfo;
@@ -49,6 +50,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     ngOnInit() {
        this.AIDDGUI = 0;
        this.completionMode= 1;
+       this.serverId = this.passAIDDSettings[5];
         this.serverName = this.passAIDDSettings[4];
         this.tierName = this.passAIDDSettings[3];
         this.loadAIDDGUI(this.passAIDDSettings[0], this.passAIDDSettings[1], this.passAIDDSettings[2]);
@@ -130,13 +132,13 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 this.autoInstrObj.blackListForDebugSession = false;
 
         }
-
+        
     }
-   
+    
     //To apply auto instrumentation
     applyAutoInstr() {
+        
         this.closeAIDDGui.emit(false);
-
         //Setting Tier>Server>Instane in instance name
         this.autoInstrDto.instanceName = this.createTierServInsName(this.currentInstanceName)
 
@@ -180,7 +182,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
                         that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
 
-                            that.topologyData = data
+                            that.topologyData1.emit(data);
                         });
                         that.configHomeService.getAIStartStopOperationValue(true);
                     })
@@ -295,44 +297,6 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
   }
 
-
-  //To stop auto-insrumentation
-  stopInstrumentation(instanceName, id) {
-    let that = this;
-    console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
-    let strSetting = "";
-    this.currentInsId = id
-    //if test is offline mode, return (no run time changes)
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      console.log(this.className, "constructor", "No NO RUN TIme Changes");
-      return;
-    }
-    else {
-      //Getting keywords data whose values are different from default values
-      console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
-      const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-      strSetting = "enableAutoInstrSession=0;"
-      this.t_s_i_name = this.splitTierServInsName(instanceName)
-      let name = this.createTierServInsName(instanceName)
-      //Merging configuration and instance name with #
-      strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
-
-      //Saving settings in database
-      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, name, this.t_s_i_name, function (data) {
-
-        //Check for successful RTC connection  
-        if (data.length != 0 || !data[0]['contains']) {
-          that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
-            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-
-              that.topologyData = data;
-            });
-            that.configHomeService.getAIStartStopOperationValue(false);
-          })
-        }
-      })
-    }
-  }
  //Close AI and DD Dialog 
   closeAutoInstrDDDialog()
   {
