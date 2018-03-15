@@ -33,6 +33,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   noProfilePerm: boolean;
   isAIPerm: boolean;
   t_s_i_name: string;
+  desc: string
 
   passAIDDSettings: string[];
   constructor(private configTopologyService: ConfigTopologyService,
@@ -543,13 +544,13 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To open auto instr configuration dialog
-  openAutoInstrDialog(name, id, type) {
+  openAutoInstrDialog(name, id, type, desc) {
     
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
       return;
     }
-    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId];
+    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, desc];
     this.showInstr = true;
    }
 
@@ -564,24 +565,19 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   setTopologyData(data){ 
+    console.log("========== " ,data);
     this.showInstr = false;
     this.topologyData = data;
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName, id, desc) {
+  stopInstrumentation(instanceName, id) {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     this.currentInsId = id
-          //If radio button for AI is selected
-          if(desc.endsWith("#AI"))
-          strSetting = "enableAutoInstrSession=0;"
-  
-        //If radio button for DD is selected
-        else{
-            strSetting = "enableDDAI=0;";
-          }
+    console.log("desc---------- ", this.desc)
+
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
@@ -592,7 +588,14 @@ export class ConfigTreeDetailComponent implements OnInit {
       //Getting keywords data whose values are different from default values
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-      strSetting = "enableAutoInstrSession=0;"
+          //If radio button for AI is selected
+          if(this.desc.endsWith("#AI"))
+          strSetting = "enableAutoInstrSession=0;"
+  
+        //If radio button for DD is selected
+        else{
+            strSetting = "enableDDAI=0;";
+          }
       this.t_s_i_name = this.splitTierServInsName(instanceName)
       let name = this.createTierServInsName(instanceName)
       //Merging configuration and instance name with #

@@ -22,7 +22,7 @@
                         <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
                             <i class="fa fa-play-circle-o" ></i>
                         </a>
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'])">
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'], entity['instanceDesc'])">
                             <i class="fa fa-play-circle-o" ></i>
                         </a>
                        </span>
