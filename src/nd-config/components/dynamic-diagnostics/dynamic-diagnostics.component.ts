@@ -69,6 +69,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrDto.sessionName = instanceName
         this.autoInstrDto.instanceId = this.currentInsId;
         this.autoInstrDto.type = this.currentInsType
+        this.ddAIData.sessionName = instanceName
         this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
             //Get settings from data if not null else create a new object
