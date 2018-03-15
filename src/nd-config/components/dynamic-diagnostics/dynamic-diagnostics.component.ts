@@ -13,8 +13,8 @@ import * as URL from '../../constants/config-url-constant';
     styleUrls: ['./dynamic-diagnostics.component.css']
 })
 export class DynamicDiagnosticsComponent implements OnInit {
+    @Output() topologyData: EventEmitter<Object> = new EventEmitter();
     @Output() closeAIDDGui: EventEmitter<any> = new EventEmitter();
-    @Output() topologyData1: EventEmitter<Object> = new EventEmitter();
     @Input() passAIDDSettings: string;
     className: string = "Dynamic Diagnostics Component";
     //  AutoInstrument Object creation
@@ -138,8 +138,6 @@ export class DynamicDiagnosticsComponent implements OnInit {
     
     //To apply auto instrumentation
     applyAutoInstr() {
-        
-        this.closeAIDDGui.emit(false);
         //Setting Tier>Server>Instane in instance name
         this.autoInstrDto.instanceName = this.createTierServInsName(this.currentInstanceName)
 
@@ -183,8 +181,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 if (success == "success") {
                     that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
                         that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-
-                            that.topologyData1.emit(data);
+                            that.topologyData.emit(data);
                         });
                         that.configHomeService.getAIStartStopOperationValue(true);
                     })

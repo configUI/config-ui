@@ -554,10 +554,7 @@ export class ConfigTreeDetailComponent implements OnInit {
    }
 
    closeAIDDDialog(isCloseAIDDDialog){
-    //  if(isCloseAIDDDialog == false)
     this.showInstr = isCloseAIDDDialog;
-    // else
-    // this.topologyData = isCloseAIDDDialog;
    }
 
    ngOnDestroy() {
@@ -567,7 +564,7 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   setTopologyData(data){ 
-    alert(data);  
+    this.showInstr = false;
     this.topologyData = data;
   }
 
