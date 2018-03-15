@@ -122,7 +122,7 @@
     </form>
 </div>
 <div *ngIf="AIDDGUI == 1">
-    <form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
+    <form (ngSubmit)="applyDDAI()" #groupForm="ngForm" ngNativeValidate>
         <p-accordion class="ndagent" [multiple]="true">
             <p-accordionTab header="General Setting" [selected]="true">
                 <div class="ui-g">
@@ -131,7 +131,7 @@
                             <label>Business Transactions</label>
                         </div>
                         <div class="ui-g-4">
-                            <p-dropdown name="sessionName" [options]="BTNameList" placeholder="--Select Topology--" [style]="{'width':'104%'}" [(ngModel)]="autoInstrDto.sessionName" appendTo="body" required ngModel></p-dropdown>
+                            <p-dropdown name="bt" [options]="BTNameList" placeholder="--Select Topology--" [style]="{'width':'104%'}" [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -139,7 +139,7 @@
                             <label>Session name</label>
                         </div>
                         <div class="ui-g-6">
-                            <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInstrDto.sessionName" pInputText required ngModel>
+                            <input type="text" size='40' name="sessionName" pattern="[a-zA-Z0-9_#@./&-]*" style="width: 288px" (keydown.space)="$event.preventDefault()" [(ngModel)]="ddAIData['sessionName']" pInputText required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -148,23 +148,23 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" style="width:141px" name="autoInstrSessionDuration" [(ngModel)]="autoInstrObj['autoInstrSessionDuration']" pInputText min=120 required ngModel>
+                            <input type="number" style="width:141px" name="duration" [(ngModel)]="ddAIData['duration']" pInputText min=120 required ngModel>
                         </div>
                     </div>
-                    <div class="ui-g-12">
-                        <p-checkbox name="autoInstrRetainChanges" [(ngModel)]="autoInstrObj['autoInstrRetainChanges']" label="Remove Auto Instrumentation session changes after it's completion" binary="true" ngModel></p-checkbox>
-                    </div>
+                    <!-- <div class="ui-g-12">
+                        <p-checkbox name="retainchanges" [(ngModel)]="ddAIData['retainchanges']" label="Remove Auto Instrumentation session changes after it's completion" binary="true" ngModel></p-checkbox>
+                    </div> -->
                     <div class="ui-g-12">
                         <p-fieldset class="dashboardreports" legend="Completion Mode ">
                             <div class="ui-g-12">
                                 <div style="width:25%; float: left ">
-                                    <p-radioButton name="completionMode " value="0 " label="No Download " [(ngModel)]="completionMode"></p-radioButton>
+                                    <p-radioButton name="completionMode " value="0 " label="No Download " [(ngModel)]="ddAIData['completionMode']"></p-radioButton>
                                 </div>
                                 <div style="width:45%; float: left ">
-                                    <p-radioButton name="completionMode " value="1 " label="Download files after session " [(ngModel)]="completionMode"></p-radioButton>
+                                    <p-radioButton name="completionMode " value="1 " label="Download files after session " [(ngModel)]="ddAIData['completionMode']"></p-radioButton>
                                 </div>
                                 <div style="width:30% ; float: left">
-                                    <p-radioButton name="completionMode " value="2 " label="Download and apply " [(ngModel)]="completionMode"></p-radioButton>
+                                    <p-radioButton name="completionMode " value="2 " label="Download and apply " [(ngModel)]="ddAIData['completionMode']"></p-radioButton>
                                 </div>
                             </div>
                         </p-fieldset>
@@ -180,26 +180,35 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="minStackDepthAutoInstrSession" [(ngModel)]="autoInstrObj['minStackDepthAutoInstrSession']" pInputText min=0 max=1000 class="text-width" required ngModel>
+                            <input type="number" size='20' name="stackDepthFilter" [(ngModel)]="ddAIData['stackDepthFilter']" pInputText min=0 max=1000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <div class="ui-g-7">
-                            <label>Auto Instrumentation Debug level</label>
+                            <label>Sample interval</label>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrTraceLevel" [(ngModel)]="autoInstrObj['autoInstrTraceLevel']" pInputText min=0 max=6 class="text-width" max=5 required ngModel>
+                            <input type="number" size='20' name="ddsampleInterval" [(ngModel)]="ddAIData['ddsampleInterval']" pInputText min=0 max=6 class="text-width" max=5 required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-7">
+                            <label>Trace level</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="number" size='20' name="ddtraceLevel" [(ngModel)]="ddAIData['ddtraceLevel']" pInputText min=0 max=5000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <div class="ui-g-7">
                             <label>Number of thread samples to instrument methods</label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrSampleThreshold" [(ngModel)]="autoInstrObj['autoInstrSampleThreshold']" pInputText min=0 max=5000 class="text-width" required ngModel>
+                            <input type="number" size='20' name="autoInstrsampleThreshold" [(ngModel)]="ddAIData['autoInstrsampleThreshold']" pInputText min=0 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -208,16 +217,16 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                            <input type="number" size='20' name="instrPct" [(ngModel)]="ddAIData['instrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
                         <div class="ui-g-7">
-                            <label>Percentage of executing methods in Flowpath(s) to be un-instrumented</label>
+                            <label>Percentage of executing methods in flowpath to be un-instrumented</label>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                            <input type="number" size='20' name="removeInstrPct" [(ngModel)]="ddAIData['removeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -227,7 +236,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrMapSize" [(ngModel)]="autoInstrObj['autoInstrMapSize']" pInputText min=0 max=10000000 class="text-width" required ngModel>
+                            <input type="number" size='20' name="maxMethods" [(ngModel)]="ddAIData['maxMethods']" pInputText min=0 max=10000000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -237,7 +246,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrMaxAvgDuration" [(ngModel)]="autoInstrObj['autoInstrMaxAvgDuration']" pInputText min=0 max=100 class="text-width" required ngModel>
+                            <input type="number" size='20' name="minAvgResponseTime" [(ngModel)]="ddAIData['minAvgResponseTime']" pInputText min=0 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -247,12 +256,62 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=0 max=10000 class="text-width" required ngModel>
+                            <input type="number" size='20' name="weightage" [(ngModel)]="ddAIData['weightage']" pInputText min=0 max=10000 class="text-width" required ngModel>
                         </div>
                     </div>
-                    <div class="ui-g-12" style="margin-left: 5px">
-                        <p-checkbox name="blackListForDebugSession" [(ngModel)]="autoInstrObj['blackListForDebugSession']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
+                    <div class="ui-g-12">
+                        <div class="ui-g-7">
+                            <label>Concurrent Auto Instrumentation threshold</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="number" size='20' name="aiThreshold" [(ngModel)]="ddAIData['aiThreshold']" pInputText min=0 max=10000 class="text-width" required ngModel>
+                        </div>
                     </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Thread blacklist filter </label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="text" size='40' name="ddaithreadblackList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaithreadblackList']" pInputText required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Thread whitelist filter</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="text" size='40' name="ddaithreadwhiteList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaithreadwhiteList']" pInputText required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Blacklist filter</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="text" size='40' name="ddaibtblackList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaibtblackList']" pInputText required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Whitelist filter </label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="text" size='40' name="ddaibtwhiteList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaibtwhiteList']" pInputText required ngModel>
+                        </div>
+                    </div>
+                    <!-- <div class="ui-g-12" style="margin-left: 5px">
+                        <p-checkbox name="blackListForAI" [(ngModel)]="ddAIData['blackListForAI']" label="Apply Blacklist Auto Instrumentation filter" binary="true" ngModel></p-checkbox>
+                    </div> -->
                 </div>
             </p-accordionTab>
         </p-accordion>

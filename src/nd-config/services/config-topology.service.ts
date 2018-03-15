@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO } from '../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../interfaces/topology-info';
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
@@ -122,6 +122,11 @@ export class ConfigTopologyService {
   /**To apply auto-instrumentation  */
   applyAutoInstr(data): Observable<AutoIntrDTO> {
     return this._restApi.getDataByPostReq(`${URL.APPLY_AUTO_INSTR}`, data);
+  }
+
+  /**To apply DDAI */
+  applyDDAI(data): Observable<DDAIInfo> {
+    return this._restApi.getDataByPostReq(`${URL.START_DD_AI}`, data);
   }
 
   /**To apply auto-instrumentation  */

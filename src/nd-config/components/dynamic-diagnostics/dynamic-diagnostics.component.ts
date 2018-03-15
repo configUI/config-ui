@@ -1,7 +1,7 @@
 
 import { Component, OnInit,Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO } from '../../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
 import { ConfigProfileService } from '../../services/config-profile.service';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigTopologyService } from '../../services/config-topology.service';
@@ -20,6 +20,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     //  AutoInstrument Object creation
     autoInstrObj: AutoInstrSettings;
     autoInstrDto: AutoIntrDTO;
+    ddAIData: DDAIInfo;
 
     currentInstanceName: string;
     currentInsId: number;
@@ -44,12 +45,10 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     AIDDGUI:number;
     BTNameList:string[];
-    completionMode:number;
     constructor(private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService) {
     }
     ngOnInit() {
        this.AIDDGUI = 0;
-       this.completionMode= 1;
        this.serverId = this.passAIDDSettings[5];
         this.serverName = this.passAIDDSettings[4];
         this.tierName = this.passAIDDSettings[3];
@@ -62,6 +61,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.currentInstanceName = name;
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
+        this.ddAIData = new DDAIInfo();
         this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
         //Getting data of settings from database if user has already saved this instance settings
         let instanceName = this.splitTierServInsName(this.currentInstanceName);
@@ -151,12 +151,12 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrDto.duration = this.autoInstrObj.autoInstrSessionDuration.toString()
 
         //Send Runtime Changes
-        this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto)
+        this.startAutoInstrumentation(this.autoInstrObj, this.autoInstrDto,"AI");
 
     }
 
     //When test is running the send RTC 
-    startAutoInstrumentation(data, autoInstrDto) {
+    startAutoInstrumentation(data, autoInstrDto, type) {
         let that = this
         console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
         console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
@@ -175,6 +175,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
             //Merging configuration and instance name with #
             strSetting = strSetting + "#" + this.insName;
 
+            if(type == "AI"){
             //Saving settings in database
             let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
                 //Check for successful RTC connection
@@ -188,13 +189,41 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     })
                 }
             })
+        }
+        else{
+            this.configTopologyService.applyDDAI(data).subscribe(data => {
+                console.log("data" , data)
+            })
+        }
          }
+    }
+
+    applyDDAI(){
+        this.closeAIDDGui.emit(false);
+        //Setting Tier>Server>Instane in instance name
+        this.ddAIData.sessionName = this.createTierServInsName(this.currentInstanceName)
+
+        //Merging all the settings in the format( K1=Val1;K2=Val2;K3=Val3... )
+        /***make changes here?///////////////////????? */
+        
+        this.autoInstrDto.configuration = this.createSettings(this.autoInstrObj);
+        this.ddAIData.tier = this.tierName
+        this.ddAIData.server = this.serverName
+        this.ddAIData.instance = this.currentInstanceName
+        this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
+        this.sessionName = this.autoInstrDto.sessionName
+
+        this.autoInstrDto.duration = this.ddAIData.duration.toString()
+
+        //Send Runtime Changes
+        this.startAutoInstrumentation(this.ddAIData, this.autoInstrDto, "DD")    
     }
 
     //Reset the values of auto instrumentation settings to default
     resetToDefault() {
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
+        this.ddAIData = new DDAIInfo();
         this.autoInstrDto.sessionName = this.t_s_i_name
     }
 

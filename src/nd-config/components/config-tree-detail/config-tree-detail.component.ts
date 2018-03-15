@@ -545,10 +545,10 @@ export class ConfigTreeDetailComponent implements OnInit {
   //To open auto instr configuration dialog
   openAutoInstrDialog(name, id, type) {
     
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
-      return;
-    }
+    // if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    //   this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+    //   return;
+    // }
     this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId];
     this.showInstr = true;
    }
