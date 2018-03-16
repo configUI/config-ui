@@ -312,6 +312,10 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.SAVE_HTTP_STATS_COND}/${profileId}`);
   }
 
+  uploadHttpStatsMonitorFile(filePath, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_HTTPSTATS_MONITOR_FILE}/${profileId}`, filePath);
+  }
+
 
 
   /**
@@ -359,15 +363,15 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPutReq(url, data);
   }
 
-    /*Get sub BT Pattern data*/
-    getSubBtPattern (profileId, parentBtId): Observable<BusinessTransPatternData[]> {
-      return this._restApi.getDataByGetReq(`${URL.GET_SUB_BT_PATTERN}/${profileId}/${parentBtId}`);
-    }
-
   /*Add Pattern Bt Data*/
   addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
+
+  /*Get sub BT Pattern data*/
+    getSubBtPattern (profileId, parentBtId): Observable<BusinessTransPatternData[]> {
+      return this._restApi.getDataByGetReq(`${URL.GET_SUB_BT_PATTERN}/${profileId}/${parentBtId}`);
+    }
 
     /* Save data on file for BT Transaction window*/
     saveBusinessTransMethodData(profileId): Observable<BusinessTransMethodInfo> {
@@ -674,11 +678,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.RUNTIME_CHANGE_INSTR_PROFILE}/${userName}`, data)
   }
 
-    /* Delete Http Response Header Rules  */
-  deleteHttpRespRules(data) {
-    return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREPHDR_RULES}`, data);
-  }
-
   /* Edit Http Response Header Info */
   editHTTPRepHeaderData(data): Observable<HTTPResponseHdrComponentData> {
     let url = `${URL.UPDATE_HTTPREPHDR}/${data.httpAttrId}`;
@@ -703,6 +702,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   /*  FETCH HTTP RESPONSE HEADER TABLEDATA */
   getFetchHTTPRepHeaderTable(profileId): Observable<httpRepHeaderInfo[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_HTTPREP_HDR}/${profileId}`);
+  }
+
+  /* Delete Http Response Header Rules  */
+  deleteHttpRespRules(data) {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREPHDR_RULES}`, data);
   }
 
 }
