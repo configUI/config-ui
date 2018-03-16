@@ -22,7 +22,6 @@ export class DynamicDiagnosticsComponent implements OnInit {
     autoInstrObj: AutoInstrSettings;
     autoInstrDto: AutoIntrDTO;
     ddAIData: DDAIInfo;
-    desc: string;
 
     currentInstanceName: string;
     currentInsId: number;
@@ -51,7 +50,6 @@ export class DynamicDiagnosticsComponent implements OnInit {
     }
     ngOnInit() {
         this.AIDDGUI = 0;
-        this.desc = this.passAIDDSettings[6];
         this.serverId = this.passAIDDSettings[5];
         this.serverName = this.passAIDDSettings[4];
         this.tierName = this.passAIDDSettings[3];
@@ -182,11 +180,9 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
                     //Check for successful RTC connection
                     if (success == "success") {
-                        var desc = this.desc + "#AI";
-                        this.descOut.emit(this.desc)
                         that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
                             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-                                that.topologyData.emit({data, desc});
+                                that.topologyData.emit(data);
                             });
                             that.configHomeService.getAIStartStopOperationValue(true);
                         })
