@@ -75,14 +75,17 @@ export class InstrumentationProfilesComponent implements OnInit {
   /** This method is used to creating instrProfile select item object **/
   createInstrProfileSelectItem(list) {
     this.instrProfileSelectItem = [];
-    let tempList = list;
+   /* let tempList = list;
     for (let i = 0; i < tempList.length; i++) {
       let temp:string[];
       temp = tempList[i].split(".")
       this.arr.push(temp[0])
     }
+*/
     for (let i = 0; i < list.length; i++) {
-      this.instrProfileSelectItem.push({ value: list[i], label: this.arr[i] });
+      let labelname:string;
+      labelname=list[i].split(".")[0];
+      this.instrProfileSelectItem.push({ value: list[i], label: labelname });
     }
     this.loadInstrData();
   }

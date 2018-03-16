@@ -175,15 +175,15 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     getValuesForSelectedList() {
         this.selectedNodes = [];
         this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
-       
+        if (this.selectedNodes.length == 0) {
+            this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
+            return;
+        }
+ 
         if(this.isNodeSelected == false)
         {
             this.configUtilityService.errorMessage("Same Package,Class and Method name already instrumented");
             return;  
-        }
-        if (this.selectedNodes.length == 0) {
-            this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
-            return;
         }
 
         this._configKeywordsService.getSelectedInstrumentaionInfo(this.selectedNodes, this.reqId).subscribe(data => {

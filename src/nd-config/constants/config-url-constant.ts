@@ -1,18 +1,18 @@
 
 
-const  SERVICE_URL = 'https://10.10.50.16:4435/configUI';
+// const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
 
 // const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
-// const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-export const ROUTING_PATH: string = "";
+//export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-// export const ROUTING_PATH: string = "/home/config";
+ export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -102,6 +102,7 @@ export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
+export const GET_SUB_BT_PATTERN = `${SERVICE_URL}/custom/btpattern/getsubbtpattern`;
 
 /* Url fot BussinessTransactionGlobal */
 export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;
@@ -175,6 +176,8 @@ export const DEL_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition/del
 
 export const SAVE_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition/save`;
 
+export const UPLOAD_HTTPSTATS_MONITOR_FILE = `${SERVICE_URL}/custom/httpstatscondition/importfile`;
+
 /*URL for RUNTIME changes*/
 export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topology`;
 export const RUNTIME_CHANGE_TIER = `${SERVICE_URL}/custom/runtimechange/tier`;
@@ -212,7 +215,6 @@ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
 export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
-export const GET_SUB_BT_PATTERN = `${SERVICE_URL}/custom/btpattern/getsubbtpattern`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;
@@ -314,7 +316,6 @@ export const GET_AUTO_INSTR_TABLE_DATA = `${SERVICE_URL}/custom/autoinstrumentat
 export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopautoinstrumentation`;
 export const UPDATE_AI_DETAILS = `${SERVICE_URL}/custom/autoinstrumentation/updateaidetails`;
 export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/fileexistornot`;
-export const GET_TOPOLOGY_DC_ID = `${SERVICE_URL}/custom/autoinstrumentation/gettopodcid`;
 
 export const GET_REMOVED_PACKAGE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedpackageList`;
 export const GET_INSTRUEMENTATED_PACKAGE_DATA =`${SERVICE_URL}/custom/autoinstrumentation/getinstrumentatedlist`;
@@ -328,7 +329,7 @@ export const UPDATE_AI_ENABLE = `${SERVICE_URL}/custom/autoinstrumentation/updat
 export const DURATION_OVER_UPDATION = `${SERVICE_URL}/custom/autoinstrumentation/updatewhencompleted`;
 export const DELETE_AI = `${SERVICE_URL}/custom/autoinstrumentation/delete`;
 export const CHECK_INSTRUEMENTATION_XML_FILE_EXIST = `${SERVICE_URL}/custom/autoinstrumentation/checkinstrumentationxmlfileexist`;
-
+export const GET_TOPOLOGY_DC_ID = `${SERVICE_URL}/custom/autoinstrumentation/gettopodcid`;
 
 export const DEL_HTTP_REP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/delete`;
 export const ADD_HTTP_REP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/addhttprephdr`;
@@ -339,8 +340,5 @@ export const UPDATE_HTTPREPHDR = `${SERVICE_URL}/custom/httprepbasedcapturing/ed
 export const DELETE_HTTPREPHDR_RULES =  `${SERVICE_URL}/custom/httprepbasedcapturing/deletehttpreprules`;
 
 /**URL for import/export profile */
-export const IMPORT_PROFILE = `${SERVICE_URL}/custom/importexport/importprofile`;
-export const EXPORT_PROFILE = `${SERVICE_URL}/custom/importexport/exportprofile`;
-
-/**URL for DDAI */
-export const START_DD_AI = `${SERVICE_URL}/custom/DynamicDiagnostics/ddaitrigger`;
+export const IMPORT_PROFILE = `${SERVICE_URL}/custom/importexport/importprofile`
+export const EXPORT_PROFILE = `${SERVICE_URL}/custom/importexport/exportprofile`
