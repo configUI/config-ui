@@ -342,3 +342,6 @@ export const DELETE_HTTPREPHDR_RULES =  `${SERVICE_URL}/custom/httprepbasedcaptu
 /**URL for import/export profile */
 export const IMPORT_PROFILE = `${SERVICE_URL}/custom/importexport/importprofile`
 export const EXPORT_PROFILE = `${SERVICE_URL}/custom/importexport/exportprofile`
+
+/**URL for DDAI */
+export const START_DD_AI = `${SERVICE_URL}/custom/DynamicDiagnostics/ddaitrigger`;
