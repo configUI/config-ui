@@ -30,7 +30,7 @@
                         <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="isAIPerm"  (click)="accessMessage()">
                             <i class="fa fa-stop-circle"></i>
                         </a>
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm" (click)="stopInstrumentation(entity['instanceDisplayName'], entity['instanceId'], entity['instanceDesc'])">
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm" (click)="stopInstrumentation(entity['instanceDisplayName'], entity['instanceId'])">
                             <i class="fa fa-stop-circle"></i>
                         </a>
                        </span>

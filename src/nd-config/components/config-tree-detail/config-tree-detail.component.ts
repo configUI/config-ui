@@ -281,11 +281,6 @@ export class ConfigTreeDetailComponent implements OnInit {
       //Update the status of AI and icon when AI process id completed when its duration is completed
       this.configTopologyService.durationCompletion().subscribe(data => {
         that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
-          for(let i = 0; i < data.length; i++){
-            if(data[i].instanceDesc.endsWith("#AI")){
-              data[i].instanceDesc = data[i].instanceDesc.substring(0, data[i].instanceDesc.lastIndexOf("#"))
-            }
-          }
           that.topologyData = data;
           if ((that.topologyData.length == 0) && (this.showserverinstance == "true")) {
             sessionStorage.setItem("showserverinstance", "false");
@@ -570,52 +565,56 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName, id, desc) {
+  stopInstrumentation(instanceName, id) {
+    let desc: any = "";
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     this.currentInsId = id
-
     //if test is offline mode, return (no run time changes)
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
       return;
     }
-
+    
     else {
       //Getting keywords data whose values are different from default values
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-          //If radio button for AI is selected
-          if(desc.endsWith("#AI"))
-          strSetting = "enableAutoInstrSession=0;"
-  
+      //Getting the type of AI process running(AI/DD)
+      this.configTopologyService.getInstanceDesc(id).subscribe(data => {
+        desc = data['_body'].toString();
+        //If radio button for AI is selected
+        if(desc.endsWith("#AI"))
+        strSetting = "enableAutoInstrSession=0;"
+        
         //If radio button for DD is selected
         else{
-            strSetting = "enableDDAI=0;";
-          }
+          strSetting = "enableDDAI=0;";
+        }
       this.t_s_i_name = this.splitTierServInsName(instanceName)
       let name = this.createTierServInsName(instanceName)
       //Merging configuration and instance name with #
       strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
-
+      
       //Saving settings in database
       let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, name, this.t_s_i_name, function (data) {
-
+        
         //Check for successful RTC connection  
         if (data.length != 0 || !data[0]['contains']) {
-          that.configTopologyService.updateAIEnable(that.currentInsId, false).subscribe(data => {
+          that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop").subscribe(data => {
             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-
+              
               that.topologyData = data;
             });
             that.configHomeService.getAIStartStopOperationValue(false);
           })
         }
       })
+    })
     }
   }
-
+  
       // Create Tier_Server_Instance name
       splitTierServInsName(instanceName) {
         this.t_s_i_name = this.tierName + "_" + this.serverName + "_" + instanceName

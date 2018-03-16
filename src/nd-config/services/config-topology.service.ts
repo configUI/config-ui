@@ -143,6 +143,10 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_SERVER_DIS_NAME}/${instanceId}`);
   }
 
+  getInstanceDesc(instanceId: number): Observable<String> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INST_DESC}/${instanceId}`);
+  }
+
 
   //Send RTC on AI(running mode)
   sendRTCAutoInstr(url, data, autoInstrDto, callback) {
@@ -228,8 +232,8 @@ export class ConfigTopologyService {
   }
 
   //Update AI enable in Instance table
-  updateAIEnable(instanceId, flag) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${instanceId}`, flag);
+  updateAIEnable(instanceId, flag, type) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}`, flag);
   }
 
   //Update AI enable in Instance table and AI status from In progress to complete when duration for AI is completed

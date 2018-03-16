@@ -180,7 +180,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
                     //Check for successful RTC connection
                     if (success == "success") {
-                        that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
+                        that.configTopologyService.updateAIEnable(that.currentInsId, true, "AI").subscribe(data => {
                             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
@@ -194,7 +194,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     //Check for successful RTC connection
                     if (res["_body"].includes("result=Ok")) {
                         this.configUtilityService.infoMessage("Auto Instrumentation started")
-                        that.configTopologyService.updateAIEnable(that.currentInsId, true).subscribe(data => {
+                        that.configTopologyService.updateAIEnable(that.currentInsId, true, "DD").subscribe(data => {
                             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
@@ -214,10 +214,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
         //Setting Tier>Server>Instane in instance name
         this.ddAIData.sessionName = this.createTierServInsName(this.currentInstanceName)
 
-        //Merging all the settings in the format( K1=Val1;K2=Val2;K3=Val3... )
-        /***make changes here?///////////////////????? */
-
-        this.autoInstrDto.configuration = this.createSettings(this.autoInstrObj);
+        //Assigning - to cinfiguration as there is no need to add these settings in database
+        this.autoInstrDto.configuration = "-"
         this.ddAIData.tier = this.tierName
         this.ddAIData.server = this.serverName
         this.ddAIData.instance = this.currentInstanceName
