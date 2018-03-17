@@ -7,6 +7,9 @@ import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 import * as URL from '../../constants/config-url-constant';
 import { ConfigUtilityService } from '../../services/config-utility.service';
+import { ConfigUiUtility } from '../../utils/config-utility';
+import { SelectItem } from 'primeng/primeng';
+import { ConfigKeywordsService } from '../../services/config-keywords.service';
 
 @Component({
     selector: 'app-dynamic-diagnostics',
@@ -17,6 +20,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     @Output() topologyData: EventEmitter<Object> = new EventEmitter();
     @Output() closeAIDDGui: EventEmitter<any> = new EventEmitter();
     @Input() passAIDDSettings: string;
+    @Input() passAIDDserverEntity: ServerInfo;
     className: string = "Dynamic Diagnostics Component";
     //  AutoInstrument Object creation
     autoInstrObj: AutoInstrSettings;
@@ -43,40 +47,55 @@ export class DynamicDiagnosticsComponent implements OnInit {
     topologyName: string;
     tierName: string;
     serverName: string;
+    profileId: number;
 
     AIDDGUI: number;
-    BTNameList: string[];
-    constructor(private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
+    btNameList: SelectItem[];
+    constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
         this.AIDDGUI = 0;
+        this.serverEntity = this.passAIDDserverEntity;
+        this.profileId = +this.passAIDDSettings[6];
         this.serverId = this.passAIDDSettings[5];
         this.serverName = this.passAIDDSettings[4];
         this.tierName = this.passAIDDSettings[3];
+
+
         this.loadAIDDGUI(this.passAIDDSettings[0], this.passAIDDSettings[1], this.passAIDDSettings[2]);
     }
     // this method is for AI and GUI Setting 
     loadAIDDGUI(name, id, type) {
-        this.currentInsId = id;
-        this.currentInsType = type;
-        this.currentInstanceName = name;
+
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
-        this.ddAIData = new DDAIInfo();
-        this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
-        //Getting data of settings from database if user has already saved this instance settings
-        let instanceName = this.splitTierServInsName(this.currentInstanceName);
-        this.insName = this.createTierServInsName(this.currentInstanceName)
-        this.autoInstrDto.sessionName = instanceName
-        this.autoInstrDto.instanceId = this.currentInsId;
-        this.autoInstrDto.type = this.currentInsType
-        this.ddAIData.sessionName = instanceName
-        this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
+        let key = ['ALL'];
+        console.log("profile id == ", this.profileId)
+        this.configKeywordsService.fetchBtNames(this.profileId).subscribe(data => {
+            this.ddAIData = new DDAIInfo();
+            if (data.length > 0) {
+                key = key.concat(data)
+            }
+            key.push('Other')
+            this.btNameList = ConfigUiUtility.createListWithKeyValue(key, key);
+            this.currentInsId = id;
+            this.currentInsType = type;
+            this.currentInstanceName = name;
+            this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
+            //Getting data of settings from database if user has already saved this instance settings
+            let instanceName = this.splitTierServInsName(this.currentInstanceName);
+            this.insName = this.createTierServInsName(this.currentInstanceName)
+            this.autoInstrDto.sessionName = instanceName
+            this.autoInstrDto.instanceId = this.currentInsId;
+            this.autoInstrDto.type = this.currentInsType
+            this.ddAIData.sessionName = instanceName
+            this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
-            //Get settings from data if not null else create a new object
-            if (data['_body'] != "")
-                this.splitSettings(data['_body']);
-            // this.showInstr = true;
+                //Get settings from data if not null else create a new object
+                if (data['_body'] != "")
+                    this.splitSettings(data['_body']);
+                // this.showInstr = true;
+            })
         })
     }
 
@@ -211,8 +230,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
     }
 
     applyDDAI() {
-        //Setting Tier>Server>Instane in instance name
-        this.ddAIData.sessionName = this.createTierServInsName(this.currentInstanceName)
+
+        this.ddAIData.sessionName = this.splitTierServInsName(this.currentInstanceName)
 
         //Assigning - to cinfiguration as there is no need to add these settings in database
         this.autoInstrDto.configuration = "-"
@@ -339,5 +358,6 @@ export class DynamicDiagnosticsComponent implements OnInit {
     closeAutoInstrDDDialog() {
         this.closeAIDDGui.emit(false);
     }
+
 }
 

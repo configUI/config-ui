@@ -52,8 +52,8 @@
               </a>
               <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm">
                 <i class="fa fa-stop-circle"></i>
-              </a>
-              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])"
+              </a>  
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="stopInstrumentation(application['instanceName'], application['sessionName'], application['triggerScreen'])"
               title="Stop">
               <i class="fa fa-stop-circle"></i>
             </a>

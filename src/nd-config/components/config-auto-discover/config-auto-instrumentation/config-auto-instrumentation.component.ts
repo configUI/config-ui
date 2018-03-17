@@ -72,14 +72,17 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   }
 
   //To stop auto-insrumentation
-  stopInstrumentation(instanceName, sessionName) {
+  stopInstrumentation(instanceName, sessionName, triggerScreen) {
     let that = this;
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     let strSetting = "";
     //Getting keywords data whose values are different from default values
     console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
     const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
-    strSetting = "enableAutoInstrSession=0;"
+    if(triggerScreen == "ND ConfigUI AI")
+      strSetting = "enableAutoInstrSession=0;"
+    else
+      strSetting = "enableDDAI=0;";
     //Merging configuration and instance name with #
     strSetting = strSetting + "#" + instanceName;
 

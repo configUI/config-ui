@@ -127,11 +127,17 @@
             <p-accordionTab header="General Setting" [selected]="true">
                 <div class="ui-g">
                     <div class="ui-g-12">
-                        <div class="ui-g-8">
+                        <div class="ui-g-8" *ngIf="ddAIData['bt'] != 'Other'">
+                            <label>Business Transactions</label>
+                        </div>
+                        <div class="ui-g-4" *ngIf="ddAIData['bt'] == 'Other'">
                             <label>Business Transactions</label>
                         </div>
                         <div class="ui-g-4">
-                            <p-dropdown name="bt" [options]="BTNameList" placeholder="--Select Topology--" [style]="{'width':'104%'}" [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
+                            <p-dropdown name="bt" [options]="btNameList" [style]="{'width':'104%'}"  [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
+                        </div>
+                        <div class="ui-g-4" *ngIf="ddAIData['bt'] == 'Other'">
+                            <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" [(ngModel)]="ddAIData['bt']" pInputText required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">

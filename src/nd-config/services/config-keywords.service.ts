@@ -373,6 +373,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByGetReq(`${URL.GET_SUB_BT_PATTERN}/${profileId}/${parentBtId}`);
     }
 
+  /*Get sub BT Pattern data*/
+  fetchBtNames (profileId): Observable<string[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BT_NAMES}/${profileId}`);
+  }
+
     /* Save data on file for BT Transaction window*/
     saveBusinessTransMethodData(profileId): Observable<BusinessTransMethodInfo> {
       return this._restApi.getDataByPostReq(`${URL.SAVE_BT_TRANSACTION}/${profileId}`);

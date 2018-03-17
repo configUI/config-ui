@@ -22,7 +22,7 @@
                         <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
                             <i class="fa fa-play-circle-o" ></i>
                         </a>
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'])">
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'], entity['profileId'])">
                             <i class="fa fa-play-circle-o" ></i>
                         </a>
                        </span>
@@ -66,5 +66,5 @@
 
 <!-- Dialog for Auto Instrumentation settings -->
 <p-dialog class="profile-dialog headerCss" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" [contentStyle]="{'max-height':'605px'}" responsive="true">
-    <app-dynamic-diagnostics (closeAIDDGui)="closeAIDDDialog($event)" (topologyData)="setTopologyData($event)" [passAIDDSettings]="passAIDDSettings"></app-dynamic-diagnostics>
+    <app-dynamic-diagnostics (closeAIDDGui)="closeAIDDDialog($event)" (topologyData)="setTopologyData($event)" [passAIDDSettings]="passAIDDSettings" [passAIDDserverEntity]="passAIDDserverEntity"></app-dynamic-diagnostics>
 </p-dialog>

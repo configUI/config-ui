@@ -104,6 +104,8 @@ export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGrou
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 export const GET_SUB_BT_PATTERN = `${SERVICE_URL}/custom/btpattern/getsubbtpattern`;
+export const FETCH_BT_NAMES = `${SERVICE_URL}/custom/btpattern/fetchbtnames`;
+
 
 /* Url fot BussinessTransactionGlobal */
 export const FETCH_BT_GLOBAL_DATA = `${SERVICE_URL}/profiles`;

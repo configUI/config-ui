@@ -34,7 +34,8 @@ export class ConfigTreeDetailComponent implements OnInit {
   isAIPerm: boolean;
   t_s_i_name: string;
 
-  passAIDDSettings: string[];
+  passAIDDSettings: any[];
+  passAIDDserverEntity:ServerInfo;
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
     private route: ActivatedRoute,
@@ -277,6 +278,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       else
         this.topologyDataAIInstanceLevel.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.serverId = event.data.nodeId;
+
 
       //Update the status of AI and icon when AI process id completed when its duration is completed
       this.configTopologyService.durationCompletion().subscribe(data => {
@@ -538,13 +540,14 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To open auto instr configuration dialog
-  openAutoInstrDialog(name, id, type) {
+  openAutoInstrDialog(name, id, type, profileId) {
     
     if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
       this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
       return;
     }
-    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId];
+    this.passAIDDserverEntity = this.serverEntity;
+    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId];
     this.showInstr = true;
    }
 
