@@ -68,3 +68,12 @@ export class AutoIntrDTO{
     instanceId: number;
     type: string;
 }
+
+//Class for Auto-Instrumentation Summary
+export class AutoInstrSummaryData {
+    packageName:string;
+    className:string;
+    methodName:string;
+    count:number;
+    duration:number;
+}

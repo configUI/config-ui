@@ -315,6 +315,7 @@ export const STOP_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/stopau
 export const UPDATE_AI_DETAILS = `${SERVICE_URL}/custom/autoinstrumentation/updateaidetails`;
 export const FILE_EXIST_OR_NOT = `${SERVICE_URL}/custom/autoinstrumentation/fileexistornot`;
 export const GET_TOPOLOGY_DC_ID = `${SERVICE_URL}/custom/autoinstrumentation/gettopodcid`;
+export const GET_AUTO_INSTR_DATA_SUMMARY = `${SERVICE_URL}/custom/autoinstrumentation/getaidata`;
 
 export const GET_REMOVED_PACKAGE_DATA = `${SERVICE_URL}/custom/autoinstrumentation/getremovedpackageList`;
 export const GET_INSTRUEMENTATED_PACKAGE_DATA =`${SERVICE_URL}/custom/autoinstrumentation/getinstrumentatedlist`;

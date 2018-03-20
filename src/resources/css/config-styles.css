@@ -897,7 +897,9 @@ a {
     top: 0;
     z-index: 100;
 }
-
+.nde-ui-autoInstr .ui-dialog {
+    top: 120px !important;
+}
 
 /* Added for formatting color issue in file manager*/
 
