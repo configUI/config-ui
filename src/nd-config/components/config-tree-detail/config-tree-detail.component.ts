@@ -547,7 +547,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       return;
     }
     this.passAIDDserverEntity = this.serverEntity;
-    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId];
+    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
     this.showInstr = true;
    }
 

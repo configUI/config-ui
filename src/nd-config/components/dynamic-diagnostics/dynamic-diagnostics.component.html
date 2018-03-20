@@ -1,4 +1,4 @@
-<div class="ui-g" style="margin-left: 10px">
+<div class="ui-g" *ngIf="DDOrAIGUI == 'ND ConfigUI'" style="margin-left: 10px">
     <div class="ui-g-12">
         <div class="ui-g-6">
             <p-radioButton name="AIDDGUI" value="0" label="Auto Instrumentation" [(ngModel)]="AIDDGUI" [disabled]="false"></p-radioButton>
@@ -9,7 +9,7 @@
     </div>
 </div>
 <br>
-<div *ngIf="AIDDGUI == 0" class="ui-g" style="margin-left: 10px">
+<div *ngIf="AIDDGUI == 0 && DDOrAIGUI == 'ND ConfigUI'" class="ui-g" style="margin-left: 10px">
     <form (ngSubmit)="applyAutoInstr()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g-12">
             <div class="ui-g-4">
@@ -121,12 +121,12 @@
         </footer>
     </form>
 </div>
-<div *ngIf="AIDDGUI == 1">
+<div *ngIf="AIDDGUI == 1 || DDOrAIGUI != 'ND ConfigUI'">
     <form (ngSubmit)="applyDDAI()" #groupForm="ngForm" ngNativeValidate>
         <p-accordion class="ndagent" [multiple]="true">
             <p-accordionTab header="General Setting" [selected]="true">
                 <div class="ui-g">
-                    <div class="ui-g-12">
+                    <div *ngIf="DDOrAIGUI == 'ND ConfigUI'" class="ui-g-12">
                         <div class="ui-g-8" *ngIf="ddAIData['bt'] != 'Other'">
                             <label>Business Transactions</label>
                         </div>
@@ -134,9 +134,17 @@
                             <label>Business Transactions</label>
                         </div>
                         <div class="ui-g-4">
-                            <p-dropdown name="bt" [options]="btNameList" [style]="{'width':'104%'}"  [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
+                            <p-dropdown name="bt" [options]="btNameList" [style]="{'width':'104%'}" [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
                         </div>
                         <div class="ui-g-4" *ngIf="ddAIData['bt'] == 'Other'">
+                            <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" [(ngModel)]="other" pInputText required ngModel>
+                        </div>
+                    </div>
+                    <div *ngIf="DDOrAIGUI != 'ND ConfigUI'" class="ui-g-12">
+                        <div class="ui-g-4">
+                            <label>Business Transactions</label>
+                        </div>
+                        <div class="ui-g-4">
                             <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" [(ngModel)]="other" pInputText required ngModel>
                         </div>
                     </div>

@@ -52,10 +52,19 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     AIDDGUI: number;
     btNameList: SelectItem[];
+
+    DDOrAIGUI:string;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
         this.AIDDGUI = 0;
+        this.DDOrAIGUI = this.passAIDDSettings[8];
+        if(this.DDOrAIGUI != "ND ConfigUI")
+        {
+         this.other = this.passAIDDSettings[7];
+         this.ddAIData.bt = this.other
+        }
+
         this.serverEntity = this.passAIDDserverEntity;
         this.profileId = +this.passAIDDSettings[6];
         this.serverId = this.passAIDDSettings[5];
@@ -71,7 +80,6 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
         let key = ['ALL'];
-        console.log("profile id == ", this.profileId)
         this.configKeywordsService.fetchBtNames(this.profileId).subscribe(data => {
             this.ddAIData = new DDAIInfo();
             if (data.length > 0) {
