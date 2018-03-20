@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO } from '../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../interfaces/topology-info';
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
@@ -124,6 +124,11 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReq(`${URL.APPLY_AUTO_INSTR}`, data);
   }
 
+  /**To apply DDAI */
+  applyDDAI(data): Observable<String> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.START_DD_AI}`, data);
+  }
+
   /**To apply auto-instrumentation  */
   stopAutoInstr(instanceName): Observable<AutoIntrDTO[]> {
     return this._restApi.getDataByPostReq(`${URL.STOP_AUTO_INSTR}`, instanceName);
@@ -136,6 +141,10 @@ export class ConfigTopologyService {
 
   getServerDisplayName(instanceId: number): Observable<String> {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_SERVER_DIS_NAME}/${instanceId}`);
+  }
+
+  getInstanceDesc(instanceId: number): Observable<String> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INST_DESC}/${instanceId}`);
   }
 
 
@@ -213,8 +222,8 @@ export class ConfigTopologyService {
   }
 
   //Get status of the selected AI
-  getAIStatus(instance) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, instance);
+  getAIStatus(instance,type) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}/${type}`, instance);
   }
 
   //Download File after AI
@@ -222,8 +231,8 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
   }
   //Update AI enable in Instance table
-  updateAIEnable(instanceId, flag) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${instanceId}`, flag);
+  updateAIEnable(instanceId, flag, type) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}`, flag);
   }
 
   //Update AI enable in Instance table and AI status from In progress to complete when duration for AI is completed

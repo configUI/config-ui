@@ -48,27 +48,20 @@
                 <div class="ui-g-12">
                     <!-- <div class="ui-g-1"></div> -->
                     <div class="ui-g-3">
-                        <label>Enable dumping of default cassandra query</label>
+                            <p-checkbox name="dumpDefaultCassandraQuery" label="Enable dumping of default cassandra query" [(ngModel)]="dumpDefaultCassandraQuery" binary="false"></p-checkbox>
                     </div>
-                    <div class="ui-g-1">
-                        <input name="dumpDefaultCassandraQuery" type="number" min="0" max="1" [(ngModel)]="urlCapturing['dumpDefaultCassandraQuery']['value']" pInputText required ngModel/>
-                    </div>
-                    <!-- <div class="ui-g-1"></div> -->
-                    <div class="ui-g-2">
-                        <label>Enable url capturing feature</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <input name="enableIPResourceURL" type="number" min="0" max="1" [(ngModel)]="urlCapturing['enableIPResourceURL']['value']" pInputText required ngModel/>
-                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                        <!-- <div class="ui-g-1"></div> -->
+                        <div class="ui-g-3">
+                                <p-checkbox name="enableIPResourceURL" label="Enable url capturing" [(ngModel)]="enableIPResourceURL" binary="false"></p-checkbox>
+                        </div>
                 </div>
                 <div class="ui-g-12">
                     <!-- <div class="ui-g-1"></div> -->
                     <div class="ui-g-3">
-                        <label>Enable transformation of thread subclasses</label>
-                    </div>
-                    <div class="ui-g-1">
-                        <input name="enableTransformThreadSubClass" type="number" min="0" max="1" [(ngModel)]="urlCapturing['enableTransformThreadSubClass']['value']" pInputText required
-                            ngModel/>
+                            <p-checkbox name="enableTransformThreadSubClass" label="Enable transformation of thread subclasses" [(ngModel)]="enableTransformThreadSubClass" binary="false"></p-checkbox>
                     </div>
                 </div>
             </div>

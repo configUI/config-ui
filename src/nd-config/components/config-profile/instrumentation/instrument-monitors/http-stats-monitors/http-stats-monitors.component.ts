@@ -63,6 +63,11 @@ export class HttpStatsMonitorsComponent implements OnInit {
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
   isProfilePerm: boolean;
+
+    /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false; 
+  isHttpstatsMonitorBrowse: boolean = false;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
@@ -109,6 +114,10 @@ export class HttpStatsMonitorsComponent implements OnInit {
     });
     //  this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.instrumentation.monitors.enable);
     this.configKeywordsService.toggleKeywordData();
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
+    });
+
   }
   saveKeywordData() {
     if(this.saveDisable == true)
@@ -435,6 +444,53 @@ export class HttpStatsMonitorsComponent implements OnInit {
 	console.log("return type",data);
       })
   }
+
+  openFileManager() {
+    this.openFileExplorerDialog = true;
+    this.isHttpstatsMonitorBrowse = true;
+  }
+
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isHttpstatsMonitorBrowse == true) {
+      this.isHttpstatsMonitorBrowse = false;
+      this.openFileExplorerDialog = false;
+      let  str : string;
+      let str1:string;
+      str=filepath.substring(filepath.lastIndexOf("/"),filepath.length)
+      str1=str.substring(str.lastIndexOf("."),str.length);
+      let type:boolean=true;
+      if(str1==".hmc"){
+        type=false;
+      }
+      if(type){
+        this.configUtilityService.errorMessage("Extension(s) other than .hmc is not supported");
+        return
+      }
+      
+      if (filepath.includes(";")) {
+        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+        return;
+      }
+      this.configKeywordsService.uploadHttpStatsMonitorFile(filepath, this.profileId).subscribe(data => {
+        if (data.length == this.httpStatsMonitorData.length) {
+         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+         return;
+        }
+        this.httpStatsMonitorData=data;
+        // this.exceptionMonitorData = ImmutableArray.push(this.exceptionMonitorData, data);
+        this.configUtilityService.successMessage("File uploaded successfully");
+       });
+    }
+  }
+
+
+
+
+
 }
 
 //It will convert the values of flowpath dump from 0, 1 and 2 to Disable, Enable and Enable Forcefully respectively

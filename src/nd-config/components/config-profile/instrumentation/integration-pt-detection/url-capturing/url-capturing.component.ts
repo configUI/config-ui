@@ -32,16 +32,20 @@ export class UrlCapturingComponent implements OnInit {
   enableGroupKeyword: boolean;
   keywordValue: Object;
   isProfilePerm: boolean;
-
-  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-    this.configKeywordsService.toggleKeywordData();
-  }
-
   urlCapturingData: UrlCapturingData;
   subscription: Subscription;
   urlForm: boolean = true;
   // selectedValues: boolean;
   enableFormatIPResourceURL: boolean;
+  dumpDefaultCassandraQuery : boolean;
+  enableIPResourceURL : boolean;
+  enableTransformThreadSubClass : boolean;
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+    this.configKeywordsService.toggleKeywordData();
+  }
+
+ 
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
@@ -53,6 +57,9 @@ export class UrlCapturingComponent implements OnInit {
     });
     this.urlCapturingData = new UrlCapturingData();
     this.getKeywordData();
+    this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
+    this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
+    this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
   }
 
   /* This method is used to save the formatIPResourceURL data in the backend*/
@@ -61,6 +68,26 @@ export class UrlCapturingComponent implements OnInit {
     for (let key in this.urlCapturing) {
       if (key == 'formatIPResourceURL')
         this.urlCapturing[key]["value"] = formatIPVal;
+    }
+    if (this.dumpDefaultCassandraQuery) {
+      this.urlCapturing["dumpDefaultCassandraQuery"].value = 1;
+    }
+    else {
+      this.urlCapturing["dumpDefaultCassandraQuery"].value = 0;
+    }
+
+    if (this.enableIPResourceURL) {
+      this.urlCapturing["enableIPResourceURL"].value = 1;
+    }
+    else {
+      this.urlCapturing["enableIPResourceURL"].value = 0;
+    }
+
+    if (this.enableTransformThreadSubClass) {
+      this.urlCapturing["enableTransformThreadSubClass"].value = 1;
+    }
+    else {
+      this.urlCapturing["enableTransformThreadSubClass"].value = 0;
     }
     this.keywordData.emit(this.urlCapturing);
   }
@@ -79,6 +106,9 @@ export class UrlCapturingComponent implements OnInit {
       this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
       this.enableFormatIPResourceURL = true;
     }
+    this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
+    this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
+    this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
   }
 
   /* This method is used to get the existing value of keyword from the backend*/
