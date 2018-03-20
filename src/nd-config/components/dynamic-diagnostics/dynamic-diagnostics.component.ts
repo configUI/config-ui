@@ -30,6 +30,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     currentInstanceName: string;
     currentInsId: number;
     currentInsType: string;
+    other: string = "";
 
     t_s_i_name: string = "";
     insName: string = ""; //to store tier, server and instacne name with >
@@ -222,6 +223,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     }
                     else {
                         this.configUtilityService.errorMessage("Could not start:" + res["_body"].substring("result=Error", res["_body"].lastIndexOf(";")))
+                        this.closeAIDDGui.emit(false);
                         return
                     }
                 })
@@ -240,6 +242,9 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.ddAIData.instance = this.currentInstanceName
         this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
         this.sessionName = this.autoInstrDto.sessionName
+        if(this.ddAIData.bt == 'Other'){
+            this.ddAIData.bt = this.other
+        }
 
         this.autoInstrDto.duration = this.ddAIData.duration.toString()
 

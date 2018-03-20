@@ -37,6 +37,11 @@
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
                     </p-column>
+                    <p-column class="col-overflow" field="triggerScreen" header="Trigger Screen" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
+              <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
+            </template>
+                    </p-column>
                     <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time (in HH:MM:SS)" [sortable]="true" [style]="{'width':'15%'}">
                         <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
@@ -47,7 +52,7 @@
               <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="isAutoPerm">
                 <i class="fa fa-refresh"></i>
               </a>
-              <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="!isAutoPerm" (click)="getAIStatus(application['instanceName'], application['sessionName'])">
+              <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="!isAutoPerm" (click)="getAIStatus(application['instanceName'], application['sessionName'], application['triggerScreen'])">
                 <i class="fa fa-refresh"></i>
               </a>
               <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm">
@@ -86,6 +91,11 @@
             </template>
                     </p-column>
                     <p-column class="col-overflow" header="End Time" field="endTime" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
+              <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
+            </template>
+                    </p-column>
+                    <p-column class="col-overflow" header="Trigger Screen" field="triggerScreen" [sortable]="true" [style]="{'width':'13%'}">
                         <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>

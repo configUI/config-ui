@@ -137,7 +137,7 @@
                             <p-dropdown name="bt" [options]="btNameList" [style]="{'width':'104%'}"  [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
                         </div>
                         <div class="ui-g-4" *ngIf="ddAIData['bt'] == 'Other'">
-                            <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" [(ngModel)]="ddAIData['bt']" pInputText required ngModel>
+                            <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" [(ngModel)]="other" pInputText required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -282,7 +282,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="text" size='40' name="ddaithreadblackList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaithreadblackList']" pInputText required ngModel>
+                            <input type="text" size='40' name="ddaithreadblackList" pattern="[a-zA-Z0-9_#@./&,-]*" [(ngModel)]="ddAIData['ddaithreadblackList']" pInputText ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -292,7 +292,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="text" size='40' name="ddaithreadwhiteList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaithreadwhiteList']" pInputText required ngModel>
+                            <input type="text" size='40' name="ddaithreadwhiteList" pattern="[a-zA-Z0-9_#@./,&-]*" [(ngModel)]="ddAIData['ddaithreadwhiteList']" pInputText ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -302,7 +302,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="text" size='40' name="ddaibtblackList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaibtblackList']" pInputText required ngModel>
+                            <input type="text" size='40' name="ddaibtblackList" pattern="[a-zA-Z0-9_#@./,&-]*" [(ngModel)]="ddAIData['ddaibtblackList']" pInputText ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12">
@@ -312,7 +312,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="text" size='40' name="ddaibtwhiteList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaibtwhiteList']" pInputText required ngModel>
+                            <input type="text" size='40' name="ddaibtwhiteList" pattern="[a-zA-Z0-9_#@./&-]*" [(ngModel)]="ddAIData['ddaibtwhiteList']" pInputText ngModel>
                         </div>
                     </div>
                     <!-- <div class="ui-g-12" style="margin-left: 5px">

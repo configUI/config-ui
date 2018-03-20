@@ -222,8 +222,8 @@ export class ConfigTopologyService {
   }
 
   //Get status of the selected AI
-  getAIStatus(instance) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}`, instance);
+  getAIStatus(instance,type) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AI_STATUS}/${type}`, instance);
   }
 
   //Download File after AI

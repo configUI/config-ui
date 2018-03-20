@@ -122,10 +122,15 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   }
 
-  getAIStatus(instance, session) {
+  getAIStatus(instance, session, triggerScreen) {
     //Combining instance and session name with #
     instance = instance + "#" + session
-    this.configTopologyService.getAIStatus(instance).subscribe(data => {
+    if(triggerScreen == "ND ConfigUI AI"){
+      var type = "AI"
+    }
+    else
+    var type = "DD"
+    this.configTopologyService.getAIStatus(instance,type).subscribe(data => {
       if (data["_body"] == "complete") {
         this.configUtilityService.infoMessage("Auto-Instrumentation completed")
         this.configTopologyService.updateAIDetails().subscribe(data => {

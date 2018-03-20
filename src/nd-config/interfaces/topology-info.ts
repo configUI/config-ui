@@ -74,7 +74,7 @@ export class DDAIInfo{
     type: string = ""
     conf: string = ""
     sessionName: string = ""
-    bt: string =""
+    bt: string = "ALL"
     testRun: number = 2
     tier: string =""
     server: string =""
