@@ -9,9 +9,12 @@
             <div class="config-ui-AutoAI-height">
                 <p-dataTable class="nde-ui" [value]="autoIntrActive" [(selection)]="selectedAutoIntrActive" [rows]="5" [paginator]="autoIntrActive?.length > 5" [pageLinks]="3">
 
-                    <p-column class="col-overflow" field="instanceName" header="Instance Name" [sortable]="true" [style]="{'width':'20%'}">
-                        <template let-col let-application="rowData" pTemplate>
-              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+          <p-column class="col-overflow" field="instanceName" header="Instance Name" [sortable]="true" [style]="{'width':'20%'}">
+            <template let-col let-application="rowData" pTemplate>
+              <span title="{{application[col.field]}}">{{application[col.field]}}</span> 
+              <span title="Java" *ngIf="application['type'] == 'Java'"><i class="icon ndegui-java java-color" ></i></span>
+              <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
+              <span title="Dot Net" *ngIf="application['type'] == 'Dot Net' || application['type'] == 'DotNet'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
             </template>
                     </p-column>
                     <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
@@ -34,6 +37,11 @@
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
                     </p-column>
+                    <p-column class="col-overflow" field="triggerScreen" header="Trigger Screen" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
+              <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
+            </template>
+                    </p-column>
                     <p-column class="col-overflow" field="elapsedTime" header="Elapsed Time (in HH:MM:SS)" [sortable]="true" [style]="{'width':'15%'}">
                         <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
@@ -44,13 +52,13 @@
               <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="isAutoPerm">
                 <i class="fa fa-refresh"></i>
               </a>
-              <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="!isAutoPerm" (click)="getAIStatus(application['instanceName'], application['sessionName'])">
+              <a class="autoinst iconFontSize" title="Refresh" style="color:rgb(4, 4, 161)" *ngIf="!isAutoPerm" (click)="getAIStatus(application['instanceName'], application['sessionName'], application['triggerScreen'])">
                 <i class="fa fa-refresh"></i>
               </a>
               <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm">
                 <i class="fa fa-stop-circle"></i>
-              </a>
-              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="stopInstrumentation(application['instanceName'], application['sessionName'])"
+              </a>  
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="stopInstrumentation(application['instanceName'], application['sessionName'], application['triggerScreen'])"
               title="Stop">
               <i class="fa fa-stop-circle"></i>
             </a>
@@ -67,6 +75,9 @@
                     <p-column class="col-overflow" header="Instance Name" field="instanceName" [sortable]="true" [style]="{'width':'20%'}">
                         <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+              <span title="Java" *ngIf="application['type'] == 'Java'"><i class="icon ndegui-java java-color" ></i></span>
+              <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
+              <span title="Dot Net" *ngIf="application['type'] == 'Dot Net' || application['type'] == 'DotNet'"><i class="icon ndegui-dotnet dotnet-color" ></i></span>
             </template>
                     </p-column>
                     <p-column class="col-overflow" field="sessionName" header="Session Name" [sortable]="true" [style]="{'width':'20%'}">
@@ -84,6 +95,11 @@
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
             </template>
                     </p-column>
+                    <p-column class="col-overflow" header="Trigger Screen" field="triggerScreen" [sortable]="true" [style]="{'width':'13%'}">
+                        <template let-col let-application="rowData" pTemplate>
+              <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
+            </template>
+                    </p-column>
                     <p-column class="col-overflow" header="Duration(in sec)" field="duration" [sortable]="true" [style]="{'width':'8%'}">
                         <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
@@ -94,19 +110,19 @@
               <a class="autoinst iconFontSize" style="color:rgb(19, 69, 231)"  *ngIf="isAutoPerm" title="Download">
                 <i class="fa fa-download"></i>
               </a>
-              <a class="autoinst iconFontSize"  style="color:rgb(19, 69, 231)"  *ngIf="!isAutoPerm" (click)="downloadFile(application['instanceName'], application['sessionName'])" title="Download">
+              <a class="autoinst iconFontSize"  style="color:rgb(19, 69, 231)"  *ngIf="!isAutoPerm" (click)="downloadFile(application['instanceName'], application['sessionName'],application['type'])" title="Download">
                 <i class="fa fa-download"></i>
               </a>
               <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="isAutoPerm" title="Edit">
                 <i class="fa fa-edit"></i>
               </a>
-              <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation(application['sessionName'])" title="Edit">
+              <a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation(application['sessionName'],application['type'])" title="Edit">
                 <i class="fa fa-edit"></i>
               </a>
               <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm" title="Delete">
                     <i class="fa fa-trash"></i>
                   </a>
-              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'])" title="Delete">
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'],application['type'])" title="Delete">
                     <i class="fa fa-trash"></i>
                  </a>
             </template>
@@ -116,3 +132,8 @@
         </p-accordionTab>
     </p-accordion>
 </div>
+
+
+<a class="autoinst iconFontSize" style="color:rgb(17, 224, 86)" *ngIf="!isAutoPerm" (click)="openGUIForAutoInstrumentation('DotNet_Windows-server64_StockTraderWebAppPool','Dot Net')" title="Edit">
+    <i class="fa fa-edit"></i>
+</a>

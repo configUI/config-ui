@@ -66,4 +66,40 @@ export class AutoIntrDTO{
     appName: string;
     sessionName: string;
     instanceId: number;
+    type: string;
+    triggerScreen: string;
+}
+
+export class DDAIInfo{
+    type: string = ""
+    conf: string = ""
+    sessionName: string = ""
+    bt: string = "ALL"
+    testRun: number = 2
+    tier: string =""
+    server: string =""
+    instance: string  = ""
+    duration: number = 600
+    retainchanges: number = 1
+    dump_data: number = 0
+    stackDepthFilter: number = 10
+    ddsampleInterval: number = 10
+    ddtraceLevel: number = 1
+    autoInstrsampleThreshold: number = 1000
+    instrPct: number = 50
+    removeInstrPct: number = 80
+    maxMethods: number = 10000
+    minAvgResponseTime: number = 1
+    weightage: number = 10
+    blackListForAI: string = "2"
+    aiThreshold: number = 5
+    ddaithreadblackList: string = ""
+    ddaithreadwhiteList: string = ""
+    ddaibtblackList: string = ""
+    ddaibtwhiteList: string = ""
+    acknowledgeMode: string = ""
+    completionMode: number = 1
+    applyMode: number = 0
+    saveAppliedChanges: number = 1
+    deleteFromServer: number = 7
 }

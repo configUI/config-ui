@@ -266,7 +266,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
           data[i].headerKeyValue = "-";
         }
       }
-      
+
       this.businessTransPatternInfo = data;
     });
   }
@@ -345,6 +345,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "exclude"
     else
       this.businessTransPatternDetail.include = "include"
+
+      if(this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != "")
+        this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
+      else
+        this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
+
+        if(this.businessTransPatternDetail.reqParamValue  != undefined && this.businessTransPatternDetail.reqParamValue  != "")
+          this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+        else
+          this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
+
     this.setDynamicValuesOFF();    //Method to set values when Dynamic part of request is disabled 
     /**
      * Condition to check if VALUE is filled and KEY is blank
@@ -363,8 +374,36 @@ export class HTTPBTConfigurationComponent implements OnInit {
     let tempParam = this.createKeyValString();
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
-    this.parentBtId = -1;
-    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
+    if(this.businessTransPatternInfo.length > 0){
+    for(let i= 0;i<this.businessTransPatternInfo.length;i++){
+      if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+        && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+        && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+        && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
+        && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue){
+        this.configUtilityService.errorMessage("Header key/value pair already exists")
+        return;
+      }
+    }
+    for(let i= 0;i<this.businessTransPatternInfo.length;i++){
+       if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+        && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+        && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+        && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+        && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue)
+      {
+        this.parentBtId = +this.businessTransPatternInfo[i].btId;
+        break;
+      }
+      else{
+        this.parentBtId = -1;
+      }
+    }
+  }
+  else{
+    this.parentBtId = -1;    
+  }
+      this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         // this.businessTransPatternInfo.push(data);
@@ -537,8 +576,15 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.reqParamInfo = [];
     }
 
+    if(this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "")
     this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
-    this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+  else
+    this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
+
+    if(this.businessTransPatternDetail.reqParamValue  != undefined && this.businessTransPatternDetail.reqParamValue  != null  && this.businessTransPatternDetail.reqParamValue  != "")
+      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+    else
+      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
     this.setDynamicValuesOFF();  //Method to set values when Dynamic part of request is disabled 
     /**
      * Condition to check if VALUE is filled and KEY is blank
@@ -558,7 +604,39 @@ export class HTTPBTConfigurationComponent implements OnInit {
     let tempParam = this.createKeyValString();
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
-    this.parentBtId = -1;
+    // this.parentBtId = -1;
+    for(let i= 0;i<this.businessTransPatternInfo.length;i++){
+      if(this.selectedPatternData[0] != this.businessTransPatternInfo[i]){
+       if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+        && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+        && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+        && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+        && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue)
+      {
+        this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].btId;
+        break;
+      }
+      else{
+        this.businessTransPatternDetail.parentBtId = -1;
+      }
+    }
+    else
+      continue;
+  }
+  for(let i= 0;i<this.businessTransPatternInfo.length;i++){
+      if(this.selectedPatternData[0] != this.businessTransPatternInfo[i]){
+        if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+         && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+         && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+         && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
+         && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue){
+           this.configUtilityService.errorMessage("Header key value pair already exists")
+           return
+    }
+  }
+  else
+    continue;
+}
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -961,9 +1039,25 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
 
-      this.businessTransPatternDetail.agent = this.agentType;
+    this.businessTransPatternDetail.agent = this.agentType;
+
     if (this.isNewSubApp == true) {
       this.businessTransPatternDetail.agent = this.agentType;
+
+      //If same key value pair is entered.
+      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
+        if (this.subBusinessTransPatternInfo[i].headerKeyValue == this.businessTransPatternDetail.headerKeyValue) {
+          this.configUtilityService.errorMessage("Header key/value pair already exists")
+          return;
+        }
+      }
+      //When same btname is entered
+      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
+        if (this.subBusinessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
+          this.businessTransPatternDetail.btId = this.subBusinessTransPatternInfo[i].btId
+          break;
+        }
+      }
       this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
         .subscribe(data => {
           //Insert data in main table after inserting application in DB
@@ -974,14 +1068,40 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else {
       this.businessTransPatternDetail.parentBtId = this.selectedBtId
 
+      //If same key value pair is entered.
+      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
+        if (this.businessTransPatternDetail == this.subBusinessTransPatternInfo[i]) {
+          continue;
+        }
+        else {
+          if (this.subBusinessTransPatternInfo[i].headerKeyValue == this.businessTransPatternDetail.headerKeyValue && this.subBusinessTransPatternInfo[i].headerKeyValue != this.selectedSubPatternData[0].headerKeyValue) {
+            this.configUtilityService.errorMessage("Header key-value already exists")
+            return;
+          }
+        }
+      }
+
+      //If same key value pair is entered.
+      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
+
+          if (this.subBusinessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
+            this.businessTransPatternDetail.btId = this.subBusinessTransPatternInfo[i].btId
+            break;
+
+          }
+          else
+            this.businessTransPatternDetail.btId = 0;
+      }
+
+
       this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
         .subscribe(data => {
           let index = this.getSubPatternIndex(this.businessTransPatternDetail.id);
           if (data.reqHeaderValue != null && data.reqHeaderKey != null)
-          data.headerKeyValue = data.headerKeyValue;
+            data.headerKeyValue = data.headerKeyValue;
           else
-          data.headerKeyValue = "-";
-          
+            data.headerKeyValue = "-";
+
           this.selectedSubPatternData.push(data);
           this.subBusinessTransPatternInfo = ImmutableArray.replace(this.subBusinessTransPatternInfo, data, index);
           this.configUtilityService.successMessage(Messages);

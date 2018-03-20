@@ -38,6 +38,7 @@ export class ConfigProfileListComponent implements OnInit {
   openFileExplorerDialog: boolean = false;  
   isProfileListBrowse: boolean = false;
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
+  exportPath: string;
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
@@ -158,7 +159,7 @@ export class ConfigProfileListComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one profile to delete")
       return;
     }
-    if (this.selectedProfileData[0].profileId == 1) {
+    if (this.selectedProfileData[0].profileId == 1 || this.selectedProfileData[0].profileId == 777777 || this.selectedProfileData[0].profileId == 888888) {
       this.configUtilityService.errorMessage("Default profile cannot be deleted");
       return;
     }
@@ -224,7 +225,7 @@ export class ConfigProfileListComponent implements OnInit {
       return;
     }
 
-    this.configProfileService.exportProfile(this.selectedProfileData[0].profileName,this.userName).subscribe(data => {
+    this.configProfileService.exportProfile(this.selectedProfileData[0].profileName,this.exportPath).subscribe(data => {
       this.configUtilityService.successMessage("Exported successfully");
     })
 
@@ -248,6 +249,7 @@ export class ConfigProfileListComponent implements OnInit {
        //Temporary path of the Method Monitor file to run locally,independently from Product UI
        //let filepath = "";
        if(!filepath.includes(".zip")){
+        this.configUtilityService.errorMessage("Please select a valid zip file");
          return;
        }
        this.configProfileService.importProfile(filepath,this.userName).subscribe(data => {
@@ -256,5 +258,5 @@ export class ConfigProfileListComponent implements OnInit {
         });
         }
       }
-    
+         
 }
