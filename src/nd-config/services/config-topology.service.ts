@@ -230,7 +230,6 @@ export class ConfigTopologyService {
   downloadFile(data) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
   }
-
   //Update AI enable in Instance table
   updateAIEnable(instanceId, flag, type) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}`, flag);
@@ -252,4 +251,18 @@ export class ConfigTopologyService {
   getTopologyDCID(testRunNo){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPOLOGY_DC_ID}`, testRunNo);
   }
+
+
+
+
+
+
+
+
+  getAutoInstrumentationData(data) {
+    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_INSTR_DATA_SUMMARY}`, data);
+  }
 }
+
+
+

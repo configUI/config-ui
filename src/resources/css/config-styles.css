@@ -898,6 +898,10 @@ a {
     z-index: 100;
 }
 
+.nde-ui-autoInstr .ui-dialog {
+    top: 120px !important;
+}
+
 
 /* Added for formatting color issue in file manager*/
 
@@ -1101,4 +1105,9 @@ body {
 
 .exceptionpanel .ui-panel-content {
     overflow-x: hidden;
+}
+
+.ddaccordion .ui-accordion-content-wrapper.ng-trigger.ng-trigger-tabContent {
+    height: 195px;
+    overflow: overlay;
 }

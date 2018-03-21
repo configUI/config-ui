@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AutoIntrDTO } from '../../../interfaces/topology-info';
+import { AutoIntrDTO, AutoInstrSummaryData } from '../../../interfaces/topology-info';
 import { ConfigTopologyService } from '../../../services/config-topology.service';
 import { ConfigHomeService } from '../../../services/config-home.service';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
@@ -28,6 +28,11 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   isAutoPerm: boolean;
   isTestRun: boolean;
   className: string = "Auto Instrument Component";
+  autoInstrumentationDialog : boolean;
+  autoInstrSummaryData : AutoInstrSummaryData[] = [];
+  sessionFileNameForAISummary:string;
+
+
 
   constructor(private configTopologyService: ConfigTopologyService, private router: Router, private configUtilityService: ConfigUtilityService,
     private configHomeService: ConfigHomeService, private configApplicationService: ConfigApplicationService
@@ -180,6 +185,29 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
           }
         }
       });
+    })
+  }
+  /**
+   * autoInstrSummary method is used for Auto-Instrumentation Summary
+   * It will further invoke loadAutoInstrSummaryData method which retrieve the data from
+   * server and show on GUI
+   * @param sessionFileName 
+   * @param AgentType 
+   */
+  autoInstrSummary(sessionFileName,AgentType){
+      this.sessionFileNameForAISummary = sessionFileName;
+      let sessionFileNameWithAgentType : string;
+      sessionFileNameWithAgentType = sessionFileName + "_AI.txt" + "#" + AgentType;
+      this.loadAutoInstrSummaryData(sessionFileNameWithAgentType);
+  }
+  loadAutoInstrSummaryData(sessionFileNameWithAgentType){
+    this.configTopologyService.getAutoInstrumentationData(sessionFileNameWithAgentType).subscribe(data => {
+          if(data == undefined || data.length == 0){
+             this.configUtilityService.errorMessage("File is empty");
+             return;
+          }
+           this.autoInstrumentationDialog = true;
+           this.autoInstrSummaryData =  data;
     })
   }
 }
