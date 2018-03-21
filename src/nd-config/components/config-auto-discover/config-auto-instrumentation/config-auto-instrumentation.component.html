@@ -122,7 +122,7 @@
               <a class="autoinst iconFontSize" style="color:red" *ngIf="isAutoPerm" title="Delete">
                     <i class="fa fa-trash"></i>
                   </a>
-              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'],application['type'])" title="Delete">
+              <a class="autoinst iconFontSize" style="color:red" *ngIf="!isAutoPerm" (click)="delete(application['sessionName'], application['instanceName'],application['type'],application['instanceId'])" title="Delete">
                     <i class="fa fa-trash"></i>
                  </a>
             </template>

@@ -154,9 +154,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     })
   }
 
-  delete(sessionName, instanceName, agentType) {
+  delete(sessionName, instanceName, agentType, instanceId) {
     let that = this;
-    this.configTopologyService.deleteAI(sessionName + "#" + instanceName + "#" + agentType).subscribe(data => {
+    this.configTopologyService.deleteAI(sessionName + "#" + instanceName + "#" + agentType, instanceId).subscribe(data => {
       this.configUtilityService.infoMessage("Deleted successfully");
       this.configTopologyService.updateAIDetails().subscribe(data => {
         that.checkForCompleteOrActive(data)

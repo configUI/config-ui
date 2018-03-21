@@ -128,10 +128,10 @@
                 <div class="ui-g">
                     <div *ngIf="DDOrAIGUI == 'ND ConfigUI'" class="ui-g-12">
                         <div class="ui-g-8" *ngIf="ddAIData['bt'] != 'Other'">
-                            <label>Business Transactions</label>
+                            <label>Business Transaction</label>
                         </div>
                         <div class="ui-g-4" *ngIf="ddAIData['bt'] == 'Other'">
-                            <label>Business Transactions</label>
+                            <label>Business Transaction</label>
                         </div>
                         <div class="ui-g-4">
                             <p-dropdown name="bt" [options]="btNameList" [style]="{'width':'104%'}" [(ngModel)]="ddAIData['bt']" appendTo="body" required ngModel></p-dropdown>
@@ -142,7 +142,7 @@
                     </div>
                     <div *ngIf="DDOrAIGUI != 'ND ConfigUI'" class="ui-g-12">
                         <div class="ui-g-4">
-                            <label>Business Transactions</label>
+                            <label>Business Transaction</label>
                         </div>
                         <div class="ui-g-4">
                             <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" [(ngModel)]="other" pInputText required ngModel>

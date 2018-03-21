@@ -102,4 +102,6 @@ export class DDAIInfo{
     applyMode: number = 0
     saveAppliedChanges: number = 1
     deleteFromServer: number = 7
+    agentType: string = ""
+    sessionId: number
 }
