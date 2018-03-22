@@ -80,10 +80,10 @@ export class DDAIInfo{
     server: string =""
     instance: string  = ""
     duration: number = 600
-    retainchanges: number = 1
+    retainchanges: number = 0
     dump_data: number = 0
     stackDepthFilter: number = 10
-    ddsampleInterval: number = 10
+    ddsampleInterval: number = 30
     ddtraceLevel: number = 1
     autoInstrsampleThreshold: number = 1000
     instrPct: number = 50
@@ -98,10 +98,10 @@ export class DDAIInfo{
     ddaibtblackList: string = ""
     ddaibtwhiteList: string = ""
     acknowledgeMode: string = ""
-    completionMode: number = 1
+    completionMode: number = 0
     applyMode: number = 0
-    saveAppliedChanges: number = 1
-    deleteFromServer: number = 7
+    saveAppliedChanges: number = 0
+    deleteFromServer: number = 0
     agentType: string = ""
     sessionId: number
 }

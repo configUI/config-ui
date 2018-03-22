@@ -27,6 +27,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
     autoInstrDto: AutoIntrDTO;
     ddAIData: DDAIInfo;
 
+    retainchanges: boolean = true
+
     currentInstanceName: string;
     currentInsId: number;
     currentInsType: string;
@@ -49,6 +51,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
     tierName: string;
     serverName: string;
     profileId: number;
+    saveChanges: boolean = false;
+    deleteFromServer: boolean = false;
 
     AIDDGUI: number;
     btNameList: SelectItem[];
@@ -86,7 +90,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
             if (data.length > 0) {
                 key = key.concat(data)
             }
-            key.push('Other')
+            key.push('Custom')
             this.btNameList = ConfigUiUtility.createListWithKeyValue(key, key);
             this.currentInsId = id;
             this.currentInsType = type;
@@ -98,7 +102,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
             this.autoInstrDto.sessionName = instanceName
             this.autoInstrDto.instanceId = this.currentInsId;
             this.autoInstrDto.type = this.currentInsType
-            this.ddAIData.sessionName = instanceName
+            this.ddAIData.sessionName = this.tierName + "_" + "ALL"
             this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
                 //Get settings from data if not null else create a new object
@@ -231,7 +235,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                         })
                     }
                     else {
-                        this.configUtilityService.errorMessage("Could not start:" + res["_body"].substring("result=Error", res["_body"].lastIndexOf(";")))
+                        this.configUtilityService.errorMessage("Could not start:" + res["_body"].substring(res["_body"].lastIndexOf('Error') + 5, res["_body"].length))
                         this.closeAIDDGui.emit(false);
                         return
                     }
@@ -242,18 +246,33 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     applyDDAI() {
 
-        this.ddAIData.sessionName = this.splitTierServInsName(this.currentInstanceName)
+        // this.ddAIData.sessionName = this.splitTierServInsName(this.currentInstanceName)
 
         //Assigning - to cinfiguration as there is no need to add these settings in database
         this.autoInstrDto.configuration = "-"
         this.ddAIData.tier = this.tierName
         this.ddAIData.server = this.serverName
         this.ddAIData.instance = this.currentInstanceName
+        this.ddAIData.testRun = +sessionStorage.getItem("isTrNumber");
         this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
         this.sessionName = this.autoInstrDto.sessionName
-        if(this.ddAIData.bt == 'Other'){
+        if(this.ddAIData.bt == 'Custom'){
             this.ddAIData.bt = this.other
         }
+        if(this.retainchanges == true)
+            this.ddAIData.retainchanges = 0
+        else
+            this.ddAIData.retainchanges = 1
+
+        if(this.saveChanges == true)
+            this.ddAIData.saveAppliedChanges = 1
+        else
+            this.ddAIData.saveAppliedChanges = 0
+
+        if(this.deleteFromServer == true)
+            this.ddAIData.deleteFromServer = 1
+        else
+            this.ddAIData.deleteFromServer = 0
 
         this.autoInstrDto.duration = this.ddAIData.duration.toString()
 
@@ -367,6 +386,15 @@ export class DynamicDiagnosticsComponent implements OnInit {
         return strSetting;
 
     }
+
+    createSessionName(bt){
+        if(bt != 'Custom'){
+            this.ddAIData.sessionName = this.tierName + "_" + bt
+        }
+        else
+            this.ddAIData.sessionName = this.tierName + "_" + this.other
+    }
+
 
     //Close AI and DD Dialog 
     closeAutoInstrDDDialog() {
