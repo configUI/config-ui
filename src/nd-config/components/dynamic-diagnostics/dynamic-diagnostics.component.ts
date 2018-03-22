@@ -1,7 +1,7 @@
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
+import { TopologyInfo, TierInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
 import { ConfigProfileService } from '../../services/config-profile.service';
 import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigTopologyService } from '../../services/config-topology.service';
@@ -395,11 +395,18 @@ export class DynamicDiagnosticsComponent implements OnInit {
             this.ddAIData.sessionName = this.tierName + "_" + this.other
     }
 
-
     //Close AI and DD Dialog 
     closeAutoInstrDDDialog() {
         this.closeAIDDGui.emit(false);
     }
 
 }
-
+export interface ServerInfo {
+    serverId: number;
+    serverFileId: number;
+    serverDesc: string;
+    serverDisplayName: string;
+    serverName: string;
+    profileId: number;
+    profileName: string;
+}
