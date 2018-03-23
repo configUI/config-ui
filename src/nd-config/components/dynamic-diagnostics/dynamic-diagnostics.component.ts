@@ -103,6 +103,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
             this.autoInstrDto.instanceId = this.currentInsId;
             this.autoInstrDto.type = this.currentInsType
             this.ddAIData.sessionName = this.tierName + "_" + "ALL"
+            this.ddAIData.agentType = type
             this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
                 //Get settings from data if not null else create a new object
@@ -235,7 +236,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
                         })
                     }
                     else {
-                        this.configUtilityService.errorMessage("Could not start:" + res["_body"].substring(res["_body"].lastIndexOf('Error') + 5, res["_body"].length))
+                        var msg = res["_body"].toString();
+                        this.configUtilityService.errorMessage("Could not start:" + msg.substring(msg.lastIndexOf('Error') + 5, msg.length))
                         this.closeAIDDGui.emit(false);
                         return
                     }

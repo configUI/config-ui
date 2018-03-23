@@ -104,6 +104,7 @@ export class DDAIInfo{
     deleteFromServer: number = 0
     agentType: string = ""
     sessionId: number
+    message: string = "";
 }
 
 //Class for Auto-Instrumentation Summary
