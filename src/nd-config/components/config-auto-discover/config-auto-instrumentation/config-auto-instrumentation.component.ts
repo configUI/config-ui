@@ -104,6 +104,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   openGUIForAutoInstrumentation(sessionFileName,AgentType) {
     let sessionFileNameWithAgentType : string;
     sessionFileNameWithAgentType = sessionFileName + "_AI.txt" + "#" + AgentType;
+
     this.configTopologyService.getSessionFileExistOrNot(sessionFileNameWithAgentType).subscribe(data => {
       var status = data['_body'].split("#");
       if (status[1] == "NotEmpty" && status[0] == "Empty") {
@@ -198,10 +199,30 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
       this.sessionFileNameForAISummary = sessionFileName;
       let sessionFileNameWithAgentType : string;
       sessionFileNameWithAgentType = sessionFileName + "_AI.txt" + "#" + AgentType;
-      this.loadAutoInstrSummaryData(sessionFileNameWithAgentType);
+      this.configTopologyService.getSessionFileExistOrNot(sessionFileNameWithAgentType).subscribe(data => {
+        var status = data['_body'].split("#");
+        if (status[0] == "Fail") {
+          this.configUtilityService.errorMessage("Session file does not exists. Download it ");
+          return;
+        }
+        else if (status[0] == "Empty") {
+          this.configUtilityService.errorMessage("Session file is empty.");
+          return;
+        }
+        else if (status[0] == "WrongPattern") {
+          this.configUtilityService.errorMessage("Wrong Pattern: select another file");
+          return;
+        }
+        else{
+             this.loadAutoInstrSummaryData(sessionFileNameWithAgentType);
+        }
+      });
   }
+  
+
   loadAutoInstrSummaryData(sessionFileNameWithAgentType){
     this.configTopologyService.getAutoInstrumentationData(sessionFileNameWithAgentType).subscribe(data => {
+      console.log("data is=====>",data)
           if(data == undefined || data.length == 0){
              this.configUtilityService.errorMessage("File is empty");
              return;

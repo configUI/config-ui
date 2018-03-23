@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo, AutoInstrSummaryData } from '../interfaces/topology-info';
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';

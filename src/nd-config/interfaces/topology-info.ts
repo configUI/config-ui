@@ -98,10 +98,10 @@ export class DDAIInfo{
     ddaibtblackList: string = ""
     ddaibtwhiteList: string = ""
     acknowledgeMode: string = ""
-    completionMode: number = 0
-    applyMode: number = 0
-    saveAppliedChanges: number = 0
-    deleteFromServer: number = 0
+    completionMode: number = 2
+    applyMode: number = 2
+    saveAppliedChanges: number = 1
+    deleteFromServer: number = 1
     agentType: string = ""
     sessionId: number
     message: string = "";
