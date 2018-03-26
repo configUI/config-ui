@@ -193,8 +193,7 @@
                     <label>Header Name</label>
                 </div>
                 <div class="ui-g-4 configui-java-css">
-                    <input name="headerName" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.headerName" title="Please enter valid rule name.   &#013;Please enter maximum upto 50 characters."
-                        autofocus required pattern="[^]{0,49}$" ngModel/>
+                    <input name="headerName" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.headerName" title="Please enter valid Header Name.   &#013; Rule 1: Please enter maximum upto 50 characters. &#013;Rule 2: Whitespaces are not allowed. &#013;Rule 3: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." autofocus required pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]{0,49}$"  (keydown.space)="$event.preventDefault()" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Data Type</label>
@@ -229,8 +228,8 @@
                     <label>Header Value</label>
                 </div>
                 <div class="ui-g-4 configui-java-css" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')">
-                    <input name="headerVal" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.headerVal" title="Please enter valid Header value.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed."
-                        required pattern="[^\s]{0,49}$" ngModel/>
+                    <input name="headerVal" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.headerVal" title="Please enter valid Header value.   &#013; Rule 1 : Please enter maximum upto 50 characters.  &#013; Rule 2: Whitespaces are not allowed."
+                        required pattern="[^]{0,49}$" (keydown.space)="$event.preventDefault()"  ngModel/>
                 </div>
                 <!--</div>-->
             </div>
@@ -283,82 +282,54 @@
 
 <!--Form for adding Argument Type Rules-->
 <p-dialog class="profile-dialog" header="{{editArgumentRules ?'Edit Method Argument Rule(s)':'Add Method Argument Rule(s)'}}"
-    *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="900" responsive="true" [resizable]="false">
+    *ngIf="addArgumentRulesDialog" [(visible)]="addArgumentRulesDialog" modal="modal" width="620" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveArgumentRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="ui-g-2">
                     <label>Header Name</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
-                    <input name="headerName" type="text" size="15" pInputText [(ngModel)]="argumentTypeRules.headerName" title="Please enter valid rule name.  &#013;Please enter maximum upto 50 characters. "
-                        autofocus required pattern="[^]{0,49}$" ngModel/>
+                <div class="ui-g-4 configui-java-css">
+                    <input name="headerName" type="text" size="21" pInputText [(ngModel)]="argumentTypeRules.headerName" title="Please enter valid rule name. &#013;Rule 1: Please enter maximum upto 50 characters. &#013;Rule 2: Whitespaces are not allowed.   &#013;Rule 3: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." autofocus required pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]{0,49}$"  (keydown.space)="$event.preventDefault()" ngModel/>
                 </div>
                 <!-- <div class="ui-g-2"></div> -->
                 <div class="ui-g-2">
                     <label>Argument Index</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
+                <div class="ui-g-4 configui-java-css">
                     <input name="indexVal" type="text" size="15" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.indexVal"
                         required ngModel/>
-                    <p-dropdown name="indexVal" [style]="{'width': '93%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal"
+                    <p-dropdown name="indexVal" [style]="{'width': '88%'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal"
                         appendTo="body"></p-dropdown>
                 </div>
-                <div class="ui-g-1" style="margin-left:13px">
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-2" >
                     <label>Data Type</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
-                    <input name="type" type="text" size="15" style="margin-left:50px" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type"
+                <div class="ui-g-4 configui-java-css">
+                    <input name="type" type="text" size="15"  class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type"
                         required ngModel/>
-                    <p-dropdown name="type" [style]="{'width': '93%','margin-left':'50px'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type"
+                    <p-dropdown name="type" [style]="{'width': '88%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type"
                         placeholder="--Select--" appendTo="body"></p-dropdown>
                 </div>
-            </div>
-
-
-            <!--<div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label>Index</label>
-                </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="indexVal" type="text" size="30" pInputText [(ngModel)]="argumentTypeRules.indexVal" placeholder="Index" required ngModel/>
-                </div>
-            </div>-->
-
-            <!--<div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label>Index</label>
-                </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <p-dropdown name="type" [style]="{'width': '150px'}" placeholder="--Select--" [options]="indexList" [(ngModel)]="argumentTypeRules.indexVal" ></p-dropdown>
-                </div>
-            </div>-->
-
-
-            <div class="ui-g-12">
-                <!-- <div class="ui-g-2">
-                    <label>Data Type</label>
-                </div>
-                <div class="ui-g-3 configui-java-css">
-                    <input name="type" type="text" size="17" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.type" required ngModel/>
-                    <p-dropdown name="type" [style]="{'width': '96%'}" [options]="customValTypeList" [(ngModel)]="argumentTypeRules.type" placeholder="--Select--" appendTo="body"></p-dropdown>
-                </div> -->
-                <!-- <div class="ui-g-2"></div> -->
                 <div class="ui-g-2">
                     <label>Operation</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
+                <div class="ui-g-4 configui-java-css">
                     <input name="operationName" type="text" size="15" class='hidden-validator' pInputText [(ngModel)]="argumentTypeRules.operationName"
                         required ngModel/>
-                    <p-dropdown name="operationName" [style]="{'width': '93%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName"
+                    <p-dropdown name="operationName" [style]="{'width': '88%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName"
                         placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
                 </div>
+            </div>
+                <div class="ui-g-12">
                 <div class="ui-g-2">
                     <label>Header Value</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
-                    <input name="headerVal" type="text" size="15" pInputText [(ngModel)]="argumentTypeRules.headerVal" title="Please enter valid Header value.   &#013;Please enter maximum upto 50 characters. "
-                        required pattern="[^\s]{0,49}$" ngModel/>
+                <div class="ui-g-4 configui-java-css">
+                    <input name="headerVal" type="text"  size="21" pInputText [(ngModel)]="argumentTypeRules.headerVal" title="Please enter valid Header value.   &#013;Rule 1: Please enter maximum upto 50 characters. &#013;Rule 2: Whitespaces are not allowed "
+                        required pattern="[^]{0,49}$" (keydown.space)="$event.preventDefault()"  ngModel/>
                 </div>
             </div>
             <!--<div class="ui-g-12">
@@ -392,38 +363,23 @@
                 <div class="ui-g-2">
                     <label>Left Bound</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
-                    <input name="leftBound" type="text" size="15" pInputText [(ngModel)]="argumentTypeRules.lb" title="Please enter valid left bound.   &#013;Please enter maximum upto 50 characters."
+                <div class="ui-g-4 configui-java-css">
+                    <input name="leftBound" type="text" size="21" pInputText [(ngModel)]="argumentTypeRules.lb" title="Please enter valid left bound.   &#013;Please enter maximum upto 50 characters."
                         required pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right Bound</label>
                 </div>
                 <div class="ui-g-2 configui-java-css">
-                    <input name="rightBound" type="text" size="15" pInputText [(ngModel)]="argumentTypeRules.rb" title="Please enter valid right bound.   &#013;Please enter maximum upto 50 characters."
+                    <input name="rightBound" type="text" size="21" pInputText [(ngModel)]="argumentTypeRules.rb" title="Please enter valid right bound.   &#013;Please enter maximum upto 50 characters."
                         required pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
-
-            <!--<div class="ui-g-12" *ngIf="(argumentTypeRules.operation =='EXTRACT_SUBPART')">
-                <div class="ui-g-4">
-                    <label>Right Bound</label>
-                </div>
-                <div class="ui-g-8" style="margin-top: -5px">
-                    <input name="rightBound" type="text" size="30" pInputText [(ngModel)]="rightBoundArgument" placeholder=" Operation" required ngModel/>
-                </div>
-            </div>-->
-
-            <div class="ui-g-12">
-                <div class="ui-g-4">
+            <div class="ui-g-12" style="margin-left:5px">
                     <p-radioButton name="BusinessTransaction" value="0" label="Capture custom header" [(ngModel)]="argumentTypeRules.mode"></p-radioButton>
-                </div>
-                <div class="ui-g-1 configui-java-css-3">
-                    <p-radioButton name="BusinessTransaction " value="1 " [(ngModel)]="argumentTypeRules.mode "></p-radioButton>
-                </div>
-                <div class="ui-g-7">
-                    <label>Display custom header in method calling tree</label>
-                </div>
+            </div>
+            <div class="ui-g-12" style="margin-left:5px">
+                    <p-radioButton name="BusinessTransaction " value="1 " label="Display custom header in method calling tree" [(ngModel)]="argumentTypeRules.mode "></p-radioButton>
             </div>
         </div>
         <footer>
