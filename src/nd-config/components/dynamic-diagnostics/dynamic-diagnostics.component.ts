@@ -51,8 +51,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
     tierName: string;
     serverName: string;
     profileId: number;
-    saveChanges: boolean = false;
-    deleteFromServer: boolean = false;
+    saveChanges: boolean = true;
+    deleteFromServer: boolean = true;
 
     AIDDGUI: number;
     btNameList: SelectItem[];

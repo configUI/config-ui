@@ -252,13 +252,6 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPOLOGY_DC_ID}`, testRunNo);
   }
 
-
-
-
-
-
-
-
   getAutoInstrumentationData(data) {
     return this._restApi.getDataByPostReq(`${URL.GET_AUTO_INSTR_DATA_SUMMARY}`, data);
   }

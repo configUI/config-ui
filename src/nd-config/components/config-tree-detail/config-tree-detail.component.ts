@@ -562,7 +562,6 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   setTopologyData(data){ 
-    console.log("========== " ,data);
     this.showInstr = false;
     this.topologyData = data;
   }
