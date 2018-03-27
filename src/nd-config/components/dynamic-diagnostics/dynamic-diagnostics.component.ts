@@ -57,14 +57,14 @@ export class DynamicDiagnosticsComponent implements OnInit {
     AIDDGUI: number;
     btNameList: SelectItem[];
 
-    DDOrAIGUI:string;
-    accordionTab:number;
+    DDOrAIGUI: string;
+    accordionTab: number;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
         this.AIDDGUI = 0;
         this.DDOrAIGUI = this.passAIDDSettings[8];
-       
+
         this.serverEntity = this.passAIDDserverEntity;
         this.profileId = +this.passAIDDSettings[6];
         this.serverId = this.passAIDDSettings[5];
@@ -80,10 +80,9 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();
-        if(this.DDOrAIGUI != "ND ConfigUI")
-        {
-         this.other = this.passAIDDSettings[7];
-         this.ddAIData.bt = this.other;
+        if (this.DDOrAIGUI != "ND ConfigUI") {
+            this.other = this.passAIDDSettings[7];
+            this.ddAIData.bt = this.other;
         }
 
         let key = ['ALL'];
@@ -259,20 +258,20 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.ddAIData.testRun = +sessionStorage.getItem("isTrNumber");
         this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
         this.sessionName = this.autoInstrDto.sessionName
-        if(this.ddAIData.bt == 'Custom'){
+        if (this.ddAIData.bt == 'Custom') {
             this.ddAIData.bt = this.other
         }
-        if(this.retainchanges == true)
+        if (this.retainchanges == true)
             this.ddAIData.retainchanges = 0
         else
             this.ddAIData.retainchanges = 1
 
-        if(this.saveChanges == true)
+        if (this.saveChanges == true)
             this.ddAIData.saveAppliedChanges = 1
         else
             this.ddAIData.saveAppliedChanges = 0
 
-        if(this.deleteFromServer == true)
+        if (this.deleteFromServer == true)
             this.ddAIData.deleteFromServer = 1
         else
             this.ddAIData.deleteFromServer = 0
@@ -390,8 +389,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     }
 
-    createSessionName(bt){
-        if(bt != 'Custom'){
+    createSessionName(bt) {
+        if (bt != 'Custom') {
             this.ddAIData.sessionName = this.tierName + "_" + bt
         }
         else
@@ -402,14 +401,14 @@ export class DynamicDiagnosticsComponent implements OnInit {
     closeAutoInstrDDDialog() {
         this.closeAIDDGui.emit(false);
     }
-   flag:boolean; 
-   onTabOpen(e) {
-    if(e.index == 0)
-    this.accordionTab = 1;
-   }
+    
+    onTabOpen(e) {
+        if (e.index == 0)
+            this.accordionTab = 1;
+    }
     onTabClose(e) {
-    if(e.index == 0)
-        this.accordionTab = 0;
+        if (e.index == 0)
+            this.accordionTab = 0;
     }
 
 }
