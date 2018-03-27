@@ -1107,7 +1107,21 @@ body {
     overflow-x: hidden;
 }
 
-.ddaccordion .ui-accordion-content-wrapper.ng-trigger.ng-trigger-tabContent {
-    height: 195px;
+.ddaccordiongen .ui-accordion-content-wrapper.ng-trigger.ng-trigger-tabContent {
+    height: 182px;
     overflow: overlay;
+}
+
+.ddaccordionadv .ui-accordion-content-wrapper.ng-trigger.ng-trigger-tabContent {
+    height: 413px;
+    overflow: overlay;
+}
+
+.ddAIaccordion .ui-accordion-content.ui-widget-content {
+    padding: 0px 5px;
+}
+
+.profile-dialog .ui-dialog .ui-dialog-buttonpane {
+    margin: -10px 0px;
+    border: 0;
 }

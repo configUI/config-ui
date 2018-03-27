@@ -58,6 +58,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     btNameList: SelectItem[];
 
     DDOrAIGUI:string;
+    accordionTab:number;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
@@ -400,6 +401,15 @@ export class DynamicDiagnosticsComponent implements OnInit {
     //Close AI and DD Dialog 
     closeAutoInstrDDDialog() {
         this.closeAIDDGui.emit(false);
+    }
+   flag:boolean; 
+   onTabOpen(e) {
+    if(e.index == 0)
+    this.accordionTab = 1;
+   }
+    onTabClose(e) {
+    if(e.index == 0)
+        this.accordionTab = 0;
     }
 
 }
