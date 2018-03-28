@@ -82,8 +82,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();
         if (this.DDOrAIGUI != "ND ConfigUI") {
-            this.other = this.passAIDDSettings[7];
-            this.ddAIData.bt = this.other;
+           // this.other = this.passAIDDSettings[7];
+            this.ddAIData.bt = this.passAIDDSettings[7];
         }
 
         let key = ['ALL'];
@@ -104,10 +104,10 @@ export class DynamicDiagnosticsComponent implements OnInit {
             this.autoInstrDto.instanceId = this.currentInsId;
             this.autoInstrDto.type = this.currentInsType;
 
-            if (this.DDOrAIGUI != "ND ConfigUI")
+            if (this.DDOrAIGUI == "ND ConfigUI")
                 this.ddAIData.sessionName = this.tierName + "_" + "ALL";
             else
-                this.ddAIData.sessionName = this.tierName + "_" + this.other;
+                this.ddAIData.sessionName = this.tierName + "_" + this.passAIDDSettings[7];
 
             this.ddAIData.agentType = type;
             this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
@@ -293,7 +293,13 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();
-        this.autoInstrDto.sessionName = this.t_s_i_name
+        this.autoInstrDto.sessionName = this.t_s_i_name;
+
+        if (this.DDOrAIGUI != "ND ConfigUI")
+        {
+         this.ddAIData.bt = this.passAIDDSettings[7];
+         this.ddAIData.sessionName = this.tierName + "_" + this.passAIDDSettings[7];
+        }
     }
 
     // Create Tier_Server_Instance name
