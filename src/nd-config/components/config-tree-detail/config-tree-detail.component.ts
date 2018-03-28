@@ -547,7 +547,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       return;
     }
     this.passAIDDserverEntity = this.serverEntity;
-    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId];
+    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
     this.showInstr = true;
    }
 
@@ -562,7 +562,6 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   setTopologyData(data){ 
-    console.log("========== " ,data);
     this.showInstr = false;
     this.topologyData = data;
   }

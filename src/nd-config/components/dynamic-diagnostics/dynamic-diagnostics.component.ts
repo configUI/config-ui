@@ -1,15 +1,16 @@
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
-import { ConfigProfileService } from '../../services/config-profile.service';
-import { ConfigHomeService } from '../../services/config-home.service';
-import { ConfigTopologyService } from '../../services/config-topology.service';
-import * as URL from '../../constants/config-url-constant';
-import { ConfigUtilityService } from '../../services/config-utility.service';
-import { ConfigUiUtility } from '../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
-import { ConfigKeywordsService } from '../../services/config-keywords.service';
+
+import { TopologyInfo, TierInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../../modules/nd-config/interfaces/topology-info';
+import * as URL from '../../../modules/nd-config/constants/config-url-constant';
+import { ConfigUiUtility } from '../../../modules/nd-config//utils/config-utility';
+import { ConfigProfileService } from '../../../modules/nd-config/services/config-profile.service';
+import { ConfigHomeService } from '../../../modules/nd-config/services/config-home.service';
+import { ConfigTopologyService } from '../../../modules/nd-config/services/config-topology.service';
+import { ConfigUtilityService } from '../../../modules/nd-config/services/config-utility.service';
+import { ConfigKeywordsService } from '../../../modules/nd-config//services/config-keywords.service';
 
 @Component({
     selector: 'app-dynamic-diagnostics',
@@ -26,6 +27,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
     autoInstrObj: AutoInstrSettings;
     autoInstrDto: AutoIntrDTO;
     ddAIData: DDAIInfo;
+
+    retainchanges: boolean = true
 
     currentInstanceName: string;
     currentInsId: number;
@@ -49,13 +52,20 @@ export class DynamicDiagnosticsComponent implements OnInit {
     tierName: string;
     serverName: string;
     profileId: number;
+    saveChanges: boolean = true;
+    deleteFromServer: boolean = true;
 
     AIDDGUI: number;
     btNameList: SelectItem[];
+
+    DDOrAIGUI: string;
+    accordionTab: number;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
         this.AIDDGUI = 0;
+        this.DDOrAIGUI = this.passAIDDSettings[8];
+
         this.serverEntity = this.passAIDDserverEntity;
         this.profileId = +this.passAIDDSettings[6];
         this.serverId = this.passAIDDSettings[5];
@@ -70,26 +80,36 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
+        this.ddAIData = new DDAIInfo();
+        if (this.DDOrAIGUI != "ND ConfigUI") {
+            this.other = this.passAIDDSettings[7];
+            this.ddAIData.bt = this.other;
+        }
+
         let key = ['ALL'];
-        console.log("profile id == ", this.profileId)
         this.configKeywordsService.fetchBtNames(this.profileId).subscribe(data => {
-            this.ddAIData = new DDAIInfo();
             if (data.length > 0) {
                 key = key.concat(data)
             }
-            key.push('Other')
+            key.push('Custom')
             this.btNameList = ConfigUiUtility.createListWithKeyValue(key, key);
             this.currentInsId = id;
             this.currentInsType = type;
             this.currentInstanceName = name;
-            this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
+            this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
             //Getting data of settings from database if user has already saved this instance settings
             let instanceName = this.splitTierServInsName(this.currentInstanceName);
-            this.insName = this.createTierServInsName(this.currentInstanceName)
-            this.autoInstrDto.sessionName = instanceName
+            this.insName = this.createTierServInsName(this.currentInstanceName);
+            this.autoInstrDto.sessionName = instanceName;
             this.autoInstrDto.instanceId = this.currentInsId;
-            this.autoInstrDto.type = this.currentInsType
-            this.ddAIData.sessionName = instanceName
+            this.autoInstrDto.type = this.currentInsType;
+
+            if (this.DDOrAIGUI != "ND ConfigUI")
+                this.ddAIData.sessionName = this.tierName + "_" + "ALL";
+            else
+                this.ddAIData.sessionName = this.tierName + "_" + this.other;
+
+            this.ddAIData.agentType = type;
             this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
                 //Get settings from data if not null else create a new object
@@ -222,7 +242,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
                         })
                     }
                     else {
-                        this.configUtilityService.errorMessage("Could not start:" + res["_body"].substring("result=Error", res["_body"].lastIndexOf(";")))
+                        var msg = res["_body"].toString();
+                        this.configUtilityService.errorMessage("Could not start:" + msg.substring(msg.lastIndexOf('Error') + 5, msg.length))
                         this.closeAIDDGui.emit(false);
                         return
                     }
@@ -233,18 +254,33 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     applyDDAI() {
 
-        this.ddAIData.sessionName = this.splitTierServInsName(this.currentInstanceName)
+        // this.ddAIData.sessionName = this.splitTierServInsName(this.currentInstanceName)
 
         //Assigning - to cinfiguration as there is no need to add these settings in database
         this.autoInstrDto.configuration = "-"
         this.ddAIData.tier = this.tierName
         this.ddAIData.server = this.serverName
         this.ddAIData.instance = this.currentInstanceName
+        this.ddAIData.testRun = +sessionStorage.getItem("isTrNumber");
         this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
         this.sessionName = this.autoInstrDto.sessionName
-        if(this.ddAIData.bt == 'Other'){
+        if (this.ddAIData.bt == 'Custom') {
             this.ddAIData.bt = this.other
         }
+        if (this.retainchanges == true)
+            this.ddAIData.retainchanges = 0
+        else
+            this.ddAIData.retainchanges = 1
+
+        if (this.saveChanges == true)
+            this.ddAIData.saveAppliedChanges = 1
+        else
+            this.ddAIData.saveAppliedChanges = 0
+
+        if (this.deleteFromServer == true)
+            this.ddAIData.deleteFromServer = 1
+        else
+            this.ddAIData.deleteFromServer = 0
 
         this.autoInstrDto.duration = this.ddAIData.duration.toString()
 
@@ -359,10 +395,35 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     }
 
+    createSessionName(bt) {
+        if (bt != 'Custom') {
+            this.ddAIData.sessionName = this.tierName + "_" + bt
+        }
+        else
+            this.ddAIData.sessionName = this.tierName + "_" + this.other
+    }
+
     //Close AI and DD Dialog 
     closeAutoInstrDDDialog() {
         this.closeAIDDGui.emit(false);
     }
 
-}
+    onTabOpen(e) {
+        if (e.index == 0)
+            this.accordionTab = 1;
+    }
+    onTabClose(e) {
+        if (e.index == 0)
+            this.accordionTab = 0;
+    }
 
+}
+export interface ServerInfo {
+    serverId: number;
+    serverFileId: number;
+    serverDesc: string;
+    serverDisplayName: string;
+    serverName: string;
+    profileId: number;
+    profileName: string;
+}

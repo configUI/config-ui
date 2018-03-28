@@ -333,6 +333,7 @@ export const DURATION_OVER_UPDATION = `${SERVICE_URL}/custom/autoinstrumentation
 export const DELETE_AI = `${SERVICE_URL}/custom/autoinstrumentation/delete`;
 export const CHECK_INSTRUEMENTATION_XML_FILE_EXIST = `${SERVICE_URL}/custom/autoinstrumentation/checkinstrumentationxmlfileexist`;
 export const GET_TOPOLOGY_DC_ID = `${SERVICE_URL}/custom/autoinstrumentation/gettopodcid`;
+export const GET_AUTO_INSTR_DATA_SUMMARY = `${SERVICE_URL}/custom/autoinstrumentation/getaisummarydata`;
 
 export const DEL_HTTP_REP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/delete`;
 export const ADD_HTTP_REP_HDR = `${SERVICE_URL}/custom/httprepbasedcapturing/addhttprephdr`;

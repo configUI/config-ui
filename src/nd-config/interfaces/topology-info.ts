@@ -80,10 +80,10 @@ export class DDAIInfo{
     server: string =""
     instance: string  = ""
     duration: number = 600
-    retainchanges: number = 1
+    retainchanges: number = 0
     dump_data: number = 0
     stackDepthFilter: number = 10
-    ddsampleInterval: number = 10
+    ddsampleInterval: number = 30
     ddtraceLevel: number = 1
     autoInstrsampleThreshold: number = 1000
     instrPct: number = 50
@@ -98,8 +98,20 @@ export class DDAIInfo{
     ddaibtblackList: string = ""
     ddaibtwhiteList: string = ""
     acknowledgeMode: string = ""
-    completionMode: number = 1
-    applyMode: number = 0
+    completionMode: number = 2
+    applyMode: number = 2
     saveAppliedChanges: number = 1
-    deleteFromServer: number = 7
+    deleteFromServer: number = 1
+    agentType: string = ""
+    sessionId: number
+    message: string = "";
+}
+
+//Class for Auto-Instrumentation Summary
+export class AutoInstrSummaryData {
+    packageName:string;
+    className:string;
+    methodName:string;
+    count:number;
+    duration:number;
 }

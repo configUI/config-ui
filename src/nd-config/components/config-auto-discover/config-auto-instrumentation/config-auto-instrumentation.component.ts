@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AutoIntrDTO } from '../../../interfaces/topology-info';
+import { AutoIntrDTO, AutoInstrSummaryData } from '../../../interfaces/topology-info';
 import { ConfigTopologyService } from '../../../services/config-topology.service';
 import { ConfigHomeService } from '../../../services/config-home.service';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
@@ -28,6 +28,11 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   isAutoPerm: boolean;
   isTestRun: boolean;
   className: string = "Auto Instrument Component";
+  autoInstrumentationDialog : boolean;
+  autoInstrSummaryData : AutoInstrSummaryData[] = [];
+  sessionFileNameForAISummary:string;
+
+
 
   constructor(private configTopologyService: ConfigTopologyService, private router: Router, private configUtilityService: ConfigUtilityService,
     private configHomeService: ConfigHomeService, private configApplicationService: ConfigApplicationService
@@ -99,6 +104,7 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   openGUIForAutoInstrumentation(sessionFileName,AgentType) {
     let sessionFileNameWithAgentType : string;
     sessionFileNameWithAgentType = sessionFileName + "_AI.txt" + "#" + AgentType;
+
     this.configTopologyService.getSessionFileExistOrNot(sessionFileNameWithAgentType).subscribe(data => {
       var status = data['_body'].split("#");
       if (status[1] == "NotEmpty" && status[0] == "Empty") {
@@ -154,9 +160,9 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
     })
   }
 
-  delete(sessionName, instanceName, agentType) {
+  delete(sessionName, instanceName, agentType, instanceId) {
     let that = this;
-    this.configTopologyService.deleteAI(sessionName + "#" + instanceName + "#" + agentType).subscribe(data => {
+    this.configTopologyService.deleteAI(sessionName + "#" + instanceName + "#" + agentType, instanceId).subscribe(data => {
       this.configUtilityService.infoMessage("Deleted successfully");
       this.configTopologyService.updateAIDetails().subscribe(data => {
         that.checkForCompleteOrActive(data)
@@ -180,6 +186,49 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
           }
         }
       });
+    })
+  }
+  /**
+   * autoInstrSummary method is used for Auto-Instrumentation Summary
+   * It will further invoke loadAutoInstrSummaryData method which retrieve the data from
+   * server and show on GUI
+   * @param sessionFileName 
+   * @param AgentType 
+   */
+  autoInstrSummary(sessionFileName,AgentType){
+      this.sessionFileNameForAISummary = sessionFileName;
+      let sessionFileNameWithAgentType : string;
+      sessionFileNameWithAgentType = sessionFileName + "_AI.txt" + "#" + AgentType;
+      this.configTopologyService.getSessionFileExistOrNot(sessionFileNameWithAgentType).subscribe(data => {
+        var status = data['_body'].split("#");
+        if (status[0] == "Fail") {
+          this.configUtilityService.errorMessage("Session file does not exists. Download it ");
+          return;
+        }
+        else if (status[0] == "Empty") {
+          this.configUtilityService.errorMessage("Session file is empty.");
+          return;
+        }
+        else if (status[0] == "WrongPattern") {
+          this.configUtilityService.errorMessage("Wrong Pattern: select another file");
+          return;
+        }
+        else{
+             this.loadAutoInstrSummaryData(sessionFileNameWithAgentType);
+        }
+      });
+  }
+  
+
+  loadAutoInstrSummaryData(sessionFileNameWithAgentType){
+    this.configTopologyService.getAutoInstrumentationData(sessionFileNameWithAgentType).subscribe(data => {
+      console.log("data is=====>",data)
+          if(data == undefined || data.length == 0){
+             this.configUtilityService.errorMessage("File is empty");
+             return;
+          }
+           this.autoInstrumentationDialog = true;
+           this.autoInstrSummaryData =  data;
     })
   }
 }

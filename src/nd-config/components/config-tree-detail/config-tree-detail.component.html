@@ -65,6 +65,6 @@
 </p-dialog>
 
 <!-- Dialog for Auto Instrumentation settings -->
-<p-dialog class="profile-dialog headerCss" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" [contentStyle]="{'max-height':'605px'}" responsive="true">
+<p-dialog class="profile-dialog headerCss" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" [contentStyle]="{'max-height':'560px'}" responsive="true">
     <app-dynamic-diagnostics (closeAIDDGui)="closeAIDDDialog($event)" (topologyData)="setTopologyData($event)" [passAIDDSettings]="passAIDDSettings" [passAIDDserverEntity]="passAIDDserverEntity"></app-dynamic-diagnostics>
 </p-dialog>

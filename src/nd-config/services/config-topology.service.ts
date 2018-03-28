@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../interfaces/topology-info';
+import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo, AutoInstrSummaryData } from '../interfaces/topology-info';
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
@@ -230,7 +230,6 @@ export class ConfigTopologyService {
   downloadFile(data) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
   }
-
   //Update AI enable in Instance table
   updateAIEnable(instanceId, flag, type) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}`, flag);
@@ -245,11 +244,18 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReq(`${URL.DELETE_TOPOLOGY}`, ids);
   }
 
-  deleteAI(data): Observable<boolean> {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_AI}`, data);
+  deleteAI(data,instanceId): Observable<boolean> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_AI}/${instanceId}`, data);
   }
 
   getTopologyDCID(testRunNo){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPOLOGY_DC_ID}`, testRunNo);
   }
+
+  getAutoInstrumentationData(data) {
+    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_INSTR_DATA_SUMMARY}`, data);
+  }
 }
+
+
+
