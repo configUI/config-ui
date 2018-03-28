@@ -302,6 +302,15 @@
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
+                        <div class="ui-g-7">
+                            <label>Dump data</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="number" size='20' name="dumpdata" [(ngModel)]="ddAIData['dump_data']" pInputText min=0 max=2 class="text-width" required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 divCss">
                         <div class="ui-g-4">
                             <label>Thread blacklist filter </label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
