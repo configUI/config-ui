@@ -294,12 +294,14 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();
         this.autoInstrDto.sessionName = this.t_s_i_name;
-
+        
         if (this.DDOrAIGUI != "ND ConfigUI")
         {
          this.ddAIData.bt = this.passAIDDSettings[7];
          this.ddAIData.sessionName = this.tierName + "_" + this.passAIDDSettings[7];
         }
+        else
+          this.ddAIData.sessionName = this.tierName + "_" + this.ddAIData.bt;
     }
 
     // Create Tier_Server_Instance name
