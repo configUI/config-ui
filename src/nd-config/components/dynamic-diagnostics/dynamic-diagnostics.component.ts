@@ -1,15 +1,16 @@
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { TopologyInfo, TierInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
-import { ConfigProfileService } from '../../services/config-profile.service';
-import { ConfigHomeService } from '../../services/config-home.service';
-import { ConfigTopologyService } from '../../services/config-topology.service';
-import * as URL from '../../constants/config-url-constant';
-import { ConfigUtilityService } from '../../services/config-utility.service';
-import { ConfigUiUtility } from '../../utils/config-utility';
 import { SelectItem } from 'primeng/primeng';
-import { ConfigKeywordsService } from '../../services/config-keywords.service';
+
+import { TopologyInfo, TierInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../../modules/nd-config/interfaces/topology-info';
+import * as URL from '../../../modules/nd-config/constants/config-url-constant';
+import { ConfigUiUtility } from '../../../modules/nd-config//utils/config-utility';
+import { ConfigProfileService } from '../../../modules/nd-config/services/config-profile.service';
+import { ConfigHomeService } from '../../../modules/nd-config/services/config-home.service';
+import { ConfigTopologyService } from '../../../modules/nd-config/services/config-topology.service';
+import { ConfigUtilityService } from '../../../modules/nd-config/services/config-utility.service';
+import { ConfigKeywordsService } from '../../../modules/nd-config//services/config-keywords.service';
 
 @Component({
     selector: 'app-dynamic-diagnostics',
@@ -95,15 +96,20 @@ export class DynamicDiagnosticsComponent implements OnInit {
             this.currentInsId = id;
             this.currentInsType = type;
             this.currentInstanceName = name;
-            this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName")
+            this.autoInstrDto.appName = sessionStorage.getItem("selectedApplicationName");
             //Getting data of settings from database if user has already saved this instance settings
             let instanceName = this.splitTierServInsName(this.currentInstanceName);
-            this.insName = this.createTierServInsName(this.currentInstanceName)
-            this.autoInstrDto.sessionName = instanceName
+            this.insName = this.createTierServInsName(this.currentInstanceName);
+            this.autoInstrDto.sessionName = instanceName;
             this.autoInstrDto.instanceId = this.currentInsId;
-            this.autoInstrDto.type = this.currentInsType
-            this.ddAIData.sessionName = this.tierName + "_" + "ALL"
-            this.ddAIData.agentType = type
+            this.autoInstrDto.type = this.currentInsType;
+
+            if (this.DDOrAIGUI != "ND ConfigUI")
+                this.ddAIData.sessionName = this.tierName + "_" + "ALL";
+            else
+                this.ddAIData.sessionName = this.tierName + "_" + this.other;
+
+            this.ddAIData.agentType = type;
             this.configTopologyService.getAutoInstr(this.autoInstrDto.appName, instanceName, this.sessionName).subscribe(data => {
 
                 //Get settings from data if not null else create a new object
@@ -401,7 +407,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
     closeAutoInstrDDDialog() {
         this.closeAIDDGui.emit(false);
     }
-    
+
     onTabOpen(e) {
         if (e.index == 0)
             this.accordionTab = 1;
