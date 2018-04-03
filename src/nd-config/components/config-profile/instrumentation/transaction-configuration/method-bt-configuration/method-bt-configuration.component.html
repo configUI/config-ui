@@ -17,7 +17,7 @@
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
     </p-column>
-    <p-column class="col-overflow" field="capturingType" header="BT Name" [sortable]="true">
+    <p-column class="col-overflow" field="capturingType" header="Capturing Type" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
@@ -153,7 +153,7 @@
 
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <input name="btName" type="text" pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                    <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
                         required ngModel/>
                 </div>
                 <div class="ui-g-4">
@@ -161,7 +161,7 @@
                     <p-dropdown name="operationName" [options]="operationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" appendTo="body"></p-dropdown>
                 </div>
                 <div class="ui-g-4">
-                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" autofocus required (keydown.space)="$event.preventDefault()" required pattern="[a-zA-Z0-9]+[0-9a-zA-Z]*$" ngModel />
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." required (keydown.space)="$event.preventDefault()" ngModel />
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-4">
-                    <input name="btName" type="text" pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[_@.#%-]*[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                    <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
                         required ngModel/>
                 </div>
                 <div class="ui-g-4">
@@ -200,7 +200,7 @@
                     <p-dropdown name="operationName" [options]="operationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
                 </div>
                 <div class="ui-g-4">
-                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" (keydown.space)="$event.preventDefault()" required pattern="[a-zA-Z0-9]+[0-9a-zA-Z]*$" autofocus required ngModel/>
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" required ngModel/>
                 </div>
             </div>
         </div>

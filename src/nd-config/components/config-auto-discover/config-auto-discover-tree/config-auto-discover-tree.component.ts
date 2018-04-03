@@ -151,18 +151,18 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
     getValuesForSelectedList() {
         this.selectedNodes = [];
+        this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
+        if (this.selectedNodes.length == 0) {
+            this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
+            return; 
+        }
         if(this.isNodeSelected == false)
         {
             this.configUtilityService.errorMessage("Same Package,Class and Method name already instrumented");
             return;  
         }
-        this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
-        if (this.selectedNodes.length == 0) {
-            this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
-            return;
-        }
-
-        this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
+        
+	this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
             this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {

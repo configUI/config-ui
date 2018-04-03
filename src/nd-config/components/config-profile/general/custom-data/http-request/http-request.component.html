@@ -116,7 +116,7 @@
                     <label>Custom Header Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Custom Header Name.  &#013;Please enter maximum upto 50 characters." required pattern="[a-zA-Z0-9_-]*" ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Custom Header Name. &#013;Rule 1: Please enter maximum upto 50 characters. &#013;Rule 2: Whitespaces are not allowed &#013;Rule 3: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]{0,49}$" (keydown.space)="$event.preventDefault()"  ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Data Type</label>
