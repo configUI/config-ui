@@ -1,21 +1,16 @@
-<!--<p>
-  java-method works!
-</p>-->
-
 <!--For showing Method Based Custom Data-->
 <p-dataTable class="nde-ui" [value]="tableData" [(selection)]="selectedJavaMethod" [rows]="6" [paginator]="tableData?.length > 6"
     [pageLinks]="3">
     <p-header>
         <span class="configui-float-css"> Method Based Custom Header Rule(s)</span>
         <span class="configui-float">
-
-                       <button pButton type="button" title="Add" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
-                       <button pButton type="button" title="Add" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" ></button>
-                       <button pButton type="button" title="Edit" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button" class="ui-button-danger" title="Delete" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
-                       <button pButton type="button" class="ui-button-danger" title="Delete"  *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
-                   </span>
+            <button pButton type="button" title="Add" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+            <button pButton type="button" title="Add" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" ></button>
+            <button pButton type="button" title="Edit" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openEditDialog()" icon="fa-pencil" ></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete"  *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteJavaMethod()" icon="fa-trash"></button>
+        </span>
     </p-header>
     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -93,7 +88,7 @@
                         <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column ngIfclass="col-overflow" [style]="{'width':'20%'}" field="headerVal" header="Header Value" [sortable]="true">
+                <p-column ngIfclass="col-overflow" [style]="{'width':'20%'}" field="operatorValue" header="Operation Value" [sortable]="true">
                     <template let-col let-application="rowData">
                         <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -105,9 +100,6 @@
                         <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-
-
-
             </p-dataTable>
         </div>
 
@@ -156,7 +148,7 @@
                         <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
                 </p-column>
-                <p-column class="col-overflow" [style]="{'width':'15%'}" field="headerVal" header="Header Value" [sortable]="true">
+                <p-column class="col-overflow" [style]="{'width':'15%'}" field="operatorValue" header="Operation Value" [sortable]="true">
                     <template let-col let-application="rowData">
                         <!--<span title="{{application[col.field]}}">{{application[col.field]}}</span>-->
                     </template>
@@ -225,10 +217,10 @@
                         placeholder=" --Select-- " appendTo="body"></p-dropdown>
                 </div>
                 <!--<div class="ui-g-6" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')">-->
-                <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')">
+                <div class="ui-g-2" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')&&!(returnTypeRules.operation =='INVOCATION')">
                     <label>Header Value</label>
                 </div>
-                <div class="ui-g-4 configui-java-css" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')">
+                <div class="ui-g-4 configui-java-css" *ngIf="!(returnTypeRules.operation =='CAPTURE')&&!(returnTypeRules.operation =='EXCEPTION')&&!(returnTypeRules.operation =='EXTRACT_SUBPART')&&!(returnTypeRules.operation =='INVOCATION')">
                     <input name="headerVal" type="text" size="21" pInputText [(ngModel)]="returnTypeRules.headerVal" title="Please enter valid Header value.   &#013;Please enter maximum upto 50 characters.  &#013;Whitespaces are not allowed."
                         required pattern="[^\s]{0,49}$" ngModel/>
                 </div>
@@ -353,10 +345,10 @@
                     <p-dropdown name="operationName" [style]="{'width': '93%'}" [options]="operationList" [(ngModel)]="argumentTypeRules.operationName"
                         placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
                 </div>
-                <div class="ui-g-2">
+                <div class="ui-g-2" *ngIf="!(argumentTypeRules.operationName =='CAPTURE')&&!(argumentTypeRules.operationName =='EXCEPTION')&&!(argumentTypeRules.operationName =='EXTRACT_SUBPART')&&!(argumentTypeRules.operationName =='INVOCATION')">
                     <label>Header Value</label>
                 </div>
-                <div class="ui-g-2 configui-java-css">
+                <div class="ui-g-2 configui-java-css" *ngIf="!(argumentTypeRules.operationName =='CAPTURE')&&!(argumentTypeRules.operationName =='EXCEPTION')&&!(argumentTypeRules.operationName =='EXTRACT_SUBPART')&&!(argumentTypeRules.operationName =='INVOCATION')">
                     <input name="headerVal" type="text" size="15" pInputText [(ngModel)]="argumentTypeRules.headerVal" title="Please enter valid Header value.   &#013;Please enter maximum upto 50 characters. "
                         required pattern="[^\s]{0,49}$" ngModel/>
                 </div>

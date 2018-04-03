@@ -117,3 +117,25 @@
 
   <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer>  -->
 </p-dialog>
+
+<!--Dialog to open export file profile dialog -->
+<p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Export" *ngIf="exportDialog" [(visible)]="exportDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+  <form (ngSubmit)="saveExportpath()" #groupForm="ngForm" ngNativeValidate>
+    <div class="ui-g">
+      <div class="ui-g-3">
+          <label>Import-Export</label>
+          <i class="fa fa-info-circle" aria-hidden="true" title="The provided value is the desired path on which user wants to export the profile"></i>
+      </div>
+      <div class="ui-g-9">
+          <input name="exportPath" type="text" style="width:100%" class="configui-hotspot-css" title="Please enter a valid path"
+              pInputText [(ngModel)]= "exportPath" ngModel />
+      </div>
+    </div>
+    <footer>
+      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button type="submit" pButton icon="fa-check" label="Save"></button>
+        <button type="button" pButton icon="fa-close" (click)="exportDialog=false" label="Cancel"></button>
+      </div>
+    </footer>
+  </form>
+</p-dialog>

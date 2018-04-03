@@ -73,8 +73,8 @@ export class ConfigProfileService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.IMPORT_PROFILE}/${username}`, filePath);
   }
 
-  exportProfile(profileName,exportPath): Observable<any>{
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.EXPORT_PROFILE}/${profileName}`, exportPath);
+  exportProfile(exportPath,data): Observable<any>{
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.EXPORT_PROFILE}/${exportPath}`, data);
   }
 
 }
