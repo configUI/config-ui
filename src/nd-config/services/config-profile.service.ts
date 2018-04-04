@@ -61,8 +61,12 @@ export class ConfigProfileService {
     return this._restApi.getDataByGetReq(`${URL.GET_PROFILE_NAME}/${profileId}`);
   }
 
-  deleteProfileData(data): Observable<any>{
+/*  deleteProfileData(data): Observable<any>{
     return this._restApi.getDataByPostReq(URL.DEL_PROFILE, data);
+  }
+*/
+  deleteProfileData(data): Observable<any>{
+    return this._restApi.getDataByPostReqWithNoJSON(URL.DEL_PROFILE, data);
   }
 
   getProfileAgent(profileName): Observable<any>{
