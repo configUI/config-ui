@@ -39,6 +39,8 @@ export class ConfigProfileListComponent implements OnInit {
   isProfileListBrowse: boolean = false;
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
   exportPath: string;
+  exportDialog: boolean;
+  abcObj:abc;
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
@@ -171,9 +173,9 @@ export class ConfigProfileListComponent implements OnInit {
 
         this.configProfileService.deleteProfileData(this.selectedProfileData[0].profileId).subscribe(data => {
           // If profile is applied to any topology
-          if (data != "") {
+          if (data._body != "ok") {
             this.showMsg = true;
-            this.displayErrMsg = data.split(";");
+            this.displayErrMsg = data._body.split(";");
             this.displayErrMsg.pop();
           }
           // If profile is not applied to any topology
@@ -217,18 +219,36 @@ export class ConfigProfileListComponent implements OnInit {
 
   exportProfile(){
     if (!this.selectedProfileData || this.selectedProfileData.length < 1) {
-      this.configUtilityService.errorMessage("Select a profile to export");
-      return;
-    }
-    if (this.selectedProfileData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one profile to export")
+      this.configUtilityService.errorMessage("Select profile(s) to export");
       return;
     }
 
-    this.configProfileService.exportProfile(this.selectedProfileData[0].profileName,this.exportPath).subscribe(data => {
+    for(let i = 0; i< this.selectedProfileData.length; i++){
+      if(this.selectedProfileData[i].profileId == 1 || this.selectedProfileData[i].profileId == 777777 || this.selectedProfileData[i].profileId == 888888){
+        this.configUtilityService.errorMessage("Default profiles cannot be exported");
+        return;
+      }
+    }
+    this.exportDialog = true;
+  }
+
+  saveExportpath(){
+    let selectedApp = this.selectedProfileData;
+    let arrIndex = [];
+    for (let index in selectedApp) {
+      arrIndex.push(selectedApp[index].profileName);
+    }
+
+    if(this.exportPath == "" || this.exportPath == null || this.exportPath == undefined){
+      this.exportPath = "defaultPath";
+    }
+    // this.abcObj.path = this.exportPath;
+    // this.abcObj.profileArray = arrIndex;
+    // console.log("-------------this.abcObj--------------",this.abcObj)
+    this.configProfileService.exportProfile(this.exportPath,arrIndex).subscribe(data => {
       this.configUtilityService.successMessage("Exported successfully");
+      this.exportDialog = false;
     })
-
   }
 
  /**used to open file manager
@@ -259,4 +279,9 @@ export class ConfigProfileListComponent implements OnInit {
         }
       }
          
+}
+
+class abc{
+  path: string
+  profileArray: any
 }

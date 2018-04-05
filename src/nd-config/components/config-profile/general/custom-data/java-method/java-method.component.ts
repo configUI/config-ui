@@ -34,7 +34,6 @@ export class JavaMethodComponent implements OnInit {
   /**For open/close add/edit dialog */
   addEditDialog: boolean = false;
 
-
   /**It stores selected data for edit or add functionality */
   methodBasedCustomData: MethodBasedCustomData;
 
@@ -42,10 +41,8 @@ export class JavaMethodComponent implements OnInit {
 
   selectedArgumentRules:ArgumentTypeData[];
 
-
   /**It stores selected java method selected data */
   selectedJavaMethod: MethodBasedCustomData[];
-
 
   /** for holding form fields */
   returnTypeRules: ReturnTypeData;
@@ -59,29 +56,22 @@ export class JavaMethodComponent implements OnInit {
 
   indexList:SelectItem[];
 
-
   first:boolean;
   second:boolean;
 
-
   returnRulesDelete=[];
   argumentRulesDelete=[];
-
-
 
 //flag used for titles in edit dialog of rules
   editReturnRules :boolean = false;
   editArgumentRules:boolean = false;
   
-
-
 //these counter varaiable are used for providing unique id to ruleas added so that we can use it for delete and edit purpose
   returnCounter:number =0;
   argumentCounter:number = 0;
 
   returnCounterEdit :number= 0;
   argumentCounterEdit :number= 0;
-
 
   /* store operation list */
   operationList: SelectItem[];
@@ -98,11 +88,8 @@ export class JavaMethodComponent implements OnInit {
   leftBoundArgument:any;
   rightBoundArgument:any;
 
-
-
   arrStringLabel: any[] = ['Capture', 'Extract_Subpart', 'Invocation', 'Equals', 'Not Equals', 'Contains', 'Starts With', 'Ends With', 'Exception'];
   arrStringValue: any[] = ['CAPTURE', 'EXTRACT_SUBPART', 'INVOCATION', 'EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
-
 
   arrNumericLabel: any[] = ['Capture', 'Invocation', 'Exception', 'Equals', 'Not Equals', 'Less Than', 'Greater Than', 'Less Than Equals To', 'Greater Than Equal To'];
   arrNumericValue: any[] = ['CAPTURE', 'INVOCATION', 'EXCEPTION', 'EQ', 'NE', 'LT', 'GT', 'LE', 'GE'];
@@ -150,7 +137,6 @@ export class JavaMethodComponent implements OnInit {
   }
   profileId: number;
 
-
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadJavaMethodBasedCustomData()
@@ -169,7 +155,6 @@ export class JavaMethodComponent implements OnInit {
     this.customValTypeList = ConfigUiUtility.createListWithKeyValue(arrLabel, arrValue);
   }
 
-
   /* these functions are used in order to form the data as per requiremet of data to be
   *  is table screen i,e.
   * adding an extra key -value pair in each object.
@@ -178,11 +163,9 @@ export class JavaMethodComponent implements OnInit {
   *
   *
   */
-
   modifyData(data) {
     let that = this;
     data.map(function (val) {
-
       if (val.returnTypeData != null && val.returnTypeData.length != 0) {
         let hdrNames = that.getHdrNames(val.returnTypeData);
         val.returnTypeValue = hdrNames
@@ -201,7 +184,6 @@ export class JavaMethodComponent implements OnInit {
     })
     this.tableData = data
   }
-
 
   getHdrNames(data) {
     let hdrNamesHref = '';
@@ -238,7 +220,6 @@ export class JavaMethodComponent implements OnInit {
       return;
     }
     else{
-
       let that = this;
       this.methodBasedCustomData = this.selectedJavaMethod[0];
       this.returnTypeData = this.selectedJavaMethod[0].returnTypeData;
@@ -262,10 +243,7 @@ export class JavaMethodComponent implements OnInit {
     }
   }
 
-
-  
   saveEditData(fqmField) {
-
     //openAddReturnRulesDialog()
     if (this.first) {
       this.first = false;
@@ -321,8 +299,8 @@ export class JavaMethodComponent implements OnInit {
             })
           })
         })
-
       }
+
       else {
         if (this.methodBasedCustomData.enableArgumentType == false && this.methodBasedCustomData.enableReturnType == false) {
           this.configUtilityService.errorMessage("Choose atleast one capturing type");
@@ -350,11 +328,9 @@ export class JavaMethodComponent implements OnInit {
   /**For close add/edit dialog box */
   closeDialog(): void {
     this.addEditDialog = false;
-
   }
 
   openAddReturnRulesDialog() {
-
     this.addReturnRulesDialog = true;
     this.editReturnRules = false;
     this.returnTypeRules = new ReturnTypeData()
@@ -373,7 +349,6 @@ export class JavaMethodComponent implements OnInit {
     if (fqm != null) {
       let li = fqm.indexOf(')');
       let i = li + 1;
-
       let pi = 1;
       let charArr = fqm.split('');
       //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
@@ -419,7 +394,6 @@ export class JavaMethodComponent implements OnInit {
   }
 
   opValList(type) {
-
     let opList = [];
     if (type == "object/string")
       this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
@@ -441,7 +415,7 @@ export class JavaMethodComponent implements OnInit {
       this.configUtilityService.errorMessage("Select row(s) to delete");
     }
     else{
-
+      
       let selectedRules = this.selectedReturnRules;
       let arrAppIndex = [];
       for (let index in selectedRules) {
@@ -457,7 +431,7 @@ export class JavaMethodComponent implements OnInit {
     this.selectedReturnRules = [];
   }
 
-//deletimg Argument rules
+//deleting Argument rules
   deleteArgumentsRules():void{
      if (!this.selectedArgumentRules || this.selectedArgumentRules.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");
@@ -478,28 +452,6 @@ export class JavaMethodComponent implements OnInit {
       this.selectedArgumentRules = [];
   }
 
-
-
-   /**This method is used to delete Rules from Data Table */
-  deleteRulesFromTable(arrRulesIndex: any[]): void {
-    //For stores table row index
-    let rowIndex: number[] = [];
-
-    for (let index in arrRulesIndex) {
-     //rowIndex.push(this.getRulesIndex(arrRulesIndex[index]));
-    }
-    //this.rulesDataInfo = deleteMany(this.rulesDataInfo, rowIndex);
-  }
-  // /**This method returns selected Rules row on the basis of selected row */
-  // getRulesIndex(appId: any): number {
-  //   // for (let i = 0; i < this.rulesDataInfo.length; i++) {
-  //   //  if (this.rulesDataInfo[i].valName == appId) {
-  //   //     return i;
-  //   //   }
-  //   // }
-  //   // return -1;
-  // }
-
   getTypeName(type){
     let typeName = '';
     if(type == 0)
@@ -513,31 +465,37 @@ export class JavaMethodComponent implements OnInit {
   }
 
    saveReturnRules() {
-     if(this.returnTypeRules.operatorValue == undefined){
-      this.returnTypeRules.operatorValue = "-" ;
+     if(this.returnTypeRules.headerVal == undefined){
+      this.returnTypeRules.operatorValue = "NA" ;
+      this.returnTypeRules.headerVal = "NA" ;
     }
-    if(this.returnTypeRules.operation== 'EXTRACT_SUBPART'){
+    if(this.returnTypeRules.operation == 'EXTRACT_SUBPART'){
        this.returnTypeRules.operatorValue = this.returnTypeRules.lb + "-" + this.returnTypeRules.rb ;
+       this.returnTypeRules.headerVal = this.returnTypeRules.lb + "-" + this.returnTypeRules.rb ;
     }
+    if(this.returnTypeRules.operation != 'EXTRACT_SUBPART'){
+      this.returnTypeRules.lb = '';
+      this.returnTypeRules.rb = '';
+    }
+    this.returnTypeRules.operatorValue = this.returnTypeRules.headerVal;
     if(!this.isNew){
 
       /*****************for EDIT form  ********************/
-
       /*  In edit form,
        *    for edit functionality
        */
       if(this.editReturnRules){
         this.editReturnRules = false
-
-        if(this.returnTypeRules.operation =='CAPTURE'||this.returnTypeRules.operation =='EXCEPTION'||this.returnTypeRules.operation =='EXTRACT_SUBPART'){
-            this.returnTypeRules.operatorValue = '-';
+        if(this.returnTypeRules.operation =='CAPTURE'||this.returnTypeRules.operation =='EXCEPTION'||this.returnTypeRules.operation =='INVOCATION'){
+            this.returnTypeRules.operatorValue = 'NA';
+            this.returnTypeRules.headerVal = 'NA';
         }
         let that = this
         this.returnTypeData.map(function(val){
           if(val.id == that.returnTypeRules.id){
             val.headerName = that.returnTypeRules.headerName;
             val.operation = that.returnTypeRules.operation;
-            val.operatorValue = that.returnTypeRules.operatorValue;
+            val.operatorValue = that.returnTypeRules.headerVal;
             val.typeName = that.getTypeName(that.returnTypeRules.type);
             val.indexVal = that.returnTypeRules.indexVal;
             val.type = that.returnTypeRules.type;
@@ -549,8 +507,8 @@ export class JavaMethodComponent implements OnInit {
         })
         this.selectedReturnRules = [];
       }
+
       else{
-      
       this.returnTypeRules["id"] = this.returnCounterEdit ;
       this.returnTypeRules["typeName"] = this.getTypeName(this.returnTypeRules.type) ;
       // this.returnTypeData.push(this.returnTypeRules)
@@ -560,25 +518,22 @@ export class JavaMethodComponent implements OnInit {
     }
 
     else{
-
       /*********** for ADD form *******************/
-
        /*  In add form,
         *  for edit functionality
-        */
-     
+        */   
       if(this.editReturnRules){
         this.editReturnRules = false
-
-        if(this.returnTypeRules.operation =='CAPTURE'||this.returnTypeRules.operation =='EXCEPTION'||this.returnTypeRules.operation =='EXTRACT_SUBPART'){
-            this.returnTypeRules.operatorValue = '-';
+        if(this.returnTypeRules.operation =='CAPTURE'||this.returnTypeRules.operation =='EXCEPTION'||this.returnTypeRules.operation =='INVOCATION'){
+            this.returnTypeRules.operatorValue = 'NA';
+            this.returnTypeRules.headerVal = 'NA';
         }
         let that = this
         this.returnTypeData.map(function(val){
           if(val.id == that.returnTypeRules.id){
             val.headerName = that.returnTypeRules.headerName;
             val.operation = that.returnTypeRules.operation;
-            val.operatorValue = that.returnTypeRules.operatorValue;
+            val.operatorValue = that.returnTypeRules.headerVal;
             val.typeName = that.getTypeName(that.returnTypeRules.type);
             val.indexVal = that.returnTypeRules.indexVal;
             val.type = that.returnTypeRules.type;
@@ -590,8 +545,8 @@ export class JavaMethodComponent implements OnInit {
         })
         this.selectedReturnRules = [];
       }
-      else{
 
+      else{
         /* In add form,
         *    for add functinality
         */
@@ -600,31 +555,41 @@ export class JavaMethodComponent implements OnInit {
       // this.returnTypeData.push(this.returnTypeRules);
       this.returnTypeData=ImmutableArray.push(this.returnTypeData,this.returnTypeRules);
       // this.configUtilityService.successMessage(Messages);
-
       this.returnCounter = this.returnCounter + 1;
       }
     }
      this.addReturnRulesDialog = false;
   }
 
-
   saveArgumentRules() {
-    if(this.argumentTypeRules.operatorValue == undefined){
-      this.argumentTypeRules.operatorValue = "-" ;
+    if(this.argumentTypeRules.headerVal == undefined){
+      this.argumentTypeRules.headerVal = "NA" ;
+      this.argumentTypeRules.operatorValue = "NA" ;
     }
      if(this.argumentTypeRules.operationName == 'EXTRACT_SUBPART'){
        this.argumentTypeRules.operatorValue = this.argumentTypeRules.lb + "-" + this.argumentTypeRules.rb ;
+       this.argumentTypeRules.headerVal = this.argumentTypeRules.lb + "-" + this.argumentTypeRules.rb ;
     }
 
+    if(this.argumentTypeRules.operationName != 'EXTRACT_SUBPART'){
+      this.argumentTypeRules.lb = '';
+      this.argumentTypeRules.rb = '';
+    }
+
+    this.argumentTypeRules.operatorValue = this.argumentTypeRules.headerVal;
 
     if(!this.isNew){
-
       /************* For Edit form *************** */
        /* In edit form,
        * edit functionality for argument rules
        */
       if(this.editArgumentRules){
         this.editArgumentRules  = false
+
+        if(this.argumentTypeRules.operationName =='CAPTURE'||this.argumentTypeRules.operationName =='EXCEPTION'||this.argumentTypeRules.operationName =='INVOCATION'){
+          this.argumentTypeRules.operatorValue = 'NA';
+          this.argumentTypeRules.headerVal = 'NA';
+        }
         let that = this
         this.argumentTypeData.map(function(val){
           if(val.id == that.argumentTypeRules.id){
@@ -632,7 +597,7 @@ export class JavaMethodComponent implements OnInit {
             val.indexVal = that.argumentTypeRules.indexVal
             val.mode  = that.argumentTypeRules.mode
             val.operationName = that.argumentTypeRules.operationName
-            val.operatorValue = that.argumentTypeRules.operatorValue
+            val.operatorValue = that.argumentTypeRules.headerVal
             val.type = that.argumentTypeRules.type
             val.typeName = that.getTypeName(that.argumentTypeRules.type)
             val.headerVal = that.argumentTypeRules.headerVal;
@@ -666,7 +631,7 @@ export class JavaMethodComponent implements OnInit {
             val.indexVal = that.argumentTypeRules.indexVal
             val.mode  = that.argumentTypeRules.mode
             val.operationName = that.argumentTypeRules.operationName
-            val.operatorValue = that.argumentTypeRules.operatorValue
+            val.operatorValue = that.argumentTypeRules.headerVal
             val.type = that.argumentTypeRules.type
             val.typeName = that.getTypeName(that.argumentTypeRules.type)
             val.headerVal = that.argumentTypeRules.headerVal;
@@ -767,10 +732,7 @@ export class JavaMethodComponent implements OnInit {
     }
   }
 
-
-
   getTypeArgumentType(fqm, index) {
-
     //    let fqm = this.props.fqm;
     if (fqm != null) {
       if (index != -1) {
@@ -835,7 +797,6 @@ export class JavaMethodComponent implements OnInit {
       }
     }
   }
-
 
   /**This method is used to delete  */
   deleteJavaMethod(): void {
