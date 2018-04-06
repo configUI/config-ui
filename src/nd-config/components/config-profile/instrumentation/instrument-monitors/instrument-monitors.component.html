@@ -2,10 +2,10 @@
     <p-tabPanel header="Method Monitor">
         <app-method-monitors [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-method-monitors>
     </p-tabPanel>
-    <p-tabPanel header="HTTP Stats Monitor">
+    <p-tabPanel *ngIf="agentType != 'Dot Net'" header="HTTP Stats Monitor">
         <app-http-stats-monitors [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-http-stats-monitors>
     </p-tabPanel>
-    <p-tabPanel header="Exception Monitor">
+    <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Exception Monitor">
         <app-exception-monitors [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-exception-monitors>
     </p-tabPanel>
     <p-tabPanel header="JVM Thread CPU Monitor" *ngIf="agentType == 'Java' || agentType == '-'">

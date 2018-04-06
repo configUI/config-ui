@@ -168,7 +168,7 @@
                                 <li>
                                     <a [routerLink]="['../../instrumentation', profileId, 3]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Instrument Monitors</a>
                                 </li>
-                                <li>
+                                <li *ngIf="agentType != 'Dot Net'">
                                     <a [routerLink]="['../../instrumentation', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error Detection</a>
                                 </li>
                             </ul>
@@ -267,7 +267,7 @@
                 </md-card-content>
             </md-card>
         </div>
-        <div class="ui-g-6" *ngIf="agentType != 'Java' && agentType != '-'">
+        <div class="ui-g-6" *ngIf="agentType == 'NodeJS'">
             <md-card>
                 <md-card-content>
                     <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
@@ -281,7 +281,7 @@
                                     <a [routerLink]="['../../advance', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Monitors</a>
                                 </li>
                                 <li *ngIf="adminMode">
-                                    <a [routerLink]="['../../advance', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>Custom Configuration</a>
+                                    <a [routerLink]="['../../advance', profileId, 2]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Custom Configuration</a>
                                 </li>
                             </ul>
                             <!-- <div>
@@ -308,6 +308,30 @@
                 </md-card-content>
             </md-card>
         </div>
+        
+        <div class="ui-g-6" *ngIf="agentType == 'Dot Net'">
+            <md-card>
+                <md-card-content>
+                    <div class="heading"><a [routerLink]="['../../advance', profileId, 0]">ADVANCE SETTINGS</a></div>
+                    <div class="ui-g configCard">
+                        <div class="ui-g-8">
+                            <ul class="intrumentation">
+                                <li>
+                                    <a [routerLink]="['../../advance', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Monitors</a>
+                                </li>
+                                <li *ngIf="adminMode">
+                                    <a [routerLink]="['../../advance', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Custom Configuration</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="ui-g-4">
+                            <i class="fa fa-cog icon_big"></i>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
         <div class="ui-g-6">
             <md-card>
                 <md-card-content>
