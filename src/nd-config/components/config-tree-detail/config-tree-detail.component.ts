@@ -20,22 +20,23 @@ import * as URL from '../../constants/config-url-constant';
   styleUrls: ['./config-tree-detail.component.css']
 })
 export class ConfigTreeDetailComponent implements OnInit {
- 
-   className: string = "Tree Detail Component";
+
+  className: string = "Tree Detail Component";
 
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
   agentType: string = "";
   serverDisplayName: string = "";
- 
+
   perm: boolean;
   noProfilePerm: boolean;
   isAIPerm: boolean;
   t_s_i_name: string;
 
   passAIDDSettings: any[];
-  passAIDDserverEntity:ServerInfo;
+  passAIDDserverEntity: ServerInfo;
+  routingFromAIGui: boolean;
   constructor(private configTopologyService: ConfigTopologyService,
     private configKeywordsService: ConfigKeywordsService,
     private route: ActivatedRoute,
@@ -101,6 +102,10 @@ export class ConfigTreeDetailComponent implements OnInit {
   ngOnInit() {
 
     this.showserverinstance = sessionStorage.getItem("showserverinstance");
+
+    if (this.showserverinstance == "false")
+      this.routingFromAIGui = true;
+
     this.topologyData = [];
 
     if (+sessionStorage.getItem("ApplicationAccess") == 4 || +sessionStorage.getItem("TopologyAccess") == 4)
@@ -149,8 +154,7 @@ export class ConfigTreeDetailComponent implements OnInit {
             //only show Instance level data in topology detail gui if showserverinstance is true
             if (this.showserverinstance == "false")
               this.topologyData = data;
-            else
-            {
+            else {
               this.topologyDataAIInstanceLevel = data
             }
           });
@@ -204,17 +208,20 @@ export class ConfigTreeDetailComponent implements OnInit {
       sessionStorage.setItem("tierId", event.data.nodeId);
       this.configTopologyService.getTierDetail(event.data.nodeId, this.topologyEntity).subscribe(data => {
         if (this.showserverinstance == "false") {
+          this.routingFromAIGui = true;
           this.topologyData = data;
           this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
         }
         else {
+          this.routingFromAIGui = false;
           this.topologyDataAIInstanceLevel = data;
           if (this.topologyDataAIInstanceLevel.length == 0) {
+            this.routingFromAIGui = true;
             this.configUtilityService.successMessage("Current Topology doesn't contains any Tier, Select other Topology.");
             sessionStorage.setItem("showserverinstance", "false");
             this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
           }
-         
+
         }
       });
     }
@@ -239,17 +246,20 @@ export class ConfigTreeDetailComponent implements OnInit {
       }
       else {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
-      } 
+      }
       sessionStorage.setItem("serverId", event.data.nodeId);
       this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => {
         if (this.showserverinstance == "false") {
+          this.routingFromAIGui = true;
           this.topologyData = data;
           this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
         }
         else {
+          this.routingFromAIGui = false;
           this.topologyDataAIInstanceLevel = data;
           if (this.topologyDataAIInstanceLevel.length == 0) {
-            this.configUtilityService.successMessage("Current Tier doesn't contains any Server, Select other Tier.");
+            this.routingFromAIGui = true;
+            this.configUtilityService.successMessage("Current Tier doesn't contains any Server, Select other Tier or Topology.");
             sessionStorage.setItem("showserverinstance", "false");
             this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
           }
@@ -284,9 +294,10 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configTopologyService.durationCompletion().subscribe(data => {
         that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
           that.topologyData = data;
+          this.routingFromAIGui = true;
           if ((that.topologyData.length == 0) && (this.showserverinstance == "true")) {
             sessionStorage.setItem("showserverinstance", "false");
-            this.configUtilityService.successMessage("Current Server doesn't contains any Instance, Select other Server.");
+            this.configUtilityService.successMessage("Current Server doesn't contains any Instance, Select other Server, Tier or Topology.");
           }
           if (data.length != 0) {
             that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data2 => {
@@ -540,28 +551,41 @@ export class ConfigTreeDetailComponent implements OnInit {
   }
 
   //To open auto instr configuration dialog
-  openAutoInstrDialog(name, id, type, profileId) {
-    
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
-      this.configUtilityService.errorMessage("Could not start instrumentation, test is not running")
+  openAutoInstrDialog(name, id, type, profileId, profileName) {
+
+    if (this.configHomeService.trData.status == null) {
+      this.configUtilityService.errorMessage("Could not start instrumentation, Session is not running")
       return;
     }
-    this.passAIDDserverEntity = this.serverEntity;
-    this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
-    this.showInstr = true;
-   }
+    if (sessionStorage.getItem("isSwitch") === 'false') {
+      this.configUtilityService.errorMessage("Please enable Session toggle button for AI");
+      return;
+    }
+    this.configProfileService.getProfileAgent(profileName).subscribe(data => {
+      var agentType = data._body;
+      if (agentType == "Java") {
+        this.passAIDDserverEntity = this.serverEntity;
+        this.passAIDDSettings = [name, id, agentType, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
+        this.showInstr = true;
+      }
+      else {
+        this.configUtilityService.errorMessage("Could not start AI, supported only for Java")
+        return;
+      }
+    })
+  }
 
-   closeAIDDDialog(isCloseAIDDDialog){
+  closeAIDDDialog(isCloseAIDDDialog) {
     this.showInstr = isCloseAIDDDialog;
-   }
+  }
 
-   ngOnDestroy() {
+  ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
 
-  setTopologyData(data){ 
+  setTopologyData(data) {
     this.showInstr = false;
     this.topologyData = data;
   }
@@ -578,7 +602,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       console.log(this.className, "constructor", "No NO RUN TIme Changes");
       return;
     }
-    
+
     else {
       //Getting keywords data whose values are different from default values
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
@@ -587,49 +611,49 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configTopologyService.getInstanceDesc(id).subscribe(data => {
         desc = data['_body'].toString();
         //If radio button for AI is selected
-        if(desc.endsWith("#AI"))
-        strSetting = "enableAutoInstrSession=0;"
-        
+        if (desc.endsWith("#AI"))
+          strSetting = "enableAutoInstrSession=0;"
+
         //If radio button for DD is selected
-        else{
+        else {
           strSetting = "enableDDAI=0;";
         }
-      this.t_s_i_name = this.splitTierServInsName(instanceName)
-      let name = this.createTierServInsName(instanceName)
-      //Merging configuration and instance name with #
-      strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
-      
-      //Saving settings in database
-      let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, name, this.t_s_i_name, function (data) {
-        
-        //Check for successful RTC connection  
-        if (data.length != 0 || !data[0]['contains']) {
-          that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop").subscribe(data => {
-            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
-              
-              that.topologyData = data;
-            });
-            that.configHomeService.getAIStartStopOperationValue(false);
-          })
-        }
+        this.t_s_i_name = this.splitTierServInsName(instanceName)
+        let name = this.createTierServInsName(instanceName)
+        //Merging configuration and instance name with #
+        strSetting = strSetting + "#" + this.createTierServInsName(instanceName);
+
+        //Saving settings in database
+        let success = this.configTopologyService.sendRTCTostopAutoInstr(url, strSetting, name, this.t_s_i_name, function (data) {
+
+          //Check for successful RTC connection  
+          if (data.length != 0 || !data[0]['contains']) {
+            that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop").subscribe(data => {
+              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+
+                that.topologyData = data;
+              });
+              that.configHomeService.getAIStartStopOperationValue(false);
+            })
+          }
+        })
       })
-    })
     }
   }
-  
-      // Create Tier_Server_Instance name
-      splitTierServInsName(instanceName) {
-        this.t_s_i_name = this.tierName + "_" + this.serverName + "_" + instanceName
-        // this.sessionName = this.t_s_i_name
-        return this.t_s_i_name;
-    }
 
-    // Create Tier>Server>Instance name
-    createTierServInsName(instanceName) {
-        let name = this.tierName + ">" + this.serverName + ">" + instanceName
-        return name;
-    }
-    accessMessage() {
+  // Create Tier_Server_Instance name
+  splitTierServInsName(instanceName) {
+    this.t_s_i_name = this.tierName + "_" + this.serverName + "_" + instanceName
+    // this.sessionName = this.t_s_i_name
+    return this.t_s_i_name;
+  }
+
+  // Create Tier>Server>Instance name
+  createTierServInsName(instanceName) {
+    let name = this.tierName + ">" + this.serverName + ">" + instanceName
+    return name;
+  }
+  accessMessage() {
     this.configUtilityService.errorMessage("Permission Denied!!!")
   }
 
