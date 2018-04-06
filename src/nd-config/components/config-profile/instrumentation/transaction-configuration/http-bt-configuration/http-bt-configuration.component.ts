@@ -932,7 +932,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
           this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
           return;
         }
-        this.businessTransPatternInfo = data;
+        // this.businessTransPatternInfo = data;
+        this.loadBTPatternData()
         this.configUtilityService.successMessage("File uploaded successfully");
       });
     }
