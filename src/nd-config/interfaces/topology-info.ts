@@ -81,7 +81,7 @@ export class DDAIInfo{
     instance: string  = ""
     duration: number = 600
     retainchanges: number = 0
-    dump_data: number = 0
+    dump_data: number = 2
     stackDepthFilter: number = 10
     ddsampleInterval: number = 30
     ddtraceLevel: number = 1

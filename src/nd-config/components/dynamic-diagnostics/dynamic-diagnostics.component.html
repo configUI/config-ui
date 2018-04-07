@@ -146,7 +146,7 @@
                         </div>
                         <div class="ui-g-4"></div>
                         <div class="ui-g-4">
-                            <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" (keyup)="createSessionName(other)" [(ngModel)]="other" pInputText required ngModel>
+                            <input type="text" name="btname" pattern="[a-zA-Z0-9_#@./&-]*" (keydown.space)="$event.preventDefault()" (keyup)="createSessionName(ddAIData.bt)" [(ngModel)]="ddAIData.bt" pInputText required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -299,6 +299,15 @@
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
                             <input type="number" size='20' name="aiThreshold" [(ngModel)]="ddAIData['aiThreshold']" pInputText min=0 class="text-width" required ngModel>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 divCss">
+                        <div class="ui-g-7">
+                            <label>Dump data</label>
+                        </div>
+                        <div class="ui-g-1"></div>
+                        <div class="ui-g-4">
+                            <input type="number" size='20' name="dumpdata" [(ngModel)]="ddAIData['dump_data']" pInputText min=0 max=2 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">

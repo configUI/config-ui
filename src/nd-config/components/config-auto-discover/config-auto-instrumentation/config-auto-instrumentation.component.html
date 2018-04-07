@@ -1,7 +1,9 @@
 <div>
     <div style="text-align:right;">
-        <button *ngIf="isTestRun" [disabled]="!isTestRun" type="button" title="Start Auto Instrumentation" pButton (click)="redirectGuiAIToInstance()" icon="fa fa-play-circle-o" label="Start"></button>
-        <button *ngIf="!isTestRun" [disabled]="!isTestRun" type="button" title="Run a test to Start Auto Instrumentation" pButton (click)="redirectGuiAIToInstance()" icon="fa fa-play-circle-o" label="Start"></button>
+        <i class="fa fa-search-plus" *ngIf="isTestRun" style="font-size:17px" title="Auto Instrumentation" (click)="redirectGuiAIToInstance()"></i>
+        <i class="fa fa-search-plus" *ngIf="!isTestRun" style="font-size:17px" title="Run a Session to Start Auto Instrumentation" (click)="redirectGuiAIToInstance()"></i>
+        <!-- <button *ngIf="isTestRun" [disabled]="!isTestRun" type="button" title="Start Auto Instrumentation" pButton (click)="redirectGuiAIToInstance()" icon="fa fa-play-circle-o" label="Start"></button>
+        <button *ngIf="!isTestRun" [disabled]="!isTestRun" type="button" title="Run a test to Start Auto Instrumentation" pButton (click)="redirectGuiAIToInstance()" icon="fa fa-play-circle-o" label="Start"></button> -->
     </div>
     <p-accordion class="ndagent">
         <p-accordionTab header="Active Auto Instrumentation(s) {{activeCount}}" [selected]="true">
@@ -9,8 +11,8 @@
             <div class="config-ui-AutoAI-height">
                 <p-dataTable class="nde-ui" [value]="autoIntrActive" [(selection)]="selectedAutoIntrActive" [rows]="5" [paginator]="autoIntrActive?.length > 5" [pageLinks]="3">
 
-          <p-column class="col-overflow" field="instanceName" header="Instance Name" [sortable]="true" [style]="{'width':'20%'}">
-            <template let-col let-application="rowData" pTemplate>
+                    <p-column class="col-overflow" field="instanceName" header="Instance Name" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-application="rowData" pTemplate>
               <span title="{{application[col.field]}}">{{application[col.field]}}</span> 
               <span title="Java" *ngIf="application['type'] == 'Java'"><i class="icon ndegui-java java-color" ></i></span>
               <span title="NodeJS" *ngIf="application['type'] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i></span>
@@ -141,8 +143,9 @@
 
 <!-- DIALOG FOR Auto-Instrumentation Summary -->
 
-<p-dialog class="profile-dialog nde-ui-autoInstr" [style]="{'top':'120px'}" header="Auto-Instrumentation Summary ({{sessionFileNameForAISummary}})" *ngIf="autoInstrumentationDialog" [(visible)]="autoInstrumentationDialog" modal="modal" width="900" responsive="true" [resizable]="false">
-    <p-dataTable  class="nde-ui" [value]="autoInstrSummaryData" [rows]="10" [paginator]="autoInstrSummaryData?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]"  scrollable="true" scrollHeight="400px" >
+<p-dialog class="profile-dialog nde-ui-autoInstr" [style]="{'top':'120px'}" header="Auto-Instrumentation Summary ({{sessionFileNameForAISummary}})" *ngIf="autoInstrumentationDialog" [(visible)]="autoInstrumentationDialog" modal="modal" width="900" responsive="true"
+    [resizable]="false">
+    <p-dataTable class="nde-ui" [value]="autoInstrSummaryData" [rows]="10" [paginator]="autoInstrSummaryData?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]" scrollable="true" scrollHeight="400px">
         <p-column [style]="{'width':'20%'}" class="tableCss" field="packageName" header="Package" [sortable]="true" [filter]="true" filterPlaceholder="Search">
             <template let-col let-AutoInstrData="rowData" pTemplate>
                 <span title="{{AutoInstrData[col.field]}}">{{AutoInstrData[col.field]}}</span>
@@ -170,4 +173,3 @@
         </p-column>
     </p-dataTable>
 </p-dialog>
-

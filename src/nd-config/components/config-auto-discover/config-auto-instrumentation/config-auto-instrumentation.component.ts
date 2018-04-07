@@ -173,7 +173,20 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
   redirectGuiAIToInstance() {
     let dcId;
     let testRunNo = sessionStorage.getItem("isTrNumber");
-    this.configTopologyService.getTopologyDCID(testRunNo).subscribe(data => {
+    if(testRunNo == "null")
+    {
+     this.configUtilityService.errorMessage("Run a Session to Start Auto Instrumentation");
+     return;
+    }
+
+    if (sessionStorage.getItem("isSwitch") === 'false') 
+    {
+      this.configUtilityService.errorMessage("Please enable Session toggle button for AI");
+      return;
+    }
+
+    if(this.configHomeService.getTestRunStatus)
+     this.configTopologyService.getTopologyDCID(testRunNo).subscribe(data => {
       dcId = data._body;
      
       sessionStorage.setItem("showserverinstance", "true");
@@ -222,7 +235,6 @@ export class ConfigAutoInstrumentationComponent implements OnInit {
 
   loadAutoInstrSummaryData(sessionFileNameWithAgentType){
     this.configTopologyService.getAutoInstrumentationData(sessionFileNameWithAgentType).subscribe(data => {
-      console.log("data is=====>",data)
           if(data == undefined || data.length == 0){
              this.configUtilityService.errorMessage("File is empty");
              return;
