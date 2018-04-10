@@ -125,8 +125,8 @@ export class ConfigTopologyService {
   }
 
   /**To apply DDAI */
-  applyDDAI(data): Observable<String> {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.START_DD_AI}`, data);
+  applyDDAI(data, instanceId): Observable<String> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.START_DD_AI}/${instanceId}`, data);
   }
 
   /**To apply auto-instrumentation  */
