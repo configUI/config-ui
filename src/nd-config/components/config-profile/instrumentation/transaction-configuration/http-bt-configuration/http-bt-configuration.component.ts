@@ -346,15 +346,15 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.businessTransPatternDetail.include = "include"
 
-      if(this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != "")
-        this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
-      else
-        this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
+    if (this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != "")
+      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
+    else
+      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
 
-        if(this.businessTransPatternDetail.reqParamValue  != undefined && this.businessTransPatternDetail.reqParamValue  != "")
-          this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
-        else
-          this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
+    if (this.businessTransPatternDetail.reqParamValue != undefined && this.businessTransPatternDetail.reqParamValue != "")
+      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+    else
+      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
 
     this.setDynamicValuesOFF();    //Method to set values when Dynamic part of request is disabled 
     /**
@@ -372,38 +372,120 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.setDynamicValuesON();  //This method is used to set the values of dynamic part components
 
     let tempParam = this.createKeyValString();
+    this.parentBtId = -2;
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
-    if(this.businessTransPatternInfo.length > 0){
-    for(let i= 0;i<this.businessTransPatternInfo.length;i++){
-      if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-        && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
-        && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
-        && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
-        && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue){
-        this.configUtilityService.errorMessage("Rule details already exists")
-        return;
+    if (this.businessTransPatternInfo.length > 0) {
+      for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
+          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+          this.configUtilityService.errorMessage("Rule details already exists")
+          return;
+        }
+      }
+      for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+
+          this.getparentBtIdAdd(i);
+          if (this.parentBtId != -2)
+            break;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.paramKeyValue == "-") {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamKey = this.businessTransPatternInfo[i].paramKeyValue.split("=")[0];
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.getChildParentRelation(i);
+          if (this.parentBtId != -2)
+            break;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.reqParamKey == this.businessTransPatternInfo[i].reqParamKey
+          && this.businessTransPatternDetail.reqParamValue == "-") {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.getChildParentRelation(i);
+          if (this.parentBtId != -2)
+            break;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.reqMethod == "-") {
+          this.businessTransPatternDetail.reqMethod = this.businessTransPatternInfo[i].reqMethod;
+          this.getChildParentRelation(i);
+          if (this.parentBtId != -2)
+            break;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == "-"
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.paramKeyValue == "-") {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamKey = this.businessTransPatternInfo[i].paramKeyValue.split("=")[0];
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.businessTransPatternDetail.reqMethod = this.businessTransPatternInfo[i].reqMethod;
+
+          this.getChildParentRelation(i);
+          if (this.parentBtId != -2)
+            break;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.reqParamKey == this.businessTransPatternInfo[i].reqParamKey
+          && this.businessTransPatternDetail.reqParamValue == "-"
+          && this.businessTransPatternDetail.reqMethod == "-") {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.businessTransPatternDetail.reqMethod = this.businessTransPatternInfo[i].reqMethod;
+          this.getChildParentRelation(i);
+          if (this.parentBtId != -2)
+            break;
+        }
+        else {
+          this.parentBtId = -1;
+        }
       }
     }
-    for(let i= 0;i<this.businessTransPatternInfo.length;i++){
-       if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-        && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
-        && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
-        && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
-        && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue)
-      {
-        this.parentBtId = +this.businessTransPatternInfo[i].btId;
-        break;
-      }
-      else{
-        this.parentBtId = -1;
-      }
+    else {
+      this.parentBtId = -1;
     }
-  }
-  else{
-    this.parentBtId = -1;    
-  }
-      this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
+    if (this.parentBtId == -2)
+      this.parentBtId = -1;
+    if (this.businessTransPatternDetail.reqParamKey == null) {
+      this.businessTransPatternDetail.reqParamKey = "-"
+    }
+    if (this.businessTransPatternDetail.reqHeaderKey == null) {
+      this.businessTransPatternDetail.reqHeaderKey = ""
+    }
+    if (this.businessTransPatternDetail.headerKeyValue == null) {
+      this.businessTransPatternDetail.headerKeyValue = ""
+    }
+    this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         // this.businessTransPatternInfo.push(data);
@@ -415,6 +497,53 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   }
 
+  /* this methos is used for get Parent BT id */
+  getparentBtIdAdd(Index) {
+    if (this.businessTransPatternInfo[Index].parentBtId == -1) {
+      this.parentBtId = +this.businessTransPatternInfo[Index].btId;
+    }
+    else {
+      this.parentBtId = +this.businessTransPatternInfo[Index].parentBtId;
+    }
+  }
+
+  getChildParentRelation(i) {
+    if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+      && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+      && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+      && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+      && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+      this.getparentBtIdAdd(i);
+    }
+  }
+
+  getparentBtIdEditTime(Index) {
+    if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[Index].urlName
+      && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[Index].matchType
+      && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[Index].reqMethod
+      && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[Index].reqHeaderKey
+      && this.businessTransPatternDetail.paramKeyValue != this.businessTransPatternInfo[Index].paramKeyValue
+      && this.businessTransPatternDetail.parentBtId == -1) {
+      this.flag = true;
+    }
+    if (this.businessTransPatternDetail.parentBtId != -1) {
+      if (this.businessTransPatternInfo[Index].parentBtId == -1) {
+        this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[Index].btId;
+      }
+    }
+    else {
+      this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[Index].btId;
+    }
+  }
+  getChildParentRelationEditTime(i) {
+    if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+      && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+      && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+      && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+      && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+      this.getparentBtIdEditTime(i);
+    }
+  }
 
   //method to convert key and value table data into a string
   createKeyValString() {
@@ -553,7 +682,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     // }
     this.businessTransPatternDetail = Object.assign({}, this.selectedPatternData[0]);
   }
-
+  
+  flag : boolean;
   /**This method is used to edit Pattern detail */
   editPattern(): void {
     if (this.chkInclude == true)
@@ -576,12 +706,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.reqParamInfo = [];
     }
 
-    if(this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "")
-    this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
-  else
-    this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
+    if (this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != null && this.businessTransPatternDetail.reqHeaderValue != "")
+      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
+    else
+      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
 
-    if(this.businessTransPatternDetail.reqParamValue  != undefined && this.businessTransPatternDetail.reqParamValue  != null  && this.businessTransPatternDetail.reqParamValue  != "")
+    if (this.businessTransPatternDetail.reqParamValue != undefined && this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "")
       this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
     else
       this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
@@ -605,38 +735,136 @@ export class HTTPBTConfigurationComponent implements OnInit {
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
     // this.parentBtId = -1;
-    for(let i= 0;i<this.businessTransPatternInfo.length;i++){
-      if(this.selectedPatternData[0] != this.businessTransPatternInfo[i]){
-       if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-        && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
-        && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
-        && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
-        && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue)
-      {
-        this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].btId;
-        break;
+    this.parentBtId = -2;
+    for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+
+      if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
+       
+        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && (this.businessTransPatternDetail.paramKeyValue == "-" || this.businessTransPatternDetail.paramKeyValue == "")) {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamKey = this.businessTransPatternInfo[i].paramKeyValue.split("=")[0];
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.getChildParentRelationEditTime(i);
+          if(this.flag == true)
+           break;
+          if (this.parentBtId != -2)
+            break;
+          if (this.businessTransPatternDetail.parentBtId != -1 && this.businessTransPatternInfo[i].parentBtId != -1)
+            this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].parentBtId;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.reqParamKey == this.businessTransPatternInfo[i].reqParamKey
+          && (this.businessTransPatternDetail.reqParamValue == "-" || this.businessTransPatternDetail.reqParamValue == "")) {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+         
+          this.getChildParentRelationEditTime(i);
+          if(this.flag == true)
+           break;
+          if (this.parentBtId != -2)
+            break;
+          if (this.businessTransPatternDetail.parentBtId != -1 && this.businessTransPatternInfo[i].parentBtId != -1)
+            this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].parentBtId;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.reqMethod == "-") {
+          this.businessTransPatternDetail.reqMethod = this.businessTransPatternInfo[i].reqMethod;
+          this.getChildParentRelationEditTime(i);
+          if(this.flag == true)
+          break;
+          if (this.parentBtId != -2)
+            break;
+          if (this.businessTransPatternDetail.parentBtId != -1 && this.businessTransPatternInfo[i].parentBtId != -1)
+            this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].parentBtId;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == "-"
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.paramKeyValue == "-") {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamKey = this.businessTransPatternInfo[i].paramKeyValue.split("=")[0];
+            this.businessTransPatternDetail.reqParamValue =this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.businessTransPatternDetail.reqMethod = this.businessTransPatternInfo[i].reqMethod;
+
+          this.getChildParentRelationEditTime(i);
+          if(this.flag == true)
+          break;
+          if (this.parentBtId != -2)
+            break;
+          if (this.businessTransPatternDetail.parentBtId != -1 && this.businessTransPatternInfo[i].parentBtId != -1)
+            this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].parentBtId;
+        }
+        else if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+          && this.businessTransPatternDetail.reqParamKey == this.businessTransPatternInfo[i].reqParamKey
+          && this.businessTransPatternDetail.reqParamValue == "-"
+          && this.businessTransPatternDetail.reqMethod == "-") {
+          if (this.businessTransPatternInfo[i].paramKeyValue != "-" && this.businessTransPatternInfo[i].paramKeyValue != "") {
+            this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternInfo[i].paramKeyValue;
+            this.businessTransPatternDetail.reqParamValue = this.businessTransPatternInfo[i].paramKeyValue.split("=")[1];
+          }
+          this.businessTransPatternDetail.reqMethod = this.businessTransPatternInfo[i].reqMethod;
+          this.getChildParentRelationEditTime(i);
+          if(this.flag == true)
+          break;
+          if (this.parentBtId != -2)
+            break;
+          if (this.businessTransPatternDetail.parentBtId != -1 && this.businessTransPatternInfo[i].parentBtId != -1)
+            this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].parentBtId;
+        }
+        else {
+          this.businessTransPatternDetail.parentBtId = -1;
+        }
+
       }
-      else{
-        this.businessTransPatternDetail.parentBtId = -1;
+      else
+        continue;
+    }
+    if(this.parentBtId == -2)
+     this.parentBtId = -1;
+    for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+      if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
+        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+          && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
+          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+          this.configUtilityService.errorMessage("Header key value pair already exists")
+          return
+        }
       }
+
+      else
+        continue;
     }
-    else
-      continue;
-  }
-  for(let i= 0;i<this.businessTransPatternInfo.length;i++){
-      if(this.selectedPatternData[0] != this.businessTransPatternInfo[i]){
-        if(this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-         && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
-         && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
-         && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
-         && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue){
-           this.configUtilityService.errorMessage("Header key value pair already exists")
-           return
+    this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.paramKeyValue
+    if (this.businessTransPatternDetail.reqParamKey == null) {
+      this.businessTransPatternDetail.reqParamKey = "-"
     }
-  }
-  else
-    continue;
-}
+    if (this.businessTransPatternDetail.reqHeaderKey == null) {
+      this.businessTransPatternDetail.reqHeaderKey = ""
+    }
+    if (this.businessTransPatternDetail.headerKeyValue == null) {
+      this.businessTransPatternDetail.headerKeyValue = ""
+    }
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
@@ -885,7 +1113,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
           this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
           return;
         }
-        this.businessTransPatternInfo = data;
+        // this.businessTransPatternInfo = data;
+        this.loadBTPatternData();
         this.configUtilityService.successMessage("File uploaded successfully");
       });
     }
@@ -1084,13 +1313,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
       //If same key value pair is entered.
       for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
 
-          if (this.subBusinessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
-            this.businessTransPatternDetail.btId = this.subBusinessTransPatternInfo[i].btId
-            break;
+        if (this.subBusinessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
+          this.businessTransPatternDetail.btId = this.subBusinessTransPatternInfo[i].btId
+          break;
 
-          }
-          else
-            this.businessTransPatternDetail.btId = 0;
+        }
+        else
+          this.businessTransPatternDetail.btId = 0;
       }
 
 

@@ -3,14 +3,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 
-import { TopologyInfo, TierInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../../modules/nd-config/interfaces/topology-info';
-import * as URL from '../../../modules/nd-config/constants/config-url-constant';
-import { ConfigUiUtility } from '../../../modules/nd-config//utils/config-utility';
-import { ConfigProfileService } from '../../../modules/nd-config/services/config-profile.service';
-import { ConfigHomeService } from '../../../modules/nd-config/services/config-home.service';
-import { ConfigTopologyService } from '../../../modules/nd-config/services/config-topology.service';
-import { ConfigUtilityService } from '../../../modules/nd-config/services/config-utility.service';
-import { ConfigKeywordsService } from '../../../modules/nd-config//services/config-keywords.service';
+import { TopologyInfo, TierInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo } from '../../interfaces/topology-info';
+import * as URL from '../../constants/config-url-constant';
+import { ConfigUiUtility } from '../../utils/config-utility';
+import { ConfigProfileService } from '../../services/config-profile.service';
+import { ConfigHomeService } from '../../services/config-home.service';
+import { ConfigTopologyService } from '../../services/config-topology.service';
+import { ConfigUtilityService } from '../../services/config-utility.service';
+import { ConfigKeywordsService } from '../../services/config-keywords.service';
 
 @Component({
     selector: 'app-dynamic-diagnostics',
@@ -90,6 +90,14 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.configKeywordsService.fetchBtNames(this.profileId).subscribe(data => {
             if (data.length > 0) {
                 key = key.concat(data)
+                
+                //Remove duplicate bt names
+                key = Array.from(new Set(key))
+
+                //Remove - from bt names array
+                if(key.indexOf("-") != -1)
+                    key.splice(key.indexOf("-"), 1)
+            
             }
             key.push('Custom')
             this.btNameList = ConfigUiUtility.createListWithKeyValue(key, key);
@@ -230,7 +238,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 })
             }
             else {
-                this.configTopologyService.applyDDAI(data).subscribe(res => {
+                this.configTopologyService.applyDDAI(data, this.currentInsId).subscribe(res => {
                     //Check for successful RTC connection
                     if (res["_body"].includes("result=Ok")) {
                         this.configUtilityService.infoMessage("Auto Instrumentation started")

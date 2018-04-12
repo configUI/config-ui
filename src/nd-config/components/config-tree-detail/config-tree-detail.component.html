@@ -1,13 +1,15 @@
-<div>
+<div style="width:100%">
     <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
         <span class="appIcon-css">
             <button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()" icon="fa-pencil" ></button>
             </span>
+
     </div>
-
-    <p-dataTable class="nde-ui toggleChk" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
+    <div *ngIf="routingFromAIGui == false" class="progressIcon">
+        <img class="loadingIcon" src="./images/loading.gif" />
+    </div>
+    <p-dataTable class="nde-ui toggleChk" *ngIf="routingFromAIGui == true" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-
         <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
             <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
                     <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
@@ -22,7 +24,7 @@
                         <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
                             <i class="fa fa-play-circle-o" ></i>
                         </a>
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'], entity['profileId'])">
+                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'], entity['profileId'], entity['profileName'])">
                             <i class="fa fa-play-circle-o" ></i>
                         </a>
                        </span>
