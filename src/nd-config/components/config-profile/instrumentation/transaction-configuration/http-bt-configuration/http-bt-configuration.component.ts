@@ -381,7 +381,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
         && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
         && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue){
-        this.configUtilityService.errorMessage("Header key/value pair already exists")
+        this.configUtilityService.errorMessage("Rule details already exists")
         return;
       }
     }
