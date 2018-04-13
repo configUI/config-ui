@@ -118,7 +118,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
       this.autoDiscoverDetail = data;
       this.loadAdrFiles();
       if(data.status == 'empty' && data.discoveryMode == '1')
-        this.configUtilityService.errorMessage("Discovered class name or method name is wrong.");
+        this.configUtilityService.errorMessage("No Data found for the applied filter(s)");
       else if(data.status == 'empty' && data.discoveryMode == '0')
         this.configUtilityService.errorMessage("Auto discover method file is empty");
       else

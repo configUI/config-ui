@@ -7,6 +7,7 @@
         </span>
         <span class="configui-float-css">Enable HTTP Stats Monitors</span>
         <span class="configui-float">
+            <button pButton type="button" title="Help for Import File" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openImportInfo()" icon="fa fa-info-circle"></button>
             <button pButton type="button" title="Browse" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Add a HTTP stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
@@ -161,4 +162,132 @@
              ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
       <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>
+
+<!--Dialog for Help of Import file -->
+<p-dialog class="profile-dialog browseTopCssinfo" [resizable]="false" header="Help for Import File" *ngIf="importinfoDialog" [(visible)]="importinfoDialog" modal="modal" width="600" responsive="true">
+        <div class="ui-g-12">
+                <font size="2">User can only import those files which format will be :- #DisplayName|Condition|fpDumpMode||||desc|opt_id|val_id</font>
+        </div>
+        <div class="ui-g-12">
+                <font size="2">For Example:- http_stats|ReqHdr.Accept = match|0||||desc|1|1</font>
+        </div>
+        <div class="ui-g-12">
+            <h3>ValueId may be one of the below given option:-</h3>
+            <table style="width:100%">
+                <tr>
+                    <th> DataType </th>
+                    <th> ValueId </th>
+                </tr>
+                <tr>
+                    <td>String</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td> Numeric</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>  Others</td>
+                    <td>3</td>
+                </tr>
+            </table>
+        </div>
+        <div class="ui-g-12">
+                <h3>OperationId will depend on selected valueId </h3>
+                <table style="width:100%">
+                    <tr>
+                        <th > ValueId </th>
+                        <th> Operation </th>
+                        <th> OperationId </th>
+                    </tr>
+                    <tr >
+                        <td rowspan="7" style="text-align: center">1</td>
+                    </tr>
+                    <tr>
+                        <td> =</td>
+                        <td> 1</td>
+                    </tr>
+                    <tr>
+                        <td>!=</td>  
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td> contains</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>!contains</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td> PRESENT</td>
+                        <td> 13</td>
+                    </tr>
+                    <tr>
+                        <td> !PRESENT</td>
+                        <td> 14</td>
+                        </tr>
+                </table><br>
+                <table style="width:100%">
+                        <tr>
+                            <th > ValueId </th>
+                            <th> Operation </th>
+                            <th> OperationId </th>
+                        </tr>
+                        <tr >
+                            <td rowspan="10" style="text-align: center">2</td>
+                        </tr>
+                        <tr>
+                            <td> =</td>
+                            <td> 5</td>
+                        </tr>
+                        <tr>
+                            <td>!=</td>  
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td> < </td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td><=</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td> > </td>
+                            <td> 9</td>
+                        </tr>
+                        <tr>
+                            <td> >=</td>
+                            <td> 10</td>
+                        </tr>
+                        <tr>
+                            <td> PRESENT</td>
+                            <td> 15</td>
+                        </tr>
+                        <tr>
+                            <td> !PRESENT</td>
+                            <td> 16</td>
+                            </tr>
+                    </table><br>
+                    <table style="width:100%">
+                            <tr>
+                                <th > ValueId </th>
+                                <th> Operation </th>
+                                <th> OperationId </th>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" style="text-align: center">3</td>
+                            </tr>
+                            <tr>
+                                <td> PRESENT</td>
+                                <td> 11</td>
+                             </tr>
+                            <tr>
+                                <td> !PRESENT</td>
+                                <td> 12</td>
+                            </tr>
+                        </table>
+            </div>
 </p-dialog>

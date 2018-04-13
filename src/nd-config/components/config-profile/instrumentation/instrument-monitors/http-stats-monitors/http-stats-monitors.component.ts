@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 
+
 @Component({
   selector: 'app-http-stats-monitors',
   templateUrl: './http-stats-monitors.component.html',
@@ -67,6 +68,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
     /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false; 
   isHttpstatsMonitorBrowse: boolean = false;
+  importinfoDialog :boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
@@ -233,14 +235,14 @@ export class HttpStatsMonitorsComponent implements OnInit {
   loadNumericOP() {
     this.numericOP = [];
     var numericOPLabel = ['=', '!=', '<', '<=', '>', '>=', 'present', '!present'];
-    var numericOPVal = ['1', '2', '3', '4', '5', '6', '15', '16'];
+    var numericOPVal = ['5', '6', '7', '8', '9', '10', '15', '16'];
     this.numericOP = ConfigUiUtility.createListWithKeyValue(numericOPLabel, numericOPVal);
   }
 
   loadOthersOP() {
     this.othersOP = [];
     var othersOPLabel = ['PRESENT', '!PRESENT'];
-    var othersOPVal = ['1', '2'];
+    var othersOPVal = ['11', '12'];
     this.othersOP = ConfigUiUtility.createListWithKeyValue(othersOPLabel, othersOPVal);
   }
 
@@ -485,11 +487,13 @@ export class HttpStatsMonitorsComponent implements OnInit {
         this.configUtilityService.successMessage("File uploaded successfully");
        });
     }
+
+
+
   }
-
-
-
-
+      openImportInfo(){
+        this.importinfoDialog = true;
+      }
 
 }
 
