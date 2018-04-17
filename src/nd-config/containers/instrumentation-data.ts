@@ -21,6 +21,15 @@ export class ErrorDetection {
     ruleDesc: string;
 }
 
+export class AsynchronousRule {
+    asyncRuleId: number;
+    fqm: string;
+    ruleType: string;
+    containerType: string;
+    enabled: boolean;
+    dumpMode: number;
+}
+
 export class AddIPDetection {
     backendType: string;
     backendTypeId: number;
