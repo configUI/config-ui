@@ -1,3 +1,171 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "caviscenariogui";
+  src:url("../fonts/caviscenariogui.eot");
+  src:url("../fonts/caviscenariogui.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/caviscenariogui.woff") format("woff"),
+    url("../fonts/caviscenariogui.ttf") format("truetype"),
+    url("../fonts/caviscenariogui.svg#caviscenariogui") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "caviscenariogui" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="scenario-icon-"]:before,
+[class*=" scenario-icon-"]:before {
+  font-family: "caviscenariogui" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.scenario-icon-advanced:before {
+  content: "\e001";
+}
+.scenario-icon-autofetch:before {
+  content: "\e002";
+}
+.scenario-icon-clickaway:before {
+  content: "\e003";
+}
+.scenario-icon-global-setting:before {
+  content: "\e004";
+}
+.scenario-icon-group-setting:before {
+  content: "\e005";
+}
+.scenario-icon-healthmonitors:before {
+  content: "\e006";
+}
+.scenario-icon-http:before {
+  content: "\e007";
+}
+.scenario-icon-inlinedelay:before {
+  content: "\e008";
+}
+.scenario-icon-java-setting:before {
+  content: "\e009";
+}
+.scenario-icon-logsnreports:before {
+  content: "\e00a";
+}
+.scenario-icon-monitors:before {
+  content: "\e00b";
+}
+.scenario-icon-nde-setting:before {
+  content: "\e00c";
+}
+.scenario-icon-network:before {
+  content: "\e00d";
+}
+.scenario-icon-virtualuser:before {
+  content: "\e00e";
+}
+.scenario-icon-transaction:before {
+  content: "\e00f";
+}
+.scenario-icon-thinktime:before {
+  content: "\e010";
+}
+.scenario-icon-syncpoint:before {
+  content: "\e011";
+}
+.scenario-icon-ssl:before {
+  content: "\e020";
+}
+.scenario-icon-smtp-setting:before {
+  content: "\e025";
+}
+.scenario-icon-sessionpacing:before {
+  content: "\e026";
+}
+.scenario-icon-server-mapping:before {
+  content: "\e027";
+}
+.scenario-icon-schedular-setting:before {
+  content: "\e028";
+}
+.scenario-icon-realbrowser-user:before {
+  content: "\e029";
+}
+.scenario-icon-rampdown:before {
+  content: "\e02a";
+}
+.scenario-icon-pagereload:before {
+  content: "\e02b";
+}
+.scenario-icon-android:before {
+  content: "\e000";
+  color: #7cb342;
+}
+.scenario-icon-ios:before {
+  content: "\e012";
+}
+.scenario-icon-resolution:before {
+  content: "\e013";
+}
+.scenario-icon-mobile-desktop:before {
+  content: "\e014";
+}
+.scenario-icon-mobile:before {
+  content: "\e015";
+}
+.scenario-icon-desktop:before {
+  content: "\e016";
+}
+.scenario-icon-chrome:before {
+  content: "\e017";
+  color: #4372a0;
+}
+.scenario-icon-edge:before {
+  content: "\e018";
+  color: #367ec7;
+}
+.scenario-icon-firefox:before {
+  content: "\e019";
+  color: #ea6005;
+}
+.scenario-icon-ie:before {
+  content: "\e01a";
+  color: #3c7ef5;
+}
+.scenario-icon-opera:before {
+  content: "\e01b";
+  color: #d60c0c;
+}
+.scenario-icon-windows:before {
+  content: "\e01c";
+  color: #00adef
+}
+.scenario-icon-tablet:before {
+  content: "\e01d";
+}
+.scenario-icon-safari:before {
+  content: "\e01e";
+  color: #00a5d5;
+}
+.scenario-icon-ubuntu:before {
+  content: "\e01f";
+}
 .scenario .ui-toolbar {
     border: 0px;
     border-radius: 0px;
@@ -131,6 +299,7 @@
 /*---------------Icon size in the left tree---------*/
 .scencon{
     font-size: 1.5em;
+    height: 13px;
 }
 
 .scen-lefttree .ui-panelmenu .ui-menuitem-link {
@@ -143,6 +312,7 @@
     float: right;
     width: 85.4%;
     margin-right: 2px;
+    position: relative;
     overflow-y: auto;
     overflow-x: hidden;
     height: 85vh;
@@ -155,4 +325,9 @@
 
 .scen-tbl-rdt .ui-datatable tbody > tr.ui-widget-content {
     border: 1px #fff solid;
+}
+
+.scen-add-scrollbars .ui-menu.ui-menu-dynamic {
+  max-height: 150px;
+  overflow: auto; 
 }

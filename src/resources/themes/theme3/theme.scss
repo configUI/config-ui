@@ -1834,7 +1834,10 @@ app-alert-home .ui-widget-content .history-table-row-odd {
 }
 .totalTestRunCard, .totalArchieveCard, .totalLockedTestsCard, .totalScriptsCard, .totalScenarioCard, .totalRunningCard {
  background: #1d1d1d;  width: auto; cursor: pointer;border: 0px solid #b9b9b9;
+  color: #d6d6d6;
+
 }
+
 .ndagent .ui-accordion .ui-accordion-header {
     background: #1d1d1d;
     color:#d6d6d6;
@@ -2461,7 +2464,7 @@ button.capabilityButton.mat-raised-button{
     color: #dadada;
 }
 .ed-table .ui-widget-header {
-    background: #272727;
+    background: darkslategrey;
     color: #d6d6d6;
     border-bottom: 1.3px #e8e8e8 solid;
 }
@@ -2557,7 +2560,7 @@ button.capabilityButton.mat-raised-button{
  .kioskcss{background: rgba(75, 87, 185, 0.35);}
  .kpiCsccss{background: rgba(181, 167, 44, 0.35);}
 
- i.topicon.kpi-kpi {
+ i.topicon {
     color: #d6d6d6;
 }
 .top-panel-nav-cross-icon {
@@ -3018,6 +3021,72 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
 .ddr-box .ui-widget-content {
     background: #1d1d1d;
 }
+
+.ddr-box {
+    background: rgba(45, 45, 45, 0.75);
+}
+.ddrbreadcrumb .ui-widget-header{
+    background: rgba(148, 148, 148, 0.5);
+    border-bottom: 1px #666 solid;
+}
+
+.ddr-accordion  .ui-accordion-header.ui-state-default.ui-corner-all {
+    background: #1d1d1d;
+    border: 1px #4a4a4a solid;
+}
+
+.ddr-tabs .ui-tabview .ui-tabview-nav > li.ui-state-default {
+    background: #3a3a3a;
+    border: 1px #868686 solid;
+    color: #d6d6d6;
+}
+.ddr-toolbar .ui-toolbar.ui-widget.ui-widget-header {
+    background: #5a5a5a;
+    color: #d6d6d6;
+}
+
+.ddr-icon-cross {
+    color: red;
+}
+
+.ddr-accordion .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+    background: #45484d;
+    border: 1px #4a4a4a solid;
+}
+
+.ddr-accordion .ui-accordion .ui-accordion-header a {
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+.ddr-accordion .ui-state-default a:link, .ui-state-default a:visited {
+    color: #d6d6d6;
+}
+
+.ddr-accordion .ui-accordion .ui-accordion-content {
+    padding: 0;
+    border-top: 0;
+    overflow: visible;
+    zoom: 1;
+}
+
+.ddr-tabs .ui-state-default a:link {
+    color: #fff;
+    font-weight: 500;
+}
+
+.ddr-tabs .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
+    background: #489ef7; 
+    font-weight: normal; 
+    color: #555555;
+}
+
+/*-- In ddr-side bar multiselect ,color link on close button --*/
+.ddr-link .ui-state-default a, .ddr-link .ui-state-default a:link  
+{
+    color: white;
+}
+
 .dashboard-single-panel-view {
     background: rgba(45, 45, 45, 0.45);
     border: 1px #4a4a4a solid;
@@ -3037,6 +3106,7 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
 .ddr-table-right, .ddr-table-left {
     color:lightblue;
 }
+
 .sidebarUI-sidenav {
   box-shadow: 0 0 2px 2px #565656;
   background: #080808;
@@ -3055,6 +3125,23 @@ app-alert-home .alertSeverity .ui-widget-content .ui-state-default{
 .sidebarUI-sidenav.ui-widget-content {
     background: #353535; 
 }
+
+.ddr-side-view-div{
+    background: #4a4a4a;
+    border-bottom: 1px #757575 solid;
+}
+
+.ddr-active-flowpath
+{
+	background-color: #5ea0da !important;
+}
+
+.ddr-multiselect li.ui-multiselect-item.ui-corner-all.ui-state-highlight {
+    background: #4a4a4a;
+}
+
+/*=======================================================*/
+
 .AC-rghtpane-box {
     background: transparent;
     border: 1px #4a4a4a solid;
@@ -3076,4 +3163,174 @@ label {
 .srptexc-header  {
     background: #5a5a5a;
     color: #d6d6d6;
+}
+
+/*-------------Monitor UI CSS--------------*/
+.monitor-brdcmp .ui-breadcrumb.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    background: rgba(255, 255, 255, 0.6);
+}
+.monitor-ui-table .ui-datatable .ui-datatable-header{
+    background: #282828;
+    color: #d6d6d6;
+    border: 1px #3a3a3a solid;
+}
+.monitor-fieldset .ui-fieldset .ui-fieldset-legend {
+    border: 1px #3a3a3a solid;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.monitor-ui-table .ui-datatable th.ui-state-default {
+    background: #1d1d1d;
+    color: #d6d6d6;
+    border: 1px #6b6b6b solid;
+}
+.configTreeTable .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+    // background: #68bde6;
+    background: gray;
+    // color: #000;
+    color: #fff;
+}
+.monitor-ui-table .ui-datatable-even {
+    border: 1px #6b6b6b solid;
+    background: #313131;
+    color: #cacaca;
+}
+.monitor-ui-table .ui-datatable-odd {
+    background: #3e3e3e;
+    color: #dadada;
+    border: 1px #6b6b6b solid;
+}
+.monitor-toolbar .ui-widget-header {
+    background: #282828;
+    color: #d6d6d6;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #45484d;
+    border: 1px #4a4a4a solid;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content {
+    background: rgba(48, 48, 48, 0.42);
+    border: 1px #4a4a4a solid;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header{
+    background: rgba(48, 48, 48, 0.42);
+    border: 1px #4a4a4a solid;
+}
+.mon-ui .ui-treetable th.ui-state-default 
+{
+    background: #1d1d1d;
+    color: #d6d6d6;
+    border: 1px #6b6b6b solid;
+  
+}
+.configured-datatable  .ui-datatable th.ui-state-default{
+    background: #1d1d1d;
+    color: #d6d6d6;
+    border: 1px #6b6b6b solid;
+}
+.monitor-fieldset .ui-widget-content {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px #3a3a3a solid;
+}
+.monitor-fieldset .ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable {
+    border: 1px #3a3a3a solid;
+}
+.monitor-treetable .ui-widget-content {
+    border: 1px #3a3a3a solid;
+    background: #282828;
+}
+//.mon-ui  .ui-widget .ui-widget {
+//    border: 1px #3a3a3a solid;
+//}
+.footer-monitor .ui-datatable .ui-datatable-data > tr > td {
+    color: #f0f0f0;
+    background: black;
+}
+.monitor-dialog .ui-widget-content {
+    background: #1d1d1d;
+}
+.ui-dropdown-panel .ui-dropdown-list {
+    background: #000;
+}
+.monitor-ui-accordion .ui-widget-content {
+    background: rgba(0, 0, 0, 0.6);
+}
+.configTreeTable .ui-widget-content a{
+    color: #222;
+}
+.configTreeTable .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default{
+    background: transparent;
+    border: 1px #6b6b6b solid;
+    color: #d6d6d6;
+}
+/*-------------Graphical KPI--------------*/
+.ed-gkpi .grid-item {
+    background: rgba(52, 52, 52, 0.5);
+    border: 1px solid #525252;
+    box-shadow: 0 0 4px 2px rgba(0,0,0,.2);
+}
+.ed-gkpi .highcharts-gauge-series .highcharts-dial {
+    fill: red;
+}
+.edSinglePanelPopup .ui-widget-header {
+    color: rgb(214, 214, 214);
+    background: rgb(90, 90, 90);
+}
+.edSinglePanelPopup  .ui-widget-content {
+    border: 1px #6b6b6b solid;
+    background: #1d1d1d;
+}
+
+/*---- System Status -----*/
+.entityfieldClass {
+  color: #000 !important;
+}
+
+.fieldClass {
+  color: #000 !important;
+}
+
+/*------------NetVision CSS----------------*/
+.netvision-left-menu .mat-icon {
+    color: #cacaca;
+}
+.netvision-left-menu .menu-item-text {
+     color: #cacaca;
+}
+.netVision-table .ui-datatable th.ui-state-default {
+    background: #1d1d1d;
+    color: #d6d6d6;
+}
+.netVision-table .ui-widget-content {
+    background: #000;
+}
+
+/****  Run Command ******/
+.resultDetailsDiv {
+    background: #4a4a4a;
+}    
+
+/*css for catalogue management*/
+.dashboard-catalogue-management-tabs .ui-tabview .ui-tabview-nav>li.ui-state-default.ui-state-active {
+    background: #000;
+    color: #555;
+    border: 1px #616161 solid;
+    border-bottom: 0;
+}
+.dashboard-catalogue-management-tabs .ui-tabview .ui-tabview-nav>li.ui-state-default {
+    background: #777;
+}
+
+.editCatalogue .ui-widget-content {
+    background: #000; 
+}
+
+/*---------AuditLog CSS--------*/
+.auditLogTable .ui-widget-header {
+    color: #d6d6d6;
+}
+/*-----------Global Date Picker Header CSS-----------*/
+.ui-datepicker.ui-widget .ui-datepicker-calendar thead th {
+    background: #282828;
+    color: #fff;
 }

@@ -989,6 +989,23 @@ body {
     margin: -3px 0px;
 }
 
+.autodiscoverdropdownthree .ui-dropdown .ui-dropdown-panel {
+    margin: -3px 0px;
+    top: -92px !important;
+    overflow-y: scroll;
+    height: 92px;
+}
+
+.autodiscoverdropdowntwo .ui-dropdown .ui-dropdown-panel {
+    margin: -3px 0px;
+    top: -73px !important;
+}
+
+.autodiscoverdropdownone .ui-dropdown .ui-dropdown-panel {
+    margin: -3px 0px;
+    top: -56px !important;
+}
+
 .multiselectdropReqResp .ui-multiselect-panel {
     width: 100%;
 }
@@ -998,11 +1015,13 @@ body {
 }
 
 .auditviewtableht .config-ui-table-margin {
-    height: 507;
+    height: 460;
+    overflow-x: hidden;
 }
 
 .config-view-audit div.ui-datatable-scrollable-body {
     max-height: 386px!important;
+    overflow-x: hidden;
 }
 
 
@@ -1099,9 +1118,10 @@ body {
 }
 
 
-/* .exception .ui-datatable .ui-datatable-scrollable-body {
-    overflow-x: hidden;
-} */
+/*.exception .ui-datatable .ui-datatable-scrollable-body {
+     overflow-x: hidden;
+ }
+ */
 
 .exceptionpanel .ui-panel-content {
     overflow-x: hidden;
@@ -1124,6 +1144,17 @@ body {
 .profile-dialog .ui-dialog .ui-dialog-buttonpane {
     margin: -10px 0px;
     border: 0;
+}
+
+.configBrowser span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
+    margin-bottom: 0px;
+    height: 20px;
+    width: 70px;
+}
+
+.profile-dialog .ui-widget-content .ui-state-default,
+.profile-dialog .ui-state-default {
+    box-shadow: none;
 }
 
 .browseTopCssinfo .ui-dialog {
