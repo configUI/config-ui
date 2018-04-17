@@ -41,7 +41,6 @@ export class AdvanceComponent implements OnInit {
   errMsg = [];
   agentType: string = "";
   isAdminPerm: boolean;
-  flag: boolean = false;
 
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
@@ -93,13 +92,11 @@ export class AdvanceComponent implements OnInit {
 
  //This method is called only in case of custom keywords
   saveCustomKeywordData(keywordData){
-    // this.flag = true;
      for(let key in keywordData){
       this.configKeywordsService.keywordData[key] = keywordData[key];
     }
     // this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.triggerRunTimeChanges(keywordData);
-    // this.flag = false;
   }
 
   handleChange(e){
@@ -119,14 +116,8 @@ export class AdvanceComponent implements OnInit {
         //if test is offline mode, return (no run time changes)
         if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
           console.log(this.className, "constructor", "No NO RUN TIme Changes");
-          //The below conditions are put to make design uniform, handling for custom keywords
-          // if(this.flag == true){
-          //   this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
-          // }
-          // else{
             this.configKeywordsService.saveProfileKeywords(this.profileId);
-          // } 
-          return;
+            return;
         }
         else {
           console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData", this.configProfileService.nodeData);

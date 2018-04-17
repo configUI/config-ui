@@ -60,10 +60,12 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   }
   onChange()
   {
-     if(this.selectedAgent  == null)
+    this.agentLabel = [];
+    this.agentValue = [];
+    if(this.selectedAgent  == null)
       this.isAgentSelected =true;
     else
-      this.isAgentSelected =false;
+    this.isAgentSelected =false;
     this.loadAdrFiles();
         this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
           this.ndAgentStatusData = data;

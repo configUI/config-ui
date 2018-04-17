@@ -1,6 +1,6 @@
 <div class="custom-breadcrumb">
     <div class="ui-g config-ui">
-        <div class="ui-g-11" style="padding:0px; width:96%">
+        <div class="ui-g-11" style="padding:0px; width:96%; z-index:1">
             <div class="ui-g-9" style="width:76%">
                 <p-breadcrumb class="bread_crumb" [model]="items"></p-breadcrumb>
             </div>
@@ -10,7 +10,7 @@
 
             </div>
         </div>
-        <div class="ui-g-1" style="width:4%; border-left: 1px solid #f7f7f7" *ngIf="countAI>0 && trData.trNo != null">
+        <div class="ui-g-1" style="width:4%; border-left: 1px solid #f7f7f7;z-index:1" *ngIf="countAI>0 && trData.trNo != null">
             <a [routerLink]="[ ROUTING_PATH + '/auto-discover']" style="margin: 10px;"> <img border='0' width='18' height='18' src='./images/play.gif' title="Auto Instrumentation process is in progress (Total Active: {{countAI}} )"></a>
         </div>
     </div>

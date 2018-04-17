@@ -199,3 +199,16 @@
     width: 550px;
 }
 
+.showCallBack .CodeMirror {
+    height: 385px;
+}
+
+.addWsdlReq  .CodeMirror {
+    height: 270px;
+    width: 620px;
+}
+
+.iptable .md2-datepicker-placeholder {
+    font-size: 17px;
+}
+

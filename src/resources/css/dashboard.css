@@ -738,6 +738,13 @@ td .md2-calendar-day {
     margin-top: -10px;
 }
 
+.widgetSettingFilters .mat-select-trigger {
+    min-width: 80px;
+}
+
+.widgetSettingOperations .mat-select-trigger {
+    min-width: 65px;
+}
 
 /*------------------- End widget Setting css -----------------*/
 
@@ -1069,4 +1076,30 @@ b {
     #favMozSupport{
        padding-right: 25px;
    }
+}
+
+
+.openrelatedgraphOperation .mat-select-trigger {
+    min-width: 112px;
+    /*padding-top: 7px;*/
+}
+.graphListbox /deep/ .ui-multiselect .ui-multiselect-label-container{
+    width: 294px
+}
+
+.selectGraph /deep/ .ui-multiselect.ui-widget.ui-corner-all{
+    width: 300px;
+}
+ 
+.openrelatedCombobox .mat-select-trigger {
+    min-width: 140px;
+    /*padding-top: 7px;*/
+}
+
+.dashboard-report-context-menu-item .ui-widget-content{
+    width :101px;
+}
+
+.dashboard-report-set-table .ui-datatable table {
+table-layout: auto;
 }

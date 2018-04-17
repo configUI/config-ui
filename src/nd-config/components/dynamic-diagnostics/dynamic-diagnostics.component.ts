@@ -60,6 +60,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
 
     DDOrAIGUI: string;
     accordionTab: number;
+    agentTypes: string;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
@@ -78,6 +79,8 @@ export class DynamicDiagnosticsComponent implements OnInit {
     // this method is for AI and GUI Setting 
     loadAIDDGUI(name, id, type) {
 
+
+        this.agentTypes = type;
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();

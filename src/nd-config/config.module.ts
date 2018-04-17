@@ -137,7 +137,8 @@ import { ConfigAutoInstrumentationComponent } from './components/config-auto-dis
 import { ConfigEditAutoInstrumentationComponent } from './components/config-auto-discover/config-edit-auto-instrumentation/config-edit-auto-instrumentation.component';
 import { ExceptionCapturingComponent } from './components/config-profile/general/exception-capturing/exception-capturing.component';
 import { HttpResponseComponent } from './components/config-profile/general/custom-data/http-response/http-response.component';
-import {DynamicDiagnosticsComponent} from './components/dynamic-diagnostics/dynamic-diagnostics.component'
+import {DynamicDiagnosticsComponent} from './components/dynamic-diagnostics/dynamic-diagnostics.component';
+import { AsynchronousRuleComponent } from './components/config-profile/instrumentation/asynchronous-rule/asynchronous-rule.component';
 // not commit in cvs
 import { CavMenuNavigatorService } from './services/cav-menu-navigator.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -146,6 +147,7 @@ import { CavDataApiService } from './services/cav-data-api.service';
 import { CavTopPanelNavigationService } from './services/cav-top-panel-navigation.service';
 import { TimerService } from './services/timer.service';
 import { AlertConfigService } from './services/alert-config-service';
+
 
 @NgModule({
   declarations: [
@@ -213,7 +215,8 @@ import { AlertConfigService } from './services/alert-config-service';
     ExceptionCapturingComponent,
     HttpResponseComponent,
     BTResponseHeadersComponent,
-    DynamicDiagnosticsComponent
+    DynamicDiagnosticsComponent,
+    AsynchronousRuleComponent
   ],
   imports: [
    // CommonModule,

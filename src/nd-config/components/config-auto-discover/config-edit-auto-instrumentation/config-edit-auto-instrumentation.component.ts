@@ -174,18 +174,20 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
 
     getValuesForSelectedList() {
         this.selectedNodes = [];
+        if(this.leftSideTreeData == undefined){
+            this.configUtilityService.errorMessage("Data not available in Session file to instrument");
+            return;
+        }
         this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
         if (this.selectedNodes.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
- 
         if(this.isNodeSelected == false)
         {
             this.configUtilityService.errorMessage("Same Package,Class and Method name already instrumented");
             return;  
         }
-
         this._configKeywordsService.getSelectedInstrumentaionInfo(this.selectedNodes, this.reqId).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
          /**
@@ -208,8 +210,15 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     }
 
     removeValuesFromSelectedList() {
-
         this.selectedNodes = [];
+        if(this.rightSideTreeData.length == 0){
+            this.configUtilityService.errorMessage("Instrumented data is not available to uninstrument");
+            return;
+        }
+        else if(this.rightSideTreeData[0].children.length == 0){
+            this.configUtilityService.errorMessage("Instrumented data is not available to uninstrument");
+            return;
+    }
         this.getSelectedUnselectedNodeInfo(this.instrFromRightSideTree, true);
         if (this.selectedNodes.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for unInstrumentation");

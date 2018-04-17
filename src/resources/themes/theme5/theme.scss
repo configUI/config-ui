@@ -2431,7 +2431,7 @@ button.capabilityButton.mat-raised-button{
     background-color: rgba(255, 230, 196, 0.18);
 }
 .ed-table .ui-widget-header {
-    background: #fff;
+    background: burlywood;
     border-bottom: 1.3px #4e3413 solid;
 }
 .kpigrid tr.ui-state-default {
@@ -2523,7 +2523,7 @@ button.capabilityButton.mat-raised-button{
  .kioskcss{background:rgba(186, 195, 243, 0.4);}
  .kpiCsccss{background:rgba(218, 209, 132, 0.4);}
 
- i.topicon.kpi-kpi {
+ i.topicon{
     color: #fff;
 }
 .top-panel-nav-cross-icon {
@@ -2547,6 +2547,17 @@ p-datatable.kpigrid {
 .mailSmsConfigSetting .ui-widget-header {
     background: rgb(177, 131, 72);
     color: #ccc;
+}
+app-alert-home .ui-fieldset  {
+    border: 1px solid rgba(189, 150, 92, 0.52);
+    background: rgb(236, 217, 170);
+}
+app-alert-home .ui-fieldset .ui-fieldset-legend{
+    border: 1px solid rgba(189, 150, 92, 0.52);
+    background: rgb(236, 217, 170);
+}
+.mat-button-toggle {
+    color: rgba(0, 0, 0, 0.8);
 }
 //this is used to get unselected color in scenario left panel
 .scenario-left .ui-state-active {
@@ -2587,13 +2598,195 @@ p-datatable.kpigrid {
   box-shadow: 0 0 6px 2px #565656;
   background: rgba(250, 250, 250, 1.7);
 }
+
+.ddr-box {
+    background: rgba(255, 255, 255, 0.42);
+}
+.ddrbreadcrumb .ui-widget-header{
+    background: rgba(148, 148, 148, 0.5);
+    border-bottom: 1px #666 solid;
+}
+
+.ddr-accordion  .ui-accordion-header.ui-state-default.ui-corner-all {
+    background: #63431e;
+    border: 1px #352209 solid;
+}
+
+.ddr-accordion .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+    background: #ad865a;
+    border: 1px #7f603d solid;
+}
+
+.ddr-accordion .ui-accordion .ui-accordion-header a {
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+.ddr-accordion .ui-state-default a:link, .ui-state-default a:visited {
+    color: #4a4a4a;
+}
+
+.ddr-accordion .ui-accordion .ui-accordion-content {
+    padding: 0;
+    border-top: 0;
+    overflow: visible;
+    zoom: 1;
+}
+
+.ddr-tabs .ui-state-default a:link {
+    color: #fff;
+    font-weight: 500;
+}
+
+.ddr-side-view-div {
+    background: #f9f2c6;
+    border-bottom: 1px #b58342 solid;
+}
+
+.ddr-active-flowpath
+{
+	background-color: #ddb77c !important;
+}
+
+.ddr-tabs .ui-tabview .ui-tabview-nav > li.ui-state-default {
+    background: #b58342;
+}
+.ddr-tabs .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
+    background: #4e3413; 
+    font-weight: normal; 
+    color: #555;
+}
+
+.ddr-toolbar .ui-toolbar.ui-widget.ui-widget-header {
+    background: #d6ebe8;
+}
+
+.ddr-toolbar .ui-toolbar.ui-widget.ui-widget-header {
+    background: #844a02;
+}
+
+/*========================================*/
+
 .AC-rghtpane-box {
     background: white;
     border: 1px #4a4a4a solid;
+}
+
+/*-- In ddr-side bar multiselect ,color link on close button --*/
+.ddr-link .ui-state-default a, .ddr-link .ui-state-default a:link  
+{
+    color: black;
 }
 
 /*---------Script Execution Logs---------------*/
 .srptexc-header  {
     background: #b18348;
     color: #fff;
+}
+/*-------------Monitor UI CSS--------------*/
+.monitor-brdcmp .ui-breadcrumb.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    background: rgba(255, 255, 255, 0.6);
+}
+.monitor-fieldset .ui-widget-content {
+    border: 1px solid #5f4320;
+    background: rgba(255, 255, 255, 0.8);
+}
+.monitor-ui-table .ui-datatable-even {
+    background: transparent;
+}
+.monitor-ui-table .ui-datatable .ui-datatable-header{
+    background: #5f4320;
+    color: #fff;
+}
+.monitor-fieldset .ui-fieldset .ui-fieldset-legend {
+    border: 1px #cbd3d9 solid;
+    background: #bd965c;
+    color: #fff;
+}
+.monitor-ui-table .ui-datatable th.ui-state-default {
+    background: linear-gradient(rgb(189, 150, 92) 0%, rgb(170, 106, 32) 100%);
+    color: #fff;
+}
+.monitor-ui-table .ui-datatable .ui-datatable-data tr.ui-state-highlight{
+    background: rgb(231, 195, 119);
+    color: #000;
+}
+.monitor-ui-table .ui-datatable-even {
+    background-color: rgb(218, 188, 147);
+}
+.monitor-ui-table .ui-datatable-odd {
+    background-color: rgb(255, 230, 196);
+}
+.monitor-toolbar .ui-widget-header {
+    background: #5f4320;
+    color: #fff;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: rgb(173, 134, 90);
+    border: 1px solid rgb(127, 96, 61);
+    border-image: initial;
+}
+/* .monitor-ui-accordion .ui-state-default{
+         color: #fff;
+ }*/
+.monitor-ui-accordion .ui-state-active {
+    border: 1px solid #156090;
+    background: #186ba0;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content {
+    background: rgba(255, 255, 255, 0.3);
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header{
+    background: rgb(99, 67, 30);
+    border: 1px solid rgb(53, 34, 9);
+    border-image: initial;
+}
+.mon-ui .ui-treetable th.ui-state-default 
+{
+  background: linear-gradient(rgb(189, 150, 92) 0%, rgb(170, 106, 32) 100%);
+  color: white;
+  
+}
+.configured-datatable  .ui-datatable th.ui-state-default{
+  background: linear-gradient(rgb(189, 150, 92) 0%, rgb(170, 106, 32) 100%);
+  color :#fff;
+}
+/*-------------Graphical KPI--------------*/
+.ed-gkpi .grid-item {
+    box-shadow: 0px 0 4px 2px rgba(82, 82, 82, 0.4);
+    background: #ffffff;
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ecd9aa 100%);
+    background: radial-gradient(ellipse at center, #ffffff 0%, #ecd9aa 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ecd9aa',GradientType=1 );
+}
+.ed-gkpi .highcharts-gauge-series .highcharts-dial {
+    fill: red;
+}
+.edSinglePanelPopup .ui-widget-header {
+    color: #fff;
+    background: rgb(177, 131, 72);;
+}
+.edSinglePanelPopup .ui-widget-header a {
+    color: #fff;
+}
+.edSinglePanelPopup  .ui-widget-content {
+    border: 0px #f7f7f7 solid;
+    background: rgb(255, 251, 241);
+}
+/*------------NetVision CSS----------------*/
+.netvision-left-menu .mat-icon {
+    color: rgb(240, 240, 240);
+}
+.netvision-left-menu .menu-item-text {
+     color: rgb(240, 240, 240);
+}
+.netVision-table .ui-datatable th.ui-state-default {
+    background: #987b4b;
+    color: #fff;
+}
+
+/****  Run Command ******/
+.resultDetailsDiv {
+    background: #faf5ee;
 }

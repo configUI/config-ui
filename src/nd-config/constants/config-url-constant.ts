@@ -1,8 +1,12 @@
 
 
-const  SERVICE_URL = 'https://10.10.50.16:4435/configUI';
+<<<<<<< HEAD
+//const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
+=======
+//const  SERVICE_URL = 'https://10.10.50.16:4435/configUI';
+>>>>>>> b329e370c4702b291ffe0ffc092feedbd7eceaa7
 
-//const  SERVICE_URL = 'http://localhost:8090';
+const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -349,3 +353,10 @@ export const EXPORT_PROFILE = `${SERVICE_URL}/custom/importexport/exportprofile`
 
 /**URL for DDAI */
 export const START_DD_AI = `${SERVICE_URL}/custom/DynamicDiagnostics/ddaitrigger`;
+
+/* URL for Asynchronous Rule  */
+export const FETCH_ASYNCHRONOUS_RULE_TABLEDATA = `${SERVICE_URL}/custom/ndasynchronousrule/getasynchronousrule`;
+export const ADD_NEW_ASYNCHRONOUS_RULE = `${SERVICE_URL}/custom/ndasynchronousrule/addasynchronousrule`;
+export const DEL_ASYNCHRONOUS_RULE = `${SERVICE_URL}/custom/ndasynchronousrule/delete`;
+export const EDIT_ASYNCHRONOUS_RULE = `${SERVICE_URL}/custom/ndasynchronousrule/updateasynchronousrule`;
+export const SAVE_ASYNCHRONOUS_RULE= `${SERVICE_URL}/custom/ndasynchronousrule/save`;

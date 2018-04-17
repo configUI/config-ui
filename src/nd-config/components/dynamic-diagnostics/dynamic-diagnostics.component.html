@@ -3,7 +3,7 @@
         <div class="ui-g-6">
             <p-radioButton name="AIDDGUI" value="0" label="Auto Instrumentation" [(ngModel)]="AIDDGUI" [disabled]="false"></p-radioButton>
         </div>
-        <div class="ui-g-6">
+        <div class="ui-g-6" *ngIf="agentTypes == 'Java'">
             <p-radioButton name="AIDDGUI" value="1" label="Dynamic Diagnostics" [(ngModel)]="AIDDGUI" [disabled]="false"></p-radioButton>
         </div>
     </div>
@@ -186,17 +186,11 @@
 
                         <p-fieldset class="dashboardreports" legend="Apply Mode ">
                             <div class="ui-g-12 divCss">
-                                <div style="width:25%; float: left ">
-                                    <p-radioButton name="applyMode " value="0" label="Global" [(ngModel)]="ddAIData['applyMode']"></p-radioButton>
+                                <div style="width:50% ; float: left">
+                                    <p-radioButton name="applyMode " value="0" label="Apply on Instance" [(ngModel)]="ddAIData['applyMode']"></p-radioButton>
                                 </div>
-                                <div style="width:25%; float: left ">
-                                    <p-radioButton name="applyMode " value="1" label="Tier" [(ngModel)]="ddAIData['applyMode']"></p-radioButton>
-                                </div>
-                                <div style="width:25% ; float: left">
-                                    <p-radioButton name="applyMode " value="2" label="Server" [(ngModel)]="ddAIData['applyMode']"></p-radioButton>
-                                </div>
-                                <div style="width:25% ; float: left">
-                                    <p-radioButton name="applyMode " value="3" label="Instance" [(ngModel)]="ddAIData['applyMode']"></p-radioButton>
+                                <div style="width:50% ; float: left">
+                                    <p-radioButton name="applyMode " value="1" label="Apply on Instance and save" [(ngModel)]="ddAIData['applyMode']"></p-radioButton>
                                 </div>
                             </div>
                         </p-fieldset>
@@ -227,7 +221,7 @@
                     <div class="ui-g-12 divCss">
                         <div class="ui-g-7">
                             <label>Trace level</label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="In every cycle of provided thread sample count, important method(s) will be instrumented"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Trace level for DD Auto Instrumentation"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
@@ -294,7 +288,7 @@
                     <div class="ui-g-12 divCss">
                         <div class="ui-g-7">
                             <label>Concurrent Auto Instrumentation threshold</label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Max no of active BT serving threads for DD AI Session"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
@@ -313,7 +307,7 @@
                     <div class="ui-g-12 divCss">
                         <div class="ui-g-4">
                             <label>Thread blacklist filter </label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Provided thread names are excluded in the DD AI session"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
@@ -323,7 +317,7 @@
                     <div class="ui-g-12 divCss">
                         <div class="ui-g-4">
                             <label>Thread whitelist filter</label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Provided thread names are included in the DD AI session"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
@@ -333,7 +327,7 @@
                     <div class="ui-g-12 divCss">
                         <div class="ui-g-4">
                             <label>Blacklist filter</label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Provided BT names are excluded in the DD AI session"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
@@ -343,7 +337,7 @@
                     <div class="ui-g-12 divCss">
                         <div class="ui-g-4">
                             <label>Whitelist filter </label>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="All methods in stack traces having exception and integration point calls will have more weightage for Auto Instrumentation"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Provided BT names are included in the DD AI session"></i>
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
@@ -357,13 +351,13 @@
                         <p-checkbox name="retainchanges" [(ngModel)]="retainchanges" label="Remove Auto Instrumentation session changes after it's completion" binary="true" ngModel></p-checkbox>
                         <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after Auto Instrumentation session completion"></i>
                     </div>
-                    <div class="ui-g-12 divCss" style="margin-left: 5px">
+                    <!-- <div class="ui-g-12 divCss" style="margin-left: 5px">
                         <p-checkbox name="saveChanges" [(ngModel)]="saveChanges" label="Save applied changes" binary="true" ngModel></p-checkbox>
                         <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after Auto Instrumentation session completion"></i>
-                    </div>
+                    </div> -->
                     <div class="ui-g-12 divCss" style="margin-left: 5px">
                         <p-checkbox name="deleteFromServer" [(ngModel)]="deleteFromServer" label="Delete from server" binary="true" ngModel></p-checkbox>
-                        <i class="fa fa-info-circle" aria-hidden="true" title="Un-instrument all methods which are considered for Auto Instrumentation only after Auto Instrumentation session completion"></i>
+                        <i class="fa fa-info-circle" aria-hidden="true" title="Deletion of file from server"></i>
                     </div>
                 </div>
             </p-accordionTab>
