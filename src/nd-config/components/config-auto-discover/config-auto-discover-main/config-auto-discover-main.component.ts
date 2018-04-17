@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AutoDiscoverData } from "../../../containers/auto-discover-data";
+import { 
+  AutoDiscoverData } from "../../../containers/auto-discover-data";
 import { NDAgentInfo } from '../../../interfaces/nd-agent-info';
 import { ConfigNdAgentService } from '../../../services/config-nd-agent.service';
 import { ConfigUiUtility } from '../../../utils/config-utility';
@@ -76,12 +77,10 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   getConnectedAgentsList(data, agentType) {
     for (var i = 0; i < data.length; i++) {
       if (data[i].at == agentType && data[i].st == "Active") {
-
-        this.agentLabel.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
+        this.agentLabel.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
         this.agentValue.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
       }
      this.agents = ConfigUiUtility.createListWithKeyValue(this.agentLabel, this.agentValue);
-
     }
   }
 
