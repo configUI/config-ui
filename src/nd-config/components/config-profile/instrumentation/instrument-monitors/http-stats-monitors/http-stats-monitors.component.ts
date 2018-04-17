@@ -68,6 +68,8 @@ export class HttpStatsMonitorsComponent implements OnInit {
   openFileExplorerDialog: boolean = false; 
   isHttpstatsMonitorBrowse: boolean = false;
 
+  importinfoDialog :boolean;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
   ) { }
 
@@ -233,14 +235,14 @@ export class HttpStatsMonitorsComponent implements OnInit {
   loadNumericOP() {
     this.numericOP = [];
     var numericOPLabel = ['=', '!=', '<', '<=', '>', '>=', 'present', '!present'];
-    var numericOPVal = ['1', '2', '3', '4', '5', '6', '15', '16'];
+    var numericOPVal = ['5', '6', '7', '8', '9', '10', '15', '16'];
     this.numericOP = ConfigUiUtility.createListWithKeyValue(numericOPLabel, numericOPVal);
   }
 
   loadOthersOP() {
     this.othersOP = [];
     var othersOPLabel = ['PRESENT', '!PRESENT'];
-    var othersOPVal = ['1', '2'];
+    var othersOPVal = ['11', '12'];
     this.othersOP = ConfigUiUtility.createListWithKeyValue(othersOPLabel, othersOPVal);
   }
 
@@ -487,10 +489,13 @@ export class HttpStatsMonitorsComponent implements OnInit {
     }
   }
 
-
-
-
-
+      openImportInfo(){
+        this.importinfoDialog = true;
+      }
+ /* change Browse boolean value on change component */
+ ngOnDestroy() {
+   this.isHttpstatsMonitorBrowse = false;
+ }
 }
 
 //It will convert the values of flowpath dump from 0, 1 and 2 to Disable, Enable and Enable Forcefully respectively

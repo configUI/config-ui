@@ -2,10 +2,10 @@
     <div class="configUI">
         <div class="header"><i aria-hidden="true"></i>Application List
             <span class="appIcon-css">
-              <!--  <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button>-->
-                <button pButton type="button" title="Add an application" [disabled]="isAppPerm" (click)="openAppDialog()" icon="fa-plus"></button>
-                <button pButton type="button" title="Edit an application" [disabled]="isAppPerm" (click)="editAppDialog()" icon="fa-pencil" ></button>
-                <button pButton type="button"class="ui-button-danger" title="Delete application(s)" [disabled]="isAppPerm" (click)="deleteApp()" icon="fa-trash"></button>
+               <!-- <button pButton type="button" title="Generate agent configuration settings" icon="fa-file-text" (click)="generateNDConfFile()"></button> -->
+                <button pButton type="button" title="Add an Application" [disabled]="isAppPerm" (click)="openAppDialog()" icon="fa-plus"></button>
+                <button pButton type="button" title="Edit an Application" [disabled]="isAppPerm" (click)="editAppDialog()" icon="fa-pencil" ></button>
+                <button pButton type="button"class="ui-button-danger" title="Delete Application(s)" [disabled]="isAppPerm" (click)="deleteApp()" icon="fa-trash"></button>
             </span>
         </div>
     
@@ -20,17 +20,17 @@
                     <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
                 </template>
                 </p-column>
-                <p-column class="col-overflow" field="topoName" header="Topology applied" [sortable]="true" [style]="{'width':'20%'}">
+                <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true" [style]="{'width':'20%'}">
                     <template let-col let-application="rowData" pTemplate>
                     <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                 </template>
                 </p-column>
-                <p-column class="col-overflow" field="userName" header="User name" [sortable]="true" [style]="{'width':'10%'}">
+                <p-column class="col-overflow" field="userName" header="User Name" [sortable]="true" [style]="{'width':'10%'}">
                     <template let-col let-application="rowData" pTemplate>
                     <span title="{{application[col.field]}}">{{application[col.field]}}</span>
                 </template>
                 </p-column>
-                <p-column class="col-overflow" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'15%'}">
+                <p-column class="col-overflow" field="timeStamp" header="Last Updated On" [sortable]="true" [style]="{'width':'15%'}">
                     <template let-col let-application="rowData" pTemplate>
     
                     <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
@@ -38,7 +38,7 @@
                 </p-column>
                <p-column class="col-overflow" field="appName" header="ND Controller Settings" [sortable]="true" [style]="{'width':'14%', 'text-align':'center'}">
                     <template let-col let-application="rowData" pTemplate>
-                <a (click)="routeToNDCKeywords(application['appId'])" title="Click to open '{{application[col.field]}}' ND Controller Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
+                <a (click)="routeToNDCKeywords(application['appId'])" title="Click to Open '{{application[col.field]}}' ND Controller Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
                 </template>
                 </p-column>
                 <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">

@@ -11,14 +11,18 @@ import {ConfigUtilityService} from './config-utility.service';
 @Injectable()
 export class ConfigRestApiService {
 
-  constructor(private http: Http, private configUtilityService: ConfigUtilityService) { }
+  constructor(private _navService: CavTopPanelNavigationService, private _productConfig: CavConfigService, private http: Http, private configUtilityService: ConfigUtilityService) { }
 
   className: string = "ConfigRestApiService";
-
+ // productKey = this._productConfig.$productKey;
   // Fetch data
 
   getDataByGetReq(url: string): Observable<any> {
-   // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
+    // if(url.indexOf("?") > 0)
+    //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+    // else
+    //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;
+    
     this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
@@ -32,8 +36,12 @@ export class ConfigRestApiService {
   }
 
   getDataByGetReqForRunningTestStatus(url: string): Observable<any> {
-    // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
-   // this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+  //  if(url.indexOf("?") > 0)
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+  //   else
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;
+  
+ // this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
       // ...and calling .json() on the response to return data
@@ -47,8 +55,12 @@ export class ConfigRestApiService {
 
     // Fetch data
   getDataByGetReqWithNoJson(url: string): Observable<any> {
-  //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url;
-    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+  //  if(url.indexOf("?") > 0)
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+  //   else
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;   
+ 
+   this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
       .map((res: Response) => {
@@ -60,8 +72,12 @@ export class ConfigRestApiService {
   }
 
   getDataByPostReq(url: string, body?: any): Observable<any> {
-   // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
-    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+  //  if(url.indexOf("?") > 0)
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+  //   else
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;   
+ 
+   this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
@@ -80,7 +96,11 @@ export class ConfigRestApiService {
   }
 
   getDataByPutReq(url: string, body?: Object): Observable<any> {
-  //  url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
+  //  if(url.indexOf("?") > 0)
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+  //   else
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;
+   
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });// Create a request option
     
@@ -94,8 +114,12 @@ export class ConfigRestApiService {
   }
 /*  Get Agent Info according selected DC */
   getAgentDataByGetReq(url: string): Observable<any> {
-   // url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url;
-    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+  //  if(url.indexOf("?") > 0)
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url + "&productKey=" + this.productKey;
+  //   else
+  //    url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndAgent') + url + "?productKey=" + this.productKey;  
+  
+  this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     // ...using get request
     return this.http.get(url)
       // ...and calling .json() on the response to return data
@@ -109,8 +133,11 @@ export class ConfigRestApiService {
 
 /* This method is used for get value in xml format */
  getXMLDataByPostReq(url: string, body?: any): Observable<any> {
-  //  url = this._productConfig.getURLByActiveDC() + url;
-    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+  //  if(url.indexOf("?") > 0)
+  //    url = this._productConfig.getURLByActiveDC() + url + "&productKey=" + this.productKey;
+  //   else
+  //    url = this._productConfig.getURLByActiveDC() + url + "?productKey=" + this.productKey;  
+  this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
     let headers = new Headers({ 'Content-type': 'application/xml' });// ... Set content type to XML
@@ -128,8 +155,11 @@ export class ConfigRestApiService {
   }
 
   getDataByPostReqWithNoJSON(url: string, body?: any): Observable<any> {
-   // url = this._productConfig.getINSPrefix () + this._navService.getDCNameForScreen('ndConfig') + url;
-    this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+    // if(url.indexOf("?") > 0)
+    //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+    // else
+    //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;  
+  this.configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     if(body == undefined)
       body = {};
     let headers = new Headers({ 'Content-type': 'application/json' });// ... Set content type to JSON

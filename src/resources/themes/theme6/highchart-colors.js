@@ -12,14 +12,15 @@ function loadHighchartTheme() {
             chart: {
                 backgroundColor: null,
                 style: {
-                    fontFamily: 'Signika, serif'
+                    fontFamily: "'Roboto', sans-serif"
                 }
             },
             title: {
                 style: {
-                    color: 'black',
-                    fontSize: '16px',
-                    fontWeight: 'bold'
+                    color: "#000",
+                    fontSize: '"11px"',
+                    fontWeight: "500",
+                    fontFamily: "'Roboto', sans-serif"
                 }
             },
             subtitle: {
@@ -48,6 +49,9 @@ function loadHighchartTheme() {
                     style: {
                         color: '#6e6e70'
                     }
+                },
+                title: {
+                   style: {"fontSize": "10px", "margin": "10px", "color":"#070707"},
                 }
             },
             plotOptions: {

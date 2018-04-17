@@ -9,14 +9,14 @@
         <div class="ui-g-1">
             <label>Header type</label></div>
         <!-- <div class="ui-g-2"> -->
-        <!-- <p-dropdown class="nde-ui" name="customValueType" [style]="{'width':'60%'}" (click)="changeSpecificReq()" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown> -->
+            <!-- <p-dropdown class="nde-ui" name="customValueType" [style]="{'width':'60%'}" (click)="changeSpecificReq()" [options]="reqHeaderTypes" [(ngModel)]="data[0].headerMode" required ngModel></p-dropdown> -->
         <!-- </div> -->
-        <div class="ui-g-1">
-            <p-radioButton name="customValueType" label="All" value="All" [disabled]="saveDisable" [(ngModel)]="data[0].headerMode" (click)="changeSpecificReq()"></p-radioButton>
-        </div>
-        <div class="ui-g-1">
-            <p-radioButton name="customValueType" label="Specified" value="Specified" [disabled]="saveDisable" [(ngModel)]="data[0].headerMode" (click)="changeSpecificReq()"></p-radioButton>
-        </div>
+            <div class="ui-g-1">
+                <p-radioButton name="customValueType" label="All" value="All" [disabled]="saveDisable" [(ngModel)]="data[0].headerMode" (click)="changeSpecificReq()"></p-radioButton>
+            </div>
+            <div class="ui-g-1">
+                <p-radioButton name="customValueType" label="Specified" value="Specified" [disabled]="saveDisable" [(ngModel)]="data[0].headerMode" (click)="changeSpecificReq()"></p-radioButton>
+            </div>
         <div class="ui-g-7" *ngIf="(data[0].headerMode == 'Specified')">
             <input type="text" size="30" class='hidden-validator' [(ngModel)]="data[0].headersName[0]" pInputText required ngModel/>
             <p-multiSelect class="multiselectdropReqResp headerhttpres nde-ui" [options]="specifiedReqHeaderType" [style]="{'min-width':'20%'}" [(ngModel)]="data[0].headersName"></p-multiSelect>
@@ -25,7 +25,7 @@
     </div>
     <div class="ui-g-12" style="margin-left:13px">
         <div class="ui-g-2" style="width: 14.38%">
-            <p-checkbox name="httpCaptureMode" [disabled]="data[0].headerMode==0" label="Limit values to" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
+            <p-checkbox name="httpCaptureMode" [disabled]="data[0].headerMode==0" label="Limit header values to" [(ngModel)]="data[0].captureMode" binary="true"></p-checkbox>
             <!--<p-dropdown name="customValueType" [style]="{'width':'80%'}" [options]="captureMode" [(ngModel)]="selectedCaptureMode"  required ngModel placeholder="Select Capture Mode"></p-dropdown>-->
         </div>
         <div class="ui-g-5">

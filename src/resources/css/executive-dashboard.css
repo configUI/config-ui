@@ -40,63 +40,68 @@
 }
 
 .kpi-android:before {
-  content: "\e012";
-}
-.kpi-cpu:before {
-  content: "\e013";
-}
-.kpi-csc:before {
-  content: "\e014";
-}
-.kpi-data-center:before {
-  content: "\e015";
-}
-.kpi-db:before {
-  content: "\e016";
-}
-.kpi-ed:before {
-  content: "\e017";
-}
-.kpi-inventory-grid:before {
-  content: "\e018";
-}
-.kpi-iphone:before {
-  content: "\e019";
-}
-.kpi-kiosk:before {
-  content: "\e01a";
-}
-.kpi-kpi:before {
-  content: "\e01b";
-}
-.kpi-mcom:before {
-  content: "\e01c";
-}
-.kpi-offer-grid:before {
-  content: "\e01d";
-}
-.kpi-pvs:before {
-  content: "\e01e";
-}
-.kpi-total-kohls:before {
-  content: "\e01f";
-}
-.kpi-webstore:before {
-  content: "\e021";
-}
-.kpi-tablet:before {
-  content: "\e022";
-}
-.kpi-tier-1:before {
-  content: "\e023";
-}
-.kpi-response-time:before {
-  content: "\e024";
-}
-.kpi-total-mobile:before {
   content: "\e000";
 }
-
+.kpi-cpu:before {
+  content: "\e001";
+}
+.kpi-csc:before {
+  content: "\e002";
+}
+.kpi-data-center:before {
+  content: "\e003";
+}
+.kpi-db:before {
+  content: "\e004";
+}
+.kpi-ed:before {
+  content: "\e005";
+}
+.kpi-g-kpi:before {
+  content: "\e006";
+}
+.kpi-g-kpi2:before {
+  content: "\e007";
+}
+.kpi-inventory-grid:before {
+  content: "\e008";
+}
+.kpi-iphone:before {
+  content: "\e009";
+}
+.kpi-kiosk:before {
+  content: "\e00a";
+}
+.kpi-kpi:before {
+  content: "\e00b";
+}
+.kpi-mcom:before {
+  content: "\e00c";
+}
+.kpi-offer-grid:before {
+  content: "\e00d";
+}
+.kpi-pvs:before {
+  content: "\e00e";
+}
+.kpi-response-time:before {
+  content: "\e00f";
+}
+.kpi-tablet:before {
+  content: "\e010";
+}
+.kpi-tier:before {
+  content: "\e011";
+}
+.kpi-total-kohls:before {
+  content: "\e012";
+}
+.kpi-total-mobile:before {
+  content: "\e013";
+}
+.kpi-webstore:before {
+  content: "\e014";
+}
 .kpicon {
     height: 18px;
     margin: 0;
@@ -106,11 +111,11 @@
     font-size: 1.5em;
 }
 .topicon{
-    margin: 0;
+    margin-top: 4px;
     
     overflow: hidden;
     float: left;
-    font-size: 2.2em;
+    font-size: 2.0em;
 }
 .edCross.top-panel-nav-cross-icon {
     left: 0 !important;
@@ -181,4 +186,25 @@ body {
 
 .timePeriodDrpClass .ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):hover{
   background:#C1C1C1 !important;
+}
+
+.edSinglePanelPopup .ui-dialog.ui-widget .ui-dialog-content {
+    padding: 0;
+}
+.graphicalHandle {
+    position: absolute;
+    top: 2%;
+    left:1%;
+    z-index: 1;
+    font-size: 16px;
+    cursor:pointer;
+  }
+.graphicalHandle:hover {
+    font-size: xx-large;
+}
+.gKpiLoadingIcon {
+   position:absolute;
+   top:45%;
+   left:48%;
+   color: white;
 }

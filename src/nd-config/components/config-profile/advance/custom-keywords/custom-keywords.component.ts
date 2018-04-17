@@ -467,4 +467,9 @@ export class CustomKeywordsComponent implements OnInit {
       this.isValueDisabled = true;
     }
   }
+  
+ /* change Browse boolean value on change component */
+ ngOnDestroy() {
+   this.isCustomConfigurationBrowse = false;
+ }
 }
