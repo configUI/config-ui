@@ -1,76 +1,87 @@
 <div class="ui-g ndegui-mainbox">
-    <div class="ui-g-10 config_auto_discover-agenttype">
-            <div class="ui-g-2 config_auto-discover-agent">
-                <label>Agent Type</label>
+        <div class="ui-g-10 config_auto_discover-agenttype">
+                <div class="ui-g-2 config_auto-discover-agent">
+                    <label>Agent Type</label>
+                </div>
+                <div class="ui-g-4" style="margin-top:19px">
+                        <p-dropdown [options]="agent" name="agent" [style]="{'width':'94%','margin-left':'-3px'}" [(ngModel)]="selectedAgent" placeholder="--Select--" (ngModelChange)="onChange()"></p-dropdown>
+                </div>
+    </div>
+    <form (ngSubmit)="discoverData()" #groupForm="ngForm" style="width:100%" ngNativeValidate>
+        <div class="ui-g-10">
+            <div class="ui-g-2 config_auto-discover-margin">
+                <label>Connected Agent (s)</label>
             </div>
             <div class="ui-g-4" style="margin-top:19px">
-                    <p-dropdown [options]="agent" name="agent" [style]="{'width':'94%','margin-left':'-3px'}" [(ngModel)]="selectedAgent" placeholder="--Select--" (ngModelChange)="onChange()"></p-dropdown>
+                <input name="agents" type="text" class='hidden-validator' pInputText [(ngModel)]="autoDiscoverDetail.agents" required ngModel/>
+                <p-dropdown name="agents" class="auto-discover" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
             </div>
-</div>
-<form (ngSubmit)="discoverData()" #groupForm="ngForm" style="width:100%" ngNativeValidate>
-    <div class="ui-g-10">
-        <div class="ui-g-2 config_auto-discover-margin">
-            <label>Connected Agent (s)</label>
         </div>
-        <div class="ui-g-4" style="margin-top:19px">
-            <input name="agents" type="text" class='hidden-validator' pInputText [(ngModel)]="autoDiscoverDetail.agents" required ngModel/>
-            <p-dropdown name="agents" class="auto-discover" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
-        </div>
-    </div>
 
-    <div class="ui-g-11 configUI" style="margin:0px 175px 27px 46px">
-        <div class="ui-g-12">
+        <div class="ui-g-11 configUI" style="margin:0px 175px 27px 46px">
+            <div class="ui-g-12">
+                <div class="ui-g-2">
+                    Discovery Mode
+                </div>
+                <div class="ui-g-4">
+                    <p-radioButton name="discover" value="1" label="Discover by Filter" [(ngModel)]="autoDiscoverDetail.discoveryMode" [disabled]="isAgentSelected"></p-radioButton>
+                </div>
+                <div class="ui-g-5">
+                    <p-radioButton name="discover" value="0" label="Discover All" [(ngModel)]="autoDiscoverDetail.discoveryMode" [disabled]="isAgentSelected"></p-radioButton>
+                </div>
+            </div>
+            <div class="ui-g-12">
             <div class="ui-g-2">
-                Discovery mode
+            <label>Class Filter</label>   
+            <i class="fa fa-info-circle" aria-hidden="true" title="Class filter should be Fully Qualified Class Name(e.g com.oracle.pitchfork.interfaces.inject.InjectionInfo) or its regex e.g:- com.ora.*"></i> 
             </div>
-            <div class="ui-g-4">
-                <p-radioButton name="discover" value="1" label="Discover by filter" [(ngModel)]="autoDiscoverDetail.discoveryMode" [disabled]="isAgentSelected"></p-radioButton>
+                <div class="ui-g-10">
+                    <textarea name="classfilter" [disabled]="autoDiscoverDetail.discoveryMode == 0" (keydown.space)="$event.preventDefault()" rows="2" cols="4" [(ngModel)]="autoDiscoverDetail.classFilters" class="config_app" pInputTextarea></textarea>
+                </div>
             </div>
-            <div class="ui-g-5">
-                <p-radioButton name="discover" value="0" label="Discover all" [(ngModel)]="autoDiscoverDetail.discoveryMode" [disabled]="isAgentSelected"></p-radioButton>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-2">Class Filter</div>
-            <div class="ui-g-10">
-                <textarea name="classfilter" [disabled]="autoDiscoverDetail.discoveryMode == 0" (keydown.space)="$event.preventDefault()" rows="2" cols="4" [(ngModel)]="autoDiscoverDetail.classFilters" class="config_app" pInputTextarea></textarea>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-2">Method Filter</div>
-            <div class="ui-g-10">
-                <textarea name="methodfilter" [disabled]="autoDiscoverDetail.discoveryMode == 0" rows="2" cols="4" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoDiscoverDetail.methodFilters" class="config_app" pInputTextarea></textarea>
+            <div class="ui-g-12">
+            <div class="ui-g-2">
+                <label>
+                    Method Filter
+                </label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="Method filter should be only Method Name(e.g getvalue()I) or its regex e.g:- get.*"></i>
+                </div>
+                <div class="ui-g-10">
+                    <textarea name="methodfilter" [disabled]="autoDiscoverDetail.discoveryMode == 0" rows="2" cols="4" (keydown.space)="$event.preventDefault()" [(ngModel)]="autoDiscoverDetail.methodFilters" class="config_app" pInputTextarea></textarea>
+                </div>
             </div>
         </div>
-    </div>
 
-    <br>
-    <div class="ui-g-12">
-        <div align="center">
-            <button type="submit" pButton icon="fa-pencil" style="width:85px" *ngIf = "isAutoPerm"  [disabled]="isAutoPerm" label="Discover"></button>
-       <button type="submit" pButton icon="fa-pencil" style="width:85px" *ngIf = "!isAutoPerm" [disabled]="isAgentSelected" label="Discover"></button>
-            <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" *ngIf = "isAutoPerm" [disabled]="isAutoPerm" (click)="resetAllFields()"></button>
-    <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" *ngIf = "!isAutoPerm" [disabled]="isAgentSelected" (click)="resetAllFields()"></button>
-        </div>
-    </div>
-</form>
-</div>
-<div class="ui-g ndegui-mainbox">
-<div class="ui-g-12 config_auto-discover-margin">
-    Instrument profile settings
-</div>
-<div class="ui-g-12">
-<div class="ui-g-10">
-    <form (ngSubmit)="openAdrFile()" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g-2" style="margin-left:50px">Autodiscovered Instance(s)</div>
-        <div class="ui-g-4">
-            <input name="instance" type="text" class='hidden-validator' [(ngModel)]="adrFile" pInputText required ngModel/>
-            <p-dropdown name="instance" class="auto-discover autosearchfield autodiscoverdropdown" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
-        </div>
-        <div class="ui-g-1">
-            <button type="submit" pButton icon="fa-check" label="Open" [disabled]="isAgentSelected" ></button>
+        <br>
+        <div class="ui-g-12">
+            <div align="center">
+                <button type="submit" pButton icon="fa-pencil" style="width:85px" *ngIf = "isAutoPerm"  [disabled]="isAutoPerm" label="Discover"></button>
+	       <button type="submit" pButton icon="fa-pencil" style="width:85px" *ngIf = "!isAutoPerm" [disabled]="isAgentSelected" label="Discover"></button>
+                <button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" *ngIf = "isAutoPerm" [disabled]="isAutoPerm" (click)="resetAllFields()"></button>
+		<button type="submit" pButton icon="fa-refresh" style="width:85px" label="Reset" *ngIf = "!isAutoPerm" [disabled]="isAgentSelected" (click)="resetAllFields()"></button>
+            </div>
         </div>
     </form>
 </div>
-</div>
+<div class="ui-g ndegui-mainbox">
+    <div class="ui-g-12 config_auto-discover-margin">
+        Instrument Profile Settings
+    </div>
+    <div class="ui-g-12">
+    <div class="ui-g-10">
+        <form (ngSubmit)="openAdrFile()" #groupForm="ngForm" ngNativeValidate>
+            <div class="ui-g-2" style="margin-left:50px">Autodiscovered Instance(s)</div>
+            <div class="ui-g-4">
+                <input name="instance" type="text" class='hidden-validator' [(ngModel)]="adrFile" pInputText required ngModel/>
+                <p-dropdown name="instance" *ngIf="instanceList.length > 3 || instanceList.length == 3" class="auto-discover autosearchfield autodiscoverdropdownthree" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
+		<p-dropdown name="instance"  *ngIf="instanceList.length == 2" class="auto-discover autosearchfield autodiscoverdropdowntwo" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
+		<p-dropdown name="instance" *ngIf= "instanceList.length ==1" class="auto-discover autosearchfield autodiscoverdropdownone" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
+		<p-dropdown name="instance" *ngIf= "instanceList.length ==0" [disabled]="true"  class="auto-discover autosearchfield autodiscoverdropdownone" [options]="instanceList" [(ngModel)]="adrFile" [style]="{'width':'95%'}" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
+            </div>
+            <div class="ui-g-1">
+                <button type="submit" pButton icon="fa-check" label="Open" [disabled]="isAgentSelected" ></button>
+            </div>
+        </form>
+    </div>
+   </div>
 </div>

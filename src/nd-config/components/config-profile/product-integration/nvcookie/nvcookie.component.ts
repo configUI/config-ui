@@ -74,10 +74,10 @@ export class NVCookieComponent implements OnInit {
       if (this.ndSession["enableNDSession"].value == 0) {
 
         this.ndSessionData = new NDSessionData();
-        this.ndSessionData.methodEntryDepth = 1;
-        this.ndSessionData.methodExitDepth = 1;
-        this.ndSessionData.onResponseCommit = 1;
-        this.ndSessionData.setResponseHeader = 1;
+        this.ndSessionData.methodEntryDepth = 0;
+        this.ndSessionData.methodExitDepth = 0;
+        this.ndSessionData.onResponseCommit = 0;
+        this.ndSessionData.setResponseHeader = 0;
         this.ndSessionData.cookieName = "CavNV";
         this.ndSessionData.domain = null;
         this.ndSessionData.idleTimeOut = 1800;

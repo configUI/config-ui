@@ -734,10 +734,12 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     if (flag) {
       this.createXMLData.forEach(node => {
         this.expandRecursive(node, true);
+	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
       });
     } else {
       this.parsedXMLData.forEach(node => {
         this.expandRecursive(node, true);
+	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
       });
     }
   }
@@ -745,16 +747,19 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     if (flag) {
       this.createXMLData.forEach(node => {
         this.expandRecursive(node, false);
+	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
       });
     } else {
       this.parsedXMLData.forEach(node => {
         this.expandRecursive(node, false);
+	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
       });
     }
   }
 
   /** Expand/Collapse Tree Node */
   private expandRecursive(node: TreeNode, isExpand: boolean) {
+    this._configUtilityService.progressBarEmit({flag: true, color: 'primary'});
     node.expanded = isExpand;
     if (node.children) {
       node.children.forEach(childNode => {
@@ -835,5 +840,9 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       }
       this.openDetailsDialog = true;
     })
+  }
+
+  ngOnDestroy() {
+   this.isMakeXMLFile = false;
   }
 }

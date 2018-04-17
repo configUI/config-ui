@@ -13,7 +13,7 @@
         <p-tabPanel header="Instrument Monitors" [selected]="index == 3" >
             <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
         </p-tabPanel>
-        <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Error Detection" [selected]="index == 4">
+        <p-tabPanel  *ngIf="agentType != 'Dot Net'" header="Error Detection" [selected]="index == 4">
             <app-error-detection *ngIf="index == 4" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
         </p-tabPanel>
     </p-tabView>

@@ -59,10 +59,12 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   }
   onChange()
   {
-     if(this.selectedAgent  == null)
+    this.agentLabel = [];
+    this.agentValue = [];
+    if(this.selectedAgent  == null)
       this.isAgentSelected =true;
     else
-      this.isAgentSelected =false;
+    this.isAgentSelected =false;
     this.loadAdrFiles();
         this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
           this.ndAgentStatusData = data;
@@ -76,12 +78,10 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   getConnectedAgentsList(data, agentType) {
     for (var i = 0; i < data.length; i++) {
       if (data[i].at == agentType && data[i].st == "Active") {
-
-        this.agentLabel.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
+        this.agentLabel.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
         this.agentValue.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
       }
      this.agents = ConfigUiUtility.createListWithKeyValue(this.agentLabel, this.agentValue);
-
     }
   }
 

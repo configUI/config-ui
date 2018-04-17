@@ -522,6 +522,7 @@ export class ExceptionCapturingComponent implements OnInit {
     }
 
     ngOnDestroy() {
+     this.isExceptioFilterBrowse = false;
         if (this.subscription)
             this.subscription.unsubscribe();
     }
