@@ -119,7 +119,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (39,'captureErrorLogs','0','2','2','0','normal'),
 (40,'maxExceptionMessageLength','0','10000','2','50','pre-custom'), 
 (41,'maxResourceDetailMapSize','0','1000000','2','500000','pre-custom'),
-(42, 'HTTPStatsCondCfg','1','1024','5','false','normal'),
+(42,'HTTPStatsCondCfg','1','1024','5','false','normal'),
 (43,'enableExceptionsWithSourceAndVars','0','248','2','0','normal'),
 (44,'enableSourceCodeFilters','1','1024','5','false','normal'),
 (45,'ndExceptionMonFile','','','5','false','normal'),
@@ -179,7 +179,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (99,'nodeAsyncEventMonitor','0','1','2','0','normal'),
 (100,'nodeServerMonitor','0','1','2','0','normal'),
 (101,'captureHttpTraceLevel','0','6','2','0','pre-custom'),
-(102,'excludeMethodOnRespTime','0','90000','2','0','normal');
+(102,'excludeMethodOnRespTime','0','90000','2','0','normal'),
+(103,'NDAsyncRuleConfig','1','1024','6','false','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES

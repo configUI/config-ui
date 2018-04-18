@@ -46,13 +46,19 @@ export class AsynchronousRuleComponent implements OnInit {
     enableGroupKeyword: boolean = false;
     isProfilePerm: boolean;
 
+    /** To open file explorer dialog */
+    openFileExplorerDialog: boolean = false;
+  
+    isAsyncRuleBrowse: boolean = false;
+
     containerTypeLabel = ["Apache Tomcat", "GlassFish", "IBM WebSphere", "JBoss", "Jetty", "Oracle Weblogic"];
     containerTypeValue = ["tomcat", "glassFish", "ibm", "jBoss", "jetty", "weblogic"];
 
     ruleTypeLabel = ["Start", "Dispatch", "Complete"];
     ruleTypeValue = ["start", "dispatch", "complete"];
 
-    dumpModeList = [0, 1, 2];
+    dumpModeLabel = ["0","1","2"];
+    dumpModeValue = [0, 1, 2];
 
     containersTypeList = [];
     ruleTypesList = [];
@@ -60,6 +66,9 @@ export class AsynchronousRuleComponent implements OnInit {
 
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
         this.configKeywordsService.toggleKeywordData();
+        this.configKeywordsService.fileListProvider.subscribe(data => {
+            this.uploadFile(data);
+          });
     }
 
     ngOnInit() {
@@ -105,8 +114,8 @@ export class AsynchronousRuleComponent implements OnInit {
             this.ruleTypesList.push({ 'value': this.ruleTypeValue[i], 'label': this.ruleTypeLabel[i] });
         }
 
-        for (let i = 0; i < this.dumpModeList.length; i++) {
-            this.dumpModesList.push({ 'value': this.dumpModeList[i], 'label': this.dumpModeList[i] });
+        for (let i = 0; i < this.dumpModeLabel.length; i++) {
+            this.dumpModesList.push({ 'value': this.dumpModeValue[i], 'label': this.dumpModeLabel[i] });
         }
     }
 
@@ -294,4 +303,39 @@ export class AsynchronousRuleComponent implements OnInit {
                 console.log("return type", data)
             })
     }
+
+     /**used to open file manager
+  */
+  openFileManager() {
+    
+        this.openFileExplorerDialog = true;
+        this.isAsyncRuleBrowse = true;
+    
+      }
+    
+    
+      /** This method is called form ProductUI config-nd-file-explorer component with the path
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+    
+      /* dialog window & set relative path */
+      uploadFile(filepath) {
+        if (this.isAsyncRuleBrowse == true) {
+          this.isAsyncRuleBrowse = false;
+          this.openFileExplorerDialog = false;
+          //Temporary path of the Asynchronous Rule file to run locally,independently from Product UI
+           //let filepath = "";
+          this.configKeywordsService.uploadAsyncRuleFile(filepath, this.profileId).subscribe(data => {
+            if (data.length == this.asynchronousRuleData.length) {
+             this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+             return;
+            }
+            this.asynchronousRuleData = data;
+            this.configUtilityService.successMessage("File uploaded successfully");
+           });
+        }
+      }
+
+    ngOnDestroy() {
+        this.isAsyncRuleBrowse = false;
+    } 
 }

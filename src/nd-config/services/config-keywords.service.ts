@@ -724,7 +724,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     }
   
     editAsynchronousRule(data, profileId): Observable<AsynchronousRule> {
-      let url = `${URL.EDIT_ASYNCHRONOUS_RULE}/${profileId}/${data.errDetectionId}`
+      let url = `${URL.EDIT_ASYNCHRONOUS_RULE}/${profileId}/${data.asyncRuleId}`
       return this._restApi.getDataByPutReq(url, data);
     }
   
@@ -734,6 +734,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   
     saveAsynchronousRule(profileId): Observable<AsynchronousRule> {
       return this._restApi.getDataByPostReq(`${URL.SAVE_ASYNCHRONOUS_RULE}/${profileId}`);
+    }
+
+    /** Method to upload file method monitors file */
+    uploadAsyncRuleFile(filePath, profileId) {
+      return this._restApi.getDataByPostReq(`${URL.UPLOAD_ASYNC_RULE_FILE}/${profileId}`, filePath);
     }
 
 }
