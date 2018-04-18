@@ -135,6 +135,7 @@ export class AsynchronousRuleComponent implements OnInit {
                     // this.configUtilityService.infoMessage("Asynchronous Rule settings disabled");
                 }
             }
+
             this.configKeywordsService.keywordData[key] = this.asynchronousRule[key];
         }
         // this.configKeywordsService.saveProfileKeywords(this.profileId);
@@ -322,6 +323,10 @@ export class AsynchronousRuleComponent implements OnInit {
         if (this.isAsyncRuleBrowse == true) {
           this.isAsyncRuleBrowse = false;
           this.openFileExplorerDialog = false;
+          if(!filepath.includes(".txt")){
+            this.configUtilityService.errorMessage("Please select a valid .txt file");
+             return;
+           }
           //Temporary path of the Asynchronous Rule file to run locally,independently from Product UI
            //let filepath = "";
           this.configKeywordsService.uploadAsyncRuleFile(filepath, this.profileId).subscribe(data => {

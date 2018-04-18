@@ -50,7 +50,7 @@
 <!--Dialog for Asynchronous Rule-->
 
 <p-dialog class="profile-dialog" header="{{isNewAsynchronousRule ? 'Add Asynchronous Rule' : 'Edit Asynchronous Rule'}}"
-    *ngIf="addEditAsynchronousRuleDialog" [(visible)]="addEditAsynchronousRuleDialog" modal="modal" width="500" responsive="true"
+    *ngIf="addEditAsynchronousRuleDialog" [(visible)]="addEditAsynchronousRuleDialog" modal="modal" width="700" responsive="true"
     [resizable]="false">
     <form (ngSubmit)="saveAsynchronousRule()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -58,7 +58,7 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="44" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
+                <input name="fqm" type="text" size="66" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
                     (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="asynchronousRuleDetail.fqm" required ngModel/>
             </div>
         </div>
