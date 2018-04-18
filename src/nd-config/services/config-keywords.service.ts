@@ -353,7 +353,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   }
 
   /*Add Pattern Bt Data*/
-  addBusinessTransPattern(data, profileId, parentBtId): Observable<BusinessTransPatternData> {
+  addBusinessTransPattern(data, profileId, parentBtId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}/${parentBtId}`, data);
   }
 
