@@ -1,4 +1,4 @@
-<p-dataTable class="nde-ui" [value]="asynchronousRuleData" [(selection)]="selectedErrorDetection" [rows]="12" [paginator]="asynchronousRuleData?.length > 12"
+<p-dataTable class="nde-ui" [value]="asynchronousRuleData" [(selection)]="selectedAsynchronousRule" [rows]="12" [paginator]="asynchronousRuleData?.length > 12"
     [pageLinks]="3">
     <p-header>
         <span class="configui-float-css">
@@ -7,6 +7,8 @@
         </span>
         <span class="configui-float-css">Enable Asynchronous Rules </span>
         <span class="configui-float">
+            <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
+            <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Add an asynchronous rule" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
             <button pButton type="button" title="Add an asynchronous rule" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddAsynchronousRuleDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an asynchronous rule" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
@@ -56,40 +58,40 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="fqm" type="text" size="60" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
+                <input name="fqm" type="text" size="44" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
                     (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="asynchronousRuleDetail.fqm" required ngModel/>
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-4">
                 <label>Container Type</label>
             </div>
-            <div class="ui-g-6">
-                <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.containerType"
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.containerType"
                     required ngModel/>
-                <p-dropdown [options]="containersTypeList" [disabled]="!isNew" [style]="{'width':'100%'}" name="containerType" [(ngModel)]="asynchronousRuleDetail.containerType"
+                <p-dropdown [options]="containersTypeList" [style]="{'width':'100%'}" name="containerType" [(ngModel)]="asynchronousRuleDetail.containerType"
                     placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-4">
                 <label>Rule Type</label>
             </div>
-            <div class="ui-g-6">
-                <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.ruleType"
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.ruleType"
                     required ngModel/>
-                <p-dropdown [options]="ruleTypesList" [disabled]="!isNew" [style]="{'width':'100%'}" name="ruleType" [(ngModel)]="asynchronousRuleDetail.ruleType"
+                <p-dropdown [options]="ruleTypesList" [style]="{'width':'100%'}" name="ruleType" [(ngModel)]="asynchronousRuleDetail.ruleType"
                     placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g-3">
+            <div class="ui-g-4">
                 <label>Dump Mode</label>
             </div>
-            <div class="ui-g-6">
-                <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.dumpMode"
-                    required ngModel/>
-                <p-dropdown [options]="dumpModesList" [disabled]="!isNew" [style]="{'width':'100%'}" name="dumpMode" [(ngModel)]="asynchronousRuleDetail.dumpMode"
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.dumpMode" required
+                    ngModel/>
+                <p-dropdown [options]="dumpModesList" [style]="{'width':'100%'}" name="dumpMode" [(ngModel)]="asynchronousRuleDetail.dumpMode"
                     placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
         </div>
@@ -108,4 +110,14 @@
             </div>
         </footer>
     </form>
+</p-dialog>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+    modal="modal" width="650" responsive="true" [resizable]="false">
+
+    <!-- This will look for this component in the ProductUI at this path -
+      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer>  -->
 </p-dialog>

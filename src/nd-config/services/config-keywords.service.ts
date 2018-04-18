@@ -724,7 +724,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     }
   
     editAsynchronousRule(data, profileId): Observable<AsynchronousRule> {
-      let url = `${URL.EDIT_ASYNCHRONOUS_RULE}/${profileId}/${data.errDetectionId}`
+      let url = `${URL.EDIT_ASYNCHRONOUS_RULE}/${profileId}/${data.asyncRuleId}`
       return this._restApi.getDataByPutReq(url, data);
     }
   

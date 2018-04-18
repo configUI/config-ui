@@ -1,10 +1,7 @@
 
 
-<<<<<<< HEAD
 //const  SERVICE_URL = 'http://10.10.40.7:8060/configUI';
-=======
 //const  SERVICE_URL = 'https://10.10.50.16:4435/configUI';
->>>>>>> b329e370c4702b291ffe0ffc092feedbd7eceaa7
 
 const  SERVICE_URL = 'http://localhost:8090';
 
