@@ -736,5 +736,10 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByPostReq(`${URL.SAVE_ASYNCHRONOUS_RULE}/${profileId}`);
     }
 
+    /** Method to upload file method monitors file */
+    uploadAsyncRuleFile(filePath, profileId) {
+      return this._restApi.getDataByPostReq(`${URL.UPLOAD_ASYNC_RULE_FILE}/${profileId}`, filePath);
+    }
+
 }
 

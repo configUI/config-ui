@@ -355,3 +355,4 @@ export const ADD_NEW_ASYNCHRONOUS_RULE = `${SERVICE_URL}/custom/ndasynchronousru
 export const DEL_ASYNCHRONOUS_RULE = `${SERVICE_URL}/custom/ndasynchronousrule/delete`;
 export const EDIT_ASYNCHRONOUS_RULE = `${SERVICE_URL}/custom/ndasynchronousrule/updateasynchronousrule`;
 export const SAVE_ASYNCHRONOUS_RULE= `${SERVICE_URL}/custom/ndasynchronousrule/save`;
+export const UPLOAD_ASYNC_RULE_FILE = `${SERVICE_URL}/custom/ndasynchronousrule/uploadfile`;

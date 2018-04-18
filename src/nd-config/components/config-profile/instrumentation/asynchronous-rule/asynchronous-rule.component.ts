@@ -322,9 +322,9 @@ export class AsynchronousRuleComponent implements OnInit {
         if (this.isAsyncRuleBrowse == true) {
           this.isAsyncRuleBrowse = false;
           this.openFileExplorerDialog = false;
-          //Temporary path of the Method Monitor file to run locally,independently from Product UI
+          //Temporary path of the Asynchronous Rule file to run locally,independently from Product UI
            //let filepath = "";
-          this.configKeywordsService.uploadMethodMonitorFile(filepath, this.profileId).subscribe(data => {
+          this.configKeywordsService.uploadAsyncRuleFile(filepath, this.profileId).subscribe(data => {
             if (data.length == this.asynchronousRuleData.length) {
              this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
              return;
