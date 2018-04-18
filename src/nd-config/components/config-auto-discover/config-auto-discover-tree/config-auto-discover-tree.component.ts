@@ -182,6 +182,10 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     removeValuesFromSelectedList() {
 
         this.selectedNodes = [];
+        if(this.rightSideTreeData.length == 0){
+            this.configUtilityService.errorMessage("Instrumented data is not available to uninstrument");
+            return;
+        }
         this.getSelectedUnselectedNodeInfo(this.instrFromRightSideTree, true);
         if (this.selectedNodes.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for unInstrumentation");

@@ -133,6 +133,7 @@ body {
     background: #404040;
     color:#fff;
 }
+
 #outputHeaderDiv {
     background: #808080;
     color: #fff;
@@ -157,9 +158,10 @@ body {
     color: #292929;
 }
 .commandListClass .ui-datatable th.ui-state-default {
-    background: #595b5f;
+    background: #888;
     color: #fff;
 }
+
 #downloadTxBtn{
    color: #FFFFFF;
    background: #6b6b6b;
@@ -2140,7 +2142,7 @@ td {
     background-color: rgb(255, 255, 255);
 }
 .ed-table .ui-widget-header {
-    background: #fff;
+    background:  rgba(144,144,144,0.4);
     border-bottom: 1.4px #4e3413 solid;
 }
 .kpigrid tr.ui-state-default {
@@ -2232,7 +2234,7 @@ td {
  .kioskcss{background:rgba(186, 195, 243, 0.4);}
  .kpiCsccss{background:rgba(218, 209, 132, 0.4);}
 
- i.topicon.kpi-kpi {
+ i.topicon {
     color: #000;
 }
 .top-panel-nav-cross-icon {
@@ -2255,6 +2257,18 @@ p-datatable.kpigrid {
 .mailSmsConfigSetting .ui-widget-header {
     background: #282828;
     color: #ccc;
+}
+
+app-alert-home .ui-fieldset {
+    border: 1px solid rgba(0,0,0,.14);
+    background: rgb(234, 234, 234);
+}
+app-alert-home .ui-fieldset .ui-fieldset-legend {
+    border: 1px solid rgba(0,0,0,.14);
+    background: rgb(234, 234, 234);
+}
+.mat-button-toggle {
+    color: rgba(0, 0, 0, 0.8);
 }
 .filters-container .ui-datepicker.ui-widget .ui-datepicker-calendar th {
     background: #dbdbdb;
@@ -2295,14 +2309,147 @@ p-datatable.kpigrid {
 .ddr-table-right, .ddr-table-left {
     color:blue;
 }
+
+.ddr-side-view-div {
+    background: #fff;
+    border-bottom: 1px solid #666;
+}
+
+.ddr-active-flowpath
+{
+	background-color: #e2dede !important;
+}
+
 .sidebarUI-sidenav {
   box-shadow: 0 0 6px 2px #565656;
   background: rgba(250, 250, 250, 1.7);
   }
 
+/*-- In ddr-side bar multiselect ,color link on close button --*/
+.ddr-link .ui-state-default a, .ddr-link .ui-state-default a:link  
+{
+    color: black;
+}
 
 /*---------Script Execution Logs---------------*/
 .srptexc-header  {
     background: #282828;
     color: #fff;
+}
+
+/*-------------Monitor UI CSS--------------*/
+.monitor-brdcmp .ui-breadcrumb.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    background: rgba(148, 148, 148, 0.5);
+    border-bottom: 1px #666 solid;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
+    color: #000;
+}
+.monitor-fieldset .ui-widget-content {
+    border: 1px solid #D5D5D5;
+    background: rgba(255, 255, 255, 0.8);
+}
+.monitor-ui-table .ui-datatable-even {
+    background: transparent;
+}
+.monitor-ui-table .ui-datatable .ui-datatable-header{
+    background: #080808;
+    color: #f0f0f0;
+}
+.monitor-fieldset .ui-fieldset .ui-fieldset-legend {
+    border: 1px #cbd3d9 solid;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.monitor-ui-table .ui-datatable th.ui-state-default {
+    background: #595b5f;
+    color: #f0f0f0;
+    border-color:#d6d6d6;
+}
+.monitor-ui-table  .ui-datatable .ui-datatable-data tr.ui-state-highlight {
+    background: darkgray;
+    color: #000;
+}
+.monitor-ui-table .ui-datatable-even {
+    border: 1px solid #D5D5D5;
+    background: #fff;
+    color: #222222;
+}
+
+.monitor-ui-table .ui-datatable-odd {
+    border: 1px solid #D5D5D5;
+    background: #d0d0d0;
+    color: #222222;;
+}
+
+.monitor-toolbar .ui-widget-header {
+    background:#080808;
+    color: #f0f0f0;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+     background: #424242;
+     border-top: 1px solid #d9d9d9;
+     color: #f0f0f0;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content {
+    background: rgba(255, 255, 255, 0.9);
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header{
+    background:  #737373;;
+    border: 1px #D9D9D9 solid;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header a {
+    color: #f0f0f0;
+}
+.mon-ui .ui-treetable th.ui-state-default 
+{
+     background: #595b5f;
+    color: #f0f0f0;
+    border-color:#d6d6d6;
+}
+.configured-datatable  .ui-datatable th.ui-state-default{
+    background: #595b5f;
+    color: #f0f0f0;
+    border-color:#d6d6d6;
+}
+/*-------------Graphical KPI--------------*/
+.ed-gkpi .grid-item {
+    border: none;
+    box-shadow: 0.5px 0.5px 0px 0px darkgrey;
+    background: radial-gradient(at center center, rgb(255, 255, 255) 0%, rgb(234, 234, 234) 100%);
+}
+
+.ed-gkpi .highcharts-gauge-series .highcharts-dial {
+    fill: #000;
+}
+.edSinglePanelPopup .ui-widget-header {
+    color: rgb(214, 214, 214);
+    background:   rgb(40, 40, 40);
+}
+.edSinglePanelPopup .ui-widget-header a {
+    color: #fff;
+}
+.edSinglePanelPopup  .ui-widget-content {
+    border: 1px #f7f7f7 solid;
+    background: #fff;
+}
+/*------------NetVision CSS----------------*/
+.netvision-left-menu .mat-icon {
+    color: #000;
+}
+.netvision-left-menu .menu-item-text {
+     color: #000;
+}
+.netVision-table .ui-datatable th.ui-state-default {
+    background: #888;
+    color: #fff;
+}
+
+/****  Run Command ******/
+.resultDetailsDiv {
+    background: #d0d0d0;
+}
+/*-----------Global Date Picker Header CSS-----------*/
+.ui-datepicker.ui-widget .ui-datepicker-calendar thead th {
+    background-color: #595b5f;
+    padding: 8px;
 }

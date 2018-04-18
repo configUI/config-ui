@@ -174,10 +174,10 @@ export class ConfigTreeComponent implements OnInit {
                     this.getTableData.emit({ data })
                   });
                 }
-                }, 1250)
+                }, 2550)
               });
             }
-            }, 1250)
+            }, 2550)
           });
         }
         

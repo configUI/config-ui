@@ -171,6 +171,9 @@
                                 <li *ngIf="agentType != 'Dot Net'">
                                     <a [routerLink]="['../../instrumentation', profileId, 4]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Error Detection</a>
                                 </li>
+                                <li *ngIf="agentType != 'Dot Net'">
+                                    <a [routerLink]="['../../instrumentation', profileId, 5]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Asynchronous Rule</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="ui-g-4">
@@ -308,7 +311,7 @@
                 </md-card-content>
             </md-card>
         </div>
-        
+
         <div class="ui-g-6" *ngIf="agentType == 'Dot Net'">
             <md-card>
                 <md-card-content>

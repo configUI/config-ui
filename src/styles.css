@@ -736,16 +736,16 @@ input[type="number"] {
 }
 
 
-.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
+.panel4Div, .mainDivRunCommand, .mainDivEditRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
     background: #2d2d2d;
     font-weight: normal;
     color: #555555;
 }
-.panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default {
+.panel4Div, .mainDivRunCommand, .mainDivEditRunCommand .ui-tabview .ui-tabview-nav > li.ui-state-default {
     background: #6699c8;
 }
 
-.panel4Div, .mainDivRunCommand .ui-tabview:not(.ui-ribbon) .ui-tabview-nav {
+.panel4Div, .mainDivRunCommand, .mainDivEditRunCommand .ui-tabview:not(.ui-ribbon) .ui-tabview-nav {
     background: transparent;
 }
 .panel4Div, .mainDivRunCommand .ui-tabview .ui-tabview-panel {
@@ -768,14 +768,22 @@ input[type="number"] {
     text-align: center;
 }
 .runCommand-btn .btnClass{
-    font-size: 12px;
-    line-height: 28px;
+    font-size: 11px;
+    line-height: 20px;
     border-radius: 1px;
+}
+.runCommand-btn .material-icons {
+    font-size: 14px;
+    font-weight: 400;
 }
 .mainDivRunCommand .material-icons {
     font-size: 16px;
 }
 .mainDivRunCommand .ui-tabview-panels {
+    width:100%;
+   /* overflow: auto; */
+}
+.mainDivEditRunCommand .ui-tabview-panels {
     width:100%;
     overflow: auto;
 }
@@ -841,7 +849,7 @@ input[type="number"] {
 
 .ddr-box {
     margin: 6px 5px;
-    min-height: 80vh;
+    /*min-height: 80vh; */
     padding: 2px 1px;
     box-shadow: 0 0 4px 1px #565656;
     border-radius:4px;
@@ -849,7 +857,7 @@ input[type="number"] {
 
 .main-box-alert {
     margin: 1px 8px;
-    min-height: 70vh;
+    min-height: 80vh;
     padding: 2px 4px;
     box-shadow: 0 0 4px 1px #565656;
     border-radius:4px;
@@ -966,3 +974,49 @@ span.ui-radiobutton-icon.fa.fa-circle {
 .ndagent .ui-accordion-content.ui-widget-content{
     padding: 10px 5px;
 }
+
+/* ---- ED Styles  ---- */
+.kpigrid .ui-datatable{
+    word-wrap: break-word;
+}
+
+.edPanelClass .ui-widget-content {
+    border: 1px solid #d5d5d5;
+}
+.edPanelClass .ui-panel .ui-panel-titlebar-icon {
+  margin: -20px 5px -16px 5px;
+}
+
+.edPanelClass .ui-panel .ui-panel-content {
+  background: #FFFFFF;
+}
+
+.edOverlayPanel .ui-overlaypanel  {
+  left: 17vh !important;
+  width: 85% !important;
+  top: 195px !important;
+}
+
+.sysTable .ui-datatable .ui-datatable-thead > tr > th {
+  text-align: center !important;
+}
+
+/*------------NetOcean UI-------------*/
+.NO-box {
+    margin: 10px 8px;
+    height: 80vh;
+    padding: 2px 4px;
+    overflow-y: auto;
+    box-shadow: 0 0 6px 2px #565656;
+    border-radius: 4px;
+}
+
+.scen-rdt-icon {
+    height: 20px;
+    margin: -2px;
+    overflow: hidden;
+    padding-right: 10px;
+    float: left;
+    font-size: 1.5em;
+}
+

@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 
-
 @Component({
   selector: 'app-http-stats-monitors',
   templateUrl: './http-stats-monitors.component.html',
@@ -68,6 +67,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
     /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false; 
   isHttpstatsMonitorBrowse: boolean = false;
+
   importinfoDialog :boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService
@@ -487,14 +487,15 @@ export class HttpStatsMonitorsComponent implements OnInit {
         this.configUtilityService.successMessage("File uploaded successfully");
        });
     }
-
-
-
   }
+
       openImportInfo(){
         this.importinfoDialog = true;
       }
-
+ /* change Browse boolean value on change component */
+ ngOnDestroy() {
+   this.isHttpstatsMonitorBrowse = false;
+ }
 }
 
 //It will convert the values of flowpath dump from 0, 1 and 2 to Disable, Enable and Enable Forcefully respectively

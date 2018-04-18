@@ -257,3 +257,18 @@ button.capabilityButton.mat-raised-button{
     border-bottom: 1px solid #cacaca;
     padding: 0px;
 }
+
+
+.calender .md2-datepicker-trigger {
+  padding: 0px 0 4px 46px;
+  }
+
+.calender .md2-datepicker-button {
+ top: 0px;
+ padding: 0px;  
+}
+
+.compotable .ui-datatable .ui-datatable-header {
+    padding: 0px;
+    text-align: left
+}

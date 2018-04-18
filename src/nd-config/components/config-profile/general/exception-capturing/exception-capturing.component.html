@@ -85,7 +85,7 @@
 
                 <p-fieldset legend="Filter" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java'">
                     <p-dataTable class="nde-ui exception" [value]="enableSourceCodeFiltersTableData" [(selection)]="selectedExceptionFilterData" [rows]="10" [paginator]="enableSourceCodeFiltersTableData?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]"
-                        scrollable="true" scrollHeight="300px" resizableColumns="true">
+                        scrollable="true" scrollHeight="300px">
                         <p-header>
                             <span style="float: left">
                                            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
@@ -157,16 +157,15 @@
                             </footer>
                         </form>
                     </p-dialog>
-                    <!--Dialog to open file explorer dialog -->
-                    <p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
-
-                        <!-- This will look for this component in the ProductUI at this path -
-                                     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
-
-                        <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
-                    </p-dialog>
                 </p-fieldset>
             </div>
         </p-panel>
     </div>
 </form>
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+
+    <!-- This will look for this component in the ProductUI at this path -
+    ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+    <!--  <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>

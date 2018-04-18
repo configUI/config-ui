@@ -345,7 +345,7 @@ export class HttpResponseComponent implements OnInit {
             this.configKeywordsService.editHTTPRepHeaderData(this.httpResponseHdrDetail).subscribe(data => {
                 // this.modifyData(data);
                 this.httpResponseHdrComponentInfo.map(function (val) {
-                    if (val.httpRepHdrBasedId == data.httpRepHdrBasedId) {   
+                    if (val.httpRepHdrBasedId == data.httpRepHdrBasedId) {
                         // val = data
                         val = data;
                     }
@@ -616,7 +616,7 @@ export class HttpResponseComponent implements OnInit {
 
     /* set Value of All or Specific which Selected */
     getSelectedHTTPRepHdr() {
-        if (this.saveDisable == true) { 
+        if (this.saveDisable == true) {
             return;
         }
         let httpRepHdrType = { httpRepHdrType: this.selectedHTTPRepHdrType };
