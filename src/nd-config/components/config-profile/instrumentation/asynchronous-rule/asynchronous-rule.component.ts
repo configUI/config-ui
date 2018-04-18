@@ -52,7 +52,7 @@ export class AsynchronousRuleComponent implements OnInit {
     isAsyncRuleBrowse: boolean = false;
 
     containerTypeLabel = ["Apache Tomcat", "GlassFish", "IBM WebSphere", "JBoss", "Jetty", "Oracle Weblogic"];
-    containerTypeValue = ["tomcat", "glassFish", "ibm", "jBoss", "jetty", "weblogic"];
+    containerTypeValue = ["tomcat", "jBoss", "jetty", "weblogic"];
 
     ruleTypeLabel = ["Start", "Dispatch", "Complete"];
     ruleTypeValue = ["start", "dispatch", "complete"];
