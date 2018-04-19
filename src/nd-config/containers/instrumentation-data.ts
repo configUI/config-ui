@@ -21,15 +21,6 @@ export class ErrorDetection {
     ruleDesc: string;
 }
 
-export class AsynchronousRule {
-    asyncRuleId: number;
-    fqm: string;
-    ruleType: string;
-    containerType: string;
-    enabled: boolean;
-    dumpMode: number;
-}
-
 export class AddIPDetection {
     backendType: string;
     backendTypeId: number;
@@ -373,4 +364,13 @@ export class RulesHTTPResponseHdrComponentData {
     id: number;
     customValTypeName: string;
     type: number;
+}
+
+export class AsynchronousRule {
+    asyncRuleId: number;
+    fqm: string;
+    ruleType: string;
+    containerType: string;
+    enabled: boolean;
+    dumpMode: number;
 }
