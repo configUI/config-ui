@@ -202,9 +202,10 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (16,'HTTP Backend For Dot Net','HTTP','HTTP_CALLOUT','HTTP','Dot Net'),
 (17,'SQL Backend For Dot Net','SQL','SQL_CALLOUT','SQL','Dot Net'),
 (18,'Async Call For Dot Net','Async_Call','ASYNC_CALL','ASYNC_CALL','Dot Net'),
-(19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CloudantNoSql','Java');
+(19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CloudantNoSql','Java'),
+(20,'Big Table Backend','Big Table','bigTable','None','Java');
 
-INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
+    INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
 (1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)V','Apace HTTP Client',1,false,'-','Java'),
 (2,'HTTP end point','com.endeca.navigation.HttpENEConnection.query(Lcom/endeca/navigation/ENEQuery;)Lcom/endeca/navigation/ENEQueryResults;','Endeca',1,false,'-','Java'),
 (3,'HTTP end point','org.apache.http.impl.client.AbstractHttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','Apache AbstractHttpClient',1,false,'-','Java'),
@@ -294,7 +295,14 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (88,'CLOUDANT NoSQL end point','com.cloudant.client.org.lightcouch.CouchDatabaseBase.post(Ljava/lang/Object;)Lcom/cloudant/client/org/lightcouch/Response;','Cloudant NoSQL post',19,false,'-','Java'),
 (89,'CLOUDANT NoSQL end point','com.cloudant.client.org.lightcouch.CouchDatabaseBase.update(Ljava/lang/Object;)Lcom/cloudant/client/org/lightcouch/Response;','Cloudant NoSQL update',19,false,'-','Java'),
 (90,'CLOUDANT NoSQL end point','com.cloudant.client.org.lightcouch.CouchDatabaseBase.remove(Ljava/lang/Object;)Lcom/cloudant/client/org/lightcouch/Response;','Cloudant NoSQL remove',19,false,'-','Java'),
-(91,'WS end point','com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.post(Ljavax/xml/soap/SOAPMessage;Ljava/net/URL;)Ljavax/xml/soap/SOAPMessag e;','post(SOAP,URL)',2,false,'-','Java');
+(91,'WS end point','com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.post(Ljavax/xml/soap/SOAPMessage;Ljava/net/URL;)Ljavax/xml/soap/SOAPMessag e;','post(SOAP,URL)',2,false,'-','Java'),
+(92,'CASSANDRA end point','com.datastax.driver.core.AbstractSession',' AbstractSession : cassandraDB',12,false,'-','Java'),
+(93,'CASSANDRA end point','com.datastax.driver.core.RequestHandler$SpeculativeExecution',' SpeculativeExecution : cassandraDB',12,false,'-','Java'),
+(94,'HTTP end point','com.google.api.client.http.HttpRequest.execute()Lcom/google/api/client/http/HttpResponse;','Big Query',1,false,'-','Java'),
+(95,'Big Table end point','com.google.cloud.bigtable.hbase.BigtableTable.put(Lorg/apache/hadoop/hbase/client/Put;)V','Big Table: Put',20,false,'-','Java'),
+(96,'Big Table end point','com.google.cloud.bigtable.hbase.BigtableTable.get(Lorg/apache/hadoop/hbase/client/Get;)Lorg/apache/hadoop/hbase/client/Result;','Big Table: Get',20,false,'-','Java'),
+(97,'Big Table end point','com.google.cloud.bigtable.hbase.BigtableTable.delete(Lorg/apache/hadoop/hbase/client/Delete;)V','Big Table: Delete',20,false,'-','Java');
+
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
 (1,true,false,false,false,false,false,false,false,false,false,false,false,false,1,1),
@@ -315,7 +323,8 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (16,false,false,false,false,false,false,false,false,false,false,false,false,false,16,888888),
 (17,false,false,false,false,false,false,false,false,false,false,false,false,false,17,888888),
 (18,false,false,false,false,false,false,false,false,false,false,false,false,false,18,888888),
-(19,true,false,false,false,false,false,false,false,false,false,false,false,false,19,1);
+(19,true,false,false,false,false,false,false,false,false,false,false,false,false,19,1),
+(20,true,false,false,false,false,false,false,false,false,false,false,false,false,20,1);
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
 (1,true,1,1),
@@ -407,7 +416,13 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (88,true,88,1),
 (89,true,89,1),
 (90,true,90,1),
-(91,true,91,1);
+(91,true,91,1),
+(92,true,92,1),
+(93,true,93,1),
+(94,true,94,1),
+(95,true,95,1),
+(96,true,96,1),
+(97,true,97,1);
 
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
