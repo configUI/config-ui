@@ -119,11 +119,11 @@
 </p-dialog>
 
 <!--Dialog to open export file profile dialog -->
-<p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Export" *ngIf="exportDialog" [(visible)]="exportDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Export Profile" *ngIf="exportDialog" [(visible)]="exportDialog" modal="modal" width="500" responsive="true" [resizable]="false">
   <form (ngSubmit)="saveExportpath()" #groupForm="ngForm" ngNativeValidate>
     <div class="ui-g">
       <div class="ui-g-3">
-          <label>Import-Export</label>
+          <label>Export Path</label>
           <i class="fa fa-info-circle" aria-hidden="true" title="The provided value is the desired path on which user wants to export the profile"></i>
       </div>
       <div class="ui-g-9">
@@ -135,6 +135,30 @@
       <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
         <button type="submit" pButton icon="fa-check" label="Save"></button>
         <button type="button" pButton icon="fa-close" (click)="exportDialog=false" label="Cancel"></button>
+      </div>
+    </footer>
+  </form>
+</p-dialog>
+
+<!--Dialog to open import profile edit profile dialog -->
+<p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Edit Import Profile Name" *ngIf="editImportProfileDialog" [(visible)]="editImportProfileDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+  <form (ngSubmit)="saveEditProfile()" #groupForm="ngForm" ngNativeValidate>
+    <div class="ui-g">
+      <div class="ui-g-3">
+          <label>Profile Name</label>
+      </div>
+      <div class="ui-g-9">
+          <input name="editProfile" type="text" style="width:100%" class="configui-hotspot-css" title="Please enter a valid profile name"
+              pInputText [(ngModel)]= "editProfile" required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
+      </div>
+    </div>
+    <div class="ui-g">
+
+    </div>
+    <footer>
+      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="margin-top: 1px;">
+        <button type="submit" pButton icon="fa-check" label="Save"></button>
+        <button type="button" pButton icon="fa-close" (click)="editImportProfileDialog=false" label="Cancel"></button>
       </div>
     </footer>
   </form>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AutoDiscoverData } from "../../../containers/auto-discover-data";
+import { 
+  AutoDiscoverData } from "../../../containers/auto-discover-data";
 import { NDAgentInfo } from '../../../interfaces/nd-agent-info';
 import { ConfigNdAgentService } from '../../../services/config-nd-agent.service';
 import { ConfigUiUtility } from '../../../utils/config-utility';
@@ -59,10 +60,12 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   }
   onChange()
   {
-     if(this.selectedAgent  == null)
+    this.agentLabel = [];
+    this.agentValue = [];
+    if(this.selectedAgent  == null)
       this.isAgentSelected =true;
     else
-      this.isAgentSelected =false;
+    this.isAgentSelected =false;
     this.loadAdrFiles();
         this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
           this.ndAgentStatusData = data;
@@ -76,12 +79,10 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   getConnectedAgentsList(data, agentType) {
     for (var i = 0; i < data.length; i++) {
       if (data[i].at == agentType && data[i].st == "Active") {
-
-        this.agentLabel.push(data[i].tier + "_" + data[i].server + "_" + data[i].instance);
+        this.agentLabel.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
         this.agentValue.push(data[i].tier + ">" + data[i].server + ">" + data[i].instance);
       }
      this.agents = ConfigUiUtility.createListWithKeyValue(this.agentLabel, this.agentValue);
-
     }
   }
 
@@ -118,7 +119,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
       this.autoDiscoverDetail = data;
       this.loadAdrFiles();
       if(data.status == 'empty' && data.discoveryMode == '1')
-        this.configUtilityService.errorMessage("Discovered class name or method name is wrong.");
+        this.configUtilityService.errorMessage("No Data found for the applied filter(s)");
       else if(data.status == 'empty' && data.discoveryMode == '0')
         this.configUtilityService.errorMessage("Auto discover method file is empty");
       else

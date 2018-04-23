@@ -10,7 +10,6 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
 import { Messages, descMsg } from '../../constants/config-constant';
 import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
-
 @Component({
   selector: 'app-config-profile-list',
   templateUrl: './config-profile-list.component.html',
@@ -40,7 +39,10 @@ export class ConfigProfileListComponent implements OnInit {
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
   exportPath: string;
   exportDialog: boolean;
-  abcObj:abc;
+  exportDataObj : ExportData;
+  editImportProfileDialog: boolean = false;
+  editProfile: string;
+  importFilepath: string;
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
@@ -242,12 +244,17 @@ export class ConfigProfileListComponent implements OnInit {
     if(this.exportPath == "" || this.exportPath == null || this.exportPath == undefined){
       this.exportPath = "defaultPath";
     }
-    // this.abcObj.path = this.exportPath;
-    // this.abcObj.profileArray = arrIndex;
-    // console.log("-------------this.abcObj--------------",this.abcObj)
-    this.configProfileService.exportProfile(this.exportPath,arrIndex).subscribe(data => {
-      this.configUtilityService.successMessage("Exported successfully");
-      this.exportDialog = false;
+    this.exportDataObj = new ExportData();
+    this.exportDataObj.path = this.exportPath;
+    this.exportDataObj.profileArray = arrIndex;
+    this.configProfileService.exportProfile(this.exportDataObj,this.userName).subscribe(data => {
+      if(data._body == "Path doesnot exists"){
+        this.configUtilityService.errorMessage(data._body);
+      }
+      else{
+        this.configUtilityService.successMessage("Exported successfully");
+        this.exportDialog = false;
+      }
     })
   }
 
@@ -267,21 +274,69 @@ export class ConfigProfileListComponent implements OnInit {
        this.isProfileListBrowse = false;
        this.openFileExplorerDialog = false;
        //Temporary path of the Method Monitor file to run locally,independently from Product UI
-       //let filepath = "";
+        //let filepath = "";
+       this.importFilepath = filepath;
+       let tempProfileName = "";
        if(!filepath.includes(".zip")){
         this.configUtilityService.errorMessage("Please select a valid zip file");
          return;
        }
-       this.configProfileService.importProfile(filepath,this.userName).subscribe(data => {
-        this.configUtilityService.successMessage("Imported successfully");
-        this.loadProfileList();
+
+        /**
+         * The below code is done to check if the user sected profile is already present or not
+         * If already present then user can edit the profile name whiche he/she wants to import
+         */
+        if(filepath.includes("/")){
+          let zipFileName = filepath.split("/");
+          if(zipFileName[zipFileName.length-1].includes("_")){
+            tempProfileName = zipFileName[zipFileName.length-1].substring(0,zipFileName[zipFileName.length-1].lastIndexOf("_"));
+          }
+        }
+
+       for(let i = 0 ; i< this.profileData.length ; i++){
+         if(tempProfileName == this.profileData[i].profileName){
+          this.configUtilityService.infoMessage("Selected profile name is already there.Provide a new Profile Name");
+          this.editImportProfileDialog = true;
+         }
+       }
+       
+       if(this.editImportProfileDialog == false){
+        this.importFilepath = this.importFilepath + "+" + tempProfileName;
+        this.configProfileService.unzipProfile(this.importFilepath,this.userName).subscribe(data => {
         });
+        this.configProfileService.importProfile(this.importFilepath,this.userName).subscribe(data => {
+          this.importFilepath = "";
+          this.configUtilityService.successMessage("Profile imported successfully");
+          this.loadProfileList();
+          });
+       }
+
         }
       }
-         
+    
+      // This method is used to edit the imported profile name
+      saveEditProfile(){
+        for(let i = 0 ; i< this.profileData.length ; i++){
+          if(this.editProfile == this.profileData[i].profileName){
+            this.configUtilityService.errorMessage("Profile name already exists");
+            return;
+          }
+        }
+        this.importFilepath = this.importFilepath + "+" + this.editProfile;
+        this.configProfileService.unzipProfile(this.importFilepath,this.userName).subscribe(data => {
+        });
+        this.configProfileService.importProfile(this.importFilepath,this.userName).subscribe(data => {
+          this.importFilepath = "";
+          this.editProfile = "";
+          this.configUtilityService.successMessage("Profile imported successfully");
+          this.editImportProfileDialog = false;
+          this.loadProfileList();
+          });
+      }
 }
 
-class abc{
+class ExportData
+{
   path: string
-  profileArray: any
+  profileArray: any[];
 }

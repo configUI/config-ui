@@ -99,7 +99,7 @@ export class DDAIInfo{
     ddaibtwhiteList: string = ""
     acknowledgeMode: string = ""
     completionMode: number = 2
-    applyMode: number = 2
+    applyMode: number = 0
     saveAppliedChanges: number = 1
     deleteFromServer: number = 1
     agentType: string = ""

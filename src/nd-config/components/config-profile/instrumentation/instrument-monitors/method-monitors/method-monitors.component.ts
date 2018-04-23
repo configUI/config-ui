@@ -369,6 +369,11 @@ export class MethodMonitorsComponent implements OnInit {
         console.log("return type",data)
       })
   }
+ 
+  ngOnDestroy() {
+   this.isMethodMonitorBrowse = false;
+  } 
+
 
   }
 

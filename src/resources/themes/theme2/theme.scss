@@ -1303,7 +1303,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
 }
 
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
-    background: #2a3950;
+    /* background: #2a3950;*/
     color: #fff;
 }
 
@@ -1972,6 +1972,12 @@ app-alert-home .ui-widget-content .history-table-row-odd {
     border-color: #6497ca;
 }
 
+/*-- In ddr-side bar multiselect ,color link on close button --*/
+.ddr-link .ui-state-default a, .ddr-link .ui-state-default a:link  
+{
+    color: black;
+}
+
 /*This is the CSS for the Highlight health check monitor window table row*/
 
 .ui-widget-content .healthChkMon-table-selected-row {
@@ -2158,7 +2164,7 @@ button.capabilityButton.mat-raised-button{
     background: #2a3950;
 }
 .profile-dialog .ui-dialog .ui-dialog-titlebar {
-    background: #2a3950;
+/*    background: #2a3950; */
     color: #fff;
 }
 .profile-dialog .ui-dialog .ui-dialog-titlebar-close {
@@ -2192,6 +2198,17 @@ button.capabilityButton.mat-raised-button{
 	    background : rgba(255, 255, 255, 0.5);
         border : 1px solid #fbfbfb;
 }
+
+.ddr-side-view-div{
+    background: #EAF3FB;
+    border-bottom: 1px #1e3652 solid;
+}
+
+.ddr-active-flowpath
+{
+	background-color: #5ea0da !important;
+}
+
 /*-------------------NEW KPI UI--------------------*/
 .ed-kpi {
     background-color: rgba(245, 245, 245, 0.8);
@@ -2217,7 +2234,8 @@ button.capabilityButton.mat-raised-button{
     background-color: #fff;
 }
 .ed-table .ui-widget-header {
-    background: #fff;
+    background:#98ADD0;
+;
     border-bottom: 1.3px #375773 solid;
 }
 .kpigrid tr.ui-state-default {
@@ -2308,7 +2326,7 @@ button.capabilityButton.mat-raised-button{
   .androidcss{background:rgba(94, 207, 226, 0.3);}
  .kioskcss{background:rgba(186, 195, 243, 0.3);}
  .kpiCsccss{background:rgba(218, 209, 132, 0.3);}
- i.topicon.kpi-kpi {color: #fff; }
+ i.topicon {color: #fff; }
  /*------------------DDR side bar -------------*/
 .sidedbar-accordion .ui-accordion .ui-accordion-header.ui-state-active 
 {   
@@ -2487,6 +2505,18 @@ button.capabilityButton.mat-raised-button{
     background: #282828;
     color: #cccccc;
 }
+
+app-alert-home .ui-fieldset  {
+    border: 1px solid rgba(65, 126, 191, 0.41);
+    background: rgb(207, 225, 241);
+}
+app-alert-home .ui-fieldset .ui-fieldset-legend {
+    border: 1px solid rgba(65, 126, 191, 0.41);
+    background: rgb(207, 225, 241);
+}
+.mat-button-toggle {
+    color: rgba(0, 0, 0, 0.8);
+}
 .alert-maintenance-wrapper .ui-datepicker.ui-widget .ui-datepicker-calendar th {
     background: #3b77b7;
 }
@@ -2537,5 +2567,117 @@ button.capabilityButton.mat-raised-button{
 /*---------Script Execution Logs---------------*/
 .srptexc-header  {
     background: #282828;
+    color: #fff;
+}
+
+/*-------------Monitor UI CSS--------------*/
+.monitor-brdcmp .ui-breadcrumb.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    background: rgba(255, 255, 255, 0.6);
+}
+.monitor-fieldset .ui-widget-content {
+    border: 1px solid #D5D5D5;
+    background: rgba(255, 255, 255, 0.8);
+}
+.monitor-ui-table .ui-datatable-even {
+    background: transparent;
+}
+.monitor-ui-table .ui-datatable .ui-datatable-header{
+    background: #282828;
+    color: #f0f0f0;
+}
+.monitor-ui-table button.ui-button.ui-state-default{
+    border: 1px solid transparent;
+    color: #fff;
+    /*background: #666;*/
+}
+.monitor-fieldset .ui-fieldset .ui-fieldset-legend {
+    border: 1px #cbd3d9 solid;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.monitor-ui-table .ui-datatable th.ui-state-default {
+    background: rgba(65, 126, 191, 0.9);
+    color: #fff;
+}
+.monitor-ui-table  .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight .ui-widget-content {
+    background: #68bde6;
+    color: #000;
+}
+.monitor-toolbar .ui-widget-header {
+    background: #282828;
+    color: #f0f0f0;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+    background: #245fa0;
+    color: #fff;
+    border: 1px #3f6da9 solid;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content {
+    background: rgba(255, 255, 255, 0.8);
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-header{
+    background: #5893de;
+    border: 1px #3f6da9 solid;
+}
+.mon-ui .ui-treetable th.ui-state-default 
+{
+  background: linear-gradient(to bottom, #417ebf 0%, #3b77b6 100%);
+  color: white;
+  
+}
+.configured-datatable  .ui-datatable th.ui-state-default{
+  background: rgba(65, 126, 191, 0.9);
+  color :#fff;
+}
+/*-------------Graphical KPI--------------*/
+.ed-gkpi .grid-item {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 1px 1.5px 0px 0px #5a5a5a;
+    border: none;
+}
+.ed-gkpi .highcharts-gauge-series .highcharts-dial {
+    fill: #000;
+}
+.edSinglePanelPopup .ui-widget-header {
+    color: rgb(214, 214, 214);
+    background: #282828;
+}
+.edSinglePanelPopup .ui-widget-header a {
+    color: #fff;
+}
+.edSinglePanelPopup  .ui-widget-content {
+    border: 1px #6b6b6b solid;
+    background: #d9e9f3;
+}
+/*------------NetVision CSS----------------*/
+.netvision-left-menu .mat-icon {
+    color: #eaeaea;
+}
+.netvision-left-menu .menu-item-text {
+     color: #eaeaea;
+}
+.netVision-table .ui-datatable th.ui-state-default {
+    background: rgba(65, 126, 191, 0.9);
+    color: #fff;
+}
+
+.compotable .ui-datatable .ui-datatable-header {
+       background: #3e7aba;;
+       color: black
+  
+}
+
+/* -----------Catalogue Management-------------- */
+.dashboard-catalogue-management-tabs .ui-tabview .ui-tabview-nav li.ui-tabview-selected a {
+  color: black;
+  background: #95b7db;
+}
+
+.dashboard-catalogue-management-tabs .ui-tabview .ui-tabview-nav li a {
+  color: black;
+}
+/*-----------Global Date Picker Header CSS-----------*/
+.ui-datepicker.ui-widget .ui-datepicker-calendar thead th {
+    background: #186ba0;
     color: #fff;
 }

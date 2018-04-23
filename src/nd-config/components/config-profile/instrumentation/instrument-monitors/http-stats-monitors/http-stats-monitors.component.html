@@ -1,51 +1,53 @@
 <p-dataTable class="nde-ui" [value]="httpStatsMonitorData" [(selection)]="selectedHttpStatsMonitorData" [rows]="12" [paginator]="httpStatsMonitorData?.length > 12" [pageLinks]="3">
-    
+
     <p-header>
         <span class="configui-float-css">
-            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
-            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
-        </span>
+                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
+                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
+            </span>
         <span class="configui-float-css">Enable HTTP Stats Monitors</span>
         <span class="configui-float">
-            <button pButton type="button" title="Browse" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
-            <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
-            <button pButton type="button" title="Add a HTTP stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
-            <button pButton type="button" title="Add a HTTP stats condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit a HTTP stats Condition"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
-            <button pButton type="button" title="Edit a HTTP stats Condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditHTTPStatsDialog()" icon="fa-pencil"></button>
-            <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
-            <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteHTTPStats()" icon="fa-trash"></button>
-            <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
-            <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveHttpStatsMonitorOnFile()" label="Save"></button>
-        </span>
+            <button pButton type="button" title="Help for Import file" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openImportInfo()" icon="fa fa-info-circle"></button>
+                <button pButton type="button" title="Browse" *ngIf="!isProfilePerm"  [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
+                <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
+                <button pButton type="button" title="Add a HTTP stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+                <button pButton type="button" title="Add a HTTP stats condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddHTTPStatsDialog()" icon="fa-plus"></button>
+                <button pButton type="button" title="Edit a HTTP stats Condition"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
+                <button pButton type="button" title="Edit a HTTP stats Condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditHTTPStatsDialog()" icon="fa-pencil"></button>
+                <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                <button pButton type="button" class="ui-button-danger" title="Delete http stats condition" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteHTTPStats()" icon="fa-trash"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveHttpStatsMonitorOnFile()" label="Save"></button>
+            </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
     <p-column class="tableCss" field="conditionName" header="HTTP Stat Name" [sortable]="true">
         <template let-col let-HttpStatsMonitor="rowData" pTemplate>
-            <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
-        </template>
+                <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
+            </template>
     </p-column>
     <p-column class="tableCss" field="condition" header="Rule" [sortable]="true">
         <template let-col let-HttpStatsMonitor="rowData" pTemplate>
-            <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
-        </template>
+                <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
+            </template>
     </p-column>
     <p-column class="tableCss" field="fpDumpMode" header="Forcefully Dump Flowpath" [sortable]="true">
         <template let-col let-HttpStatsMonitor="rowData" pTemplate>
-            <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field] | fpDumpVal }}</span>
-        </template>
+                <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field] | fpDumpVal }}</span>
+            </template>
     </p-column>
     <p-column class="tableCss" field="description" header="Description" [sortable]="true">
         <template let-col let-HttpStatsMonitor="rowData" pTemplate>
-            <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
-        </template>
+                <span title="{{HttpStatsMonitor[col.field]}}">{{HttpStatsMonitor[col.field]}}</span>
+            </template>
     </p-column>
 
 </p-dataTable>
 
 <!--Dialog for http stats monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNewHttpStatsMonitor ? 'Add  HTTP Stats Condition' : 'Edit HTTP Stats Condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewHttpStatsMonitor ? 'Add  HTTP Stats Condition' : 'Edit HTTP Stats Condition'}}" *ngIf="addEditHttpStatsMonitorDialog" [(visible)]="addEditHttpStatsMonitorDialog" modal="modal" width="800" responsive="true"
+    [resizable]="false">
     <form (ngSubmit)="saveHttpStatsMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-2">
@@ -101,19 +103,19 @@
             </div>
             <div class="ui-g-3">
                 <input name="dropdown5" type="text" class='hidden-validator' *ngIf="(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" pInputText [(ngModel)]="selectedValueType" required ngModel/>
-                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" placeholder="--Select--" [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType" appendTo="body"
-                    required ngModel></p-dropdown>
+                <p-dropdown name="ValueTypeName" [style]="{'width': '100%'}" placeholder="--Select--" [disabled]="!(selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3)" [autoWidth]=" true" [options]="valueType" [(ngModel)]="selectedValueType"
+                    appendTo="body" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-1"></div>
             <!--<div class="ui-g-3" *ngIf="selectedRequestHeader||selectedResponseHeader||httpStatsMonitorDetail.htId==3">
-                <p-dropdown name="ValueTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType"  required ngModel></p-dropdown>
-            </div>-->
+                    <p-dropdown name="ValueTypeName" [style]="{ 'width': '100%'}" [autoWidth]="true" [options]="valueType" [(ngModel)]="selectedValueType"  required ngModel></p-dropdown>
+                </div>-->
             <div class="ui-g-2" style="width:23%">
                 <label>Operation</label>
             </div>
             <div class="ui-g-3" *ngIf="!(selectedValueType==1)&&!(selectedValueType==2)&&!(selectedValueType==3)">
                 <input name="dropdown6" type="text" class='hidden-validator' pInputText required ngModel/>
-                <p-dropdown name="StringOPTypeName" [style]="{ 'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP" placeholder="--Select--"  appendTo="body" required ngModel></p-dropdown>
+                <p-dropdown name="StringOPTypeName" [style]="{ 'width': '100%'}" disabled="true" [autoWidth]="true" [options]="stringOP" placeholder="--Select--" appendTo="body" required ngModel></p-dropdown>
             </div>
             <div class="ui-g-3" *ngIf="selectedValueType==1">
                 <input name="dropdown7" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedStringOp" required ngModel/>
@@ -132,9 +134,11 @@
             <div class="ui-g-2">
                 <label>Match with</label>
             </div>
-    <div class="ui-g-3" >
-                <input name="ComparisonValue" class="config_align_dialog" *ngIf="selectedOthersOp || selectedNumericOp == 15 || selectedNumericOp == 16 || selectedStringOp == 13 || selectedStringOp == 14" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus  ngModel/>
-                <input name="ComparisonValue" class="config_align_dialog" *ngIf="!selectedOthersOp && selectedNumericOp != 15 && selectedNumericOp != 16 && selectedStringOp != 13 && selectedStringOp != 14" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText autofocus required ngModel/>
+            <div class="ui-g-3">
+                <input name="ComparisonValue" class="config_align_dialog" *ngIf="selectedOthersOp || selectedNumericOp == 15 || selectedNumericOp == 16 || selectedStringOp == 13 || selectedStringOp == 14" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText
+                    autofocus (keydown.space)="$event.preventDefault()" ngModel/>
+                <input name="ComparisonValue" class="config_align_dialog" *ngIf="!selectedOthersOp && selectedNumericOp != 15 && selectedNumericOp != 16 && selectedStringOp != 13 && selectedStringOp != 14" type="text" [(ngModel)]="httpStatsMonitorDetail.compValue" pInputText
+                    autofocus (keydown.space)="$event.preventDefault()" required ngModel/>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2" style="width:23%">
@@ -158,7 +162,138 @@
 <p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
 
     <!-- This will look for this component in the ProductUI at this path -
-             ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+                 ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-      <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+    <!--     <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>
+
+<!--Dialog for Help of Import file -->
+<p-dialog class="profile-dialog browseTopCssinfo" [resizable]="false" header="Help for Import File" *ngIf="importinfoDialog" [(visible)]="importinfoDialog" modal="modal" width="600" responsive="true">
+    <div class="ui-g-12">
+        <font size="2">User can only import those files which format will be :- #DisplayName|Condition|fpDumpMode||||desc|OperationId|ValueId</font>
+    </div>
+    <div class="ui-g-12">
+        <font size="2">For Example:- http_stats|ReqHdr.Accept = match|0||||desc|1|1</font>
+    </div>
+    <div class="ui-g-12">
+        <h3>ValueId may be one of the below given option:-</h3>
+        <table style="width:100%">
+            <tr>
+                <th> DataType </th>
+                <th> ValueId </th>
+            </tr>
+            <tr>
+                <td>String</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td> Numeric</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td> Others</td>
+                <td>3</td>
+            </tr>
+        </table>
+    </div>
+    <div class="ui-g-12">
+        <h3>OperationId will depend on selected valueId </h3>
+        <table style="width:100%">
+            <tr>
+                <th> ValueId </th>
+                <th> Operation </th>
+                <th> OperationId </th>
+            </tr>
+            <tr>
+                <td rowspan="7" style="text-align: center">1</td>
+            </tr>
+            <tr>
+                <td> =</td>
+                <td> 1</td>
+            </tr>
+            <tr>
+                <td>!=</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td> contains</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>!contains</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td> PRESENT</td>
+                <td> 13</td>
+            </tr>
+            <tr>
+                <td> !PRESENT</td>
+                <td> 14</td>
+            </tr>
+        </table><br>
+        <table style="width:100%">
+            <tr>
+                <th> ValueId </th>
+                <th> Operation </th>
+                <th> OperationId </th>
+            </tr>
+            <tr>
+                <td rowspan="10" style="text-align: center">2</td>
+            </tr>
+            <tr>
+                <td> =</td>
+                <td> 5</td>
+            </tr>
+            <tr>
+                <td>!=</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>
+                    < </td>
+                        <td>7</td>
+            </tr>
+            <tr>
+                <td>
+                    <=</td>
+                        <td>8</td>
+            </tr>
+            <tr>
+                <td> > </td>
+                <td> 9</td>
+            </tr>
+            <tr>
+                <td> >=</td>
+                <td> 10</td>
+            </tr>
+            <tr>
+                <td> PRESENT</td>
+                <td> 15</td>
+            </tr>
+            <tr>
+                <td> !PRESENT</td>
+                <td> 16</td>
+            </tr>
+
+        </table><br>
+        <table style="width:100%">
+            <tr>
+                <th> ValueId </th>
+                <th> Operation </th>
+                <th> OperationId </th>
+            </tr>
+            <tr>
+                <td rowspan="3" style="text-align: center">3</td>
+            </tr>
+            <tr>
+                <td> PRESENT</td>
+                <td> 11</td>
+            </tr>
+            <tr>
+                <td> !PRESENT</td>
+                <td> 12</td>
+            </tr>
+        </table>
+    </div>
 </p-dialog>

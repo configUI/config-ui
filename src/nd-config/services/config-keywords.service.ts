@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 import { Subscription } from 'rxjs/Subscription';
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,BTResponseHeaderData,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRule } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -353,7 +353,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   }
 
   /*Add Pattern Bt Data*/
-  addBusinessTransPattern(data, profileId, parentBtId): Observable<BusinessTransPatternData> {
+  addBusinessTransPattern(data, profileId, parentBtId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}/${parentBtId}`, data);
   }
 
@@ -713,6 +713,33 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   deleteHttpRespRules(data) {
     return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREPHDR_RULES}`, data);
   }
+
+    /**Asynchronous Rule */
+    getAsynchronousRuleList(profileId): Observable<AsynchronousRule[]> {
+      return this._restApi.getDataByGetReq(`${URL.FETCH_ASYNCHRONOUS_RULE_TABLEDATA}/${profileId}`);
+    }
+  
+    addAsynchronousRule(data, profileId): Observable<AsynchronousRule> {
+      return this._restApi.getDataByPostReq(`${URL.ADD_NEW_ASYNCHRONOUS_RULE}/${profileId}`, data);
+    }
+  
+    editAsynchronousRule(data, profileId): Observable<AsynchronousRule> {
+      let url = `${URL.EDIT_ASYNCHRONOUS_RULE}/${profileId}/${data.asyncRuleId}`
+      return this._restApi.getDataByPutReq(url, data);
+    }
+  
+    deleteAsynchronousRule(data, profileId): Observable<AsynchronousRule> {
+      return this._restApi.getDataByPostReq(`${URL.DEL_ASYNCHRONOUS_RULE}/${profileId}`, data);
+    }
+  
+    saveAsynchronousRule(profileId): Observable<AsynchronousRule> {
+      return this._restApi.getDataByPostReq(`${URL.SAVE_ASYNCHRONOUS_RULE}/${profileId}`);
+    }
+
+    /** Method to upload file method monitors file */
+    uploadAsyncRuleFile(filePath, profileId) {
+      return this._restApi.getDataByPostReq(`${URL.UPLOAD_ASYNC_RULE_FILE}/${profileId}`, filePath);
+    }
 
 }
 

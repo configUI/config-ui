@@ -23,15 +23,17 @@ function loadHighchartTheme() {
                 ]
             },
             style: {
-                fontFamily: '\'Unica One\', sans-serif'
+                fontFamily: "'Roboto', sans-serif"
             },
             plotBorderColor: '#606063'
         },
         title: {
             style: {
-                color: '#E0E0E3',
+                color: '#d6d6d6',
                 textTransform: 'uppercase',
-                fontSize: '20px'
+                fontSize: '11px',
+                fontFamily:"'Roboto', sans-serif",
+                fontWeight: "500"
             }
         },
         subtitle: {
@@ -75,9 +77,9 @@ function loadHighchartTheme() {
             }
         },
         tooltip: {
-            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            backgroundColor: 'rgba(255, 255, 255, 0.85)',
             style: {
-                color: '#F0F0F0'
+                color: '#282828'
             }
         },
         plotOptions: {

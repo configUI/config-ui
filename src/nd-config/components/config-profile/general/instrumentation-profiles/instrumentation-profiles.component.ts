@@ -217,4 +217,8 @@ export class InstrumentationProfilesComponent implements OnInit {
      
     }
   }
+ /* change Browse boolean value on change component */
+ ngOnDestroy() {
+   this.isInstrProfileBrowse = false;
+ }
 }

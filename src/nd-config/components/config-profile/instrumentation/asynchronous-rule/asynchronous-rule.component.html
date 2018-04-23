@@ -1,0 +1,123 @@
+<p-dataTable class="nde-ui" [value]="asynchronousRuleData" [(selection)]="selectedAsynchronousRule" [rows]="12" [paginator]="asynchronousRuleData?.length > 12"
+    [pageLinks]="3">
+    <p-header>
+        <span class="configui-float-css">
+            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm" [disabled]="isProfilePerm"></p-checkbox>
+            <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm" [disabled]="saveDisable"></p-checkbox>
+        </span>
+        <span class="configui-float-css">Enable Asynchronous Rules </span>
+        <span class="configui-float">
+            <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
+            <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
+            <button pButton type="button" title="Add an asynchronous rule" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+            <button pButton type="button" title="Add an asynchronous rule" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddAsynchronousRuleDialog()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit an asynchronous rule" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
+            <button pButton type="button" title="Edit an asynchronous rule" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditAsynchronousRuleDialog()" icon="fa-pencil"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete an asynchronous rule" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete an asynchronous rule"  *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteAsynchronousRule()" icon="fa-trash"></button>
+            <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
+            <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveAsynchronousRuleToFile()" label="Save"></button>
+        </span>
+    </p-header>
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+    <p-column class="tableCss" field="fqm" header="FQM" [sortable]="true" [style]="{'width':'50%'}">
+        <template let-col let-asynchronousRule="rowData" pTemplate>
+            <span title="{{asynchronousRule[col.field]}}">{{asynchronousRule[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="containerType" header="Container Type" [sortable]="true" [style]="{'width':'20%'}">
+        <template let-col let-asynchronousRule="rowData" pTemplate>
+            <span title="{{asynchronousRule[col.field]}}" class="timpStamp-float-css">{{asynchronousRule[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="ruleType" header="Rule Type" [sortable]="true" [style]="{'width':'10%'}">
+        <template let-col let-asynchronousRule="rowData" pTemplate>
+            <span title="{{asynchronousRule[col.field]}}" class="timpStamp-float-css">{{asynchronousRule[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'10%'}">
+        <template let-col let-asynchronousRule="rowData" pTemplate>
+            <span title="{{asynchronousRule[col.field]}}">{{asynchronousRule[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="dumpMode" header="Dump Mode" [sortable]="true" [style]="{'width':'10%'}">
+        <template let-col let-asynchronousRule="rowData" pTemplate>
+            <span title="{{asynchronousRule[col.field]}}">{{asynchronousRule[col.field]}}</span>
+        </template>
+    </p-column>
+</p-dataTable>
+
+<!--Dialog for Asynchronous Rule-->
+
+<p-dialog class="profile-dialog" header="{{isNewAsynchronousRule ? 'Add Asynchronous Rule' : 'Edit Asynchronous Rule'}}"
+    *ngIf="addEditAsynchronousRuleDialog" [(visible)]="addEditAsynchronousRuleDialog" modal="modal" width="700" responsive="true"
+    [resizable]="false">
+    <form (ngSubmit)="saveAsynchronousRule()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Fully Qualified Method Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="fqm" type="text" size="66" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
+                    (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="asynchronousRuleDetail.fqm" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Container Type</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.containerType"
+                    required ngModel/>
+                <p-dropdown [options]="containersTypeList" [style]="{'width':'100%'}" name="containerType" [(ngModel)]="asynchronousRuleDetail.containerType"
+                    placeholder="--Select--" appendTo="body"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Rule Type</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.ruleType"
+                    required ngModel/>
+                <p-dropdown [options]="ruleTypesList" [style]="{'width':'100%'}" name="ruleType" [(ngModel)]="asynchronousRuleDetail.ruleType"
+                    placeholder="--Select--" appendTo="body"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Dump Mode</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="asynchronousRuleDetail.dumpMode" required
+                    ngModel/>
+                <p-dropdown [options]="dumpModesList" [style]="{'width':'100%'}" name="dumpMode" [(ngModel)]="asynchronousRuleDetail.dumpMode"
+                    placeholder="--Select--" appendTo="body"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g config-ui">
+            <div class="ui-g-4">
+                <label>Enabled</label>
+            </div>
+            <div class="ui-g-1">
+                <md-slide-toggle [(ngModel)]="asynchronousRuleDetail.enabled" name="enabled" class="configui-error-css-2"></md-slide-toggle>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="addEditAsynchronousRuleDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+    modal="modal" width="650" responsive="true" [resizable]="false">
+
+    <!-- This will look for this component in the ProductUI at this path -
+      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer>  -->
+</p-dialog>

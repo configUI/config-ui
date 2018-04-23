@@ -15,7 +15,7 @@
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
                   <div class="ui-grid-row">
                     <div class="ui-grid-col-5 marginClassTop">
-                      Time (in seconds) to receive data from cavmon after test is over
+                      Time (in seconds) to receive data from Cavmon after test is over
                     </div>
                     <div class="ui-grid-col-1">
                       <input pInputText type="number" name="NDC_WAIT_TIME_AFTER_TEST_IS_OVER" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_AFTER_TEST_IS_OVER'].value"
@@ -115,7 +115,7 @@
                   </div>
                   <div class="ui-grid-row">
                     <div class="ui-grid-col-5 marginClassTop">
-                      Enable dumping of aggregate data in raw_data directory
+                      Enable dumping of Aggregate data in raw_data directory
                     </div>
                     <div class="ui-grid-col-1">
                       <input pInputText type="number" name="NDC_LOG_BCI_AGGREGATE_RAW_DATA" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_LOG_BCI_AGGREGATE_RAW_DATA'].value"
@@ -147,22 +147,6 @@
                   </div>
                   <div class="ui-grid-row">
                     <div class="ui-grid-col-5 marginClassTop">
-                      Enable Autoscaling
-                    </div>
-                    <div class="ui-grid-col-1">
-                      <input pInputText type="number" name="ENABLE_AUTO_SCALING" min=0 max=1 [(ngModel)]="ndcKeywords['ENABLE_AUTO_SCALING'].value"
-                        required ngModel/>
-                    </div>
-                    <div class="ui-grid-col-5 marginClassTop">
-                      Modify entry in the topology in case of auto scaling
-                    </div>
-                    <div class="ui-grid-col-1">
-                      <input pInputText type="number" name="NDC_MODIFY_TOPO_ENTRY" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_MODIFY_TOPO_ENTRY'].value"
-                        required ngModel/>
-                    </div>
-                  </div>
-                  <div class="ui-grid-row">
-                    <div class="ui-grid-col-5 marginClassTop">
                       NDC reuse instance ID time (in minutes)
                     </div>
                     <div class="ui-grid-col-1">
@@ -170,7 +154,7 @@
                         required ngModel/>
                     </div>
                     <div class="ui-grid-col-5 marginClassTop">
-                      NDC log BCI aggregate raw data ex
+                      NDC log BCI Aggregate raw data ex
                     </div>
                     <div class="ui-grid-col-1">
                       <input pInputText type="number" name="NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_LOG_BCI_AGGREGATE_RAW_DATA_EX'].value"
@@ -195,7 +179,7 @@
                   </div>
                   <div class="ui-grid-row">
                     <div class="ui-grid-col-5 marginClassTop">
-                      Send active instance response
+                      Send active Instance response
                     </div>
                     <div class="ui-grid-col-1">
                       <input pInputText type="number" name="SEND_ACTIVE_INSTANCE_REP" min=0 max=1 [(ngModel)]="ndcKeywords['SEND_ACTIVE_INSTANCE_REP'].value"
@@ -207,6 +191,22 @@
                     <div class="ui-grid-col-1">
                       <input pInputText type="number" name="NDC_MAX_CTRL_CON" min=0 [(ngModel)]="ndcKeywords['NDC_MAX_CTRL_CON'].value" required
                         ngModel/>
+                    </div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <!-- <div class="ui-grid-col-5 marginClassTop">
+                      Enable Autoscaling
+                    </div>
+                    <div class="ui-grid-col-1">
+                      <input pInputText type="number" name="ENABLE_AUTO_SCALING" min=0 max=1 [(ngModel)]="ndcKeywords['ENABLE_AUTO_SCALING'].value"
+                        required ngModel/>
+                    </div> -->
+                    <div class="ui-grid-col-5 marginClassTop">
+                      Modify entry in the topology in case of auto scaling
+                    </div>
+                    <div class="ui-grid-col-1">
+                      <input pInputText type="number" name="NDC_MODIFY_TOPO_ENTRY" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_MODIFY_TOPO_ENTRY'].value"
+                        required ngModel/>
                     </div>
                   </div>
                   <hr>
@@ -333,7 +333,7 @@
                       required ngModel/>
                   </div>
                   <div class="ui-grid-col-5 marginClassTop">
-                    Set maximum number of entry and exit records in a Flowpath
+                    Set maximum number of entry and exit records in a flowpath
                   </div>
                   <div class="ui-grid-col-1">
                     <input pInputText type="number" name="NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2'].value"
@@ -352,7 +352,7 @@
                   <!-- </div>
             <div class="ui-grid-row"> -->
                   <div class="ui-grid-col-5 marginClassTop">
-                    Filter Flowpath which are not the part of current test run
+                    Filter flowpath which are not the part of current test run
                   </div>
                   <div class="ui-grid-col-1">
                     <input pInputText type="number" name="NDP_EXCLUDE_FLOWPATHS_OUTSIDE_TESTIDX" min=0 [(ngModel)]="ndcKeywords['NDP_EXCLUDE_FLOWPATHS_OUTSIDE_TESTIDX'].value"
@@ -607,25 +607,6 @@
                       required ngModel/>
                   </div>
                 </div>
-  
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-5 marginClassTop">
-                    Maximum SQL index
-                  </div>
-                  <div class="ui-grid-col-1">
-                    <input pInputText type="number" name="NDP_MAX_SQL_INDEX_FROM_BCI" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_SQL_INDEX_FROM_BCI'].value"
-                      required ngModel/>
-                  </div>
-                  <!-- </div>
-            <div class="ui-grid-row"> -->
-                  <div class="ui-grid-col-5 marginClassTop">
-                    Flag whether a response will be sent to BCI on new data connection
-                  </div>
-                  <div class="ui-grid-col-1">
-                    <input pInputText type="number" name="SND_RESP_TO_BCI_ON_DATA_CONN" min=0 max=1 [(ngModel)]="ndcKeywords['SND_RESP_TO_BCI_ON_DATA_CONN'].value"
-                      required ngModel/>
-                  </div>
-                </div>
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-5 marginClassTop">
                     Initial size (in bytes) of sequence blob compression buffer
@@ -775,6 +756,13 @@
                     <input pInputText type="number" name="NDP_DEBUG_LOGLEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGLEVEL'].value"
                       required ngModel/>
                   </div>
+                  <div class="ui-grid-col-5 marginClassTop">
+                      Maximum SQL index
+                    </div>
+                    <div class="ui-grid-col-1">
+                      <input pInputText type="number" name="NDP_MAX_SQL_INDEX_FROM_BCI" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_SQL_INDEX_FROM_BCI'].value"
+                        required ngModel/>
+                    </div>
                   <!-- </div>
               <div class="ui-grid-row"> -->
                 </div>

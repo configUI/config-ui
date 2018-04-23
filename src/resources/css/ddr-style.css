@@ -47,3 +47,33 @@
     width:100%;
     min-width:139px;
 }
+.bt-dialog .ui-dialog.ui-widget .ui-dialog-content{
+   height:auto !important;
+}
+.dynamic-column-width-acc .ui-accordion .ui-accordion-content {
+    padding: 0.5em;
+}
+
+.ddr-multiselect-all .ui-multiselect-header .ui-chkbox
+{
+display : none ;
+}
+
+.ddr-multiselect-all .ui-multiselect-panel .ui-multiselect-item
+{
+  width: min-content;
+}
+
+.sidebar-multi .ui-multiselect-panel
+{
+  position: sticky;
+}
+.sidebar-dropdown .ui-dropdown-items-wrapper
+{
+    max-height: 188px;
+    max-width: 123px;
+}
+.mctdropbox .ui-multiselect-panel 
+{
+    width:540px;
+}

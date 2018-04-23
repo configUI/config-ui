@@ -561,18 +561,15 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configUtilityService.errorMessage("Please enable Session toggle button for AI");
       return;
     }
-    this.configProfileService.getProfileAgent(profileName).subscribe(data => {
-      var agentType = data._body;
-      if (agentType == "Java") {
+      if (type == "Java" || type == "DotNet") {
         this.passAIDDserverEntity = this.serverEntity;
-        this.passAIDDSettings = [name, id, agentType, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
+        this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
         this.showInstr = true;
       }
       else {
-        this.configUtilityService.errorMessage("Could not start AI, supported only for Java")
+        this.configUtilityService.errorMessage("Could not start AI, supported only for Java and Dot Net")
         return;
       }
-    })
   }
 
   closeAIDDDialog(isCloseAIDDDialog) {

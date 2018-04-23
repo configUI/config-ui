@@ -3125,7 +3125,7 @@ md-card-subtitle.dashboard-data-widget-subtitle.mat-card-subtitle {
   background-color: rgba(214, 235, 232, 0.3); }
 
 .ed-table .ui-widget-header {
-  background: #fff;
+  background: darkseagreen;
   border-bottom: 1.3px #375773 solid; }
 
 .kpigrid tr.ui-state-default {
@@ -3255,7 +3255,7 @@ md-card-subtitle.dashboard-data-widget-subtitle.mat-card-subtitle {
 .kpiCsccss {
   background: rgba(218, 209, 132, 0.4); }
 
-i.topicon.kpi-kpi {
+i.topicon {
   color: #fff; }
 
 .top-panel-nav-cross-icon {
@@ -3275,6 +3275,17 @@ i.topicon.kpi-kpi {
 .mailSmsConfigSetting .ui-widget-header {
   background: #25656d;
   color: #fff; }
+
+app-alert-home .ui-fieldset {
+  border: 1px solid rgba(114, 191, 182, 0.54);
+  background: rgba(114, 191, 182, 0.25); }
+
+app-alert-home .ui-fieldset .ui-fieldset-legend {
+  border: 1px solid rgba(114, 191, 182, 0.54);
+  background: rgba(114, 191, 182, 0.25); }
+
+.mat-button-toggle {
+  color: rgba(0, 0, 0, 0.8); }
 
 .scenario-left .ui-state-active {
   background: transparent; }
@@ -3320,3 +3331,186 @@ i.topicon.kpi-kpi {
 .AC-rghtpane-box {
   background: white;
   border: 1px #4a4a4a solid; }
+
+/*-- In ddr-side bar multiselect ,color link on close button --*/
+.ddr-link .ui-state-default a, .ddr-link .ui-state-default a:link {
+  color: black; }
+
+/*------------------DDR GUI -------------*/
+.ddr-box {
+  background: rgba(255, 255, 255, 0.42); }
+
+.ddrbreadcrumb .ui-widget-header {
+  background: rgba(148, 148, 148, 0.5);
+  border-bottom: 1px #666 solid; }
+
+.ddr-accordion .ui-accordion-header.ui-state-default.ui-corner-all {
+  background: #245e50;
+  border: 1px #154237 solid; }
+
+.ddr-accordion .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+  background: #489684;
+  border: 1px #154237 solid; }
+
+.ddr-accordion .ui-accordion .ui-accordion-header a {
+  font-weight: 500;
+  color: #4a4a4a; }
+
+.ddr-accordion .ui-state-default a:link, .ui-state-default a:visited {
+  color: #4a4a4a; }
+
+.ddr-accordion .ui-accordion .ui-accordion-content {
+  padding: 0;
+  border-top: 0;
+  overflow: visible;
+  zoom: 1; }
+
+.ddr-tabs .ui-state-default a:link {
+  color: #fff;
+  font-weight: 500; }
+
+.ddr-side-view-div {
+  background: #fdffff;
+  border-bottom: 1px #c9c9c9 solid; }
+
+.ddr-active-flowpath {
+  background-color: #a4decb !important; }
+
+.ddr-tabs .ui-tabview .ui-tabview-nav > li.ui-state-default {
+  background: #245e50; }
+
+.ddr-tabs .ui-tabview .ui-tabview-nav > li.ui-state-default.ui-state-active {
+  background: #091f21;
+  font-weight: normal;
+  color: #555; }
+
+.ddr-toolbar .ui-toolbar.ui-widget.ui-widget-header {
+  background: #d6ebe8; }
+
+/*---------Script Execution Logs---------------*/
+.srptexc-header {
+  background: #25656d;
+  color: #fff; }
+
+/*-------------Monitor UI CSS--------------*/
+.monitor-brdcmp .ui-breadcrumb.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+  background: rgba(255, 255, 255, 0.6); }
+
+.monitor-fieldset .ui-widget-content {
+  border: 1px solid #D5D5D5;
+  background: rgba(255, 255, 255, 0.8); }
+
+.monitor-ui-table .ui-datatable-even {
+  background: transparent; }
+
+.monitor-ui-table .ui-datatable .ui-datatable-header {
+  background: #57827c;
+  color: #fff; }
+
+.monitor-fieldset .ui-fieldset .ui-fieldset-legend {
+  border: 1px #cbd3d9 solid;
+  background: #57827c;
+  color: #fff; }
+
+.monitor-ui-table .ui-datatable th.ui-state-default {
+  background: #3b7970;
+  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
+  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
+  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  color: #fff; }
+
+.monitor-ui-table .ui-datatable .ui-datatable-data tr.ui-state-highlight {
+  background: #bdefdc;
+  color: #000; }
+
+.monitor-ui-table .ui-datatable-even {
+  border: 1px solid #316a63;
+  background: #D6EBE8;
+  color: #000; }
+
+.monitor-ui-table .ui-datatable-odd {
+  border: 1px solid #316a63;
+  background: #72bfb6;
+  color: #000; }
+
+.monitor-toolbar .ui-widget-header {
+  background: #57827c;
+  color: #fff; }
+
+.monitor-ui-accordion .ui-accordion .ui-accordion-header.ui-state-active {
+  background: #489684;
+  border: 1px #154237 solid; }
+
+.monitor-ui-accordion .ui-state-active {
+  color: #282828;
+  background: #186ba0; }
+
+.monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content {
+  background: rgba(255, 255, 255, 0.8); }
+
+.monitor-ui-accordion .ui-accordion .ui-accordion-header {
+  background: #245e50;
+  border: 1px #154237 solid; }
+
+.mon-ui .ui-treetable th.ui-state-default {
+  background: #3b7970;
+  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
+  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
+  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  color: #fff; }
+
+.configured-datatable .ui-datatable th.ui-state-default {
+  background: #3b7970;
+  background: -moz-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
+  background: -webkit-linear-gradient(top, #3b7970 0%, #0f2e32 100%);
+  background: linear-gradient(to bottom, #3b7970 0%, #0f2e32 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b7970', endColorstr='#0f2e32',GradientType=0 );
+  color: #fff; }
+
+.configTreeTable .ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
+  color: #000; }
+
+/*-------------Graphical KPI--------------*/
+.ed-gkpi .grid-item {
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
+  border: none; }
+
+.ed-gkpi .highcharts-gauge-series .highcharts-dial {
+  fill: red; }
+
+.edSinglePanelPopup .ui-widget-header {
+  background: #25656d;
+  color: #fff; }
+
+.edSinglePanelPopup .ui-widget-header a {
+  color: #fff; }
+
+.edSinglePanelPopup .ui-widget-content {
+  border: 0px #f7f7f7 solid;
+  background: #0d1913; }
+
+/*------------NetVision CSS----------------*/
+.netvision-left-menu .mat-icon {
+  color: #f0f0f0; }
+
+.netvision-left-menu .menu-item-text {
+  color: #f0f0f0; }
+
+.netVision-table .ui-datatable th.ui-state-default {
+  background: #377569;
+  color: #fff; }
+
+/* -----------Catalogue Management-------------- */
+.dashboard-catalogue-management-tabs .ui-tabview .ui-tabview-nav li.ui-tabview-selected a {
+  color: black;
+  background: #9fceff; }
+
+.dashboard-catalogue-management-tabs .ui-tabview .ui-tabview-nav li a {
+  color: black; }
+
+/****  Run Command ******/
+.resultDetailsDiv {
+  background: #e1f5ee; }

@@ -12,42 +12,50 @@ function loadHighchartTheme() {
             chart: {
                 backgroundColor: null,
                 style: {
-                    fontFamily: 'Signika, serif'
+                    fontFamily: "'Roboto', sans-serif"
                 }
             },
             title: {
                 style: {
-                    color: 'black',
-                    fontSize: '16px',
-                    fontWeight: 'bold'
+                    color: "#000",
+                    fontSize: '11px',
+                    fontWeight: "500",
+                    fontFamily: "'Roboto', sans-serif"
                 }
             },
             subtitle: {
                 style: {
-                    color: 'black'
+                    color: '#000'
                 }
             },
             tooltip: {
-                borderWidth: 0
+                style: {
+                    color: '#282828'
+                }
             },
             legend: {
                 itemStyle: {
                     fontWeight: 'bold',
-                    fontSize: '13px'
+                    fontSize: '12px'
                 }
             },
             xAxis: {
                 labels: {
                     style: {
-                        color: '#6e6e70'
+                        color: '#1d1d1d',
+                        fontWeight: 'bold'
                     }
                 }
             },
             yAxis: {
                 labels: {
                     style: {
-                        color: '#6e6e70'
+                        color: '#1d1d1d',
+                        fontWeight: 'bold'
                     }
+                },
+                title: {
+                   style: {"fontSize": "10px", "margin": "10px", "color":"#070707"},
                 }
             },
             plotOptions: {

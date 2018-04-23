@@ -365,3 +365,12 @@ export class RulesHTTPResponseHdrComponentData {
     customValTypeName: string;
     type: number;
 }
+
+export class AsynchronousRule {
+    asyncRuleId: number;
+    fqm: string;
+    ruleType: string;
+    containerType: string;
+    enabled: boolean;
+    dumpMode: number;
+}

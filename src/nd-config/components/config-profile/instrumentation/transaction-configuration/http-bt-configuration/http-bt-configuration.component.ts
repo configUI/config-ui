@@ -381,7 +381,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
           && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
           && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
           && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
-          this.configUtilityService.errorMessage("Header key/value pair already exists")
+          this.configUtilityService.errorMessage("Rule details already exists")
           return;
         }
       }
@@ -421,7 +421,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
       .subscribe(data => {
         //Insert data in main table after inserting application in DB
         // this.businessTransPatternInfo.push(data);
-        this.businessTransPatternInfo = ImmutableArray.push(this.businessTransPatternInfo, data);
+        this.businessTransPatternInfo = data
+        // this.businessTransPatternInfo = ImmutableArray.push(this.businessTransPatternInfo, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
@@ -623,14 +624,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
       if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
 
-        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-          && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
-          && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
-          && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
-          && this.businessTransPatternDetail.paramKeyValue != this.businessTransPatternInfo[i].paramKeyValue
-          && this.businessTransPatternDetail.parentBtId == -1) {
-          break;
-        }
+        // if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+        //   && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
+        //   && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
+        //   && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
+        //   && this.businessTransPatternDetail.paramKeyValue != this.businessTransPatternInfo[i].paramKeyValue
+        //   && this.businessTransPatternDetail.parentBtId == -1) {
+        //   break;
+        // }
 
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
@@ -647,8 +648,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
             }
           }
           else {
-            this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].btId;
-            break;
+            if (this.businessTransPatternInfo[i].parentBtId == -1) {
+              this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].btId;
+              break;
+            }
+            else {
+              this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].parentBtId;
+            }
           }
         }
         else {
@@ -833,6 +839,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         }
         this.configKeywordsService.deleteBusinessTransPattern(arrAppIndex, this.profileId)
           .subscribe(data => {
+            this.businessTransPatternInfo = data;
             this.deletePatternBusinessTransactions(arrAppIndex);
             this.selectedPatternData = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
@@ -932,8 +939,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
           this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
           return;
         }
-        // this.businessTransPatternInfo = data;
-        this.loadBTPatternData()
+        //this.businessTransPatternInfo = data;
+	this.loadBTPatternData();
         this.configUtilityService.successMessage("File uploaded successfully");
       });
     }
@@ -1231,6 +1238,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
   closeSubPatternListDialog() {
     this.detailOfSubBTPatternDialog = false;
+  }
+
+  /* change Browse boolean value on change component */
+  ngOnDestroy() {
+    this.isBTPatternBrowse = false;
   }
 
 }
