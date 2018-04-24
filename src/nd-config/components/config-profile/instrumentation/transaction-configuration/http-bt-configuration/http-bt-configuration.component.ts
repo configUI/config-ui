@@ -374,8 +374,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
     let tempParam = this.createKeyValString();
     // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
+
     if (this.businessTransPatternInfo.length > 0) {
       for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+
+        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+           && this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
+            this.configUtilityService.errorMessage("BT name and URL already exists");
+            return;
+        }       
+
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
           && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
@@ -499,6 +507,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.reqHeaderKey == "";
     }
 
+    if(this.selectedPatternData[0].reqParamKey == "null"){
+      this.selectedPatternData[0].reqParamKey = "-"  
+    }
     if (this.reqParamInfo.length == 0) {
       this.reqParamKeyCheck = false;
     }
@@ -623,7 +634,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
 
       if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
-
+        
+        if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
+          && this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
+           this.configUtilityService.errorMessage("BT name and URL already exists");
+           return;
+       }  
         // if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
         //   && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
         //   && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
