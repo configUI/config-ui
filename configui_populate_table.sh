@@ -181,6 +181,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (101,'captureHttpTraceLevel','0','6','2','0','pre-custom'),
 (102,'excludeMethodOnRespTime','0','90000','2','0','normal'),
 (103,'NDAsyncRuleConfig','1','1024','6','false','normal');
+(104,'dumpOnlyMethodExitInFP','0','1','2','0','normal'),
+(105, 'methodResponseTimeFilter', '0', '360000', '5', '0%201%2020', 'normal')
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
