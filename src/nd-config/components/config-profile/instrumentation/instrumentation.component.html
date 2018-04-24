@@ -16,7 +16,7 @@
         <p-tabPanel  *ngIf="agentType != 'Dot Net'" header="Error Detection" [selected]="index == 4">
             <app-error-detection *ngIf="index == 4" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
         </p-tabPanel>
-        <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Asynchronous Rule" [selected]="index == 5">
+        <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Asynchronous Transaction" [selected]="index == 5">
             <app-asynchronous-rule *ngIf="index == 5" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-asynchronous-rule>
         </p-tabPanel>
     </p-tabView>

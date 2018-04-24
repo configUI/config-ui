@@ -62,7 +62,7 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "excludeMethodOnRespTime":{"defaultValue":"0","min":"","max":"","assocId":-1,"value":"0","keyId":75}, //NodeJS Only
 "NDHTTPRepHdrCfgListFullFp":{"defaultValue":"NA","min":"1","max":"1024","assocId":-1,"value":"NA","keyId":54},
 "NDHTTPRepHdrCfgListL1Fp":{"defaultValue":"NA","min":"1","max":"1024","assocId":-1,"value":"NA","keyId":55},
-"NDAsyncRuleConfig":{"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"false","keyId":103},
+"NDAsyncRuleConfig":{"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"false","keyId":105}
 };
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
