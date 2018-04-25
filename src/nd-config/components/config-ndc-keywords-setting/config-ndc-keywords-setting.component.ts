@@ -56,6 +56,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     NDC_HS_ST_IN_FILE_FLAG_VAL;
     NDC_HS_ST_IN_FILE_FLAG_VER;
 
+    NDC_THRESOLD_TO_MARK_DELETED_VAL = 8;
+
     //Variables for values of ND_FPI_MASK keyword
     ndeId1;
     ndeId2;
@@ -159,11 +161,17 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'ENABLE_FP_STAT_MONITOR',
         'SEND_ACTIVE_INSTANCE_REP',
         'NDC_MAX_CTRL_CON',
-        'NDP_MAX_SQL_INDEX_FROM_BCI'
+        'NDP_MAX_SQL_INDEX_FROM_BCI',
+        'NDC_THRESOLD_TO_MARK_DELETED'
     ];
 
     appId: number;
     isAppPerm: boolean;
+    dropDownLabel= ['hr','min','sec'];
+    dropDownValue =['hr','min','sec'];
+    dropDownOption =  [];
+    selectedFormat : any
+    enableAutoCleanUp :boolean =true;
 
     constructor(private _configUtilityService: ConfigUtilityService,
         private confirmationService: ConfirmationService,
@@ -188,6 +196,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.dropDownOption= ConfigUiUtility.createListWithKeyValue(this.dropDownValue,this.dropDownLabel);
         this.isAppPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
         // Getting data on Initial Load
         this.getNDCKeywords();
@@ -294,11 +303,50 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.seqNo2 = seqno[2];
             }
         }
+        if (data.NDC_THRESOLD_TO_MARK_DELETED.value.includes(" ")){
+            let arr = data.NDC_THRESOLD_TO_MARK_DELETED.value.split(" ");
+            if(arr[0] == 1){
+                this.enableAutoCleanUp = true;
+            }
+            if(arr[1].includes("h")){
+                this.selectedFormat = "hr";
+                let arrtime = arr[1].split("h")
+                this.NDC_THRESOLD_TO_MARK_DELETED_VAL = +arrtime[0];
+            }
+            else if(arr[1].includes("m")){
+                this.selectedFormat = "min";
+                let arrtime = arr[1].split("m")
+                this.NDC_THRESOLD_TO_MARK_DELETED_VAL= +arrtime[0];
+            }
+            else if(arr[1].includes("s")){
+                this.selectedFormat = "sec";
+                let arrtime = arr[1].split("s")
+                this.NDC_THRESOLD_TO_MARK_DELETED_VAL = +arrtime[0];
+            }
+        }
+        else{
+            this.enableAutoCleanUp = false;
+            this.NDC_THRESOLD_TO_MARK_DELETED_VAL = 8;
+            this.selectedFormat = "hr";
+        }
     }
 
 
     //This function is responsible for saving Keywords value in DB
     saveNDCKeywords() {
+         if(this.enableAutoCleanUp){
+             if(this.selectedFormat == "hr")
+                this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESOLD_TO_MARK_DELETED_VAL + "h";
+                else if(this.selectedFormat == "min")
+                     this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESOLD_TO_MARK_DELETED_VAL + "m";
+                    else
+                        this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESOLD_TO_MARK_DELETED_VAL + "s";
+        }
+        else{
+            this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value =0;
+            this.NDC_THRESOLD_TO_MARK_DELETED_VAL = 8;
+            this.selectedFormat = "hr"
+        }
             // Saving Data to Server
             this.ndcKeywords = this.joinKeywordsVal(this.ndcKeywords)
             this._configKeywordsService.saveNDCKeywords(this.ndcKeywords, this.appId).subscribe(data => {

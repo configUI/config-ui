@@ -366,11 +366,9 @@ export class RulesHTTPResponseHdrComponentData {
     type: number;
 }
 
-export class AsynchronousRule {
-    asyncRuleId: number;
-    fqm: string;
-    ruleType: string;
+export class AsynchronousRuleType {
+    assocId: number;
     containerType: string;
     enabled: boolean;
-    dumpMode: number;
+    description: string;
 }
