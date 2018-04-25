@@ -665,7 +665,8 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (86,'ND_ENABLE_CAPTURE_DB_TIMING','','','1 0 0 0','1 0 0 0'),
 (87,'NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE','','','3600000 600000','3600000 600000'),
 (88,'NDDBU_TMP_FILE_PATH','','','/mnt/tmp','/mnt/tmp'),
-(89,'ND_FPI_MASK','','','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;');
+(89,'ND_FPI_MASK','','','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;'),
+(90,'NDC_THRESOLD_TO_MARK_DELETED','','','1 8h','1 8h');
 
 COMMIT;
 +
