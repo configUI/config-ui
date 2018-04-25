@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { AsynchronousRule } from '../../../../containers/instrumentation-data';
+import { AsynchronousRuleType } from '../../../../containers/instrumentation-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
@@ -26,18 +26,9 @@ export class AsynchronousRuleComponent implements OnInit {
     @Output()
     keywordData = new EventEmitter();
     /**It stores asynchronous rule data */
-    asynchronousRuleData: AsynchronousRule[];
-    /**It stores selected asynchronous rule data */
-    selectedAsynchronousRule: AsynchronousRule[];
-    /**It stores data for add/edit asynchronous rule */
-    asynchronousRuleDetail: AsynchronousRule;
+    asynchronousRuleData: AsynchronousRuleType[];
 
     subscription: Subscription;
-    /**For add/edit error-detection flag */
-    isNewAsynchronousRule: boolean;
-    /**For open/close add/edit asynchronous rule detail */
-    addEditAsynchronousRuleDialog: boolean = false;
-
     keywordList: string[] = ['NDAsyncRuleConfig'];
     asynchronousRule: Object;
     selectedValues: boolean;
@@ -46,29 +37,9 @@ export class AsynchronousRuleComponent implements OnInit {
     enableGroupKeyword: boolean = false;
     isProfilePerm: boolean;
 
-    /** To open file explorer dialog */
-    openFileExplorerDialog: boolean = false;
-  
-    isAsyncRuleBrowse: boolean = false;
-
-    containerTypeLabel = ["Apache Tomcat", "GlassFish", "IBM WebSphere", "JBoss", "Jetty", "Oracle Weblogic"];
-    containerTypeValue = ["tomcat", "jBoss", "jetty", "weblogic"];
-
-    ruleTypeLabel = ["Start", "Dispatch", "Complete"];
-    ruleTypeValue = ["start", "dispatch", "complete"];
-
-    dumpModeLabel = ["0","1","2"];
-    dumpModeValue = [0, 1, 2];
-
-    containersTypeList = [];
-    ruleTypesList = [];
-    dumpModesList = [];
 
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
         this.configKeywordsService.toggleKeywordData();
-        this.configKeywordsService.fileListProvider.subscribe(data => {
-            this.uploadFile(data);
-          });
     }
 
     ngOnInit() {
@@ -100,25 +71,6 @@ export class AsynchronousRuleComponent implements OnInit {
         });
     }
 
-    //constructing tableData for table [all custom keywords list]
-    createDataForDropDown() {
-        this.containersTypeList = [];
-        this.ruleTypesList = [];
-        this.dumpModesList = [];
-        // this.containersTypeList.push({ value: -1, label: '--Select --' });
-        for (let i = 0; i < this.containerTypeLabel.length; i++) {
-            this.containersTypeList.push({ 'value': this.containerTypeValue[i], 'label': this.containerTypeLabel[i] });
-        }
-
-        for (let i = 0; i < this.ruleTypeLabel.length; i++) {
-            this.ruleTypesList.push({ 'value': this.ruleTypeValue[i], 'label': this.ruleTypeLabel[i] });
-        }
-
-        for (let i = 0; i < this.dumpModeLabel.length; i++) {
-            this.dumpModesList.push({ 'value': this.dumpModeValue[i], 'label': this.dumpModeLabel[i] });
-        }
-    }
-
     saveKeywordData() {
         if (this.saveDisable == true) {
             return;
@@ -128,11 +80,9 @@ export class AsynchronousRuleComponent implements OnInit {
             if (key == 'NDAsyncRuleConfig') {
                 if (this.selectedValues == true) {
                     this.asynchronousRule[key]["value"] = "true";
-                    // this.configUtilityService.successMessage("Asynchronous Rule settings are enabled");
                 }
                 else {
                     this.asynchronousRule[key]["value"] = "false";
-                    // this.configUtilityService.infoMessage("Asynchronous Rule settings disabled");
                 }
             }
 
@@ -145,7 +95,7 @@ export class AsynchronousRuleComponent implements OnInit {
             }
             else {
                 filePath = data["_body"];
-                filePath = filePath + "/asynchronousRuleFile.txt";
+                filePath = filePath + "/asyncRule.txt";
             }
             this.asynchronousRule['NDAsyncRuleConfig'].path = filePath;
             this.keywordData.emit(this.asynchronousRule);
@@ -159,142 +109,22 @@ export class AsynchronousRuleComponent implements OnInit {
         });
     }
 
-    /**For showing add asynchronous rule dialog */
-    openAddAsynchronousRuleDialog(): void {
-        this.asynchronousRuleDetail = new AsynchronousRule();
-        this.isNewAsynchronousRule = true;
-        this.addEditAsynchronousRuleDialog = true;
-        this.createDataForDropDown();
-    }
+    /**Used to enabled/Disabled Asychronous Rule type */
+    enableToggle(rowData: AsynchronousRuleType) {
+      if (this.saveDisable == true) {
+        return;
+      }
 
-    /**For showing edit asynchronous rule dialog */
-    openEditAsynchronousRuleDialog(): void {
-        if (!this.selectedAsynchronousRule || this.selectedAsynchronousRule.length < 1) {
-            this.configUtilityService.errorMessage("Select a row to edit");
-            return;
+      this.configKeywordsService.enableAsyncRuleTypeList(rowData.assocId, !rowData.enabled).subscribe(
+        data => {
+          if (rowData.enabled == true) {
+            this.configUtilityService.infoMessage("Asychronous Rule is enabled.");
+          }
+          else {
+            this.configUtilityService.infoMessage("Asychronous Rule is disabled.");
+          }
         }
-        else if (this.selectedAsynchronousRule.length > 1) {
-            this.configUtilityService.errorMessage("Select only one row to edit");
-            return;
-        }
-        this.asynchronousRuleDetail = new AsynchronousRule();
-        this.isNewAsynchronousRule = false;
-        this.addEditAsynchronousRuleDialog = true;
-        this.createDataForDropDown();
-        this.asynchronousRuleDetail = Object.assign({}, this.selectedAsynchronousRule[0]);
-    }
-
-    saveAsynchronousRule(): void {
-        //When add new asynchronous rule
-        if (this.isNewAsynchronousRule) {
-            //Check for asynchronousRule name already exist or not
-            if (!this.checkAsyncRuleFqmAlreadyExist()) {
-                this.saveAsyncRule();
-                return;
-            }
-        }
-        //When add edit asynchronous rule
-        else {
-            if (this.selectedAsynchronousRule[0].fqm != this.asynchronousRuleDetail.fqm) {
-                if (this.checkAsyncRuleFqmAlreadyExist())
-                    return;
-            }
-            this.editAsyncRule();
-        }
-    }
-
-    /**This method is used to validate the name of asynchronous rule is already exists. */
-    checkAsyncRuleFqmAlreadyExist(): boolean {
-        for (let i = 0; i < this.asynchronousRuleData.length; i++) {
-            if (this.asynchronousRuleData[i].fqm == this.asynchronousRuleDetail.fqm) {
-                this.configUtilityService.errorMessage("Asynchronous Rule fqm already exist");
-                return true;
-            }
-        }
-    }
-    editAsyncRule(): void {
-        this.configKeywordsService.editAsynchronousRule(this.asynchronousRuleDetail, this.profileId)
-            .subscribe(data => {
-                let index = this.getAsyncRuleIndex();
-                this.selectedAsynchronousRule.length = 0;
-
-                //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
-                this.asynchronousRuleData = ImmutableArray.replace(this.asynchronousRuleData, data, index);
-                this.configUtilityService.successMessage(Messages);
-            });
-        this.addEditAsynchronousRuleDialog = false;
-    }
-
-    getAsyncRuleIndex(): number {
-        if (this.asynchronousRuleDetail) {
-            let asyncRuleId = this.asynchronousRuleDetail.asyncRuleId;
-            for (let i = 0; i < this.asynchronousRuleData.length; i++) {
-                if (this.asynchronousRuleData[i].asyncRuleId == asyncRuleId) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-    saveAsyncRule(): void {
-        this.configKeywordsService.addAsynchronousRule(this.asynchronousRuleDetail, this.profileId)
-            .subscribe(data => {
-                //Insert data in main table after inserting asynchronous rule in DB
-                // this.errorDetectionData.push(data);
-
-                //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
-                this.asynchronousRuleData = ImmutableArray.push(this.asynchronousRuleData, data);
-                this.configUtilityService.successMessage(Messages);
-            });
-        this.addEditAsynchronousRuleDialog = false;
-    }
-
-    /**This method is used to delete asynchronous rule */
-    deleteAsynchronousRule(): void {
-        if (!this.selectedAsynchronousRule || this.selectedAsynchronousRule.length < 1) {
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;
-        }
-        this.confirmationService.confirm({
-            message: 'Do you want to delete the selected row?',
-            header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
-            accept: () => {
-                //Get Selected Applications's AppId
-                let selectedApp = this.selectedAsynchronousRule;
-                let arrAppIndex = [];
-                for (let index in selectedApp) {
-                    arrAppIndex.push(selectedApp[index].asyncRuleId);
-                }
-                this.configKeywordsService.deleteAsynchronousRule(arrAppIndex, this.profileId)
-                    .subscribe(data => {
-                        this.deleteAsyncRuleFromTable(arrAppIndex);
-                        this.selectedAsynchronousRule = [];
-                        this.configUtilityService.infoMessage("Deleted Successfully");
-                    })
-            },
-            reject: () => {
-            }
-        });
-    }
-    /**This method is used to delete  from Data Table */
-    deleteAsyncRuleFromTable(arrIndex) {
-        let rowIndex: number[] = [];
-
-        for (let index in arrIndex) {
-            rowIndex.push(this.getAsyncRulesIndex(arrIndex[index]));
-        }
-        this.asynchronousRuleData = deleteMany(this.asynchronousRuleData, rowIndex);
-    }
-
-    /**This method returns selected asynchronous rule row on the basis of selected row */
-    getAsyncRulesIndex(appId: any): number {
-        for (let i = 0; i < this.asynchronousRuleData.length; i++) {
-            if (this.asynchronousRuleData[i].asyncRuleId == appId) {
-                return i;
-            }
-        }
-        return -1;
+      );
     }
 
     saveAsynchronousRuleToFile() {
@@ -304,43 +134,4 @@ export class AsynchronousRuleComponent implements OnInit {
                 console.log("return type", data)
             })
     }
-
-     /**used to open file manager
-  */
-  openFileManager() {
-    
-        this.openFileExplorerDialog = true;
-        this.isAsyncRuleBrowse = true;
-    
-      }
-    
-    
-      /** This method is called form ProductUI config-nd-file-explorer component with the path
-     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
-    
-      /* dialog window & set relative path */
-      uploadFile(filepath) {
-        if (this.isAsyncRuleBrowse == true) {
-          this.isAsyncRuleBrowse = false;
-          this.openFileExplorerDialog = false;
-          if(!filepath.includes(".txt")){
-            this.configUtilityService.errorMessage("Please select a valid .txt file");
-             return;
-           }
-          //Temporary path of the Asynchronous Rule file to run locally,independently from Product UI
-           //let filepath = "";
-          this.configKeywordsService.uploadAsyncRuleFile(filepath, this.profileId).subscribe(data => {
-            if (data.length == this.asynchronousRuleData.length) {
-             this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-             return;
-            }
-            this.asynchronousRuleData = data;
-            this.configUtilityService.successMessage("File uploaded successfully");
-           });
-        }
-      }
-
-    ngOnDestroy() {
-        this.isAsyncRuleBrowse = false;
-    } 
 }

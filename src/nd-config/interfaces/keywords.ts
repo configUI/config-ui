@@ -45,5 +45,7 @@ export class Keywords{
 "dumpDefaultCassandraQuery": KeywordsInfo
 "enableTransformThreadSubClass": KeywordsInfo
 "captureMethodForAllFP": KeywordsInfo
+"dumpOnlyMethodExitInFP":KeywordsInfo
+"methodResponseTimeFilter":KeywordsInfo
 }
 

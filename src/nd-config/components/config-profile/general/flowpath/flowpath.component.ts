@@ -25,7 +25,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
 
   //NodeJS keyword- excludeMethodOnRespTime
-  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP', 'enableMethodBreakDownTime'];
+  keywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP', 'enableMethodBreakDownTime', 'methodResponseTimeFilter', 'dumpOnlyMethodExitInFP'];
   NodeJSkeywordList = ['bciInstrSessionPct', 'correlationIDHeader', 'excludeMethodOnRespTime'];
 
   flowPath: Object;
@@ -45,7 +45,10 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   childCpuFp: boolean = false;
   childBrkDown: boolean = false;
 
-
+  dumpOnlyMethodExitInFP: boolean;
+  enableDisableMethodResTimeFilter: boolean;
+  slowVerySlowMethodResponseTime: string;
+  normalMethodResponseTime: string;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
     this.agentType = sessionStorage.getItem("agentType");
     if (this.agentType == 'NodeJS') {
@@ -70,25 +73,35 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         })
 
         this.flowPath = keywordDataVal;
-        if(this.flowPath['enableCpuTime'].value.includes("%20")){
-          this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0,1);
+        if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+          this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
           this.childCpuFp = true;
         }
-        else{
+        else {
           this.cpuTime = this.flowPath['enableCpuTime'].value
         }
 
-        if(this.flowPath['enableMethodBreakDownTime'].value.includes("%20")){
-          this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0,1);
+        if (this.flowPath['enableMethodBreakDownTime'].value.includes("%20")) {
+          this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0, 1);
           this.childBrkDown = true;
         }
-        else{
+        else {
           this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value
         }
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         // this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
         this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
         // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+       
+        this.dumpOnlyMethodExitInFP = this.flowPath["dumpOnlyMethodExitInFP"].value == 0 ? false : true;
+        if (this.flowPath['methodResponseTimeFilter'].value.includes("%20")) {
+          var arrResTimeFilter = this.flowPath['methodResponseTimeFilter'].value.split("%20");
+          this.enableDisableMethodResTimeFilter = arrResTimeFilter[0] == 0 ? false : true;
+          this.normalMethodResponseTime = arrResTimeFilter[1];
+          this.slowVerySlowMethodResponseTime = arrResTimeFilter[2];
+        }
+
+
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -98,9 +111,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   keywordsData: Keywords;
 
   ngOnInit() {
-  this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false
-  if(this.saveDisable || this.isProfilePerm)
-    this.configUtilityService.infoMessage("Reset and Save are disabled");
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false
+    if (this.saveDisable || this.isProfilePerm)
+      this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 
   getKeywordData() {
@@ -127,58 +140,110 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       }
       sessionStorage.setItem("excludeMethodOnRespTime", String(this.flowPath["excludeMethodOnRespTime"].value));
     }
-    else{
+    else {
       if (this.captureMethodForAllFPChk) {
         this.flowPath["captureMethodForAllFP"].value = 1;
       }
       else {
         this.flowPath["captureMethodForAllFP"].value = 0;
       }
-      if(this.cpuTime == "0" || this.childCpuFp == false){
+      if (this.cpuTime == "0" || this.childCpuFp == false) {
         this.flowPath['enableCpuTime'].value = this.cpuTime
         this.childCpuFp = false
       }
-      else if(this.childCpuFp == true){
-         this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
+      else if (this.childCpuFp == true) {
+        this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
       }
 
-      if(this.methodBreakDownTime == "0" || this.childBrkDown == false){
+      if (this.methodBreakDownTime == "0" || this.childBrkDown == false) {
         this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime
         this.childBrkDown = false
       }
-      else if(this.childBrkDown == true){
-         this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime + "%201";
+      else if (this.childBrkDown == true) {
+        this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime + "%201";
+      }
+
+      if (this.dumpOnlyMethodExitInFP == true) {
+        this.flowPath['dumpOnlyMethodExitInFP'].value = 1;
+        var methodResTime = 0;
+        if(this.enableDisableMethodResTimeFilter == true)
+         methodResTime = 1;
+      if(this.enableDisableMethodResTimeFilter)
+        this.flowPath['methodResponseTimeFilter'].value = methodResTime + "%20" + this.normalMethodResponseTime + "%20" + this.slowVerySlowMethodResponseTime;
+      else
+        this.flowPath['methodResponseTimeFilter'].value = "0%201%2020";
+      }
+      else
+      {
+        this.flowPath['dumpOnlyMethodExitInFP'].value = 0;
+        this.flowPath['methodResponseTimeFilter'].value = "0%201%2020";
       }
 
     }
-
 
     this.keywordData.emit(this.flowPath);
   }
 
+  
+  checkFrom(from, to) {
+    if (this.normalMethodResponseTime > this.slowVerySlowMethodResponseTime) {
+      from.setCustomValidity('Normal Method Response Time value must be smaller than Slow Very Slow Method Response Time value.');
+    }
+    else if (this.normalMethodResponseTime == this.slowVerySlowMethodResponseTime) {
+      from.setCustomValidity('Both Normal Method Response Time and Slow Very Slow Method Response Time values cannot be same.');
+    }
+    else {
+      from.setCustomValidity('');
+    }
+    to.setCustomValidity('');
+
+  }
+
+  checkTo(from, to) {
+    if (this.normalMethodResponseTime > this.slowVerySlowMethodResponseTime) {
+      to.setCustomValidity('Slow Very Slow Method Response Time value must be greater than Normal Method Response Time value.');
+    }
+    else if (this.normalMethodResponseTime == this.slowVerySlowMethodResponseTime) {
+      to.setCustomValidity('Both Normal Method Response Time and Slow Very Slow Method Response Time values cannot be same.');
+    }
+    else {
+      to.setCustomValidity('');
+    }
+    from.setCustomValidity('');
+  }
+
+
   resetKeywordData() {
     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
     this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
-    if(this.flowPath['enableCpuTime'].value.includes("%20")){
-      this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0,1);
+    if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+      this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
       this.childCpuFp = true;
     }
-    else{
+    else {
       this.cpuTime = this.flowPath['enableCpuTime'].value;
       this.childCpuFp = false;
     }
 
-    if(this.flowPath['enableMethodBreakDownTime'].value.includes("%20")){
-      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0,1);
+    if (this.flowPath['enableMethodBreakDownTime'].value.includes("%20")) {
+      this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0, 1);
       this.childBrkDown = true;
     }
-    else{
+    else {
       this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
       this.childBrkDown = false;
     }
-    
+
     this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
     this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+
+    this.dumpOnlyMethodExitInFP = this.flowPath["dumpOnlyMethodExitInFP"].value == 0 ? false : true;
+    if (this.flowPath['methodResponseTimeFilter'].value.includes("%20")) {
+      var arrResTimeFilter = this.flowPath['methodResponseTimeFilter'].value.split("%20");
+      this.enableDisableMethodResTimeFilter = arrResTimeFilter[0] == 0 ? false : true;
+      this.normalMethodResponseTime = arrResTimeFilter[1];
+      this.slowVerySlowMethodResponseTime = arrResTimeFilter[2];
+    }
   }
 
   ngOnDestroy() {

@@ -180,7 +180,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (100,'nodeServerMonitor','0','1','2','0','normal'),
 (101,'captureHttpTraceLevel','0','6','2','0','pre-custom'),
 (102,'excludeMethodOnRespTime','0','90000','2','0','normal'),
-(103,'NDAsyncRuleConfig','1','1024','6','false','normal');
+(103,'dumpOnlyMethodExitInFP','0','1','2','0','normal'),
+(104, 'methodResponseTimeFilter', '0', '360000', '5', '0%201%2020', 'normal'),
+(105,'NDAsyncRuleConfig','1','1024','6','false','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
@@ -663,7 +665,41 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (86,'ND_ENABLE_CAPTURE_DB_TIMING','','','1 0 0 0','1 0 0 0'),
 (87,'NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE','','','3600000 600000','3600000 600000'),
 (88,'NDDBU_TMP_FILE_PATH','','','/mnt/tmp','/mnt/tmp'),
-(89,'ND_FPI_MASK','','','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;');
+(89,'ND_FPI_MASK','','','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;'),
+(90,'NDC_THRESOLD_TO_MARK_DELETED','','','1 8h','1 8h');
+
+
+INSERT INTO config.container_type(container_id,description,container_type,container_name) VALUES
+(1,'Asynchronous Transaction Rules for Jetty application','Jetty','jetty'),
+(2,'Asynchronous Transaction Rules for Tomcat application','Tomcat','tomcat'),
+(3,'Asynchronous Transaction Rules for Weblogic application','Weblogic','weblogic');
+
+
+INSERT INTO config.nd_asynchronous_rule(async_rule_id,fqm,container_id,rule_type,dump_mode) VALUES
+(1,'org.eclipse.jetty.server.Request.startAsync()Ljavax/servlet/AsyncContext;',1,'start',0),
+(2,'org.eclipse.jetty.server.Request.startAsync(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)Ljavax/servlet/AsyncContext;',1,'start',0),
+(3,'org.eclipse.jetty.server.AsyncContextState.dispatch(Ljavax/servlet/ServletContext;Ljava/lang/String;)V',1,'dispatch',2),
+(4,'org.eclipse.jetty.server.AsyncContextState.dispatch(Ljava/lang/String;)V',1,'dispatch',2),
+(5,'org.eclipse.jetty.server.AsyncContextState.dispatch()V',1,'dispatch',2),
+(6,'org.eclipse.jetty.server.AsyncContextState.complete()V',1,'complete',2),
+(7,'weblogic.servlet.internal.ServletRequestImpl.startAsync(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Z)Ljavax/servlet/AsyncContext;',3,'start',0),
+(8,'weblogic.servlet.internal.ServletRequestImpl.startAsync()Ljavax/servlet/AsyncContext;',3,'start',0),
+(9,'weblogic.servlet.internal.ServletRequestImpl.startAsync(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse)Ljavax/servlet/AsyncContext;',3,'start',0),
+(10,'weblogic.servlet.internal.async.AsyncContextImpl.dispatch()V',3,'dispatch',2),
+(11,'weblogic.servlet.internal.async.AsyncContextImpl.dispatch(Ljava/lang/String;)V',3,'dispatch',2),
+(12,'weblogic.servlet.internal.async.AsyncContextImpl.dispatch(Ljavax/servlet/ServletContext;Ljava/lang/String;)V',3,'dispatch',2),
+(13,'weblogic.servlet.internal.async.AsyncContextImpl.complete()V',3,'complete',2),
+(14,'org.apache.catalina.connector.Request.startAsync()Ljavax/servlet/AsyncContext;',2,'start',0),
+(15,'org.apache.catalina.connector.Request.startAsync(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)Ljavax/servlet/AsyncContext;',2,'start',0),
+(16,'org.apache.catalina.core.AsyncContextImpl.dispatch(Ljavax/servlet/ServletContext;Ljava/lang/String;)V',2,'dispatch',2),
+(17,'org.apache.catalina.core.AsyncContextImpl.dispatch(Ljava/lang/String;)V',2,'dispatch',2),
+(18,'org.apache.catalina.core.AsyncContextImpl.dispatch()V',2,'dispatch',2),
+(19,'org.apache.catalina.core.AsyncContextImpl.complete()V',2,'complete',2);
+
+INSERT INTO config.profile_async_type_assoc(assoc_id,container_id,enabled,profile_id) VALUES
+(1,1,true,1),
+(2,2,true,1),
+(3,3,true,1);
 
 COMMIT;
 +
