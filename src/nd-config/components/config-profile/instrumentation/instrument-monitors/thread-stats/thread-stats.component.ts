@@ -132,8 +132,19 @@ export class ThreadStatsComponent implements OnInit {
   resetKeywordData() {
     this.threadStats = cloneObject(this.configKeywordsService.keywordData);
     this.threadStatsKeyVal();
-
   }
+    /* This method is used to reset the keyword data to its Default value */
+    resetKeywordsDataToDefault() {
+      let data = cloneObject(this.configKeywordsService.keywordData);
+      var keywordDataVal = {}
+      keywordDataVal = data
+      this.keywordList.map(function (key) {
+      keywordDataVal[key].value = data[key].defaultValue
+      })
+      this.threadStats = keywordDataVal;
+      this.threadStatsKeyVal();
+  }
+
 }
 class JVMThreadStats {
   jvm;

@@ -111,6 +111,27 @@ export class UrlCapturingComponent implements OnInit {
     this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
   }
 
+  /* This method is used to reset the keyword data to its Default value */
+    resetKeywordsDataToDefault() {
+      let data = cloneObject(this.configKeywordsService.keywordData);
+      var keywordDataVal = {}
+      keywordDataVal = data
+      this.keywordList.map(function (key) {
+      keywordDataVal[key].value = data[key].defaultValue
+      })
+      this.urlCapturing = keywordDataVal;
+      this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
+      this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
+      this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
+
+      this.enableFormatIPResourceURL = false;
+      this.urlCapturingData.includeParameter = false;
+      this.urlCapturingData.urlOffset = 0;
+      this.urlCapturingData.maxChar = 256;
+      // this.splitKeywordData(this.header);
+        // this.methodTosetValue(this.exception);
+    }
+
   /* This method is used to get the existing value of keyword from the backend*/
   getKeywordData() {
     let keywordData = this.configKeywordsService.keywordData;

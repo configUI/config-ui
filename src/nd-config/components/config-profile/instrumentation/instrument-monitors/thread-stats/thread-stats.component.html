@@ -2,6 +2,8 @@
         <div class="tabsincontent">
             <div class="header">Settings
                 <div class="pull-right">
+                    <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="saveDisable" label="Reset to Default"></button>
+                    <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
                     <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
                     <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
                     <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
@@ -10,8 +12,6 @@
             </div>
             <p-panel class="hideheader">
                 <div>
-    
-    
                     <div class="ui-g">
                         <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">

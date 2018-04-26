@@ -390,5 +390,20 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
   resetKeywordData() {
       this.getNDCKeywords()
   }
+
+ /* This method is used to reset the keyword data to its Default value */
+ resetKeywordsDataToDefault() {
+     // Getting NDC keywords data from Server
+        this._configKeywordsService.getNDCKeywords(this.appId).subscribe(data => {
+            var keywordDataVal = {}
+            keywordDataVal = data
+            this.keywordList.map(function (key) {
+                keywordDataVal[key].value = data[key].defaultValue
+            })
+            this.splitKeywords(keywordDataVal);
+            this.ndcKeywords = keywordDataVal;
+            // this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
+        });
+}
 }
 

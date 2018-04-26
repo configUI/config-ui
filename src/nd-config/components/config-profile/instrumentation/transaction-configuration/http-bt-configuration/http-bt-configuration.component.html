@@ -21,6 +21,8 @@
         <div class="ui-g-12 header-font-size">
             <div class="ui-g-6">URI used in Transaction Name</div>
             <div class="ui-g-6" style="text-align:right">
+                    <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetBusinessTransaction()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetBusinessTransaction()" label="Reset"></button>
             </div>
