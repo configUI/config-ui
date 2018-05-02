@@ -215,7 +215,7 @@
                         <label>Business Transaction Name</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
+                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&*-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                     </div>
                     <div class="ui-g-4">
                         <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
