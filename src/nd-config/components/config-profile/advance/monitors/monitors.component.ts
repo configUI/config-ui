@@ -141,6 +141,26 @@ export class MonitorsComponent implements OnInit {
     //  this.backend = cloneObject(this.configKeywordsService.keywordData);
 
   }
+ /* This method is used to reset the keyword data to its Default value */
+  resetKeywordsDataToDefault() {
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+    keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.monitor = keywordDataVal;
+    this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+    this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+
+    if(this.agentType == 'NodeJS'){
+    this.eventLoopMonitorChk = this.monitor["eventLoopMonitor"].defaultValue == 0 ? false : true;
+    this.gcProfilerChk = this.monitor["gcProfiler"].defaultValue == 0 ? false : true;
+    this.nodeAsyncEventMonitorChk = this.monitor["nodeAsyncEventMonitor"].defaultValue == 0 ? false : true;
+    this.nodeServerMonitorChk = this.monitor["nodeServerMonitor"].defaultValue == 0 ? false : true;
+    this.monitor["nodejsCpuProfilingTime"].value =this.monitor["nodejsCpuProfilingTime"].defaultValue;
+    }
+  }
 
   ngOnDestroy() {
     if (this.subscription)

@@ -255,6 +255,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   loadBTPatternData(): void {
     this.configKeywordsService.getBusinessTransPatternData(this.profileId).subscribe(data => {
+      this.selectedPatternData = [];
       for (let i = 0; i < data.length; i++) {
         if (data[i].paramKeyValue == null || data[i].paramKeyValue == "NA") {
           data[i].paramKeyValue = "-";
@@ -299,6 +300,19 @@ export class HTTPBTConfigurationComponent implements OnInit {
   /** Reset All Global BT values */
   resetBusinessTransaction() {
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
+  }
+
+  /** Reset All Global BT values to default */
+  resetKeywordsDataToDefault() {
+    let profileid :number;
+    if(this.agentType == "Java")
+         profileid = 1;
+        else if(this.agentType == "Dot Net"){
+          profileid = 888888;
+        }
+          else
+            profileid = 777777;
+    this.configKeywordsService.getBusinessTransGlobalData(profileid).subscribe(data => {this.doAssignBusinessTransData(data)});
   }
 
   /* Save all values of Business Transaction */

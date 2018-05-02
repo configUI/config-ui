@@ -129,6 +129,17 @@ export class DelayComponent implements OnInit {
     this.delay = cloneObject(this.configKeywordsService.keywordData);
     this.splitDelayKeywordData();
   }
+  /* This method is used to reset the keyword data to its Default value */
+  resetKeywordsDataToDefault() {
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+    keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.delay = keywordDataVal;
+    this.splitDelayKeywordData();
+    }
 
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {

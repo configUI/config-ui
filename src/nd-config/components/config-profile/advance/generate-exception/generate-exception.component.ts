@@ -118,6 +118,18 @@ export class GenerateExceptionComponent implements OnInit {
     this.GenExceptionKeywordValue();
   }
 
+   /* This method is used to reset the keyword data to its Default value */
+   resetKeywordsDataToDefault() {
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+    keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.genException = keywordDataVal;
+    this.GenExceptionKeywordValue();
+  }
+
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
   genExceptionValueMethod(data) {
 
