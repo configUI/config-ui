@@ -81,6 +81,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternDetail: BusinessTransPatternData;
 
   chkInclude: boolean = false;
+
+  asyncTrans: boolean = false;
+
   saveDisable: boolean = false;
 
   isBTPatternBrowse: boolean = false;
@@ -346,6 +349,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else
       this.businessTransPatternDetail.include = "include"
 
+    if (this.asyncTrans == true)
+      this.businessTransPatternDetail.asyncTrans = 1;
+    else
+      this.businessTransPatternDetail.asyncTrans = 0;
+
     if (this.businessTransPatternDetail.reqHeaderValue != undefined && this.businessTransPatternDetail.reqHeaderValue != "")
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
     else
@@ -478,6 +486,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.businessTransPatternDetail.slowDynamicThreshold = "10";
     this.businessTransPatternDetail.verySlowDynamicThreshold = "20";
     this.chkInclude = false;
+    this.asyncTrans = false;
     this.isNewApp = true;
     this.addEditPatternDialog = true;
     this.reqParamKeyCheck = false;
@@ -501,6 +510,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.chkInclude = false;
     else
       this.chkInclude = true;
+
+    if (this.selectedPatternData[0].asyncTrans == 1)
+      this.asyncTrans = true;
+    else
+      this.asyncTrans = false;
 
     if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == "-") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.businessTransPatternDetail.dynamicPartReq = false;
@@ -586,6 +600,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "exclude";
     else
       this.businessTransPatternDetail.include = "include";
+
+    if (this.asyncTrans == true)
+      this.businessTransPatternDetail.asyncTrans = 1;
+    else
+      this.businessTransPatternDetail.asyncTrans = 0;
 
     if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
@@ -889,7 +908,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   /**For close add/edit application dialog box */
   closeDialog(): void {
-    //  this.selectedPatternData = [];
+    this.selectedPatternData = [];
     this.addEditPatternDialog = false;
   }
 
@@ -1093,6 +1112,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   openAddSubPatternDialog() {
     this.isNewSubApp = true;
     this.chkInclude = false;
+    this.asyncTrans = false;
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.businessTransPatternDetail.reqHeaderKey = this.reqHeaderKey;
     this.businessTransPatternDetail.slowTransaction = "3000";
@@ -1105,6 +1125,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.include = "include";
     else
       this.businessTransPatternDetail.include = "exclude";
+
+    if (this.asyncTrans == true)
+      this.businessTransPatternDetail.asyncTrans = 1;
+    else
+      this.businessTransPatternDetail.asyncTrans = 0;
+
     if (this.businessTransPatternDetail.reqHeaderValue == "" || this.businessTransPatternDetail.reqHeaderValue == null || this.businessTransPatternDetail.reqHeaderValue == undefined)
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
     else
@@ -1196,6 +1222,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.chkInclude = true;
     else
       this.chkInclude = false;
+
+    if (this.selectedSubPatternData[0]["asyncTrans"] == 1)
+      this.asyncTrans = true;
+    else
+      this.asyncTrans = false;
 
     this.businessTransPatternDetail = Object.assign({}, this.selectedSubPatternData[0]);
     this.addEditSubPatternDialog = true;
