@@ -31,6 +31,8 @@ export class NVCookieComponent implements OnInit {
 
   //enableGroupKeyword: boolean;
   isProfilePerm: boolean;
+
+  keyValue : boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
@@ -71,8 +73,10 @@ export class NVCookieComponent implements OnInit {
 
     }
     else {
+      console.log("inside=======")
       if (this.ndSession["enableNDSession"].value == 0) {
-
+this.keyValue =true;
+console.log("inside iffffffffffff")
         this.ndSessionData = new NDSessionData();
         this.ndSessionData.methodEntryDepth = 0;
         this.ndSessionData.methodExitDepth = 0;
@@ -101,6 +105,17 @@ export class NVCookieComponent implements OnInit {
 
   saveKeywordData(data) {
     let ndSessionValue = this.ndSessionValueMethod(data);
+    console.log("ndSessionValue============>",ndSessionValue)
+    let arr = ndSessionValue.split("%20");
+    if(ndSessionValue == "0%200%200%200%20CavNV%20null%201800%201000"){
+      ndSessionValue = "0";
+    }
+    else{
+      if(arr[5] == "null"){
+        this.configUtilityService.errorMessage("Please provide Domain name");
+        return;
+      }
+    }
     for (let key in this.ndSession) {
       if (key == 'enableNDSession')
         this.ndSession[key]["value"] = ndSessionValue;
@@ -110,8 +125,6 @@ export class NVCookieComponent implements OnInit {
 
   //To create the value of the keyword "enableNDSession" by joining them with %20
   ndSessionValueMethod(data) {
-
-
     //Converting values of checkboxes from true/false to 1/0
     this.ndSessionData.methodEntryDepth = this.ndSessionData.methodEntryDepth ? 1 : 0;
     this.ndSessionData.methodExitDepth = this.ndSessionData.methodExitDepth ? 1 : 0;
@@ -126,6 +139,18 @@ export class NVCookieComponent implements OnInit {
     this.ndSession = cloneObject(this.configKeywordsService.keywordData);
     this.splitNDSessionKeywordValue();
   }
+
+ /* This method is used to reset the keyword data to its Default value */
+  resetKeywordsDataToDefault() {
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+    keywordDataVal[key].value = data[key].defaultValue
+  })
+    this.ndSession = keywordDataVal;
+    this.splitNDSessionKeywordValue();
+}
 
 }
 

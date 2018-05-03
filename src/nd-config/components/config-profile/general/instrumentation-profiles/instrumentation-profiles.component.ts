@@ -141,6 +141,10 @@ export class InstrumentationProfilesComponent implements OnInit {
     }
     this.loadListOfXmlFiles();
   }
+  /* This method is used to reset the keyword data to its Default value */
+  resetToDefault() {
+    this.instrProfiles = [];
+    }
 
   /**used to open file manager
   */

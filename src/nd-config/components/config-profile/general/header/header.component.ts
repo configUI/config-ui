@@ -207,6 +207,20 @@ export class HeaderComponent implements OnInit {
     this.splitKeywordData(this.header);
   }
 
+    /* This method is used to reset the keyword data to its Default value */
+    resetKeywordsDataToDefault() {
+      let data = cloneObject(this.configKeywordsService.keywordData);
+      var keywordDataVal = {}
+      keywordDataVal = data
+      this.keywordList.map(function (key) {
+        keywordDataVal[key].value = data[key].defaultValue
+      })
+      this.header = keywordDataVal;
+      this.splitKeywordData(this.header);
+      // this.methodTosetValue(this.exception);
+  }
+
+
 }
 //Contains httpReqFullFp Keyword variables
 class HttpReqFullFp {

@@ -215,6 +215,10 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
   resetKeywordData() {
     this.flowPath = cloneObject(this.configKeywordsService.keywordData);
+    this.methodToSetValues(this.flowPath);
+  }
+  methodToSetValues(data){
+    this.flowPath = data;
     this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
     if (this.flowPath['enableCpuTime'].value.includes("%20")) {
       this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
@@ -245,6 +249,20 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.slowVerySlowMethodResponseTime = arrResTimeFilter[2];
     }
   }
+
+//To reset keywords to default values
+resetKeywordsDataToDefault(){
+  let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+      keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.flowPath = keywordDataVal;
+    this.methodToSetValues(this.flowPath);
+    if(this.agentType == 'NodeJS')
+       this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].defaultValue == 0 ? false : true;
+}
 
   ngOnDestroy() {
     if (this.subscription)
