@@ -26,6 +26,11 @@ export class ConfigRestApiService {
    */
   setUserNameForAuditLog(url: string):void
   { 
+    // if(url.indexOf("?") > 0)
+    //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + this.productKey;
+    // else
+    //  url = this._productConfig.getINSPrefix () +  this._navService.getDCNameForScreen('ndConfig') + url + "?productKey=" + this.productKey;
+
     this.http.get(url).subscribe((data) => {
       console.log('Data: ', data);
     })
