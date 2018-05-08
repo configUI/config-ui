@@ -162,7 +162,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'SEND_ACTIVE_INSTANCE_REP',
         'NDC_MAX_CTRL_CON',
         'NDP_MAX_SQL_INDEX_FROM_BCI',
-        'NDC_THRESHOLD_TO_MARK_DELETED'
+        'NDC_THRESHOLD_TO_MARK_DELETED',
+        'NDP_DELETED_INSTANCE_CLEANUP_DELAY'
     ];
 
     appId: number;
