@@ -53,6 +53,8 @@ export class MethodBTConfigurationComponent implements OnInit {
   argumentTypeData: ArgumentTypeData[];
 
   /* Assign value to Return type drop down */
+  returnOperationList: SelectItem[];
+  /* Assign value to Argument type drop down */
   operationList: SelectItem[];
 
   /**It stores selected data for edit or add functionality */
@@ -105,18 +107,33 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.methodArgRulesInfo = [];
   }
 
-  arrStringLabel: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
-  arrStringValue: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+  arrStringLabelReturnType: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception', 'Invocation'];
+  arrStringValueReturnType: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION','INVOCATION'];
 
 
-  arrNumericLabel: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Exception'];
-  arrNumericValue: any[] = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION'];
+  arrNumericLabelReturnType: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Exception', 'Invocation'];
+  arrNumericValueReturnType: any[] = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION','INVOCATION'];
 
-  arrCharLabel: any[] = ['Exception', 'Equals', 'Not equals'];
-  arrCharValue: any[] = ['EXCEPTION', 'EQ', 'NE'];
+  arrCharLabelReturnType: any[] = ['Exception', 'Equals', 'Not equals', 'Invocation'];
+  arrCharValueReturnType: any[] = ['EXCEPTION', 'EQ', 'NE'];
 
-  arrBooleanLabel: any[] = ['True', 'False', 'Exception'];
-  arrBooleanValue: any[] = ['TRUE', 'FALSE', 'EXCEPTION'];
+  arrBooleanLabelReturnType: any[] = ['True', 'False', 'Exception', 'Invocation'];
+  arrBooleanValueReturnType: any[] = ['TRUE', 'FALSE', 'EXCEPTION','INVOCATION'];
+
+  arrVoidLabelReturnType: any[] = ['Invocation'];
+  arrVoidValueReturnType: any[] = ['INVOCATION'];
+
+  arrStringLabelArgType: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception'];
+  arrStringValueArgType: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+
+  arrNumericLabelArgType: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Exception'];
+  arrNumericValueArgType: any[] = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION'];
+
+  arrCharLabelArgType: any[] = ['Exception', 'Equals', 'Not equals'];
+  arrCharValueArgType: any[] = ['EXCEPTION', 'EQ', 'NE'];
+
+  arrBooleanLabelArgType: any[] = ['True', 'False', 'Exception'];
+  arrBooleanValueArgType: any[] = ['TRUE', 'FALSE', 'EXCEPTION'];
 
   DATA_TYPE = {
     BOOLEAN: 'Z',
@@ -127,7 +144,8 @@ export class MethodBTConfigurationComponent implements OnInit {
     FLOAT: 'F',
     DOUBLE: 'D',
     LONG: 'J',
-    CHAR: 'C'
+    CHAR: 'C',
+    VOID: 'V'
   };
 
   DATA_TYPE_ARR = [
@@ -139,27 +157,37 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.DATA_TYPE.FLOAT,
     this.DATA_TYPE.DOUBLE,
     this.DATA_TYPE.LONG,
-    this.DATA_TYPE.CHAR
+    this.DATA_TYPE.CHAR,
+    this.DATA_TYPE.VOID
   ];
 
   changeOpertionType(type) {
 
     if (type == "object/string") {
-      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabel, this.arrStringValue);
+      this.returnOperationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabelReturnType, this.arrStringValueReturnType);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrStringLabelArgType, this.arrStringValueArgType);
       this.type = '1';
     }
     else if (type == "int" || type == "short" || type == "float" || type == "long" || type == "double") {
-      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabel, this.arrNumericValue)
+      this.returnOperationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabelReturnType, this.arrNumericValueReturnType);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrNumericLabelArgType, this.arrNumericValueArgType);
       this.type = '0';
     }
     else if (type == "byte" || type == "char") {
-      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabel, this.arrCharValue)
+      this.returnOperationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabelReturnType, this.arrCharValueReturnType);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrCharLabelArgType, this.arrCharValueArgType);
       this.type = '3';
     }
 
     else if (type == "boolean") {
-      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabel, this.arrBooleanValue)
+      this.returnOperationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabelReturnType, this.arrBooleanValueReturnType);
+      this.operationList = ConfigUiUtility.createListWithKeyValue(this.arrBooleanLabelArgType, this.arrBooleanValueArgType);
       this.type = '2';
+    }
+
+    else if (type == "void") {
+      this.returnOperationList = ConfigUiUtility.createListWithKeyValue(this.arrVoidLabelReturnType, this.arrVoidValueReturnType);
+      this.type = '4';
     }
   }
 
@@ -473,6 +501,9 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //For checking FQM 
   saveRules() {
+    if(this.btMethodRulesDetail.value == null || this.btMethodRulesDetail.value == undefined || this.btMethodRulesDetail.value == ''){
+      this.btMethodRulesDetail.value = 'NA';
+    }
     //in edit form, to edit return rules
     if (!this.isNewMethod) {
       if (this.editReturnRules) {
@@ -630,8 +661,11 @@ export class MethodBTConfigurationComponent implements OnInit {
               ;
             returnType = "object/string";
             break;
-          default:
+          case 'V':
             returnType = "void";
+            break;
+          default:
+            returnType = null;
             break;
         }
       }
@@ -650,11 +684,11 @@ export class MethodBTConfigurationComponent implements OnInit {
 
       let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
 
-      if (returnType == 'void') {
-        this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
-        //  fqmField.setCustomValidity("FQM doesn't have any return type.");
-      }
-      else if (returnType == 'null') {
+      // if (returnType == 'void') {
+      //   this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
+      //   //  fqmField.setCustomValidity("FQM doesn't have any return type.");
+      // }
+      if (returnType == 'null') {
         this.configUtilityService.errorMessage("FQM doesn't have any return type.");
       }
       else {
@@ -974,4 +1008,64 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.selectedArgRules = [];
     this.addBusinessTransMethodDialog = true;
   }
+
+  validateReturnType(fqm) {
+    //for getting return Type
+    let returnType = "NA";
+    if (fqm != null) {
+      let li = fqm.indexOf(')');
+      let i = li + 1;
+
+      let pi = 1;
+      let charArr = fqm.split('');
+      if (charArr[i] == '') {
+        return null;
+      }
+      //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
+      else {
+        switch (charArr[i]) {
+          case 'Z':
+            returnType = "boolean";
+            break;
+          case 'B':
+            returnType = "byte";
+            break;
+          case 'C':
+            returnType = "char";
+            break;
+          case 'S':
+            returnType = "short";
+            break;
+          case 'I':
+            returnType = "int";
+            break;
+          case 'J':
+            returnType = "long";
+            break;
+          case 'F':
+            returnType = "float";
+            break;
+          case 'D':
+            returnType = "double";
+            break;
+          case 'L':
+          case '[':
+            while (charArr[i++] != ';')
+              ;
+            returnType = "object/string";
+            break;
+          case 'V':
+            returnType = "void";
+            this.enableArgumentType = "void";
+            this.configUtilityService.errorMessage("Operation not permitted for FQM's having return type as Void");
+            break;
+          default:
+            returnType = null;
+            break;
+        }
+      }
+      return returnType;
+    }
+  } 
+
 }

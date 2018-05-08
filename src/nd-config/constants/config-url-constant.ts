@@ -356,3 +356,6 @@ export const START_DD_AI = `${SERVICE_URL}/custom/DynamicDiagnostics/ddaitrigger
 export const FETCH_ASYNCHRONOUS_RULE_TABLEDATA = `${SERVICE_URL}/custom/ndasynchronousrule/getasynchronousrule`;
 export const SAVE_ASYNCHRONOUS_RULE= `${SERVICE_URL}/custom/ndasynchronousrule/save`;
 export const ENABLE_ASYNCHRONOUS_RULE_TYPE = `${SERVICE_URL}/custom/ndasynchronousrule`;
+
+/* URL for get user Name */
+export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
