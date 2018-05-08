@@ -101,6 +101,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 	this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
     }
 
+    // This method is called when user expand any particuler node
     nodeExpand(event) {
         if (event.node.children.length == 0) {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
@@ -127,18 +128,22 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
           }
         }
     
+        // This method is called for getting left side tree data
         getleftSideTreeData(data)
         {  
             this.instrFromLeftSideTree = [];
             this.selectedArr = [];
+            // data.node[0] is for ALL(Root Node) node
             if(data.node[0].children.length != 0)
             {
+             // assign value for showing in the left side tree                
              this.leftSideTreeData = data.node;
              for(let i = 0 ; i < data.node[0].children.length; i++)
              {
                  if(data.node[0].children[i].selected == true)
                    this.selectedArr.push(data.node[0].children[i]);
              }
+             // assign selected node for showing in the left side tree
              this.instrFromLeftSideTree = this.selectedArr;
             }
              else
@@ -149,6 +154,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
         }
 
+    // this method is calling for Instrumentation 
     getValuesForSelectedList() {
         this.selectedNodes = [];
         this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
@@ -156,6 +162,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return; 
         }
+        // the below condition check already has been instrumented or not
         if(this.isNodeSelected == false)
         {
             this.configUtilityService.errorMessage("Same Package,Class and Method name already instrumented");
@@ -165,6 +172,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 	this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
             this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
+            // this service for getting selected node and showing left side tree
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
                this.getleftSideTreeData(data);
                this.isNodeSelected = false;
@@ -179,6 +187,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this.isNodeSelected = true;
     }
 
+    // this method is called for Un-instrumentation
     removeValuesFromSelectedList() {
 
         this.selectedNodes = [];
@@ -195,6 +204,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
            
             this.rightSideTreeData = data.backendDetailList;
             this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
+            // this service for getting unselected node and showing in left side tree
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
                 this.getleftSideTreeData(data);
                 this.configUtilityService.successMessage("UnInstrumentation data Successfully");
@@ -204,6 +214,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         });
     }
 
+    // this method is used for set info about selected or unselected node
     getSelectedUnselectedNodeInfo(selectedNode, isTrue) {
         let nodeInfo = new AutoDiscoverTreeData();
         this.selectedNodes = [];
