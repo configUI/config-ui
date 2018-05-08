@@ -63,7 +63,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -72,7 +72,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -243,7 +243,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="instrPct" [(ngModel)]="ddAIData['instrPct']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="instrPct" [(ngModel)]="ddAIData['instrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -252,7 +252,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="removeInstrPct" [(ngModel)]="ddAIData['removeInstrPct']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="removeInstrPct" [(ngModel)]="ddAIData['removeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">

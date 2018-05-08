@@ -1,8 +1,8 @@
 
 
- //const  SERVICE_URL = 'https://10.10.40.7/configUI';
+ const  SERVICE_URL = 'https://10.10.40.14/configUI';
 
- const  SERVICE_URL = 'http://localhost:8090';
+//  const  SERVICE_URL = 'http://localhost:8090';
 
 //  const  SERVICE_URL = 'http://localhost:8090';
 
@@ -288,6 +288,7 @@ export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrume
 export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
 export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
 export const GET_INSTR_PROFILE_DETAILS = `${SERVICE_URL}/custom/instrumentation/getinstrprofiledetails`;
+export const GET_TOPO_NAME = `${SERVICE_URL}/custom/instrumentation/gettoponame`;
 
 /*Edit Instrumentation Profile */
 export const EDIT_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/generatetreenodefromxml`;

@@ -231,8 +231,8 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
   }
   //Update AI enable in Instance table
-  updateAIEnable(instanceId, flag, type) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}`, flag);
+  updateAIEnable(instanceId, flag, type, topoName) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}/${topoName}`, flag);
   }
 
   //Update AI enable in Instance table and AI status from In progress to complete when duration for AI is completed
