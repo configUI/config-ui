@@ -561,9 +561,9 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configUtilityService.errorMessage("Please enable Session toggle button for AI");
       return;
     }
-      if (type == "Java" || type == "DotNet") {
+      if (type == "Java" || type == "DotNet" || type == "java") {
         this.passAIDDserverEntity = this.serverEntity;
-        this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI"];
+        this.passAIDDSettings = [name, id, type, this.tierName, this.serverName, this.serverId, profileId, "btName", "ND ConfigUI", "running" , sessionStorage.getItem("isTrNumber")];
         this.showInstr = true;
       }
       else {
@@ -625,7 +625,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
           //Check for successful RTC connection  
           if (data.length != 0 || !data[0]['contains']) {
-            that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop").subscribe(data => {
+            that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop",this.topologyName).subscribe(data => {
               that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
 
                 that.topologyData = data;

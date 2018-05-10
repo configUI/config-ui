@@ -727,9 +727,12 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByPostReq(`${URL.ENABLE_ASYNCHRONOUS_RULE_TYPE}/${assocId}/${isEnable}`);
     }
 
+    getTopoName(trNo, instanceName): Observable<String>{
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
+    }
+
     getFqm(nodeInfo, reqId): Observable<any> {
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_FQM_FOR_METHOD_MONITOR}?reqId=${reqId}`, nodeInfo);
     }
-
 }
 

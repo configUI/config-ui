@@ -20,6 +20,7 @@ import { ConfigKeywordsService } from '../../services/config-keywords.service';
 export class DynamicDiagnosticsComponent implements OnInit {
     @Output() topologyData: EventEmitter<Object> = new EventEmitter();
     @Output() closeAIDDGui: EventEmitter<any> = new EventEmitter();
+    @Output() resultAfterStart: EventEmitter<String> = new EventEmitter<String>();
     @Input() passAIDDSettings: string;
     @Input() passAIDDserverEntity: ServerInfo;
     className: string = "Dynamic Diagnostics Component";
@@ -61,6 +62,10 @@ export class DynamicDiagnosticsComponent implements OnInit {
     DDOrAIGUI: string;
     accordionTab: number;
     agentTypes: string;
+    trStatus:string;
+    topoName: string;
+    instanceFileId: string;
+    testRunNo:string;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
@@ -72,14 +77,13 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.serverId = this.passAIDDSettings[5];
         this.serverName = this.passAIDDSettings[4];
         this.tierName = this.passAIDDSettings[3];
-
+        this.trStatus = this.passAIDDSettings[9];
+        this.testRunNo = this.passAIDDSettings[10];
 
         this.loadAIDDGUI(this.passAIDDSettings[0], this.passAIDDSettings[1], this.passAIDDSettings[2]);
     }
     // this method is for AI and GUI Setting 
     loadAIDDGUI(name, id, type) {
-
-
         this.agentTypes = type;
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
@@ -127,6 +131,15 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 if (data['_body'] != "")
                     this.splitSettings(data['_body']);
                 // this.showInstr = true;
+                this.configKeywordsService.getTopoName(this.testRunNo, this.passAIDDSettings[0]).subscribe(data => {
+                    let arr = data["_body"].split("#");
+                    this.topoName = arr[0];
+                    this.instanceFileId = arr[1];
+                    if(this.DDOrAIGUI == "DDR"){
+                        this.currentInsId = +this.instanceFileId;
+                        this.autoInstrDto.instanceId = this.currentInsId;
+                } 
+                })
             })
         })
     }
@@ -213,7 +226,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
         console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
 
         //if test is offline mode, return (no run time changes)
-        if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+        if (this.trStatus.toLowerCase() != 'running') {
             console.log(this.className, "constructor", "No NO RUN TIme Changes");
             return;
         }
@@ -231,7 +244,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 let success = this.configTopologyService.sendRTCAutoInstr(url, strSetting, autoInstrDto, function (success) {
                     //Check for successful RTC connection
                     if (success == "success") {
-                        that.configTopologyService.updateAIEnable(that.currentInsId, true, "AI").subscribe(data => {
+                        that.configTopologyService.updateAIEnable(that.currentInsId, true, "AI", that.topoName).subscribe(data => {
                             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
@@ -244,8 +257,9 @@ export class DynamicDiagnosticsComponent implements OnInit {
                 this.configTopologyService.applyDDAI(data, this.currentInsId).subscribe(res => {
                     //Check for successful RTC connection
                     if (res["_body"].includes("result=Ok")) {
-                        this.configUtilityService.infoMessage("Auto Instrumentation started")
-                        that.configTopologyService.updateAIEnable(that.currentInsId, true, "DD").subscribe(data => {
+                        this.configUtilityService.infoMessage("Auto Instrumentation started");
+                        this.resultAfterStart.emit("Auto Instrumentation started");
+                        that.configTopologyService.updateAIEnable(that.currentInsId, true, "DD", this.topoName).subscribe(data => {
                             that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
@@ -254,6 +268,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     }
                     else {
                         var msg = res["_body"].toString();
+                        this.resultAfterStart.emit("Could not start:" + msg.substring(msg.lastIndexOf('Error') + 5, msg.length));
                         this.configUtilityService.errorMessage("Could not start:" + msg.substring(msg.lastIndexOf('Error') + 5, msg.length))
                         this.closeAIDDGui.emit(false);
                         return
