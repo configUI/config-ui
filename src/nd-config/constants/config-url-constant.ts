@@ -1,11 +1,7 @@
-
-
-//  const  SERVICE_URL = 'https://10.10.50.16/4435/configUI';
-// const SERVICE_URL = 'https://10.10.50.16:4431/configUI';
-
-//  const  SERVICE_URL = 'http://localhost:8090';
-
+// const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+// const  SERVICE_URL = 'https://10.10.40.14/configUI';
  const  SERVICE_URL = 'http://localhost:8090';
+
 
 //For Production use this SERVICE_URL
 // const SERVICE_URL = '/configUI';
@@ -308,6 +304,8 @@ export const GET_SELECTED_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/g
 export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/uninstrumentationfqmdata`;
 
 export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscover/saveinstrumentationdatainxmlformat`;
+
+export const GET_FQM_FOR_METHOD_MONITOR = `${SERVICE_URL}/custom/autodiscover/getFqm`;
 
 /* Activity Log data */
 export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/getauditactivitylogdata`;
