@@ -1,10 +1,11 @@
 
 
- const  SERVICE_URL = 'https://10.10.40.14/configUI';
+//  const  SERVICE_URL = 'https://10.10.50.16/4435/configUI';
+// const SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 
 //  const  SERVICE_URL = 'http://localhost:8090';
 
-//  const  SERVICE_URL = 'http://localhost:8090';
+ const  SERVICE_URL = 'http://localhost:8090';
 
 //For Production use this SERVICE_URL
 // const SERVICE_URL = '/configUI';
@@ -219,6 +220,7 @@ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
 export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
+export const UPLOAD_BT_METHOD_FILE = `${SERVICE_URL}/custom/btmethod/uploadfile`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;

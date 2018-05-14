@@ -731,5 +731,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
     }
 
+
+  /** Method to upload file */
+  uploadBTMethodFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
+  }
+
 }
 

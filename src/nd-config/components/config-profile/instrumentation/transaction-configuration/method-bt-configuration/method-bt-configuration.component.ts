@@ -92,6 +92,11 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   methodBtTypeDelete = [];
 
+  bTMethodBrowse :boolean;
+  isbTMethodBrowse : boolean;
+  /** To open file explorer dialog */
+  openFileExplorerDialog: boolean = false;
+
   //used to hold value of "type " i.e data type of return value or argument value whichever is selected
   type: string;
   isProfilePerm: boolean;
@@ -194,6 +199,9 @@ export class MethodBTConfigurationComponent implements OnInit {
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadBTMethodData();
+    this.configKeywordsService.fileListProvider.subscribe(data => {
+      this.uploadFile(data);
+    });
   }
 
   /** Fetch BT Mehtod Data and Assign on Loading */
@@ -1068,4 +1076,49 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
   } 
 
+  openFileManager(){
+    this.openFileExplorerDialog = true;
+    this.isbTMethodBrowse = true;
+  }
+
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isbTMethodBrowse == true) {
+      this.isbTMethodBrowse = false;
+      this.openFileExplorerDialog = false;
+    let fileNameWithExt: string;
+    let fileExt: string;
+    fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+    fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
+    let check: boolean;
+    if (fileExt == ".btr" || fileExt == ".txt") {
+        check = true;
+    }
+    else {
+        check = false;
+    }
+    if (check == false) {
+        this.configUtilityService.errorMessage("Extension(s) other than .txt and .btr are not supported");
+        return;
+    }
+
+    if (filepath.includes(";")) {
+        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+        return;
+    }
+      this.configKeywordsService.uploadBTMethodFile(filepath, this.profileId).subscribe(data => {
+          if(data.length == this.businessTransMethodInfo.length){
+            this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
+          }
+          let that = this;
+          data.map(function (val) {
+            that.modifyData(val);
+          })
+          this.businessTransMethodInfo = data;
+       });
+    }
+}
 }
