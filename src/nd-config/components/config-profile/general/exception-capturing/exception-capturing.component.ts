@@ -512,7 +512,7 @@ export class ExceptionCapturingComponent implements OnInit {
                 check = false;
             }
             if (check == false) {
-                this.configUtilityService.errorMessage("Extension(s) other than .txt and .ecf are not supported");
+                this.configUtilityService.errorMessage("File Extension(s) other than .txt and .ecf are not supported");
                 return;
             }
 

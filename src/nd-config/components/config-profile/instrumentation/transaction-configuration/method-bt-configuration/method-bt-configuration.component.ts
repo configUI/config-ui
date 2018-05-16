@@ -1101,7 +1101,7 @@ export class MethodBTConfigurationComponent implements OnInit {
         check = false;
     }
     if (check == false) {
-        this.configUtilityService.errorMessage("Extension(s) other than .txt and .btr are not supported");
+        this.configUtilityService.errorMessage("File Extension(s) other than .txt and .btr are not supported");
         return;
     }
 

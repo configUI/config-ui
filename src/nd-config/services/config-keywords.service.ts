@@ -527,6 +527,10 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   editBTHTTPHeaders(data): Observable<BTHTTPHeaderData> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
+  /** Method to upload file */
+  uploadBTHTTPHdrFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_HTTP_HDR_FILE}/${profileId}`, filePath);
+  }
 
   /** Add BT HTTP RESPONSE HEADERS */
   addBtResponseHeaders(data, profileId) {

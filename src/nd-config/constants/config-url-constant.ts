@@ -272,6 +272,7 @@ export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbt
 export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+export const UPLOAD_BT_HTTP_HDR_FILE = `${SERVICE_URL}/custom/bthttpheader/uploadfile`;
 
 /**** URL for BT Response Headers */
 export const BT_RESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader`;

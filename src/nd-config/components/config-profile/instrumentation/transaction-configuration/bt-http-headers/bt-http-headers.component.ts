@@ -64,6 +64,10 @@ export class BTHTTPHeadersComponent implements OnInit {
     saveDisable: boolean = false;
     isProfilePerm: boolean;
 
+    /** To open file explorer dialog */
+    openFileExplorerDialog: boolean = false;
+    isbTHTTPHdrBrowse :boolean;
+
     constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     }
     ngOnInit() {
@@ -73,7 +77,9 @@ export class BTHTTPHeadersComponent implements OnInit {
             if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
                 this.saveDisable =  true;
         });
-
+        this.configKeywordsService.fileListProvider.subscribe(data => {
+            this.uploadFile(data);
+          });
         //Request to get all BT HTTP headers data
         this.configKeywordsService.getBTHttpHdrData(this.profileId).subscribe(data => {
             this.btHttpHeadersInfo = data;
@@ -82,7 +88,6 @@ export class BTHTTPHeadersComponent implements OnInit {
 
         this.btHttpHeadersDetail = new BTHTTPHeaderData();
         this.headerConditionDetail = new BTHTTPHeaderConditions();
-
     }
 
     //opens add request conditions dialog
@@ -461,6 +466,53 @@ export class BTHTTPHeadersComponent implements OnInit {
     //Closing BT HTTP Headers dialog
     closeDialog() {
         this.addResReqHeaderDialog = false;
+    }
+
+
+
+
+
+    openFileManager(){
+        this.openFileExplorerDialog = true;
+        this.isbTHTTPHdrBrowse = true;
+      }
+    
+      /** This method is called form ProductUI config-nd-file-explorer component with the path
+     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+    
+      /* dialog window & set relative path */
+      uploadFile(filepath) {
+        if (this.isbTHTTPHdrBrowse == true) {
+          this.isbTHTTPHdrBrowse = false;
+          this.openFileExplorerDialog = false;
+        let fileNameWithExt: string;
+        let fileExt: string;
+        fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+        fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
+        let check: boolean;
+        if (fileExt == ".btr" || fileExt == ".txt") {
+            check = true;
+        }
+        else {
+            check = false;
+        }
+        if (check == false) {
+            this.configUtilityService.errorMessage("File Extension(s) other than .txt and .btr are not supported");
+            return;
+        }
+    
+        if (filepath.includes(";")) {
+            this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+            return;
+        }
+          this.configKeywordsService.uploadBTHTTPHdrFile(filepath, this.profileId).subscribe(data => {
+              if(data.length == this.btHttpHeadersInfo.length){
+                this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
+              }
+              this.btHttpHeadersInfo = data;
+              this.modifyData(data);
+           });
+        }
     }
 }
 

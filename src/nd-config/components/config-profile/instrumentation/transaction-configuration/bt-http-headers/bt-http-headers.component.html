@@ -2,6 +2,8 @@
     <p-header>
         <span style="float: left"> Manage HTTP Headers Rule(s)</span>
         <span style="float: right; margin-top:-3px">
+                       <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
+                       <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add HTTP header" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openHeader()" icon="fa-plus"></button>
                        <button pButton type="button" title="Add HTTP header" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
                         <button pButton type="button" title="Edit HTTP header " *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openEditHttpHeader()" icon="fa-pencil" ></button>
@@ -142,3 +144,12 @@
         </footer>
     </form>
 </p-dialog>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+
+        <!-- This will look for this component in the ProductUI at this path -
+                     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+    
+            <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+    </p-dialog>
