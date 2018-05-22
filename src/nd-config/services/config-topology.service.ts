@@ -167,9 +167,9 @@ export class ConfigTopologyService {
       //When result=Error, then no RTC applied
       else {
         //Getting error if any and showing as toaster message
-        let err = data[0].substring(data[0].lastIndexOf(":") + 1)
-        if (err.includes("action=modify;result=Error;"))
-          this.configUtilityService.errorMessage("Could not start: This instance is not connected");
+        let err = data[0].substring(data[0].lastIndexOf("=Error") + 7, data[0].length)
+        if (data[1])
+          this.configUtilityService.errorMessage("Could not start: " + data[1]);
         else
           this.configUtilityService.errorMessage("Could not start: " + err);
 
