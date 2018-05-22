@@ -743,5 +743,9 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   uploadBTMethodFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
   }
+
+  downloadReports(data){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
+}
 }
 

@@ -360,3 +360,6 @@ export const ENABLE_ASYNCHRONOUS_RULE_TYPE = `${SERVICE_URL}/custom/ndasynchrono
 
 /* URL for get user Name */
 export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
+
+ /* URL to download file in doc/pdf/csv file format */
+ export const DOWNLOAD_REPORTS = `${SERVICE_URL}/custom/download/downloadreports`;
