@@ -122,7 +122,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   resetKeywordData() {
-
     this.hotspot = cloneObject(this.configKeywordsService.keywordData);
      if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
           this.includedException = null;
@@ -131,12 +130,27 @@ export class HotspotComponent implements OnInit, OnDestroy {
         // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
         if (this.hotspot["ASNegativeThreadFilter"].value != null)
           this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
-
        this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
-
-    
   }
+  //To reset the Keywords to its Default value
+  resetKeywordsDataToDefault(){
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+      keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.hotspot = keywordDataVal;
+    if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
+      this.includedException = null;
+  else
+    this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
+  // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
+  if (this.hotspot["ASNegativeThreadFilter"].value != null)
+    this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
 
+  this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+  }
 
   ngOnDestroy() {
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;

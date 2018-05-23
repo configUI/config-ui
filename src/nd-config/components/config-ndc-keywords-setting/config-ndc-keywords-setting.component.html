@@ -3,6 +3,7 @@
     <div class="header label">
       <i aria-hidden="true"></i>ND Controller Settings
       <div class="pull-right">
+        <button type="button" pButton icon="fa-refresh"  [disabled]="isAppPerm" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
         <button pButton type="submit" style="float:right" title="Save" [disabled]="isAppPerm" icon="fa-save" label="Save"></button>
         <button pButton type="button" style="float:right" title="Reset" [disabled]="isAppPerm" icon="fa-refresh" label="Reset" (click)="resetKeywordData()"></button>
       </div>
@@ -214,13 +215,13 @@
                   <div class="ui-g-12">
                     <p-checkbox name="enableAutoCleanUp" label="Enable Auto Cleanup" [(ngModel)]="enableAutoCleanUp" binary="true"></p-checkbox>
                   </div>
-                </div>
+                </div> 
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-5 marginClassTop">
                     Time (in hours/minutes/seconds) for Auto Cleanup of topology
                   </div>
                   <div class="ui-grid-col-1">
-                    <input pInputText type="number" name="NDC_THRESOLD_TO_MARK_DELETED_VAL" min=0 [disabled]="!enableAutoCleanUp" [(ngModel)]="NDC_THRESOLD_TO_MARK_DELETED_VAL" required
+                    <input pInputText type="number" name="NDC_THRESHOLD_TO_MARK_DELETED_VAL" min=0 [disabled]="!enableAutoCleanUp" [(ngModel)]="NDC_THRESHOLD_TO_MARK_DELETED_VAL" required
                       ngModel/>
                   </div>
                   <div class="ui-grid-col-1">
@@ -815,6 +816,15 @@
                 </div>
                 <div class="ui-grid-col-1">
                   <input pInputText type="number" name="CASSANDRA" min=0 [(ngModel)]="CASSANDRA" required ngModel/>
+                </div>
+                <div class="ui-grid-col-4 marginClassTop">
+                  Delay in Clean Up for Deleted Instance
+                </div>
+                <div class="ui-grid-col-1">
+                </div>
+                <div class="ui-grid-col-1">
+                  <input pInputText type="number" name="NDP_DELETED_INSTANCE_CLEANUP_DELAY" min="0" max="25" [(ngModel)]="ndcKeywords['NDP_DELETED_INSTANCE_CLEANUP_DELAY'].value"
+                    required ngModel/>
                 </div>
               </div>
               <div class="ui-grid-row">

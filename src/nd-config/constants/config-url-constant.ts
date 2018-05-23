@@ -1,10 +1,7 @@
-
-
- //const  SERVICE_URL = 'https://10.10.40.7/configUI';
-
- const  SERVICE_URL = 'http://localhost:8090';
-
+const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+// const  SERVICE_URL = 'https://10.10.40.14/configUI';
 //  const  SERVICE_URL = 'http://localhost:8090';
+
 
 //For Production use this SERVICE_URL
 // const SERVICE_URL = '/configUI';
@@ -219,6 +216,7 @@ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
 export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
+export const UPLOAD_BT_METHOD_FILE = `${SERVICE_URL}/custom/btmethod/uploadfile`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;
@@ -274,6 +272,7 @@ export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbt
 export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+export const UPLOAD_BT_HTTP_HDR_FILE = `${SERVICE_URL}/custom/bthttpheader/uploadfile`;
 
 /**** URL for BT Response Headers */
 export const BT_RESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader`;
@@ -288,6 +287,7 @@ export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrume
 export const GET_XML_INSTRUMENT_PROFILE = `${SERVICE_URL}/custom/instrumentation/xmlfiles`;
 export const GET_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/instrumentation/xmldatafromselectedxmlfile`;
 export const GET_INSTR_PROFILE_DETAILS = `${SERVICE_URL}/custom/instrumentation/getinstrprofiledetails`;
+export const GET_TOPO_NAME = `${SERVICE_URL}/custom/instrumentation/gettoponame`;
 
 /*Edit Instrumentation Profile */
 export const EDIT_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/generatetreenodefromxml`;
@@ -305,6 +305,8 @@ export const GET_SELECTED_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/g
 export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autodiscover/uninstrumentationfqmdata`;
 
 export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscover/saveinstrumentationdatainxmlformat`;
+
+export const GET_FQM_FOR_METHOD_MONITOR = `${SERVICE_URL}/custom/autodiscover/getFqm`;
 
 /* Activity Log data */
 export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/getauditactivitylogdata`;
@@ -355,3 +357,9 @@ export const START_DD_AI = `${SERVICE_URL}/custom/DynamicDiagnostics/ddaitrigger
 export const FETCH_ASYNCHRONOUS_RULE_TABLEDATA = `${SERVICE_URL}/custom/ndasynchronousrule/getasynchronousrule`;
 export const SAVE_ASYNCHRONOUS_RULE= `${SERVICE_URL}/custom/ndasynchronousrule/save`;
 export const ENABLE_ASYNCHRONOUS_RULE_TYPE = `${SERVICE_URL}/custom/ndasynchronousrule`;
+
+/* URL for get user Name */
+export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
+
+ /* URL to download file in doc/pdf/csv file format */
+ export const DOWNLOAD_REPORTS = `${SERVICE_URL}/custom/download/downloadreports`;

@@ -527,6 +527,10 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   editBTHTTPHeaders(data): Observable<BTHTTPHeaderData> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
+  /** Method to upload file */
+  uploadBTHTTPHdrFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_HTTP_HDR_FILE}/${profileId}`, filePath);
+  }
 
   /** Add BT HTTP RESPONSE HEADERS */
   addBtResponseHeaders(data, profileId) {
@@ -727,5 +731,21 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByPostReq(`${URL.ENABLE_ASYNCHRONOUS_RULE_TYPE}/${assocId}/${isEnable}`);
     }
 
+    getTopoName(trNo, instanceName): Observable<String>{
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
+    }
+
+    getFqm(nodeInfo, reqId): Observable<any> {
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_FQM_FOR_METHOD_MONITOR}?reqId=${reqId}`, nodeInfo);
+    }
+    
+  /** Method to upload file */
+  uploadBTMethodFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
+  }
+
+  downloadReports(data){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
+}
 }
 

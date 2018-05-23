@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { WdInputs } from '../containers/wd-inputs';
-import { DashboardDataCache } from '../containers/dashboard-data-cache';
+// import { WdInputs } from '../container/wd-inputs';
+// import { DashboardDataCache } from '../container/dashboard-data-cache';
+// import { DashboardTrendCompare } from '../container/dashboard-trend-compare';
+// import { CavTestRunFilterCache } from '../container/cav-test-run-filter-cache';
 
 @Injectable()
 export class CavConfigService {
 
-	private protocol = 'http';
-	private host = window.location.hostname;
-	private port = window.location.port;
+	private protocol = 'https';
+	private host = "10.10.50.16";
+	private port = "";
 	private productName = 'netstorm';
 	private productType = '';
 	private userName: string = null;
@@ -21,9 +23,11 @@ export class CavConfigService {
 	private serverTitle = '';
 	private productMode = '';
 	private timeZone = 'IST';
+        private timeZoneId = 'Asia/Kolkata';
 	private workPath = '';
 	private openDashboardInTab = true;
 	private dashboardTestRun: number = -1;
+	private dashboardReportTestRun: number = -1;
 
 	private selectedDataCenter = 'ALL';
 	private dcInfoArr: any[] = [];
@@ -32,17 +36,45 @@ export class CavConfigService {
 	private controllerName = '';
 	private serialNumberOfServer = '';
 	public clientConnectionKey = null;
-	wdExternalInputs: WdInputs = null;
-	wdOpenOnStart = false;
-	private dashboardDataCache: DashboardDataCache = null;
+	wdExternalInputs: String= null;
+	private wdOpenOnStart = false;
+	private dashboardDataCache: String = null;
 	private aclAccessRight: string;
 	private testRunAccessPrivileges: any;
 
 	private sessionTestNumChange = new Subject<any>();
 	sessionTestNumChange$ = this.sessionTestNumChange.asObservable();
+    /*variable for selected test runs details */
+	private testRunDetails: any;
+	/*variable for getting selected test run numbers */
+	private testRunNumbers = null;
+	/*variable for setting compare type. */
+	private compareType = 0;
+	private dashboardTrendCompare: string = null;
+        private featurePermissionList: any;
+ 
+  /** defining flag for apply Tx deatil either from compare Trend dialog or dashboard compare dialog   */
+  	private isTxCompareTrendMode = false;
+
+	  private productKey : string;
+
+	  private isGitIsConfigured:string;
+	  private reportOption: any;       // for opening report from test run gui in case of trend
+	  private isTrendReuse = false;    // setting true if open trend report else false for side by side compare
+	  private cmpMsrDataJSON: any = [];   // for setting json in case of advance option to open report 
+
+	  private edKPIQueryParam: Object = {};
+	  private edGKPIQueryParam: Object = {};
+
+	private refreshScenarioDataOnGitRefresh = new Subject<any>();
+	refreshScenarioDataOnGitRefresh$ = this.refreshScenarioDataOnGitRefresh.asObservable();
+
+	  private cavTestRunFilterCache: string = null;
+
 	constructor() {
 		// this.openDashboardInTab = true;
-		this.serverIP = '//' + this.host + ':' + this.port + '/';
+		//this.serverIP = 'https://' + this.host + ':' + this.port + '/';
+		this.serverIP = 'https://' + this.host + '/';
 		this.appPath = this.serverIP + 'ProductUI';
 	}
 
@@ -61,9 +93,10 @@ export class CavConfigService {
 			this.workPath = sessionStorage.getItem('workPath');
 			this.productName = sessionStorage.getItem('sessServerTitle');
 			this.timeZone = sessionStorage.getItem('timeZone');
-			this.controllerName = sessionStorage.getItem('controllerName');
+			this.timeZoneId = sessionStorage.getItem('timeZoneId');
+                        this.controllerName = sessionStorage.getItem('controllerName');
 			this.serialNumberOfServer = sessionStorage.getItem('serialNumber');
-
+			this.productKey = sessionStorage.getItem("productKey");
 			if (sessionStorage.getItem('dashboardTestRun') !== null && sessionStorage.getItem('dashboardTestRun') !== undefined) {
 				this.dashboardTestRun = parseInt(sessionStorage.getItem('dashboardTestRun'), 10);
 				if (sessionStorage.getItem('clientConnectionKey') !== null && sessionStorage.getItem('clientConnectionKey') !== undefined) {
@@ -77,6 +110,20 @@ export class CavConfigService {
 		}
 	}
 
+       	public get $isTxCompareTrendMode(): boolean {
+		return this.isTxCompareTrendMode;
+	}
+
+	public set $isTxCompareTrendMode(value: boolean) {
+		this.isTxCompareTrendMode = value;
+	}
+
+        public get $wdOpenOnStart(): boolean{
+		return this.wdOpenOnStart;
+	}
+	public set $wdOpenOnStart(value: boolean){
+		  this.wdOpenOnStart = value;
+	}
 	public get $protocol(): string {
 		return this.protocol;
 	}
@@ -133,7 +180,7 @@ export class CavConfigService {
 		this.serverIP = value;
 	}
 
-	public set $dashboardDataCache(dashboardDataCache: DashboardDataCache) {
+	public set $dashboardDataCache(dashboardDataCache: String) {
 		this.dashboardDataCache = dashboardDataCache;
 	}
 
@@ -176,12 +223,21 @@ export class CavConfigService {
 		this.dashboardDataCache = null;
 	}
 
+	public get $dashboardReportTestRun(): number {
+		return this.dashboardReportTestRun;
+	}
+
+	public set $dashboardReportTestRun(value: number) {
+	    sessionStorage.setItem('dashboardReportTestRun', value+'');
+		this.dashboardReportTestRun = value;
+	}
+
 	/* using for external link such as copy favorite link */
-	public get $wdExternalInputs(): WdInputs {
+	public get $wdExternalInputs(): String {
 		return this.wdExternalInputs;
 	}
 
-	public set $wdExternalInputs(value: WdInputs) {
+	public set $wdExternalInputs(value: String) {
 		this.wdExternalInputs = value;
 	}
 
@@ -240,6 +296,13 @@ export class CavConfigService {
 	public set $timeZone(value: string) {
 		this.timeZone = value;
 	}
+        public get $timeZoneId(): string {
+		return this.timeZoneId;
+	}
+
+	public set $timeZoneId(value: string) {
+		this.timeZoneId = value;
+	}
 
 	public get $workPath(): string {
 		return this.workPath;
@@ -283,10 +346,10 @@ export class CavConfigService {
 
 	public getINSAggrPrefix() {
 		if (sessionStorage.getItem('isMultiDCMode') === undefined || sessionStorage.getItem('isMultiDCMode') === null) {
-			return `//${this.host}:${this.port}`;
+			return `https://10.10.50.16`;
 		} else {
 			if (this.getActiveDC() !== 'ALL') {
-				return `//${this.host}:${this.port}/tomcat/`;
+				return `https://10.10.50.16tomcat/`;
 			}
 			return sessionStorage.getItem('INSAggrPrefix');
 		}
@@ -299,7 +362,7 @@ export class CavConfigService {
 
 	public getINSPrefix() {
 		if (sessionStorage.getItem('isMultiDCMode') === undefined || sessionStorage.getItem('isMultiDCMode') === null)
-			return `//${this.host}:${this.port}`;
+			return `https://10.10.50.16`;
 		else
 			return sessionStorage.getItem('INSPrefix');
 	}
@@ -350,7 +413,8 @@ export class CavConfigService {
 				if (host === null || host === undefined) {
 				  return this.serverIP;
  				} else {
-				  return `${host.protocol}://${host.ip}:${host.port}/`;
+				 // return `${host.protocol}://${host.ip}:${host.port}/`;
+				 return "https://10.10.50.16"
 				}
 			}
 		} catch (e) {
@@ -372,5 +436,136 @@ export class CavConfigService {
 
 	public set $testRunAccessPrivileges(value: any) {
 		this.testRunAccessPrivileges = value;
+	}
+
+	public get $testRunDetails(): any {
+		return this.testRunDetails;
+	}
+
+	public set $testRunDetails(value: any) {
+		this.testRunDetails = value;
+	}
+
+	public get $testRunNumbers(): any {
+		return this.testRunNumbers;
+	}
+
+	public set $testRunNumbers(value: any) {
+		this.testRunNumbers = value;
+	}
+
+	public get $compareType(): number {
+		return this.compareType;
+	}
+
+	public set $compareType(value: number) {
+		this.compareType = value;
+	}
+
+	public set $dashboardTrendCompare(dashboardTrendCompare: string) {
+		this.dashboardTrendCompare = dashboardTrendCompare;
+	}
+
+	public get $dashboardTrendCompare() {
+		return this.dashboardTrendCompare;
+	}
+   
+        public getTestRunForDC(dcName) {
+	  let trNum;
+	   if (dcName === 'ALL') 
+  	   {
+		for(var  i= 0 ; i < this.dcInfoArr.length ; i++) {
+                  if(this.dcInfoArr[i].isMaster == true){
+                    trNum = this.dcInfoArr[i].testRun;
+                    break;
+                  }
+                }
+		
+          } else {
+ 		for(var  i= 0 ; i < this.dcInfoArr.length ; i++) {
+		  if(this.dcInfoArr[i].dc == dcName){ 
+		    trNum = this.dcInfoArr[i].testRun;
+		    break;
+		  }
+		}
+	  }	   
+	  console.log("Method: getTestRunForDC. DC Name: ", dcName, ". DC Info Arr = ", this.dcInfoArr, ". TR = ", trNum); 
+	  return parseInt(trNum);
+       }
+       
+        public set $featurePermissionList(data: any) {
+                this.featurePermissionList = data;
+        }
+
+        public get $featurePermissionList(): any{
+                return this.featurePermissionList;
+        }
+   public get $productKey(): string {
+		return this.productKey;
+	}
+
+	public set $productKey(value: string) {
+		this.productKey = value;
+	}
+
+	public set $reportOption(value: any) {
+		this.reportOption = value;
+	}
+
+	public get $reportOption(): any{
+		return this.reportOption;
+	}
+
+	public set $isTrendReuse(value: boolean) {
+		this.isTrendReuse = value;
+	}
+
+	public get $isTrendReuse(): boolean{
+		return this.isTrendReuse;
+	}   
+	
+	public set $cmpMsrDataJSON(value: any) {
+		this.cmpMsrDataJSON = value;
+	}
+
+	public get $cmpMsrDataJSON(): any {
+		return this.cmpMsrDataJSON;
+	}
+
+        /**For ED */
+	public set $edKPIQueryParam(value: any) {
+		this.edKPIQueryParam = value;
+	}
+
+	public get $edKPIQueryParam(): any {
+		return this.edKPIQueryParam;
+	}
+
+	public set $edGKPIQueryParam(value: any) {
+		this.edGKPIQueryParam = value;
+	}
+
+	public get $edGKPIQueryParam(): any {
+		return this.edGKPIQueryParam;
+	}
+
+	public set $isGitIsConfigured(value: string) {
+		this.isGitIsConfigured = value;
+	}
+
+	public get $isGitIsConfigured(): string {
+		return this.isGitIsConfigured;
+	}
+
+	public updateScenarioData(value:string){
+          this.refreshScenarioDataOnGitRefresh.next(value);
+	}
+
+	public set $cavTestRunFilterCache(cavTestRunFilterCache: string) {
+		this.cavTestRunFilterCache = cavTestRunFilterCache;
+	}
+
+	public get $cavTestRunFilterCache() {
+		return this.cavTestRunFilterCache;
 	}
 }

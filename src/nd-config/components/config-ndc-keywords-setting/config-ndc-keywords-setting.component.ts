@@ -56,7 +56,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     NDC_HS_ST_IN_FILE_FLAG_VAL;
     NDC_HS_ST_IN_FILE_FLAG_VER;
 
-    NDC_THRESOLD_TO_MARK_DELETED_VAL = 8;
+    NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
 
     //Variables for values of ND_FPI_MASK keyword
     ndeId1;
@@ -162,7 +162,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'SEND_ACTIVE_INSTANCE_REP',
         'NDC_MAX_CTRL_CON',
         'NDP_MAX_SQL_INDEX_FROM_BCI',
-        'NDC_THRESOLD_TO_MARK_DELETED'
+        'NDC_THRESHOLD_TO_MARK_DELETED',
+        'NDP_DELETED_INSTANCE_CLEANUP_DELAY'
     ];
 
     appId: number;
@@ -303,30 +304,30 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.seqNo2 = seqno[2];
             }
         }
-        if (data.NDC_THRESOLD_TO_MARK_DELETED.value.includes(" ")){
-            let arr = data.NDC_THRESOLD_TO_MARK_DELETED.value.split(" ");
+        if (data.NDC_THRESHOLD_TO_MARK_DELETED.value.includes(" ")){
+            let arr = data.NDC_THRESHOLD_TO_MARK_DELETED.value.split(" ");
             if(arr[0] == 1){
                 this.enableAutoCleanUp = true;
             }
             if(arr[1].includes("h")){
                 this.selectedFormat = "hr";
                 let arrtime = arr[1].split("h")
-                this.NDC_THRESOLD_TO_MARK_DELETED_VAL = +arrtime[0];
+                this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = +arrtime[0];
             }
             else if(arr[1].includes("m")){
                 this.selectedFormat = "min";
                 let arrtime = arr[1].split("m")
-                this.NDC_THRESOLD_TO_MARK_DELETED_VAL= +arrtime[0];
+                this.NDC_THRESHOLD_TO_MARK_DELETED_VAL= +arrtime[0];
             }
             else if(arr[1].includes("s")){
                 this.selectedFormat = "sec";
                 let arrtime = arr[1].split("s")
-                this.NDC_THRESOLD_TO_MARK_DELETED_VAL = +arrtime[0];
+                this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = +arrtime[0];
             }
         }
         else{
             this.enableAutoCleanUp = false;
-            this.NDC_THRESOLD_TO_MARK_DELETED_VAL = 8;
+            this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr";
         }
     }
@@ -336,15 +337,15 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     saveNDCKeywords() {
          if(this.enableAutoCleanUp){
              if(this.selectedFormat == "hr")
-                this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESOLD_TO_MARK_DELETED_VAL + "h";
+                this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "h";
                 else if(this.selectedFormat == "min")
-                     this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESOLD_TO_MARK_DELETED_VAL + "m";
+                     this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "m";
                     else
-                        this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESOLD_TO_MARK_DELETED_VAL + "s";
+                        this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "s";
         }
         else{
-            this.ndcKeywords['NDC_THRESOLD_TO_MARK_DELETED'].value =0;
-            this.NDC_THRESOLD_TO_MARK_DELETED_VAL = 8;
+            this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value =0;
+            this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr"
         }
             // Saving Data to Server
@@ -390,5 +391,20 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
   resetKeywordData() {
       this.getNDCKeywords()
   }
+
+ /* This method is used to reset the keyword data to its Default value */
+ resetKeywordsDataToDefault() {
+     // Getting NDC keywords data from Server
+        this._configKeywordsService.getNDCKeywords(this.appId).subscribe(data => {
+            var keywordDataVal = {}
+            keywordDataVal = data
+            this.keywordList.map(function (key) {
+                keywordDataVal[key].value = data[key].defaultValue
+            })
+            this.splitKeywords(keywordDataVal);
+            this.ndcKeywords = keywordDataVal;
+            // this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
+        });
+}
 }
 

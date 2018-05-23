@@ -2,6 +2,8 @@
         <div class="tabsincontent">
             <div class="header">Integrate with other Cavisson Products
                 <div class="pull-right">
+                    <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+                    <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
                     <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
                     <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
                     <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
@@ -47,9 +49,10 @@
                                 <label>Domain name</label>
                             </div>
                             <div class="ui-g-1">
-                                <input name="domainName" [(ngModel)]="ndSessionData.domain" type="text" required />
+                                <input name="domainName" [(ngModel)]="ndSessionData.domain" type="text"  />
                             </div>
                         </div>
+                        
                         <div class="ui-g-12">
                             <!-- <div class="ui-g-1"> </div> -->
                             <div class="ui-g-2">

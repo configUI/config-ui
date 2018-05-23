@@ -167,9 +167,9 @@ export class ConfigTopologyService {
       //When result=Error, then no RTC applied
       else {
         //Getting error if any and showing as toaster message
-        let err = data[0].substring(data[0].lastIndexOf(":") + 1)
-        if (err.includes("action=modify;result=Error;"))
-          this.configUtilityService.errorMessage("Could not start: This instance is not connected");
+        let err = data[0].substring(data[0].lastIndexOf("=Error") + 7, data[0].length)
+        if (data[1])
+          this.configUtilityService.errorMessage("Could not start: " + data[1]);
         else
           this.configUtilityService.errorMessage("Could not start: " + err);
 
@@ -231,8 +231,8 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_FILE}`, data);
   }
   //Update AI enable in Instance table
-  updateAIEnable(instanceId, flag, type) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}`, flag);
+  updateAIEnable(instanceId, flag, type, topoName) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.UPDATE_AI_ENABLE}/${type}/${instanceId}/${topoName}`, flag);
   }
 
   //Update AI enable in Instance table and AI status from In progress to complete when duration for AI is completed

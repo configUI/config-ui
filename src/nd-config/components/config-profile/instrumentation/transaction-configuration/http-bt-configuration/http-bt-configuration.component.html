@@ -21,6 +21,8 @@
         <div class="ui-g-12 header-font-size">
             <div class="ui-g-6">URI used in Transaction Name</div>
             <div class="ui-g-6" style="text-align:right">
+                    <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetBusinessTransaction()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetBusinessTransaction()" label="Reset"></button>
             </div>
@@ -215,7 +217,7 @@
                         <label>Business Transaction Name</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
+                        <input name="btName" type="text" size="40" pInputText pattern="^[a-zA-Z0-9_#@./&*-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
                     </div>
                     <div class="ui-g-4">
                         <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
@@ -230,9 +232,12 @@
                         <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$:&=-]{0,249}$" title="Please enter valid URL. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
                             [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
-                    <div class="ui-g-4">
+                    <div class="ui-g-3">
                         <input name="dropdown" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="businessTransPatternDetail.matchType" required ngModel/>
                         <p-dropdown name="matchType" [style]="{'width':'100px'}" [options]="matchModeList" placeholder="Select Mode" [(ngModel)]="businessTransPatternDetail.matchType" required ngModel></p-dropdown>
+                    </div>
+                    <div class="ui-g-3">
+                        <p-checkbox name="include" label="Asynchronous Transaction" [(ngModel)]="asyncTrans" binary="false"></p-checkbox>
                     </div>
                 </div>
             </div>

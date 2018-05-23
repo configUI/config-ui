@@ -134,7 +134,80 @@ export class ExceptionCapturingComponent implements OnInit {
         this.getKeywordData();
         this.exception = cloneObject(this.configKeywordsService.keywordData);
     }
+    /* This method is used to reset the keyword data to its Default value */
+    resetKeywordsDataToDefault() {
+        this.getKeywordData();
+        let data = cloneObject(this.configKeywordsService.keywordData);
+        var keywordDataVal = {}
+        keywordDataVal = data
+        this.keywordList.map(function (key) {
+          keywordDataVal[key].value = data[key].defaultValue
+        })
+        this.exception = keywordDataVal;
+        this.methodToSetValue(this.exception);
+    }
 
+    //This method is used to set value of data depending on data received in its argument
+    methodToSetValue(data){
+        this.exception = data;
+        for (let key in this.exception) {
+            if (key == 'enableSourceCodeFilters') {
+                if (this.exception[key]["value"] == "true" || this.exception[key]["value"] == true) {
+                    this.selectedValues = true;
+                }
+                else {
+                    this.selectedValues = false;
+                }
+            }
+        }
+        if ((this.exception["instrExceptions"].value).includes("%20")) {
+            let arr = (this.exception["instrExceptions"].value).split("%20")
+            this.exceptionData = new ExceptionData();
+            if (arr[0] === "1" && arr[2] === "0") {
+                this.exceptionData.instrumentException = true;
+                this.exceptionData.exceptionCapturing = false;
+                this.exceptionData.exceptionType = false;
+            }
+            else if (arr[0] === "1" && arr[2] === "3") {
+                this.exceptionData.instrumentException = true;
+                this.exceptionData.exceptionCapturing = false;
+                this.exceptionData.exceptionType = true;
+            }
+            else if (arr[0] === "2" && arr[2] === "0") {
+                this.exceptionData.instrumentException = true;
+                this.exceptionData.exceptionCapturing = true;
+                this.exceptionData.exceptionType = false;
+            }
+            else if (arr[0] === "2" && arr[2] === "3") {
+                this.exceptionData.instrumentException = true;
+                this.exceptionData.exceptionCapturing = true;
+                this.exceptionData.exceptionType = true;
+            }
+            else
+                this.exceptionData.instrumentException = false;
+
+            if (arr.length > 3)
+                this.exceptionData.exceptionTraceDepth = arr[3];
+            else
+                this.exceptionData.exceptionTraceDepth = 20;
+        }
+        else if (this.exception["instrExceptions"].value == 0 || this.exception["instrExceptions"].value == "0") {
+            this.exceptionData = new ExceptionData();
+            this.exceptionData.instrumentException = false;
+            this.exceptionData.exceptionCapturing = false;
+            this.exceptionData.exceptionTrace = false;
+            this.exceptionData.exceptionType = false;
+            this.exceptionData.exceptionTraceDepth = 20;
+        }
+        else {
+            this.exceptionData = new ExceptionData();
+            this.exceptionData.instrumentException = true;
+            this.exceptionData.exceptionCapturing = false;
+            this.exceptionData.exceptionTrace = false;
+            this.exceptionData.exceptionType = false;
+            this.exceptionData.exceptionTraceDepth = 20;
+        }
+    }
     /* This method is used to get the existing keyword data from the backend */
     getKeywordData() {
         // let keywordData = this.configKeywordsService.keywordData;
@@ -144,65 +217,7 @@ export class ExceptionCapturingComponent implements OnInit {
                 keywordDataVal[key] = data[key];
             })
             this.exception = keywordDataVal;
-            for (let key in this.exception) {
-                if (key == 'enableSourceCodeFilters') {
-                    if (this.exception[key]["value"] == "true" || this.exception[key]["value"] == true) {
-                        this.selectedValues = true;
-                    }
-                    else {
-                        this.selectedValues = false;
-                    }
-                }
-            }
-
-            if ((this.exception["instrExceptions"].value).includes("%20")) {
-                let arr = (this.exception["instrExceptions"].value).split("%20")
-                this.exceptionData = new ExceptionData();
-                if (arr[0] === "1" && arr[2] === "0") {
-                    this.exceptionData.instrumentException = true;
-                    this.exceptionData.exceptionCapturing = false;
-                    this.exceptionData.exceptionType = false;
-                }
-                else if (arr[0] === "1" && arr[2] === "3") {
-                    this.exceptionData.instrumentException = true;
-                    this.exceptionData.exceptionCapturing = false;
-                    this.exceptionData.exceptionType = true;
-                }
-                else if (arr[0] === "2" && arr[2] === "0") {
-                    this.exceptionData.instrumentException = true;
-                    this.exceptionData.exceptionCapturing = true;
-                    this.exceptionData.exceptionType = false;
-                }
-                else if (arr[0] === "2" && arr[2] === "3") {
-                    this.exceptionData.instrumentException = true;
-                    this.exceptionData.exceptionCapturing = true;
-                    this.exceptionData.exceptionType = true;
-                }
-                else
-                    this.exceptionData.instrumentException = false;
-
-                if (arr.length > 3)
-                    this.exceptionData.exceptionTraceDepth = arr[3];
-                else
-                    this.exceptionData.exceptionTraceDepth = 20;
-            }
-            else if (this.exception["instrExceptions"].value == 0 || this.exception["instrExceptions"].value == "0") {
-                this.exceptionData = new ExceptionData();
-                this.exceptionData.instrumentException = false;
-                this.exceptionData.exceptionCapturing = false;
-                this.exceptionData.exceptionTrace = false;
-                this.exceptionData.exceptionType = false;
-                this.exceptionData.exceptionTraceDepth = 20;
-            }
-            else {
-                this.exceptionData = new ExceptionData();
-                this.exceptionData.instrumentException = true;
-                this.exceptionData.exceptionCapturing = false;
-                this.exceptionData.exceptionTrace = false;
-                this.exceptionData.exceptionType = false;
-                this.exceptionData.exceptionTraceDepth = 20;
-            }
-
+            this.methodToSetValue(this.exception );
         });
     }
 
@@ -497,7 +512,7 @@ export class ExceptionCapturingComponent implements OnInit {
                 check = false;
             }
             if (check == false) {
-                this.configUtilityService.errorMessage("Extension(s) other than .txt and .ecf are not supported");
+                this.configUtilityService.errorMessage("File Extension(s) other than .txt and .ecf are not supported");
                 return;
             }
 
