@@ -369,11 +369,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   }
 
   /*Get sub BT Pattern data*/
-    getSubBtPattern (profileId, parentBtId): Observable<BusinessTransPatternData[]> {
-      return this._restApi.getDataByGetReq(`${URL.GET_SUB_BT_PATTERN}/${profileId}/${parentBtId}`);
-    }
-
-  /*Get sub BT Pattern data*/
   fetchBtNames (profileId): Observable<string[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BT_NAMES}/${profileId}`);
   }
@@ -731,8 +726,14 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
     }
 
-    getFqm(nodeInfo, reqId): Observable<any> {
-      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_FQM_FOR_METHOD_MONITOR}?reqId=${reqId}`, nodeInfo);
+    /** URL for creating method monitor from auto discover */
+    methodMonitorFromAutoDiscover(nodeInfo, reqId, instanceFileName, profileId) {
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AD}/${reqId + ',' + instanceFileName}/${profileId}`, nodeInfo);
+    }
+
+    /** URL for creating method monitor from auto instrumentation */
+    methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
     }
 }
 

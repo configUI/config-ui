@@ -32,6 +32,7 @@ export class AddIPDetection {
     isCustomEntry:boolean=true;
     agent: string;
     module: string;
+    argumentIndex: number;
 }
 export class BackendTableInfo {
     type: string;
@@ -198,7 +199,6 @@ export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
     include: string;
     matchType: string;
     mode: string;
-    paramKeyValue: string;
     reqHeaderKey: string;
     reqHeaderValue: string;
     reqMethod: string;
