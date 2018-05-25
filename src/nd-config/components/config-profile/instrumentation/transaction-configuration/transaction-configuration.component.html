@@ -22,6 +22,9 @@
      <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Split by Response Headers">
                 <bt-response-headers (keywordData)="saveKeywordData($event)"></bt-response-headers>
      </p-tabPanel>
+     <p-tabPanel *ngIf="agentType == 'Dot Net'" header="Split by HTTP Body">
+        <bt-http-body (keywordData)="saveKeywordData($event)"></bt-http-body>
+</p-tabPanel>
 </p-tabView>
     </div>
 </form>

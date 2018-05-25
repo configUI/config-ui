@@ -373,3 +373,22 @@ export class AsynchronousRuleType {
     enabled: boolean;
     description: string;
 }
+
+/**BT HTTP Body */
+export class BTHTTPBody{
+    id: number;
+    bodyType: string;
+    xpath: string;
+    cond: BTHTTPBodyConditions[];
+    bodyBtNames: string;
+    dataType: string;
+}
+
+/**BT HTTP Bpdy conditions */
+export class BTHTTPBodyConditions{
+    id: number;
+    condId: number;
+    btName: string;
+    opCode: any;
+    value: any;
+}

@@ -1,6 +1,6 @@
-const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+// const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 // const  SERVICE_URL = 'https://10.10.40.14/configUI';
-//  const  SERVICE_URL = 'http://localhost:8090';
+ const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -363,3 +363,10 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
 
  /* URL to download file in doc/pdf/csv file format */
  export const DOWNLOAD_REPORTS = `${SERVICE_URL}/custom/download/downloadreports`;
+
+ /** URL for BT HTTP Body */
+ export const ADD_BT_HTTP_BODY_URL = `${SERVICE_URL}/custom/bthttpbody/addbthttpbody`;
+ export const FETCH_BTHTTP_BODY_URL = `${SERVICE_URL}/custom/bthttpbody/getallbthttpbodydata`;
+ export const EDIT_BTHTTP_BODY = `${SERVICE_URL}/custom/bthttpbody/editbthttpbody`;
+ export const DEL_HTTP_BODY_COND = `${SERVICE_URL}/custom/bthttpbody/deletebthttpbodycond`;
+ export const DELETE_BT_BODY = `${SERVICE_URL}/custom/bthttpbody/delete`;

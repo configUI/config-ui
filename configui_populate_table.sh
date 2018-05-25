@@ -710,3 +710,5 @@ INSERT INTO config.profile_async_type_assoc(assoc_id,container_id,enabled,profil
 
 COMMIT;
 +
+
+CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;

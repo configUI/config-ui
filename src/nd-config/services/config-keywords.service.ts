@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 import { Subscription } from 'rxjs/Subscription';
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,BTResponseHeaderData,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -747,5 +747,30 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   downloadReports(data){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
 }
+
+  /** Add BT HTTP BODY */
+  addBtHttpBody(data, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_BODY_URL}/${profileId}`, data);
+  }
+
+    /** Get all BT Http body data */
+    getBtHttpBodyData(profileId): Observable<BTHTTPBody[]> {
+      return this._restApi.getDataByGetReq(`${URL.FETCH_BTHTTP_BODY_URL}/${profileId}`);
+    }
+
+      /* Edit  BT HTTP Body Info */
+  editBTHTTPBody(data): Observable<BTHTTPBody> {
+    return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_BODY}/${data.id}`, data);
+  }
+
+    /** Delete HTTP Body Conditions  */
+    deleteHTTPBodyConditions(listOfIds) {
+      return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_BODY_COND}`, listOfIds);
+    }
+
+      /** Delete BT HTTP Body Info */
+  deleteBTHTTPBody(data, profileId): Observable<BTHTTPBody> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_BT_BODY}/${profileId}`, data);
+  }
 }
 
