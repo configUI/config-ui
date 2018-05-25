@@ -467,7 +467,13 @@ export class CustomKeywordsComponent implements OnInit {
       this.isValueDisabled = true;
     }
   }
-  
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */ 
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Advance","Custom Configuration",this.agentType );
+  }
  /* change Browse boolean value on change component */
  ngOnDestroy() {
    this.isCustomConfigurationBrowse = false;

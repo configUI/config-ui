@@ -151,6 +151,13 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
   }
+/**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("General","Hotspot",this.agentType);
+}
 
   ngOnDestroy() {
     this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;

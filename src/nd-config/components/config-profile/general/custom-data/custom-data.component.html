@@ -5,6 +5,7 @@
             </p-checkbox>
 
             <div class="pull-right">
+                <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
                 <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
                 <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
 

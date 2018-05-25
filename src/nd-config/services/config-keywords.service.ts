@@ -24,6 +24,14 @@ import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 @Injectable()
 export class ConfigKeywordsService {
 
+//Method getHelpContent() is used to support Help Notification feature
+  private helpContent = new Subject<Object>();
+  helpContent$ = this.helpContent.asObservable();
+  public getHelpContent(component:string,module:string,agentType: string) {
+   this.helpContent.next({"component": component, "module": module , "agentType" : agentType});
+  
+ }
+
   /**It stores keyword data */
   private _keywordData: Object;
 

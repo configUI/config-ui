@@ -46,11 +46,13 @@ export class HeaderComponent implements OnInit {
   keywordList = ['captureHTTPReqFullFp', 'captureHTTPRespFullFp'];
 
   profileId: number;
+  agentType:string;
 
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
    *  to boolean value
    */
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<Object>, private configCustomDataService: ConfigCustomDataService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) {
+    this.agentType = sessionStorage.getItem("agentType");
     this.subscription = this.store.select("keywordData").subscribe(data => {
       if (!data)
         return;
@@ -219,7 +221,13 @@ export class HeaderComponent implements OnInit {
       this.splitKeywordData(this.header);
       // this.methodTosetValue(this.exception);
   }
-
+  /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("General","Header",this.agentType );
+}
 
 }
 //Contains httpReqFullFp Keyword variables

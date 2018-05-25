@@ -79,6 +79,13 @@ export class DebugComponent {
     })
       this.debug = keywordDataVal;
   }
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */ 
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Advance","Debug Level",this.agentType );
+}
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

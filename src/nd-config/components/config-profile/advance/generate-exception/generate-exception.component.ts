@@ -35,6 +35,7 @@ export class GenerateExceptionComponent implements OnInit {
   // enableGroupKeyword: boolean;
 
   isProfilePerm: boolean;
+  agentType:string;
   // Items to be displayed in Exception Type drop-down menu
   createExceptionTypeSelectType() {
     this.exceptionType = [];
@@ -56,6 +57,7 @@ export class GenerateExceptionComponent implements OnInit {
    */
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, ) {
+    this.agentType = sessionStorage.getItem("agentType");
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -138,7 +140,13 @@ export class GenerateExceptionComponent implements OnInit {
     return genExceptionKeywordVaule;
 
   }
-
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Advance","Generate Exception In Method",this.agentType );
+  }
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

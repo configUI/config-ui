@@ -4,6 +4,7 @@
             <span class="configui-float-css">Custom Configuration List
                 </span>
             <span class="configui-float">
+                <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
                  <button pButton type="button" title="Add Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
                  <button pButton type="button" title="Add Custom configuration" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddDialog()" icon="fa-plus"></button>
                  <button pButton type="button" title="Edit Custom configuration" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>

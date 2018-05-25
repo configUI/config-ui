@@ -1160,3 +1160,9 @@ body {
 .browseTopCssinfo .ui-dialog {
     top: 203px;
 }
+
+
+.helpDialogHeight .ui-dialog.ui-widget .ui-dialog-content 
+{
+    max-height: 495px !important;
+}
