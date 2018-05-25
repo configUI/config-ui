@@ -181,7 +181,7 @@
         <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
       </template>
         </p-column>
-        <p-column class="col-overflow" field="paramKeyValue" header="Query HTTP Parameters Key" [sortable]="true" [style]="{'width':'9%'}">
+        <p-column class="col-overflow" field="reqParamKeyVal" header="Query HTTP Parameters Key" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
         <span title="{{application[col.field]}}">{{application[col.field]}}</span>
       </template>
@@ -196,15 +196,15 @@
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
-       <!--  <p-column class="col-overflow" *ngIf="agentType != 'NodeJS'" header="Sub BT detail" [style]="{'width':'9%'}">
-            <template let-col let-application="rowData" pTemplate type="body">
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="!isProfilePerm" [disabled]="isProfilePerm || application.headerKeyValue == 'undefined' || application.headerKeyValue == '-' || application.reqHeaderValue == null || application.reqHeaderValue == ''" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
-              <button pButton type="button" title="Sub Business Transaction Pattern Detail" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openSubPatternDetailDialog(application)" label="Detail"></button>
-
-            </template>
-        </p-column>-->
-
     </p-dataTable>
+
+    <!-- Download reports as PDF,Excel and Word File  -->
+    <div style="margin-top:5px">
+        <label>Download Reports as: </label>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")' src='./images/iconWord.gif'></span>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")' src='./images/iconExcel.gif'></span>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")' src='./images/iconPDF.gif'></span>
+    </div>
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
@@ -284,34 +284,7 @@
                 <div class="ui-g-12">
                     <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request Properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox>
                 </div>
-                <!-- <div class="ui-g-12" style="padding-left: 27px">
-                    <p-checkbox name="reqParamKey" label="Query HTTP Parameters Key" [disabled]="!businessTransPatternDetail.dynamicPartReq" [(ngModel)]="reqParamKeyCheck" binary="false"></p-checkbox>
-                </div> -->
-                <!-- <div class="ui-g-12" style="padding-left: 27px">
-                    <div class="ui-g-6">
-                        <p-dataTable class="nde-ui" [rows]="2" [value]="reqParamInfo" [paginator]="5" [(selection)]="selectedReqParam" *ngIf="reqParamKeyCheck" [pageLinks]="2">
-                            <p-header>
-                                <span style="float: left;">  Request parameters list  </span>
-                                <span style="float: right; margin-top:-3px">
-                       <button pButton type="button" title="Add a request parameter" (click)="openReqKeyValDialog()"  icon="fa-plus"></button>
-                        <button pButton type="button" title="Edit a request parameter" (click)="openEditReqParamDialog()"  icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete request parameters" (click)="deleteReqParam()" icon="fa-trash"></button>
-                    </span>
-                            </p-header>
-                            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                            <p-column class="col-overflow" field="key" header="Key" [sortable]="true">
-                                <template let-col let-application="rowData">
-                  <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                </template>
-                            </p-column>
-                            <p-column class="col-overflow" field="value" header="Value" [sortable]="true">
-                                <template let-col let-application="rowData">
-                  <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                </template>
-                            </p-column>
-                        </p-dataTable>
-                    </div>
-                </div> -->
+
 
                 <div class="ui-g-12">
                     <div class="ui-g-6" style="padding-left: 20px">
@@ -374,6 +347,7 @@
         </footer>
     </form>
 </p-dialog>
+
 <!--Dialog to open file explorer dialog -->
 <p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
 
@@ -381,154 +355,4 @@
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer-->
 
     <!--<app-config-nd-file-explorer></app-config-nd-file-explorer>-->
-</p-dialog>
-
-<!-- Dialog to open request parameter key and value -->
-<p-dialog class="profile-dialog" header="{{isNewParam ? 'Add Details' : 'Edit Details'}}" *ngIf="openReqKeyVal" [(visible)]="openReqKeyVal" modal="modal" width="350" responsive="true" [resizable]="false">
-    <form (ngSubmit)="saveReqParam()" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g-12">
-            <div class="ui-g-3">
-                <label>Key</label>
-            </div>
-            <div class="ui-g-6">
-                <input name="reqParamKey" type="text" pInputText [(ngModel)]="reqParamDetail.key" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric" pattern="[a-zA-Z_-]+[a-zA-Z0-9]*$"
-                    (keydown.space)="$event.preventDefault()" required ngModel/>
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-3">
-                <label>Value</label>
-            </div>
-            <div class="ui-g-6">
-                <input name="reqParamValue" type="text" pInputText [(ngModel)]="reqParamDetail.value" title="Please enter valid value. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Cannot include special characters except /,@,|,-,*,? and underscore" pattern="[a-zA-Z0-9_\/.|@&=?*-]+$"
-                    (keydown.space)="$event.preventDefault()" />
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeReqKeyValDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
-</p-dialog>
-
-<!--Dialog for ADD and Edit Sub Pattern -->
-<p-dialog class="profile-dialog" header="Sub Business Transaction Pattern Detail" *ngIf="detailOfSubBTPatternDialog" [(visible)]="detailOfSubBTPatternDialog" modal="modal" width="950" responsive="true" [resizable]="false">
-    <div class="ui-g-12 pattern-dialog-border">
-        <p-dataTable class="nde-ui" [value]="subBusinessTransPatternInfo" [(selection)]="selectedSubPatternData" [rows]="10" [paginator]="subBusinessTransPatternInfo?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]">
-            <p-header>
-                <span style="float: left;">Sub Business Transaction Pattern Detail</span>
-                <span style="float: right; margin-top:-3px">
-                       <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddSubPatternDialog()" icon="fa-plus"></button>
-		               <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddSubPatternDialog()" icon="fa-plus"></button>
-                       <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="editSubPatternDialog()" icon="fa-pencil" ></button>
-		               <button pButton type="button" title="Edit a Business Transaction Pattern" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editSubPatternDialog()" icon="fa-pencil" ></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteSubPattern()" icon="fa-trash"></button>
-		               <button pButton type="button"class="ui-button-danger" title="Delete Business Transaction Pattern(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteSubPattern()" icon="fa-trash"></button>
-                    </span>
-            </p-header>
-            <p-column [style]="{'width':'1%'}" selectionMode="multiple"></p-column>
-            <p-column class="col-overflow" field="btName" header="Name" [sortable]="true" [style]="{'width':'9%'}">
-                <template let-col let-application="rowData" pTemplate type="body">
-        <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
-      </template>
-            </p-column>
-            <p-column class="col-overflow" field="include" header="BT Included" [sortable]="true" [style]="{'width':'6%'}">
-                <template let-col let-application="rowData" pTemplate type="body">
-            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-          </template>
-            </p-column>
-            <p-column class="col-overflow" field="slowTransaction" header="Slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'10%'}">
-                <template let-col let-application="rowData" pTemplate type="body">
-                  <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
-                </template>
-            </p-column>
-
-            <p-column class="col-overflow" field="verySlowTransaction" header="Very Slow Transaction Threshold(ms)" [sortable]="true" [style]="{'width':'10%'}">
-                <template let-col let-application="rowData" pTemplate type="body">
-                 <span title="{{application[col.field]}}" style="float:right">{{application[col.field]}}</span>
-               </template>
-            </p-column>
-            <p-column class="col-overflow" field="headerKeyValue" header="HTTP Request Headers Key" [sortable]="true" [style]="{'width':'9%'}">
-                <template let-col let-application="rowData" pTemplate type="body">
-                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-               </template>
-            </p-column>
-        </p-dataTable>
-    </div>
-    <footer>
-        <div class="ui-dialog-buttonpane ui-widget-content">
-            <button type="button" pButton icon="fa-check" (click)="closeSubPatternListDialog()" label="Done"></button>
-        </div>
-    </footer>
-</p-dialog>
-
-<p-dialog class="profile-dialog" header="{{isNewSubApp ? 'Add Sub Business Transaction Pattern' : 'Edit Sub Business Transaction Pattern'}}" *ngIf="addEditSubPatternDialog" [(visible)]="addEditSubPatternDialog" modal="modal" width="750" responsive="true"
-    [resizable]="false">
-    <form (ngSubmit)="saveADDEditSubBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
-        <div class="ui-g">
-
-            <div class="ui-g-12">
-                <div class="ui-g-3">
-                    <label>Business Transaction Name</label>
-                </div>
-                <div class="ui-g-4">
-                    <input name="btName" type="text" size="32" pInputText pattern="^[a-zA-Z0-9_#@./&-]{0,99}$" [(ngModel)]="businessTransPatternDetail.btName" autofocus required ngModel/>
-                </div>
-                <div class="ui-g-4" style="margin-left: 10px;">
-                    <p-checkbox name="include" label="Exclude this Business Transaction" [(ngModel)]="chkInclude" binary="false"></p-checkbox>
-                </div>
-            </div>
-
-            <div class="ui-g-12">
-                <div class="ui-g-4 label">
-                    <label>Transaction Response Time Threshold Value</label>
-                </div>
-                <div class="ui-g-1 label" style="margin-left: 7px;margin-top: 5px">
-                    <label>Slow</label>
-                </div>
-                <div class="ui-g-2" style="margin-left: -15px">
-                    <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:90px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />
-                </div>
-                <div class="ui-g-1" style="margin-left: -19px;margin-top: 5px">ms</div>
-                <div class="ui-g-1 label" style="margin-left: -20px;margin-top: 5px">
-                    <label>Very Slow</label>
-                </div>
-                <div class="ui-g-2">
-                    <input name="verySlowTransaction" #vslow (input)="checkVSlow(slow, vslow)" style="text-align:right ; width:90px" type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />
-                </div>
-                <div class="ui-g-1" style="margin-left: -19px;margin-top: 5px">ms</div>
-            </div>
-
-            <div class="ui-g-12">
-                <!-- <p-checkbox name="dynamicPartReq" label="Select Dynamic HTTP Request properties" [(ngModel)]="businessTransPatternDetail.dynamicPartReq" binary="false"></p-checkbox> -->
-                <div class="ui-g-6">
-                    <div class="ui-g-6">
-                        <label>HTTP Request Headers Key</label>
-                    </div>
-                    <div class="ui-g-6">
-                        <input name="reqHeaderKey" type="text" size="25" [disabled]="true" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderKey" title="Please enter valid key value. &#013;Rule 1:Cannot include whitespaces & special characters . &#013;Rule 2: First character can't be numeric"
-                            pattern="[a-zA-Z_-]+[a-zA-Z0-9]*$" (keydown.space)="$event.preventDefault()" />
-                    </div>
-                </div>
-                <div class="ui-g-6">
-                    <div class="ui-g-2" style="margin-left: 70px; margin-top: 4px;">
-                        <label>Value</label>
-                    </div>
-                    <div class="ui-g-7">
-                        <input name="reqHeaderValue" type="text" size="25" pInputText [(ngModel)]="businessTransPatternDetail.reqHeaderValue" title="Please enter valid value. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Cannot include special characters except /,@,|,-,*,? and underscore"
-                            pattern="[a-zA-Z0-9_\/.|@&=?*-]+$" (keydown.space)="$event.preventDefault()" required ngModel/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeAddEditSubBTDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
 </p-dialog>
