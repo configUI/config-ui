@@ -64,16 +64,22 @@ export class BTHTTPHeadersComponent implements OnInit {
     saveDisable: boolean = false;
     isProfilePerm: boolean;
 
+    /** To open file explorer dialog */
+    openFileExplorerDialog: boolean = false;
+    isbTHTTPHdrBrowse: boolean;
+
     constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     }
     ngOnInit() {
-        this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+        this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
         this.route.params.subscribe((params: Params) => {
             this.profileId = params['profileId'];
-            if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-                this.saveDisable =  true;
+            if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+                this.saveDisable = true;
         });
-
+        this.configKeywordsService.fileListProvider.subscribe(data => {
+            this.uploadFile(data);
+        });
         //Request to get all BT HTTP headers data
         this.configKeywordsService.getBTHttpHdrData(this.profileId).subscribe(data => {
             this.btHttpHeadersInfo = data;
@@ -82,7 +88,6 @@ export class BTHTTPHeadersComponent implements OnInit {
 
         this.btHttpHeadersDetail = new BTHTTPHeaderData();
         this.headerConditionDetail = new BTHTTPHeaderConditions();
-
     }
 
     //opens add request conditions dialog
@@ -133,15 +138,31 @@ export class BTHTTPHeadersComponent implements OnInit {
     saveAddEditHttpheaders() {
         //When add new HTTP Headers
         if (this.isNewHeader) {
-
-            this.saveHttpHeaders();
+            if(this.checkHeaderNameAlreadyExist()){
+                return;
+            }
+                 this.saveHttpHeaders();
         }
 
         //When add edit HTTP Headers
         else {
-            this.editHttpHeader();
+            if(this.selectedHTTPHeaders[0].headerName != this.btHttpHeadersDetail.headerName){
+                if(this.checkHeaderNameAlreadyExist()){
+                    return;
+                }
+            }
+                this.editHttpHeader();
         }
     }
+        //Method to check redundancy for Header Name
+        checkHeaderNameAlreadyExist(): boolean {
+            for (let i = 0; i < this.btHttpHeadersInfo.length; i++) {
+                if (this.btHttpHeadersInfo[i].headerName == this.btHttpHeadersDetail.headerName) {
+                    this.configUtilityService.errorMessage("Header Name already exist");
+                    return true;
+                }
+            }
+        }
 
     //Method to save new HTTP Headers
     saveHttpHeaders() {
@@ -206,7 +227,7 @@ export class BTHTTPHeadersComponent implements OnInit {
 
     //Opens edit HTTP Headers dialog
     openEditHttpHeader() {
-         this.selectedRequestHeader = [];
+        this.selectedRequestHeader = [];
         this.btHttpHeadersDetail = new BTHTTPHeaderData();
         if (!this.selectedHTTPHeaders || this.selectedHTTPHeaders.length < 1) {
             this.configUtilityService.errorMessage("Select a row to edit");
@@ -285,6 +306,13 @@ export class BTHTTPHeadersComponent implements OnInit {
         if (!this.isNewHeader) {
             if (this.editConditions) {
                 //In edit form to edit conditions
+                // Purpose: The below if block is required for checking redundancy for  BT Name 
+                if (this.selectedRequestHeader[0].btName != this.headerConditionDetail.btName) {
+                    if (this.checkBTNameAlreadyExist()) {
+                        return;
+                    }
+                }
+                
                 this.isNewCond = false;
                 this.editConditions = false;
                 let that = this;
@@ -299,11 +327,13 @@ export class BTHTTPHeadersComponent implements OnInit {
             }
 
             else {
-                //In edit form to add conditions
-                this.isNewCond = true;
-                this.headerConditionDetail["id"] = this.condCountEdit;
-                this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
-                this.condCountEdit = this.condCountEdit + 1;
+                if (this.checkBTNameAlreadyExist()) {
+                    return;
+                }
+                    this.isNewCond = true;
+                    this.headerConditionDetail["id"] = this.condCountEdit;
+                    this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
+                    this.condCountEdit = this.condCountEdit + 1;
             }
         }
 
@@ -311,6 +341,12 @@ export class BTHTTPHeadersComponent implements OnInit {
         else {
             //In add form, to edit conditions
             if (this.editConditions) {
+                // Purpose: The below if block is required for checking redundancy for Bt Name
+                if (this.selectedRequestHeader[0].btName != this.headerConditionDetail.btName) {
+                    if (this.checkBTNameAlreadyExist()) {
+                        return;
+                    }
+                }
                 this.isNewCond = false;
                 this.editConditions = false;
                 let that = this;
@@ -325,15 +361,29 @@ export class BTHTTPHeadersComponent implements OnInit {
             }
 
             else {
-                //In add form to add conditions
-
-                this.isNewCond = true;
-                this.headerConditionDetail["id"] = this.condCount;
-                this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
-                this.condCount = this.condCount + 1;
+                if (this.checkBTNameAlreadyExist()) {
+                    return;
+                }
+                else //In add form to add conditions
+                {
+                    this.isNewCond = true;
+                    this.headerConditionDetail["id"] = this.condCount;
+                    this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
+                    this.condCount = this.condCount + 1;
+                }
             }
         }
         this.addReqDialog = false;
+    }
+
+    //Method to check redundancy for BT Name
+    checkBTNameAlreadyExist(): boolean {
+        for (let i = 0; i < this.headerConditionInfo.length; i++) {
+            if (this.headerConditionInfo[i].btName == this.headerConditionDetail.btName) {
+                this.configUtilityService.errorMessage("BT Name already exist");
+                return true;
+            }
+        }
     }
 
     //Method to delete request headers
@@ -408,11 +458,11 @@ export class BTHTTPHeadersComponent implements OnInit {
         //For stores table row index
         let rowIndex: number[] = [];
 
-       if(arrReqIndex.length < 1){
+        if (arrReqIndex.length < 1) {
             this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;    
+            return;
         }
-       for (let index in arrReqIndex) {
+        for (let index in arrReqIndex) {
             rowIndex.push(this.getCondIndex(arrReqIndex[index]));
         }
         this.headerConditionInfo = deleteMany(this.headerConditionInfo, rowIndex);
@@ -461,6 +511,53 @@ export class BTHTTPHeadersComponent implements OnInit {
     //Closing BT HTTP Headers dialog
     closeDialog() {
         this.addResReqHeaderDialog = false;
+    }
+
+
+
+
+
+    openFileManager() {
+        this.openFileExplorerDialog = true;
+        this.isbTHTTPHdrBrowse = true;
+    }
+
+    /** This method is called form ProductUI config-nd-file-explorer component with the path
+   ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+    /* dialog window & set relative path */
+    uploadFile(filepath) {
+        if (this.isbTHTTPHdrBrowse == true) {
+            this.isbTHTTPHdrBrowse = false;
+            this.openFileExplorerDialog = false;
+            let fileNameWithExt: string;
+            let fileExt: string;
+            fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+            fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
+            let check: boolean;
+            if (fileExt == ".btr" || fileExt == ".txt") {
+                check = true;
+            }
+            else {
+                check = false;
+            }
+            if (check == false) {
+                this.configUtilityService.errorMessage("File Extension(s) other than .txt and .btr are not supported");
+                return;
+            }
+
+            if (filepath.includes(";")) {
+                this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+                return;
+            }
+            this.configKeywordsService.uploadBTHTTPHdrFile(filepath, this.profileId).subscribe(data => {
+                if (data.length == this.btHttpHeadersInfo.length) {
+                    this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
+                }
+                this.btHttpHeadersInfo = data;
+                this.modifyData(data);
+            });
+        }
     }
 }
 

@@ -1,6 +1,6 @@
-// const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 // const  SERVICE_URL = 'https://10.10.40.14/configUI';
- const  SERVICE_URL = 'http://localhost:8090';
+//  const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -216,6 +216,7 @@ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
 export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
+export const UPLOAD_BT_METHOD_FILE = `${SERVICE_URL}/custom/btmethod/uploadfile`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;
@@ -271,6 +272,7 @@ export const FETCH_BTHTTP_HDR_URL = `${SERVICE_URL}/custom/bthttpheader/getallbt
 export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
+export const UPLOAD_BT_HTTP_HDR_FILE = `${SERVICE_URL}/custom/bthttpheader/uploadfile`;
 
 /**** URL for BT Response Headers */
 export const BT_RESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader`;
@@ -357,3 +359,6 @@ export const ENABLE_ASYNCHRONOUS_RULE_TYPE = `${SERVICE_URL}/custom/ndasynchrono
 
 /* URL for get user Name */
 export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
+
+ /* URL to download file in doc/pdf/csv file format */
+ export const DOWNLOAD_REPORTS = `${SERVICE_URL}/custom/download/downloadreports`;

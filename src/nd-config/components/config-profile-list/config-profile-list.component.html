@@ -1,165 +1,161 @@
 <div class="ndegui-mainbox">
-  <div class="configUI">
-    <div class="header"><i aria-hidden="true"></i> Profile List
-      <span class="appIcon-css">
+    <div class="configUI">
+        <div class="header"><i aria-hidden="true"></i> Profile List
+            <span class="appIcon-css">
       <button pButton type="button" title="Export" [disabled]="isProfilePerm" (click)="exportProfile()" icon="fa-upload" label="Export"></button>
       <button pButton type="button" title="Import" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-download" label="Import"></button>
       <button pButton type="button" title="Add Profile" [disabled]="isProfilePerm" (click)="openProfileDialog()" icon="fa-plus"></button>
       <button pButton type="button"class="ui-button-danger" title="Delete Profile(s)" [disabled]="isProfilePerm" (click)="deleteProfile()" icon="fa-trash"></button>
     </span>
-    </div>
-    <div class="config-ui-table-margin">
-      <p-dataTable [value]="profileData" [rows]="15" [(selection)]="selectedProfileData" [paginator]="profileData?.length > 15"
-        [pageLinks]="3" class="nde-ui">
-        <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-        <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
-          <template let-col let-profile="rowData" pTemplate>
+        </div>
+        <div class="config-ui-table-margin">
+            <p-dataTable [value]="profileData" [rows]="15" [(selection)]="selectedProfileData" [paginator]="profileData?.length > 15" [pageLinks]="3" class="nde-ui">
+                <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+                <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
+                    <template let-col let-profile="rowData" pTemplate>
             <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
           </template>
-        </p-column>
-        <p-column class="tableCss" field="agent" header="Agent" [sortable]="true" [style]="{'width':'11%'}">
-          <template class="tableCss" let-col let-profile="rowData" pTemplate>
+                </p-column>
+                <p-column class="tableCss" field="agent" header="Agent" [sortable]="true" [style]="{'width':'11%'}">
+                    <template class="tableCss" let-col let-profile="rowData" pTemplate>
             <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Dot Net'"><i class="icon ndegui-dotnet dotnet-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
             <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
             <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == 'Java'"><i class="icon ndegui-java java-color" ></i><label style="margin-left:5px;">{{profile[col.field]}}</label></span>
             <span title="{{profile[col.field]}}" *ngIf="profile[col.field] == '-'">{{profile[col.field]}}</span>
           </template>
-        </p-column>
-        <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
-          <template let-col let-profile="rowData" pTemplate>
+                </p-column>
+                <p-column class="tableCss" field="timeStamp" header="Last updated on" [sortable]="true" [style]="{'width':'11%'}">
+                    <template let-col let-profile="rowData" pTemplate>
             <span class="timpStamp-float-css" title="{{profile[col.field]}}">{{profile[col.field]}}</span>
           </template>
-        </p-column>
-        <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
-          <template let-col let-profile="rowData" pTemplate>
+                </p-column>
+                <p-column class="tableCss" field="profileDesc" header="Description" [sortable]="true" [style]="{'width':'40%'}">
+                    <template let-col let-profile="rowData" pTemplate>
             <span title="{{profile[col.field]}}">{{profile[col.field]}}</span>
           </template>
-        </p-column>
-      </p-dataTable>
+                </p-column>
+            </p-dataTable>
+
+            <div style="margin-top:5px">
+                <label>Download Reports as: </label>
+                <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")' src='../../../../../../images/iconWord.gif'></span>
+                <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")' src='../../../../../../images/iconExcel.gif'></span>
+                <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")' src='../../../../../../images/iconPDF.gif'></span>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 <!--Dialog for Adding New Profile -->
 
-<p-dialog class="profile-dialog" [resizable]="false" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile"
-  modal="modal" width="500" responsive="true">
-  <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
-    <div class="ui-g">
-      <div class="ui-g-4">
-        <label>Name</label>
-      </div>
-      <div class="ui-g-8">
-        <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName"
-          title="Please enter valid profile name. &#013;Profile name is of maximum 30 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-          autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
-      </div>
-    </div>
-    <div class="ui-g">
-      <div class="ui-g-4">
-        <label>Agent</label>
-      </div>
-      <div class="ui-g-8">
-        <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.agent"
-          required ngModel/>
-        <p-dropdown [options]="agentList" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.agent" (ngModelChange)="getAgentSpecificProfiles($event)"
-          placeholder="Select an agent"></p-dropdown>
-      </div>
-    </div>
-    <div class="ui-g">
-      <div class="ui-g-4">
-        <label>Copy profile</label>
-      </div>
-      <div class="ui-g-8">
-        <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.parentProfileId"
-          required ngModel/>
-        <p-dropdown [options]="profileListItem" name="dropdown1" [style]="{'width':'210px'}" required [(ngModel)]="profileDetail.parentProfileId"
-          placeholder="Select a Profile to be copied" appendTo="body"></p-dropdown>
-      </div>
-    </div>
-    <div class="ui-g">
-      <div class="ui-g-4">
-        <label>Description</label>
-      </div>
-      <div class="ui-g-8">
-        <textarea name="profileDesc" rows="2" cols="30" class="configUI-profile-dialog" pInputTextarea [(ngModel)]="profileDetail.profileDesc"
-          ngModel></textarea>
-      </div>
-    </div>
-    <footer>
-      <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-        <button type="submit" pButton icon="fa-check" label="Save"></button>
-        <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
-      </div>
-    </footer>
-  </form>
+<p-dialog class="profile-dialog" [resizable]="false" header="Add Profile" *ngIf="displayNewProfile" [(visible)]="displayNewProfile" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveNewProfile()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Profile name is of maximum 30 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Agent</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="dropdown" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.agent" required ngModel/>
+                <p-dropdown [options]="agentList" name="dropdown" [style]="{'width':'210px'}" [(ngModel)]="profileDetail.agent" (ngModelChange)="getAgentSpecificProfiles($event)" placeholder="Select an agent"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Copy profile</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileDetail.parentProfileId" required ngModel/>
+                <p-dropdown [options]="profileListItem" name="dropdown1" [style]="{'width':'210px'}" required [(ngModel)]="profileDetail.parentProfileId" placeholder="Select a Profile to be copied" appendTo="body"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Description</label>
+            </div>
+            <div class="ui-g-8">
+                <textarea name="profileDesc" rows="2" cols="30" class="configUI-profile-dialog" pInputTextarea [(ngModel)]="profileDetail.profileDesc" ngModel></textarea>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="displayNewProfile=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>
 
-<p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg"
-  modal="modal" width="420" responsive="true">
-  Profile cannot be deleted as it is applied at following level(s) : <br>
-  <ul>
-    <li *ngFor="let msg of displayErrMsg">
-      <span>{{msg}}</span>
-    </li>
-  </ul>
-  <footer>
-    <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-      <button type="button" pButton (click)="showMsg=false" icon="fa-check" label="Ok"></button>
-    </div>
-  </footer>
+<p-dialog class="profile-dialog" header="Applied profile information" [resizable]="false" *ngIf="showMsg" [(visible)]="showMsg" modal="modal" width="420" responsive="true">
+    Profile cannot be deleted as it is applied at following level(s) : <br>
+    <ul>
+        <li *ngFor="let msg of displayErrMsg">
+            <span>{{msg}}</span>
+        </li>
+    </ul>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+            <button type="button" pButton (click)="showMsg=false" icon="fa-check" label="Ok"></button>
+        </div>
+    </footer>
 </p-dialog>
 
 <!--Dialog to open import file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
-  modal="modal" width="650" responsive="true" [resizable]="false">
-  <!-- This will look for this component in the ProductUI at this path -
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
+    <!-- This will look for this component in the ProductUI at this path -
   ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-  <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer>  -->
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer>  -->
 </p-dialog>
 
 <!--Dialog to open export file profile dialog -->
 <p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Export Profile" *ngIf="exportDialog" [(visible)]="exportDialog" modal="modal" width="500" responsive="true" [resizable]="false">
-  <form (ngSubmit)="saveExportpath()" #groupForm="ngForm" ngNativeValidate>
-    <div class="ui-g">
-      <div class="ui-g-3">
-          <label>Export Path</label>
-          <i class="fa fa-info-circle" aria-hidden="true" title="The provided value is the desired path on which user wants to export the profile"></i>
-      </div>
-      <div class="ui-g-9">
-          <input name="exportPath" type="text" style="width:100%" class="configui-hotspot-css" title="Please enter a valid path"
-              pInputText [(ngModel)]= "exportPath" ngModel />
-      </div>
-    </div>
-    <footer>
-      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-        <button type="submit" pButton icon="fa-check" label="Save"></button>
-        <button type="button" pButton icon="fa-close" (click)="exportDialog=false" label="Cancel"></button>
-      </div>
-    </footer>
-  </form>
+    <form (ngSubmit)="saveExportpath()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Export Path</label>
+                <i class="fa fa-info-circle" aria-hidden="true" title="The provided value is the desired path on which user wants to export the profile"></i>
+            </div>
+            <div class="ui-g-9">
+                <input name="exportPath" type="text" style="width:100%" class="configui-hotspot-css" title="Please enter a valid path" pInputText [(ngModel)]="exportPath" ngModel />
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="exportDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>
 
 <!--Dialog to open import profile edit profile dialog -->
 <p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Edit Import Profile Name" *ngIf="editImportProfileDialog" [(visible)]="editImportProfileDialog" modal="modal" width="500" responsive="true" [resizable]="false">
-  <form (ngSubmit)="saveEditProfile()" #groupForm="ngForm" ngNativeValidate>
-    <div class="ui-g">
-      <div class="ui-g-3">
-          <label>Profile Name</label>
-      </div>
-      <div class="ui-g-9">
-          <input name="editProfile" type="text" style="width:100%" class="configui-hotspot-css" title="Please enter a valid profile name"
-              pInputText [(ngModel)]= "editProfile" required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
-      </div>
-    </div>
-    <div class="ui-g">
+    <form (ngSubmit)="saveEditProfile()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Profile Name</label>
+            </div>
+            <div class="ui-g-9">
+                <input name="editProfile" type="text" style="width:100%" class="configui-hotspot-css" title="Please enter a valid profile name" pInputText [(ngModel)]="editProfile" required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
+            </div>
+        </div>
+        <div class="ui-g">
 
-    </div>
-    <footer>
-      <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="margin-top: 1px;">
-        <button type="submit" pButton icon="fa-check" label="Save"></button>
-        <button type="button" pButton icon="fa-close" (click)="editImportProfileDialog=false" label="Cancel"></button>
-      </div>
-    </footer>
-  </form>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="margin-top: 1px;">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="editImportProfileDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>

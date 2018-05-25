@@ -522,6 +522,10 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   editBTHTTPHeaders(data): Observable<BTHTTPHeaderData> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_HEADER}/${data.headerId}`, data);
   }
+  /** Method to upload file */
+  uploadBTHTTPHdrFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_HTTP_HDR_FILE}/${profileId}`, filePath);
+  }
 
   /** Add BT HTTP RESPONSE HEADERS */
   addBtResponseHeaders(data, profileId) {
@@ -735,5 +739,14 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
     }
+    
+  /** Method to upload file */
+  uploadBTMethodFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
+  }
+
+  downloadReports(data){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
+}
 }
 
