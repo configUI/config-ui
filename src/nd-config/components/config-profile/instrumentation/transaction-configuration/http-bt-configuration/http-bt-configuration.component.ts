@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-// import { Logger } from '../../../../../../../../vendors/angular2-logger/core';
 
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
@@ -81,9 +80,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
   businessTransPatternDetail: BusinessTransPatternData;
 
   chkInclude: boolean = false;
-
-  asyncTrans: boolean = false;
-
   saveDisable: boolean = false;
 
   isBTPatternBrowse: boolean = false;
@@ -110,16 +106,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
   BusinessTransGlobalPattern: Object;
   agentType: string = "";
 
-  // keywords for add sub Bt pattern
-  detailOfSubBTPatternDialog: boolean;
-  addEditSubPatternDialog: boolean;
-  subBusinessTransPatternInfo: BusinessTransPatternData[];
-  isNewSubApp: boolean = false;
-  selectedSubPatternData: any;
   reqHeaderKey: string;
 
   selectedBtId: number;
 
+  asyncTrans: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private configKeywordsService: ConfigKeywordsService,
@@ -127,7 +118,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
     private configUtilityService: ConfigUtilityService,
     private confirmationService: ConfirmationService,
     private configHomeService: ConfigHomeService
-    // private log: Logger,
   ) {
 
     this.configHomeService.selectedValueOfBT$.subscribe(data => {
@@ -171,8 +161,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.globalBtDetail.segmentType = 'FromFirst';
 
-    // this.globalBtDetail.segmentURI = 'segmentOfURI';
-
     this.globalBtDetail.requestHeader = '';
 
     this.globalBtDetail.requestParam = '';
@@ -181,7 +169,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.globalBtDetail.segmentNo = '';
 
-    //this.segmentURI = 'segmentOfURI';
   }
 
   ngOnInit() {
@@ -202,6 +189,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     });
   }
 
+
+  /**
+   * This method is used to get the keyword data
+   */
   getKeywordData() {
     let keywordData;
     //hasOwnProperty is undefined on refreshing page, checking for keywordData if it is undefined or not
@@ -226,6 +217,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
     });
   }
 
+
+  /**
+   * This method is used to set the keyword values
+   * @param value 
+   */
   setSelectedValueOfBT(value) {
     if (value == true) {
       value = this.selectedQueryPattern;
@@ -256,25 +252,24 @@ export class HTTPBTConfigurationComponent implements OnInit {
     });
   }
 
+
+  /**
+   * This method is used to load the BTPattern data
+   */
   loadBTPatternData(): void {
     this.configKeywordsService.getBusinessTransPatternData(this.profileId).subscribe(data => {
       this.selectedPatternData = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].paramKeyValue == null || data[i].paramKeyValue == "NA") {
-          data[i].paramKeyValue = "-";
-        }
-        if (data[i].reqMethod == null) {
-          data[i].reqMethod = "-";
-        }
-        if (data[i].headerKeyValue == null || data[i].headerKeyValue == "NA") {
-          data[i].headerKeyValue = "-";
-        }
-      }
-
+      // The below method is called to set all values that contains "-" to null
+      this.methodToSetValuesForGUI(data);
       this.businessTransPatternInfo = data;
     });
   }
 
+
+  /**
+   * This method is used to assign BTGlobal data to BTGlobal screen
+   * @param data 
+   */
   doAssignBusinessTransData(data) {
     if (data._embedded.bussinessTransGlobal.length == 1) {
       this.globalBtDetail = data._embedded.bussinessTransGlobal[data._embedded.bussinessTransGlobal.length - 1];
@@ -292,33 +287,40 @@ export class HTTPBTConfigurationComponent implements OnInit {
           this.globalBtDetail.segmentNo = this.globalBtDetail.segmentNo.replace(/%2C/g, ",")
         }
       }
-
-
     }
     else {
       this.segmentURI = 'segmentOfURI';
     }
   }
 
-  /** Reset All Global BT values */
+
+  /**
+   * This method is used to reset all BT Global values
+   */
   resetBusinessTransaction() {
     this.configKeywordsService.getBusinessTransGlobalData(this.profileId).subscribe(data => { this.doAssignBusinessTransData(data) });
   }
 
-  /** Reset All Global BT values to default */
+
+  /**
+   * This method is used to reset All BT Global values to default
+   */
   resetKeywordsDataToDefault() {
-    let profileid :number;
-    if(this.agentType == "Java")
-         profileid = 1;
-        else if(this.agentType == "Dot Net"){
-          profileid = 888888;
-        }
-          else
-            profileid = 777777;
-    this.configKeywordsService.getBusinessTransGlobalData(profileid).subscribe(data => {this.doAssignBusinessTransData(data)});
+    let profileid: number;
+    if (this.agentType == "Java")
+      profileid = 1;
+    else if (this.agentType == "Dot Net") {
+      profileid = 888888;
+    }
+    else
+      profileid = 777777;
+    this.configKeywordsService.getBusinessTransGlobalData(profileid).subscribe(data => { this.doAssignBusinessTransData(data) });
   }
 
-  /* Save all values of Business Transaction */
+
+  /**
+   * This method is used to save BT Global data
+   */
   saveBusinessTransaction() {
     this.globalBtDetail.uriType = this.segmentURI;
     if (this.globalBtDetail.dynamicReqValue == "httpMethod")
@@ -344,7 +346,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     );
   }
 
-  /**This method is used to add Pattern detail */
+
+  /**
+   * This method is used to save the newly added BT Pattern
+   */
   savePattern(): void {
     if (this.businessTransPatternDetail.dynamicPartReq == true && (this.reqParamKeyCheck == false) && (this.businessTransPatternDetail.reqHeaderKey == undefined || this.businessTransPatternDetail.reqHeaderKey == "") && (this.businessTransPatternDetail.reqParamKey == undefined || this.businessTransPatternDetail.reqParamKey == "") && (this.businessTransPatternDetail.reqMethod == undefined || this.businessTransPatternDetail.reqMethod == "-")) {
       this.configUtilityService.errorMessage("Please provide any one of the dynamic part of request");
@@ -374,14 +379,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
 
     if (this.businessTransPatternDetail.reqParamValue != undefined && this.businessTransPatternDetail.reqParamValue != "")
-      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+      this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
     else
-      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
+      this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.reqParamKey
 
     this.setDynamicValuesOFF();    //Method to set values when Dynamic part of request is disabled 
-    /**
-     * Condition to check if VALUE is filled and KEY is blank
-     */
+    // Condition to check if VALUE is filled and KEY is blank
     if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
       this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
       return;
@@ -392,35 +395,32 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
 
     this.setDynamicValuesON();  //This method is used to set the values of dynamic part components
-
-    let tempParam = this.createKeyValString();
-    // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
 
     if (this.businessTransPatternInfo.length > 0) {
       for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
-
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-           && this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
-            this.configUtilityService.errorMessage("BT name and URL already exists");
-            return;
-        }       
+          && this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
+          this.configUtilityService.errorMessage("BT name and URL already exists");
+          return;
+        }
 
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
           && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
           && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
-          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+          && this.businessTransPatternDetail.reqParamKeyVal == this.businessTransPatternInfo[i].reqParamKeyVal) {
           this.configUtilityService.errorMessage("Rule details already exists")
           return;
         }
       }
+
       for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
           && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
           && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
-          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+          && this.businessTransPatternDetail.reqParamKeyVal == this.businessTransPatternInfo[i].reqParamKeyVal) {
           if (this.businessTransPatternInfo[i].parentBtId == -1) {
             this.parentBtId = +this.businessTransPatternInfo[i].btId;
             break;
@@ -442,56 +442,28 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.reqParamKey = "-"
     }
     if (this.businessTransPatternDetail.reqHeaderKey == null) {
-      this.businessTransPatternDetail.reqHeaderKey = ""
+      this.businessTransPatternDetail.reqHeaderKey = "-"
     }
     if (this.businessTransPatternDetail.headerKeyValue == null) {
-      this.businessTransPatternDetail.headerKeyValue = ""
+      this.businessTransPatternDetail.headerKeyValue = "-"
     }
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
       .subscribe(data => {
+
+        // The below method is called to set all values that contains "-" to null
+        this.methodToSetValuesForGUI(data);
         //Insert data in main table after inserting application in DB
-        // this.businessTransPatternInfo.push(data);
         this.businessTransPatternInfo = data
-        // this.businessTransPatternInfo = ImmutableArray.push(this.businessTransPatternInfo, data);
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
     this.configUtilityService.successMessage("Saved Successfully");
-
   }
 
 
-  //method to convert key and value table data into a string
-  createKeyValString() {
-    var tempParam = "";
-    if (!this.reqParamKeyCheck) {
-      this.reqParamInfo = [];
-      tempParam = "-";
-    }
-    else {
-      for (var i = 0; i < this.reqParamInfo.length; i++) {
-
-        //If there is only one key and value pair
-        if (i == 0) {
-          if (this.reqParamInfo[i].value == undefined || this.reqParamInfo[i].value == "" || this.reqParamInfo[i].value == "-")
-            tempParam = this.reqParamInfo[i].key
-          else
-            tempParam = this.reqParamInfo[i].key + "=" + this.reqParamInfo[i].value;
-        }
-
-        //For more than one key and value pair
-        else {
-          if (this.reqParamInfo[i].value == undefined || this.reqParamInfo[i].value == "" || this.reqParamInfo[i].value == "-")
-            tempParam = tempParam + "&" + this.reqParamInfo[i].key
-          else
-            tempParam = tempParam + "&" + this.reqParamInfo[i].key + "=" + this.reqParamInfo[i].value;
-        }
-      }
-    }
-    return tempParam;
-  }
-
-  /* Open Dialog for Add Pattern */
+  /**
+   * This method is used to open the Add BT Pattern dialog
+   */
   openAddPatternDialog() {
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.reqParamInfo = [];
@@ -500,13 +472,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.businessTransPatternDetail.slowDynamicThreshold = "10";
     this.businessTransPatternDetail.verySlowDynamicThreshold = "20";
     this.chkInclude = false;
-    this.asyncTrans = false;
     this.isNewApp = true;
     this.addEditPatternDialog = true;
     this.reqParamKeyCheck = false;
+    this.asyncTrans = false;
   }
 
-  /**For showing edit Pattern dialog */
+
+  /**
+   * This method is used to open Edit BT Pattern dialog
+   */
   editPatternDialog(): void {
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.reqParamDetail = new RequestParamData();
@@ -535,80 +510,70 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.reqHeaderKey == "";
     }
 
-    if(this.selectedPatternData[0].reqParamKey == "null"){
-      this.selectedPatternData[0].reqParamKey = "-"  
+    if (this.selectedPatternData[0].reqParamKey == "null") {
+      this.selectedPatternData[0].reqParamKey = ""
     }
+
     if (this.reqParamInfo.length == 0) {
       this.reqParamKeyCheck = false;
     }
     this.isNewApp = false;
     this.addEditPatternDialog = true;
 
-    // //Splitting the request parameter key/value in the form of table data
-    // if (this.selectedPatternData[0].paramKeyValue != "-") {
-
-    //   /**
-    //    * If there are more than one request parameter key/value then
-    //    * Format - key1=val1&key2=val2&key3
-    //    * Then splitting them to get each key/value pair 
-    //    */
-    //   if (this.selectedPatternData[0].paramKeyValue != null) {
-    //     if (this.selectedPatternData[0].paramKeyValue.includes("&")) {
-    //       let arrKeyVal = this.selectedPatternData[0].paramKeyValue.split("&");
-    //       let that = this;
-    //       if (arrKeyVal.length > 1) {
-    //         this.reqParamKeyCheck = true;
-    //         for (let i = 0; i < arrKeyVal.length; i++) {
-
-    //           /**Splitting key and value to fill in table
-    //            * In this case, both key and value are given like key1=val1
-    //            */
-    //           if (arrKeyVal[i].includes("=")) {
-    //             let arr = arrKeyVal[i].split("=");
-    //             let details = [{ "key": arr[0], "value": arr[1] }];
-    //             this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
-    //           }
-
-    //           //In this case, only key is given i.e. key1
-    //           else {
-    //             let details = [{ "key": arrKeyVal[i], "value": "-" }];
-    //             this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
-    //           }
-    //         }
-    //       }
-    //     }
-    //     /**
-    //      * For a single key/value pair
-    //      * Format- key=val
-    //      */
-    //     else {
-
-    //       //Splitting when key and value both are provided
-    //       if (this.selectedPatternData[0].paramKeyValue != null) {
-    //         if (this.selectedPatternData[0].paramKeyValue.includes("=")) {
-    //           this.reqParamKeyCheck = true;
-    //           let arr = this.selectedPatternData[0].paramKeyValue.split("=");
-    //           let details = [{ "key": arr[0], "value": arr[1] }];
-
-    //           this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
-    //         }
-
-    //         //Splitting when only key is provided
-    //         else if (this.selectedPatternData[0].paramKeyValue != "") {
-    //           this.reqParamKeyCheck = true;
-    //           let details = [{ "key": this.selectedPatternData[0].paramKeyValue, "value": "-" }];
-
-    //           this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, details[0]);
-
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
     this.businessTransPatternDetail = Object.assign({}, this.selectedPatternData[0]);
   }
 
-  /**This method is used to edit Pattern detail */
+
+  /**
+   * This method is used to set values to gui after loading the BTPattern data
+   * @param data 
+   * Author: Himanshu
+   */
+  methodToSetValuesForGUI(data) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].dynamicPartReq == false) {
+        data[i].reqHeaderValue = null;
+        data[i].reqParamValue = null;
+        data[i].reqHeaderKey = null;
+        data[i].reqParamKey = null;
+      }
+      else {
+        if (data[i].reqHeaderValue == "-" && data[i].reqHeaderKey != "-") {
+          data[i].reqHeaderValue = null;
+        }
+        if (data[i].reqHeaderValue == "-" && data[i].reqHeaderKey == "-") {
+          data[i].reqHeaderValue = null;
+          data[i].reqHeaderKey = null;
+        }
+        if (data[i].reqHeaderValue != "-" && data[i].reqHeaderKey == "-") {
+          data[i].reqHeaderValue = null;
+          data[i].reqHeaderKey = null;
+        }
+        if (data[i].reqParamValue == "-" && data[i].reqParamKey != "-") {
+          data[i].reqParamValue = null;
+        }
+        if (data[i].reqParamValue != "-" && data[i].reqParamKey == "-") {
+          data[i].reqParamValue = null;
+          data[i].reqParamKey = null;
+        }
+        if (data[i].reqParamValue == "-" && data[i].reqParamKey == "-") {
+          data[i].reqParamValue = null;
+          data[i].reqParamKey = null;
+        }
+        if ((data[i].reqParamValue == "-" && data[i].reqParamKey == "-") && (data[i].reqHeaderValue == "-" && data[i].reqHeaderKey == "-")) {
+          data[i].reqParamValue = null;
+          data[i].reqParamKey = null;
+          data[i].reqHeaderValue = null;
+          data[i].reqHeaderKey = null;
+        }
+      }
+    }
+  }
+
+
+  /**
+   * This method is used to edit BT Pattern details
+   */
   editPattern(): void {
     if (this.chkInclude == true)
       this.businessTransPatternDetail.include = "exclude";
@@ -641,13 +606,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
 
     if (this.businessTransPatternDetail.reqParamValue != undefined && this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "")
-      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
+      this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.reqParamKey + "=" + this.businessTransPatternDetail.reqParamValue;
     else
-      this.businessTransPatternDetail.paramKeyValue = this.businessTransPatternDetail.reqParamKey
+      this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.reqParamKey
+
     this.setDynamicValuesOFF();  //Method to set values when Dynamic part of request is disabled 
-    /**
-     * Condition to check if VALUE is filled and KEY is blank
-     */
+
+    // Condition to check if VALUE is filled and KEY is blank
     if ((this.businessTransPatternDetail.reqParamValue != null && this.businessTransPatternDetail.reqParamValue != "") && this.businessTransPatternDetail.reqParamKey == "") {
       this.configUtilityService.errorMessage("Please provide parameter key of the dynamic part of request");
       return;
@@ -658,35 +623,21 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
 
     this.setDynamicValuesON();  //This method is used to set the values of dynamic part components
-
-
-    let tempParam = this.createKeyValString();
-    // this.businessTransPatternDetail.reqParamKeyVal = tempParam;
     this.businessTransPatternDetail.agent = this.agentType;
     // this.parentBtId = -1;
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
-
       if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
-        
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
-           this.configUtilityService.errorMessage("BT name and URL already exists");
-           return;
-       }  
-        // if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
-        //   && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
-        //   && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
-        //   && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
-        //   && this.businessTransPatternDetail.paramKeyValue != this.businessTransPatternInfo[i].paramKeyValue
-        //   && this.businessTransPatternDetail.parentBtId == -1) {
-        //   break;
-        // }
+          this.configUtilityService.errorMessage("BT name and URL already exists");
+          return;
+        }
 
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
           && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
           && this.businessTransPatternDetail.reqHeaderKey == this.businessTransPatternInfo[i].reqHeaderKey
-          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+          && this.businessTransPatternDetail.reqParamKeyVal == this.businessTransPatternInfo[i].reqParamKeyVal) {
           if (this.businessTransPatternDetail.parentBtId != -1) {
             if (this.businessTransPatternInfo[i].parentBtId == -1) {
               this.businessTransPatternDetail.parentBtId = +this.businessTransPatternInfo[i].btId;
@@ -709,62 +660,90 @@ export class HTTPBTConfigurationComponent implements OnInit {
         else {
           this.businessTransPatternDetail.parentBtId = -1;
         }
-
       }
       else
         continue;
     }
+
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
       if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.matchType == this.businessTransPatternInfo[i].matchType
           && this.businessTransPatternDetail.reqMethod == this.businessTransPatternInfo[i].reqMethod
           && this.businessTransPatternDetail.headerKeyValue == this.businessTransPatternInfo[i].headerKeyValue
-          && this.businessTransPatternDetail.paramKeyValue == this.businessTransPatternInfo[i].paramKeyValue) {
+          && this.businessTransPatternDetail.reqParamKeyVal == this.businessTransPatternInfo[i].reqParamKeyVal) {
           this.configUtilityService.errorMessage("Rule details already exists")
           return
         }
       }
-
       else
         continue;
     }
-    this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.paramKeyValue
+
+    this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.reqParamKeyVal
     if (this.businessTransPatternDetail.reqParamKey == null) {
       this.businessTransPatternDetail.reqParamKey = "-"
     }
     if (this.businessTransPatternDetail.reqHeaderKey == null) {
-      this.businessTransPatternDetail.reqHeaderKey = ""
+      this.businessTransPatternDetail.reqHeaderKey = "-"
     }
     if (this.businessTransPatternDetail.headerKeyValue == null) {
-      this.businessTransPatternDetail.headerKeyValue = ""
+      this.businessTransPatternDetail.headerKeyValue = "-"
     }
     this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
       .subscribe(data => {
         let index = this.getPatternIndex(this.businessTransPatternDetail.id);
         this.selectedPatternData.length = 0;
-        if ((data.reqHeaderValue == null || data.reqHeaderValue == "") && data.reqHeaderKey != null)
-          data.headerKeyValue = data.reqHeaderKey;
-        else if (data.reqHeaderValue != null && data.reqHeaderKey != null)
-          data.headerKeyValue = data.headerKeyValue;
-        else
-          data.headerKeyValue = "-";
-        if ((data.reqParamValue == null || data.reqParamValue == "") && data.reqParamKey != null)
-          data.paramKeyValue = data.reqParamKey;
-        else if (data.reqParamValue != null && data.reqParamKey != null)
-          data.paramKeyValue = data.paramKeyValue;
-        else
-          data.paramKeyValue = "-";
+        if (data.dynamicPartReq == false) {
+          data.reqHeaderValue = null;
+          data.reqParamValue = null;
+          data.reqHeaderValue = null;
+          data.reqHeaderKey = null;
+          data.reqParamKey = null;
+        }
+        else {
+          if (data.reqHeaderValue == "-" && data.reqHeaderKey != "-") {
+            data.reqHeaderValue = null;
+          }
+          if (data.reqHeaderValue == "-" && data.reqHeaderKey == "-") {
+            data.reqHeaderValue = null
+            data.reqHeaderKey = null;
+          }
+          if (data.reqHeaderValue != "-" && data.reqHeaderKey == "-") {
+            data.reqHeaderKey = null;
+            data.reqHeaderValue = null;
+          }
+          if (data.reqParamValue == "-" && data.reqParamKey != "-") {
+            data.reqParamValue = null;
+          }
+
+          if (data.reqParamValue != "-" && data.reqParamKey == "-") {
+            data.reqParamValue = null;
+            data.reqParamKey = null;
+          }
+          if (data.reqParamValue == "-" && data.reqParamKey == "-") {
+            data.reqParamValue = null;
+            data.reqParamKey = null;
+          }
+          if ((data.reqParamValue == "-" && data.reqParamKey == "-") && (data.reqHeaderValue == "-" && data.reqHeaderKey == "-")) {
+            data.reqParamValue = null;
+            data.reqParamKey = null;
+            data.reqHeaderValue = null;
+            data.reqHeaderKey = null;
+          }
+        }
+
         this.selectedPatternData.push(data);
-        // this.selectedPatternData[0].paramKeyValue = data.reqParamKeyVal
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
         this.configUtilityService.successMessage(Messages);
       });
     this.closeDialog();
 
   }
+
+
   /**
-   * Method to set values when Dynamic part of request is disabled  
+   * This method is used to set values when Dynamic part of request is disabled  
    */
   setDynamicValuesOFF(): void {
     if (this.businessTransPatternDetail.dynamicPartReq == false) {
@@ -773,12 +752,14 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.businessTransPatternDetail.reqHeaderKey = null;
       this.businessTransPatternDetail.reqHeaderValue = null;
       this.businessTransPatternDetail.reqMethod = "-";
-      this.businessTransPatternDetail.paramKeyValue = "-";
+      this.businessTransPatternDetail.reqParamKeyVal = "-";
       this.businessTransPatternDetail.headerKeyValue = "-";
     }
   }
+
+
   /**
-   * This method is used to set the values of dynamic part components
+   * This method is used to set values when Dynamic part of request is enabled
    */
   setDynamicValuesON(): void {
     if (this.businessTransPatternDetail.reqHeaderKey == "" || this.businessTransPatternDetail.reqHeaderKey == null) {
@@ -789,24 +770,28 @@ export class HTTPBTConfigurationComponent implements OnInit {
     if (this.businessTransPatternDetail.reqParamKey == "" || this.businessTransPatternDetail.reqParamKey == null) {
       this.businessTransPatternDetail.reqParamValue = null;
       this.businessTransPatternDetail.reqParamKey = null;
-      this.businessTransPatternDetail.paramKeyValue = "-";
+      this.businessTransPatternDetail.reqParamKeyVal = "-";
     }
     if (this.businessTransPatternDetail.reqMethod == null)
       this.businessTransPatternDetail.reqMethod = "-";
 
   }
 
-  /**This method is common method for save or edit BT Pattern */
+
+  /**
+   * This is a common method to save BT Pattern details
+   * for both Add and Edit BT Pattern data
+   */
   saveADDEditBTPatternTrans(): void {
-    //When add new application
+    //When new BT Pattern entry is added
     if (this.isNewApp) {
-      //Check for app name already exist or not
-      if (!this.checkAppNameAlreadyExist()) {
+      //Check for BT Pattern details already exist or not
+      if (!this.checkBTPatternDetailsAlreadyExist()) {
         this.savePattern();
         return;
       }
     }
-    //When add edit Pattern
+    //When already existing entry is edited
     else {
       if (this.businessTransPatternDetail.dynamicPartReq == false || this.businessTransPatternDetail.dynamicPartReq == undefined) {
         this.businessTransPatternDetail.reqHeaderKey = null;
@@ -817,7 +802,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.editPattern();
       }
       else {
-        if (this.checkAppNameAlreadyExist())
+        if (this.checkBTPatternDetailsAlreadyExist())
           return;
         else
           this.editPattern();
@@ -825,8 +810,11 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
   }
 
-  /**This method is used to validate the name of Pattern is already exists. */
-  checkAppNameAlreadyExist(): boolean {
+
+  /**
+   * This method is used to validate if BT Pattern details exists or not
+   */
+  checkBTPatternDetailsAlreadyExist(): boolean {
     if (this.businessTransPatternDetail.dynamicPartReq == false || this.businessTransPatternDetail.dynamicPartReq == undefined) {
       this.businessTransPatternDetail.reqHeaderKey = null;
       this.businessTransPatternDetail.reqParamKey = null;
@@ -868,7 +856,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
   }
 
-  /**This method is used to delete Pattern BT*/
+
+  /**
+   * This method is used to delete the existing BT Pattern entries
+   */
   deletePattern(): void {
     if (!this.selectedPatternData || this.selectedPatternData.length < 1) {
       this.configUtilityService.errorMessage("Select rows to be deleted");
@@ -900,7 +891,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
 
-  /**This method returns selected application row on the basis of selected row */
+  /**
+   * This method returns the index of selected row from BT Pattern table
+   */
   getPatternIndex(appId: any): number {
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
       if (this.businessTransPatternInfo[i].id == appId) {
@@ -910,7 +903,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     return -1;
   }
 
-  /**This method is used to delete Pattern from Data Table */
+
+  /**
+   * This method is used to delete Pattern from Data Table
+   */
   deletePatternBusinessTransactions(arrIndex) {
     let rowIndex: number[] = [];
 
@@ -920,12 +916,21 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.businessTransPatternInfo = deleteMany(this.businessTransPatternInfo, rowIndex);
   }
 
-  /**For close add/edit application dialog box */
+
+  /**
+   * This method is used to close Add and Edit BT Pattern dialog
+   */
   closeDialog(): void {
     this.selectedPatternData = [];
     this.addEditPatternDialog = false;
   }
 
+
+  /**
+   * This method is used for validating slow and very slow transactions
+   * @param slow 
+   * @param vslow 
+   */
   checkSlow(slow, vslow) {
     if (this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction) {
       slow.setCustomValidity('Slow value should be less than very slow value.');
@@ -936,6 +941,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
     vslow.setCustomValidity('');
   }
 
+
+  /**
+   * This method is used for validating slow and very slow transactions
+   * @param slow 
+   * @param vslow 
+   */
   checkVSlow(slow, vslow) {
     if (this.globalBtDetail.slowTransaction >= this.globalBtDetail.verySlowTransaction) {
       vslow.setCustomValidity('Very slow value should be greater than slow value.');
@@ -947,20 +958,22 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
 
-  /**used to open file manager
-  */
+  /**
+   * This method is called on clicking the browse button 
+   * for opening the file manager
+   */
   openFileManager() {
-
     this.openFileExplorerDialog = true;
     this.isBTPatternBrowse = true;
-
   }
 
 
-  /** This method is called form ProductUI config-nd-file-explorer component with the path
- ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
-
-  /* dialog window & set relative path */
+  /**
+   * This method is called form ProductUI config-nd-file-explorer component with the path
+   * ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\
+   * @param filepath
+   * filepath is the relative filepath for the selected file in the file manager
+   */
   uploadFile(filepath) {
     if (this.isBTPatternBrowse == true) {
       this.isBTPatternBrowse = false;
@@ -974,8 +987,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
       // let filepath = "";
       this.configKeywordsService.uploadFile(filepath, this.profileId).subscribe(data => {
         for (let i = 0; i < data.length; i++) {
-          if (data[i].paramKeyValue == null || data[i].paramKeyValue == "NA") {
-            data[i].paramKeyValue = "-";
+          if (data[i].reqParamKeyVal == null || data[i].reqParamKeyVal == "NA") {
+            data[i].reqParamKeyVal = "-";
           }
           if (data[i].reqMethod == null) {
             data[i].reqMethod = "-";
@@ -989,316 +1002,46 @@ export class HTTPBTConfigurationComponent implements OnInit {
           return;
         }
         //this.businessTransPatternInfo = data;
-	this.loadBTPatternData();
+        this.loadBTPatternData();
         this.configUtilityService.successMessage("File uploaded successfully");
       });
     }
   }
 
-  //Opens request parameter dialog
-  openReqKeyValDialog() {
-    this.openReqKeyVal = true;
-    this.editReqParam = false;
-    this.isNewParam = true;
-    this.reqParamDetail = new RequestParamData();
-  }
-
-  //To save and edit request parameter values
-  saveReqParam() {
-    if (this.reqParamInfo == undefined)
-      this.reqParamInfo = [];
-
-    if (!this.reqParamDetail.value || this.reqParamDetail.value == undefined || this.reqParamDetail.value == "") {
-      this.reqParamDetail.value = "-";
-    }
-    if (this.editReqParam) {
-      //to edit request parameter key and value
-      this.editReqParam = false;
-      this.openReqKeyVal = false;
-      let that = this;
-      this.reqParamInfo.map(function (val) {
-        if (val.id == that.reqParamDetail.id) {
-          val.key = that.reqParamDetail.key;
-          val.value = that.reqParamDetail.value;
-        }
-      });
-      this.selectedReqParam = [];
-
-    }
-    else {
-      // to add request parameter key and value
-      this.reqParamDetail["id"] = this.reqParamCount
-      this.reqParamInfo = ImmutableArray.push(this.reqParamInfo, this.reqParamDetail);
-      this.reqParamCount = this.reqParamCount + 1;
-    }
-
-
-    this.openReqKeyVal = false;
-  }
-
-  //Delete request parameters key/val
-  deleteReqParam() {
-    if (!this.selectedReqParam || this.selectedReqParam.length < 1) {
-      this.configUtilityService.errorMessage("Select row(s) to delete");
-      return;
-    }
-    else {
-      let selectReqParam = this.selectedReqParam;
-      let arrReqIndex = [];
-      for (let index in selectReqParam) {
-        arrReqIndex.push(selectReqParam[index]);
-      }
-      this.deleteConditionFromTable(arrReqIndex);
-      this.selectedReqParam = [];
-
-    }
-  }
-
-  /**This method is used to delete request parameter from Data Table */
-  deleteConditionFromTable(arrReqIndex: any[]): void {
-    //For stores table row index
-    let rowIndex: number[] = [];
-
-    for (let index in arrReqIndex) {
-      rowIndex.push(this.getParamIndex(arrReqIndex[index]));
-    }
-    this.reqParamInfo = deleteMany(this.reqParamInfo, rowIndex);
-  }
-
-  /**This method returns selected parameter row on the basis of selected row */
-  getParamIndex(appId: any): number {
-    for (let i = 0; i < this.reqParamInfo.length; i++) {
-      if (this.reqParamInfo[i] == appId) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
-  openEditReqParamDialog() {
-    if (!this.selectedReqParam || this.selectedReqParam.length < 1) {
-      this.configUtilityService.errorMessage("Select a row to edit");
-      return;
-    }
-    if (this.selectedReqParam.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row to edit");
-      return;
-    }
-
-    else {
-      this.reqParamDetail = new RequestParamData();
-      let that = this;
-      this.reqParamInfo.map(function (val) {
-        val.id = that.reqParamCount;
-        that.reqParamCount = that.reqParamCount + 1;
-      })
-      if (this.selectedReqParam[0].value == "-") {
-        this.selectedReqParam[0].value = "";
-      }
-      this.isNewParam = false;
-      this.editReqParam = true;
-      this.openReqKeyVal = true;
-      this.reqParamDetail = Object.assign({}, this.selectedReqParam[0]);
-
-    }
-  }
-
-  closeReqKeyValDialog() {
-    this.openReqKeyVal = false;
-    this.selectedReqParam = [];
-  }
 
   /**
-   * code for add Sub for BT Pattern 
+   * This method is used to download the report file in the form 
+   * of Excel, word, Pdf File
+   * @param reports 
    */
-  openSubPatternDetailDialog(application) {
-    this.subBusinessTransPatternInfo = [];
-    this.businessTransPatternDetail = new BusinessTransPatternData();
-    this.detailOfSubBTPatternDialog = true;
-    this.reqHeaderKey = application.reqHeaderKey;
-    this.selectedBtId = application.btId
-    this.detailOfSubBTPatternDialog = true;
-    this.configKeywordsService.getSubBtPattern(this.profileId, this.selectedBtId).subscribe(data => {
-      this.subBusinessTransPatternInfo = data
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "BT Name", "1": "Match Type", "2": "URL", "3": "BT Included", "4": "Slow Transaction Threshold(ms)", "5": "Very Slow Transaction Threshold(ms)", "6": "Slow Dynamic Threshold(%)", "7": "Very Slow Dynamic Threshold(%)", "8": "Query HTTP Parameters Key", "9": "HTTP Method Type", "10": "HTTP Request Headers Key" };
+    let arrcolSize = { "0": 2, "1": 1, "2": 2, "3": 1, "4": 1, "5": 1, "6": 1, "7": 1, "8": 2, "9": 1, "10": 2 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left", "3": "left", "4": "right", "5": "right", "6": "right", "7": "right", "8": "left", "9": "left", "10": "left" };
+    let arrFieldName = { "0": "btName", "1": "matchType", "2": "urlName", "3": "include", "4": "slowTransaction", "5": "verySlowTransaction", "6": "slowDynamicThreshold", "7": "verySlowDynamicThreshold", "8": "paramKeyValue", "9": "reqMethod", "10": "headerKeyValue" };
+    let object =
+      {
+        data: this.businessTransPatternInfo,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "BT Pattern",
+        fileName: "btpattern",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
     })
-    this.selectedSubPatternData = [];
-  }
-  openAddSubPatternDialog() {
-    this.isNewSubApp = true;
-    this.chkInclude = false;
-    this.asyncTrans = false;
-    this.businessTransPatternDetail = new BusinessTransPatternData();
-    this.businessTransPatternDetail.reqHeaderKey = this.reqHeaderKey;
-    this.businessTransPatternDetail.slowTransaction = "3000";
-    this.businessTransPatternDetail.verySlowTransaction = "5000";
-    this.addEditSubPatternDialog = true;
-  }
-  saveADDEditSubBTPatternTrans() {
-
-    if (this.chkInclude == true)
-      this.businessTransPatternDetail.include = "include";
-    else
-      this.businessTransPatternDetail.include = "exclude";
-
-    if (this.asyncTrans == true)
-      this.businessTransPatternDetail.asyncTrans = 1;
-    else
-      this.businessTransPatternDetail.asyncTrans = 0;
-
-    if (this.businessTransPatternDetail.reqHeaderValue == "" || this.businessTransPatternDetail.reqHeaderValue == null || this.businessTransPatternDetail.reqHeaderValue == undefined)
-      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey;
-    else
-      this.businessTransPatternDetail.headerKeyValue = this.businessTransPatternDetail.reqHeaderKey + "=" + this.businessTransPatternDetail.reqHeaderValue;
-
-    this.businessTransPatternDetail.agent = this.agentType;
-
-    if (this.isNewSubApp == true) {
-      this.businessTransPatternDetail.agent = this.agentType;
-
-      //If same key value pair is entered.
-      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
-        if (this.subBusinessTransPatternInfo[i].headerKeyValue == this.businessTransPatternDetail.headerKeyValue) {
-          this.configUtilityService.errorMessage("Header key/value pair already exists")
-          return;
-        }
-      }
-      //When same btname is entered
-      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
-        if (this.subBusinessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
-          this.businessTransPatternDetail.btId = this.subBusinessTransPatternInfo[i].btId
-          break;
-        }
-      }
-      this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.selectedBtId)
-        .subscribe(data => {
-          //Insert data in main table after inserting application in DB
-          this.subBusinessTransPatternInfo = ImmutableArray.push(this.subBusinessTransPatternInfo, data);
-          this.configUtilityService.successMessage(Messages);
-        });
-    }
-    else {
-      this.businessTransPatternDetail.parentBtId = this.selectedBtId
-
-      //If same key value pair is entered.
-      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
-        if (this.businessTransPatternDetail == this.subBusinessTransPatternInfo[i]) {
-          continue;
-        }
-        else {
-          if (this.subBusinessTransPatternInfo[i].headerKeyValue == this.businessTransPatternDetail.headerKeyValue && this.subBusinessTransPatternInfo[i].headerKeyValue != this.selectedSubPatternData[0].headerKeyValue) {
-            this.configUtilityService.errorMessage("Header key-value already exists")
-            return;
-          }
-        }
-      }
-
-      //If same key value pair is entered.
-      for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
-
-        if (this.subBusinessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName) {
-          this.businessTransPatternDetail.btId = this.subBusinessTransPatternInfo[i].btId
-          break;
-
-        }
-        else
-          this.businessTransPatternDetail.btId = 0;
-      }
-
-
-      this.configKeywordsService.editBusinessTransPattern(this.businessTransPatternDetail, this.profileId)
-        .subscribe(data => {
-          let index = this.getSubPatternIndex(this.businessTransPatternDetail.id);
-          if (data.reqHeaderValue != null && data.reqHeaderKey != null)
-            data.headerKeyValue = data.headerKeyValue;
-          else
-            data.headerKeyValue = "-";
-
-          this.selectedSubPatternData.push(data);
-          this.subBusinessTransPatternInfo = ImmutableArray.replace(this.subBusinessTransPatternInfo, data, index);
-          this.configUtilityService.successMessage(Messages);
-          this.selectedSubPatternData = []
-        });
-    }
-    this.selectedSubPatternData = [];
-    this.addEditSubPatternDialog = false;
   }
 
-  editSubPatternDialog() {
-    if (!this.selectedSubPatternData || this.selectedSubPatternData.length < 1) {
-      this.configUtilityService.errorMessage("Select a row to edit");
-      return;
-    }
-    else if (this.selectedSubPatternData.length > 1) {
-      this.configUtilityService.errorMessage("Select only one row to edit");
-      return;
-    }
-    if (this.selectedSubPatternData[0]["include"] == "include")
-      this.chkInclude = true;
-    else
-      this.chkInclude = false;
-
-    if (this.selectedSubPatternData[0]["asyncTrans"] == 1)
-      this.asyncTrans = true;
-    else
-      this.asyncTrans = false;
-
-    this.businessTransPatternDetail = Object.assign({}, this.selectedSubPatternData[0]);
-    this.addEditSubPatternDialog = true;
-    this.isNewSubApp = false;
-
-  }
-
-  deleteSubPattern() {
-    if (!this.selectedSubPatternData || this.selectedSubPatternData.length < 1) {
-      this.configUtilityService.errorMessage("Select rows to be deleted");
-      return;
-    }
-    this.confirmationService.confirm({
-      message: 'Do you want to delete the selected row?',
-      header: 'Delete Confirmation',
-      icon: 'fa fa-trash',
-      accept: () => {
-        //Get Selected Applications's AppId
-        let selectedApp = this.selectedSubPatternData;
-        let arrAppIndex = [];
-        for (let index in selectedApp) {
-
-          arrAppIndex.push(selectedApp[index].id);
-        }
-        this.configKeywordsService.deleteBusinessTransPattern(arrAppIndex, this.profileId)
-          .subscribe(data => {
-            this.deleteSubPatternBusinessTransactions(arrAppIndex);
-            this.selectedSubPatternData = [];
-            this.configUtilityService.infoMessage("Deleted Successfully");
-          })
-      },
-      reject: () => {
-      }
-    });
-  }
-  /**This method returns selected application row on the basis of selected row */
-  getSubPatternIndex(appId: any): number {
-    for (let i = 0; i < this.subBusinessTransPatternInfo.length; i++) {
-      if (this.subBusinessTransPatternInfo[i].id == appId) {
-        return i;
-      }
-    }
-    return -1;
-  }
-  /**This method is used to delete Pattern from Data Table */
-  deleteSubPatternBusinessTransactions(arrIndex) {
-    let rowIndex: number[] = [];
-
-    for (let index in arrIndex) {
-      rowIndex.push(this.getSubPatternIndex(arrIndex[index]));
-    }
-    this.subBusinessTransPatternInfo = deleteMany(this.subBusinessTransPatternInfo, rowIndex);
-  }
-  closeAddEditSubBTDialog() {
-    this.addEditSubPatternDialog = false;
-  }
-  closeSubPatternListDialog() {
-    this.detailOfSubBTPatternDialog = false;
+  
+  /**
+   * This method is used to open the report file
+   * @param res 
+   */
+  openDownloadReports(res) {
+    window.open("/common/" + res);
   }
 
   /* change Browse boolean value on change component */
@@ -1307,4 +1050,3 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
 }
-

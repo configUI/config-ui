@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem,ConfirmationService } from 'primeng/primeng';
+import { MenuItem, ConfirmationService, SelectItem } from 'primeng/primeng';
 import { Http, Response } from '@angular/http';
 import { ImmutableArray } from '../../../utils/immutable-array';
 import { ConfigKeywordsService } from '../../../services/config-keywords.service';
@@ -8,6 +8,8 @@ import { AutoDiscoverTreeData, AutoDiscoverData } from '../../../containers/auto
 import { ConfigUtilityService } from '../../../services/config-utility.service';
 import { ConfigNdAgentService } from '../../../services/config-nd-agent.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ProfileData } from '../../../containers/profile-data';
+import { ConfigProfileService } from '../../../services/config-profile.service';
 
 @Component({
     selector: 'config-edit-auto-instrumentation',
@@ -37,10 +39,14 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     agentType: string;
     instrfileNameWithExtension :string;
     instrfileNameWithAgentType :string;
-    constructor( private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService) {
-         this.leftSideTreeData = [];
-         this.selectedArr = [];
-         this.isNodeSelected =false;
+    selectProfileDialog: boolean = false;
+    profileListItem: SelectItem[];
+    profileData: ProfileData[];
+    profileId: number;
+    constructor( private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService) {
+        this.leftSideTreeData = [];
+        this.selectedArr = [];
+        this.isNodeSelected =false;
         this.reqId = sessionStorage.getItem("configRequestID");
         var userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
 
@@ -49,43 +55,43 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
             let configRequestId = `${userName}-${Math.random()}-${timestamp}`;
             sessionStorage.setItem('configRequestID', configRequestId);
         }
-            //Getting aplication's Id from URL
-            this.route.params.subscribe((params: Params) => {
-                this.sessionFileName = params['sessionFileName'];
-                   var arr = this.sessionFileName.split("#");
-                   this.sessionFileName = arr[0];
-                   this.agentType = arr[1];
-           });
-        
-        this.showSessionName = this.sessionFileName.split(".txt")[0];
-    
-
-     /**
-     * this service get instrumented data and put in Right side tree
-     */
-    this.sessionFileName = this.sessionFileName + "#" + this.agentType;
-        this._configKeywordsService.getAutoInstrumentatedData(this.sessionFileName, this.reqId).subscribe(data => {
-         
-            this.rightSideTreeData = data.backendDetailList;
-             /**
-         * this service get Removed package and put in left side tree
-         */
-        this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
-           this.leftSideTreeData = data.node;
-    
-           if(data.node == undefined)
-           {
-             this.configUtilityService.errorMessage("Instrumented and Removed method are not present in session file.");
-           }
-            for(let i = 0 ; i < data.node[0].children.length; i++)
-            {
-                if(data.node[0].children[i].selected == true)
-                  this.selectedArr.push(data.node[0].children[i]);
-            }
-            this.instrFromLeftSideTree = this.selectedArr;
-          
-         this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+        //Getting aplication's Id from URL
+        this.route.params.subscribe((params: Params) => {
+            this.sessionFileName = params['sessionFileName'];
+            var arr = this.sessionFileName.split("#");
+            this.sessionFileName = arr[0];
+            this.agentType = arr[1];
         });
+
+        this.showSessionName = this.sessionFileName.split(".txt")[0];
+
+
+        /**
+        * this service get instrumented data and put in Right side tree
+        */
+        this.sessionFileName = this.sessionFileName + "#" + this.agentType;
+        this._configKeywordsService.getAutoInstrumentatedData(this.sessionFileName, this.reqId).subscribe(data => {
+
+            this.rightSideTreeData = data.backendDetailList;
+            /**
+        * this service get Removed package and put in left side tree
+        */
+            this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
+                this.leftSideTreeData = data.node;
+
+                if(data.node == undefined)
+                {
+                    this.configUtilityService.errorMessage("Instrumented and Removed method are not present in session file.");
+                }
+                for(let i = 0 ; i < data.node[0].children.length; i++)
+                 {
+                    if(data.node[0].children[i].selected == true)
+                        this.selectedArr.push(data.node[0].children[i]);
+                }
+                this.instrFromLeftSideTree = this.selectedArr;
+
+                this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+            });
             this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
         });
     }
@@ -98,28 +104,28 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         }
         if(this.agentType == "Java"){
             this.instrfileNameWithExtension = this.instrfileName +".xml";
-         }
-         else{
+        }
+        else{
             this.instrfileNameWithExtension = this.instrfileName +".txt";
-         }
+        }
         if (this.rightSideTreeData.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
-        this._configKeywordsService.checkInsrumentationXMLFileExist((this.instrfileNameWithExtension), this.reqId).subscribe(data =>
-        {
-            this.instrfileNameWithExtension= "";   
-            if(data.Status == "true")
-             {
+        this._configKeywordsService.checkInsrumentationXMLFileExist((this.instrfileNameWithExtension), this.reqId).subscribe(data => 
+            {
+            this.instrfileNameWithExtension= "";
+            if(data.Status == "true") 
+            {
                 this.confirmationService.confirm({
                     message: 'Do you want to replace the existed file?',
                     header: 'Save Confirmation',
                     icon: 'fa fa-trash',
                     accept: () => {
-                      //Get Selected Applications's AppId
-                      this.instrfileNameWithAgentType = this.instrfileName + "#" + this.agentType;
-                      this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileNameWithAgentType, this.reqId).subscribe(data =>
-                        {
+                        //Get Selected Applications's AppId
+                        this.instrfileNameWithAgentType = this.instrfileName + "#" + this.agentType;
+                        this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileNameWithAgentType, this.reqId).subscribe(data =>
+                             {
                             this.instrfileName = "";
                             this.instrfileNameWithAgentType = "";
                             this.configUtilityService.successMessage("Saved successfully");
@@ -127,47 +133,47 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
                     },
                     reject: () => {
                     }
-                  });
-             }
-             else
-             {
+                });
+            }
+            else 
+            {
                 this.instrfileNameWithAgentType = this.instrfileName + "#" + this.agentType;
-                  //Get Selected Applications's AppId
-                  this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileNameWithAgentType, this.reqId).subscribe(data =>
-                    {
-                        this.instrfileName = "";
-                        this.instrfileNameWithAgentType = "";
-                        this.configUtilityService.successMessage("Saved successfully");
-                    });
-             }
+                //Get Selected Applications's AppId
+                this._configKeywordsService.saveInsrumentationFileXMLFormat(this.instrfileNameWithAgentType, this.reqId).subscribe(data =>
+                     {
+                    this.instrfileName = "";
+                    this.instrfileNameWithAgentType = "";
+                    this.configUtilityService.successMessage("Saved successfully");
+                });
+            }
         });
     }
     ngOnInit() {
-	this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
-}
+        this.isAutoPerm=+sessionStorage.getItem("AutoDiscoverAccess") == 4 ? true : false;
+    }
     nodeExpand(event) {
         if (event.node.children.length == 0) {
             let nodeInfo = [event.node.type, event.node.label, event.node.parentPackageNode, event.node.parentClassNode];
             this._configKeywordsService.getClassMethodTreeData(nodeInfo, this.reqId).subscribe(data => {
-            
-                    if(data["selected"] == true)
-                    {
-                      this.instrFromLeftSideTree.push(event.node);
-                    }
 
-                   if(!(data.node[0]["label"] == null))
+                if(data["selected"] == true)
+                 {
+                    this.instrFromLeftSideTree.push(event.node);
+                 }
+
+                if(!(data.node[0]["label"] == null))
+                 {
+                    event.node.children = data.node
+                    for(let i = 0 ; i < event.node.children.length; i++) 
                     {
-                        event.node.children = data.node
-                        for(let i = 0 ; i < event.node.children.length; i++)
-                        {
-                            if(event.node.children[i].selected == true)
+                        if(event.node.children[i].selected == true)
                             this.instrFromLeftSideTree.push(event.node.children[i]);
-                        }
-                      //  this.instrFromLeftSideTree = this.selectedArr;
                     }
-                    else
-                    event.node["leaf"] = true;
+                    //  this.instrFromLeftSideTree = this.selectedArr;
                 }
+                else
+                    event.node["leaf"] = true;
+            }
             );
         }
     }
@@ -183,28 +189,28 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
-        if(this.isNodeSelected == false)
+        if(this.isNodeSelected == false) 
         {
             this.configUtilityService.errorMessage("Same Package,Class and Method name already instrumented");
-            return;  
+            return;
         }
         this._configKeywordsService.getSelectedInstrumentaionInfo(this.selectedNodes, this.reqId).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
-         /**
-         * this service get Removed package and put in left side tree
-         */
-        this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
-            this.leftSideTreeData = data.node;
-            this.isNodeSelected = false;
-            
-            for(let i = 0 ; i < data.node[0].children.length; i++)
-            {
-                if(data.node[0].children[i].selected == true)
-                this.selectedArr.push(data.node[0].children[i]);
-            }
-            this.instrFromLeftSideTree = this.selectedArr;
-         this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
-        });
+            /**
+            * this service get Removed package and put in left side tree
+            */
+            this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
+                this.leftSideTreeData = data.node;
+                this.isNodeSelected = false;
+
+                for(let i = 0 ; i < data.node[0].children.length; i++)
+                 {
+                    if(data.node[0].children[i].selected == true)
+                        this.selectedArr.push(data.node[0].children[i]);
+                 }
+                this.instrFromLeftSideTree = this.selectedArr;
+                this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+            });
             this.configUtilityService.successMessage("Instrumentation data Successfully");
         });
     }
@@ -218,7 +224,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         else if(this.rightSideTreeData[0].children.length == 0){
             this.configUtilityService.errorMessage("Instrumented data is not available to uninstrument");
             return;
-    }
+        }
         this.getSelectedUnselectedNodeInfo(this.instrFromRightSideTree, true);
         if (this.selectedNodes.length == 0) {
             this.configUtilityService.errorMessage("At least Select a package, class or method for unInstrumentation");
@@ -226,22 +232,22 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         }
         this._configKeywordsService.getUninstrumentaionData(this.selectedNodes, this.reqId).subscribe(data => {
             this.rightSideTreeData = data.backendDetailList;
-        /**
-         * this service get Removed package and put in left side tree
-         */
-        this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
-            this.leftSideTreeData = data.node;
-            this.selectedArr = [];
-            for(let i = 0 ; i < data.node[0].children.length; i++)
-            {
-                if(data.node[0].children[i].selected == true)
-                this.selectedArr.push(data.node[0].children[i]);
-            }
-            this.instrFromLeftSideTree = this.selectedArr;
-           
-         this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
-        
-        });
+            /**
+             * this service get Removed package and put in left side tree
+             */
+            this._configKeywordsService.getRemovedPackageData(this.sessionFileName, this.reqId).subscribe(data => {
+                this.leftSideTreeData = data.node;
+                this.selectedArr = [];
+                for(let i = 0 ; i < data.node[0].children.length; i++)
+                 {
+                    if(data.node[0].children[i].selected == true)
+                        this.selectedArr.push(data.node[0].children[i]);
+                 }
+                this.instrFromLeftSideTree = this.selectedArr;
+
+                this.configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
+
+            });
             this.instrFromRightSideTree = '';
             this.configUtilityService.successMessage("UnInstrumentation data Successfully");
         });
@@ -275,9 +281,79 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     }
 
     onNodeSelect()
-    {
+     {
         this.isNodeSelected = true;
+     }
+
+    // This method is used to select the profile to add method monitors
+    selectProfile() {
+        if (this.instrFromLeftSideTree.length == 0) {
+            this.configUtilityService.errorMessage("Please select at least one method to monitor");
+            return;
+        }
+        this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
+        this.selectProfileDialog = true;
+        this.loadProfileList();
     }
+
+    // This function is used to load the profile list
+    loadProfileList() {
+        this.configProfileService.getProfileList().subscribe(data => {
+            this.profileData = data;
+            this.getAgentSpecificProfiles(this.agentType);
+        });
+    }
+
+    /** This function is called to show specific agent profile in Copy profile dropDown*/
+    getAgentSpecificProfiles(agentType) {
+        this.profileListItem = [];
+        let arr = []; //This variable is used to sort Profiles
+        for (let i = 0; i < this.profileData.length; i++) {
+            arr.push(this.profileData[i].profileName);
+        }
+        arr.sort();
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < this.profileData.length; j++) {
+                if (agentType == "Java" && this.profileData[j].agent == "Java" && this.profileData[j].profileId != 1) {
+                    if (this.profileData[j].profileName == arr[i]) {
+                        this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+                    }
+                }
+                else if ((agentType == "DotNet" || agentType == "Dot Net") && this.profileData[j].agent == "Dot Net" && this.profileData[j].profileId != 888888) {
+                    if (this.profileData[j].profileName == arr[i]) {
+                        this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+                    }
+                }
+                else if (agentType == "NodeJS" && this.profileData[j].agent == "NodeJS" && this.profileData[j].profileId != 777777) {
+                    if (this.profileData[j].profileName == arr[i]) {
+                        this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+                    }
+                }
+            }
+        }
+    }
+
+    // This method will save the selected methods for method monitoring
+    saveMethodMonitorForSelectedProfile() {
+        this.selectProfileDialog = false;
+        this._configKeywordsService.methodMonitorFromAutoInstr(this.selectedNodes, this.reqId, this.profileId)
+            .subscribe(data => {
+                if(data._body == "OK"){
+                    this.configUtilityService.successMessage("Saved Successfully");             
+                }
+                else if(data._body == "Partial"){
+                    this.configUtilityService.infoMessage("Added Successfully.Some FQM(s) are corrupted");
+                }
+                else if(data._body == "NO"){
+                    this.configUtilityService.errorMessage("FQM(s) not valid");
+                }
+                else{
+                    this.configUtilityService.errorMessage("Operation Failed");
+                }
+            });
+        this.profileId = null;
+    }
+ 
 }
 
 export interface TreeNode {

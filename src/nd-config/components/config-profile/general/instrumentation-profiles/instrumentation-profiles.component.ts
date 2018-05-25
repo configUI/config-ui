@@ -10,6 +10,9 @@ import { KeywordsInfo } from '../../../../interfaces/keywords-info';
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 //import { XmlFilesList } from '../../../../interfaces/keywords-info';
 import { cloneObject } from '../../../../utils/config-utility';
+import { ConfigProfileService } from '../../../../services/config-profile.service';
+import { NodeData } from '../../../../containers/node-data';
+import { ConfigHomeService } from '../../../../services/config-home.service';
 
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 @Component({
@@ -31,6 +34,8 @@ export class InstrumentationProfilesComponent implements OnInit {
   @Output()
   keywordData = new EventEmitter();
 
+  nodeData: NodeData;
+
   /**  stores xmlFilesList **/
   xmlFilesList: Object;
 
@@ -45,8 +50,7 @@ export class InstrumentationProfilesComponent implements OnInit {
   agentType: string = ""; 
   arr: any = [];
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService
-  ) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>,private confirmationService: ConfirmationService,    private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService) {
      this.agentType = sessionStorage.getItem("agentType");
     // this.subscription = this.store.select("keywordData").subscribe(data => {
     //   this.instrProfiles = data;
@@ -118,10 +122,10 @@ export class InstrumentationProfilesComponent implements OnInit {
 
   saveKeywordData(data) {
     let value = this.instrProfiles;
-//    if(value[0]==null || value[0]==""){
-//    this.configUtilityService.infoMessage("Please select file(s)");
-//    return;
-//    }
+   if((this.configHomeService.trData.switch != false && this.configHomeService.trData.status != null && this.configProfileService.nodeData.nodeType != null) && (value[0]==null || value[0]=="")){
+      this.configUtilityService.infoMessage("Please select instrumentation profile(s)");
+      return;
+   }
     let keywordData = this.configKeywordsService.keywordData;
     let keyword = {}
     if (keywordData.hasOwnProperty("instrProfile")) {

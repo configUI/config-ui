@@ -101,7 +101,6 @@ export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
-export const GET_SUB_BT_PATTERN = `${SERVICE_URL}/custom/btpattern/getsubbtpattern`;
 export const FETCH_BT_NAMES = `${SERVICE_URL}/custom/btpattern/fetchbtnames`;
 
 
@@ -145,8 +144,9 @@ export const UPLOAD_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/u
 
 export const SAVE_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/save`;
 
-
-
+/* URL for creating Method Monitor from AD and AI */
+export const CREATE_METHOD_MONITOR_FROM_AD = `${SERVICE_URL}/custom/methodmonitor/createFqmFromAd`;
+export const CREATE_METHOD_MONITOR_FROM_AI = `${SERVICE_URL}/custom/methodmonitor/createFqmFromAi`;
 
 /* URL for exception monitors  */
 export const FETCH_EXCEPTION_MON_TABLEDATA = `${SERVICE_URL}/custom/exceptionmonitor`;
@@ -306,7 +306,6 @@ export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autod
 
 export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscover/saveinstrumentationdatainxmlformat`;
 
-export const GET_FQM_FOR_METHOD_MONITOR = `${SERVICE_URL}/custom/autodiscover/getFqm`;
 
 /* Activity Log data */
 export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/getauditactivitylogdata`;
@@ -360,3 +359,13 @@ export const ENABLE_ASYNCHRONOUS_RULE_TYPE = `${SERVICE_URL}/custom/ndasynchrono
 
 /* URL for get user Name */
 export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
+
+ /* URL to download file in doc/pdf/csv file format */
+ export const DOWNLOAD_REPORTS = `${SERVICE_URL}/custom/download/downloadreports`;
+
+ /** URL for BT HTTP Body */
+ export const ADD_BT_HTTP_BODY_URL = `${SERVICE_URL}/custom/bthttpbody/addbthttpbody`;
+ export const FETCH_BTHTTP_BODY_URL = `${SERVICE_URL}/custom/bthttpbody/getallbthttpbodydata`;
+ export const EDIT_BTHTTP_BODY = `${SERVICE_URL}/custom/bthttpbody/editbthttpbody`;
+ export const DEL_HTTP_BODY_COND = `${SERVICE_URL}/custom/bthttpbody/deletebthttpbodycond`;
+ export const DELETE_BT_BODY = `${SERVICE_URL}/custom/bthttpbody/delete`;

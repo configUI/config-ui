@@ -10,6 +10,9 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
 import { Messages, descMsg } from '../../constants/config-constant';
 import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
+import { Http, Response } from '@angular/http';
+//import {CavConfigService} from '../../../../main/services/cav-config.service';
+import {CavConfigService} from '../../services/cav-config.service'; 
 @Component({
   selector: 'app-config-profile-list',
   templateUrl: './config-profile-list.component.html',
@@ -17,7 +20,7 @@ import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService, private _config: CavConfigService) { }
 
   profileData: ProfileData[];
   selectedProfileData: ProfileData[];
@@ -315,7 +318,7 @@ export class ConfigProfileListComponent implements OnInit {
       }
     
       // This method is used to edit the imported profile name
-      saveEditProfile(){
+    saveEditProfile(){
         for(let i = 0 ; i< this.profileData.length ; i++){
           if(this.editProfile == this.profileData[i].profileName){
             this.configUtilityService.errorMessage("Profile name already exists");
@@ -333,6 +336,34 @@ export class ConfigProfileListComponent implements OnInit {
           this.loadProfileList();
           });
       }
+
+      // for download Excel, word, Pdf File 
+      downloadReports(reports: string) {
+      var arrHeader = {"0":'Profile Name', "1":"Agent", "2": "Last update On","3": "Description"};
+      var arrcolSize = {"0": 1, "1": 1, "2": 1, "3": 2};
+      var arrAlignmentOfColumn = {"0": "left","1": "left","2": "right","3": "left"};
+      var arrFieldName = {"0": "profileName","1": "agent","2": "timeStamp","3": "profileDesc"};
+        let object =
+          {
+            data: this.profileData,
+            headerList: arrHeader,
+            colSize: arrcolSize,
+            alignArr: arrAlignmentOfColumn,
+            fieldName: arrFieldName,
+            downloadType: reports,
+            title: "Business Transaction Pattern details",
+            fileName: "btPattern",
+          }
+  
+          this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+            this.openDownloadReports(data._body)
+          })
+       }
+  
+        /* for open download reports*/
+    openDownloadReports(res) {
+      window.open( "/common/" + res);
+    }
 }
 
 class ExportData

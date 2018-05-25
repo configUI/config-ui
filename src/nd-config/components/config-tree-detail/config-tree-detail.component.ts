@@ -625,7 +625,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
           //Check for successful RTC connection  
           if (data.length != 0 || !data[0]['contains']) {
-            that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop",this.topologyName).subscribe(data => {
+            that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop",that.topologyName).subscribe(data => {
               that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
 
                 that.topologyData = data;

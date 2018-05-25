@@ -225,6 +225,24 @@
                         </div>
                     </div>
                     <div class="ui-g-12">
+                        <div class="ui-g-3">
+                            <label>HTTP Header Name for CorrelationID</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID."></i>
+                        </div>
+                        <div class="ui-g-2">
+                            <input name="correlationIDHeader" title="When this is enabled NDE allows to search for flowpaths based on this header" type="text" size="30" pInputText [(ngModel)]="correlationIDHeader" min={{correlationIDHeader.min}} max={{correlationIDHeader.max}} title="Please enter valid correlation ID header.   &#013;Please enter maximum upto 1024 characters.  &#013;Whitespaces are not allowed."
+                                pattern="[^\s]{0,1024}$" style="width:80%" ngModel/>
+                            <span></span>
+                        </div>
+
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6" style="padding-left:6px">
+                            <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath"></i>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
                         <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3">
                             <label>CPU Profiling</label>

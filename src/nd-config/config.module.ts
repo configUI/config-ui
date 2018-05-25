@@ -114,6 +114,7 @@ import { GenerateExceptionComponent } from './components/config-profile/advance/
 import { CustomKeywordsComponent } from './components/config-profile/advance/custom-keywords/custom-keywords.component';
 import { BTHTTPHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-http-headers/bt-http-headers.component';
 import { BTResponseHeadersComponent} from './components/config-profile/instrumentation/transaction-configuration/bt-response-headers/bt-response-headers.component';
+import { BTHTTPBodyComponent, PipeForDataType} from './components/config-profile/instrumentation/transaction-configuration/bt-http-body/bt-http-body.component';
 
 import { HttpHeaderComponent } from './components/config-profile/general/header/http-header/http-header.component';
 import { CustomDataComponent } from './components/config-profile/general/custom-data/custom-data.component';
@@ -218,6 +219,8 @@ import { HelpComponent } from './components/config-help/config-help.component';
     BTResponseHeadersComponent,
     DynamicDiagnosticsComponent,
     AsynchronousRuleComponent,
+    BTHTTPBodyComponent,
+    PipeForDataType,
     HelpComponent
   ],
   imports: [
