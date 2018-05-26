@@ -141,14 +141,14 @@ export class ExceptionCapturingComponent implements OnInit {
         var keywordDataVal = {}
         keywordDataVal = data
         this.keywordList.map(function (key) {
-            keywordDataVal[key].value = data[key].defaultValue
+          keywordDataVal[key].value = data[key].defaultValue
         })
         this.exception = keywordDataVal;
         this.methodToSetValue(this.exception);
     }
 
     //This method is used to set value of data depending on data received in its argument
-    methodToSetValue(data) {
+    methodToSetValue(data){
         this.exception = data;
         for (let key in this.exception) {
             if (key == 'enableSourceCodeFilters') {
@@ -217,7 +217,7 @@ export class ExceptionCapturingComponent implements OnInit {
                 keywordDataVal[key] = data[key];
             })
             this.exception = keywordDataVal;
-            this.methodToSetValue(this.exception);
+            this.methodToSetValue(this.exception );
         });
     }
 
@@ -491,7 +491,7 @@ export class ExceptionCapturingComponent implements OnInit {
         this.isExceptioFilterBrowse = true;
 
     }
-
+    
     /** This method is called form ProductUI config-nd-file-explorer component with the path
    ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
 
@@ -535,16 +535,42 @@ export class ExceptionCapturingComponent implements OnInit {
             });
         }
     }
-  /**
-   * Purpose : To invoke the service responsible to open Help Notification Dialog 
-   * related to the current component.
-   */
-    sendHelpNotification() {
-        this.configKeywordsService.getHelpContent("General", "Exception Capturing", this.agentType);
-    }
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "Pattern", "1": "Mode", "2": "Operation"};
+    let arrcolSize = { "0": 3, "1": 3, "2": 3 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left"};
+    let arrFieldName = { "0": "advanceExceptionFilterPattern", "1": "advanceExceptionFilterMode", "2": "advanceExceptionFilterOperation"};
+    let object =
+      {
+        data: this.enableSourceCodeFiltersTableData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Exception Filter",
+        fileName: "exceptionfilter",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
+  }
+ /**
+  * Purpose : To invoke the service responsible to open Help Notification Dialog 
+  * related to the current component.
+  */
+  sendHelpNotification() {
+     this.configKeywordsService.getHelpContent("General", "Exception Capturing", this.agentType);
+  }
 
     ngOnDestroy() {
-        this.isExceptioFilterBrowse = false;
+     this.isExceptioFilterBrowse = false;
         if (this.subscription)
             this.subscription.unsubscribe();
     }

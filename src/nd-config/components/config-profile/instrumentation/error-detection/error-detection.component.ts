@@ -304,4 +304,32 @@ export class ErrorDetectionComponent implements OnInit {
 
       })
   }
+
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "Name", "1": "Status code from", "2": "Status code to" , "3" : "Enabled" , "4" : "Description" };
+    let arrcolSize = { "0": 2, "1": 1, "2": 1 , "3" : 1 , "4" : 2 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "right", "2": "right" , "3" : "center" ,"4" : "left" };
+    let arrFieldName = { "0": "ruleName", "1": "errorFrom", "2": "errorTo" , "3" : "enabled" , "4" : "ruleDesc" };
+    let object =
+      {
+        data: this.errorDetectionData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Error Detection",
+        fileName: "errordetection",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
+  }
+
 }

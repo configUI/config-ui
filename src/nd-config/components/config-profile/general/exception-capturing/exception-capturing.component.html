@@ -2,11 +2,13 @@
     <div class="tabsincontent">
         <div class="header">Settings
             <div class="pull-right">
-                <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+		<i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Reset to Default"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
-                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
-                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()"
+                    label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()"
+                    label="Reset"></button>
                 <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
                 <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
             </div>
@@ -23,7 +25,8 @@
                         </div>
                         <div class="ui-g-12">
                             <div class="ui-g-7" style="margin-left: 16px">
-                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using API (java.util.logging, log4j, ATG logger) " name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
+                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using API (java.util.logging, log4j, ATG logger) "
+                                    name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
                                 </p-checkbox>
                             </div>
                         </div>
@@ -31,13 +34,15 @@
                             <!--<div class="ui-g-1"></div>-->
                             <div class="ui-g-5" style="margin-left: 16px">
                                 <label>Capture top </label>
-                                <input type="number" disabled={{!exceptionData.instrumentException}} [min]=1 [max]=9999 name="exceptionTraceDepth" size="20" [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/> frames of exception stack trace
+                                <input type="number" disabled={{!exceptionData.instrumentException}} [min]=1 [max]=9999 name="exceptionTraceDepth" size="20"
+                                    [(ngModel)]="exceptionData.exceptionTraceDepth" required ngModel/>                                frames of exception stack trace
                             </div>
                         </div>
                         <div class="ui-g-12">
                             <!--<div class="ui-g-1"></div>-->
                             <div class="ui-g-7" style="margin-left: 16px">
-                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception from un-instrumented flowpath(s)" name="exceptionCapturing" [(ngModel)]="exceptionData.exceptionCapturing" binary="true">
+                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception from un-instrumented flowpath(s)" name="exceptionCapturing"
+                                    [(ngModel)]="exceptionData.exceptionCapturing" binary="true">
                                 </p-checkbox>
                             </div>
                         </div>
@@ -87,7 +92,8 @@
 
 
                 <p-fieldset legend="Filter" [toggleable]="true" [collapsed]="true" *ngIf="agentType == 'Java'">
-                    <p-dataTable class="nde-ui exception" [value]="enableSourceCodeFiltersTableData" [(selection)]="selectedExceptionFilterData" [rows]="10" [paginator]="enableSourceCodeFiltersTableData?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]"
+                    <p-dataTable class="nde-ui exception" [value]="enableSourceCodeFiltersTableData" [(selection)]="selectedExceptionFilterData"
+                        [rows]="10" [paginator]="enableSourceCodeFiltersTableData?.length > 10" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100,200,400]"
                         scrollable="true" scrollHeight="300px">
                         <p-header>
                             <span style="float: left">
@@ -124,18 +130,28 @@
                         </p-column>
 
                     </p-dataTable>
+	<!-- Download reports as PDF,Excel and Word File  -->
+	<div style="margin-top:5px">
+	    <label>Download Reports as: </label>
+	    <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")' src='./images/iconWord.gif'></span>
+	    <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")' src='./images/iconExcel.gif'></span>
+	    <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")' src='./images/iconPDF.gif'></span>
+	 </div>
 
                     <!--Dialog for exception filter-->
 
-                    <p-dialog class="profile-dialog" header="{{isNewExceptionFilter ? 'Add Exception Filter' : 'Edit Exception Filter'}}" *ngIf="addEditExceptionFilterDialog" [(visible)]="addEditExceptionFilterDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+                    <p-dialog class="profile-dialog" header="{{isNewExceptionFilter ? 'Add Exception Filter' : 'Edit Exception Filter'}}" *ngIf="addEditExceptionFilterDialog"
+                        [(visible)]="addEditExceptionFilterDialog" modal="modal" width="500" responsive="true" [resizable]="false">
                         <form (ngSubmit)="saveExceptionFilter()" #groupForm="ngForm" ngNativeValidate>
                             <div class="ui-g">
                                 <div class="ui-g-3">
                                     <label>Pattern</label>
                                 </div>
                                 <div class="ui-g-9">
-                                    <input name="advanceExceptionFilterPattern" type="text" size="40" pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterPattern" title="Please enter valid exception filter pattern. &#013;Rule 1: Exception filter pattern can include package,class separated by dot(.) . &#013;Rule 2: Exception filter pattern cannot include special character and whitespaces."
-                                        pattern="[a-zA-Z]+[-._@$a-zA-Z0-9\/]*" (keydown.space)="$event.preventDefault()" autofocus required ngModel/>
+                                    <input name="advanceExceptionFilterPattern" type="text" size="40" pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterPattern"
+                                        title="Please enter valid exception filter pattern. &#013;Rule 1: Exception filter pattern can include package,class separated by dot(.) . &#013;Rule 2: Exception filter pattern cannot include special character and whitespaces."
+                                        pattern="[a-zA-Z]+[-._@$a-zA-Z0-9\/]*" (keydown.space)="$event.preventDefault()" autofocus
+                                        required ngModel/>
                                 </div>
                             </div>
                             <div class="ui-g">
@@ -143,8 +159,12 @@
                                     <label>Operation</label>
                                 </div>
                                 <div class="ui-g-4">
-                                    <input name="dropdown1" type="text" size="14" class='hidden-validator config_exception_filter_operation_align configinput' pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterOperation" required ngModel/>
-                                    <p-dropdown name="advanceExceptionFilterOperation" [style]="{'width':'110px'}" placeholder="--Choose--" [options]="exceptionFilter" [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterOperation" appendTo="body" required ngModel></p-dropdown>
+                                    <input name="dropdown1" type="text" size="14" class='hidden-validator config_exception_filter_operation_align configinput'
+                                        pInputText [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterOperation" required
+                                        ngModel/>
+                                    <p-dropdown name="advanceExceptionFilterOperation" [style]="{'width':'110px'}" placeholder="--Choose--" [options]="exceptionFilter"
+                                        [(ngModel)]="enableSourceCodeFilters.advanceExceptionFilterOperation" appendTo="body"
+                                        required ngModel></p-dropdown>
                                 </div>
                                 <div class="ui-g-2">
                                     <p-checkbox name="advanceExceptionFilterMode" label="Mode" [(ngModel)]="exceptionfiltermode" binary="true"></p-checkbox>
@@ -165,10 +185,11 @@
         </p-panel>
     </div>
 </form>
-<!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+ <!--Dialog to open file explorer dialog -->
+ <p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"
+    modal="modal" width="650" responsive="true">
 
-    <!-- This will look for this component in the ProductUI at this path -
+<!-- This will look for this component in the ProductUI at this path -
     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
-    <!--  <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+        <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>

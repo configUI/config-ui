@@ -369,6 +369,45 @@ export class MethodMonitorsComponent implements OnInit {
         console.log("return type",data)
       })
   }
+    // for download Excel, word, Pdf File 
+    downloadReports(reports: string) {
+      let arrHeader;
+      let arrcolSize;
+      let arrAlignmentOfColumn;
+      let arrFieldName;
+
+      if(this.type){
+          arrHeader = { "0": "Fully Qualified Method Name", "1": "Display Name in Monitor" , "2" : "Description"};
+          arrcolSize = { "0": 3 , "1" : 1 , "2" : 1 };
+          arrAlignmentOfColumn = { "0": "left", "1": "left" , "2" : "left"};
+          arrFieldName = {"0": "methodName", "1" : "methodDisplayName" , "2" : "methodDesc"};
+      }
+      else{
+           arrHeader = { "0" : "Module","1": "Fully Qualified Method Name", "2": "Display Name in Monitor" , "3" : "Description"};
+           arrcolSize = { "0": 1 , "1" : 2 , "2" : 1 , "3" : 1 };
+           arrAlignmentOfColumn = { "0": "left", "1": "left" , "2" : "left"};
+           arrFieldName = {"0" : "module" , "1": "methodName", "2" : "methodDisplayName" , "3" : "methodDesc"};
+      }
+      let object =
+        {
+          data: this.methodMonitorData,
+          headerList: arrHeader,
+          colSize: arrcolSize,
+          alignArr: arrAlignmentOfColumn,
+          fieldName: arrFieldName,
+          downloadType: reports,
+          title: "Method Monitor",
+          fileName: "methodmonitor",
+        }
+        this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+        this.openDownloadReports(data._body)
+      })
+    }
+  
+    /* for open download reports*/
+    openDownloadReports(res) {
+      window.open("/common/" + res);
+    }
  
   ngOnDestroy() {
    this.isMethodMonitorBrowse = false;
