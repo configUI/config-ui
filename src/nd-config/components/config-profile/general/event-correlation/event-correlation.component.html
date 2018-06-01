@@ -1,0 +1,37 @@
+<form (ngSubmit)="saveKeywordData()" #form="ngForm" ngNativeValidate>
+    <div class="tabsincontent">
+        <div class="header">Settings
+            <div class="pull-right">
+                <!-- <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i> -->
+                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()"
+                    label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()"
+                    label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()"
+                    label="Reset"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" label="Save"></button>
+            </div>
+        </div>
+        <p-panel class="hideheader">
+            <div style="margin: 5px 0px" class="flowpathheader-accordion">
+                <p-fieldset legend="Event Correlation" [toggleable]="true">
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <div class="ui-g-5">
+                                <p-checkbox name="enableCorelation" label="Enable Correlation" [(ngModel)]="enableCorelation" binary="false"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-5" style="padding-left:25px">
+                                <p-checkbox [disabled]="!enableCorelation" name="eventCallBack" label="Monitor Event Callback" [(ngModel)]="eventCallBack"
+                                    binary="true"></p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </p-panel>
+    </div>
+</form>

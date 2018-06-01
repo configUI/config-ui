@@ -132,7 +132,7 @@
             <div *ngIf="agentType == 'NodeJS'" style="margin: 5px 0px" class="flowpathheader-accordion">
                 <p-fieldset legend="Hotspot Detection" [toggleable]="true">
                     <div class="ui-g-12">
-                        <div class="ui-g-2">
+                        <div class="ui-g-3">
                             <label>Thread Sampling Interval</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="The provided value defines the frequency interval for collecting thread samples"></i>
                         </div>
@@ -141,9 +141,51 @@
                                 pInputText [(ngModel)]="hotspot.ASSampleInterval.value" min={{hotspot.ASSampleInterval.min}}
                                 max={{hotspot.ASSampleInterval.max}} required ngModel /> (ms)
                         </div>
+                        <div class="ui-g-3">
+                            <label>Consecutive matching samples to mark as Hotspot</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="No. of consecutive thread samples having same stack trace"></i>
+                        </div>
+                        <div class="ui-g-2">
+                            <input name="matchCount" type="number" class="configui-hotspot-css" pInputText [(ngModel)]="hotspot.ASThresholdMatchCount.value"
+                                min={{hotspot.ASThresholdMatchCount.min}} max={{hotspot.ASThresholdMatchCount.max}} required
+                                ngModel/>
+                        </div>
                     </div>
                 </p-fieldset>
             </div>
+
+            <div style="margin: 5px 0px" class="flowpathheader-accordion" *ngIf="agentType == 'NodeJS'">
+                <p-fieldset legend="Capture Long Stack Trace" [toggleable]="true" [collapsed]="true">
+                    <div class="ui-g-12">
+                        <div class="ui-g-3" style="width:23%">
+                            <label>Long Stack Type</label>
+                        </div>
+                        <div class="ui-g-2" style="padding-left:8px">
+                            <p-dropdown [options]="stackType" name="stackType" [style]="{'width':'40%'}" [(ngModel)]="selectedStack"
+                            (ngModelChange)="getEventSelected($event)"></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4" style="width: 21.5%;">
+                            <label>Maximum Stack Depth</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Consider only provided maximum stack depth"></i>
+                        </div>
+                        <div class="ui-g-5 configui-hotspot-css-2">
+                            <input name="maxStackDepth" type="number" [disabled]= "selectedStack == 'Disable'"  class="configui-hotspot-css" pInputText [(ngModel)]="maxStackDepth"  min={{hotspot.enableHSLongStack.min}} max =100  required/>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4" style="width: 21.5%;">
+                            <label>Events to be excluded in Hotspot</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Do not consider provided event names for Hotspot detection"></i>
+                        </div>
+                        <div class="ui-g-5 configui-hotspot-css-2">
+                            <p-chips [(ngModel)]="excludedEvent"  [disabled]= "selectedStack == 'Disable'" name="excludedEvent" ngModel required></p-chips>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            
             <div *ngIf="agentType == 'Dot Net'" style="margin: 5px 0px" class="flowpathheader-accordion">
                 <p-fieldset legend="Hotspot Detection" [toggleable]="true">
                     <div class="ui-g-12">

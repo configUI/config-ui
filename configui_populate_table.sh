@@ -182,7 +182,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (102,'excludeMethodOnRespTime','0','90000','2','0','normal'),
 (103,'dumpOnlyMethodExitInFP','0','1','2','0','normal'),
 (104, 'methodResponseTimeFilter', '0', '360000', '5', '0%201%2020', 'normal'),
-(105,'NDAsyncRuleConfig','1','1024','6','false','normal');
+(105,'NDAsyncRuleConfig','1','1024','6','false','normal'),
+(106,'enableHSLongStack','0','1024','5','0%5%Immediate,TickObject,Timeout,TIMERWRAP','normal'),
+(107,'correlateEventCallback','0','512','5','0','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES

@@ -150,6 +150,7 @@ import { TimerService } from './services/timer.service';
 import { AlertConfigService } from './services/alert-config-service';
 
 import { HelpComponent } from './components/config-help/config-help.component';
+import { EventCorrelationComponent } from './components/config-profile/general/event-correlation/event-correlation.component';
 
 @NgModule({
   declarations: [
@@ -221,7 +222,8 @@ import { HelpComponent } from './components/config-help/config-help.component';
     AsynchronousRuleComponent,
     BTHTTPBodyComponent,
     PipeForDataType,
-    HelpComponent
+    HelpComponent,
+    EventCorrelationComponent
   ],
   imports: [
    // CommonModule,
