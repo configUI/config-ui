@@ -467,6 +467,40 @@ export class CustomKeywordsComponent implements OnInit {
       this.isValueDisabled = true;
     }
   }
+
+// for download Excel, word, Pdf File 
+downloadReports(reports: string) {
+  let arrHeader = { "0": "Name", "1": "Value" ,"2" : "Description"};
+  let arrcolSize = { "0": 1, "1": 1, "2" : 1};
+  let arrAlignmentOfColumn = { "0": "left", "1": "right" ,"2" : "left"};
+  let arrFieldName = { "0": "keywordName", "1": "value","2" : "description"};
+  let object =
+    {
+      data: this.customKeywordsDataList,
+      headerList: arrHeader,
+      colSize: arrcolSize,
+      alignArr: arrAlignmentOfColumn,
+      fieldName: arrFieldName,
+      downloadType: reports,
+      title: "Custom Configuration",
+      fileName: "customconfiguration",
+    }
+  this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+    this.openDownloadReports(data._body)
+  })
+}
+
+/* for open download reports*/
+openDownloadReports(res) {
+  window.open("/common/" + res);
+}
+/**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Advance","Custom Configuration",this.agentType );
+  }
   
  /* change Browse boolean value on change component */
  ngOnDestroy() {

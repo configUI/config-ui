@@ -5,6 +5,7 @@
       <md-card-subtitle class="md-card-subtitle-css">
         <div class="header-Name">APPLICATION LIST {{applicationMsg}}</div>
         <div class="header-button">
+            <i class="fa fa-question-circle helpicon" style="color: antiquewhite;" title="Help" (click)="sendHelpNotification('Application')"></i>
           <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" title="Configure application list" *ngIf="appPerm" label="Show All" class="ui-button-info"></button></a>
           <a [routerLink]="[ ROUTING_PATH + '/application-list']"><button pButton type="button" icon="fa-info" title="Configure application list" *ngIf="!appPerm" label="Configure" class="ui-button-info"></button></a>
         </div>
@@ -39,6 +40,7 @@
       <md-card-subtitle class="md-card-subtitle-css">
         <div class="header-Name">PROFILE LIST {{profileInfoMsg}}</div>
         <div class="header-button">
+          <i class="fa fa-question-circle helpicon" style="color: antiquewhite;" title="Help"  (click)="sendHelpNotification('Profile')"></i>
           <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" title="Configure profile list" *ngIf="profilePerm" label="Show All" class="ui-button-info "></button></a>
           <a [routerLink]="[ ROUTING_PATH + '/profile/profile-list']"><button pButton type="button" icon="fa-info" title="Configure profile list" *ngIf="!profilePerm" label="Configure" class="ui-button-info "></button></a>
         </div>
@@ -89,6 +91,7 @@
 
         <div class="header-Name">TOPOLOGY LIST {{topologyInfoMsg}}</div>
         <div class="header-button">
+          <i class="fa fa-question-circle helpicon" style="color: antiquewhite;" title="Help"  (click)="sendHelpNotification('Topology')"></i>
           <!-- <a> <button pButton type="button" title="Import topologies" label="Import Topologies" *ngIf="topoPermission" [disabled]="topoPermission" class="button-color" icon="fa-download"></button></a>
           <a (click)="importTopologyDialog()"> <button pButton type="button" title="Import topologies" label="Import Topologies" class="button-color" icon="fa-download" *ngIf="!topoPermission"></button></a> -->
           <a  [routerLink]="[ ROUTING_PATH + '/topology-list']"><button pButton type="button" title="Show Topology List" label="Show All" icon="fa-info" class="ui-button-info"></button></a>

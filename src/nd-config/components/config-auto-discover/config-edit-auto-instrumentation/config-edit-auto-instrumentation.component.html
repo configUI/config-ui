@@ -23,6 +23,9 @@
                 <div style="padding-top:5px;">
                     <button class="unInstrumentation-css" type="button" [disabled]="isAutoPerm" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument' style="width:122px"></button>
                 </div>
+                <div style="padding-top:5px;">
+                    <button type="button" [disabled]="isAutoPerm" (click)="selectProfile()" pButton label=' Method Monitor ' style="width:122px"></button>
+                </div>
             </div>
             <div class="ui-g-5">
                 <div class="ui-g-12 header">
@@ -43,3 +46,29 @@
         </div>
     </fieldset>
 </div>
+
+<!--Dialog to open select profile dialog -->
+<p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Select Profile" *ngIf="selectProfileDialog" [(visible)]="selectProfileDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+        <form (ngSubmit)="saveMethodMonitorForSelectedProfile()" #groupForm="ngForm" ngNativeValidate>
+          <div class="ui-g">
+            <div class="ui-g-3">
+                <label>Profile Name</label>
+            </div>
+            <div class="ui-g-9">
+                <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileId"
+                    required ngModel/>
+                <p-dropdown [options]="profileListItem" name="dropdown1" [style]="{'width':'210px'}" required [(ngModel)]="profileId"
+                    placeholder="Select a Profile" appendTo="body"></p-dropdown>
+            </div>
+          </div>
+          <div class="ui-g">
+      
+          </div>
+          <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" style="margin-top: 1px;">
+              <button type="submit" pButton icon="fa-check" label="Save"></button>
+              <button type="button" pButton icon="fa-close" (click)="selectProfileDialog=false" label="Cancel"></button>
+            </div>
+          </footer>
+        </form>
+      </p-dialog>

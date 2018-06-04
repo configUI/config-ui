@@ -339,7 +339,7 @@ export class ConfigProfileListComponent implements OnInit {
 
       // for download Excel, word, Pdf File 
       downloadReports(reports: string) {
-      var arrHeader = {"0":'Profile Name', "1":"Agent", "2": "Last update On","3": "Description"};
+      var arrHeader = {"0":'Name', "1":"Agent", "2": "Last Update On","3": "Description"};
       var arrcolSize = {"0": 1, "1": 1, "2": 1, "3": 2};
       var arrAlignmentOfColumn = {"0": "left","1": "left","2": "right","3": "left"};
       var arrFieldName = {"0": "profileName","1": "agent","2": "timeStamp","3": "profileDesc"};
@@ -351,8 +351,8 @@ export class ConfigProfileListComponent implements OnInit {
             alignArr: arrAlignmentOfColumn,
             fieldName: arrFieldName,
             downloadType: reports,
-            title: "Business Transaction Pattern details",
-            fileName: "btPattern",
+            title: "Profile",
+            fileName: "profile",
           }
   
           this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {

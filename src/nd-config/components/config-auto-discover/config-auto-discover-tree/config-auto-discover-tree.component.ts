@@ -46,6 +46,10 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     profileData: ProfileData[];
     profileId: number;
     constructor(private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService,private configProfileService: ConfigProfileService) {
+        this.loadAutoDiscoverData();
+    }
+
+    loadAutoDiscoverData(){
         this.leftSideTreeData = [];
         this.isNodeSelected =false;
         this.adrFile = sessionStorage.getItem("adrFile");
@@ -68,7 +72,6 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         });
         this.autoDiscoverDetail = new AutoDiscoverData();
         this.autoDiscoverDetail.agents = this.adrFile;
-
     }
 
     createDropDown() {
@@ -249,11 +252,11 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
      // This method is used to select the profile to add method monitors
      selectProfile(){
-        this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
          if(this.instrFromLeftSideTree.length == 0){
              this.configUtilityService.errorMessage("Please select at least one method to monitor");
              return;
          }
+         this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
          this.selectProfileDialog = true;
          this.loadProfileList();
      }
@@ -261,19 +264,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
      // This function is used to load the profile list
      loadProfileList() {
         this.configProfileService.getProfileList().subscribe(data => {
-          let tempArray = [];
-          for (let i = 0; i < data.length; i++) {
-            if (+data[i].profileId == 1 || +data[i].profileId == 777777 || +data[i].profileId == 888888) {
-              tempArray.push(data[i]);
-            }
-          }
-    
-          this.profileData = data.reverse();
-          this.profileData.splice(0, 3); 
-          for (let i = 0; i < tempArray.length; i++) {
-            this.profileData.push(tempArray[i]);
-          }
-
+          this.profileData = data;
           this.getAgentSpecificProfiles(sessionStorage.getItem("agentType"));
         });
       }
@@ -288,17 +279,17 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     arr.sort();
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < this.profileData.length; j++) {
-        if (agentType == "Java" && this.profileData[j].agent == "Java" || this.profileData[j].agent == "-") {
+        if (agentType == "Java" && this.profileData[j].agent == "Java" && this.profileData[j].profileId != 1) {
           if (this.profileData[j].profileName == arr[i]) {
             this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }
         }
-        else if (agentType == "Dot Net" && this.profileData[j].agent == "Dot Net" || this.profileData[j].agent == "-") {
+        else if (agentType == "DotNet" && this.profileData[j].agent == "Dot Net" && this.profileData[j].profileId != 888888) {
           if (this.profileData[j].profileName == arr[i]) {
             this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }
         }
-        else if (agentType == "NodeJS" && this.profileData[j].agent == "NodeJS" || this.profileData[j].agent == "-") {
+        else if (agentType == "NodeJS" && this.profileData[j].agent == "NodeJS" && this.profileData[j].profileId != 777777) {
           if (this.profileData[j].profileName == arr[i]) {
             this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }
@@ -310,6 +301,27 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
      // This method will save the selected methods for method monitoring
      saveMethodMonitorForSelectedProfile(){
         this.selectProfileDialog = false;
-        this._configKeywordsService.getFqm(this.selectedNodes, this.reqId).subscribe(data => {console.log(" == " )});
+        this._configKeywordsService.methodMonitorFromAutoDiscover(this.selectedNodes, this.reqId, this.instanceFileName, this.profileId)
+        .subscribe(data => {
+            if(data._body == "OK"){
+                this.configUtilityService.successMessage("Added Successfully");             
+            }
+            else if(data._body == "Partial"){
+                this.configUtilityService.infoMessage("Added Successfully.Some FQM(s) are corrupted");
+            }
+            else if(data._body == "NO"){
+                this.configUtilityService.errorMessage("FQM(s) not valid");
+            }
+            else{
+                this.configUtilityService.errorMessage("Operation Failed");
+            }
+
+        });
+        this.profileId = null;
+     }
+
+     reset(){
+        this.loadAutoDiscoverData();
+        this.rightSideTreeData = [];
      }
 }

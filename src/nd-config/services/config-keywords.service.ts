@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 import { Subscription } from 'rxjs/Subscription';
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,BTResponseHeaderData,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -23,6 +23,14 @@ import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 
 @Injectable()
 export class ConfigKeywordsService {
+
+//Method getHelpContent() is used to support Help Notification feature
+  private helpContent = new Subject<Object>();
+  helpContent$ = this.helpContent.asObservable();
+  public getHelpContent(component:string,module:string,agentType: string) {
+   this.helpContent.next({"component": component, "module": module , "agentType" : agentType});
+  
+ }
 
   /**It stores keyword data */
   private _keywordData: Object;
@@ -367,11 +375,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   addGlobalData(data, profileId): Observable<BusinessTransPatternData> {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT}/${profileId}`, data);
   }
-
-  /*Get sub BT Pattern data*/
-    getSubBtPattern (profileId, parentBtId): Observable<BusinessTransPatternData[]> {
-      return this._restApi.getDataByGetReq(`${URL.GET_SUB_BT_PATTERN}/${profileId}/${parentBtId}`);
-    }
 
   /*Get sub BT Pattern data*/
   fetchBtNames (profileId): Observable<string[]> {
@@ -735,8 +738,14 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
     }
 
-    getFqm(nodeInfo, reqId): Observable<any> {
-      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_FQM_FOR_METHOD_MONITOR}?reqId=${reqId}`, nodeInfo);
+    /** URL for creating method monitor from auto discover */
+    methodMonitorFromAutoDiscover(nodeInfo, reqId, instanceFileName, profileId) {
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AD}/${reqId + ',' + instanceFileName}/${profileId}`, nodeInfo);
+    }
+
+    /** URL for creating method monitor from auto instrumentation */
+    methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
     }
     
   /** Method to upload file */
@@ -747,5 +756,30 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   downloadReports(data){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
 }
+
+  /** Add BT HTTP BODY */
+  addBtHttpBody(data, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_BODY_URL}/${profileId}`, data);
+  }
+
+    /** Get all BT Http body data */
+    getBtHttpBodyData(profileId): Observable<BTHTTPBody[]> {
+      return this._restApi.getDataByGetReq(`${URL.FETCH_BTHTTP_BODY_URL}/${profileId}`);
+    }
+
+      /* Edit  BT HTTP Body Info */
+  editBTHTTPBody(data): Observable<BTHTTPBody> {
+    return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_BODY}/${data.id}`, data);
+  }
+
+    /** Delete HTTP Body Conditions  */
+    deleteHTTPBodyConditions(listOfIds) {
+      return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_BODY_COND}`, listOfIds);
+    }
+
+      /** Delete BT HTTP Body Info */
+  deleteBTHTTPBody(data, profileId): Observable<BTHTTPBody> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_BT_BODY}/${profileId}`, data);
+  }
 }
 

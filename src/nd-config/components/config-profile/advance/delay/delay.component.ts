@@ -34,8 +34,10 @@ export class DelayComponent implements OnInit {
   // subscriptionEG: Subscription;
 
   isProfilePerm: boolean;
+  agentType :string;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, ) {
+    this.agentType = sessionStorage.getItem("agentType");
 
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
@@ -173,6 +175,13 @@ export class DelayComponent implements OnInit {
       to.setCustomValidity('');
     }
     from.setCustomValidity('');
+  }
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */ 
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Advance","Put Delay In Method",this.agentType );
   }
 }
 //Contains putDelayInMethod Keyword variables

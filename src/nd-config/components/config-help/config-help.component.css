@@ -1,0 +1,44 @@
+.configHelpFile{
+    margin: 5px;
+    padding: 2px 4px 4px;
+    border: 1px #d6d6d6 solid;
+    border-radius: 2px;
+    /* box-shadow: 0 0 2px 2px #cecece; */
+  }
+  .configHelp h3{
+      font-size: 14px;
+      font-weight: 500;
+      /* border-bottom: 1px #bfbfbf solid; */
+      padding: 0px 0px 15px;
+      /* color:#4e4e4e; */
+  }
+
+ .configHelpSubHeading {
+    padding: 0 0 0 5px;
+    font-size: 12px;
+    font-weight: 500;
+    /* color: #525252; */
+}
+.configHelpSubHeading i {
+    font-size: 6px;
+}
+.configHelpSubHeadText{
+    padding: 0 0 0 26px;
+    margin: 8px 0;
+    font-size: 11px;
+    font-weight: 400;
+    /* color: #777; */
+    line-height: 20px;
+}
+
+.headerborder{
+    /* border: 1px #bbb solid; */
+    /* box-shadow: inset 6px 31px 6px #e8e8e87a; */
+    border-radius: 3px;
+    padding: 5px;
+    margin: -22px -2px -16px -2px;
+    background: #e8e8e87a;
+}
+.accordHeader .ui-accordion-header.ui-state-default.ui-corner-all.ui-state-active {
+    margin-top: 7px;
+}

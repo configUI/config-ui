@@ -24,7 +24,7 @@ export class ConfigTopologyListComponent implements OnInit {
   topologyNameList = []
 
   ngOnInit() {
-    this.topoPerm=+sessionStorage.getItem("TopologyAccess") == 4 ? true: false;
+    this.topoPerm = +sessionStorage.getItem("TopologyAccess") == 4 ? true : false;
     this.configHomeService.getTopologyList().subscribe(data => {
       data = data.sort();
       this.topologyNameList = data;
@@ -89,6 +89,33 @@ export class ConfigTopologyListComponent implements OnInit {
 
       }
     });
+  }
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    var arrHeader = { "0": 'Name', "1": "Last Updated On"};
+    var arrcolSize = { "0": 3, "1": 3 };
+    var arrAlignmentOfColumn = { "0": "left", "1": "right"};
+    var arrFieldName = {"0": "topoName", "1" : "timeStamp"};
+    let object =
+      {
+        data: this.topologyData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Topology",
+        fileName: "topology",
+      }
+
+      this.configTopologyService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
   }
 
 }
