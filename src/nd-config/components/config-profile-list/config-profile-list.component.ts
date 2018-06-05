@@ -8,11 +8,9 @@ import { ConfigKeywordsService } from '../../services/config-keywords.service';
 import { ProfileData } from '../../containers/profile-data';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
-import { Messages, descMsg } from '../../constants/config-constant';
+import { Messages, descMsg , addMessage } from '../../constants/config-constant';
 import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
-import { Http, Response } from '@angular/http';
-//import {CavConfigService} from '../../../../main/services/cav-config.service';
-import {CavConfigService} from '../../services/cav-config.service'; 
+
 @Component({
   selector: 'app-config-profile-list',
   templateUrl: './config-profile-list.component.html',
@@ -20,7 +18,7 @@ import {CavConfigService} from '../../services/cav-config.service';
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService, private _config: CavConfigService) { }
+  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService) { }
 
   profileData: ProfileData[];
   selectedProfileData: ProfileData[];
@@ -36,13 +34,13 @@ export class ConfigProfileListComponent implements OnInit {
   isProfilePerm: boolean;
   ROUTING_PATH = ROUTING_PATH;
 
+  userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
+  exportPath: string;
+
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;  
   isProfileListBrowse: boolean = false;
-  userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
-  exportPath: string;
-  exportDialog: boolean;
-  exportDataObj : ExportData;
+
   editImportProfileDialog: boolean = false;
   editProfile: string;
   importFilepath: string;
@@ -139,7 +137,7 @@ export class ConfigProfileListComponent implements OnInit {
 
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
         this.profileData = ImmutableArray.push(this.profileData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
         this.loadProfileList();
       });
     this.displayNewProfile = false;
@@ -230,42 +228,28 @@ export class ConfigProfileListComponent implements OnInit {
 
     for(let i = 0; i< this.selectedProfileData.length; i++){
       if(this.selectedProfileData[i].profileId == 1 || this.selectedProfileData[i].profileId == 777777 || this.selectedProfileData[i].profileId == 888888){
-        this.configUtilityService.errorMessage("Default profiles cannot be exported");
+        this.configUtilityService.errorMessage("Default profile(s) cannot be exported");
         return;
       }
     }
-    this.exportDialog = true;
-  }
 
-  saveExportpath(){
     let selectedApp = this.selectedProfileData;
-    let arrIndex = [];
+    let arrAppIndex = [];
     for (let index in selectedApp) {
-      arrIndex.push(selectedApp[index].profileName);
+      arrAppIndex.push(selectedApp[index].profileName);
     }
-
-    if(this.exportPath == "" || this.exportPath == null || this.exportPath == undefined){
-      this.exportPath = "defaultPath";
-    }
-    this.exportDataObj = new ExportData();
-    this.exportDataObj.path = this.exportPath;
-    this.exportDataObj.profileArray = arrIndex;
-    this.configProfileService.exportProfile(this.exportDataObj,this.userName).subscribe(data => {
-      if(data._body == "Path doesnot exists"){
-        this.configUtilityService.errorMessage(data._body);
-      }
-      else{
-        this.configUtilityService.successMessage("Exported successfully");
-        this.exportDialog = false;
-      }
+    this.exportPath = "defaultPath";
+    this.configProfileService.exportProfile(this.exportPath,arrAppIndex).subscribe(data => {
+      this.configUtilityService.successMessage("Exported successfully");
     })
+
   }
 
  /**used to open file manager
   */
   openFileManager() {
-    this.openFileExplorerDialog = true;
-    this.isProfileListBrowse = true;
+        this.openFileExplorerDialog = true;
+        this.isProfileListBrowse = true;
   }
     
   /** This method is called form ProductUI config-nd-file-explorer component with the path
@@ -277,36 +261,29 @@ export class ConfigProfileListComponent implements OnInit {
        this.isProfileListBrowse = false;
        this.openFileExplorerDialog = false;
        //Temporary path of the Method Monitor file to run locally,independently from Product UI
-        //let filepath = "";
+       //let filepath = "";
        this.importFilepath = filepath;
        let tempProfileName = "";
        if(!filepath.includes(".zip")){
         this.configUtilityService.errorMessage("Please select a valid zip file");
          return;
        }
-
         /**
          * The below code is done to check if the user sected profile is already present or not
-         * If already present then user can edit the profile name whiche he/she wants to import
+         * If already present then user can edit the profile name which user wants to import
          */
-        if(filepath.includes("/")){
-          let zipFileName = filepath.split("/");
-          if(zipFileName[zipFileName.length-1].includes("_")){
-            tempProfileName = zipFileName[zipFileName.length-1].substring(0,zipFileName[zipFileName.length-1].lastIndexOf("_"));
-          }
-        }
-
+       let zipFileName = filepath.split("/");
+       if(zipFileName[zipFileName.length-1].includes("_")){
+         tempProfileName = zipFileName[zipFileName.length-1].substring(0,zipFileName[zipFileName.length-1].lastIndexOf("_"));
+       }
        for(let i = 0 ; i< this.profileData.length ; i++){
          if(tempProfileName == this.profileData[i].profileName){
           this.configUtilityService.infoMessage("Selected profile name is already there.Provide a new Profile Name");
           this.editImportProfileDialog = true;
          }
        }
-       
        if(this.editImportProfileDialog == false){
         this.importFilepath = this.importFilepath + "+" + tempProfileName;
-        this.configProfileService.unzipProfile(this.importFilepath,this.userName).subscribe(data => {
-        });
         this.configProfileService.importProfile(this.importFilepath,this.userName).subscribe(data => {
           this.importFilepath = "";
           this.configUtilityService.successMessage("Profile imported successfully");
@@ -314,11 +291,11 @@ export class ConfigProfileListComponent implements OnInit {
           });
        }
 
-        }
       }
-    
+     }
+       
       // This method is used to edit the imported profile name
-    saveEditProfile(){
+      saveEditProfile(){
         for(let i = 0 ; i< this.profileData.length ; i++){
           if(this.editProfile == this.profileData[i].profileName){
             this.configUtilityService.errorMessage("Profile name already exists");
@@ -326,8 +303,6 @@ export class ConfigProfileListComponent implements OnInit {
           }
         }
         this.importFilepath = this.importFilepath + "+" + this.editProfile;
-        this.configProfileService.unzipProfile(this.importFilepath,this.userName).subscribe(data => {
-        });
         this.configProfileService.importProfile(this.importFilepath,this.userName).subscribe(data => {
           this.importFilepath = "";
           this.editProfile = "";
@@ -336,10 +311,9 @@ export class ConfigProfileListComponent implements OnInit {
           this.loadProfileList();
           });
       }
-
       // for download Excel, word, Pdf File 
       downloadReports(reports: string) {
-      var arrHeader = {"0":'Name', "1":"Agent", "2": "Last Update On","3": "Description"};
+      var arrHeader = {"0":'Profile Name', "1":"Agent", "2": "Last Updated On","3": "Description"};
       var arrcolSize = {"0": 1, "1": 1, "2": 1, "3": 2};
       var arrAlignmentOfColumn = {"0": "left","1": "left","2": "right","3": "left"};
       var arrFieldName = {"0": "profileName","1": "agent","2": "timeStamp","3": "profileDesc"};
@@ -364,10 +338,7 @@ export class ConfigProfileListComponent implements OnInit {
     openDownloadReports(res) {
       window.open( "/common/" + res);
     }
-}
-
-class ExportData
-{
-  path: string
-  profileArray: any[];
+  ngOnDestroy() {
+   this.isProfileListBrowse = false;
+  }
 }

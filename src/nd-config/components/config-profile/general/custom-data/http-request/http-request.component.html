@@ -42,6 +42,13 @@
     </template>
     </p-column>
 </p-dataTable>
+<!-- Download reports as PDF,Excel and Word File  -->
+<div style="margin-top:5px">
+        <label>Download Reports as: </label>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")' src='./images/iconWord.gif'></span>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")' src='./images/iconExcel.gif'></span>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")' src='./images/iconPDF.gif'></span>
+</div>
 </div>
 
 <!--Dialog for ADD and Edit HTTP Request Header (s)-->

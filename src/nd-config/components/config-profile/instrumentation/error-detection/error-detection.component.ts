@@ -11,7 +11,7 @@ import { deleteMany } from '../../../../utils/config-utility';
 
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { Keywords } from '../../../../interfaces/keywords';
-import { Messages, descMsg } from '../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-error-detection',
@@ -187,7 +187,7 @@ export class ErrorDetectionComponent implements OnInit {
 
         //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.errorDetectionData = ImmutableArray.replace(this.errorDetectionData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.errorDetectionData[index] = data;
       });
     this.addEditErrorDetectionDialog = false;
@@ -218,7 +218,7 @@ export class ErrorDetectionComponent implements OnInit {
 
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
         this.errorDetectionData = ImmutableArray.push(this.errorDetectionData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditErrorDetectionDialog = false;
   }

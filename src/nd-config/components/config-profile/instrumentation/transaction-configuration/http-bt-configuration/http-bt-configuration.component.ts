@@ -14,7 +14,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
-import { Messages } from '../../../../../constants/config-constant';
+import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant';
 import { ConfigHomeService } from '../../../../../services/config-home.service';
 
 @Component({
@@ -454,10 +454,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.methodToSetValuesForGUI(data);
         //Insert data in main table after inserting application in DB
         this.businessTransPatternInfo = data
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.closeDialog();
-    this.configUtilityService.successMessage("Saved Successfully");
   }
 
 
@@ -735,7 +734,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
         this.selectedPatternData.push(data);
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
       });
     this.closeDialog();
 

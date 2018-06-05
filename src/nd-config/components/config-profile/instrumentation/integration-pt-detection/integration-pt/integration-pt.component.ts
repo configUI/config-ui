@@ -13,7 +13,7 @@ import { BackendInfo } from '../../../../../interfaces/instrumentation-info';
 import { cloneObject } from '../../../../../utils/config-utility';
 import { ImmutableArray } from '../../../../../utils/immutable-array';
 
-import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg , addMessage } from '../../../../../constants/config-constant'
 
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -161,7 +161,7 @@ export class IntegrationPtComponent implements OnInit {
 
         this.ipDetectionData[index].lstEndPoints = ImmutableArray.push(this.ipDetectionData[index].lstEndPoints, endPointData);
         this.loadIntegrationPTDetectionList();
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.displayNewIPDetection = false;
 
@@ -206,7 +206,7 @@ export class IntegrationPtComponent implements OnInit {
         this.setNamingRuleAndExitPointData(this.ipDetectionData[index].namingRule, data);
         this.setEndPointData(this.ipDetectionData[index].lstEndPoints, data.lstEndPoints);
         this.loadIntegrationPTDetectionList();
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       }
       );
   }

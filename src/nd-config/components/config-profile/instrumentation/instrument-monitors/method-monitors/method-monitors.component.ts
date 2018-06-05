@@ -11,7 +11,7 @@ import { KeywordData, KeywordList } from '../../../../../containers/keyword-data
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ImmutableArray } from '../../../../../utils/immutable-array';
 
-import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-method-monitors',
@@ -226,7 +226,7 @@ export class MethodMonitorsComponent implements OnInit {
         this.selectedMethodMonitorData.length = 0;
         // this.selectedMethodMonitorData.push(data);
         this.methodMonitorData = ImmutableArray.replace(this.methodMonitorData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.methodMonitorData[index] = data;
       });
     this.addEditMethodMonitorDialog = false;
@@ -267,7 +267,7 @@ export class MethodMonitorsComponent implements OnInit {
         //Insert data in main table after inserting Method Monitor in DB
         // this.methodMonitorData.push(data);
         this.methodMonitorData = ImmutableArray.push(this.methodMonitorData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditMethodMonitorDialog = false;
   }

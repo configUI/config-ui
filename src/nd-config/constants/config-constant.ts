@@ -20,7 +20,9 @@ export const INTEGRATION_TYPE = {
     Cloudant_NoSQL : 'Cloudant NoSQL'
 }
 
-export const Messages = "Saved Successfully"
-export const descMsg = "Description cannot be more than 500 characters"
-export const customKeywordMessage =  "Given keyword already exists"
+export const Messages = "Saved Successfully";
+export const addMessage = "Added Successfully";
+export const editMessage = "Edited Successfully";
+export const descMsg = "Description cannot be more than 500 characters";
+export const customKeywordMessage =  "Given keyword already exists";
 
