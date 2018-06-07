@@ -399,6 +399,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     if (this.businessTransPatternInfo.length > 0) {
       for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+        if (this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
+          this.businessTransPatternDetail.btId = this.businessTransPatternInfo[i].btId
+        }
         if (this.businessTransPatternDetail.urlName == this.businessTransPatternInfo[i].urlName
           && this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
           this.configUtilityService.errorMessage("BT name and URL already exists");
@@ -679,6 +682,20 @@ export class HTTPBTConfigurationComponent implements OnInit {
         continue;
     }
 
+
+    //Same btId for same BTName 
+    for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+      if (this.selectedPatternData[0] != this.businessTransPatternInfo[i]) {
+        if (this.businessTransPatternDetail.btName == this.businessTransPatternInfo[i].btName) {
+          this.businessTransPatternDetail.btId = this.businessTransPatternInfo[i].btId
+          break;
+        }
+        else {
+          this.businessTransPatternDetail.btId = 0;
+        }
+      }
+    }
+
     this.businessTransPatternDetail.reqParamKeyVal = this.businessTransPatternDetail.reqParamKeyVal
     if (this.businessTransPatternDetail.reqParamKey == null) {
       this.businessTransPatternDetail.reqParamKey = "-"
@@ -734,6 +751,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
         this.selectedPatternData.push(data);
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
+        this.loadBTPatternData()
         this.configUtilityService.successMessage(editMessage);
       });
     this.closeDialog();
@@ -1034,7 +1052,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     })
   }
 
-  
+
   /**
    * This method is used to open the report file
    * @param res 
