@@ -1,5 +1,6 @@
 export const TOPOLOGY = {
     TOPOLOGY: 'Topology',
+    TIERGROUP: 'TierGroup',
     TIER: 'Tier',
     SERVER: 'Server',
     INSTANCE: 'Instance'

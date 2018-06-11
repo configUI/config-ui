@@ -1,4 +1,4 @@
-// const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+//const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 // const  SERVICE_URL = 'https://10.10.40.14/configUI';
  const  SERVICE_URL = 'http://localhost:8090';
 
@@ -52,6 +52,11 @@ export const GET_PROFILE_AGENT = `${SERVICE_URL}/custom/profile/getprofileagent`
 export const FETCH_JAVA_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/javaprofilelist`
 export const FETCH_DOTNET_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/dotnetprofilelist`
 export const FETCH_NODEJS_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/nodejsprofilelist`
+
+/* URL for TierGroup */
+export const FETCH_TIER_GROUP_TREE_URL = `${SERVICE_URL}/custom/tree/ng/tiergroup`;
+export const FETCH_TIER_GROUP_TABLE_URL = `${SERVICE_URL}/custom/tiergroup`;
+export const ATTACH_PROFTO_TIER_GROUP = `${SERVICE_URL}/custom/tiergroup`;
 
 /* Url for Tier */
 //export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -181,6 +186,7 @@ export const UPLOAD_HTTPSTATS_MONITOR_FILE = `${SERVICE_URL}/custom/httpstatscon
 
 /*URL for RUNTIME changes*/
 export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topology`;
+export const RUNTIME_CHANGE_TIER_GROUP = `${SERVICE_URL}/custom/runtimechange/tiergroup`;
 export const RUNTIME_CHANGE_TIER = `${SERVICE_URL}/custom/runtimechange/tier`;
 export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server`;
 export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
