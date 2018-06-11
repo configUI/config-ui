@@ -12,7 +12,7 @@ import { ImmutableArray } from '../../../../../utils/immutable-array';
 import { deleteMany } from '../../../../../utils/config-utility';
 
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
-import { Messages } from '../../../../../constants/config-constant';
+import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant';
 
 @Component({
     selector: 'bt-response-headers',
@@ -135,7 +135,7 @@ export class BTResponseHeadersComponent implements OnInit {
         }
         this.configKeywordsService.addBtResponseHeaders(this.btResponseHeadersDetail, this.profileId).subscribe(data => {
             this.btResponseHeadersInfo = ImmutableArray.push(this.btResponseHeadersInfo, data);
-            this.configUtilityService.successMessage(Messages);
+            this.configUtilityService.successMessage(addMessage);
             this.modifyData(this.btResponseHeadersInfo);
 
         });
@@ -179,7 +179,7 @@ export class BTResponseHeadersComponent implements OnInit {
                     }
 
                 });
-                this.configUtilityService.successMessage(Messages);
+                this.configUtilityService.successMessage(editMessage);
             });
         })
         this.closeDialog();

@@ -38,6 +38,10 @@
       <p-tabPanel header="Instrumentation Profile" [selected]="index == 4">
         <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
       </p-tabPanel>
+      <p-tabPanel header="Event Correlation" [selected]="index == 5">
+          <app-event-correlation [profileId]="profileId" *ngIf="index == 5" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-event-correlation>
+        </p-tabPanel>
+
     </p-tabView>
   </div>
 

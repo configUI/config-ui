@@ -10,7 +10,7 @@ import { ConfigKeywordsService } from '../../../../../services/config-keywords.s
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ImmutableArray } from '../../../../../utils/immutable-array';
-import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage  } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-exception-monitors',
@@ -43,19 +43,19 @@ export class ExceptionMonitorsComponent implements OnInit {
   selectedValues: boolean;
   keywordValue: Object;
   /** To open file explorer dialog */
-  openFileExplorerDialog: boolean = false; 
+  openFileExplorerDialog: boolean = false;
   isExceptioMonitorBrowse: boolean = false;
   isProfilePerm: boolean;
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService) { }
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.loadExceptionMonitorList();
 
     if (this.configKeywordsService.keywordData != undefined) {
       this.keywordValue = this.configKeywordsService.keywordData;
       let config = {
-        'configkeyword' : this.keywordValue
+        'configkeyword': this.keywordValue
       }
       sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
@@ -88,29 +88,28 @@ export class ExceptionMonitorsComponent implements OnInit {
     });
   }
   saveKeywordData() {
-    if(this.saveDisable == true)
-      {
-        return;
-      }
+    if (this.saveDisable == true) {
+      return;
+    }
     let filePath = '';
     for (let key in this.exceptionMonitor) {
       if (key == 'ndExceptionMonFile') {
         if (this.selectedValues == true) {
           this.exceptionMonitor[key]["value"] = "true";
-         // this.configUtilityService.successMessage("Exception Monitors settings are enabled");
+          // this.configUtilityService.successMessage("Exception Monitors settings are enabled");
         }
         else {
           this.exceptionMonitor[key]["value"] = "false";
-         // this.configUtilityService.infoMessage("Exception Monitors settings are disabled");
+          // this.configUtilityService.infoMessage("Exception Monitors settings are disabled");
         }
       }
       this.configKeywordsService.keywordData[key] = this.exceptionMonitor[key];
       let config = {
-        'configkeyword' : this.configKeywordsService.keywordData
+        'configkeyword': this.configKeywordsService.keywordData
       }
       sessionStorage.setItem('keywordValue', JSON.stringify(config));
     }
-   //this.configKeywordsService.saveProfileKeywords(this.profileId);
+    //this.configKeywordsService.saveProfileKeywords(this.profileId);
     this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
       if (this.selectedValues == false) {
         filePath = "NA";
@@ -129,8 +128,8 @@ export class ExceptionMonitorsComponent implements OnInit {
   loadExceptionMonitorList() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-       this.saveDisable =  true;
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable = true;
     });
     this.configKeywordsService.getExceptionMonitorList(this.profileId).subscribe(data => {
       this.exceptionMonitorData = data;
@@ -211,7 +210,7 @@ export class ExceptionMonitorsComponent implements OnInit {
         this.selectedExceptionMonitorData.length = 0;
         // this.selectedExceptionMonitorData.push(data);
         this.exceptionMonitorData = ImmutableArray.replace(this.exceptionMonitorData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.exceptionMonitorData[index] = data;
       });
     this.addEditExceptionMonitorDialog = false;
@@ -248,7 +247,7 @@ export class ExceptionMonitorsComponent implements OnInit {
         //Insert data in main table after inserting Exception Monitor in DB
         // this.exceptionMonitorData.push(data);
         this.exceptionMonitorData = ImmutableArray.push(this.exceptionMonitorData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditExceptionMonitorDialog = false;
   }
@@ -300,14 +299,14 @@ export class ExceptionMonitorsComponent implements OnInit {
     return -1;
   }
 
- /**used to open file manager
-  */
+  /**used to open file manager
+   */
   openFileManager() {
-    
-        this.openFileExplorerDialog = true;
-        this.isExceptioMonitorBrowse = true;
-    
-      }
+
+    this.openFileExplorerDialog = true;
+    this.isExceptioMonitorBrowse = true;
+
+  }
 
   /** This method is called form ProductUI config-nd-file-explorer component with the path
  ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
@@ -318,19 +317,19 @@ export class ExceptionMonitorsComponent implements OnInit {
       this.isExceptioMonitorBrowse = false;
       this.openFileExplorerDialog = false;
 
-      let  str : string;
-      let str1:string;
-      str=filepath.substring(filepath.lastIndexOf("/"),filepath.length)
-      str1=str.substring(str.lastIndexOf("."),str.length);
-      let type:boolean=true;
-      if(str1==".txt" || str1==".eml"){
-        type=false;
+      let str: string;
+      let str1: string;
+      str = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+      str1 = str.substring(str.lastIndexOf("."), str.length);
+      let type: boolean = true;
+      if (str1 == ".txt" || str1 == ".eml") {
+        type = false;
       }
-      if(type){
+      if (type) {
         this.configUtilityService.errorMessage("Extension(s) other than .txt and .eml are not supported");
         return
       }
-      
+
       if (filepath.includes(";")) {
         this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
         return;
@@ -338,13 +337,13 @@ export class ExceptionMonitorsComponent implements OnInit {
       console.log("before hitting service")
       this.configKeywordsService.uploadExceptionMonitorFile(filepath, this.profileId).subscribe(data => {
         if (data.length == this.exceptionMonitorData.length) {
-         this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-         return;
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
         }
-        this.exceptionMonitorData=data;
+        this.exceptionMonitorData = data;
         // this.exceptionMonitorData = ImmutableArray.push(this.exceptionMonitorData, data);
         this.configUtilityService.successMessage("File uploaded successfully");
-       });
+      });
     }
   }
   saveExceptionMonitorOnFile() {
@@ -354,8 +353,36 @@ export class ExceptionMonitorsComponent implements OnInit {
 
       })
   }
- /* change Browse boolean value on change component */
- ngOnDestroy() {
-   this.isExceptioMonitorBrowse = false;
- }
+
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "Exception Name", "1": "Display Name", "2": "Description" };
+    let arrcolSize = { "0": 3, "1": 3, "2": 4 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left" };
+    let arrFieldName = { "0": "exceptionName", "1": "exceptionDisplayName", "2": "exceptionDesc" };
+    let object =
+      {
+        data: this.exceptionMonitorData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Exception Monitor",
+        fileName: "exceptionmonitor",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
+  }
+
+  /* change Browse boolean value on change component */
+  ngOnDestroy() {
+    this.isExceptioMonitorBrowse = false;
+  }
 }

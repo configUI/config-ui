@@ -29,7 +29,9 @@ export class CustomDataComponent implements OnInit {
   profileId: number;
   captureCustomData: boolean;
   keywordList = ['captureCustomData'];
+  agentType:string;
   constructor(private configUtilityService: ConfigUtilityService, private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>) {
+    this.agentType = sessionStorage.getItem("agentType");
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
@@ -114,5 +116,12 @@ export class CustomDataComponent implements OnInit {
       this.keywordData.emit(this.custom_data);
     });
   }
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("General","Custom Data",this.agentType );
+}
 
 } 

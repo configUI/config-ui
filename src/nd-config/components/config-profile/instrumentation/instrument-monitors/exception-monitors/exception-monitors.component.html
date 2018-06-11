@@ -19,12 +19,12 @@
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-    <p-column class="tableCss" [style]="{'width':'35%'}" field="exceptionName" header="Exception name" [sortable]="true">
+    <p-column class="tableCss" [style]="{'width':'35%'}" field="exceptionName" header="Exception Name" [sortable]="true">
         <template let-col let-ExceptionMonitor="rowData" pTemplate>
             <span title="{{ExceptionMonitor[col.field]}}">{{ExceptionMonitor[col.field]}}</span>
         </template>
     </p-column>
-    <p-column class="tableCss" [style]="{'width':'23%'}" field="exceptionDisplayName" header="Display name" [sortable]="true">
+    <p-column class="tableCss" [style]="{'width':'23%'}" field="exceptionDisplayName" header="Display Name" [sortable]="true">
         <template let-col let-ExceptionMonitor="rowData" pTemplate>
             <span title="{{ExceptionMonitor[col.field]}}">{{ExceptionMonitor[col.field]}}</span>
         </template>
@@ -36,11 +36,17 @@
     </p-column>
 
 </p-dataTable>
+    <!-- Download reports as PDF,Excel and Word File  -->
+    <div style="margin-top:5px">
+        <label>Download Reports as: </label>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")' src='./images/iconWord.gif'></span>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")' src='./images/iconExcel.gif'></span>
+        <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")' src='./images/iconPDF.gif'></span>
+    </div>
 
 <!--Dialog for exception monitor-->
 
-<p-dialog class="profile-dialog" header="{{isNewExceptionMonitor ? 'Add Exception to Monitor' : 'Edit Exception to Monitor'}}" *ngIf="addEditExceptionMonitorDialog" [(visible)]="addEditExceptionMonitorDialog" modal="modal" width="500" responsive="true"
-    [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewExceptionMonitor ? 'Add Exception to Monitor' : 'Edit Exception to Monitor'}}" *ngIf="addEditExceptionMonitorDialog" [(visible)]="addEditExceptionMonitorDialog" modal="modal" width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveExceptionMonitor()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-3">
@@ -81,5 +87,5 @@
     <!-- This will look for this component in the ProductUI at this path -
              ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+      <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>

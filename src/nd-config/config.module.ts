@@ -149,6 +149,8 @@ import { CavTopPanelNavigationService } from './services/cav-top-panel-navigatio
 import { TimerService } from './services/timer.service';
 import { AlertConfigService } from './services/alert-config-service';
 
+import { HelpComponent } from './components/config-help/config-help.component';
+import { EventCorrelationComponent } from './components/config-profile/general/event-correlation/event-correlation.component';
 
 @NgModule({
   declarations: [
@@ -219,7 +221,9 @@ import { AlertConfigService } from './services/alert-config-service';
     DynamicDiagnosticsComponent,
     AsynchronousRuleComponent,
     BTHTTPBodyComponent,
-    PipeForDataType
+    PipeForDataType,
+    HelpComponent,
+    EventCorrelationComponent
   ],
   imports: [
    // CommonModule,

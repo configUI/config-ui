@@ -10,6 +10,7 @@ export class  ServiceEntryPoint {
     isCustomEntry:boolean=true;
     module:string;
     agent: string;
+    entryTypeCategory : string;
 }
 
 export class ErrorDetection {

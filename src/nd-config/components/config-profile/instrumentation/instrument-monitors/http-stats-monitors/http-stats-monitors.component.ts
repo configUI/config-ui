@@ -9,7 +9,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage } from '../../../../../constants/config-constant'
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
@@ -342,7 +342,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         this.selectedHttpStatsMonitorData.length = 0;
         // this.selectedHttpStatsMonitorData.push(data);
         this.httpStatsMonitorData = ImmutableArray.replace(this.httpStatsMonitorData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.httpStatsMonitorData[index] = data;
       });
     this.addEditHttpStatsMonitorDialog = false;
@@ -368,7 +368,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         // this.httpStatsMonitorData.push(data);
         this.httpStatsMonitorData = ImmutableArray.push(this.httpStatsMonitorData, data);
         this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditHttpStatsMonitorDialog = false;
     // }
@@ -492,6 +492,42 @@ export class HttpStatsMonitorsComponent implements OnInit {
       openImportInfo(){
         this.importinfoDialog = true;
       }
+
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "HTTP Stat Name", "1": "Rule", "2": "Forcefully Dump Flowpath" , "3" : "Description"};
+    let arrcolSize = { "0": 3, "1": 3, "2": 2 , "3" : 3 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left" , "3" : "left"};
+    let arrFieldName = { "0": "conditionName", "1": "condition", "2": "fpDumpMode" , "3" : "description"};
+    for(let i=0;i<this.httpStatsMonitorData.length;i++){
+        if(this.httpStatsMonitorData[i].fpDumpMode == "1"){
+          this.httpStatsMonitorData[i].fpDumpMode = "Enable";
+        }
+        else{
+          this.httpStatsMonitorData[i].fpDumpMode = "Disable"
+        }
+    }
+    let object =
+      {
+        data: this.httpStatsMonitorData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "HTTP Stats Monitor",
+        fileName: "httpstatsmonitor",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
+  }
+
  /* change Browse boolean value on change component */
  ngOnDestroy() {
    this.isHttpstatsMonitorBrowse = false;

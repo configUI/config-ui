@@ -8,7 +8,7 @@ import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ActivatedRoute, Params } from '@angular/router';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ImmutableArray } from '../../../../../utils/immutable-array';
-import { Messages } from '../../../../../constants/config-constant'
+import { Messages  , addMessage , editMessage } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-http-request',
@@ -350,7 +350,7 @@ export class HttpRequestComponent implements OnInit {
           }
           that.modifyData(val);
         })
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
       });
     })
     this.closeDialog();
@@ -444,7 +444,7 @@ export class HttpRequestComponent implements OnInit {
       let arrhttpAttr = this.setDataHttpAttribute(data);
       this.httpRequestHdrComponentInfo = ImmutableArray.push(this.httpRequestHdrComponentInfo, arrhttpAttr[0]);
       // this.sessionAttributeComponentInfo.push(arrSessionAttr[0]);
-      this.configUtilityService.successMessage(Messages);
+      this.configUtilityService.successMessage(addMessage);
     });
     this.closeDialog();
   }
@@ -634,4 +634,30 @@ export class HttpRequestComponent implements OnInit {
   closeRulesDialog() {
     this.rulesDialog = false;
   }
+//Purpose : For download Excel, word, Pdf File for table based screen 
+downloadReports(reports: string) {
+  let arrHeader = { "0": "Request Header Name", "1": "Capture Mode", "2": "Header Names" };
+  let arrcolSize = { "0": 3, "1": 2, "2": 2 };
+  let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left" };
+  let arrFieldName = { "0": "headerName", "1": "dumpMode", "2": "valueNames" };
+  let object =
+    {
+      data: this.httpRequestHdrComponentInfo,
+      headerList: arrHeader,
+      colSize: arrcolSize,
+      alignArr: arrAlignmentOfColumn,
+      fieldName: arrFieldName,
+      downloadType: reports,
+      title: "HTTP Request Header",
+      fileName: "httpreqhdr",
+    }
+  this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+    this.openDownloadReports(data._body)
+  })
+}
+
+/* for open download reports*/
+openDownloadReports(res) {
+  window.open("/common/" + res);
+}
 }

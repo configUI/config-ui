@@ -11,7 +11,7 @@ import { deleteMany } from '../../../../utils/config-utility';
 
 import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
 import { Keywords } from '../../../../interfaces/keywords';
-import { Messages, descMsg } from '../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage } from '../../../../constants/config-constant'
 
 @Component({
   selector: 'app-error-detection',
@@ -187,7 +187,7 @@ export class ErrorDetectionComponent implements OnInit {
 
         //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.errorDetectionData = ImmutableArray.replace(this.errorDetectionData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.errorDetectionData[index] = data;
       });
     this.addEditErrorDetectionDialog = false;
@@ -218,7 +218,7 @@ export class ErrorDetectionComponent implements OnInit {
 
         //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
         this.errorDetectionData = ImmutableArray.push(this.errorDetectionData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditErrorDetectionDialog = false;
   }
@@ -304,4 +304,32 @@ export class ErrorDetectionComponent implements OnInit {
 
       })
   }
+
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "Name", "1": "Status code from", "2": "Status code to" , "3" : "Enabled" , "4" : "Description" };
+    let arrcolSize = { "0": 2, "1": 1, "2": 1 , "3" : 1 , "4" : 2 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "right", "2": "right" , "3" : "center" ,"4" : "left" };
+    let arrFieldName = { "0": "ruleName", "1": "errorFrom", "2": "errorTo" , "3" : "enabled" , "4" : "ruleDesc" };
+    let object =
+      {
+        data: this.errorDetectionData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Error Detection",
+        fileName: "errordetection",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
+  }
+
 }

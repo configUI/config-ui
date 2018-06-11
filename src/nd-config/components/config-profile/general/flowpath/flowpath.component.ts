@@ -263,7 +263,13 @@ resetKeywordsDataToDefault(){
     if(this.agentType == 'NodeJS')
        this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].defaultValue == 0 ? false : true;
 }
-
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog 
+   * related to the current component.
+   */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("General","Flowpath",this.agentType );
+}
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

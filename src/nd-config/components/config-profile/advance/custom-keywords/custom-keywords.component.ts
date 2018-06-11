@@ -41,6 +41,8 @@ export class CustomKeywordsComponent implements OnInit {
   /**For open/close add/edit  */
   addEditDialog: boolean = false;
 
+  message :string;
+
   //list holding keywordsNameList
   customKeywordsList = [];
 
@@ -185,8 +187,9 @@ export class CustomKeywordsComponent implements OnInit {
         for(let key in this.custom_keyword){
           this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
         }
-        
-        this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
+        this.message = "Deleted Successfully"
+        this.configKeywordsService.saveProfileCustomKeywords(this.profileId,this.message);
+        this.message = "";
         this.selectedCustomKeywordsData = [];
       },
       reject: () => {
@@ -411,7 +414,7 @@ export class CustomKeywordsComponent implements OnInit {
     }
 
     //To check that keyword name already exists or not
-    for (var i = 0; i < this.customKeywordsDataList.length; i++) {
+    for (let i = 0; i < this.customKeywordsDataList.length; i++) {
       //checking (isNew) for handling the case of edit functionality
       if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
         this.configUtilityService.errorMessage("Keyword name already exists");
@@ -432,8 +435,14 @@ export class CustomKeywordsComponent implements OnInit {
     for(let key in this.custom_keyword){
       this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
     } 
-
-    this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
+    if(this.isNew){
+       this.message = "Added Successfully";
+    }
+    else{
+      this.message = "Edited Successfully";
+    }
+    this.configKeywordsService.saveProfileCustomKeywords(this.profileId,this.message);
+    this.message = "";
     
     if (!keywordExistFlag) {
       this.configUtilityService.errorMessage(customKeywordMessage);
@@ -466,6 +475,40 @@ export class CustomKeywordsComponent implements OnInit {
       this.customKeywords.value = filepath;
       this.isValueDisabled = true;
     }
+  }
+
+// for download Excel, word, Pdf File 
+downloadReports(reports: string) {
+  let arrHeader = { "0": "Name", "1": "Value" ,"2" : "Description"};
+  let arrcolSize = { "0": 1, "1": 1, "2" : 1};
+  let arrAlignmentOfColumn = { "0": "left", "1": "right" ,"2" : "left"};
+  let arrFieldName = { "0": "keywordName", "1": "value","2" : "description"};
+  let object =
+    {
+      data: this.customKeywordsDataList,
+      headerList: arrHeader,
+      colSize: arrcolSize,
+      alignArr: arrAlignmentOfColumn,
+      fieldName: arrFieldName,
+      downloadType: reports,
+      title: "Custom Configuration",
+      fileName: "customconfiguration",
+    }
+  this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+    this.openDownloadReports(data._body)
+  })
+}
+
+/* for open download reports*/
+openDownloadReports(res) {
+  window.open("/common/" + res);
+}
+/**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Advance","Custom Configuration",this.agentType );
   }
   
  /* change Browse boolean value on change component */

@@ -269,6 +269,9 @@ export class ConfigTopologyService {
   getAutoInstrumentationData(data) {
     return this._restApi.getDataByPostReq(`${URL.GET_AUTO_INSTR_DATA_SUMMARY}`, data);
   }
+downloadReports(data){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
+}
 }
 
 

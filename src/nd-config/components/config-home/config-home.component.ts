@@ -5,6 +5,7 @@ import { ConfigHomeService } from '../../services/config-home.service';
 import { ConfigProfileService } from '../../services/config-profile.service'
 import { ConfigApplicationService } from '../../services/config-application.service';
 import { ConfigUtilityService } from '../../services/config-utility.service';
+import { ConfigKeywordsService } from './../../services/config-keywords.service';
 
 import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
@@ -51,7 +52,7 @@ export class ConfigHomeComponent implements OnInit {
   refreshIntervalTime = 30000;
   subscription: Subscription;
   
-  constructor(private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
+  constructor(private configKeywordsService: ConfigKeywordsService,private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
     //this.configHomeService.getAIStartStopOperationOnHome();
@@ -186,4 +187,20 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
       this.router.navigate(['/home/config/instrumentation-profile-maker']);
     this.isHomePermDialog=false;
   }
+ 
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog 
+   * related to the current component.
+   */
+  sendHelpNotification(value:string) {
+    if(value == "Application"){
+      this.configKeywordsService.getHelpContent("Home","Application" ,"");
+    }
+    if(value == "Profile"){
+      this.configKeywordsService.getHelpContent("Home","Profile","");
+    }
+    if(value == "Topology"){
+      this.configKeywordsService.getHelpContent("Home","Topology","");
+    }
+}
 }
