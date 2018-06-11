@@ -13,7 +13,8 @@
         <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
             <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
                     <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
-                    <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+                    <a class="hyperlink" *ngIf="!noProfilePerm && entity['tierGroupName'] != 'default'" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+                    <span *ngIf="!noProfilePerm && entity['tierGroupName'] == 'default'">{{entity[col.field]}}</span>
             </template>
             <!-- <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
             <md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>

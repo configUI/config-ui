@@ -442,6 +442,11 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row to edit profile");
       return;
     }
+    else if(this.selectedTopologyData[0].tierGroupName == 'default')
+    {
+      this.configUtilityService.errorMessage("Tier group(default) profile change is not applicable.");
+      return;
+    }
 
     //    for (let i = 0; i < this.selectedTopologyData.length; i++) {
     //      if (this.selectedTopologyData[0]["instanceType"] == "Java") {
@@ -591,7 +596,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       }
     })
 
-  }
+   }
 
 
   disableProfInstance(instanceId, flag, profileID) {
@@ -708,5 +713,4 @@ export class ConfigTreeDetailComponent implements OnInit {
   accessMessage() {
     this.configUtilityService.errorMessage("Permission Denied!!!")
   }
-
 }
