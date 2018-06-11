@@ -104,10 +104,25 @@ export class GeneralComponent implements OnInit {
     }
     else {
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData", this.configProfileService.nodeData);
-
+      console.log("-------this.configProfileService.nodeData.nodeType-------",this.configProfileService.nodeData.nodeType)
+      console.log("-------this.configProfileService.nodeData.nodeId-------",this.configProfileService.nodeData.nodeId)
       if (this.configProfileService.nodeData.nodeType == 'topology') {
         const url = `${URL.RUNTIME_CHANGE_TOPOLOGY}/${this.configProfileService.nodeData.nodeId}`;
         let that = this;
+        this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+          that.msg = rtcMsg;
+          that.errMsg = rtcErrMsg;
+
+          //Showing partialError messages in dialog
+          if (that.msg.length > 0 || that.errMsg.length > 0) {
+            
+            that.errDialog = true;
+          }
+        })
+      }
+      else if (this.configProfileService.nodeData.nodeType == 'tierGroup') {
+        const url = `${URL.RUNTIME_CHANGE_TIER_GROUP}/${this.configProfileService.nodeData.nodeId}`;
+        let that = this
         this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
           that.msg = rtcMsg;
           that.errMsg = rtcErrMsg;

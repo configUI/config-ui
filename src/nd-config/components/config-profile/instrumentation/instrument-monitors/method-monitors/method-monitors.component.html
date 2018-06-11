@@ -108,7 +108,7 @@
                 <i class="fa fa-info-circle" aria-hidden="true" title="User specified alias name for Method Monitor"></i>
             </div>
             <div class="ui-g-8">
-                <input name="methodDisplayName" class="configUI-common-len" pattern="[a-zA-Z0-9]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
+                <input name="methodDisplayName" class="configUI-common-len" (keydown.space)="$event.preventDefault()" type="text" size="50" pInputText [(ngModel)]="methodMonitorDetail.methodDisplayName" ngModel/>
             </div>
         </div>
         <div class="ui-g">

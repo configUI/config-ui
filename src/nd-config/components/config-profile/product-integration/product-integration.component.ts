@@ -107,6 +107,20 @@ export class ProductIntegrationComponent implements OnInit {
               }
             })
           }
+          else if (this.configProfileService.nodeData.nodeType == 'tierGroup') {
+            const url = `${URL.RUNTIME_CHANGE_TIER_GROUP}/${this.configProfileService.nodeData.nodeId}`;
+            let that = this
+            this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+              that.msg = rtcMsg;
+              that.errMsg = rtcErrMsg;
+    
+              //Showing partialError messages in dialog
+              if (that.msg.length > 0 || that.errMsg.length > 0) {
+                
+                that.errDialog = true;
+              }
+            })
+          }
           else if (this.configProfileService.nodeData.nodeType == 'tier') {
             const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
             let that = this
