@@ -64,9 +64,18 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
+            <ng-container *ngIf="(addIPDetectionDetail.backendTypeId === 3 || addIPDetectionDetail.backendTypeId === 10 || addIPDetectionDetail.backendTypeId === 11 || addIPDetectionDetail.backendTypeId === 12 || addIPDetectionDetail.backendTypeId === 21); then first else second">
+            </ng-container>
+            <ng-template #first>
+            <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(([;_$\/\[a-zA-Z0-9]*))+[;_$\/\[a-zA-Z0-9].*"
+            (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
+            />
+            </ng-template>
+            <ng-template #second>
                 <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
-                    (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
+                (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
                 />
+                </ng-template>
             </div>
         </div>
         <div class="ui-g">
