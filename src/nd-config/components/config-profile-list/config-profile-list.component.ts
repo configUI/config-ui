@@ -147,7 +147,7 @@ export class ConfigProfileListComponent implements OnInit {
 
     sessionStorage.setItem("agentType", selectedProfileAgent);
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
-      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null };
+      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null, 'nodeName': null };
 
     //Observable profile name 
     this.configProfileService.profileNameObserver(selectedProfileName);

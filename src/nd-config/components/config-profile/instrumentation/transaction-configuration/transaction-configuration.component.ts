@@ -124,7 +124,7 @@ export class TransactionConfigurationComponent implements OnInit {
             })
           }
           else if (this.configProfileService.nodeData.nodeType == 'tierGroup') {
-            const url = `${URL.RUNTIME_CHANGE_TIER_GROUP}/${this.configProfileService.nodeData.nodeId}`;
+            const url = `${URL.RUNTIME_CHANGE_TIER_GROUP}/${this.configProfileService.nodeData.nodeName}`;
             let that = this
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;
@@ -138,7 +138,7 @@ export class TransactionConfigurationComponent implements OnInit {
             })
           }
           else if (this.configProfileService.nodeData.nodeType == 'tier') {
-            const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}`;
+            const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}`;
             let that = this
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;
@@ -152,7 +152,7 @@ export class TransactionConfigurationComponent implements OnInit {
             })
           }
           else if (this.configProfileService.nodeData.nodeType == 'server') {
-            const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}`;
+            const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}`;
             let that = this;
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;
@@ -167,7 +167,7 @@ export class TransactionConfigurationComponent implements OnInit {
           }
     
           else if (this.configProfileService.nodeData.nodeType == 'instance') {
-            const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}`;
+            const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}`;
             let that = this;
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;
