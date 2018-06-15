@@ -163,6 +163,23 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
             </div>
+            <div class="ui-g" *ngSwitchCase="IP.DBConnection">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
+
+                <!--Host Port Query String, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.NEO4J">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
+            </div>
             <div class="ui-g" *ngSwitchDefault>
             </div>
         </div>
@@ -172,7 +189,7 @@
                 <label style="font-weight: bolder;font-size: larger">Integration Exit Point(s)</label>
                 <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstEndPoints">
                     <div class="ui-g-8">
-                        <label>{{endPoints.name}}</label>
+                        <label>{{endPoints.name}}</label><i class="fa fa-info-circle" aria-hidden="true" title={{endPoints.fqm}}></i>
                     </div>
                     <div class="ui-g-2">
                         <div>

@@ -46,7 +46,7 @@ export class CustomKeywordsComponent implements OnInit {
   //list holding keywordsNameList
   customKeywordsList = [];
 
-  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailMapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "ASTraceLevel"];
+  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailMapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "ASTraceLevel","enableWaitSyncQueueTime"];
   nodeJsCustomKeywordsList = ["ndExceptionFilterList", "enableBackendMonTrace", "enableForcedFPChain", "captureHttpTraceLevel", "maxCharInSeqBlob", "bciMaxNonServiceMethodsPerFP", "bciDataBufferMaxCount", "bciDataBufferMaxSize", "ASDataBufferSize", "ASDataBufferMaxCount", "NVCookie"];
   dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
 
@@ -407,6 +407,13 @@ export class CustomKeywordsComponent implements OnInit {
     }
 
     if (this.customKeywords.keywordName == 'doNotDiscardFlowPaths') {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 1");
+        return;
+      }
+    }
+
+    if (this.customKeywords.keywordName == 'enableWaitSyncQueueTime') {
       if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
         this.configUtilityService.errorMessage("Please enter value between 0 and 1");
         return;

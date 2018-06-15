@@ -43,7 +43,16 @@ INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name
 (19,' ','System.Web.Hosting.PipelineRuntime.ProcessRequestNotificationHelper','ProcessRequestNotificationHelper',1,false,'System.Web.dll','Dot Net'),
 (20,' ','System.Web.HttpRuntime.FinishPipelineRequest','FinishPipelineRequest',12,false,'System.Web.dll','Dot Net'),
 (21,' ','System.Web.HttpRuntime.FinishRequest','FinishRequest',12,false,'System.Web.dll','Dot Net'),
-(22,' ','org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletHandler$CachedChain.doFilter',1,false,'-','Java');
+(22,' ','org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletHandler$CachedChain.doFilter',1,false,'-','Java'),
+(23,' ','org.springframework.web.filter.OncePerRequestFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V','OncePerRequestFilter.doFilter',1,false,'-','Java'),
+(24,' ','com.sun.jersey.spi.container.servlet.WebComponent.service(Ljava/net/URI;Ljava/net/URI;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)I','WebComponent.service(URI,URI,HttpServletRequest,HttpServletResponse)',4,false,'-','Java'),
+(25,' ','com.tibco.plugin.share.http.servlet.BwServlet.doGet(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doGet(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
+(26,' ','com.tibco.plugin.share.http.servlet.BwServlet.doPost(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doPost(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
+(27,' ','com.tibco.plugin.share.http.servlet.BwServlet.doPut(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doPut(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
+(28,' ','com.tibco.plugin.share.http.servlet.BwServlet.doDelete(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doDelete(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
+(29,' ','com.tibco.plugin.share.http.servlet.BwServlet.doOptions(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doOptions(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
+(30,' ','com.tibco.plugin.share.http.servlet.BwServlet.a(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;Ljava/lang/String;)V','a(HttpServletRequest,HttpServletResponse,String)',1,false,'-','Java'),
+(31,' ','org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(Ljavax/jms/Session;Ljavax/jms/Message;)V','invokeListener(Session,Message)',7,false,'-','Java');
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
 (1, true, 1, 1),
@@ -67,7 +76,16 @@ INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, ent
 (19, true, 19, 888888),
 (20, true, 20, 888888),
 (21, true, 21, 888888),
-(22, true, 22, 1);
+(22, true, 22, 1),
+(23, true, 23, 1),
+(24, false, 24,1),
+(25, true, 25, 1),
+(26, true, 26, 1),
+(27, true, 27, 1),
+(28, true, 28, 1),
+(29, true, 29, 1),
+(30, true, 30, 1),
+(31, false, 31, 1);
 
 
 INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
@@ -184,7 +202,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (104, 'methodResponseTimeFilter', '0', '360000', '5', '0%201%2020', 'normal'),
 (105,'NDAsyncRuleConfig','1','1024','6','false','normal'),
 (106,'enableHSLongStack','0','1024','5','0%5%Immediate,TickObject,Timeout,TIMERWRAP','normal'),
-(107,'correlateEventCallback','0','512','5','0','normal');
+(107,'correlateEventCallback','0','512','5','0','normal'),
+(108,'enableWaitSyncQueueTime','0','1','2','1','pre-custom'),
+(109,'enableCaptureNetDelay','0','1','2','0','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
@@ -208,7 +228,12 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (18,'Async Call For Dot Net','Async_Call','ASYNC_CALL','ASYNC_CALL','Dot Net'),
 (19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CloudantNoSql','Java'),
 (20,'Big Table Backend','Big Table','bigTable','None','Java'),
-(21,'Microsoft SQL Backend','Microsoft SQL','microsoftDB','None','Java');
+(21,'Microsoft SQL Backend','Microsoft SQL','microsoftDB','None','Java'),
+(22,'Log Backend','Log','Log','None','Java'),
+(23,'Exception Backend','Exception','Exception','None','Java'),
+(24,'XATransaction Backend','XATransaction','XATransaction','None','Java'),
+(25,'JDBC Connection Backend','JDBC Connection','DBConnection','DBConnection','Java'),
+(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','neo4jDB','Java');
 
     INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
 (1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)V','Apace HTTP Client',1,false,'-','Java'),
@@ -308,7 +333,60 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (96,'Big Table end point','com.google.cloud.bigtable.hbase.BigtableTable.get(Lorg/apache/hadoop/hbase/client/Get;)Lorg/apache/hadoop/hbase/client/Result;','Big Table: Get',20,false,'-','Java'),
 (97,'Big Table end point','com.google.cloud.bigtable.hbase.BigtableTable.delete(Lorg/apache/hadoop/hbase/client/Delete;)V','Big Table: Delete',20,false,'-','Java'),
 (98,'Microsoft SQL end point','com.microsoft.sqlserver.jdbc.SQLServerStatement','SQLServerStatement',21,false,'-','Java'),
-(99,'Microsoft SQL end point','com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement','SQLServerPreparedStatement',21,false,'-','Java');
+(99,'Microsoft SQL end point','com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement','SQLServerPreparedStatement',21,false,'-','Java'),
+(100,'HTTP end point','java.net.HttpURLConnection.setRequestMethod(Ljava/lang/String;)V','setRequestMethod(String)',1,false,'-','Java'),
+(101,'HTTP end point','java.net.HttpURLConnection.getInputStream()Ljava/io/InputStream;','getInputStream()',1,false,'-','Java'),
+(102,'HTTP end point','weblogic.net.http.HttpURLConnection.setRequestMethod(Ljava/lang/String;)V','setRequestMethod(String)',1,false,'-','Java'),
+(103,'HTTP end point','weblogic.net.http.HttpURLConnection.getInputStream()Ljava/io/InputStream;','getInputStream()',1,false,'-','Java'),
+(104,'HTTP end point','feign.Client$Default.execute(Lfeign/Request;Lfeign/Request$Options;)Lfeign/Response;','execute(Request,Request$Options)',1,false,'-','Java'),
+(105,'HTTP end point','org.springframework.web.client.DefaultResponseErrorHandler.hasError(Lorg/springframework/http/client/ClientHttpResponse;)Z','hasError(ClientHttpResponse)',1,false,'-','Java'),
+(106,'HTTP end point','java.net.URL.openConnection()Ljava/net/URLConnection;','openConnection()',1,false,'-','Java'),
+(107,'HTTP end point','com.nds.nudetect.NuDetectClient.restCall(Ljava/lang/String;Ljava/lang/String;Lcom/nds/nudetect/ConstantsInternal$RESTRequestFunc;Lcom/nds/nudetect/TransactionParameters;)Lcom/nds/nudetect/RESTClientResponse;','restCall.<init>(String,String,ConstantsInternal$RESTRequestFunc,TransactionParameters)',1,false,'-','Java'),
+(108,'HTTP end point','com.caucho.hessian.client.HessianProxy.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;','invoke(Object,Method,Object)',1,false,'-','Java'),
+(109,'HTTP end point','com.caucho.hessian.client.HessianProxy.addRequestHeaders(Ljava/net/URLConnection;)V','addRequestHeaders(URLConnection)',1,false,'-','Java'),
+(110,'HTTP end point','com.caucho.hessian.client.HessianProxy.sendRequest(Ljava/lang/String;[Ljava/lang/Object;)Lcom/caucho/hessian/client/HessianConnection;','sendRequest(String,Object)',1,false,'-','Java'),
+(111,'THREAD end point','java.util.concurrent.ForkJoinPool.forkOrSubmit(Ljava/util/concurrent/ForkJoinTask;)V','forkOrSubmit(ForkJoinTask)',15,false,'-','Java'),
+(112,'THREAD end point','java.util.concurrent.ForkJoinTask.fork()Ljava/util/concurrent/ForkJoinTask;','fork()',15,false,'-','Java'),
+(113,'THREAD end point','java.util.concurrent.ForkJoinTask.doInvoke()I','doInvoke()',15,false,'-','Java'),
+(114,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace()V|CustomErrorlog:0|1','printStackTrace()',14,false,'-','Java'),
+(115,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace(Ljava/io/PrintStream;)V','printStackTrace(PrintStream)',14,false,'-','Java'),
+(116,'CUSTOM ERROR LOG end point','java.lang.Throwable.printEnclosedStackTrace(Ljava/lang/Throwable$PrintStreamOrWriter;[Ljava/lang/StackTraceElement;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)V','printEnclosedStackTrace(PrintStreamOrWriter,StackTraceElement,String,String,Set)',14,false,'-','Java'),
+(117,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace(Ljava/lang/Throwable$PrintStreamOrWriter;)V','printStackTrace(PrintStreamOrWriter)',14,false,'-','Java'),
+(118,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace(Ljava/io/PrintWriter;)V','printStackTrace(PrintWriter)',14,false,'-','Java'),
+(119,'JDBC end point','oracle.jdbc.driver.OraclePreparedStatement','OraclePreparedStatement',3,false,'-','Java'),
+(120,'JDBC end point','oracle.jdbc.driver.OracleStatement','OracleStatement',3,false,'-','Java'),
+(121,'JDBC end point','com.mysql.cj.jdbc.PreparedStatement','Prepared Statement : mysqlDB',3,false,'-','Java'),
+(122,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.get(Lorg/apache/hadoop/hbase/client/Get;)Lorg/apache/hadoop/hbase/client/Result;','get(Get)',8,false,'-','Java'),
+(123,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.get(Ljava/util/List;)[Lorg/apache/hadoop/hbase/client/Result;','get(List)',8,false,'-','Java'),
+(124,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.batchCallback(Ljava/util/List;[Ljava/lang/Object;Lorg/apache/hadoop/hbase/client/coprocessor/Batch$Callback;)V','batchCallback(List,Object,Batch$Callback)',8,false,'-','Java'),
+(125,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.delete(Lorg/apache/hadoop/hbase/client/Delete;)V','delete(Delete)',8,false,'-','Java'),
+(126,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.doPut(Lorg/apache/hadoop/hbase/client/Put;)V','doPut(Put)',8,false,'-','Java'),
+(127,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.checkAndPut([B[B[B[BLorg/apache/hadoop/hbase/client/Put;)Z','checkAndPut(Put)',8,false,'-','Java'),
+(128,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.checkAndDelete([B[B[B[BLorg/apache/hadoop/hbase/client/Delete;)Z','checkAndDelete(Delete)',8,false,'-','Java'),
+(129,'MONGO end point','com.mongodb.Mongo','Mongo',11,false,'-','Java'),
+(130,'CUSTOM LOG end point','org.apache.catalina.valves.AccessLogValve.log(Ljava/lang/String;)V','log(String)',13,false,'-','Java'),
+(131,'CUSTOM LOG end point','org.apache.catalina.valves.AccessLogValve.log(Ljava/io/CharArrayWriter;)V','log(CharArrayWriter)',13,false,'-','Java'),
+(132,'CUSTOM LOG end point','ch.qos.logback.core.encoder.LayoutWrappingEncoder.convertToBytes(Ljava/lang/String;)[B','convertToBytes(String)',13,false,'-','Java'),
+(133,'CUSTOM LOG end point','weblogic.servlet.logging.FormatStringBuffer.getBytes()[B','getBytes()',13,false,'-','Java'),
+(134,'RMI end point','java.rmi.Naming.<init>(Ljava/lang/String;ILjava/lang/String;)','Naming.<init>(String,String)',5,false,'-','Java'),
+(135,'WS end point','com.sun.jersey.client.urlconnection.URLConnectionClientHandler._invoke(Lcom/sun/jersey/api/client/ClientRequest;)Lcom/sun/jersey/api/client/ClientResponse;','_invoke(ClientRequest)',2,false,'-','Java'),
+(136,'WS end point','org.apache.cxf.transport.http.URLConnectionHTTPConduit$URLConnectionWrappedOutputStream.getResponseCode()I','getResponseCode()',2,false,'-','Java'),
+(137,'WS end point','org.apache.cxf.jaxrs.client.WebClient.prepareHeaders(Ljava/lang/Class;Ljava/lang/Object;)Ljavax/ws/rs/core/MultivaluedMap;','prepareHeaders(Class,Object)',2,false,'-','Java'),
+(138,'WS end point','org.apache.cxf.jaxrs.client.WebClient.doInvoke(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Class;Ljava/lang/reflect/Type;)Ljavax/ws/rs/core/Response;','doInvoke(String,Object,Class,Type)',2,false,'-','Java'),
+(139,'WS end point','org.apache.cxf.jaxrs.client.WebClient.doInvoke(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/reflect/Type;Ljava/lang/Class;Ljava/lang/reflect/Type;)Ljavax/ws/rs/core/Response;','doInvoke(String,Object,Type,Class,Type)',2,false,'-','Java'),
+(140,'WS end point','org.apache.cxf.jaxrs.client.WebClient.doInvoke(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Class;Ljava/lang/reflect/Type;Ljava/lang/Class;Ljava/lang/reflect/Type;)Ljavax/ws/rs/core/Response;','doInvoke(String,Object,Class,Type,Class,Type)',2,false,'-','Java'),
+(141,'Log end point','org.apache.log4j.AppenderSkeleton.doAppend(Lorg/apache/log4j/spi/LoggingEvent;)V','Log: doappend(LoggingEvent)',22,false,'-','Java'),
+(142,'XATransaction end point','oracle.jdbc.xa.client.OracleXAResource','XATransaction: OracleXAResource',24,false,'-','Java'),
+(143,'JDBC Connection end point','weblogic.jdbc.common.internal.RmiDataSource','DBConnection: RmiDataSource',25,false,'-','Java'),
+(144,'JDBC Connection end point','java.sql.DriverManager','DBConnection: DriverManager',25,false,'-','Java'),
+(145,'JDBC Connection end point','org.apache.commons.dbcp.BasicDataSource','DBConnection: BasicDataSource',25,false,'-','Java'),
+(146,'Neo4j DB Callout end point','org.neo4j.jdbc.http.driver.CypherExecutor.executeQuery(Lorg/neo4j/jdbc/http/driver/Neo4jStatement;)Lorg/neo4j/jdbc/http/driver/Neo4jResponse;','CypherExecutor.executeQuery(Neo4jStatement)',26,false,'-','Java'),
+(147,'Neo4j DB Callout end point','org.neo4j.jdbc.bolt.BoltPreparedStatement.executeQuery()Ljava/sql/ResultSet;','BoltPreparedStatement.executeQuery()',26,false,'-','Java'),
+(148,'Exception end point','java.lang.Throwable.<init>()V','Exception: <init>()V',23,false,'-','Java'),
+(149,'Exception end point','java.lang.Throwable.<init>(Ljava/lang/String;)V','Exception: <init>(Ljava/lang/String;)V',23,false,'-','Java'),
+(150,'Exception end point','java.lang.Throwable.<init>(Ljava/lang/Throwable;)V','Exception: <init>(Throwable)V',23,false,'-','Java'),
+(151,'Exception end point','java.lang.Throwable.<init>(Ljava/lang/String;Ljava/lang/Throwable;)V','Exception: <init>(String,Throwable)V',23,false,'-','Java'),
+(152,'Custom Log end point','io.undertow.server.handlers.accesslog.DefaultAccessLogReceiver.logMessage(Ljava/lang/String;)V','DefaultAccessLogReceiver.logMessage(String)',13,false,'-','Java');
 
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
@@ -332,7 +410,12 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (18,false,false,false,false,false,false,false,false,false,false,false,false,false,18,888888),
 (19,true,false,false,false,false,false,false,false,false,false,false,false,false,19,1),
 (20,true,false,false,false,false,false,false,false,false,false,false,false,false,20,1),
-(21,true,false,false,false,false,false,false,false,false,false,false,false,false,21,1);
+(21,true,false,false,false,false,false,false,false,false,false,false,false,false,21,1),
+(22,true,false,false,false,false,false,false,false,false,false,false,false,false,22,1),
+(23,true,false,false,false,false,false,false,false,false,false,false,false,false,23,1),
+(24,true,false,false,false,false,false,false,false,false,false,false,false,false,24,1),
+(25,true,false,false,false,false,false,false,false,false,false,false,false,false,25,1),
+(26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1);
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
 (1,true,1,1),
@@ -432,7 +515,60 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (96,true,96,1),
 (97,true,97,1),
 (98,true,98,1),
-(99,true,99,1);
+(99,true,99,1),
+(100,false,100,1),
+(101,false,101,1),
+(102,false,102,1),
+(103,false,103,1),
+(104,true,104,1),
+(105,false,105,1),
+(106,false,106,1),
+(107,true,107,1),
+(108,true,108,1),
+(109,true,109,1),
+(110,true,110,1),
+(111,false,111,1),
+(112,false,112,1),
+(113,false,113,1),
+(114,true,114,1),
+(115,false,115,1),
+(116,false,116,1),
+(117,false,117,1),
+(118,false,118,1),
+(119,false,119,1),
+(120,false,120,1),
+(121,false,121,1),
+(122,true,122,1),
+(123,true,123,1),
+(124,false,124,1),
+(125,false,125,1),
+(126,false,126,1),
+(127,false,127,1),
+(128,false,128,1),
+(129,true,129,1),
+(130,true,130,1),
+(131,true,131,1),
+(132,true,132,1),
+(133,true,133,1),
+(134,false,134,1),
+(135,true,135,1),
+(136,false,136,1),
+(137,false,137,1),
+(138,false,138,1),
+(139,false,139,1),
+(140,false,140,1),
+(141,true,141,1),
+(142,true,142,1),
+(143,true,143,1),
+(144,true,144,1),
+(145,true,145,1),
+(146,true,146,1),
+(147,true,147,1),
+(148,true,148,1),
+(149,true,149,1),
+(150,true,150,1),
+(151,true,151,1),
+(152,false,152,1);
 
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES

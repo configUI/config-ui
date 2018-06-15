@@ -66,7 +66,9 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "methodResponseTimeFilter":{"defaultValue":"0%201%2020","min":"0","max":"3600000","assocId":-1,"value":"0%201%2020","keyId":104},
 "NDAsyncRuleConfig":{"defaultValue":"false","min":"1","max":"1024","assocId":-1,"value":"false","keyId":105},
 "enableHSLongStack":{"defaultValue":"0%5%Immediate,TickObject,Timeout,TIMERWRAP","min":"0","max":"1024","assocId":-1,"value":"0%5%Immediate,TickObject,Timeout,TIMERWRAP","keyId":106},
-"correlateEventCallback":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":107}
+"correlateEventCallback":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":107},
+"enableWaitSyncQueueTime":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":108},
+"enableCaptureNetDelay":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":109}
 };
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {
