@@ -569,19 +569,19 @@ export class ConfigTreeDetailComponent implements OnInit {
   routeToConfiguration(entity) {
 
     if ('topoId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId };
+      this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId, 'nodeName' : entity.topoName  };
     }
     else if ('tierGroupId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'tierGroup', 'nodeId': entity.tierGroupId };
+      this.configProfileService.nodeData = { 'nodeType': 'tierGroup', 'nodeId': entity.tierGroupId, 'nodeName' : entity.tierGroupName  };
     }
     else if ('tierId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'tier', 'nodeId': entity.tierId };
+      this.configProfileService.nodeData = { 'nodeType': 'tier', 'nodeId': entity.tierId, 'nodeName' : entity.tierName  };
     }
     else if ('serverId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'server', 'nodeId': entity.serverId };
+      this.configProfileService.nodeData = { 'nodeType': 'server', 'nodeId': entity.serverId, 'nodeName' : entity.serverDisplayName  };
     }
     else if ('instanceId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId };
+      this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId, 'nodeName' : entity.instanceDisplayName  };
     }
 
     //Observable profile name
@@ -616,7 +616,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (this.configHomeService.trData.status == null) {
       this.configUtilityService.errorMessage("Could not start instrumentation, Session is not running")
       return;
-    }
+    } 
     if (sessionStorage.getItem("isSwitch") === 'false') {
       this.configUtilityService.errorMessage("Please enable Session toggle button for AI");
       return;

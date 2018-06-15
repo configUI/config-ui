@@ -18,7 +18,9 @@ export const INTEGRATION_TYPE = {
     CUSTOM: 'Custom',
     REDIS:'Redis',
     MONGO:'Mongo',
-    Cloudant_NoSQL : 'Cloudant NoSQL'
+    Cloudant_NoSQL : 'Cloudant NoSQL',
+    DBConnection: 'JDBC Connection',
+    NEO4J: 'Neo4j DB Callout'
 }
 
 export const Messages = "Saved Successfully";

@@ -27,7 +27,7 @@ export class UrlCapturingComponent implements OnInit {
   keywordData = new EventEmitter();
   urlCapturing: Object;
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['formatIPResourceURL', 'enableIPResourceURL', 'dumpDefaultCassandraQuery', 'enableTransformThreadSubClass'];
+  keywordList: string[] = ['formatIPResourceURL', 'enableIPResourceURL', 'dumpDefaultCassandraQuery', 'enableTransformThreadSubClass','enableCaptureNetDelay'];
   subscriptionEG: Subscription;
   enableGroupKeyword: boolean;
   keywordValue: Object;
@@ -40,6 +40,7 @@ export class UrlCapturingComponent implements OnInit {
   dumpDefaultCassandraQuery : boolean;
   enableIPResourceURL : boolean;
   enableTransformThreadSubClass : boolean;
+  enableCaptureNetDelay  : boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
     this.configKeywordsService.toggleKeywordData();
@@ -60,6 +61,7 @@ export class UrlCapturingComponent implements OnInit {
     this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
     this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
     this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
+    this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
   }
 
   /* This method is used to save the formatIPResourceURL data in the backend*/
@@ -89,6 +91,12 @@ export class UrlCapturingComponent implements OnInit {
     else {
       this.urlCapturing["enableTransformThreadSubClass"].value = 0;
     }
+    if (this.enableCaptureNetDelay) {
+      this.urlCapturing["enableCaptureNetDelay"].value = 1;
+    }
+    else {
+      this.urlCapturing["enableCaptureNetDelay"].value = 0;
+    }
     this.keywordData.emit(this.urlCapturing);
   }
 
@@ -109,6 +117,7 @@ export class UrlCapturingComponent implements OnInit {
     this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
     this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
     this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
+    this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
   }
 
   /* This method is used to reset the keyword data to its Default value */
@@ -123,13 +132,11 @@ export class UrlCapturingComponent implements OnInit {
       this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
       this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
       this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
-
+      this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
       this.enableFormatIPResourceURL = false;
       this.urlCapturingData.includeParameter = false;
       this.urlCapturingData.urlOffset = 0;
       this.urlCapturingData.maxChar = 256;
-      // this.splitKeywordData(this.header);
-        // this.methodTosetValue(this.exception);
     }
 
   /* This method is used to get the existing value of keyword from the backend*/
