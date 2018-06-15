@@ -85,6 +85,7 @@ export class EndPoint {
     isCustomEntry:boolean=true;
     agent: string;
     module: string;
+    argumentIndex: number;
 }
 
 export class NamingRuleAndExitPoint {

@@ -15,7 +15,7 @@ import { ImmutableArray } from '../../../../../utils/immutable-array';
 
 import { Messages, descMsg , addMessage } from '../../../../../constants/config-constant'
 
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router'; 
 
 @Component({
   selector: 'app-integration-pt',
@@ -61,6 +61,34 @@ export class IntegrationPtComponent implements OnInit {
   agentType: string = "";
   isProfilePerm: boolean;
   checkboxtrue: boolean = true;
+
+  argumentIndexSelecetItem: SelectItem[] = [];
+
+  DATA_TYPE = {
+    BOOLEAN: 'Z',
+    SHORT: 'S',
+    INTEGER: 'I',
+    STRING: 'Ljava/lang/String;',
+    BYTE: 'B',
+    FLOAT: 'F',
+    DOUBLE: 'D',
+    LONG: 'J',
+    CHAR: 'C',
+    VOID: 'V'
+  };
+
+  DATA_TYPE_ARR = [
+    this.DATA_TYPE.BOOLEAN,
+    this.DATA_TYPE.SHORT,
+    this.DATA_TYPE.INTEGER,
+    this.DATA_TYPE.STRING,
+    this.DATA_TYPE.BYTE,
+    this.DATA_TYPE.FLOAT,
+    this.DATA_TYPE.DOUBLE,
+    this.DATA_TYPE.LONG,
+    this.DATA_TYPE.CHAR,
+    this.DATA_TYPE.VOID
+  ];
 
   constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private store: Store<KeywordList>) {
     this.agentType = sessionStorage.getItem("agentType");
@@ -150,6 +178,7 @@ export class IntegrationPtComponent implements OnInit {
         endPointData.enabled = data.enabled;
         endPointData.fqm = data.fqm;
         endPointData.name = data.name;
+        endPointData.argumentIndex = data.argumentIndex;
         if (this.agentType == "Java") {
           endPointData.agent = "Java";
           endPointData.module = "-";
@@ -303,5 +332,90 @@ export class IntegrationPtComponent implements OnInit {
         console.log("return type", data)
       })
   }
+
+
+    /**
+     * This Method will be called when user clicks the
+     * Argument Index dropdown
+     * @param fqm 
+     * @param id
+     */
+    validateArgAndGetArgumentsNumberList(fqm,id) {
+      if (fqm == null || fqm == "") {
+        this.configUtilityService.errorMessage("Fill out fully qualified method name first");
+        this.argumentIndexSelecetItem = [];
+        return;
+      }
+      else if(id == 14){
+        this.validateArgumentType(fqm);
+      }
+      else {
+        let argStart = fqm.indexOf("(");
+        let argEnd = fqm.indexOf(")");
+        let args = fqm.substring(argStart + 1, argEnd);
+        //flag used for creating string "Ljava/lang/String;"
+        let flag = false;
+        let length = 0;
+        let string = '';
+        if (args.length == 0) {
+          this.configUtilityService.errorMessage("No Arguments present in Fqm")
+        }
+        else {
+          for (let i = 0; i < args.length; i++) {
+            if (args[i] == "L") {
+              flag = true;
+              string = string + args[i];
+              continue;
+            }
+            else if (flag) {
+              if (args[i] == ";") {
+                string = string + args[i];
+                  length++;
+                  string = '';
+                  flag = false;
+              }
+              else
+                string = string + args[i];
+  
+            }
+            else {
+              if (this.DATA_TYPE_ARR.indexOf(args[i]) == -1) {
+                this.configUtilityService.errorMessage("Invalid Argument Data Type")
+                return;
+              }
+              else {
+                length++;
+              }
+            }
+          }
+        }
+        this.argumentIndexSelecetItem = [];
+        for (let i = 1; i <= length; i++) {
+          this.argumentIndexSelecetItem.push({ 'value': i, 'label': i + '' });
+        }
+      }
+    }
+
+    /**
+     * This method is used to create dropdown for Custom Error logs
+     * @param fqm 
+     */
+    validateArgumentType(fqm) {
+      let count = [];
+      if (fqm != null) {
+        this.argumentIndexSelecetItem = [];
+        let argStart = fqm.indexOf("(");
+        let argEnd = fqm.indexOf(")");
+        let args = fqm.substring(argStart + 1, argEnd);
+        let argument = args.split(";");
+        for (let i = 0; i <= argument.length; i++) {
+          if (argument[i] == 'Ljava/lang/Throwable') {
+            let index;
+            index = i + 1;
+            this.argumentIndexSelecetItem.push({ 'value': index, 'label': index + '' });
+          }
+        }
+      }
+    } 
 }
 

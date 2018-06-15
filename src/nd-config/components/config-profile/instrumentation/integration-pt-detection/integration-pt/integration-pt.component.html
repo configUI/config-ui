@@ -82,8 +82,18 @@
             <div class="ui-g-4">
                 <label>Enabled</label>
             </div>
-            <div class="ui-g-8 toggleChk">
+            <div class="ui-g-2 toggleChk">
                 <md-slide-toggle [(ngModel)]="addIPDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+            </div>
+
+            <div class="ui-g-2" *ngIf="addIPDetectionDetail.backendTypeId === 13 || addIPDetectionDetail.backendTypeId === 14">
+                <label>Argument Index</label>
+            </div>
+            <div class="ui-g-4" *ngIf="addIPDetectionDetail.backendTypeId === 13 || addIPDetectionDetail.backendTypeId === 14">
+                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.argumentIndex" required
+                ngModel/>
+                <p-dropdown [options]="argumentIndexSelecetItem" [style]="{'width':'171px'}" name="argumentIndex" [(ngModel)]="addIPDetectionDetail.argumentIndex"
+                (click)="validateArgAndGetArgumentsNumberList(addIPDetectionDetail.fqm,addIPDetectionDetail.backendTypeId)"     placeholder="-- Select --" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
