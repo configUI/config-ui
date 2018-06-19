@@ -10,6 +10,7 @@ export class  ServiceEntryPoint {
     isCustomEntry:boolean=true;
     module:string;
     agent: string;
+    entryTypeCategory : string;
 }
 
 export class ErrorDetection {
@@ -84,6 +85,7 @@ export class EndPoint {
     isCustomEntry:boolean=true;
     agent: string;
     module: string;
+    argumentIndex: number;
 }
 
 export class NamingRuleAndExitPoint {

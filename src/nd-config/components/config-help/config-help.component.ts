@@ -9,8 +9,8 @@ import { ConfigKeywordsService } from './../../services/config-keywords.service'
 export class HelpComponent implements OnInit {
   /**
    *  Author : Himanshu Kumar
-   *  Usage of the variables used in this file are as follow:-
-   * -mainheader : It will hold the content for Header of Dialog
+   *  Usage of the varisbles used in this file are as follow:-
+   * -mainheader : It will hold the content for Header of Dilaog
    * -header : It will hold the Header content of the group of setting(s).
    * -headermessage : It will hold the message of the header if any present.
    * -messagefirst,messagesecond , messagethird , messagefourth and messagefifth : It will hold the level of setting(s) present on UI.
@@ -43,7 +43,6 @@ export class HelpComponent implements OnInit {
 
   ngOnInit() {
     this.configKeywordsService.helpContent$.subscribe(data => {
-      console.log("data",data)
       this.checkcomponent(data);
     });
   }
@@ -76,6 +75,7 @@ export class HelpComponent implements OnInit {
     if (data.module == "Application") {
       this.mainheader = data.component;
       this.header = ["Application Settings"];
+      this.headermessage ="";
       this.messagefirst = ["Application List"];
       this.submessagefirst = ["An application is a program designed to perform a specific function. Application contains topology, which is a combination of tier, server, and instances. Using the Configure button, user can add, edit, and delete an application."]
       this.helpdialog = true;
@@ -83,6 +83,7 @@ export class HelpComponent implements OnInit {
     if (data.module == "Profile") {
       this.mainheader = data.component;
       this.header = ["Profile Settings"];
+      this.headermessage ="";
       this.messagefirst = ["Profile List"];
       this.submessagefirst = ["Profiles are a set of configuration files that help ND Collector to identify the agent specific configuration (such as Java, .Net, and Node.js). User can apply Profiles at any level (such as tier, server, or instance)."]
       this.helpdialog = true;
@@ -90,6 +91,7 @@ export class HelpComponent implements OnInit {
     if (data.module == "Topology") {
       this.mainheader = data.component;
       this.header = ["Topology Settings"];
+      this.headermessage ="";
       this.messagefirst = ["Topology List"];
       this.submessagefirst = ["Topology is a combination of various elements (such as tier, server, and instance) of an application. User can view five most recent updated topologies only in Home page. To view the complete list of topologies, user needs to click the Topology icon (from the left menu) or click the Show All button."]
       this.helpdialog = true;
@@ -106,6 +108,7 @@ export class HelpComponent implements OnInit {
       if (data.agentType == "Java") {
         this.mainheader = data.component + " " + "Settings"
         this.header = ["Flowpath Settings"];
+        this.headermessage ="";
         this.messagefirst = ["Flowpath Instrumentation (%)", "HTTP Header Name for CorrelationID", "Capture callstacks of all offending business transaction(s)", "CPU Profiling", "Capture Time Breakdown"];
         this.submessagefirst = ["The specified percentage of flowpath(s) are captured from all the session(s) monitored by application agent. Slow, very slow, and error flowpaths are always caputred.",
           "HTTP header name used by application to pass correlationID across topology. ",
@@ -117,6 +120,7 @@ export class HelpComponent implements OnInit {
       else if (data.agentType == "DotNet" || data.agentType == "Dot Net") {
         this.mainheader = data.component + " " + "Settings"
         this.header = ["Flowpath Settings"];
+        this.headermessage ="";
         this.messagefirst = ["Flowpath Instrumentation (%)", "HTTP Header Name for CorrelationID", "CPU Profiling"];
         this.submessagefirst = ["The specified percentage of flowpath(s) are captured from all the session(s) monitored by application agent. Slow, very slow, and error flowpaths are always caputred.","HTTP header name used by application to pass correlationID across topology. ", "Capture CPU time consumed by (i) Business transaction(s) OR (ii) Business transaction(s) and method(s)."];
         this.helpdialog = true;
@@ -124,6 +128,7 @@ export class HelpComponent implements OnInit {
       else if (data.agentType == "NodeJS") {
         this.mainheader = data.component + " " + "Settings"
         this.header = ["Flowpath Settings"];
+        this.headermessage ="";
         this.messagefirst = ["Flowpath Instrumentation (%)", "HTTP Header Name for CorrelationID"];
         this.submessagefirst = ["The specified percentage of flowpath(s) are captured from all the session(s) monitored by application agent. Slow, very slow, and error flowpaths are always caputred.",
           "HTTP header name used by application to pass correlationID across topology. "];
@@ -134,6 +139,7 @@ export class HelpComponent implements OnInit {
       if (data.agentType == "Java") {
         this.mainheader = data.component + " " + "Settings";
         this.header = ["Hotspot Detection", "Filter"];
+        this.headermessage ="";
         this.messagefirst = ["Thread Sampling Interval", "Consecutive matching samples to mark as Hotspot", "Compare top <n> stack frames of same thread", "Maximum Stack depth difference in consecutive matching samples"];
 
         this.messagesecond = ["Minimum Hotspot Thread Depth", "Thread names to be included in Hotspot"
@@ -152,6 +158,7 @@ export class HelpComponent implements OnInit {
       else if (data.agentType == "DotNet" || data.agentType == "Dot Net") {
         this.mainheader = data.component + " " + "Settings";
         this.header = ["Hotspot Detection"];
+        this.headermessage ="";
         this.messagefirst = ["Thread Sampling Interval", "Consecutive matching samples to mark as Hotspot", "Compare top <n> stack frames of same thread"];
         this.submessagefirst = ["The provided value defines the frequency interval for collecting thread samples.",
           "Number of consecutive thread sample having same stack trace",
@@ -161,6 +168,7 @@ export class HelpComponent implements OnInit {
       else if (data.agentType == "NodeJS") {
         this.mainheader = data.component + " " + "Settings";
         this.header = ["Hotspot Detection"];
+        this.headermessage ="";
         this.messagefirst = ["Thread Sampling Interval"];
         this.submessagefirst = ["The provided value defines the frequency interval for collecting thread samples."];
         this.helpdialog = true;
@@ -190,6 +198,7 @@ export class HelpComponent implements OnInit {
     else if (data.module == "Custom Data") {
       this.mainheader = data.component + " " + "Settings";
       this.header = ["Custom Data", "Method", "Session Attribute", "HTTP Request Header", "HTTP Response Header"];
+      this.headermessage ="";
       this.messagefirst = ["Custom Data"];
       this.messagesecond = ["Method", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
       this.messagethird = ["Session Attribute", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
@@ -231,6 +240,7 @@ export class HelpComponent implements OnInit {
     else if (data.module == "Instrumentation Profile") {
       this.mainheader = data.component + " " + "Settings"
       this.header = ["Instrumentation Profile"];
+      this.headermessage ="";
       this.messagefirst = ["Instrumentation Profile"];
       this.submessagefirst = ["User can select instrumentation profile from the drop-down list to monitor application methods. User can also import an instrumentation file from NDE box or from a local machine using the Browse button."]
       this.helpdialog = true;
@@ -247,6 +257,7 @@ export class HelpComponent implements OnInit {
       if (data.agentType == "Java") {
         this.mainheader = data.component;
         this.header = ["Service Entry Point"];
+        this.headermessage ="";
         this.messagefirst = ["Service Entry Point", "", "", "", "", "", "", ""];
         this.submessagefirst = ["A service entry point is set on an entry. An entry can be a program or service program (where a service entry point is set on all procedures in the program)."
           , "This section displays a list of service entry points with following details: ", "(i) Service entry type", "(ii)  Service entry name"

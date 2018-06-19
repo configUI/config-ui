@@ -18,7 +18,7 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 
 import { ImmutableArray } from '../../utils/immutable-array';
 
-import { Messages, descMsg } from '../../constants/config-constant';
+import { Messages, descMsg , addMessage ,editMessage} from '../../constants/config-constant';
 import { ConfigUiUtility } from '../../utils/config-utility';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 
@@ -198,7 +198,7 @@ export class ConfigApplicationListComponent implements OnInit {
 
           //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
           this.applicationData = ImmutableArray.push(this.applicationData, data);
-          this.configUtilityService.successMessage(Messages);
+          this.configUtilityService.successMessage(addMessage);
           this.loadApplicationData();
           this.closeDialog();
         });
@@ -228,7 +228,7 @@ export class ConfigApplicationListComponent implements OnInit {
         // this.applicationData[index] = data;
         //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.applicationData = ImmutableArray.replace(this.applicationData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });

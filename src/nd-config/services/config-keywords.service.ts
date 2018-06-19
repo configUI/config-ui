@@ -24,14 +24,20 @@ import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 @Injectable()
 export class ConfigKeywordsService {
 
-//Method getHelpContent() is used to support Help Notification feature
+  /**
+  *To support Help Notification the getHelpContent()
+  *method is made in this class
+  */
   private helpContent = new Subject<Object>();
+   
   helpContent$ = this.helpContent.asObservable();
-  public getHelpContent(component:string,module:string,agentType: string) {
+
+  public  getHelpContent(component:string,module:string,agentType: string) {
+    console.log("com",component)
+    console.log("mod",module)
    this.helpContent.next({"component": component, "module": module , "agentType" : agentType});
   
  }
-
   /**It stores keyword data */
   private _keywordData: Object;
 
@@ -50,7 +56,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP","enableMethodBreakDownTime"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions","enableSourceCodeFilters","enableExceptionsWithSourceAndVars"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] }, custom_data: { enable: false, keywordList: ["captureCustomData"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP","enableMethodBreakDownTime", "methodResponseTimeFilter", "dumpOnlyMethodExitInFP"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions","enableSourceCodeFilters","enableExceptionsWithSourceAndVars"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] }, custom_data: { enable: false, keywordList: ["captureCustomData"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
       // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
@@ -86,12 +92,14 @@ export class ConfigKeywordsService {
   }
 
     /** For save all keywordData data */
-    saveProfileCustomKeywords(profileId, toggle?: string) {
+    saveProfileCustomKeywords(profileId, message :string) {
       this._restApi.getDataByPostReq(`${URL.UPDATE_CUSTOM_KEYWORDS_DATA}/${profileId}`, this.keywordData)
         .subscribe(data => {
           this.keywordData = data;
-          if (toggle != "toggle")
-            this.configUtilityService.successMessage(Messages);
+          if(!message.includes("Deleted"))
+              this.configUtilityService.successMessage(message);
+          else
+            this.configUtilityService.infoMessage(message);
   
           this.store.dispatch({ type: KEYWORD_DATA, payload: data });
         });
@@ -534,7 +542,6 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   uploadBTHTTPHdrFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_HTTP_HDR_FILE}/${profileId}`, filePath);
   }
-
   /** Add BT HTTP RESPONSE HEADERS */
   addBtResponseHeaders(data, profileId) {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_RESPONSE_HDR_URL}/${profileId}`, data);
@@ -721,38 +728,37 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.DELETE_HTTPREPHDR_RULES}`, data);
   }
 
-    /**Asynchronous Rule */
-    getAsynchronousRuleList(profileId): Observable<AsynchronousRuleType[]> {
-      return this._restApi.getDataByGetReq(`${URL.FETCH_ASYNCHRONOUS_RULE_TABLEDATA}/${profileId}`);
-    }
+  /**Asynchronous Rule */
+  getAsynchronousRuleList(profileId): Observable<AsynchronousRuleType[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_ASYNCHRONOUS_RULE_TABLEDATA}/${profileId}`);
+  }
     
-    saveAsynchronousRule(profileId): Observable<AsynchronousRuleType> {
-      return this._restApi.getDataByPostReq(`${URL.SAVE_ASYNCHRONOUS_RULE}/${profileId}`);
-    }
+  saveAsynchronousRule(profileId): Observable<AsynchronousRuleType> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_ASYNCHRONOUS_RULE}/${profileId}`);
+  }
 
-    enableAsyncRuleTypeList(assocId, isEnable): Observable<AsynchronousRuleType[]> {
-      return this._restApi.getDataByPostReq(`${URL.ENABLE_ASYNCHRONOUS_RULE_TYPE}/${assocId}/${isEnable}`);
-    }
+  enableAsyncRuleTypeList(assocId, isEnable): Observable<AsynchronousRuleType[]> {
+    return this._restApi.getDataByPostReq(`${URL.ENABLE_ASYNCHRONOUS_RULE_TYPE}/${assocId}/${isEnable}`);
+  }
 
-    getTopoName(trNo, instanceName): Observable<String>{
-      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
-    }
+  getTopoName(trNo, instanceName): Observable<String>{
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
+  }
 
-    /** URL for creating method monitor from auto discover */
-    methodMonitorFromAutoDiscover(nodeInfo, reqId, instanceFileName, profileId) {
-      return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AD}/${reqId + ',' + instanceFileName}/${profileId}`, nodeInfo);
-    }
-
-    /** URL for creating method monitor from auto instrumentation */
-    methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
-      return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
-    }
-    
   /** Method to upload file */
   uploadBTMethodFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
   }
 
+  /** URL for creating method monitor from auto discover */
+  methodMonitorFromAutoDiscover(nodeInfo, reqId, instanceFileName, profileId) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AD}/${reqId + ',' + instanceFileName}/${profileId}`, nodeInfo);
+  }
+
+  /** URL for creating method monitor from auto instrumentation */
+  methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
+  }
   downloadReports(data){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
 }
@@ -782,4 +788,3 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.DELETE_BT_BODY}/${profileId}`, data);
   }
 }
-

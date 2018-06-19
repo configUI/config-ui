@@ -12,7 +12,7 @@ import { ServiceEntryType } from '../../../../interfaces/instrumentation-info';
 
 import { ImmutableArray } from '../../../../utils/immutable-array';
 
-import { Messages, descMsg } from '../../../../constants/config-constant';
+import { Messages, descMsg  , addMessage , editMessage} from '../../../../constants/config-constant';
 
 import { deleteMany, ConfigUiUtility, cloneObject } from '../../../../utils/config-utility';
 
@@ -175,7 +175,7 @@ export class ServiceEntryPointComponent implements OnInit {
         // this.serviceEntryData.push(data);
 
         this.serviceEntryData = ImmutableArray.push(this.serviceEntryData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditServiceEntryDialog = false;
   }
@@ -334,7 +334,7 @@ export class ServiceEntryPointComponent implements OnInit {
         let index = this.getServiceEntryPoint();
         this.serviceEntryData = ImmutableArray.replace(this.serviceEntryData, data, index);
         this.serviceEntryPointDetail.entryType = data.entryType
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
       });
 
     this.addEditServiceEntryDialog = false;
@@ -368,6 +368,62 @@ export class ServiceEntryPointComponent implements OnInit {
           this.keywordData.emit(this.entryPoints);
         });
       })
+  }
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader ;
+    let arrcolSize;
+    let arrAlignmentOfColumn ;
+    let arrFieldName ;
+    if(this.type){
+     arrHeader = { "0": "Service Entry Type", "1": "Service Entry Name", "2": "Enable Instrumentation","3" : "Description" ,"4" : "Category"};
+     arrcolSize = { "0": 2, "1": 2, "2": 1 ,"3" :2 ,"4" : 2};
+     arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "center" , "3" : "left","4" : "left"};
+     arrFieldName = { "0": "entryType", "1": "name", "2": "enabled" , "3" : "desc" , "4" : "entryTypeCategory"};
+
+    for(let i=0;i<this.serviceEntryData.length;i++){
+      if(this.serviceEntryData[i].isCustomEntry == true){
+        this.serviceEntryData[i].entryTypeCategory = "Custom";
+      }
+      else{
+        this.serviceEntryData[i].entryTypeCategory = "Predefined"
+    }
+  }
+}
+  else{
+     arrHeader = { "0": "Type", "1": "Module", "2": "Name","3" : "Enabled" ,"4" : "Description","5" : "Category"};
+     arrcolSize = { "0": 2, "1": 2, "2": 2 ,"3" : 1 ,"4" : 2,"5" :2};
+     arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left","3" : "center" ,"4" : "left" ,"5" : "left"};
+     arrFieldName = { "0": "entryType", "1": "module", "2": "name" , "3" : "enabled" , "4" : "desc","5" : "entryTypeCategory"};
+
+    for(let i=0;i<this.serviceEntryData.length;i++){
+      if(this.serviceEntryData[i].isCustomEntry == true){
+        this.serviceEntryData[i].entryTypeCategory = "Custom";
+      }
+      else{
+        this.serviceEntryData[i].entryTypeCategory = "Predefined"
+      }
+    }
+  }
+    let object =
+      {
+        data: this.serviceEntryData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Service Entry Points",
+        fileName: "serviceentry",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
   }
 
 }

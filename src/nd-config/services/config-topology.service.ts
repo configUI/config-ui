@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import { ConfigRestApiService } from './config-rest-api.service';
-import { TopologyInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo, AutoInstrSummaryData } from '../interfaces/topology-info';
+import { TopologyInfo, TierGroupInfo, TierInfo, ServerInfo, InstanceInfo, AutoInstrSettings, AutoIntrDTO, DDAIInfo, AutoInstrSummaryData } from '../interfaces/topology-info';
 import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
@@ -45,8 +45,12 @@ export class ConfigTopologyService {
     return this._restApi.getDataByGetReq(`${URL.FETCH_TOPO_TABLE_URL}/${dcId}`);
   }
 
-  getTierDetail(topoId: number, entity: TopologyInfo): Observable<TierInfo[]> {
-    return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_TABLE_URL}/${topoId}`, entity);
+  getTierGroupDetail(topoId: number, entity: TopologyInfo): Observable<TopologyInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_GROUP_TABLE_URL}/${topoId}`, entity);
+  }
+
+  getTierDetail(tierGroupName: string, entity: TierGroupInfo): Observable<TierInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_TABLE_URL}/${tierGroupName}`, entity);
   }
 
   getServerDetail(tierId: number, entity: TierInfo): Observable<ServerInfo[]> {
@@ -63,6 +67,10 @@ export class ConfigTopologyService {
 
   getTierTreeDetail(tierId: number, profileId: number): Observable<TreeNode[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_TIER_TREE_URL}/${tierId}/${profileId}`);
+  }
+
+  getTierGroupTreeDetail(tierGroupName: string, tierGroupId): Observable<TreeNode[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_TIER_GROUP_TREE_URL}/${tierGroupName}/${tierGroupId}`);
   }
 
   getServerTreeDetail(serverId: number, profileId: number): Observable<TreeNode[]> {
@@ -82,10 +90,16 @@ export class ConfigTopologyService {
         return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`);
   }
 
+  /* Changing Profile to TierGroup */
+  updateAttachedProfTierGroup(data) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER_GROUP}/${data.tierGroupName}/${data.profileId}`);
+  }
+
   /* Changing Profile to Tier */
   updateAttachedProfTier(data) {
     return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}`);
   }
+
   /* Changing Profile to Server */
   updateAttachedProfServer(data) {
     return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}`);

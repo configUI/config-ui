@@ -12,7 +12,7 @@ import { cloneObject } from '../../../../utils/config-utility';
 import { ImmutableArray } from '../../../../utils/immutable-array';
 import { ExceptionData } from '../../../../containers/exception-capture-data';
 
-import { Messages } from '../../../../constants/config-constant'
+import { Messages  , addMessage , editMessage } from '../../../../constants/config-constant'
 
 import { deleteMany } from '../../../../utils/config-utility';
 
@@ -369,7 +369,7 @@ export class ExceptionCapturingComponent implements OnInit {
                         this.modifyData(data);
                         this.enableSourceCodeFiltersTableData = ImmutableArray.push(this.enableSourceCodeFiltersTableData, data);
                         // this.enableSourceCodeFilter.push(data);
-                        this.configUtilityService.successMessage(Messages);
+                        this.configUtilityService.successMessage(addMessage);
                     });
                 this.exceptionfiltermode = false;
                 this.addEditExceptionFilterDialog = false;
@@ -415,7 +415,7 @@ export class ExceptionCapturingComponent implements OnInit {
                 let index = this.getExceptionFilterIndex();
                 this.selectedExceptionFilterData.length = 0;
                 this.enableSourceCodeFiltersTableData = ImmutableArray.replace(this.enableSourceCodeFiltersTableData, data, index);
-                this.configUtilityService.successMessage(Messages);
+                this.configUtilityService.successMessage(editMessage);
             });
         this.addEditExceptionFilterDialog = false;
 

@@ -9,7 +9,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage } from '../../../../../constants/config-constant'
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
@@ -342,7 +342,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         this.selectedHttpStatsMonitorData.length = 0;
         // this.selectedHttpStatsMonitorData.push(data);
         this.httpStatsMonitorData = ImmutableArray.replace(this.httpStatsMonitorData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.httpStatsMonitorData[index] = data;
       });
     this.addEditHttpStatsMonitorDialog = false;
@@ -368,7 +368,7 @@ export class HttpStatsMonitorsComponent implements OnInit {
         // this.httpStatsMonitorData.push(data);
         this.httpStatsMonitorData = ImmutableArray.push(this.httpStatsMonitorData, data);
         this.httpStatsMonitorDetail.fpDumpMode = data.fpDumpMode;
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditHttpStatsMonitorDialog = false;
     // }

@@ -9,7 +9,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../containers/method-based-custom-data';
-import { Messages } from '../../../../../constants/config-constant'
+import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-method-bt-configuration',
@@ -372,7 +372,7 @@ export class MethodBTConfigurationComponent implements OnInit {
           }
           that.modifyData(val);
         })
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
       });
     })
     this.closeDialog();
@@ -941,7 +941,7 @@ export class MethodBTConfigurationComponent implements OnInit {
       // this.businessTransMethodInfo.push(data)
       this.modifyData(data);
       this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
-      this.configUtilityService.successMessage(Messages);
+      this.configUtilityService.successMessage(addMessage);
     });
     this.addBusinessTransMethodDialog = false;
     this.selectedbusinessTransMethod = [];

@@ -8,18 +8,20 @@
     <div *ngIf="routingFromAIGui == false" class="progressIcon">
         <img class="loadingIcon" src="./images/loading.gif" />
     </div>
-    <p-dataTable class="nde-ui toggleChk" *ngIf="routingFromAIGui == true" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData">
+    <p-dataTable class="nde-ui toggleChk" *ngIf="routingFromAIGui == true" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData" [rowsPerPageOptions]="[15,50,100,200,400]" scrollable="true"
+        scrollHeight="400px">
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-        <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true">
-            <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
+        <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true" [filter]="true" filterPlaceholder="Search">
+        <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
                     <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
-                    <a class="hyperlink" *ngIf="!noProfilePerm" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+                    <a class="hyperlink" *ngIf="!noProfilePerm && entity['tierGroupName'] != 'default'" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
+                    <span *ngIf="!noProfilePerm && entity['tierGroupName'] == 'default'">{{entity[col.field]}}</span>
             </template>
-            <!-- <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
+        <!-- <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
             <md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
                     <md-slide-toggle *ngIf="!perm" (change)="disableProfInstance(entity['instanceId'], entity[col.field], entity['profileId'])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
             </template> -->
-            <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
+        <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
                     <span *ngIf="entity[col.field]== false" title="Start">
                         <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
                             <i class="fa fa-play-circle-o" ></i>

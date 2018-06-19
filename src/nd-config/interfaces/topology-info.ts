@@ -7,6 +7,17 @@ export interface TopologyInfo {
     profileName: number;
     topoId: number;
 }
+
+export interface TierGroupInfo {
+    tierGroupId: number;
+    tierGroupName: string;
+    tierGroupDesc: string;
+    tierGroupDefination: string;
+    type: string;
+    profileId: number;
+    profileName: string;
+}
+
 export interface TierInfo {
     tierId: number;
     tierFileId: number;

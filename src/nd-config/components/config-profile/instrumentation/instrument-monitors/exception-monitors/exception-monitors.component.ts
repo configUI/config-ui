@@ -10,7 +10,7 @@ import { ConfigKeywordsService } from '../../../../../services/config-keywords.s
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ImmutableArray } from '../../../../../utils/immutable-array';
-import { Messages, descMsg } from '../../../../../constants/config-constant'
+import { Messages, descMsg , addMessage , editMessage  } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-exception-monitors',
@@ -210,7 +210,7 @@ export class ExceptionMonitorsComponent implements OnInit {
         this.selectedExceptionMonitorData.length = 0;
         // this.selectedExceptionMonitorData.push(data);
         this.exceptionMonitorData = ImmutableArray.replace(this.exceptionMonitorData, data, index);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(editMessage);
         // this.exceptionMonitorData[index] = data;
       });
     this.addEditExceptionMonitorDialog = false;
@@ -247,7 +247,7 @@ export class ExceptionMonitorsComponent implements OnInit {
         //Insert data in main table after inserting Exception Monitor in DB
         // this.exceptionMonitorData.push(data);
         this.exceptionMonitorData = ImmutableArray.push(this.exceptionMonitorData, data);
-        this.configUtilityService.successMessage(Messages);
+        this.configUtilityService.successMessage(addMessage);
       });
     this.addEditExceptionMonitorDialog = false;
   }

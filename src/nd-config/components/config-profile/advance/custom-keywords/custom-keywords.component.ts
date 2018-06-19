@@ -41,10 +41,12 @@ export class CustomKeywordsComponent implements OnInit {
   /**For open/close add/edit  */
   addEditDialog: boolean = false;
 
+  message :string;
+
   //list holding keywordsNameList
   customKeywordsList = [];
 
-  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailMapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "ASTraceLevel"];
+  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailMapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "ASTraceLevel","enableWaitSyncQueueTime"];
   nodeJsCustomKeywordsList = ["ndExceptionFilterList", "enableBackendMonTrace", "enableForcedFPChain", "captureHttpTraceLevel", "maxCharInSeqBlob", "bciMaxNonServiceMethodsPerFP", "bciDataBufferMaxCount", "bciDataBufferMaxSize", "ASDataBufferSize", "ASDataBufferMaxCount", "NVCookie"];
   dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
 
@@ -185,8 +187,9 @@ export class CustomKeywordsComponent implements OnInit {
         for(let key in this.custom_keyword){
           this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
         }
-        
-        this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
+        this.message = "Deleted Successfully"
+        this.configKeywordsService.saveProfileCustomKeywords(this.profileId,this.message);
+        this.message = "";
         this.selectedCustomKeywordsData = [];
       },
       reject: () => {
@@ -410,8 +413,15 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
 
+    if (this.customKeywords.keywordName == 'enableWaitSyncQueueTime') {
+      if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
+        this.configUtilityService.errorMessage("Please enter value between 0 and 1");
+        return;
+      }
+    }
+
     //To check that keyword name already exists or not
-    for (var i = 0; i < this.customKeywordsDataList.length; i++) {
+    for (let i = 0; i < this.customKeywordsDataList.length; i++) {
       //checking (isNew) for handling the case of edit functionality
       if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
         this.configUtilityService.errorMessage("Keyword name already exists");
@@ -432,8 +442,14 @@ export class CustomKeywordsComponent implements OnInit {
     for(let key in this.custom_keyword){
       this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
     } 
-
-    this.configKeywordsService.saveProfileCustomKeywords(this.profileId);
+    if(this.isNew){
+       this.message = "Added Successfully";
+    }
+    else{
+      this.message = "Edited Successfully";
+    }
+    this.configKeywordsService.saveProfileCustomKeywords(this.profileId,this.message);
+    this.message = "";
     
     if (!keywordExistFlag) {
       this.configUtilityService.errorMessage(customKeywordMessage);

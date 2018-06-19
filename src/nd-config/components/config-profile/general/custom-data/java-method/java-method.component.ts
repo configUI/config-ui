@@ -8,10 +8,11 @@ import { ConfigUiUtility } from '../../../../../utils/config-utility';
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { deleteMany } from '../../../../../utils/config-utility';
 import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../containers/method-based-custom-data';
+import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 
 import { ImmutableArray } from '../../../../../utils/immutable-array';
 
-import { Messages } from '../../../../../constants/config-constant'
+import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant'
 
 @Component({
   selector: 'app-java-method',
@@ -127,7 +128,7 @@ export class JavaMethodComponent implements OnInit {
   isProfilePerm: boolean;
 
   //receiving data from store
-  constructor(private route: ActivatedRoute, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private configKeywordsService: ConfigKeywordsService,private route: ActivatedRoute, private configCustomDataService: ConfigCustomDataService, private store: Store<Object>, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
     this.subscription = this.store.select("customData").subscribe(data => {
       // this.tableData = data;
     })
@@ -294,7 +295,7 @@ export class JavaMethodComponent implements OnInit {
                   val = data
                 }
               })
-              this.configUtilityService.successMessage(Messages);
+              this.configUtilityService.successMessage(editMessage);
               this.modifyData(this.tableData)
             })
           })
@@ -317,7 +318,7 @@ export class JavaMethodComponent implements OnInit {
         this.configCustomDataService.addMethodBasedCustomData(this.methodBasedCustomData, this.profileId).subscribe(data => {
           // this.tableData.push(data);
           this.tableData = ImmutableArray.push(this.tableData, data);
-          this.configUtilityService.successMessage(Messages);
+          this.configUtilityService.successMessage(addMessage);
           this.modifyData(this.tableData)
         })
       }
@@ -909,6 +910,32 @@ export class JavaMethodComponent implements OnInit {
       }
     }
   
+  }
+  // for download Excel, word, Pdf File 
+  downloadReports(reports: string) {
+    let arrHeader = { "0": "Fully Qualified Method Name", "1": "Return Type", "2": "Argument Type" };
+    let arrcolSize = { "0": 3, "1": 2, "2": 2 };
+    let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left" };
+    let arrFieldName = { "0": "fqm", "1": "returnTypeValue", "2": "argumentTypeValue" };
+    let object =
+      {
+        data: this.tableData,
+        headerList: arrHeader,
+        colSize: arrcolSize,
+        alignArr: arrAlignmentOfColumn,
+        fieldName: arrFieldName,
+        downloadType: reports,
+        title: "Method",
+        fileName: "custommethod",
+      }
+    this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+      this.openDownloadReports(data._body)
+    })
+  }
+
+  /* for open download reports*/
+  openDownloadReports(res) {
+    window.open("/common/" + res);
   }
 
 }

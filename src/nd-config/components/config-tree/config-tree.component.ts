@@ -117,15 +117,16 @@ export class ConfigTreeComponent implements OnInit {
       }
       let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
       this.nodeId = event.node.id;
-      //This is done showing and hiding leaf icon on the basis of auto scaling
-      for (var i = 0; i < event.node.children.length; i++) {
-        if (!this.enableAutoScaling)
-          event.node.children[i].leaf = true;
-        else
-          event.node.children[i].leaf = false;
-      }
+
       this.nodeLabel = event.node.label;
       this.getTableData.emit({ data })
+    }
+    else if (event.node.data == "TierGroup") {
+      if (event.node.leaf != true) {
+        this.configTopologyService.getTierGroupTreeDetail(event.node.label,event.node.id).subscribe(nodes => this.createChildTreeData(nodes, event));
+        let data = { 'currentEntity': CONS.TOPOLOGY.TIERGROUP, 'nodeId': event.node.id, nodeLabel: event.node.label, nodeExpanded: event.node.expanded }
+        this.getTableData.emit({ data })
+      }
     }
     else if (this.enableAutoScaling && event.node.data == "Tier") {
       if (event.node.leaf != true) {

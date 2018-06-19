@@ -13,7 +13,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
-import { Messages } from '../../../../../constants/config-constant';
+import { Messages , addMessage , editMessage  } from '../../../../../constants/config-constant';
 
 @Component({
     selector: 'bt-http-body',
@@ -373,7 +373,7 @@ export class BTHTTPBodyComponent implements OnInit {
         this.configKeywordsService.addBtHttpBody(this.httpBodyDetail, this.profileId).subscribe(data => {
             this.httpBodyInfo = ImmutableArray.push(this.httpBodyInfo, data);
             
-            this.configUtilityService.successMessage(Messages);
+            this.configUtilityService.successMessage(addMessage);
             this.modifyData(this.httpBodyInfo);
 
         });
@@ -511,7 +511,7 @@ export class BTHTTPBodyComponent implements OnInit {
                     }
 
                 });
-                this.configUtilityService.successMessage(Messages);
+                this.configUtilityService.successMessage(editMessage);
             });
         })
         this.closeDialog();

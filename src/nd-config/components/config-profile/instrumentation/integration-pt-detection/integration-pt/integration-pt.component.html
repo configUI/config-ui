@@ -64,17 +64,36 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
+            <ng-container *ngIf="(addIPDetectionDetail.backendTypeId === 3 || addIPDetectionDetail.backendTypeId === 10 || addIPDetectionDetail.backendTypeId === 11 || addIPDetectionDetail.backendTypeId === 12 || addIPDetectionDetail.backendTypeId === 21); then first else second">
+            </ng-container>
+            <ng-template #first>
+            <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(([;_$\/\[a-zA-Z0-9]*))+[;_$\/\[a-zA-Z0-9].*"
+            (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
+            />
+            </ng-template>
+            <ng-template #second>
                 <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*"
-                    (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
+                (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="addIPDetectionDetail.fqm" required ngModel
                 />
+                </ng-template>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
                 <label>Enabled</label>
             </div>
-            <div class="ui-g-8 toggleChk">
+            <div class="ui-g-2 toggleChk">
                 <md-slide-toggle [(ngModel)]="addIPDetectionDetail.enabled" name="enabled" style="margin:0px 0px;"></md-slide-toggle>
+            </div>
+
+            <div class="ui-g-2" *ngIf="addIPDetectionDetail.backendTypeId === 13 || addIPDetectionDetail.backendTypeId === 14">
+                <label>Argument Index</label>
+            </div>
+            <div class="ui-g-4" *ngIf="addIPDetectionDetail.backendTypeId === 13 || addIPDetectionDetail.backendTypeId === 14">
+                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.argumentIndex" required
+                ngModel/>
+                <p-dropdown [options]="argumentIndexSelecetItem" [style]="{'width':'171px'}" name="argumentIndex" [(ngModel)]="addIPDetectionDetail.argumentIndex"
+                (click)="validateArgAndGetArgumentsNumberList(addIPDetectionDetail.fqm,addIPDetectionDetail.backendTypeId)"     placeholder="-- Select --" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -154,6 +173,23 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
             </div>
+            <div class="ui-g" *ngSwitchCase="IP.DBConnection">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
+
+                <!--Host Port Query String, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.NEO4J">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
+            </div>
             <div class="ui-g" *ngSwitchDefault>
             </div>
         </div>
@@ -163,7 +199,7 @@
                 <label style="font-weight: bolder;font-size: larger">Integration Exit Point(s)</label>
                 <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstEndPoints">
                     <div class="ui-g-8">
-                        <label>{{endPoints.name}}</label>
+                        <label>{{endPoints.name}}</label><i class="fa fa-info-circle" aria-hidden="true" title={{endPoints.fqm}}></i>
                     </div>
                     <div class="ui-g-2">
                         <div>
