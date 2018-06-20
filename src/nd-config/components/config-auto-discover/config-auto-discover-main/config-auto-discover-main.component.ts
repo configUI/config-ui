@@ -138,7 +138,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
 
   openAdrFile() {
     if(this.adrFile == undefined){
-      this.configUtilityService.infoMessage("Please select a instance from dropdown");
+      this.configUtilityService.infoMessage("Please select the instance");
       return;
     }
     sessionStorage.setItem("adrFile", this.adrFile + ".adr");
