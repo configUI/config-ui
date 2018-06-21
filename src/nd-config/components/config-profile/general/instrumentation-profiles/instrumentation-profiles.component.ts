@@ -88,7 +88,7 @@ export class InstrumentationProfilesComponent implements OnInit {
 */
     for (let i = 0; i < list.length; i++) {
       let labelname:string;
-      labelname=list[i].split(".")[0];
+      labelname=list[i].substring(0, list[i].lastIndexOf("."))
       this.instrProfileSelectItem.push({ value: list[i], label: labelname });
     }
     this.loadInstrData();
