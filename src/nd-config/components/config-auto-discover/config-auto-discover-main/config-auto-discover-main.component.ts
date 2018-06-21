@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { 
-  AutoDiscoverData } from "../../../containers/auto-discover-data";
+import { Component, OnInit,Inject } from '@angular/core';
+import { AutoDiscoverData } from "../../../containers/auto-discover-data";
 import { NDAgentInfo } from '../../../interfaces/nd-agent-info';
 import { ConfigNdAgentService } from '../../../services/config-nd-agent.service';
 import { ConfigUiUtility } from '../../../utils/config-utility';
 import { ConfigUtilityService } from '../../../services/config-utility.service';
 import { ROUTING_PATH } from '../../../constants/config-url-constant';
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class ConfigAutoDiscoverMainComponent implements OnInit {
 
-  constructor(private configNdAgentService: ConfigNdAgentService, private configUtilityService: ConfigUtilityService, private router: Router) { }
+  constructor(private configNdAgentService: ConfigNdAgentService, private configUtilityService: ConfigUtilityService, private router: Router,@Inject(DOCUMENT) private document: Document) { }
 
   /**Getting application list data */
   ndAgentStatusData: NDAgentInfo[];
@@ -57,6 +57,7 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
     else {
       this.isAgentSelected =false;
     }
+    this.document.body.classList.add('ad_connectedagent');
   }
   onChange()
   {
@@ -136,6 +137,10 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
   }
 
   openAdrFile() {
+    if(this.adrFile == undefined){
+      this.configUtilityService.infoMessage("Please select the instance");
+      return;
+    }
     sessionStorage.setItem("adrFile", this.adrFile + ".adr");
     sessionStorage.setItem("agentType",this.selectedAgent);
     this.router.navigate([this.ROUTING_PATH + '/auto-discover-tree']);
