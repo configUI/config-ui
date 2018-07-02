@@ -1166,3 +1166,7 @@ body {
 {
     max-height: 495px !important;
 }
+
+.ad_connectedagent .ui-dropdown-panel .ui-dropdown-items-wrapper {
+    max-width: 317px;
+ }

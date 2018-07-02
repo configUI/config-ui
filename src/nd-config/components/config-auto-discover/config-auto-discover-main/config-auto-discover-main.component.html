@@ -14,7 +14,7 @@
             </div>
             <div class="ui-g-4" style="margin-top:19px">
                 <input name="agents" type="text" class='hidden-validator' pInputText [(ngModel)]="autoDiscoverDetail.agents" required ngModel/>
-                <p-dropdown name="agents" class="auto-discover" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
+                <p-dropdown name="agents" class="auto-discover ad_connectedagent" [options]="agents" [style]="{'width':'95%'}" [(ngModel)]="autoDiscoverDetail.agents" placeholder="--Select--" filter="filter" [disabled]="isAgentSelected"></p-dropdown>
             </div>
         </div>
 

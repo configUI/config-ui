@@ -119,7 +119,7 @@
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Integration Point Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
         <div *ngIf="agentType =='Java'">
-            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL">
+            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL || integrationDetail.type == IP.DBConnection || integrationDetail.type ==IP.NEO4J || integrationDetail.type == IP.JMS_Active || integrationDetail.type == IP.JMS_Rabbit || integrationDetail.type == IP.Async_HTTP">
                 <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rule(s)</label>
             </div>
         </div>
@@ -141,6 +141,12 @@
             </div> -->
             <div *ngIf="agentType =='Java'">
                 <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.Async_HTTP">
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
@@ -188,7 +194,16 @@
             <div class="ui-g" *ngSwitchCase="IP.NEO4J">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query String </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.JMS_Active">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query </md-checkbox>
+            </div>
+            <div class="ui-g" *ngSwitchCase="IP.JMS_Rabbit">
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
             </div>
             <div class="ui-g" *ngSwitchDefault>
             </div>
@@ -198,7 +213,7 @@
             <div class="ui-g-12">
                 <label style="font-weight: bolder;font-size: larger">Integration Exit Point(s)</label>
                 <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstEndPoints">
-                    <div class="ui-g-8">
+                    <div class="ui-g-8" style="overflow : hidden;text-overflow : ellipsis">
                         <label>{{endPoints.name}}</label><i class="fa fa-info-circle" aria-hidden="true" title={{endPoints.fqm}}></i>
                     </div>
                     <div class="ui-g-2">
