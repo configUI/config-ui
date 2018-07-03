@@ -233,9 +233,16 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (23,'Exception Backend','Exception','Exception','None','Java'),
 (24,'XATransaction Backend','XATransaction','XATransaction','None','Java'),
 (25,'JDBC Connection Backend','JDBC Connection','DBConnection','DBConnection','Java'),
-(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','neo4jDB','Java');
+(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','neo4jDB','Java'),
+(27,'JMS IBM Backend','JMS-IBM','JMS_IBM','None','Java'),
+(28,'JMS Active Backend','JMS-Active','JMS_Active','JMS_Active','Java'),
+(29,'JMS Rabbit Backend','JMS-Rabbit','JMS_Rabbit','JMS_Rabbit','Java'),
+(30,'JMS ATG Backend','JMS-ATG','JMS_Atg','None','Java'),
+(31,'JMS TIBCO Backend','JMS-TIBCO','JMS_TIBCO','None','Java'),
+(32,'Async HTTP Backend','Async-HTTP','Async_HTTP','Async_HTTP','Java');
 
-    INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
+
+INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
 (1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)V','Apace HTTP Client',1,false,'-','Java'),
 (2,'HTTP end point','com.endeca.navigation.HttpENEConnection.query(Lcom/endeca/navigation/ENEQuery;)Lcom/endeca/navigation/ENEQueryResults;','Endeca',1,false,'-','Java'),
 (3,'HTTP end point','org.apache.http.impl.client.AbstractHttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','Apache AbstractHttpClient',1,false,'-','Java'),
@@ -386,7 +393,24 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (149,'Exception end point','java.lang.Throwable.<init>(Ljava/lang/String;)V','Exception: <init>(Ljava/lang/String;)V',23,false,'-','Java'),
 (150,'Exception end point','java.lang.Throwable.<init>(Ljava/lang/Throwable;)V','Exception: <init>(Throwable)V',23,false,'-','Java'),
 (151,'Exception end point','java.lang.Throwable.<init>(Ljava/lang/String;Ljava/lang/Throwable;)V','Exception: <init>(String,Throwable)V',23,false,'-','Java'),
-(152,'Custom Log end point','io.undertow.server.handlers.accesslog.DefaultAccessLogReceiver.logMessage(Ljava/lang/String;)V','DefaultAccessLogReceiver.logMessage(String)',13,false,'-','Java');
+(152,'Custom Log end point','io.undertow.server.handlers.accesslog.DefaultAccessLogReceiver.logMessage(Ljava/lang/String;)V','DefaultAccessLogReceiver.logMessage(String)',13,false,'-','Java'),
+(153,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Message;IIJ)V','MQMessageProducer.send(Message,IIJ)V',27,false,'-','Java'),
+(154,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Message;)V','MQMessageProducer.send(Message)V',27,false,'-','Java'),
+(155,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;)V','MQMessageProducer.send(Destination,Message)V',27,false,'-','Java'),
+(156,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJ)V','MQMessageProducer.send(Destination,Message,IIJ)V',27,false,'-','Java'),
+(157,'JMS Active Backend','org.apache.activemq.ActiveMQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJ)V','ActiveMQMessageProducer.send(Destination,Message,IIJ)V',28,false,'-','Java'),
+(158,'JMS Active Backend','org.apache.activemq.ActiveMQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJLorg/apache/activemq/AsyncCallback;)V','ActiveMQMessageProducer.send(Destination,Message,AsyncCallback)V',28,false,'-','Java'),
+(159,'JMS Rabbit Backend','com.rabbitmq.client.impl.AMQChannel.transmit(Lcom/rabbitmq/client/Method;)V','AMQChannel.transmit(Method)V',29,false,'-','Java'),
+(160,'JMS Rabbit Backend','com.rabbitmq.client.impl.AMQChannel.transmit(Lcom/rabbitmq/client/impl/AMQCommand;)V','AMQChannel.transmit(AMQCommand)V',29,false,'-','Java'),
+(161,'JMS ATG Backend','atg.dms.local.TopicPublisherImpl.publish(Ljavax/jms/Topic;Ljavax/jms/Message;)V','TopicPublisherImpl.publish(Topic,Message)V',30,false,'-','Java'),
+(162,'JMS TIBCO Backend','com.tibco.tibjms.TibjmsMessageProducer._publish(Ljavax/jms/Destination;Ljavax/jms/Message;ZIIJZLjavax/jms/CompletionListener;)Lcom/tibco/tibjms/TibjmsMessage;','TibjmsMessageProducer._publish(Destination,Message,CompletionListener)V',31,false,'-','Java'),
+(163,'Async HTTP Backend','org.apache.http.impl.nio.client.FutureWrapper','client.FutureWrapper',32,false,'-','Java'),
+(164,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.completed(Ljava/lang/Object;)Z','BasicFuture.completed(Object)',32,false,'-','Java'),
+(165,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.failed(Ljava/lang/Exception;)Z','BasicFuture.failed(Exception)',32,false,'-','Java'),
+(166,'Async HTTP Backend','org.apache.http.impl.nio.client.InternalHttpAsyncClient.execute(Lorg/apache/http/nio/protocol/HttpAsyncRequestProducer;Lorg/apache/http/nio/protocol/HttpAsyncResponseConsumer;Lorg/apache/http/protocol/HttpContext;Lorg/apache/http/concurrent/FutureCallback;)Ljava/util/concurrent/Future;','InternalHttpAsyncClient.execute(HttpAsyncResponseProducer,HttpAsyncResponseConsumer,HttpContext,FutureCallback)',32,false,'-','Java'),
+(167,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.finishSetup()V','HTable.finishSetup()V',8,false,'-','Java'),
+(168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java');
+
 
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
@@ -415,7 +439,14 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (23,true,false,false,false,false,false,false,false,false,false,false,false,false,23,1),
 (24,true,false,false,false,false,false,false,false,false,false,false,false,false,24,1),
 (25,true,false,false,false,false,false,false,false,false,false,false,false,false,25,1),
-(26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1);
+(26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1),
+(27,false,false,false,false,false,false,false,false,false,false,false,true,false,27,1),
+(28,true,true,false,false,false,false,false,false,false,false,false,true,false,28,1),
+(29,true,true,false,false,false,false,false,false,false,false,false,false,false,29,1),
+(30,false,false,false,false,false,false,false,false,false,false,false,false,false,30,1),
+(31,false,false,false,false,false,false,false,false,false,false,false,false,false,31,1),
+(32,true,false,false,false,false,false,false,false,false,false,false,false,false,32,1);
+
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
 (1,true,1,1),
@@ -568,7 +599,23 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (149,true,149,1),
 (150,true,150,1),
 (151,true,151,1),
-(152,false,152,1);
+(152,false,152,1),
+(153,true,153,1),
+(154,true,154,1),
+(155,true,155,1),
+(156,true,156,1),
+(157,true,157,1),
+(158,true,158,1),
+(159,true,159,1),
+(160,true,160,1),
+(161,true,161,1),
+(162,false,162,1),
+(163,true,163,1),
+(164,true,164,1),
+(165,true,165,1),
+(166,true,166,1),
+(167,false,167,1),
+(168,false,168,1);
 
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
@@ -845,8 +892,7 @@ INSERT INTO config.profile_async_type_assoc(assoc_id,container_id,enabled,profil
 (1,1,true,1),
 (2,2,true,1),
 (3,3,true,1);
+CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;
 
 COMMIT;
 +
-
-CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;

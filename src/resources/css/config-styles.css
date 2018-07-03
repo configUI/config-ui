@@ -1171,3 +1171,7 @@ body {
 .instrumentation-profile{
     overflow: hidden;
 }
+
+.ad_connectedagent .ui-dropdown-panel .ui-dropdown-items-wrapper {
+    max-width: 317px;
+ }

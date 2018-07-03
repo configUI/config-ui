@@ -12,6 +12,9 @@
         scrollHeight="400px">
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
         <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true" [filter]="true" filterPlaceholder="Search">
+       <template  *ngIf="col.field != 'profileName' || col.field != 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
+        <span title="{{entity[col.field]}}">{{entity[col.field]}}</span>
+       </template>
         <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
                     <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
                     <a class="hyperlink" *ngIf="!noProfilePerm && entity['tierGroupName'] != 'default'" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
