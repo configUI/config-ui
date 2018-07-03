@@ -845,8 +845,7 @@ INSERT INTO config.profile_async_type_assoc(assoc_id,container_id,enabled,profil
 (1,1,true,1),
 (2,2,true,1),
 (3,3,true,1);
+CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;
 
 COMMIT;
 +
-
-CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;
