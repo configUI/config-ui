@@ -294,7 +294,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         if (this.showserverinstance == "false") {
           this.routingFromAIGui = true;
           this.topologyData = data;
-          this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
+          this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "  + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
         }
         else {
           this.routingFromAIGui = false;
@@ -303,7 +303,7 @@ export class ConfigTreeDetailComponent implements OnInit {
             this.routingFromAIGui = true;
             this.configUtilityService.successMessage("Current Tier doesn't contains any Server, Select other Tier or Topology.");
             sessionStorage.setItem("showserverinstance", "false");
-            this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
+            this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
           }
         }
       });
@@ -315,7 +315,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       // this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
       this.configTopologyService.getServerDetail(+(sessionStorage.getItem("serverId")), this.tierEntity).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
+      this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "  + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
     }
 
     //When expanding at server level
@@ -348,7 +348,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           }
         });
       })
-      this.selectedEntityArr = this.topologyName + "  >  " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
+      this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "+ this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
     }
 
     // this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
