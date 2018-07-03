@@ -20,7 +20,10 @@ export const INTEGRATION_TYPE = {
     MONGO:'Mongo',
     Cloudant_NoSQL : 'Cloudant NoSQL',
     DBConnection: 'JDBC Connection',
-    NEO4J: 'Neo4j DB Callout'
+    NEO4J: 'Neo4j DB Callout',
+    JMS_Active: 'JMS-Active',
+    JMS_Rabbit: 'JMS-Rabbit',
+    Async_HTTP: 'Async-HTTP'
 }
 
 export const Messages = "Saved Successfully";
