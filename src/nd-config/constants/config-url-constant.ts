@@ -1,16 +1,18 @@
-const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
-// const  SERVICE_URL = 'https://10.10.40.14/configUI';
-//  const  SERVICE_URL = 'http://localhost:8090';
+
+
+//const  SERVICE_URL = 'https://10.10.50.16:4435/configUI';
+
+// const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
-// const SERVICE_URL = '/configUI';
+ const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-export const ROUTING_PATH: string = "";
+//export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-//  export const ROUTING_PATH: string = "/home/config";
+  export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -150,8 +152,11 @@ export const UPLOAD_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/u
 export const SAVE_METHOD_MONITOR_FILE = `${SERVICE_URL}/custom/methodmonitor/save`;
 
 /* URL for creating Method Monitor from AD and AI */
-export const CREATE_METHOD_MONITOR_FROM_AD = `${SERVICE_URL}/custom/methodmonitor/createFqmFromAd`;
-export const CREATE_METHOD_MONITOR_FROM_AI = `${SERVICE_URL}/custom/methodmonitor/createFqmFromAi`;
+export const CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AD = `${SERVICE_URL}/custom/methodmonitor/createFqmFromAd`;
+export const ADD_METHOD_MONITOR_FROM_AD = `${SERVICE_URL}/custom/methodmonitor/addMethodMonitorFromAIAD`;
+export const CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AI = `${SERVICE_URL}/custom/methodmonitor/createFqmFromAi`;
+export const ADD_METHOD_MONITOR_FROM_AI = `${SERVICE_URL}/custom/methodmonitor/addMethodMonitorFromAIAD`;
+
 
 /* URL for exception monitors  */
 export const FETCH_EXCEPTION_MON_TABLEDATA = `${SERVICE_URL}/custom/exceptionmonitor`;
@@ -312,7 +317,6 @@ export const GET_UNINSTRUMENTATION_NODE_TREE_DATA = `${SERVICE_URL}/custom/autod
 
 export const SAVE_INSTRUEMENTATION_DATA_XML = `${SERVICE_URL}/custom/autodiscover/saveinstrumentationdatainxmlformat`;
 
-
 /* Activity Log data */
 export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/getauditactivitylogdata`;
 
@@ -369,7 +373,7 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  /* URL to download file in doc/pdf/csv file format */
  export const DOWNLOAD_REPORTS = `${SERVICE_URL}/custom/download/downloadreports`;
 
- /** URL for BT HTTP Body */
+/** URL for BT HTTP Body */
  export const ADD_BT_HTTP_BODY_URL = `${SERVICE_URL}/custom/bthttpbody/addbthttpbody`;
  export const FETCH_BTHTTP_BODY_URL = `${SERVICE_URL}/custom/bthttpbody/getallbthttpbodydata`;
  export const EDIT_BTHTTP_BODY = `${SERVICE_URL}/custom/bthttpbody/editbthttpbody`;
