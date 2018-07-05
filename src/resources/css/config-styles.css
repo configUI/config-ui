@@ -111,8 +111,14 @@
 .ndegui-topology-1:before {
   content: "\e015";
 }
-.ndegui-package-1:before {
+.ndegui-package:before {
+  content: "\e00e";
+}
+.ndegui-class1:before {
   content: "\e016";
+}
+.ndegui-interface2:before {
+  content: "\e017";
 }
 
 
@@ -1168,10 +1174,17 @@ body {
 {
     max-height: 495px !important;
 }
-.instrumentation-profile{
-    overflow: hidden;
-}
+
 
 .ad_connectedagent .ui-dropdown-panel .ui-dropdown-items-wrapper {
     max-width: 317px;
  }
+
+ .instrumentation-profile {
+    overflow: hidden;
+    font-size: 1.4em;
+    margin-bottom: -10px;
+    padding-top: 1px;
+}
+
+

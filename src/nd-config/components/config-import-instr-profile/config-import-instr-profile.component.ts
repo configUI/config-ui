@@ -352,7 +352,6 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'leaf': false,
           'expanded': true,
           'children': [],
-          'icon': "instrumentation-profile ndegui-package-1"
         };
         xmlDataArr[0]['children'].push(obj);
       } else if (type === 'package') {  // Add class
@@ -373,7 +372,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             'leaf': false,
             'expanded': true,
             'children': [],
-            'icon': "instrumentation-profile ndegui-interface"
+            'icon': "instrumentation-profile ndegui-interface2"
           };
         }
 
@@ -388,7 +387,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             'leaf': false,
             'expanded': true,
             'children': [],
-            'icon': "instrumentation-profile ndegui-class2"
+            'icon': "instrumentation-profile ndegui-class1"
           };
         }
 
