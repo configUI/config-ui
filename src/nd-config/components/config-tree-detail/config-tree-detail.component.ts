@@ -229,7 +229,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
     //When collapsing at TierGroup level
     else if (event.data.currentEntity == CONS.TOPOLOGY.TIERGROUP && event.data.nodeExpanded == true) {
-      this.tierName = event.data.nodeLabel;
+      this.tierGroupName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.TIERGROUP;
       // this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
       this.configTopologyService.getTierGroupDetail(+(sessionStorage.getItem("topoId")), this.topologyEntity).subscribe(data => this.topologyData = data);
@@ -241,7 +241,6 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.tierGroupName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.TIER;
       /*only show Instance level data in topology detail gui if showserverinstance is true */
-
       if (this.showserverinstance == "false") {
         this.topologyData.filter(row => { if (row.tierGroupName == event.data.nodeLabel) this.tierGroupEntity = row })
       }
@@ -260,7 +259,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           this.topologyDataAIInstanceLevel = data;
           if (this.topologyDataAIInstanceLevel.length == 0) {
             this.routingFromAIGui = true;
-            this.configUtilityService.successMessage("Current Topology doesn't contains any Tier Groups.");
+            this.configUtilityService.successMessage("Current Tier Group doesn't contains any Tier, Select other Tier Group.");
             sessionStorage.setItem("showserverinstance", "false");
             this.selectedEntityArr = this.topologyName + "  >  " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
           }
@@ -285,7 +284,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       //only show Instance level data in topology detail gui if showserverinstance is true
       if (this.showserverinstance == "false") {
         this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
-      }
+      } 
       else {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
       }
@@ -301,7 +300,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           this.topologyDataAIInstanceLevel = data;
           if (this.topologyDataAIInstanceLevel.length == 0) {
             this.routingFromAIGui = true;
-            this.configUtilityService.successMessage("Current Tier doesn't contains any Server, Select other Tier or Topology.");
+            this.configUtilityService.successMessage("Current Tier doesn't contains any Server, Select other Tier, Tier Group or Topology.");
             sessionStorage.setItem("showserverinstance", "false");
             this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
           }
@@ -339,7 +338,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           this.routingFromAIGui = true;
           if ((that.topologyData.length == 0) && (this.showserverinstance == "true")) {
             sessionStorage.setItem("showserverinstance", "false");
-            this.configUtilityService.successMessage("Current Server doesn't contains any Instance, Select other Server, Tier or Topology.");
+            this.configUtilityService.successMessage("Current Server doesn't contains any Instance, Select other Server, Tier, Tier Group or Topology.");
           }
           if (data.length != 0) {
             that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data2 => {
