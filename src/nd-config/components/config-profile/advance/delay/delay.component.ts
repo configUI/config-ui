@@ -128,20 +128,19 @@ export class DelayComponent implements OnInit {
   }
 
   resetKeywordData() {
-    this.delay = cloneObject(this.configKeywordsService.keywordData);
+    this.getKeyWordDataFromStore();
     this.splitDelayKeywordData();
   }
-  /* This method is used to reset the keyword data to its Default value */
-  resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
-    var keywordDataVal = {}
-    keywordDataVal = data
-    this.keywordList.map(function (key) {
-    keywordDataVal[key].value = data[key].defaultValue
-    })
-    this.delay = keywordDataVal;
-    this.splitDelayKeywordData();
-    }
+  getKeyWordDataFromStore(){
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.delay = keywordDataVal;
+      console.log(this.className, "constructor", "this.delay", this.delay);
+    });
+  }
 
   // Method used to construct the value of putDelayInMethod keyword in the form '20:33:1:0%20system%3BObject'.
   delayMethodValue() {
@@ -176,10 +175,10 @@ export class DelayComponent implements OnInit {
     }
     from.setCustomValidity('');
   }
- /**
+/**
  * Purpose : To invoke the service responsible to open Help Notification Dialog 
  * related to the current component.
- */ 
+ */
   sendHelpNotification() {
     this.configKeywordsService.getHelpContent("Advance","Put Delay In Method",this.agentType );
   }

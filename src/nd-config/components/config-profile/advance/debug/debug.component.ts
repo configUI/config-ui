@@ -67,22 +67,38 @@ export class DebugComponent {
   }
   //Method to reset the default values of the keywords
   resetKeywordData() {
-    this.debug = cloneObject(this.configKeywordsService.keywordData);
+    this.getKeyWordDataFromStore();
+  }
+  getKeyWordDataFromStore(){
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.debug = keywordDataVal;
+      console.log(this.className, "constructor", "this.debug", this.debug);
+    });
   }
  /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
+    // let data = cloneObject(this.configKeywordsService.keywordData);
+    let data = this.configKeywordsService.keywordData;
+    for(let key in data){
+      if(this.keywordList.includes(key)){
+        this.debug[key] = data[key];
+      }
+    }
     var keywordDataVal = {}
-    keywordDataVal = data
+    keywordDataVal = this.debug
     this.keywordList.map(function (key) {
     keywordDataVal[key].value = data[key].defaultValue
     })
       this.debug = keywordDataVal;
   }
- /**
+/**
  * Purpose : To invoke the service responsible to open Help Notification Dialog 
  * related to the current component.
- */ 
+ */
   sendHelpNotification() {
     this.configKeywordsService.getHelpContent("Advance","Debug Level",this.agentType );
 }
