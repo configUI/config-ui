@@ -249,7 +249,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.tierGroupName == event.data.nodeLabel) this.tierGroupEntity = row })
       }
       sessionStorage.setItem("tierGroupName", event.data.nodeLabel);
-      this.configTopologyService.getTierDetail(event.data.nodeLabel, this.tierGroupEntity).subscribe(data => {
+      this.configTopologyService.getTierDetail(event.data.nodeLabel, this.tierGroupEntity,this.topologyName).subscribe(data => {
         if (this.showserverinstance == "false") {
           this.routingFromAIGui = true;
           this.topologyData = data;
@@ -273,7 +273,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.tierName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.TIER;
       // this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
-      this.configTopologyService.getTierDetail((sessionStorage.getItem("tierGroupName")), this.tierGroupEntity).subscribe(data => this.topologyData = data);
+      this.configTopologyService.getTierDetail((sessionStorage.getItem("tierGroupName")), this.tierGroupEntity,this.topologyName).subscribe(data => this.topologyData = data);
       this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
     }
 
@@ -290,7 +290,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
       }
       sessionStorage.setItem("serverId", event.data.nodeId);
-      this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity).subscribe(data => {
+      this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity,this.topologyName).subscribe(data => {
         if (this.showserverinstance == "false") {
           this.routingFromAIGui = true;
           this.topologyData = data;
@@ -314,7 +314,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.serverName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       // this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
-      this.configTopologyService.getServerDetail(+(sessionStorage.getItem("serverId")), this.tierEntity).subscribe(data => this.topologyData = data);
+      this.configTopologyService.getServerDetail(+(sessionStorage.getItem("serverId")), this.tierEntity,this.topologyName).subscribe(data => this.topologyData = data);
       this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "  + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
     }
 
@@ -334,7 +334,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
       //Update the status of AI and icon when AI process id completed when its duration is completed
       this.configTopologyService.durationCompletion().subscribe(data => {
-        that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity).subscribe(data => {
+        that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity,this.topologyName).subscribe(data => {
           that.topologyData = data;
           this.routingFromAIGui = true;
           if ((that.topologyData.length == 0) && (this.showserverinstance == "true")) {
@@ -477,13 +477,13 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully");
       })
     else if (this.currentEntity == CONS.TOPOLOGY.TIERGROUP)
-      this.configTopologyService.updateAttachedProfTierGroup(this.topoData).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfTierGroup(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.TIER)
-      this.configTopologyService.updateAttachedProfTier(this.topoData).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfTier(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER)
-      this.configTopologyService.updateAttachedProfServer(this.topoData).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfServer(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE)
-      this.configTopologyService.updateAttachedProfInstance(this.topoData).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfInstance(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
 
     // this.configUtilityService.successMessage("Saved Successfully");
   }
@@ -686,7 +686,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           //Check for successful RTC connection  
           if (data.length != 0 || !data[0]['contains']) {
             that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop", that.topologyName).subscribe(data => {
-              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,this.topologyName).subscribe(data => {
 
                 that.topologyData = data;
               });
