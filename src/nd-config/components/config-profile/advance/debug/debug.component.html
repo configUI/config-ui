@@ -2,7 +2,7 @@
   <div class="tabsincontent">
     <div class="header">Settings
       <div class="pull-right">
-  <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+<i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
   <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="saveDisable" label="Reset to Default"></button>
   <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
   <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>

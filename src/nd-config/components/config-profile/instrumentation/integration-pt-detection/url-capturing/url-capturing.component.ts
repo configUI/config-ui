@@ -103,28 +103,18 @@ export class UrlCapturingComponent implements OnInit {
   /* This method is used to reset the keyword data*/
   resetKeywordData() {
     this.getKeywordData();
-    if (this.urlCapturing["formatIPResourceURL"].value == "0") {
-      this.enableFormatIPResourceURL = false;
-      this.urlCapturingData.includeParameter = false;
-      this.urlCapturingData.urlOffset = null;
-      this.urlCapturingData.maxChar = null;
-    }
-    else
-    {
-      this.urlCapturing = cloneObject(this.configKeywordsService.keywordData);
-      this.enableFormatIPResourceURL = true;
-    }
-    this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
-    this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
-    this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
-    this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
   }
 
   /* This method is used to reset the keyword data to its Default value */
     resetKeywordsDataToDefault() {
-      let data = cloneObject(this.configKeywordsService.keywordData);
+      let data = this.configKeywordsService.keywordData;
+      for(let key in data){
+        if(this.keywordList.includes(key)){
+          this.urlCapturing[key] = data[key];
+        }
+      }
       var keywordDataVal = {}
-      keywordDataVal = data
+      keywordDataVal = this.urlCapturing;
       this.keywordList.map(function (key) {
       keywordDataVal[key].value = data[key].defaultValue
       })
@@ -141,11 +131,6 @@ export class UrlCapturingComponent implements OnInit {
 
   /* This method is used to get the existing value of keyword from the backend*/
   getKeywordData() {
-    let keywordData = this.configKeywordsService.keywordData;
-    if (this.configKeywordsService.keywordData != undefined) {
-      this.keywordValue = this.configKeywordsService.keywordData;
-    }
-    else {
       this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
         this.keywordList.map(function (key) {
@@ -153,7 +138,6 @@ export class UrlCapturingComponent implements OnInit {
         })
         this.keywordValue = keywordDataVal;
       });
-    }
     this.urlCapturing = {};
 
     this.keywordList.forEach((key) => {

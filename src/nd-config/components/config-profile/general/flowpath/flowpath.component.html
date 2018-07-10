@@ -2,8 +2,8 @@
     <div class="tabsincontent">
         <div class="header">Settings
             <div class="pull-right">
-                    <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
-                <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+		 <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+		 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="resetKeywordData()" label="Reset"></button>
@@ -131,14 +131,14 @@
                             <label>Normal Method Response Time</label>
                         </div>
                         <div class="ui-g-1">
-                            <input name="normalMethodResponseTime" type="number" #from (input)="checkFrom(from,to)" [disabled]="dumpOnlyMethodExitInFP == false" [(ngModel)]="normalMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
+                            <input name="normalMethodResponseTime" type="number" #from (input)="checkFrom(from,to)" [disabled]="dumpOnlyMethodExitInFP == false || enableDisableMethodResTimeFilter == false" [(ngModel)]="normalMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
                                 pInputText required ngModel>
                         </div>
                         <div class="ui-g-2">
                             <label>Slow Very Slow Method Response Time</label>
                         </div>
                         <div class="ui-g-1">
-                            <input name="slowVerySlowMethodResponseTime" type="number" #to (input)="checkTo(from,to)" [disabled]="dumpOnlyMethodExitInFP == false" [(ngModel)]="slowVerySlowMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
+                            <input name="slowVerySlowMethodResponseTime" type="number" #to (input)="checkTo(from,to)" [disabled]="dumpOnlyMethodExitInFP == false || enableDisableMethodResTimeFilter == false" [(ngModel)]="slowVerySlowMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
                                 pInputText required ngModel>
                         </div>
                     </div>
@@ -235,12 +235,6 @@
                             <span></span>
                         </div>
 
-                    </div>
-                    <div class="ui-g-12">
-                        <div class="ui-g-6" style="padding-left:6px">
-                            <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
-                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath"></i>
-                        </div>
                     </div>
                     <div class="ui-g-12">
                         <!-- <div class="ui-g-1"> </div> -->

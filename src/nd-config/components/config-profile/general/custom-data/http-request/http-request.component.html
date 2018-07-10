@@ -60,7 +60,7 @@
                     <label>Request Header Name</label>
                 </div>
                 <div class="ui-g-5">
-                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" title="Please enter valid Request Header name.  &#013;Please enter maximum upto 256 characters." required pattern="[a-zA-Z0-9_-]{0,256}" ngModel/>
+                    <input name="headerName" type="text" size="40" pInputText [(ngModel)]="httpRequestHdrDetail.headerName" title="Please enter valid Request Header name.  &#013;Please enter maximum upto 256 characters." required pattern="[a-zA-Z0-9_-]{0,256}" autofocus ngModel/>
                 </div>
             </div>
             <div class="ui-g-12">
@@ -123,7 +123,7 @@
                     <label>Custom Header Name</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Custom Header Name. &#013;Rule 1: Please enter maximum upto 50 characters. &#013;Rule 2: Whitespaces are not allowed &#013;Rule 3: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]{0,49}$" (keydown.space)="$event.preventDefault()"  ngModel/>
+                    <input name="valName" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.valName" autofocus title="Please enter valid Custom Header Name. &#013;Rule 1: Please enter maximum upto 50 characters. &#013;Rule 2: Whitespaces are not allowed &#013;Rule 3: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ." required pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]{0,49}$" (keydown.space)="$event.preventDefault()"  autofocus ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Data Type</label>
@@ -139,13 +139,13 @@
                     <label>Left Bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb" autofocus title="Please enter valid Left Bound.  &#013;Please enter maximum upto 50 characters." pattern="[^]{0,49}$" ngModel/>
+                    <input name="lb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.lb"  title="Please enter valid Left Bound.  &#013;Please enter maximum upto 50 characters." pattern="[^]{0,49}$" ngModel/>
                 </div>
                 <div class="ui-g-2">
                     <label>Right Bound</label>
                 </div>
                 <div class="ui-g-4">
-                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb" autofocus title="Please enter valid Right Bound.  &#013;Please enter maximum upto 50 characters." pattern="[^]{0,49}$" ngModel/>
+                    <input name="rb" type="text" size="20" pInputText [(ngModel)]="rulesDataDetail.rb"  title="Please enter valid Right Bound.  &#013;Please enter maximum upto 50 characters." pattern="[^]{0,49}$" ngModel/>
                 </div>
             </div>
         </div>

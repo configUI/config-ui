@@ -157,28 +157,44 @@ export class ConfigTreeComponent implements OnInit {
             let data = { 'currentEntity': CONS.TOPOLOGY.TOPOLOGY, 'nodeId': this.files[0]["id"], nodeLabel: this.files[0]["label"], nodeExpanded: false }
             this.getTableData.emit({ data })
             this.files[0].expanded = true;
+             
             setTimeout(() => {
               if(this.files[0].children.length != 0)
+              {
+              this.configTopologyService.getTierGroupTreeDetail(this.files[0].children[0]["label"], this.files[0].children[0]["id"]).subscribe(nodes =>{ 
+                this.createChildTreeDataAIGui(nodes,  this.files[0].children[0])
+              let data = { 'currentEntity': CONS.TOPOLOGY.TIERGROUP, 'nodeId':this.files[0].children[0]["id"], nodeLabel: this.files[0].children[0]["label"], nodeExpanded: false  }
+              this.getTableData.emit({ data })
+              this.files[0].children[0].expanded = true;
+            setTimeout(() => {
+              if(this.files[0].children[0].children.length != 0)
              {
-              this.configTopologyService.getTierTreeDetail(this.files[0].children[0]["id"], this.files[0].children[0]["profileId"]).subscribe(nodes => {
-                this.createChildTreeDataAIGui(nodes, this.files[0].children[0])
-                let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': this.files[0].children[0]["id"], nodeLabel: this.files[0].children[0]["label"], nodeExpanded: false }
+              this.configTopologyService.getTierTreeDetail(this.files[0].children[0].children[0]["id"], this.files[0].children[0].children[0]["profileId"]).subscribe(nodes => {
+                this.createChildTreeDataAIGui(nodes, this.files[0].children[0].children[0])
+                let data = { 'currentEntity': CONS.TOPOLOGY.TIER, 'nodeId': this.files[0].children[0].children[0]["id"], nodeLabel: this.files[0].children[0].children[0]["label"], nodeExpanded: false }
                 this.getTableData.emit({ data });
-                this.files[0].children[0].expanded = true;
+                this.files[0].children[0].children[0].expanded = true;
                 setTimeout(() => {
-                  if(this.files[0].children[0].children.length != 0)
+                  if(this.files[0].children[0].children[0].children.length != 0)
                   {
-                  this.configTopologyService.getServerTreeDetail(this.files[0].children[0].children[0]["id"], this.files[0].children[0].children[0]["profileId"]).subscribe(nodes => {
-                    this.createChildTreeDataAIGui(nodes, this.files[0].children[0].children[0])
-                    this.files[0].children[0].children[0].expanded = true;
-                    let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': this.files[0].children[0].children[0]["id"], nodeLabel: this.files[0].children[0].children[0]["label"], nodeExpanded: false }
+                  this.configTopologyService.getServerTreeDetail(this.files[0].children[0].children[0].children[0]["id"], this.files[0].children[0].children[0].children[0]["profileId"]).subscribe(nodes => {
+                    this.createChildTreeDataAIGui(nodes, this.files[0].children[0].children[0].children[0])
+                    this.files[0].children[0].children[0].children[0].expanded = true;
+                    let data = { 'currentEntity': CONS.TOPOLOGY.SERVER, 'nodeId': this.files[0].children[0].children[0].children[0]["id"], nodeLabel: this.files[0].children[0].children[0].children[0]["label"], nodeExpanded: false }
                     this.getTableData.emit({ data })
                   });
                 }
                 }, 2550)
+
+
               });
             }
             }, 2550)
+            });
+          }
+        }, 2550)
+
+
           });
         }
         

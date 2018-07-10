@@ -97,7 +97,7 @@
                 <label>Module</label>
             </div>
             <div class="ui-g-8">
-                <input name="module" type="text" size="50" class="configUI-common-len" pInputText [(ngModel)]="methodMonitorDetail.module" required (keydown.space)="$event.preventDefault()" required ngModel/>
+                <input name="module" type="text" size="50" class="configUI-common-len" pInputText [(ngModel)]="methodMonitorDetail.module" required (keydown.space)="$event.preventDefault()" required autofocus ngModel/>
             </div>
         </div>
         <div class="ui-g">
@@ -106,7 +106,7 @@
             </div>
             <div class="ui-g-8">
                 <input name="methodName" type="text" size="50" class="configUI-common-len" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
-                    required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\((.*)\))+.*" ngModel/>
+                    required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\((.*)\))+.*" autofocus ngModel/>
             </div>
         </div>
         <div class="ui-g">

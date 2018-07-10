@@ -115,17 +115,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     if (this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
-
-  getKeywordData() {
-    // let keywordData = this.configKeywordsService.keywordData;
-    // this.flowPath = {}
-    // this.keywordList.forEach((key)=>{
-    //   if(keywordData.hasOwnProperty(key)){
-    //     this.flowPath[key] = keywordData[key];
-    //   }
-    // });
-  }
-
+  
   saveKeywordData() {
     if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
       this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
@@ -214,9 +204,64 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
 
   resetKeywordData() {
-    this.flowPath = cloneObject(this.configKeywordsService.keywordData);
-    this.methodToSetValues(this.flowPath);
+    this.getKeyWordDataFromStore();
   }
+  getKeyWordDataFromStore(){
+    if (this.agentType == 'NodeJS') {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.NodeJSkeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+
+        this.flowPath = keywordDataVal;
+        this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
+        this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.general.flowpath.enable);
+        this.configKeywordsService.toggleKeywordData();
+      });
+    }
+    else {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+
+        this.flowPath = keywordDataVal;
+        if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+          this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
+          this.childCpuFp = true;
+        }
+        else {
+          this.cpuTime = this.flowPath['enableCpuTime'].value
+        }
+
+        if (this.flowPath['enableMethodBreakDownTime'].value.includes("%20")) {
+          this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0, 1);
+          this.childBrkDown = true;
+        }
+        else {
+          this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value
+        }
+        this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
+        // this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value;
+        this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+       
+        this.dumpOnlyMethodExitInFP = this.flowPath["dumpOnlyMethodExitInFP"].value == 0 ? false : true;
+        if (this.flowPath['methodResponseTimeFilter'].value.includes("%20")) {
+          var arrResTimeFilter = this.flowPath['methodResponseTimeFilter'].value.split("%20");
+          this.enableDisableMethodResTimeFilter = arrResTimeFilter[0] == 0 ? false : true;
+          this.normalMethodResponseTime = arrResTimeFilter[1];
+          this.slowVerySlowMethodResponseTime = arrResTimeFilter[2];
+        }
+
+
+        this.configKeywordsService.toggleKeywordData();
+      });
+  }
+}
   methodToSetValues(data){
     this.flowPath = data;
     this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
@@ -252,24 +297,29 @@ export class FlowpathComponent implements OnInit, OnDestroy {
 
 //To reset keywords to default values
 resetKeywordsDataToDefault(){
-  let data = cloneObject(this.configKeywordsService.keywordData);
+  let data = this.configKeywordsService.keywordData;
+  for(let key in data){
+    if(this.keywordList.includes(key)){
+      this.flowPath[key] = data[key];
+    }
+  }
     var keywordDataVal = {}
-    keywordDataVal = data
+    keywordDataVal = this.flowPath;
     this.keywordList.map(function (key) {
       keywordDataVal[key].value = data[key].defaultValue
     })
     this.flowPath = keywordDataVal;
     this.methodToSetValues(this.flowPath);
     if(this.agentType == 'NodeJS')
-       this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].defaultValue == 0 ? false : true;
+        this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].defaultValue == 0 ? false : true;
 }
-  /**
-   * Purpose : To invoke the service responsible to open Help Notification Dialog 
-   * related to the current component.
-   */
-  sendHelpNotification() {
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+ sendHelpNotification() {
     this.configKeywordsService.getHelpContent("General","Flowpath",this.agentType );
-}
+ }
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

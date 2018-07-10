@@ -104,7 +104,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
-
     // let keywordData = this.configKeywordsService.keywordData;
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
@@ -212,24 +211,12 @@ if(this.agentType != 'NodeJS'){
   }
 
   resetKeywordData() {
-    this.hotspot = cloneObject(this.configKeywordsService.keywordData);
-    if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
-      this.includedException = null;
-    else
-      this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
-    // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
-    if (this.hotspot["ASNegativeThreadFilter"].value != null)
-      this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
-    this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
-    if (this.agentType == "NodeJS") {
-      this.methodToSetValue(this.hotspot);
-    }
+    this.getKeywordData();
   }
   //To reset the Keywords to its Default value
   resetKeywordsDataToDefault() {
     let data = cloneObject(this.configKeywordsService.keywordData);
     var keywordDataVal = {}
-    keywordDataVal = data
     if(this.agentType == 'NodeJS'){
       this.nodeJsKeywordList.map(function (key) {
         keywordDataVal[key].value = data[key].defaultValue
