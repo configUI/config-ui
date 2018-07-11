@@ -568,19 +568,19 @@ export class ConfigTreeDetailComponent implements OnInit {
   routeToConfiguration(entity) {
 
     if ('topoId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId, 'nodeName' : entity.topoName  };
+      this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId, 'nodeName' : entity.topoName, 'topologyName' : this.topologyName  };
     }
     else if ('tierGroupId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'tierGroup', 'nodeId': entity.tierGroupId, 'nodeName' : entity.tierGroupName  };
+      this.configProfileService.nodeData = { 'nodeType': 'tierGroup', 'nodeId': entity.tierGroupId, 'nodeName' : entity.tierGroupName, 'topologyName' : this.topologyName  };
     }
     else if ('tierId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'tier', 'nodeId': entity.tierId, 'nodeName' : entity.tierName  };
+      this.configProfileService.nodeData = { 'nodeType': 'tier', 'nodeId': entity.tierId, 'nodeName' : entity.tierName, 'topologyName' : this.topologyName  };
     }
     else if ('serverId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'server', 'nodeId': entity.serverId, 'nodeName' : entity.serverDisplayName  };
+      this.configProfileService.nodeData = { 'nodeType': 'server', 'nodeId': entity.serverId, 'nodeName' : entity.serverDisplayName, 'topologyName' : this.topologyName  };
     }
     else if ('instanceId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId, 'nodeName' : entity.instanceDisplayName  };
+      this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId, 'nodeName' : entity.instanceDisplayName, 'topologyName' : this.topologyName  };
     }
 
     //Observable profile name
