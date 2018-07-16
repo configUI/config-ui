@@ -131,14 +131,14 @@
                             <label>Normal Method Response Time</label>
                         </div>
                         <div class="ui-g-1">
-                            <input name="normalMethodResponseTime" type="number" #from (input)="checkFrom(from,to)" [disabled]="dumpOnlyMethodExitInFP == false || enableDisableMethodResTimeFilter == false" [(ngModel)]="normalMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
+                            <input name="normalMethodResponseTime"  style="width: 70%" type="number" #from (input)="checkFrom(from,to)" [disabled]="dumpOnlyMethodExitInFP == false || enableDisableMethodResTimeFilter == false" [(ngModel)]="normalMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
                                 pInputText required ngModel>
                         </div>
-                        <div class="ui-g-2">
+                        <div class="ui-g-2" style="padding: .5em 0px">
                             <label>Slow Very Slow Method Response Time</label>
                         </div>
                         <div class="ui-g-1">
-                            <input name="slowVerySlowMethodResponseTime" type="number" #to (input)="checkTo(from,to)" [disabled]="dumpOnlyMethodExitInFP == false || enableDisableMethodResTimeFilter == false" [(ngModel)]="slowVerySlowMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
+                            <input name="slowVerySlowMethodResponseTime" style="width: 70%" type="number" #to (input)="checkTo(from,to)" [disabled]="dumpOnlyMethodExitInFP == false || enableDisableMethodResTimeFilter == false" [(ngModel)]="slowVerySlowMethodResponseTime" min={{flowPath.methodResponseTimeFilter.min}} max={{flowPath.methodResponseTimeFilter.max}}
                                 pInputText required ngModel>
                         </div>
                     </div>
@@ -175,6 +175,55 @@
                                 max={{flowPath.correlationIDHeader.max}} required ngModel/>
                         </div>
                     </div>-->
+                    <div class="ui-g-12">
+
+                        <div class="ui-g-5">
+                            <p-checkbox name="enableFPMethodStackTrace" label="Capture Flowpath method Stack Trace" [(ngModel)]="enableFPMethodStackTrace"
+                                binary="false"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g" style="margin-left: 12px">
+                        <div class="ui-g-12">
+                            <div class="ui-g-2">
+                                <label>Threshold duration of method</label>
+                            </div>
+                            <div class="ui-g-1">
+                                <input disabled="{{!this.enableFPMethodStackTrace}}" style="width: 70%;margin-right: 4px" [min]=0 [max]=12000 name="durationFP"
+                                    type="number" pInputText [(ngModel)]="fpMethodStackData.durationFP" required ngModel/>ms
+                            </div>
+                            <div class="ui-g-2">
+                                <label>Stack trace depth</label>
+                            </div>
+                            <div class="ui-g-1" style="margin-top: -4px">
+                                <input disabled="{{!this.enableFPMethodStackTrace}}" style="width: 70%" [min]=2 [max]=100 name="depthFP" type="number" pInputText
+                                    [(ngModel)]="fpMethodStackData.depthFP" required ngModel/>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-2">
+                                <label> Maximum stack trace per transaction</label>
+                            </div>
+                            <div class="ui-g-1">
+                                <input disabled="{{!this.enableFPMethodStackTrace}}" style="width: 70%" [min]=1 [max]=100 name="countStackTraceFP" type="number"
+                                    pInputText [(ngModel)]="fpMethodStackData.countStackTraceFP" required ngModel/>
+                            </div>
+                            <div class="ui-g-2" style = "padding: .5em 0px">
+                                <label> Maximum duration between stack trace</label>
+                            </div>
+                            <div class="ui-g-1" style="margin-top: -4px">
+                                <input disabled="{{!this.enableFPMethodStackTrace}}" style="width: 70% ;margin-right: 4px" [min]=0 [max]=12000 name="durationStackTraceFP"
+                                    type="number" pInputText [(ngModel)]="fpMethodStackData.durationStackTraceFP" required ngModel/>ms
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <p-checkbox disabled="{{!this.enableFPMethodStackTrace}}" name="enablecallOutFPMethodStackTrace" label="Capture Call out methods"
+                                    [(ngModel)]="enablecallOutFPMethodStackTrace" binary="false"></p-checkbox>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'NodeJS'">
