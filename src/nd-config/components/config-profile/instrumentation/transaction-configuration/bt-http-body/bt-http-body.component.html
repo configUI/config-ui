@@ -126,7 +126,7 @@
           <label>Operation</label>
         </div>
         <div class="ui-g-4">
-          <label>Pattern</label>
+          <label>Match Value</label>
         </div>
       </div>
       <div class="ui-g-12">
@@ -148,7 +148,7 @@
         </div>
         <div class="ui-g-4">
           <input name="hdrValue" [disabled]="httpBodyDetail.dataType == '4' || httpBodyDetail.dataType == ''" type="text" size="15"
-            title="Please enter valid Pattern.   &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()"
+            title="Please enter valid match value.   &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()"
             [(ngModel)]="condDetail.value" pInputText required ngModel/>
         </div>
       </div>

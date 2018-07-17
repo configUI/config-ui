@@ -204,7 +204,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (106,'enableHSLongStack','0','1024','5','0%5%Immediate,TickObject,Timeout,TIMERWRAP','normal'),
 (107,'correlateEventCallback','0','512','5','0','normal'),
 (108,'enableWaitSyncQueueTime','0','1','2','1','pre-custom'),
-(109,'enableCaptureNetDelay','0','1','2','0','normal');
+(109,'enableCaptureNetDelay','0','1','2','0','normal'),
+(110,'enableFPMethodStackTrace','0','512','5','0%205%205%205%2010%200','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES

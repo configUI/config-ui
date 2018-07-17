@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {ConfigExceptionFilterService} from './services/config-exceptionfilter.service';
+import { AutofocusModule } from 'angular-autofocus-fix';
 
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
@@ -261,7 +262,8 @@ import { EventCorrelationComponent } from './components/config-profile/general/e
     SliderModule,
     SplitButtonModule,
     InputTextareaModule,
-    FileUploadModule
+    FileUploadModule,
+    AutofocusModule
   ],
 
   providers: [

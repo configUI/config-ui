@@ -43,6 +43,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     profileListItem: SelectItem[];
     profileData: ProfileData[];
     profileId: number;
+    methodMonitorMap: any;
     constructor( private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService) {
         this.leftSideTreeData = [];
         this.selectedArr = [];
@@ -333,27 +334,48 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         }
     }
 
+    //This method is used to get message of FQM valid or not and a map containing the data selected from AD
+    createMethodAndValidateFQM() {
+        this.getSelectedUnselectedNodeInfo(this.instrFromLeftSideTree, true);
+        this._configKeywordsService.createMethodMonitorAndValidateFQMFromAI(this.selectedNodes, this.reqId)
+            .subscribe(data => {
+                var msg = data.message.status;
+                var datacontent = data.content;
+                if (msg == 'NO') {
+                    this.configUtilityService.errorMessage("FQM(s) are not valid");
+                    return;
+                }
+                else {
+                    if (msg == 'Partial') {
+                        this.configUtilityService.infoMessage("Some FQM(s) are corrupted");
+                    }
+                    else if (msg == 'OK') {
+                        this.configUtilityService.infoMessage("Selected FQM(s) are valid");
+                    }
+                    this.methodMonitorMap = datacontent;
+                    // this.msgForFQM = msg;
+                    this.selectProfile();
+                }
+            });
+    }
+
     // This method will save the selected methods for method monitoring
     saveMethodMonitorForSelectedProfile() {
         this.selectProfileDialog = false;
-        this._configKeywordsService.methodMonitorFromAutoInstr(this.selectedNodes, this.reqId, this.profileId)
+        let methodMonitorFrom = 'AI';
+        this._configKeywordsService.addMethodMonitorFromAutoInstr(this.methodMonitorMap, this.profileId, methodMonitorFrom)
             .subscribe(data => {
-                if(data._body == "OK"){
-                    this.configUtilityService.successMessage("Saved Successfully");             
+                if (data._body == "OK") {
+                    this.configUtilityService.successMessage("FQM(s) are added successfully");
                 }
-                else if(data._body == "Partial"){
-                    this.configUtilityService.infoMessage("Added Successfully.Some FQM(s) are corrupted");
-                }
-                else if(data._body == "NO"){
-                    this.configUtilityService.errorMessage("FQM(s) not valid");
-                }
-                else{
-                    this.configUtilityService.errorMessage("Operation Failed");
+                else {
+                    this.configUtilityService.errorMessage("Operation failed");
                 }
             });
         this.profileId = null;
+        this.methodMonitorMap = null;
     }
- 
+
 }
 
 export interface TreeNode {

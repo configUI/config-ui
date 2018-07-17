@@ -127,7 +127,7 @@ export class InstrumentationComponent implements OnInit {
             })
           }
           else if (this.configProfileService.nodeData.nodeType == 'server') {
-            const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}`;
+            const url = `${URL.RUNTIME_CHANGE_SERVER}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}/${this.configProfileService.nodeData.topologyName}`;
             let that = this;
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;
@@ -142,7 +142,7 @@ export class InstrumentationComponent implements OnInit {
           }
     
           else if (this.configProfileService.nodeData.nodeType == 'instance') {
-            const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}`;
+            const url = `${URL.RUNTIME_CHANGE_INSTANCE}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}/${this.configProfileService.nodeData.topologyName}`;
             let that = this;
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;

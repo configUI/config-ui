@@ -174,7 +174,7 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
   routeToConfiguration(selectedProfileId, selectedProfileName, entity,selectedProfileAgent) {
   sessionStorage.setItem("agentType", selectedProfileAgent);
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
-      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null, 'nodeName' : null };
+      this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null, 'nodeName' : null, 'topologyName' : null };
 
     //Observable profile name
     this.configProfileService.profileNameObserver(selectedProfileName);
