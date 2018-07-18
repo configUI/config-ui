@@ -116,20 +116,19 @@ export class GenerateExceptionComponent implements OnInit {
   }
 
   resetKeywordData() {
-    this.genException = cloneObject(this.configKeywordsService.keywordData);
+    this.getKeyWordDataFromStore();
     this.GenExceptionKeywordValue();
   }
 
-   /* This method is used to reset the keyword data to its Default value */
-   resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
-    var keywordDataVal = {}
-    keywordDataVal = data
-    this.keywordList.map(function (key) {
-    keywordDataVal[key].value = data[key].defaultValue
-    })
-    this.genException = keywordDataVal;
-    this.GenExceptionKeywordValue();
+  getKeyWordDataFromStore(){
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.genException = keywordDataVal;
+      console.log(this.className, "constructor", "this.genException", this.genException);
+    });
   }
 
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
@@ -140,13 +139,14 @@ export class GenerateExceptionComponent implements OnInit {
     return genExceptionKeywordVaule;
 
   }
- /**
+/**
  * Purpose : To invoke the service responsible to open Help Notification Dialog 
  * related to the current component.
  */
   sendHelpNotification() {
     this.configKeywordsService.getHelpContent("Advance","Generate Exception In Method",this.agentType );
   }
+
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();

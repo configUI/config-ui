@@ -64,6 +64,9 @@ export class HelpComponent implements OnInit {
     if (data.component == "Home") {
       this.checkForHomeModule(data);
     }
+    if (data.component == "Left Panel") {
+      this.checkForLeftPanelModule(data);
+    }
   }
   /**
    * Purpose : To check the value of module i.e comes under Home component
@@ -97,6 +100,25 @@ export class HelpComponent implements OnInit {
       this.helpdialog = true;
     }
   }
+
+  checkForLeftPanelModule(data) {
+    if (data.module == "Instrumentation Profile Maker") {
+      this.headermessage = "";
+      this.mainheader = "Settings";
+      this.header = ["Instrumentation Profile Maker"];
+      this.messagefirst = ["Instrumentation Profile Maker", "Agent", "Browse", "Import File", "Instrumentation Profile", "View", "Create", "Edit", "Delete", "Clear", "Details"];
+      this.submessagefirst = ["Instrumentation profile maker is a utility provided in ND config UI, which is used to make instrumentation profile. It simply takes inputs as a list of fully qualified methods in .txt file and instrument them.", "Supported agents for instrumentation application are Java, .Net, and NodeJS",
+        "This is used to browse a file, which contains a list of FQMs.For Java agent, the provided FQMs are first converted into to XML format and then are used for instrumentation.For creating Instrumentation Profile from any file,the separator used is ^.But in case of Interface an extra special character is being used in the end of Interface Name i.e #(hash).Example:-  org.apache.openjpa.lib.util.Closeable.close()#.For other agents, the browsed file content (in the form of FQMs) can be directly used for instrumentation profile.", "To import the file from file system, click the Browse button. This displays a window to browse the file and upload for its conversion. The raw file should contain fully qualified method names and should be with .txt extension. User can also search for a file using the search option.",
+        "Instrumentation profile is a file that contains package, class, methods nodes which are used for instrumentation. Instrumentatation profile list is displayed based on the 'Agent type' selected. Select the instrumentation Profile from the drop-down list.",
+        "View button enables a user to view the content of instrumentation file in content area.", "Create button enables a user to create instrumentation profile. User can add packages, classes, and methods to create the instrumentation profile.",
+        "Once created, user can edit an instrumentation profile for adding more packages/classes/methods.", "User can delete an instrumentation profile by first selecting the instrumentation profile and then clicking the 'Delete' button.",
+        "To clear the file content of an instrumentation profile, select the file from the drop-down list and click the 'Clear' button. The content of the file is cleared and nothing is displayed in the content area.",
+        "By clicking the 'Details' button, it displays at which level, such as Topology, Tier Group, Tier, Server, Instance this instrumentation profile is applied. "]
+      this.helpdialog = true;
+    }
+  }
+
+
   /**
    * Purpose : To check the value of module i.e comes under General component
    * and depending on that we will form data for the received module

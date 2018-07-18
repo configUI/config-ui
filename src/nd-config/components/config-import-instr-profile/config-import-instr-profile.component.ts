@@ -79,7 +79,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.createXMLInstrumentation = false;
       this.editXMLFile = false;
     }
-    this.viewXMLInstrumentation = false; 
+    this.viewXMLInstrumentation = false;
     this.createDropDown("filename", () => { });
   }
 
@@ -167,10 +167,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
    * THis function is responsible for filling Context Menu on basis of node type
    */
   nodeSelect(event, flag) {
-
     let type = event['node']['type'];
     let parentClassNode = event['node']['parentClassNode'];
     let parentPackageNode = event['node']['parentPackageNode'];
+    let parentInterfaceNode = event['node']['parentInterfaceNode'];
 
     // Filling menu on basis of type
     if (type === 'All') {
@@ -185,6 +185,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             this.nodeObj['label'] = 'All';
             this.nodeObj['parentClassNode'] = parentClassNode;
             this.nodeObj['parentPackageNode'] = parentPackageNode;
+            this.nodeObj['parentInterfaceNode'] = parentInterfaceNode;
             this.nodeObj['isCreate'] = flag;
           }
         }
@@ -204,6 +205,22 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             this.nodeObj['label'] = contextMenuEvent['node']['label'];
             this.nodeObj['parentClassNode'] = parentClassNode;
             this.nodeObj['parentPackageNode'] = parentPackageNode;
+            this.nodeObj['parentInterfaceNode'] = parentInterfaceNode;
+            this.nodeObj['isCreate'] = flag;
+          }
+        },
+        {
+          label: 'Add Interface',
+          icon: 'fa-plus',
+          'command': (event) => {
+
+            this.onNodeMenuItemClick('Interface Name');
+            this.nodeObj = [];
+            this.nodeObj['type'] = 'package';
+            this.nodeObj['label'] = contextMenuEvent['node']['label'];
+            this.nodeObj['parentClassNode'] = parentClassNode;
+            this.nodeObj['parentPackageNode'] = parentPackageNode;
+            this.nodeObj['parentInterfaceNode'] = parentInterfaceNode;
             this.nodeObj['isCreate'] = flag;
           }
         },
@@ -223,6 +240,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       ];
 
     } else if (type === 'class') {
+      
       let contextMenuEvent = event;
       this.xmlTreeMenu = [
         {
@@ -235,11 +253,44 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             this.nodeObj['label'] = contextMenuEvent['node']['label'];
             this.nodeObj['parentClassNode'] = parentClassNode;
             this.nodeObj['parentPackageNode'] = parentPackageNode;
+            this.nodeObj['parentInterfaceNode'] = parentInterfaceNode;
             this.nodeObj['isCreate'] = flag;
           }
         },
         {
           label: 'Delete Class',
+          icon: 'fa-trash',
+          'command': (event) => {
+            this.confirmationService.confirm({
+              message: 'Are you sure that you want to perform this action?',
+              header: 'Confirmation',
+              accept: () => {
+                this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
+              }
+            });
+          }
+        }
+      ];
+
+    } else if (type === 'interface') {
+      let contextMenuEvent = event;
+      this.xmlTreeMenu = [
+        {
+          label: 'Add Method',
+          icon: 'fa-plus',
+          'command': (event) => {
+            this.onNodeMenuItemClick('Method Name');
+            this.nodeObj = [];
+            this.nodeObj['type'] = 'interface';
+            this.nodeObj['label'] = contextMenuEvent['node']['label'];
+            this.nodeObj['parentClassNode'] = parentClassNode;
+            this.nodeObj['parentPackageNode'] = parentPackageNode;
+            this.nodeObj['parentInterfaceNode'] = parentInterfaceNode;
+            this.nodeObj['isCreate'] = flag;
+          }
+        },
+        {
+          label: 'Delete Interface',
           icon: 'fa-trash',
           'command': (event) => {
             this.confirmationService.confirm({
@@ -296,27 +347,49 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'type': 'package',
           'parentPackageNode': label,
           'parentClassNode': null,
+          'parentInterfaceNode': null,
           'selected': false,
           'leaf': false,
           'expanded': true,
-          'children': []
+          'children': [],
         };
         xmlDataArr[0]['children'].push(obj);
       } else if (type === 'package') {  // Add class
+
         if (this.checkForDuplicacy('package', this.nodeObj['parentPackageNode'], label, null, xmlDataArr)) {
           this._configUtilityService.errorMessage("Duplicate Class Entry is not allowed");
           return;
         }
-        let obj = {
-          'label': this.toTitleCase(label),
-          'type': 'class',
-          'parentPackageNode': this.nodeObj['parentPackageNode'],
-          'parentClassNode': this.toTitleCase(label),
-          'selected': false,
-          'leaf': false,
-          'expanded': true,
-          'children': []
-        };
+        let obj;
+        if (this.nodeTitle == 'Interface Name') {
+           obj = {
+            'label': this.toTitleCase(label),
+            'type': 'interface',
+            'parentPackageNode': this.nodeObj['parentPackageNode'],
+            'parentClassNode': null,
+            'parentInterfaceNode': this.toTitleCase(label),
+            'selected': false,
+            'leaf': false,
+            'expanded': true,
+            'children': [],
+            'icon': "instrumentation-profile ndegui-interface2"
+          };
+        }
+
+        else {
+           obj = {
+            'label': this.toTitleCase(label),
+            'type': 'class',
+            'parentPackageNode': this.nodeObj['parentPackageNode'],
+            'parentClassNode': this.toTitleCase(label),
+            'parentInterfaceNode': null,
+            'selected': false,
+            'leaf': false,
+            'expanded': true,
+            'children': [],
+            'icon': "instrumentation-profile ndegui-class1"
+          };
+        }
 
         let index = 0;
         for (let i = 0; i < xmlDataArr[0]['children'].length; i++) {
@@ -327,7 +400,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           }
         }
         xmlDataArr[0]['children'][index]['children'].push(obj);
-      } else if (type === 'class') {  // Add Method
+      } else if (type === 'class') { // Add Method
 
         let packageName = this.nodeObj['parentPackageNode'];
         let className = this.nodeObj['parentClassNode'];
@@ -364,6 +437,43 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           }
         }
         xmlDataArr[0]['children'][packgIndex]['children'][classIndex].children.push(obj);
+      } else if (type === 'interface') { // Add Method
+
+        let packageName = this.nodeObj['parentPackageNode'];
+        let interfaceName = this.nodeObj['parentInterfaceNode'];
+
+        if (this.checkForDuplicacy('interface', packageName, interfaceName, label, xmlDataArr)) {
+          this._configUtilityService.errorMessage("Duplicate Method Entry is not allowed");
+          return;
+        }
+
+        let obj = {
+          'label': label,
+          'type': 'method',
+          'parentPackageNode': this.nodeObj['parentPackageNode'],
+          'parentInterfaceNode': this.nodeObj['parentInterfaceNode'],
+          'selected': false,
+          'leaf': false,
+          'expanded': true,
+          'children': []
+        };
+
+        let packgIndex;
+        let interfaceIndex;
+
+        for (let i = 0; i < xmlDataArr[0]['children'].length; i++) {
+          // If Package found, add class
+          if (packageName === xmlDataArr[0]['children'][i]['label']) {
+            packgIndex = i;
+            for (let j = 0; j < xmlDataArr[0]['children'][i]['children'].length; j++) {
+              if (interfaceName === xmlDataArr[0]['children'][i]['children'][j]['label']) {
+                interfaceIndex = j;
+                break;
+              }
+            }
+          }
+        }
+        xmlDataArr[0]['children'][packgIndex]['children'][interfaceIndex].children.push(obj);
       }
 
       // Checking if XML Creation or Edition is being done
@@ -399,7 +509,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             break;
           }
         }
-      } else if (type === 'class') {    // Slicing Classes
+      } else if (type === 'class' || type === 'interface') {    // Slicing Classes
         for (let index = 0; index < mainXMLData.length; index++) {
           if (contextMenuEvent['node']['parentPackageNode'] === mainXMLData[index]['parentPackageNode']) {
             for (let j = 0; j < mainXMLData[index]['children'].length; j++) {
@@ -453,6 +563,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       'type': 'All',
       'parentPackageNode': null,
       'parentClassNode': null,
+      'parentInterfaceNode': null,
       'selected': false,
       'leaf': false,
       'expanded': true,
@@ -480,7 +591,6 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
   /** Dialog OK operation function */
   addXMLNodeToTree() {
-
     if (this.nodeObj['type'] === 'All') {
       if (this.nodeLabel.split('.').length == 0 || (this.nodeLabel.split('.')[1] == "" || this.nodeLabel.split('.')[0] == "")) {
         this._configUtilityService.errorMessage('Package Name should be like [xyz.abc]');
@@ -494,10 +604,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     } else if (this.nodeObj['type'] === 'package') {
       var regex = /[ !@#%^&*()+\-=\[\]{};':"\\|,.<>\/?]/g;
       if (regex.test(this.nodeLabel)) {
-        this._configUtilityService.errorMessage('Class Name should not contain special Characters except `_` and `$`');
+        this._configUtilityService.errorMessage('Class/Interface Name should not contain special Characters except `_` and `$`');
         return;
       }
-    } else if (this.nodeObj['type'] === 'class') {
+    } else if (this.nodeObj['type'] === 'class' || this.nodeObj['type'] === 'interface') {
       var regex = /[.<>]/g;
       if (regex.test(this.nodeLabel)) {
         this._configUtilityService.errorMessage('Method Name should not contain dot(.) or angular braces(<>)');
@@ -508,14 +618,17 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         return;
       }
       else {
-        if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') == -1) {
-          this._configUtilityService.errorMessage('Method Name should contain brackets i.e m1(arg) or m1()');
+        if (this.nodeLabel.indexOf('(') != -1 && this.nodeLabel.indexOf(')') == -1) {
+          this._configUtilityService.errorMessage('Method Name should either contain both brackets or it should be without brackets ');
           return;
         }
-      else
-      {
-       this.nodeLabel= this.nodeLabel.replace(/\./g,'/');
-      }
+        else if (this.nodeLabel.indexOf('(') == -1 && this.nodeLabel.indexOf(')') != -1) {
+          this._configUtilityService.errorMessage('Method Name should either contain both brackets or it should be without brackets ');
+          return;
+        }
+        else {
+          this.nodeLabel = this.nodeLabel.replace(/\./g, '/');
+        }
       }
     }
 
@@ -608,14 +721,28 @@ export class ConfigImportInstrProfileComponent implements OnInit {
               uploadArray.push(packageName);
             } else {
               for (let j = 0; j < dataToBeUploaded[i].children.length; j++) {
-                let className = dataToBeUploaded[i].children[j].label;
-                if (dataToBeUploaded[i].children[j].children.length === 0) {
-                  uploadArray.push(`${packageName}.${className}`);
-                } else {
-                  let methodList = dataToBeUploaded[i].children[j].children;
-                  for (let k = 0; k < methodList.length; k++) {
-                    let methodName = methodList[k].label;
-                    uploadArray.push(`${packageName}.${className}.${methodName}`);
+                if(dataToBeUploaded[i].children[j].label == dataToBeUploaded[i].children[j].parentInterfaceNode){
+                  let interfaceName = dataToBeUploaded[i].children[j].label;
+                  if (dataToBeUploaded[i].children[j].children.length === 0) {
+                    uploadArray.push(`${packageName}^${interfaceName}#`);
+                  } else {
+                    let methodList = dataToBeUploaded[i].children[j].children;
+                    for (let k = 0; k < methodList.length; k++) {
+                      let methodName = methodList[k].label;
+                      uploadArray.push(`${packageName}^${interfaceName}^${methodName}#`);
+                    }
+                  }
+                }
+                else{
+                  let className = dataToBeUploaded[i].children[j].label;
+                  if (dataToBeUploaded[i].children[j].children.length === 0) {
+                    uploadArray.push(`${packageName}^${className}`);
+                  } else {
+                    let methodList = dataToBeUploaded[i].children[j].children;
+                    for (let k = 0; k < methodList.length; k++) {
+                      let methodName = methodList[k].label;
+                      uploadArray.push(`${packageName}^${className}^${methodName}`);
+                    }
                   }
                 }
               }
@@ -734,12 +861,12 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     if (flag) {
       this.createXMLData.forEach(node => {
         this.expandRecursive(node, true);
-	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        this._configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
       });
     } else {
       this.parsedXMLData.forEach(node => {
         this.expandRecursive(node, true);
-	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        this._configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
       });
     }
   }
@@ -747,19 +874,19 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     if (flag) {
       this.createXMLData.forEach(node => {
         this.expandRecursive(node, false);
-	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        this._configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
       });
     } else {
       this.parsedXMLData.forEach(node => {
         this.expandRecursive(node, false);
-	this._configUtilityService.progressBarEmit({flag: false, color: 'primary'});
+        this._configUtilityService.progressBarEmit({ flag: false, color: 'primary' });
       });
     }
   }
 
   /** Expand/Collapse Tree Node */
   private expandRecursive(node: TreeNode, isExpand: boolean) {
-    this._configUtilityService.progressBarEmit({flag: true, color: 'primary'});
+    this._configUtilityService.progressBarEmit({ flag: true, color: 'primary' });
     node.expanded = isExpand;
     if (node.children) {
       node.children.forEach(childNode => {
@@ -782,7 +909,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   }
 
   /** Check for duplicate entry while adding nodes */
-  checkForDuplicacy(type, pckgName, className, methodName, arrToIterate) {
+  checkForDuplicacy(type, pckgName, classOrInterfaceName, methodName, arrToIterate) {
     let arr = arrToIterate[0]['children'];
     if (type === 'All') {
       for (let i = 0; i < arr.length; i++) {
@@ -796,17 +923,17 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           if (arr[i].children.length == 0)
             return false;
           for (let j = 0; j < arr[i].children.length; j++) {
-            if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
+            if (classOrInterfaceName.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
               return true;
             }
           }
         }
       }
-    } else if (type === 'class') {
+    } else if (type === 'class' || type === 'interface') {
       for (let i = 0; i < arr.length; i++) {
         if (pckgName.toLowerCase() === arr[i].label.toLowerCase()) {
           for (let j = 0; j < arr[i].children.length; j++) {
-            if (className.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
+            if (classOrInterfaceName.toLowerCase() === arr[i].children[j].label.toLowerCase()) {
               if (arr[i].children[j].children.length == 0)
                 return false;
               for (let k = 0; k < arr[i].children[j].children.length; k++) {
@@ -841,8 +968,15 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.openDetailsDialog = true;
     })
   }
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this._configKeywordsService.getHelpContent("Left Panel", "Instrumentation Profile Maker", "");
+  }
 
   ngOnDestroy() {
-   this.isMakeXMLFile = false;
+    this.isMakeXMLFile = false;
   }
 }

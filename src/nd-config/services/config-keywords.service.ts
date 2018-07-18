@@ -752,15 +752,27 @@ export class ConfigKeywordsService {
   }
 
   /** URL for creating method monitor from auto discover */
-  methodMonitorFromAutoDiscover(nodeInfo, reqId, instanceFileName, profileId) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AD}/${reqId + ',' + instanceFileName}/${profileId}`, nodeInfo);
+  addMethodMonitorFromAutoDiscover(methodMonitorMap , profileId,methodFrom) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AD}/${profileId}/${methodFrom}`, methodMonitorMap);
   }
 
-  /** URL for creating method monitor from auto instrumentation */
-  methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
+    /** URL for creating method monitor from auto discover */
+   createMethodMonitorAndValidateFQMFromAD(nodeInfo, reqId, instanceFileName):  Observable<any> {
+      return this._restApi.getDataByPostReq(`${URL.CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AD}/${reqId + ',' + instanceFileName}`, nodeInfo);
+    }
+
+
+   /** URL for creating method monitor from auto instrumentation */
+   addMethodMonitorFromAutoInstr(methodMonitorMap, profileId,methodFrom) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AI}/${profileId}/${methodFrom}`, methodMonitorMap);
   }
-  downloadReports(data) {
+    /** URL for creating method monitor from auto instrumentation */
+    createMethodMonitorAndValidateFQMFromAI(nodeInfo, reqId) {
+      return this._restApi.getDataByPostReq(`${URL.CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AI}/${reqId}`, nodeInfo);
+    }
+
+
+  downloadReports(data){
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
   }
 

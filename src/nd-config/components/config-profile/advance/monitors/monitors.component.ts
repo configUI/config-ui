@@ -131,37 +131,78 @@ export class MonitorsComponent implements OnInit {
   }
 
   resetKeywordData() {
-    this.monitor = cloneObject(this.configKeywordsService.keywordData);
-    this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
-    this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
-    this.eventLoopMonitorChk = this.monitor["eventLoopMonitor"].value == 0 ? false : true;
-    this.gcProfilerChk = this.monitor["gcProfiler"].value == 0 ? false : true;
-    this.nodeAsyncEventMonitorChk = this.monitor["nodeAsyncEventMonitor"].value == 0 ? false : true;
-    this.nodeServerMonitorChk = this.monitor["nodeServerMonitor"].value == 0 ? false : true;
-    //  this.backend = cloneObject(this.configKeywordsService.keywordData);
-
+    this.getKeyWordDataFromStore();
   }
-  /* This method is used to reset the keyword data to its Default value */
+getKeyWordDataFromStore(){
+  if (this.agentType == 'NodeJS') {
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.NodeJSkeywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+
+      this.monitor = keywordDataVal;
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+      this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+      this.eventLoopMonitorChk = this.monitor["eventLoopMonitor"].value == 0 ? false : true;
+      this.gcProfilerChk = this.monitor["gcProfiler"].value == 0 ? false : true;
+      this.nodeAsyncEventMonitorChk = this.monitor["nodeAsyncEventMonitor"].value == 0 ? false : true;
+      this.nodeServerMonitorChk = this.monitor["nodeServerMonitor"].value == 0 ? false : true;
+      console.log(this.className, "constructor", "this.monitors", this.monitor);
+      // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+      this.configKeywordsService.toggleKeywordData();
+    });
+  }
+  else {
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+
+      this.monitor = keywordDataVal;
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+      this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+      // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+      this.configKeywordsService.toggleKeywordData();
+    });
+  }
+}
+ /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
+    // let data = cloneObject(this.configKeywordsService.keywordData);
+    let data = this.configKeywordsService.keywordData;
+    if(this.agentType == "NodeJS"){
+      for(let key in data){
+        if(this.NodeJSkeywordList.includes(key)){
+          this.monitor[key] = data[key];
+        }
+      }
+    }
+    else {
+    for(let key in data){
+      if(this.keywordList.includes(key)){
+        this.monitor[key] = data[key];
+      }
+    }
+  }
     var keywordDataVal = {}
-    keywordDataVal = data
+    keywordDataVal = this.monitor
     this.keywordList.map(function (key) {
-      keywordDataVal[key].value = data[key].defaultValue
+    keywordDataVal[key].value = data[key].defaultValue
     })
     this.monitor = keywordDataVal;
     this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
     this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
-
-    if (this.agentType == 'NodeJS') {
-      this.eventLoopMonitorChk = this.monitor["eventLoopMonitor"].defaultValue == 0 ? false : true;
-      this.gcProfilerChk = this.monitor["gcProfiler"].defaultValue == 0 ? false : true;
-      this.nodeAsyncEventMonitorChk = this.monitor["nodeAsyncEventMonitor"].defaultValue == 0 ? false : true;
-      this.nodeServerMonitorChk = this.monitor["nodeServerMonitor"].defaultValue == 0 ? false : true;
-      this.monitor["nodejsCpuProfilingTime"].value = this.monitor["nodejsCpuProfilingTime"].defaultValue;
+    if(this.agentType == 'NodeJS'){
+    this.eventLoopMonitorChk = this.monitor["eventLoopMonitor"].defaultValue == 0 ? false : true;
+    this.gcProfilerChk = this.monitor["gcProfiler"].defaultValue == 0 ? false : true;
+    this.nodeAsyncEventMonitorChk = this.monitor["nodeAsyncEventMonitor"].defaultValue == 0 ? false : true;
+    this.nodeServerMonitorChk = this.monitor["nodeServerMonitor"].defaultValue == 0 ? false : true;
+    this.monitor["nodejsCpuProfilingTime"].value =this.monitor["nodejsCpuProfilingTime"].defaultValue;
     }
   }
- /**
+/**
  * Purpose : To invoke the service responsible to open Help Notification Dialog 
  * related to the current component.
  */
@@ -176,8 +217,8 @@ export class MonitorsComponent implements OnInit {
     //   this.subscriptionEG.unsubscribe();
   }
   ngOnInit() {
-    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if (this.saveDisable || this.isProfilePerm)
+     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+     if(this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
   }
 

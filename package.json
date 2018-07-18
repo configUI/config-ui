@@ -27,6 +27,7 @@
     "@angular/router": "4.3.0",
     "@ngrx/core": "1.2.0",
     "@ngrx/store": "2.2.1",
+    "angular-autofocus-fix": "^0.1.0",
     "angular-prism": "0.1.20",
     "core-js": "2.4.1",
     "font-awesome": "4.7.0",

@@ -9,6 +9,9 @@
             (ngModelChange)="getAgentSpecificFiles($event)"></p-dropdown>
         </div>
       </div>
+   <div class="ui-g-7" style = "text-align: right" >
+     <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+   </div>
     </div>
         <div class="ui-g-12">
             <div class="ui-g-5">
@@ -114,7 +117,7 @@
                     Enter {{nodeTitle}}
                 </div>
                 <div class="ui-grid-col-7">
-                    <input type="text" pInputText [(ngModel)]="nodeLabel" />
+                    <input type="text" pInputText [(ngModel)]="nodeLabel" autofocus />
                 </div>
             </div>
         <div class="ui-grid-row" align="center" style="margin-top:5px;margin-bottom:5px;margin-right: 8.5%;margin-left: 15%;">

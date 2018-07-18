@@ -10,7 +10,8 @@ export class  ServiceEntryPoint {
     isCustomEntry:boolean=true;
     module:string;
     agent: string;
-    entryTypeCategory : string;
+    //Used to hold Category(whether predefined/Custom) for Download files feature
+    entryTypeCategory: string;
 }
 
 export class ErrorDetection {
@@ -393,4 +394,10 @@ export class BTHTTPBodyConditions{
     btName: string;
     opCode: any;
     value: any;
+}
+export class FPMethodStackData {
+    depthFP : number;
+    durationFP : number;
+    countStackTraceFP : number;
+    durationStackTraceFP : number;
 }

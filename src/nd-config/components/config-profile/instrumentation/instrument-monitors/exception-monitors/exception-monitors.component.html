@@ -53,7 +53,7 @@
                 <label>Exception Name</label>
             </div>
             <div class="ui-g-9">
-                <input name="exceptionName" pattern="[a-zA-Z\.]*" type="text" size="50" class="configUI-common-len" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required ngModel/>
+                <input name="exceptionName" pattern="[a-zA-Z\.]*" type="text" size="50" class="configUI-common-len" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="exceptionMonitorDetail.exceptionName" required autofocus ngModel/>
             </div>
         </div>
         <div class="ui-g">

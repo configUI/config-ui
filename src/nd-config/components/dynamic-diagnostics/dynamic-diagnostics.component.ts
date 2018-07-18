@@ -245,7 +245,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     //Check for successful RTC connection
                     if (success == "success") {
                         that.configTopologyService.updateAIEnable(that.currentInsId, true, "AI", that.topoName).subscribe(data => {
-                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,that.topoName).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
                             that.configHomeService.getAIStartStopOperationValue(true);
@@ -260,7 +260,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                         this.configUtilityService.infoMessage("Auto Instrumentation started");
                         this.resultAfterStart.emit("Auto Instrumentation started");
                         that.configTopologyService.updateAIEnable(that.currentInsId, true, "DD", this.topoName).subscribe(data => {
-                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity).subscribe(data => {
+                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,that.topoName).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
                             that.configHomeService.getAIStartStopOperationValue(true);

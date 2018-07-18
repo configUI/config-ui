@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {ConfigExceptionFilterService} from './services/config-exceptionfilter.service';
+import { AutofocusModule } from 'angular-autofocus-fix';
 
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
@@ -264,7 +265,8 @@ import { NDEClusterConfiguration, PipeForObject } from './components/nde-cluster
     SliderModule,
     SplitButtonModule,
     InputTextareaModule,
-    FileUploadModule
+    FileUploadModule,
+    AutofocusModule
   ],
 
   providers: [

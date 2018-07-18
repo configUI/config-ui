@@ -15,55 +15,50 @@
         <p-panel class="hideheader">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
                 <div class="ui-g">
-
                     <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"></div> -->
-                        <div class="ui-g-5">
-                            <p-checkbox name="enableURLCapturing" label="Enable endpoint URL capturing" [(ngModel)]="enableFormatIPResourceURL" binary="false"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"> </div> -->
-                        <div class="ui-g-5" style="padding-left:25px">
-                            <p-checkbox [disabled]="!this.enableFormatIPResourceURL" name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"> </div> -->
-                        <div class="ui-g-3" style="padding-left:25px">
-                            <label>Skip characters from URL</label>
-                        </div>
-                        <div class="ui-g-1">
-                            <input [disabled]="!this.enableFormatIPResourceURL" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
-                        </div>
-
-                        <!-- <div class="ui-g-1"></div> -->
-                        <div class="ui-g-2">
-                            <label>Max character limit in URL</label>
-                        </div>
-                        <div class="ui-g-1">
-                            <input [disabled]="!this.enableFormatIPResourceURL" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ui-g-12">
-                    <!-- <div class="ui-g-1"></div> -->
-                    <div class="ui-g-3">
-                            <p-checkbox name="dumpDefaultCassandraQuery" label="Enable dumping of default cassandra query" [(ngModel)]="dumpDefaultCassandraQuery" binary="false"></p-checkbox>
-                    </div>
-                </div>
-
-                <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">
-                                <p-checkbox name="enableIPResourceURL" label="Enable url capturing" [(ngModel)]="enableIPResourceURL" binary="false"></p-checkbox>
+                                <p-checkbox name="enableIPResourceURL" label="Capture URL" [(ngModel)]="enableIPResourceURL" binary="false"></p-checkbox>
                         </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-5">
+                            <p-checkbox  [disabled]="!this.enableIPResourceURL" name="enableURLCapturing" label="Capture Endpoint URL" [(ngModel)]="enableFormatIPResourceURL" binary="false"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-5" style="padding-left:25px">
+                            <p-checkbox [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="includeParameter" label="Capture request parameters" [(ngModel)]="urlCapturingData.includeParameter" binary="true"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-2" style="padding-left:25px;width: 10%">
+                            <label>Extract URL from</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
+                        </div>
+                        <div class="ui-g-1" style="width: 2%">
+                            <label>to</label>
+                        </div>
+                        <div class="ui-g-1">
+                            <input [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
+                        </div>
+                        <div class="ui-g-1">
+                            <label>characters</label>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="ui-g-12">
-                    <!-- <div class="ui-g-1"></div> -->
                     <div class="ui-g-3">
-                            <p-checkbox name="enableTransformThreadSubClass" label="Enable transformation of thread subclasses" [(ngModel)]="enableTransformThreadSubClass" binary="false"></p-checkbox>
+                            <p-checkbox name="dumpDefaultCassandraQuery" label="Capture cassandra query" [(ngModel)]="dumpDefaultCassandraQuery" binary="false"></p-checkbox>
+                    </div>
+                </div>
+
+
+                <div class="ui-g-12">
+                    <div class="ui-g-3">
+                            <p-checkbox name="enableTransformThreadSubClass" label="Capture Thread subclasses" [(ngModel)]="enableTransformThreadSubClass" binary="false"></p-checkbox>
                     </div>
                 </div>
 

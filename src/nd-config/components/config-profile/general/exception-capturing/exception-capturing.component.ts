@@ -132,14 +132,26 @@ export class ExceptionCapturingComponent implements OnInit {
     /* This method is used to reset the keyword data */
     resetKeywordData() {
         this.getKeywordData();
-        this.exception = cloneObject(this.configKeywordsService.keywordData);
+        // this.exception = cloneObject(this.configKeywordsService.keywordData);
+        let data = this.configKeywordsService.keywordData
+        for(let key in data){
+          if(this.keywordList.includes(key)){
+            this.exception[key] = data[key];
+          }
+        }
     }
     /* This method is used to reset the keyword data to its Default value */
     resetKeywordsDataToDefault() {
         this.getKeywordData();
-        let data = cloneObject(this.configKeywordsService.keywordData);
+        // let data = cloneObject(this.configKeywordsService.keywordData);
+        let data = this.configKeywordsService.keywordData
+        for(let key in data){
+          if(this.keywordList.includes(key)){
+            this.exception[key] = data[key];
+          }
+        }
         var keywordDataVal = {}
-        keywordDataVal = data
+        keywordDataVal = this.exception;
         this.keywordList.map(function (key) {
           keywordDataVal[key].value = data[key].defaultValue
         })

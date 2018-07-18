@@ -49,16 +49,16 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_GROUP_TABLE_URL}/${topoId}`, entity);
   }
 
-  getTierDetail(tierGroupName: string, entity: TierGroupInfo): Observable<TierInfo[]> {
-    return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_TABLE_URL}/${tierGroupName}`, entity);
+  getTierDetail(tierGroupName: string, entity: TierGroupInfo, topologyName): Observable<TierInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_TIER_TABLE_URL}/${tierGroupName}/${topologyName}`, entity);
   }
 
-  getServerDetail(tierId: number, entity: TierInfo): Observable<ServerInfo[]> {
-    return this._restApi.getDataByPostReq(`${URL.FETCH_SERVER_TABLE_URL}/${tierId}`, entity);
+  getServerDetail(tierId: number, entity: TierInfo, topologyName): Observable<ServerInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_SERVER_TABLE_URL}/${tierId}/${topologyName}`, entity);
   }
 
-  getInstanceDetail(serverId: number, entity: ServerInfo): Observable<InstanceInfo[]> {
-    return this._restApi.getDataByPostReq(`${URL.FETCH_INSTANCE_TABLE_URL}/${serverId}`, entity);
+  getInstanceDetail(serverId: number, entity: ServerInfo,topologyName): Observable<InstanceInfo[]> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_INSTANCE_TABLE_URL}/${serverId}/${topologyName}`, entity);
   }
 
   getTopologyTreeDetail(dcId: number): Observable<TreeNode[]> {
@@ -91,23 +91,23 @@ export class ConfigTopologyService {
   }
 
   /* Changing Profile to TierGroup */
-  updateAttachedProfTierGroup(data) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER_GROUP}/${data.tierGroupName}/${data.profileId}`);
+  updateAttachedProfTierGroup(data,topologyName) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER_GROUP}/${data.tierGroupName}/${data.profileId}/${topologyName}`);
   }
 
   /* Changing Profile to Tier */
-  updateAttachedProfTier(data) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}`);
+  updateAttachedProfTier(data,topologyName) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}/${topologyName}`);
   }
 
   /* Changing Profile to Server */
-  updateAttachedProfServer(data) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}`);
+  updateAttachedProfServer(data,topologyName) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}/${topologyName}`);
   }
 
   /* Changing Profile to Instance */
-  updateAttachedProfInstance(data) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}`);
+  updateAttachedProfInstance(data,topologyName) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}/${topologyName}`);
   }
 
   /**For disable Profile at instance level */
