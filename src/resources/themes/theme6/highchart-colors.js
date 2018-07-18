@@ -4,6 +4,8 @@ window.arrColorThemesForCPU = ['#5655BB', '#8888E0', '#489449', '#83CD82', '#FE2
 window.arrColorThemes = ['#3A99D9', '#F1C330', '#7CB5EC', '#434348'];
 window.bgColorThemes = ['rgba(255,255,255,0.2)', 'rgba(0,0,0,0)'];
 
+window.arrColorddr = ['#5965b3c9' ,'#303F9F' , '#969FCF','#333']; //ddr graphs
+
 function loadHighchartTheme() {
     window.theme = {
             colors: ['#f45b5b', '#8085e9', '#8d4654', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
