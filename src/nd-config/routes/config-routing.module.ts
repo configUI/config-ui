@@ -24,6 +24,7 @@ import { ConfigViewAuditLogComponent } from '../components/config-view-audit-log
 import { ConfigNDCKeywordsSettingComponent } from '../components/config-ndc-keywords-setting/config-ndc-keywords-setting.component'
 import { ConfigAutoInstrumentationComponent } from '../components/config-auto-discover/config-auto-instrumentation/config-auto-instrumentation.component';
 import { ConfigEditAutoInstrumentationComponent } from '../components/config-auto-discover/config-edit-auto-instrumentation/config-edit-auto-instrumentation.component';
+import { NDEClusterConfiguration } from '../components/nde-cluster-configuration/nde-cluster-configuration.component';
 
 // /**For ProductUI */
 // const routes: Routes = [
@@ -113,7 +114,8 @@ const routes: Routes = [
             { path: 'instrumentation-profile-maker', component: ConfigImportInstrProfileComponent },
             { path: 'auto-discover', component: ConfigAutoDiscoverComponent },
             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
-	    { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
+        { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
+        { path: 'nde-cluster-config', component: NDEClusterConfiguration},
 	    { path: 'application-list/ndc-keywords-setting/:appId', component: ConfigNDCKeywordsSettingComponent },
             { path: 'auto-instrumentation', component: ConfigAutoInstrumentationComponent },
             { path: 'auto-discover/auto-instrumentation/:sessionFileName', component: ConfigEditAutoInstrumentationComponent },

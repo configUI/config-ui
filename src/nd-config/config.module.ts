@@ -151,6 +151,7 @@ import { AlertConfigService } from './services/alert-config-service';
 
 import { HelpComponent } from './components/config-help/config-help.component';
 import { EventCorrelationComponent } from './components/config-profile/general/event-correlation/event-correlation.component';
+import { NDEClusterConfiguration, PipeForObject } from './components/nde-cluster-configuration/nde-cluster-configuration.component';
 
 @NgModule({
   declarations: [
@@ -223,7 +224,9 @@ import { EventCorrelationComponent } from './components/config-profile/general/e
     BTHTTPBodyComponent,
     PipeForDataType,
     HelpComponent,
-    EventCorrelationComponent
+    EventCorrelationComponent,
+    NDEClusterConfiguration,
+    PipeForObject
   ],
   imports: [
    // CommonModule,

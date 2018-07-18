@@ -11,14 +11,15 @@ import { BusinessTransGlobalInfo } from '../interfaces/business-Trans-global-inf
 import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-info';
 import { Subscription } from 'rxjs/Subscription';
 
-import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection,BTResponseHeaderData,HTTPResponseHdrComponentData,RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT,EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody } from '../containers/instrumentation-data';
+import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection, BTResponseHeaderData, HTTPResponseHdrComponentData, RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT, EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 import { ConfigUtilityService } from '../services/config-utility.service';
 import { Messages, customKeywordMessage } from '../constants/config-constant'
+import { NDE, NDERoutingRules } from './../containers/nde-cluster-data';
 import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 
 @Injectable()
@@ -29,15 +30,15 @@ export class ConfigKeywordsService {
   *method is made in this class
   */
   private helpContent = new Subject<Object>();
-   
+
   helpContent$ = this.helpContent.asObservable();
 
-  public  getHelpContent(component:string,module:string,agentType: string) {
-    console.log("com",component)
-    console.log("mod",module)
-   this.helpContent.next({"component": component, "module": module , "agentType" : agentType});
-  
- }
+  public getHelpContent(component: string, module: string, agentType: string) {
+    console.log("com", component)
+    console.log("mod", module)
+    this.helpContent.next({ "component": component, "module": module, "agentType": agentType });
+
+  }
   /**It stores keyword data */
   private _keywordData: Object;
 
@@ -56,7 +57,7 @@ export class ConfigKeywordsService {
    * Handled Toggle Button and Enable/Disable keyword information.
    */
   keywordGroup: GroupKeyword = {
-    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP","enableMethodBreakDownTime", "methodResponseTimeFilter", "dumpOnlyMethodExitInFP"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions","enableSourceCodeFilters","enableExceptionsWithSourceAndVars"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] }, custom_data: { enable: false, keywordList: ["captureCustomData"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
+    general: { flowpath: { enable: false, keywordList: ["bciInstrSessionPct", "enableCpuTime", "enableForcedFPChain", "correlationIDHeader", "captureMethodForAllFP", "enableMethodBreakDownTime", "methodResponseTimeFilter", "dumpOnlyMethodExitInFP"] }, hotspot: { enable: false, keywordList: ["ASSampleInterval", "ASThresholdMatchCount", "ASReportInterval", "ASDepthFilter", "ASTraceLevel", "ASStackComparingDepth"] }, thread_stats: { enable: false, keywordList: ["enableJVMThreadMonitor"] }, exception: { enable: false, keywordList: ["instrExceptions", "enableSourceCodeFilters", "enableExceptionsWithSourceAndVars"] }, header: { enable: false, keywordList: ["captureHTTPReqFullFp", "captureHTTPRespFullFp"] }, custom_data: { enable: false, keywordList: ["captureCustomData"] }, instrumentation_profiles: { enable: false, keywordList: ["instrProfile"] } },
     advance: {
       debug: { enable: false, keywordList: ['enableBciDebug', 'enableBciError', 'InstrTraceLevel', 'ndMethodMonTraceLevel'] }, delay: { enable: false, keywordList: ['putDelayInMethod'] },
       // backend_monitors: { enable: false, keywordList: ['enableBackendMonitor'] },
@@ -91,19 +92,19 @@ export class ConfigKeywordsService {
       });
   }
 
-    /** For save all keywordData data */
-    saveProfileCustomKeywords(profileId, message :string) {
-      this._restApi.getDataByPostReq(`${URL.UPDATE_CUSTOM_KEYWORDS_DATA}/${profileId}`, this.keywordData)
-        .subscribe(data => {
-          this.keywordData = data;
-          if(!message.includes("Deleted"))
-              this.configUtilityService.successMessage(message);
-          else
-            this.configUtilityService.infoMessage(message);
-  
-          this.store.dispatch({ type: KEYWORD_DATA, payload: data });
-        });
-    }
+  /** For save all keywordData data */
+  saveProfileCustomKeywords(profileId, message: string) {
+    this._restApi.getDataByPostReq(`${URL.UPDATE_CUSTOM_KEYWORDS_DATA}/${profileId}`, this.keywordData)
+      .subscribe(data => {
+        this.keywordData = data;
+        if (!message.includes("Deleted"))
+          this.configUtilityService.successMessage(message);
+        else
+          this.configUtilityService.infoMessage(message);
+
+        this.store.dispatch({ type: KEYWORD_DATA, payload: data });
+      });
+  }
 
   /**
  * This method is used to enable/disable toggle button.
@@ -269,13 +270,13 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.DEL_METHOD_MONITOR}/${profileId}`, data);
   }
   /** Method to upload EXCEPTION MONITOR file */
-  uploadExceptionMonitorFile(filePath, profileId){
+  uploadExceptionMonitorFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_EXCEPTION_MONITOR_FILE}/${profileId}`, filePath);
-}
+  }
 
-saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
-  return this._restApi.getDataByPostReq(`${URL.SAVE_EXCEPTION_MONITOR}/${profileId}`);
-}
+  saveExceptionMonitorData(profileId): Observable<ExceptionMonitorData> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_EXCEPTION_MONITOR}/${profileId}`);
+  }
   getListOfXmlFiles(profileId, agentType): Observable<string[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_INSTR_PROFILE_LIST}/${agentType}`);
   }
@@ -328,7 +329,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.SAVE_HTTP_STATS_COND}/${profileId}`);
   }
 
-  uploadHttpStatsMonitorFile(filePath, profileId){
+  uploadHttpStatsMonitorFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_HTTPSTATS_MONITOR_FILE}/${profileId}`, filePath);
   }
 
@@ -385,14 +386,14 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   }
 
   /*Get sub BT Pattern data*/
-  fetchBtNames (profileId): Observable<string[]> {
+  fetchBtNames(profileId): Observable<string[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_BT_NAMES}/${profileId}`);
   }
 
-    /* Save data on file for BT Transaction window*/
-    saveBusinessTransMethodData(profileId): Observable<BusinessTransMethodInfo> {
-      return this._restApi.getDataByPostReq(`${URL.SAVE_BT_TRANSACTION}/${profileId}`);
-    }
+  /* Save data on file for BT Transaction window*/
+  saveBusinessTransMethodData(profileId): Observable<BusinessTransMethodInfo> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_BT_TRANSACTION}/${profileId}`);
+  }
 
   /*Add Pattern Bt Data*/
   deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
@@ -431,7 +432,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   //   return this._restApi.getDataByPostReq(url, data);
   // }
 
-//Need more testing.
+  //Need more testing.
   sendRunTimeChange(url, data, profileId, callback) {
     let rtcMsg
     let rtcErrMsg;
@@ -451,11 +452,11 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
           for (let i = 2; i < arr.length - 1; i++) {
 
             //if instance is equal to numeric, then RTC is applied on that insatnce
-            if(isNaN(parseInt(arr[i].substring(arr[i].lastIndexOf("=") + 1))))
+            if (isNaN(parseInt(arr[i].substring(arr[i].lastIndexOf("=") + 1))))
               arrPartialErr.push(arr[i]);
             else
               arrPartialID.push(arr[i]);
-          }      
+          }
           rtcMsg = arrPartialID;
           rtcErrMsg = arrPartialErr;
         }
@@ -466,10 +467,10 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
           let that = this;
 
           //Setting timeout of 2 seconds 
-          setTimeout(function() {
+          setTimeout(function () {
             // Whatever you want to do after the wait        
             that.saveProfileKeywords(profileId);
-        }, 1000);
+          }, 1000);
 
           rtcMsg = [];
           rtcErrMsg = [];
@@ -575,7 +576,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_METHOD_MONITOR_FILE}/${profileId}`, filePath);
   }
 
-  saveMethodMonitorData(profileId){ 
+  saveMethodMonitorData(profileId) {
     return this._restApi.getDataByPostReq(`${URL.SAVE_METHOD_MONITOR_FILE}/${profileId}`);
   }
 
@@ -619,34 +620,34 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByGetReq(`${URL.DELETE_XML_FILE}?fileName=${fileName}`);
   }
 
-   getAutoDiscoverTreeData(adrFile, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_TREE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
+  getAutoDiscoverTreeData(adrFile, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_TREE_DATA}?reqId=${reqId + ',' + fileName}`, adrFile);
   }
 
   getClassDiscoverTreeData(nodeInfo, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_CLASS_DISCOVER_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+    return this._restApi.getDataByPostReq(`${URL.GET_CLASS_DISCOVER_TREE_DATA}?reqId=${reqId + ',' + fileName}`, nodeInfo);
   }
 
   getSelectedNodeInfo(nodeInfo, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_NODE_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+    return this._restApi.getDataByPostReq(`${URL.GET_SELECTED_NODE_TREE_DATA}?reqId=${reqId + ',' + fileName}`, nodeInfo);
   }
 
-  getUninstrumentaionTreeData(nodeInfo, reqId ,fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_NODE_TREE_DATA}?reqId=${reqId + ','+ fileName}`, nodeInfo);
+  getUninstrumentaionTreeData(nodeInfo, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_UNINSTRUMENTATION_NODE_TREE_DATA}?reqId=${reqId + ',' + fileName}`, nodeInfo);
   }
 
   saveInsrumentationFileInXMLFormat(xmlFileName, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}?reqId=${reqId + ','+ fileName}`, xmlFileName);
+    return this._restApi.getDataByPostReq(`${URL.SAVE_INSTRUEMENTATION_DATA_XML}?reqId=${reqId + ',' + fileName}`, xmlFileName);
   }
-  
-   getAutoDiscoverSelectedTreeData(adrFile, reqId, fileName) {
-    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_SELECTED_TREE_DATA}?reqId=${reqId +','+ fileName}`, adrFile);
+
+  getAutoDiscoverSelectedTreeData(adrFile, reqId, fileName) {
+    return this._restApi.getDataByPostReq(`${URL.GET_AUTO_DISCOVER_SELECTED_TREE_DATA}?reqId=${reqId + ',' + fileName}`, adrFile);
   }
   /* GEt Activity Log Data */
   getActivityLogData() {
     return this._restApi.getDataByGetReq(`${URL.GET_ACTIVITY_LOG_DATA}`);
   }
-  
+
   /* Get NDC Keywords data */
   getNDCKeywords(appId): Observable<any[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_NDC_KEYWORDS}/${appId}`);
@@ -662,7 +663,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   getRemovedPackageData(textFile, reqId) {
     return this._restApi.getDataByPostReq(`${URL.GET_REMOVED_PACKAGE_DATA}?reqId=${reqId}`, textFile);
   }
-  
+
   getAutoInstrumentatedData(textFile, reqId) {
     return this._restApi.getDataByPostReq(`${URL.GET_INSTRUEMENTATED_PACKAGE_DATA}?reqId=${reqId}`, textFile);
   }
@@ -693,7 +694,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   }
 
   /**Sending RTC for instrumentation profile maker */
-  rtcInstrProfile(data, userName): Observable<String[]>{
+  rtcInstrProfile(data, userName): Observable<String[]> {
     return this._restApi.getDataByPostReq(`${URL.RUNTIME_CHANGE_INSTR_PROFILE}/${userName}`, data)
   }
 
@@ -732,7 +733,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   getAsynchronousRuleList(profileId): Observable<AsynchronousRuleType[]> {
     return this._restApi.getDataByGetReq(`${URL.FETCH_ASYNCHRONOUS_RULE_TABLEDATA}/${profileId}`);
   }
-    
+
   saveAsynchronousRule(profileId): Observable<AsynchronousRuleType> {
     return this._restApi.getDataByPostReq(`${URL.SAVE_ASYNCHRONOUS_RULE}/${profileId}`);
   }
@@ -741,7 +742,7 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
     return this._restApi.getDataByPostReq(`${URL.ENABLE_ASYNCHRONOUS_RULE_TYPE}/${assocId}/${isEnable}`);
   }
 
-  getTopoName(trNo, instanceName): Observable<String>{
+  getTopoName(trNo, instanceName): Observable<String> {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_TOPO_NAME}/${trNo}`, instanceName);
   }
 
@@ -759,32 +760,74 @@ saveExceptionMonitorData(profileId)  :Observable<ExceptionMonitorData>{
   methodMonitorFromAutoInstr(nodeInfo, reqId, profileId) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.CREATE_METHOD_MONITOR_FROM_AI}/${reqId}/${profileId}`, nodeInfo);
   }
-  downloadReports(data){
+  downloadReports(data) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
-}
+  }
 
   /** Add BT HTTP BODY */
   addBtHttpBody(data, profileId) {
     return this._restApi.getDataByPostReq(`${URL.ADD_BT_HTTP_BODY_URL}/${profileId}`, data);
   }
 
-    /** Get all BT Http body data */
-    getBtHttpBodyData(profileId): Observable<BTHTTPBody[]> {
-      return this._restApi.getDataByGetReq(`${URL.FETCH_BTHTTP_BODY_URL}/${profileId}`);
-    }
+  /** Get all BT Http body data */
+  getBtHttpBodyData(profileId): Observable<BTHTTPBody[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BTHTTP_BODY_URL}/${profileId}`);
+  }
 
-      /* Edit  BT HTTP Body Info */
+  /* Edit  BT HTTP Body Info */
   editBTHTTPBody(data): Observable<BTHTTPBody> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_BTHTTP_BODY}/${data.id}`, data);
   }
 
-    /** Delete HTTP Body Conditions  */
-    deleteHTTPBodyConditions(listOfIds) {
-      return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_BODY_COND}`, listOfIds);
-    }
+  /** Delete HTTP Body Conditions  */
+  deleteHTTPBodyConditions(listOfIds) {
+    return this._restApi.getDataByPostReq(`${URL.DEL_HTTP_BODY_COND}`, listOfIds);
+  }
 
-      /** Delete BT HTTP Body Info */
+  /** Delete BT HTTP Body Info */
   deleteBTHTTPBody(data, profileId): Observable<BTHTTPBody> {
     return this._restApi.getDataByPostReq(`${URL.DELETE_BT_BODY}/${profileId}`, data);
   }
+
+
+  saveNDEData(data): Observable<NDE> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_NDE_URL}`, data);
+  }
+
+  getNDEData(): Observable<NDE[]>{
+    return this._restApi.getDataByGetReq(`${URL.GET_NDE_DATA_URL}`)
+  }
+
+  deleteNDEData(data): Observable<NDE[]>{
+    return this._restApi.getDataByPostReq(`${URL.DELETE_NDE_DATA_URL}`, data)
+  }
+
+  editNDEData(data): Observable<NDE>{
+    return this._restApi.getDataByPostReq(`${URL.EDIT_NDE_DATA_URL}/${data.id}`, data)
+  }
+
+  getTierGroupNames(): Observable<string[]>{
+    return this._restApi.getDataByGetReq(`${URL.LOAD_TIER_GROUP_NAME_URL}`)
+  }
+
+  saveNDERoutingRules(data): Observable<NDERoutingRules>{
+    return this._restApi.getDataByPostReq(`${URL.ADD_NDE_ROUTING_ROUTES_URL}`, data)
+  }
+
+  getNDEServerFromNDEName(data): Observable<NDE>{
+    return this._restApi.getDataByGetReq(`${URL.GET_NDE_SERVER_OBJ_URL}/${data}`)
+  }
+
+  getNDERoutingRulesData(): Observable<NDERoutingRules[]>{
+    return this._restApi.getDataByGetReq(`${URL.GET_ND_ROUTING_RULES_DATA_URL}`)
+  }
+
+  deleteNDERoutingRules(data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.DELETE_NDE_ROUTING_RULES_URL}`, data)
+  }
+
+  editNDERoutingRules(data): Observable<NDERoutingRules>{
+    return this._restApi.getDataByPostReq(`${URL.EDIT_NDE_ROUTING_RULES_URL}/${data.id}`, data)
+  }
+
 }

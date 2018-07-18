@@ -375,3 +375,18 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const EDIT_BTHTTP_BODY = `${SERVICE_URL}/custom/bthttpbody/editbthttpbody`;
  export const DEL_HTTP_BODY_COND = `${SERVICE_URL}/custom/bthttpbody/deletebthttpbodycond`;
  export const DELETE_BT_BODY = `${SERVICE_URL}/custom/bthttpbody/delete`;
+
+ /** URL for NDE Cluster Configuration */
+ export const ADD_NDE_URL = `${SERVICE_URL}/custom/ndeclusterconfig/savende`;
+ export const GET_NDE_DATA_URL = `${SERVICE_URL}/custom/ndeclusterconfig/getndedata`;
+ export const DELETE_NDE_DATA_URL = `${SERVICE_URL}/custom/ndeclusterconfig/deletendedata`;
+ export const EDIT_NDE_DATA_URL = `${SERVICE_URL}/custom/ndeclusterconfig/editndedata`;
+ export const LOAD_TIER_GROUP_NAME_URL = `${SERVICE_URL}/custom/ndeclusterconfig/loadtiergrpnames`;
+
+  /** URL for NDE Routing Rules */
+  export const ADD_NDE_ROUTING_ROUTES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/savenderoutingrules`;
+  export const GET_NDE_SERVER_OBJ_URL = `${SERVICE_URL}/custom/ndeclusterconfig/getndeserver`;
+  export const GET_ND_ROUTING_RULES_DATA_URL = `${SERVICE_URL}/custom/ndeclusterconfig/getnderoutingrules`;
+  export const DELETE_NDE_ROUTING_RULES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/deletenderoutingrules`;
+  export const EDIT_NDE_ROUTING_RULES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/editnderoutingrules`;
+
