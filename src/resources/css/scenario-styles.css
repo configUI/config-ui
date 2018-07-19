@@ -309,9 +309,6 @@
 
 /*----------Scenario Right Pane Box Style-------------*/
 .main-box-scen {
-    float: right;
-    width: 85.4%;
-    margin-right: 2px;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
@@ -331,3 +328,19 @@
   max-height: 150px;
   overflow: auto; 
 }
+
+.scenariofileupload span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
+  background: #073c77;
+  margin-bottom: 0px;
+  height: 21px;
+  width: 80px;
+}
+
+.scen-scripts .ui-radiobutton.ui-widget {
+  margin-right: -1px;
+}
+
+.scen-scripts .ui-radiobutton-label {
+  margin-right: 5px;
+}
+

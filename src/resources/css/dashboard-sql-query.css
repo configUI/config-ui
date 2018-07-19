@@ -1,0 +1,589 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "ms-sql-query";
+  src:url("../../fonts/ms-sql-query.eot");
+  src:url("../../fonts/ms-sql-query.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/ms-sql-query.woff") format("woff"),
+    url("../../fonts/ms-sql-query.ttf") format("truetype"),
+    url("../../fonts/ms-sql-query.svg#ms-sql-query") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "ms-sql-query" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="sql-query-"]:before,
+[class*=" sql-query-"]:before {
+  font-family: "ms-sql-query" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sql-query-database:before {
+  content: "\e000";
+}
+.sql-query-sql-activity:before {
+  content: "\e002";
+}
+.sql-query-support-services:before {
+  content: "\e003";
+}
+.sql-query-temp-database:before {
+  content: "\e004";
+}
+.sql-query-wait-statistics:before {
+  content: "\e005";
+}
+.sql-query-db-monitoring:before {
+  content: "\e006";
+}
+.sql-query-high-availability:before {
+  content: "\e001";
+}
+
+.icon-sm{
+  font-size: 18px;
+  padding: 4px 0 0 0px;
+}
+
+.sql-top-panel > md-toolbar {
+      padding: 4px;
+      min-height: 30px;
+      height: 30px;
+  }
+.sql-top-panel  > md-toolbar /deep/ md-toolbar-row {
+      padding: 4px;
+      min-height: 30px;
+      height: 30px;  
+}
+
+.sql-top-panel-nav-icon {
+  cursor: pointer;
+}
+
+
+.sql-toolbar {
+  min-height: 30px;
+  height: 30px;
+  /* background: linear-gradient(141deg, dodgerblue 17% , #1fc8db 50%,#0fb8ad 89% ); 
+  background: rgba(255, 255, 255, 0.38) !important; */
+}
+
+.sql-toolbar md-toolbar-row {
+  height: 32px;
+  line-height: 1;
+}
+.product-nav-bar {
+  height: 40px;
+  margin-bottom: 50px;
+}
+
+.sql-submenu-css {
+  display: flex;
+  line-height: 20px;
+}
+.sql-toolbar.mat-toolbar {
+    height: 30px;
+    min-height: 30px;
+}
+.ms-sql-whole-scenario {
+  left: 92%;
+  top: 4%;
+  position: fixed;
+  font-size: 15px;
+}
+
+.whole-scenario-icon {
+  position: fixed;
+  top: 5.7%;
+  right: 7.5%;
+}
+
+.ms-sql-viewBy {
+  left: 83%;
+  top: 4%;
+  position: fixed;
+  display: flex;
+  font-size: 15px;
+}
+
+.ms-sql-view-by-icon {
+  position: fixed;
+  top: 5.7%;
+  right: 16.7%;
+}
+
+/deep/ .topPanelDropdown  .mat-select-trigger {
+  min-width: 80px;
+  height: 22px !important;
+}
+ /*--------New Added CLASSES----------*/
+.sql-navbar.mat-tab-nav-bar {
+    margin-bottom: 16px;
+}
+.mssql-tabs .top-panel-nav-icon {
+    padding: 3px;
+    font-size: 1.7em;
+    margin: 0;
+    overflow: hidden;
+    float: left;
+}
+.label-css {
+  padding-right: 15px;
+  font-size: 12px;
+}
+
+.label-css-submenu {
+  padding: 15px;
+  font-size: 12px;
+}
+
+.sql-flowmap-text {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    text-align: justify;
+}
+.dashboard-sql-query-toolbar .ui-toolbar{
+        padding: 0 .5em;
+}
+.mssql-tabs.mat-tab-link{
+    height: 32px;
+    min-width: 10px;
+    opacity: 1;
+    line-height: 40px;
+}
+
+.sql-query-table-box, .sql-flow-map-box {
+    min-height: 38vh;
+    margin: 5px 5px;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.dashboard-open-SqlFlowMapDialog {
+    min-height: 500px; 
+    min-width: 960px; 
+    overflow: auto;
+}
+.dashboard-open-SqlFlowMapDialog .mat-dialog-title{
+    padding: 4px;
+    margin:0 0 4px;
+    font-size: 14px;
+}
+.dashboard-open-SqlFlowMapDialog fieldset{
+    border-radius:4px;
+    height: 500px;
+    overflow-y: auto;
+}
+.dashboard-open-SqlFlowMapDialog .queryhtxt {
+       font-size: 13px;
+        font-weight: normal;
+        padding: 4px;
+}
+.flowmaptree{
+    padding: 10px;
+    overflow: auto;
+}
+
+.sql-flow-map-fieldset {
+    height: 55%;
+    width: 97%;
+    overflow: auto;
+}
+
+.sql-flow-map-panel { 
+    padding-right:3px;
+}
+
+.sql-flow-map {
+    font-size: 12px;
+    padding-left: 15px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.card-sub-title {
+    width: 100%;
+    height: 60%;
+    overflow: auto;
+}
+
+.example-icon {
+    padding: 0 14px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+.example-icon-expand {
+    padding: 0 14px;
+    cursor: pointer;
+    font-size: 18px;
+    float: right;
+}
+
+.mat-card-title {
+    font-size: 18px;
+}
+
+.sql-flow-map-div {
+    overflow: auto;
+    padding: 5px;
+    height: 40.5vh;
+}
+
+.sql-dashboard-elapsed-time-icon{
+    line-height: 24px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.text-align-right {
+    padding-right: 2px;
+    overflow: hidden;
+}
+
+.graph-Data-text-align-right {
+    text-align: right;
+}
+
+.dashboard-show-graph-data-test-info {
+    margin-left:3px;
+}
+
+.dashboard-show-graph-data-test-number {
+    margin-left:5px;
+}
+
+.dashboard-show-graph-data-close {
+    margin-left: 46%;
+}
+
+.dashboard-show-graph-data-download {
+    margin-left: 32%;
+}
+
+.dashboard-open-GrpahDataDialog .mat-dialog-title{
+    padding: 0 6px;
+    margin:0 0 4px;
+}
+.dashboard-open-GrpahDataDialog h2{
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.dashboard-open-GrpahDataDialog .mat-dialog-content {
+    min-height: 78vh;
+}
+
+ .dataTable .graph-Data-text-align-right {
+        text-align:right;
+        padding-right: 2px;
+}
+
+.dashboard-testInfo {
+    font-size: 17px !important;
+    padding-top: 11px; 
+}
+.dashboard-time-header {
+    font-size: 20px !important;
+    padding-top: 14px;
+    padding-bottom: 6px;
+}
+
+.dashboard-graph-DataTable {
+    min-height: 100px;
+}
+
+.dashboard-download-graph-data-downlodIcons {
+    font-size:22px;
+}
+/*
+.dashboard-elapsed-time-icon{
+    line-height: 24px;
+    font-size: 18px;
+    color: white;
+}*/
+.sql-dashboard-elapsed-time-icon {
+    line-height: 24px;
+    font-size: 14px;
+}
+.sql-btn{
+    border: 0;
+    border-radius: 2px;
+}
+
+.blockedUI{
+    cursor: none;
+    z-index: 99999;
+    height: 95vh;
+    position: absolute;
+    width: 100%;
+}
+
+.loadingIcon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 32px;
+    margin-top: 20%;
+}
+
+.sql-query-title {
+    font-weight:500;
+    font-size: 12px;
+}
+
+.mssqlColumnToggler {
+    width: 157px;
+    margin-top: 2px;
+    margin-right: 8px;
+}
+.msqlModal .ui-dialog-titlebar.ui-widget-header {
+    padding: 2px;
+}
+
+/*------add-------*/
+.wait-stats-table {
+    width : 100%;
+    overflow-x:auto;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.sql-database-logs-title {
+    font-weight:600;
+}
+
+.dashboard-elapsed-time-icon {
+    line-height: 24px;
+    font-size: 18px;
+}
+
+
+/*---------sql main navbar component----------*/
+.sql-main-navbar-fieldset{
+    position: relative;
+}
+.sql-main-navbar{
+      flex: 1 1 auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+
+  }
+/*.example-container {
+    width: 500px;
+    height: 300px;
+  }
+  
+.example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }*/
+  
+.example-sidenav {
+    padding: 20px;
+  }
+
+ul{
+    list-style-type: none;
+}
+
+.sql-top-panel > md-toolbar {
+        padding: 4px;
+        min-height: 30px;
+        height: 30px;
+    }
+.sql-top-panel  > md-toolbar /deep/ md-toolbar-row {
+        padding: 4px;
+        min-height: 30px;
+        height: 30px;  
+}
+
+.sql-top-panel-nav-icon {
+    cursor: pointer;
+}
+
+.sql-toolbar {
+    min-height: 30px;
+    height: 30px;
+    /* background: linear-gradient(141deg, dodgerblue 17% , #1fc8db 50%,#0fb8ad 89% ); 
+    background: rgba(255, 255, 255, 0.38) !important; */
+}
+
+.top-panel-nav-icon {
+   padding-top: 8px;
+}
+.sql-main-toolbar {
+    box-shadow: 0px 1px #2a2a2a;
+    padding: 1px;
+}
+
+.sql-submenu-css {
+    display: flex;
+    line-height: 20px;
+}
+
+.msql-tabs.mat-tab-link {
+    height: 26px;
+    min-width: 10px;
+    opacity: 1;
+    line-height: 12px;
+    margin-bottom: 30px;
+  }
+
+/*---------------sql query flowmap-detail--------------*/
+.sql-FlowMap-Detail-Dialog .mat-dialog-title{
+    padding: 8px;
+    margin:0 0 4px;
+}
+.dashboard-open-SqlFlowMapDialog .mat-dialog-title{
+    padding: 0px 6px;
+    margin:0 0 4px;
+    font-size: 12px;
+}
+/*--------------------sql wait statistics----------------*/
+.wait-stats-table {
+    width : 100%;
+    overflow-x:auto;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.sql-wait-stats-query-title {
+    font-weight:500;
+}
+
+.dashboard-elapsed-time-icon clr {
+    line-height: 24px;
+    font-size: 13px;
+}
+.msqlModal .ui-dialog-titlebar.ui-widget-header {
+  padding: 0;
+}
+
+.msqlModal .ui-dialog.ui-widget .ui-dialog-content {
+  padding: 0;
+}
+
+.msqlModal .ui-dialog-footer {
+  padding: 0px 10px 5px 0px;
+}
+
+.dashboard-sql-query-blocking tbody:nth-of-type(odd) {
+    background: #cfe1f1;
+    color: #000;
+    border-bottom: 1px #9c9c9c solid;
+    border-top: 1px #9c9c9c solid;
+}
+.dashboard-sql-query-blocking tbody:nth-of-type(even) {
+    background: #f5f9fd;
+    color: #000;
+    border-bottom: 1px #9c9c9c solid;
+    border-top: 1px #9c9c9c solid;
+}
+
+.dialogHeader .ui-dialog.ui-widget .ui-dialog-titlebar {
+    background: black;
+}
+
+.dialogHeader .ui-dialog.ui-widget .ui-dialog-content {
+    background: white;
+}
+
+.dialogHeader .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    font-family: sans-serif;
+    color: white;
+}
+
+.dialogHeader .ui-dialog .ui-dialog-titlebar-close span {
+    color: white;
+}
+
+.mat-menu-content{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.mat-menu-item {
+    line-height: 35px !important;
+    height: 35px !important;
+}
+
+.dashboard-sql-query-blocking .ui-treetable-tablewrapper {
+    height: 190px;
+    overflow-y: auto;
+}
+
+.resizeColsTreetable .ui-dialog.ui-widget .ui-dialog-titlebar {
+    background: black;
+}
+
+.resizeColsTreetable .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    font-family: sans-serif;
+    color: white;
+}
+
+.resizeColsTreetable .ui-dialog .ui-dialog-titlebar-close span {
+    color: white;
+}
+
+.chartTypes {
+    margin-top: 26px;
+}
+
+.sqlgui-progressbar {
+    height: 1px;
+}
+
+.htmlHeader {
+    width: 225px;
+    font-size: 12px;
+}
+
+.sqlQueryData {
+    white-space: pre-wrap;
+}
+
+pre, code, kbd, samp {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 12px;
+}
+
+.fieldValue {
+    color: #000;
+}
+
+.sql-mat-slider .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+   background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+app-root .sessionIDHover:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 500;
+}

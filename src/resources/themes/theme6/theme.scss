@@ -145,15 +145,11 @@ body {
     background: #462d0e;
 }
 .dashboard-sql-query .ui-datatable th.ui-state-default {
-    background: #bd965c;
-    background: -moz-linear-gradient(top, #bd965c 0%, #aa6a20 100%);
-    background: -webkit-linear-gradient(top, #bd965c 0%,#aa6a20 100%);
-    background: linear-gradient(to bottom, #bd965c 0%,#aa6a20 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bd965c', endColorstr='#aa6a20',GradientType=0 );
-    color: #fff;
+    background: #eaeaea;
+    color: black;
 }
 .dashboard-sql-query-toolbar .ui-toolbar{
-    background: #462d0e;
+    background: #282828;
 }
 .ui-panelmenu-header {
     background: #f3f2f5;
@@ -471,7 +467,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .customTitleBar .ui-accordion-header {
-    background: #442d10;
+   /* background: #442d10;*/
 }
 .customTitleBar .ui-accordion-header .fa {
     color: #4a4a4a;
@@ -878,7 +874,6 @@ md-icon.dashboard-menu-item-icon {
 
 .openMerge .ui-state-default a {
     color: black;
-    background: #735532;
 }
 .openMerge .ui-widget-content {
     border: 1px solid #D5D5D5;
@@ -886,7 +881,7 @@ md-icon.dashboard-menu-item-icon {
     color: #222222;
 }
 .openMerge .ui-accordion .ui-accordion-header .fa {
-    color: #fff;
+   /* color: #fff;*/
 }
 
 /*-----------End Open Merge css------------*/
@@ -897,7 +892,7 @@ md-icon.dashboard-menu-item-icon {
 }
 
 .dashboard-lowerPanel-multiSelect .ui-multiselect .ui-multiselect-panel ul li label {
-    color: #f0f0f0;
+    color: #282828 ;
 }
 
 
@@ -954,7 +949,7 @@ md-icon.dashboard-menu-item-icon {
     background: #868686;
 }
 
-.scenario-left .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+.scenario-left .ui-state-default a {
     color: #e0e0e0;
 }
 .scen-toolbar .ui-toolbar {
@@ -1140,7 +1135,7 @@ fieldset.marginClassTop.fieldsetClass {
 .dashboard-update-user-session-rate-tab .ui-tabview .ui-tabview-nav > li.ui-state-active{
     background: #fffffb;
 }
-.dashboard-update-user-session-rate-tab .ui-state-default a:link,{
+.dashboard-update-user-session-rate-tab .ui-state-default a:link{
     color: #000;
 }
 
@@ -1672,9 +1667,10 @@ button.md-fab.pieChartInTD.mat-mini-fab {
 .historyleftpane .ui-accordion .ui-accordion-header .fa {
     color: #fff;
 }
-.openMerge .ui-state-default a:link,{
-    color: #fff;
-}.dashboard-lower-section .ui-datatable th.ui-state-default
+.openMerge .ui-state-default a:link{
+  /*  color: #fff;*/
+}
+.dashboard-lower-section .ui-datatable th.ui-state-default
 .left-nav button[md-icon-button] {
    border-top: 0px #c00 solid;
    border-bottom: 1px #273035 solid;
@@ -2172,7 +2168,7 @@ button.capabilityButton.mat-raised-button{
 }
 
 /*------------ Added for alert inner TAB -----------------------------------*/
-.filters-container .ui-state-default a:link a:visited {
+.filters-container .ui-state-default a:link {
     color: #4a4a4a;
 }
 
@@ -2512,6 +2508,11 @@ button.capabilityButton.mat-raised-button{
     background: rgba(255, 255, 255, 0.6);
     border: 1px solid #d5d5d5;
 }
+.mailSmsConfigSetting .ui-panel .ui-panel-content {
+  padding: 2px;
+  border: 1px solid #d5d5d5;
+  background: rgba(255, 255, 255, 0.6); }
+
 .mailSmsConfigSetting .ui-fieldset .ui-fieldset-legend{
      background: rgba(255, 255, 255, 0.8);
 }
@@ -2557,6 +2558,12 @@ app-alert-home .ui-fieldset .ui-fieldset-legend  {
 .ddr-table-right, .ddr-table-left {
     color:blue;
 }
+
+.ddr-fptype-right,.ddr-fptype-left{
+    color:grey;
+    text-decoration: underline;
+}
+
 .sidebarUI-sidenav {
   box-shadow: 0 0 6px 2px #565656;
   background: rgba(250, 250, 250, 1.7);
@@ -2643,6 +2650,94 @@ app-alert-home .ui-fieldset .ui-fieldset-legend  {
     color: #4a4a4a;
     border-color:#b5b5b5;
 }
+
+.healthChk-treeTable .ui-treetable th.ui-state-default 
+{
+    background: #eaeaea;
+    color: #4a4a4a;
+    border-color:#b5b5b5;
+}
+
+.tier-group-table .ui-treetable th.ui-state-default {
+    background: #eaeaea;
+    color: #4a4a4a;
+}
+.tier-group-table .ui-treetable tbody .ui-treetable-row td {
+    border: 1px #bfbfbf dashed;
+    border-top: 0;
+}
+
+/*---------Css for Health Check Monitor---------------*/
+
+.monitor-ui-tab .ui-tabview .ui-tabview-nav li.ui-tabview-selected a{
+    background: #65a2e6;
+    color: #fff;
+}
+
+.monitor-ui-tab  .ui-tabview .ui-tabview-nav > li.ui-state-default 
+{
+    background: #e6e6e6;
+}
+
+.healthChkField
+{
+  background: #eef3f7;
+}
+
+.hlthChckDependentField
+{
+    border: 1px #ccc solid
+}
+
+.healthChk-treeTable .ui-treetable tbody .ui-treetable-row td
+{
+  border: 1px #efefef solid;
+}
+.monitor-ui-tab .ui-tabview .ui-tabview-nav li a 
+{
+    color: #5d5d5d;
+}
+
+#testUpload span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left
+{
+	border: 1px solid rgba(128, 159, 179, 0.5);
+    color: #4a4a4a;
+    background: rgba(244, 249, 255, 0.35);
+    box-shadow: 0 0 0px 0px #a9a9a9;
+}
+
+.healthChk-treeTable .ui-treetable .ui-treetable-header
+{
+    background: rgba(148, 148, 148, 0.5);
+    color: #282828;
+}
+.monitor-ui-tab .ui-tabview.ui-widget-content 
+{
+    border: 0px none;
+    background: transparent;
+}
+.monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content 
+{
+    border: 1px #ccc solid;
+    border-top: 0px;
+}
+.hlthChkSettingsTab
+{
+  border: 1px #bbbbbb solid;
+}
+a.tierGroupIcon 
+{
+    color: #000;
+}
+
+/*Css added for alternation of the rows in the treetable*/
+.healthChk-treeTable tbody.ui-treetable-data:nth-child(odd)
+{
+    background: #fbfbfb;
+}
+
+
+
 /*-------------Graphical KPI--------------*/
 .ed-gkpi .grid-item {
     background: white;
@@ -2700,8 +2795,8 @@ app-alert-home .ui-fieldset .ui-fieldset-legend  {
     color: #4a4a4a;
 }
 
-.ddr-accordion .ui-state-default a:link, .ui-state-default a:visited {
-    color: #4a4a4a;
+.ddr-accordion .ui-state-default a:link {
+    color: #fff;
 }
 
 .ddr-accordion .ui-accordion .ui-accordion-content {
@@ -2724,4 +2819,269 @@ app-alert-home .ui-fieldset .ui-fieldset-legend  {
 .ddr-active-flowpath
 {
 	background-color: #eaeaea !important;
+}
+
+.ddr-side-view-bg{
+    background: #f7f7f7;
+}
+
+/*----------------New MS SQL QUERY-----------*/
+.sql-query-table-box, .sql-flow-map-box {
+    background: rgba(245, 245, 245, 0.8);
+    box-shadow: 0 0 6px 2px #565656;
+}
+.icon-sm{
+  color: white;
+}
+.mat-button-toggle-checked {
+  background-color: initial;
+}
+.sql-main-toolbar {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.mssql-tabs .top-panel-nav-icon {
+    color: #000;
+}
+.label-css {
+  color: #000;
+}
+
+.dashboard-open-SqlFlowMapDialog .mat-dialog-title{
+    background-color: #282828;
+    color:white;
+}
+.dashboard-open-SqlFlowMapDialog fieldset{
+    border: 1px #d8d8d8 solid;
+    border-radius:4px;
+    height: 500px;
+    overflow-y: auto;
+}
+.dashboard-open-SqlFlowMapDialog .queryhtxt {
+        background-color: #00897B;
+        color: white;
+}
+.flowmaptree{
+    background: beige;
+}
+.sql-flow-map-div {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+.sql-dashboard-elapsed-time-icon{
+    color: white;
+}
+.dashboard-show-graph-data-header {
+    color: black;
+}
+.dashboard-show-graph-data-Info {
+    background: cadetblue;
+}
+.dashboard-show-graph-data-accordain {
+    background: gray;
+}
+
+.dashboard-show-graph-data-accordain-tab {
+   background: gray;
+}
+.dashboard-show-graph-data-test-info {
+    border-left: 1px solid #1d1d01;
+}
+.sql-dashboard-elapsed-time-icon {
+    color: white;
+}
+
+.blockedUI{
+    background: rgba(9, 9, 9, 0.52);
+}
+.sql-query-title {
+    color: #fff;
+}
+/*---------sql main navbar component----------*/
+.sql-main-navbar-fieldset{
+    background-color: lightblue;
+    position: relative;
+}
+
+.sql-main-navbar{
+      background-color: lightblue;
+      box-shadow:
+        0 3px 5px -1px rgba(0,0,0,.2),
+        0 6px 10px 0 rgba(0,0,0,.14),
+        0 1px 18px 0 rgba(0,0,0,.12);
+  }
+.example-container {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+.mat-button-toggle-checked {
+    background-color: initial;
+}
+
+.sql-main-toolbar {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+.msql-tabs.mat-tab-link.active {
+    background: #c00;
+}
+/*---------------sql query flowmap-detail--------------*/
+.sql-FlowMap-Detail-Dialog .mat-dialog-title{
+    background-color: #282828;
+    color:white;
+}
+.dashboard-open-SqlFlowMapDialog .mat-dialog-title{
+    background-color: #282828;
+    color:white;
+}
+/*--------------------sql wait statistics----------------*/
+.wait-stats-table {
+    border: 1px solid darkgrey;
+}
+
+.sql-wait-stats-query-title {
+    color: white;
+}
+
+.dashboard-sql-query-blocking .ui-treetable th.ui-state-default {
+    background: #eaeaea;
+    color: black;
+}
+
+.dashboard-sql-query-blocking tbody:nth-of-type(odd) {
+    background: #FBFBFB;
+    color: #000;
+    border-bottom: 1px #9c9c9c solid;
+    border-top: 1px #9c9c9c solid;
+}
+.dashboard-sql-query-blocking tbody:nth-of-type(even) {
+    background: #f5f9fd;
+    color: #000;
+    border-bottom: 1px #9c9c9c solid;
+    border-top: 1px #9c9c9c solid;
+}
+
+.dialogHeader .ui-dialog.ui-widget .ui-dialog-titlebar {
+    background: black;
+}
+
+.dialogHeader .ui-dialog.ui-widget .ui-dialog-content {
+    background: white;
+}
+
+.dialogHeader .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    font-family: sans-serif;
+    color: white;
+}
+
+.dialogHeader .ui-dialog .ui-dialog-titlebar-close span {
+    color: white;
+}
+/*------------------ ED Store----------------*/
+.ed-box {
+    box-shadow: 0 0 6px 2px #565656;
+    border-radius: 4px;
+    background: rgba(245,245,245,.8);
+}
+.storePanel.ui-widget-content {
+    border: 1px solid #D5D5D5;
+    background: transparent;
+    color: #222222;
+}
+.storePanel .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    background: rgba(148, 148, 148, 0.5);;
+    color: #4a4a4a;
+    border-bottom: 1px #dadada solid;
+}
+.storePanel .ui-panel .ui-panel-content {
+  border: 1px solid #959595;
+}
+.store-map .ui-panel .ui-panel-content {
+  background: #fff;
+}
+.geoMapDivClass .ui-datatable th.ui-state-default {
+    color: rgb(74, 74, 74);
+    background: rgb(234, 234, 234);
+}
+.geoMapDivClass .ui-datatable-even {
+    background: rgb(255, 255, 255);
+     color: rgb(49, 49, 49);
+}
+.geoMapDivClass .ui-datatable-odd {
+    color: rgb(49, 49, 49);
+    background: rgb(251, 251, 251);
+}
+#appContainer {
+    border: 2px solid;
+    background-color: #FBFBFB;
+    box-shadow: 0 0 6px grey;
+}
+.divTable .ui-datatable-header.ui-widget-header{
+    background: rgba(148, 148, 148, 0.5);
+    color: #000;
+    border: 1px;
+}
+/*Changes for cavisson logo in navigation bar*/
+.logo-image {
+     background-image: url('/ProductUI/images/cav_logo_large.png');
+}
+
+/*-------------------ddr css new version  ---------------------*/
+.ddr-timeLabel
+{
+    color : #373e69 ;
+}
+
+.ddr-toolbar .ui-toolbar.ui-widget.ui-widget-header
+{
+background: rgba(148, 148, 148, 0.5);
+color : #4a4a4a ;
+}
+
+.flowmap-box {
+    box-shadow: 0 0 6px 2px #565656;
+    background:rgba(255, 255, 255, 0.55);
+  }
+
+  .selectedBtCheckbox
+  {
+      color : #4a4a4a ;
+  }  
+
+  .ddr-dialog-box .ui-dialog-titlebar.ui-widget-header
+  {
+    background: rgba(148, 148, 148, 0.5);
+    color: #4a4a4a;
+  }
+
+  .ddr-dialog-box .ui-widget-header a
+  {
+    color: #4a4a4a;
+  }
+
+/* MS SQL Tables*/
+
+.rightHandSideTableData {
+    background: #FBFBFB;
+    color:#000
+}
+.leftHandSideTableData {
+    background: #dadada;
+    color:#000
+}
+
+.sqlHandleTableHeader {
+    background: #dadada;
+    width: 225px;
+}
+
+.planHandleTableData {
+    background: #FBFBFB;
+    width: 225px;
+}
+.dashboard-widget-setting-dialog {
+    background: rgba(148, 148, 148, 0.5);
+    color: #4a4a4a;
+}
+
+/* For setting the mat toolbar background color by default .*/
+.mat-toolbar {
+  background-color: rgba(148, 148, 148, 0.5);
 }

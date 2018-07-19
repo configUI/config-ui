@@ -1,3 +1,146 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "drill-down-ui";
+  src:url("../fonts/drill-down-ui.eot");
+  src:url("../fonts/drill-down-ui.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/drill-down-ui.woff") format("woff"),
+    url("../fonts/drill-down-ui.ttf") format("truetype"),
+    url("../fonts/drill-down-ui.svg#drill-down-ui") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "drill-down-ui" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="ddrui-icon-"]:before,
+[class*=" ddrui-icon-"]:before {
+  font-family: "drill-down-ui" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ddrui-icon-aggregrate-fp-of-selected-fp:before {
+  content: "\e000";
+}
+.ddrui-icon-all-graph:before {
+  content: "\e001";
+}
+.ddrui-icon-bt-ip-summary:before {
+  content: "\e002";
+}
+.ddrui-icon-call-out:before {
+  content: "\e003";
+}
+.ddrui-icon-cohererence-call-out:before {
+  content: "\e004";
+}
+.ddrui-icon-compare-fp:before {
+  content: "\e005";
+}
+.ddrui-icon-copy-link:before {
+  content: "\e006";
+}
+.ddrui-icon-custom-data:before {
+  content: "\e007";
+}
+.ddrui-icon-databse:before {
+  content: "\e008";
+}
+.ddrui-icon-error-call-out:before {
+  content: "\e009";
+}
+.ddrui-icon-excel:before {
+  content: "\e00a";
+}
+.ddrui-icon-executive-dashboard:before {
+  content: "\e00b";
+}
+.ddrui-icon-flowpath:before {
+  content: "\e00c";
+}
+.ddrui-icon-fp-analyzer:before {
+  content: "\e00d";
+}
+.ddrui-icon-hotspot:before {
+  content: "\e00e";
+}
+.ddrui-icon-jms-call-out:before {
+  content: "\e00f";
+}
+.ddrui-icon-method:before {
+  content: "\e010";
+}
+.ddrui-icon-method-timing:before {
+  content: "\e011";
+}
+.ddrui-icon-open-netforest:before {
+  content: "\e012";
+}
+.ddrui-icon-page-dump:before {
+  content: "\e013";
+}
+.ddrui-icon-pdf:before {
+  content: "\e014";
+}
+.ddrui-icon-play-snapshot:before {
+  content: "\e015";
+}
+.ddrui-icon-refresh:before {
+  content: "\e016";
+}
+.ddrui-icon-reset:before {
+  content: "\e017";
+}
+.ddrui-icon-selected-fp-page-instance:before {
+  content: "\e019";
+}
+.ddrui-icon-selected-fp-session:before {
+  content: "\e01a";
+}
+.ddrui-icon-word:before {
+  content: "\e01b";
+}
+.ddrui-icon-selected-fp-nv-session:before {
+  content: "\e018";
+}
+.ddrui-icon-show-fp-nv-session:before {
+  content: "\e01c";
+}
+/* -------------font icons end here-------------- */
+
+/* -------------changing css in font  icons begin here-------------- */
+.icon {
+  font-size: 1.8em;
+}
+
+.nv-session-icon
+{
+  font-size: 2.5em;
+  margin-top: -4px;
+}
+
+/* -------------changing css in font  icons end here-------------- */
+
+
 .ui-tooltip
 {
     word-break:break-all;
@@ -27,7 +170,9 @@
 }
 .ddr-toolbar .ui-toolbar.ui-widget.ui-widget-header{
          border-radius: 0;
-         border:0           
+         border:0 ;
+         padding :2px ; 
+         /* height :24px  */
 }
 .ddr-toolbar button.ui-button.ui-state-default {
     font-size: 10px;
@@ -42,6 +187,17 @@
     text-align: left;
     cursor: pointer;
 }
+
+.ddr-fptype-right{
+    text-align: right;
+    cursor: pointer;
+}
+
+.ddr-fptype-left{
+    text-align: left;
+    cursor: pointer;
+}
+
 .dashboard-lowerPanel-multiSelect .ui-multiselect-items-wrapper {
     overflow-x: hidden;
     width:100%;
@@ -77,3 +233,87 @@ display : none ;
 {
     width:540px;
 }
+
+.ddr-autocomplete .ui-autocomplete-multiple-container.ui-inputtext {
+    overflow-x: auto;
+}
+ui-autocomplete-items.ui-autocomplete-list.ui-widget-content.ui-widget.ui-corner-all.ui-helper-reset{
+    overflow:auto;
+
+}
+.ui-autocomplete-panel.ui-widget-content.ui-corner-all.ui-shadow
+{
+    width:400px !important;
+}
+
+
+.accordHeader .ui-accordion .ui-accordion-content.ui-widget-content {
+    padding : 3px ;
+}
+
+.flowmap-box {
+    margin: 6px;
+    height: 90vh;
+    padding: 2px;
+    border-radius: 4px;
+    overflow: auto;
+    position: relative;
+  }
+
+ .bt-trend-table .ui-datatable .ui-datatable-data>tr>td {
+    padding: 1px 4px;
+}
+.ddr-bt-trend-div
+{
+  line-height: 14px;
+  margin: 5px 3px;
+
+}
+.ddr-bt-trend-div .ui-button-text-only .ui-button-text {
+  margin-bottom: 2px;
+}
+
+.ddr-dialog-box .ui-dialog.ui-widget .ui-dialog-titlebar
+{
+font-size: 12px;
+font-weight: 500;
+
+}
+.ddr-custom-tree .ul.ui-treenode-children {
+    width: 99%
+}
+
+.ddr-custom-tree .ui-tree .ui-tree-container {
+    overflow: hidden;
+}
+
+.ddr-custom-tree .ui-tree.ui-widget.ui-widget-content.ui-corner-all {
+    overflow-x: hidden;
+}
+
+.page-dump td {
+    border: 0;
+}
+.ddr-panel a.ui-panel-titlebar-icon {
+    float: left;
+    margin-top: 2px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#myframe {
+    width: -webkit-fill-available;
+}
+.ddr-split>split-gutter {
+    height: auto !important;
+}
+.ddr-split-area>split-area{
+    overflow-y: hidden !important;
+}
+.ddr-panel .ui-panel-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+   height:25px;
+}
+ .ddr-highlightText {
+     background: yellow;
+ }
+

@@ -3,7 +3,7 @@
 window.arrColorThemesForCPU = ['#5655BB', '#8888E0', '#489449', '#83CD82', '#FE2F2F', '#FEA8A8', '#000'];
 window.arrColorThemes = ['#3A99D9', '#F1C330', '#7CB5EC', '#434348'];
 window.bgColorThemes = ['rgba(0,0,0,0.0)', 'rgba(0,0,0,0)'];
-
+window.arrColorddr = ['#A5ACAF', '#A5ACAF' , '#d2c43d','#d6d6d6']; //ddr graphs
 function loadHighchartTheme() {
     window.theme = {
         colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',

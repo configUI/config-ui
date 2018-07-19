@@ -66,10 +66,24 @@ export class UrlCapturingComponent implements OnInit {
 
   /* This method is used to save the formatIPResourceURL data in the backend*/
   saveKeywordData() {
-    let formatIPVal = this.formatIPResourceURLValue();
-    for (let key in this.urlCapturing) {
-      if (key == 'formatIPResourceURL')
-        this.urlCapturing[key]["value"] = formatIPVal;
+    // if()
+    if (this.enableIPResourceURL) {
+      this.urlCapturing["enableIPResourceURL"].value = 1;
+      let formatIPVal = this.formatIPResourceURLValue();
+      for (let key in this.urlCapturing) {
+        if (key == 'formatIPResourceURL')
+          this.urlCapturing[key]["value"] = formatIPVal;
+      }
+    }
+    else {
+      this.enableFormatIPResourceURL = false;
+      this.enableFormatIPResourceURL == false;
+      this.urlCapturingData.urlOffset = 0;
+      this.urlCapturingData.maxChar = 256 ;
+      this.urlCapturingData.includeParameter =false;
+      this.urlCapturing["enableIPResourceURL"].value = 0;
+      this.urlCapturing["formatIPResourceURL"]["value"] = 0;
+
     }
     if (this.dumpDefaultCassandraQuery) {
       this.urlCapturing["dumpDefaultCassandraQuery"].value = 1;
@@ -78,12 +92,6 @@ export class UrlCapturingComponent implements OnInit {
       this.urlCapturing["dumpDefaultCassandraQuery"].value = 0;
     }
 
-    if (this.enableIPResourceURL) {
-      this.urlCapturing["enableIPResourceURL"].value = 1;
-    }
-    else {
-      this.urlCapturing["enableIPResourceURL"].value = 0;
-    }
 
     if (this.enableTransformThreadSubClass) {
       this.urlCapturing["enableTransformThreadSubClass"].value = 1;
@@ -103,6 +111,10 @@ export class UrlCapturingComponent implements OnInit {
   /* This method is used to reset the keyword data*/
   resetKeywordData() {
     this.getKeywordData();
+    this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
+    this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
+    this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
+    this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
   }
 
   /* This method is used to reset the keyword data to its Default value */

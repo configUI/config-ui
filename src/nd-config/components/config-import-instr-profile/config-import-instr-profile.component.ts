@@ -968,6 +968,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.openDetailsDialog = true;
     })
   }
+ /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog 
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this._configKeywordsService.getHelpContent("Left Panel", "Instrumentation Profile Maker", "");
+  }
 
   ngOnDestroy() {
     this.isMakeXMLFile = false;

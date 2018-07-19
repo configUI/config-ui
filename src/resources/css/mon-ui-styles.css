@@ -38,9 +38,11 @@ margin-bottom: 1px;
 }
 .monitor-ui-accordion .ui-accordion .ui-accordion-content.ui-widget-content{
 /* display: -webkit-box; */
-overflow-y: auto;
-max-height: 350px;
-margin-bottom: 13px;
+/* overflow-y: auto;
+max-height: 350px; */
+margin-bottom: 4px;
+display: inline-block;
+width: 100%;
 
 }
 
@@ -50,7 +52,10 @@ height: 30px;
 margin-top: 20px; 
 }
 
-
+.confDataTableCss .ui-datatable .ui-datatable-header
+{
+  margin-top: 1px; 
+}
 
 
 .mon-ui .ui-treetable  .ui-treetable -tfoot>tr>td,
@@ -70,6 +75,8 @@ padding: 12em 0 0 ;
 .monitor-toolbar .ui-widget-header {
   border: 0;
   border-radius: 0;
+  margin: -2px -6px;
+  margin-bottom: 3px;
 }
 
 .mon-ui .ui-treetable table {
@@ -105,7 +112,7 @@ transform: rotate(0deg);
   /* width: 176px !important; */
   text-align: center;
   padding-bottom: 18px;
-  font-size: 17px;
+  font-size: 13px;
 }
 
 /* for rotating the up-arrow icon in the tree table */
@@ -143,14 +150,14 @@ width: 224px;
 }
 
 /** Configuration home screen css **/
-#top-div {
+/* #top-div {
   background: rgba(255, 255, 255, 0.65);
   box-shadow: 0 0 6px 2px #565656;
   border-radius: 4px;
   overflow-x: scroll;
   overflow-y: auto;
   max-height: 529px;
-}
+} */
 
 .configure .ui-accordion .ui-accordion-header {
   padding: .1em .2em .1em 0.1em ;
@@ -164,9 +171,9 @@ width: 224px;
 } */
 
 
-.accordian-css .ui-state-default a:link {
+/* .accordian-css .ui-state-default a:link {
   color: #fff;
-}
+} */
 
 /* Css for the header of the configured-data datatable */
 .configured-datatable .ui-datatable .ui-datatable-header{
@@ -201,7 +208,7 @@ line-height: 17px;
 
 #testUpload span.ui-button.ui-fileupload-choose.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left
 {
-  background: #073c77;
+  /* background: #073c77; */
   margin-bottom: -5px;
   height: 20px;
   width: 23px
@@ -245,4 +252,149 @@ line-height: 17px;
 .serverSignatureSpan
 {
   margin-left: 51px;
+}
+
+/*Added css for monitor group screen for the select topology dropdown filter*/
+.homedropdown .ui-dropdown-filter-container
+{
+  width: 100%;
+}
+
+/*Css added for configuration of the monitor*/
+.monitor-ui-form
+{ 
+  width: 100%;
+  /* overflow-y: auto;
+  max-height: 350px;
+  margin-bottom: 13px; */
+}
+
+/*css for the form submit button  of the configuration screen for each monitor */
+/* .monitor-ui-submitForm
+{
+  margin-bottom: 32px;
+} */
+
+.healthChkMonCss .ui-fieldset.ui-widget.ui-widget-content.ui-corner-all.ui-fieldset-toggleable{
+  margin-top: 10px;
+  /* margin-bottom: 48px; */
+  margin-bottom: 2px;
+}
+
+/*Css for health check mon header in the treetable*/
+.healthChk-treeTable .ui-treetable .ui-treetable-header
+{
+  /* background: black;
+  color: white; */
+  text-align: left;
+}
+
+/*css for panel padding*/
+.monitor-ui-tab .ui-tabview .ui-tabview-panel
+{
+  padding: 0em;
+}
+
+/*css for dialog padding*/
+/*.monitor-dialog .ui-dialog-content.ui-widget-content 
+{
+  padding: 6px;
+}
+*/
+/* .monitor-ui-tab  .ui-tabview-panel ui-widget-content
+{
+  border: 1px #c00 solid;
+  padding: 0 4px;
+} */
+
+.healthChkLegend .ui-fieldset-legend
+{
+    font-weight: 500;
+}
+
+.labelCss
+{
+  margin-top: 2px;
+}
+
+.hlthChkSettingsTab
+{
+  height: 350px;
+  /* border: 1px #bbbbbb solid; */
+  /* border: 1px #4a4a4a solid */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.healthCheckCss
+{
+  padding: 2px;
+}
+
+.hlthChckDependentField
+{
+  margin-left: 20px;
+  margin-top: 5px
+}
+
+.healthChkField
+{
+  margin-left: 29px
+}
+a.tierGroupIcon 
+{
+    letter-spacing: 1px;
+}
+.chkMonCss{
+  padding: 2px;
+}
+
+.monitor-ui-div
+{
+  max-height: 350px;
+  overflow-y: auto;
+  margin-bottom: 4px;
+  overflow-x: hidden;
+}
+/*Css added for hidding the scroll in the x-axis for configured DataTable monitor -configurtion scrreen*/
+.configured-datatable .ui-datatable.ui-widget.ui-datatable-resizable
+{
+  overflow-x: hidden;
+  float: left;
+}
+
+/** Added css for toggle in health check monitor */
+.monconfig-ui .mat-slide-toggle-bar {
+  width: 25px;
+  height: 10px;
+}
+.monconfig-ui .mat-slide-toggle-thumb {
+  height: 15px;
+  width: 14px;
+}
+.monconfig-ui.mat-slide-toggle {
+  height: auto;
+  padding: 2px 6px 4px;
+}
+
+/*Css for gdf detail datable in log pattern monitor*/
+.tableCss .ui-datatable .ui-datatable-header
+{
+  margin-top: -5px; 
+}
+
+/*Css for Advance Tier Configuration*/
+.advTierConfDiv{
+  width:400px;
+  height:400px;
+  overflow-y:scroll;
+  border:1px #ccc solid;
+  border-right:0;
+  padding:2px;
+}
+
+/*Css for mjson dynamic table*/
+.dynamicTable{
+  padding-left: 9px;
+  padding-right: 9px;
 }
