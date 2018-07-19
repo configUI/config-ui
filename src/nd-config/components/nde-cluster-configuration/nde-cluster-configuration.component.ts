@@ -40,6 +40,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   isMasterChk: boolean = false;
 
   disableMaster: boolean = false;
+  isProfilePerm: boolean;
 
   tierGroupList: any = []
 
@@ -47,6 +48,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false
     // Get NDE data
     this.getNDEData();
     this.loadTierGroupName();
@@ -233,6 +235,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       this.configUtilityService.errorMessage("No NDE is present");
       return;
     }
+    this.loadTierGroupName();
     this.isNDERule = true;
     this.addEditNDERules = true;
     this.tierGroupList = [];
@@ -425,7 +428,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
         this.configKeywordsService.deleteNDERoutingRules(arrAppIndex)
           .subscribe(data => {
             this.deleteNDERoutingRulesIndex(arrAppIndex);
-            this.selectedNDEData = [];
+		this.selectedNDERoutingRules = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
