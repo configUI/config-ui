@@ -425,7 +425,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
         this.configKeywordsService.deleteNDERoutingRules(arrAppIndex)
           .subscribe(data => {
             this.deleteNDERoutingRulesIndex(arrAppIndex);
-            this.selectedNDEData = [];
+            this.selectedNDERoutingRules = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
