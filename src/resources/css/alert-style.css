@@ -82,6 +82,11 @@ app-alert-home .select-topology .ui-multiselect-label-container {
     width: 150px !important;
 }
 
+.ui-picklist.ui-picklist-responsive .ui-picklist-list {
+    width: auto;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #d5d5d5;
+}
 
 /*History Table pane*/
 
@@ -102,6 +107,7 @@ app-alert-home .history-calendar .ui-datepicker .ui-datepicker-calendar {
 }
 
 app-alert-home .ui-growl {
+    z-index: 100001 !important;
     position: absolute;
     width: initial;
 }
@@ -205,9 +211,9 @@ app-alert-home .historyTable .ui-datatable thead tr
 
 
 
-app-alert-home .detailTable .ui-datatable th span.ui-column-title {
+/*app-alert-home .detailTable .ui-datatable th span.ui-column-title {
     color: #fff
-}
+}*/
 
 app-alert-home .detailTable .ui-datatable thead tr {
     height: 22px;
@@ -282,98 +288,97 @@ app-alert-home .detailTable .ui-datatable th.ui-state-default {
 }
 
 [data-icon]:before {
-    font-family: "alert-icon" !important;
-    content: attr(data-icon);
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "alert-icon" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="alertgui-"]:before,
 [class*=" alertgui-"]:before {
-    font-family: "alert-icon" !important;
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "alert-icon" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-.alertgui-all-alert:before {
-    content: "\e001";
-}
-
 .alertgui-archive:before {
-    content: "\e002";
+  content: "\e000";
 }
-
-.alertgui-severity:before {
-    content: "\e003";
+.alertgui-baseline-data:before {
+  content: "\e001";
 }
-
-.alertgui-tomcat:before {
-    content: "\e004";
-}
-
-.alertgui-type:before {
-    content: "\e005";
-}
-
-.alertgui-word:before {
-    content: "\e006";
-}
-
-.alertgui-play:before {
-    content: "\e007";
-}
-
 .alertgui-behavior:before {
-    content: "\e008";
+  content: "\e002";
 }
-
 .alertgui-capacity:before {
-    content: "\e009";
+  content: "\e003";
 }
-
 .alertgui-excel:before {
-    content: "\e00b";
+  content: "\e005";
 }
-
 .alertgui-graphical:before {
-    content: "\e00c";
+  content: "\e006";
 }
-
+.alertgui-individual:before {
+  content: "\e007";
+}
+.alertgui-httpappfontasticme:before {
+  content: "\e008";
+}
 .alertgui-lateraltringle:before {
-    content: "\e00d";
+  content: "\e009";
 }
-
 .alertgui-lock-tr:before {
-    content: "\e00e";
+  content: "\e00a";
 }
-
-.alertgui-major-event:before {
-    content: "\e00f";
-}
-
 .alertgui-pdf:before {
-    content: "\e012";
+  content: "\e00d";
 }
-
+.alertgui-play:before {
+  content: "\e00e";
+}
+.alertgui-severity:before {
+  content: "\e00f";
+}
+.alertgui-tier:before {
+  content: "\e010";
+}
+.alertgui-tier-individual:before {
+  content: "\e011";
+}
+.alertgui-tomcat:before {
+  content: "\e012";
+}
+.alertgui-type:before {
+  content: "\e013";
+}
+.alertgui-word:before {
+  content: "\e014";
+}
+.alertgui-all-alert:before {
+  content: "\e015";
+}
+.alertgui-major-event:before {
+  content: "\e00b";
+}
 .alertgui-critical-event:before {
-    content: "\e000";
+  content: "\e004";
 }
-
 .alertgui-minor-event:before {
-    content: "\e00a";
+  content: "\e00c";
 }
+/*************alert faunts icons defnitions ends**************/
 
 app-alert-home .mat-slide-toggle-thumb
 {
@@ -412,4 +417,65 @@ app-alert-home .ui-confirmdialog.ui-dialog .ui-dialog-content{
 }
 .mailSmsConfigSetting fieldset.ui-fieldset {
     margin: 5px 0;
+}
+
+app-alert-home .ui-panel .ui-panel-titlebar {
+  padding: 1px 1px;
+}
+
+.divpadding{
+  padding-top: 8px;
+}
+.buttonpadding{
+  padding-right: 30px;
+}
+.labels{
+  float: left;
+  padding: 3px 3px 0px 0px;
+}
+app-alert-home .ui-treetable tbody .ui-treetable-row td {
+  border: 1px rgba(181, 184, 187, 0.73) solid;
+}
+
+app-alert-home .ui-datatable-data> tr> td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-multiselect-panel .ui-multiselect-close{
+  display: none;
+}
+
+.ui-multiselect-header .ui-multiselect-filter-container{
+  width: 85%;
+}
+
+app-alert-home .ruleNamehover:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+}
+app-alert-home .ui-dropdown-panel .ui-dropdown-filter-container {
+  width: 100%;
+}
+
+app-alert-home .indicesMargin{
+  margin: -0.3em 0em 0.5em 0em;
+}
+
+app-alert-home .derivedtxtarea{
+  margin: 0px;
+  max-width: 855px;
+  width: 851px;
+  height: 30px;
+  border-radius: 3px;
+}
+
+.ruleConDropdown .ui-dropdown-panel .ui-dropdown-filter-container {
+  position: relative;
+  margin: 0;
+  padding: .4em;
+  display: block;
+  width: 93%;
 }

@@ -1049,9 +1049,6 @@ b {
 .mailSmsConfigSetting .ui-fieldset-content-wrapper{
     margin-bottom: 10px;
 }
-.mailSmsConfigSetting .ui-widget-header {
-    padding: 6px;
-}
 .mailSmsConfigSetting input[type=number] {
     width:50px;
 }
@@ -1102,4 +1099,24 @@ b {
 
 .dashboard-report-set-table .ui-datatable table {
 table-layout: auto;
+}
+
+.dashboard-menu-icon .ui-dialog {
+    position: absolute;
+    padding: 0;
+    margin: -16.7% 37%;
+    /* padding: 0px; */
+}
+
+.dashboard-menu-icon .ui-dialog .ui-dialog-titlebar {
+    padding: 0px !important;
+    /* padding: 0px; */
+}
+
+.dashboard-menu-icon .ui-dialog.ui-widget .ui-dialog-content {
+    padding: 0px;
+}
+/* for Runcommand */
+.body1Div2 .ui-widget-header {
+    display: inline-flex;
 }

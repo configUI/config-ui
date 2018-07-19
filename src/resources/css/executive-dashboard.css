@@ -63,6 +63,7 @@
 .kpi-g-kpi2:before {
   content: "\e007";
 }
+
 .kpi-inventory-grid:before {
   content: "\e008";
 }
@@ -102,6 +103,9 @@
 .kpi-webstore:before {
   content: "\e014";
 }
+.kpi-store-map:before {
+  content: "\e015";
+}
 .kpicon {
     height: 18px;
     margin: 0;
@@ -117,8 +121,14 @@
     float: left;
     font-size: 2.0em;
 }
+.storeicon {
+    margin-top: 0px;
+    font-size: 1.6em;
+}
 .edCross.top-panel-nav-cross-icon {
     left: 0 !important;
+   float: right;
+   top:10px !important;
 }
 .ed-table .ui-datatable .ui-datatable-thead > tr > th {
     padding: 0;
@@ -181,7 +191,7 @@ body {
 }
 
 .graphtimeClass .ui-state-disabled, .ui-widget:disabled {
-    opacity: 0.70 !important;
+    opacity: 0.50;
 }
 
 .timePeriodDrpClass .ui-dropdown-panel .ui-dropdown-item:not(.ui-state-highlight):hover{
@@ -207,4 +217,149 @@ body {
    top:45%;
    left:48%;
    color: white;
+}
+
+
+/*------------------ ED Store----------------*/
+.ed-box {
+    margin: 6px 4px;
+    min-height: 80vh;
+    padding: 2px;
+    border-radius: 4px;
+}
+.storePanel{
+  height: 99vh;
+  font-size: 11px;
+  font-weight: 500;
+}
+.storePanel .ui-panel.ui-widget .ui-panel-titlebar.ui-corner-all {
+    padding: 2px;
+}
+.labelClass{
+    font-size: 11px;
+    padding: 2px 10px 0 5px;
+    font-weight: 500;
+}
+.storePanel .ui-panel .ui-panel-content {
+  height: 88vh ;
+  border-top: 0;
+  overflow-y: auto;
+}
+
+.geoMapDivClass .ui-datatable th.ui-state-default {
+    padding: 7px;
+}
+
+#appContainer {
+    width: 20em;
+    margin-top: 1%;
+    margin-left: 25px;
+    display: inline-block;
+    border: 2px solid;
+    padding: 1%;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.datalabel{
+  float:right;
+  cursor:pointer;
+}
+.appLabel{
+    position: absolute;
+    font-size: 1.8em;
+    margin-top: 4px;
+    padding-left: 10px;
+    width: 163px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.appHeader{
+     
+}
+.app-label {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 5px;
+}
+
+.app-body {
+    padding: 0 10px 0 10px;
+}
+
+.app-body,.app-data {
+    margin-top: 7%;
+}
+/* .app-data {
+    margin-top: 7%;
+} */
+.app-img{
+    width:18%;
+}
+
+.legendClass {
+
+}
+
+.divClass {
+    border: 1px solid #5a5a5a;
+    border-radius: 5px;
+    padding: 3px;
+    display: inline-block;
+    width: 100%;
+}
+.divMap {
+    height: 100%;
+    display: inline-block;
+    width: 66%;
+}
+
+.divTable {
+  display: inline-block;
+  width: 33%;
+  height: auto;
+  position: absolute;
+  max-height: 50%;
+ /* overflow: auto;
+  overflow-y: scroll;*/
+}
+
+.labelClass {
+  bottom: 4px;
+  position: relative;
+}
+.labelClass-titilebar {
+    font-size: 11px;
+    font-weight: 500;
+    margin:0 4px 0 8px;
+}
+
+.store-table {
+    padding-top: 5px;
+}
+.store-table th {
+  padding: 6px;
+}
+.store-table td{
+    text-align: left;
+    padding: 4px;
+    max-width: 355px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.store-table .iconClass {
+    font-size: 14px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+.store-map-setting{
+  margin: 0 8px;
+}
+.storeloadingIcon{
+  position:absolute;
+   top:45%;
+   left:48%;
+   color: black;
+}
+.geoMapDivClass .ui-datatable .ui-datatable-data>tr>td {
+    padding:6px;
 }
