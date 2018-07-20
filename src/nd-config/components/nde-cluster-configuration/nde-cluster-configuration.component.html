@@ -4,6 +4,7 @@
             <p-dataTable class="nde-ui" [value]="ndeInfo" [(selection)]="selectedNDEData" [rows]="12" [paginator]="ndeInfo?.length > 12" [pageLinks]="3">
 
                 <p-header>
+                    <span class="configui-float-css"> NDE Server List </span>
                     <span class="configui-float">
             <button pButton type="button" title="Add NDE" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
             <button pButton type="button" title="Add NDE" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openNDEDialog()" icon="fa-plus"></button>
@@ -50,6 +51,7 @@
             <p-dataTable class="nde-ui" [value]="ndeRoutingRulesInfo" [(selection)]="selectedNDERoutingRules" [rows]="12" [paginator]="ndeRoutingRulesInfo?.length > 12" [pageLinks]="3">
 
                 <p-header>
+                    <span class="configui-float-css"> NDE Routing Rule List </span>
                     <span class="configui-float">
             <button pButton type="button" title="Add NDE Routing Rules" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
             <button pButton type="button" title="Add NDE Routing Rules" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openNDERoutingRules()"
@@ -66,12 +68,12 @@
           </span>
                 </p-header>
                 <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                <p-column class="tableCss" field="nde" header="NDE" [sortable]="true" [style]="{'width':'15%'}">
+                <p-column class="tableCss" field="nde" header="NDE Server" [sortable]="true" [style]="{'width':'15%'}">
                     <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]|ndeName}}</span>
           </template>
                 </p-column>
-                <p-column class="tableCss" field="tierGroup" header="Tier Group Definition" [sortable]="true" [style]="{'width':'50%'}">
+                <p-column class="tableCss" field="tierGroup" header="Tier Group(s)" [sortable]="true" [style]="{'width':'50%'}">
                     <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
           </template>
@@ -102,32 +104,32 @@
                 <label>IP</label>
             </div>
             <div class="ui-g-4">
-                <input name="ip" type="text" pInputText [(ngModel)]="ndeData.ip" autofocus required ngModel />
+                <input name="ip" type="text" pInputText pattern="[0-9.]*" [(ngModel)]="ndeData.ip" autofocus required ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1">
                 <label>Port</label>
             </div>
             <div class="ui-g-4">
-                <input name="port" type="text" pInputText [(ngModel)]="ndeData.port" autofocus required ngModel />
+                <input name="port" type="text" pInputText pattern="[0-9]*" [(ngModel)]="ndeData.port" autofocus required ngModel />
             </div>
 
         </div>
         <div class="ui-g">
-            <p-fieldset legend="Advanced Settings" [toggleable]="true" [collapsed]="true">
+            <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true">
                 <div class="ui-g-12">
                     <div class="ui-g-2">
                         <label>WS Port</label>
                     </div>
                     <div class="ui-g-3">
-                        <input name="wsPort" type="text" pInputText [(ngModel)]="ndeData.wsPort" ngModel />
+                        <input name="wsPort" type="text" pInputText pattern="[0-9]*" [(ngModel)]="ndeData.wsPort" ngModel />
                     </div>
                     <div class="ui-g-1"></div>
                     <div class="ui-g-2">
                         <label>WSS Port</label>
                     </div>
                     <div class="ui-g-3">
-                        <input name="wssPort" type="text" pInputText [(ngModel)]="ndeData.wssPort" ngModel />
+                        <input name="wssPort" type="text" pInputText pattern="[0-9]*" [(ngModel)]="ndeData.wssPort" ngModel />
                     </div>
                 </div>
 
@@ -146,17 +148,19 @@
     <form (ngSubmit)="saveEditNDERoutingRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>NDE</label>
+                <label>NDE Server</label>
             </div>
             <div class="ui-g-8">
+                <input name="nde" type="text" class='hidden-validator' pInputText [(ngModel)]="ndeRoutingRulesData.nde.name" required ngModel/>
                 <p-dropdown class="nde-ui" name="nde" (click)="loadNDEList()" appendTo="body" placeholder="--Select--" [(ngModel)]="ndeRoutingRulesData.nde.name" [options]="ndeListItem" [style]="{'width':'100%'}" required ngModel></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4">
-                <label>Tier Group</label>
+                <label>Tier Group(s)</label>
             </div>
             <div class="ui-g-8">
+                    <input name="tierGroup" type="text" size="30" class='hidden-validator' [(ngModel)]="tierGroupList" pInputText required ngModel/>
                 <p-multiSelect name="tierGroup" class="multiselectdropReqResp headerhttpres nde-ui" appendTo="body" [options]="tierGrpList" [(ngModel)]="tierGroupList" [style]="{'min-width':'100%'}"></p-multiSelect>
             </div>
         </div>

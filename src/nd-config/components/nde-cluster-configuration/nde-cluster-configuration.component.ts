@@ -232,7 +232,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
     this.ndeRoutingRulesData = new NDERoutingRules();
     this.ndeRoutingRulesData.nde = new NDE();
     if (this.ndeInfo.length < 1) {
-      this.configUtilityService.errorMessage("No NDE is present");
+      this.configUtilityService.errorMessage("No NDE Server is present");
       return;
     }
     this.loadTierGroupName();
@@ -313,9 +313,22 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   // To delete NDE
   deleteNDE() {
     if (!this.selectedNDEData || this.selectedNDEData.length < 1) {
-      this.configUtilityService.errorMessage("Select row(s) to delete")
+      this.configUtilityService.errorMessage("Select a NDE Server to delete")
       return;
     }
+    if(this.selectedNDEData.length > 1){
+      this.configUtilityService.errorMessage("Select only one NDE Server to delete")
+      return;
+    }
+    
+    //Check if selected NDE Server has any routing rules or not, if yes then do not allow delete
+      for(let obj of this.ndeRoutingRulesInfo){
+          if(obj.nde.name == this.selectedNDEData[0].name){
+            this.configUtilityService.errorMessage("NDE Routing rule is configured for NDE Server '" + this.selectedNDEData[0].name + "' ")
+            return;
+          }        
+      }
+
     this.confirmationService.confirm({
       message: 'Do you want to delete the selected row?',
       header: 'Delete Confirmation',
@@ -411,7 +424,11 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
 
   deleteNDERoutingRules() {
     if (!this.selectedNDERoutingRules || this.selectedNDERoutingRules.length < 1) {
-      this.configUtilityService.errorMessage("Select row(s) to delete")
+      this.configUtilityService.errorMessage("Select a row to delete")
+      return;
+    }
+    if(this.selectedNDERoutingRules.length > 1){
+      this.configUtilityService.errorMessage("Select only one row to delete")
       return;
     }
     this.confirmationService.confirm({
