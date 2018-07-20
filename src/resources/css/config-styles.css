@@ -59,84 +59,92 @@
     content: "\e003";
 }
 
-.ndegui-data-collector:before {
+.ndegui-class2-1:before {
     content: "\e004";
 }
 
-.ndegui-dotnet:before {
+.ndegui-data-collector:before {
     content: "\e005";
 }
 
-.ndegui-group:before {
+.ndegui-dotnet:before {
     content: "\e006";
 }
 
-.ndegui-home1:before {
+.ndegui-group:before {
     content: "\e007";
 }
 
-.ndegui-instance:before {
+.ndegui-home1:before {
     content: "\e008";
 }
 
-.ndegui-instrmentation-profile:before {
+.ndegui-instance:before {
     content: "\e009";
 }
 
-.ndegui-interface:before {
+.ndegui-instrmentation-profile:before {
     content: "\e00a";
 }
 
-.ndegui-java:before {
+.ndegui-interface:before {
     content: "\e00b";
 }
 
-.ndegui-nd-agent:before {
+.ndegui-interface2:before {
     content: "\e00c";
 }
 
-.ndegui-nodejs:before {
+.ndegui-java:before {
     content: "\e00d";
 }
 
-.ndegui-php:before {
-    content: "\e00f";
-}
-
-.ndegui-profile:before {
-    content: "\e010";
-}
-
-.ndegui-server:before {
-    content: "\e011";
-}
-
-.ndegui-tier:before {
-    content: "\e012";
-}
-
-.ndegui-tier-group:before {
-    content: "\e013";
-}
-
-.ndegui-topology:before {
-    content: "\e014";
-}
-
-.ndegui-topology-1:before {
-    content: "\e015";
-}
-
-.ndegui-package:before {
+.ndegui-nd-agent:before {
     content: "\e00e";
 }
 
-.ndegui-class1:before {
+.ndegui-nodejs:before {
+    content: "\e00f";
+}
+
+.ndegui-package:before {
+    content: "\e010";
+}
+
+.ndegui-php:before {
+    content: "\e011";
+}
+
+.ndegui-profile:before {
+    content: "\e012";
+}
+
+.ndegui-server:before {
+    content: "\e013";
+}
+
+.ndegui-tier:before {
+    content: "\e014";
+}
+
+.ndegui-tier-group:before {
+    content: "\e015";
+}
+
+.ndegui-topology:before {
     content: "\e016";
 }
 
-.ndegui-interface2:before {
+.ndegui-topology-1:before {
     content: "\e017";
+}
+
+.ndegui-cluster:before {
+    content: "\e018";
+}
+
+.ndegui-m-text:before {
+    content: "\e019";
 }
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
