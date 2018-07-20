@@ -62,7 +62,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   loadTierGroupName() {
     this.tierGrpList = []
     this.configKeywordsService.getTierGroupNames().subscribe(data => {
-      console.log("tier grp names = ", data)
       for (let i = 0; i < data.length; i++)
         this.tierGrpList.push({ label: data[i], value: data[i] });
     })
@@ -71,7 +70,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   //  To get NDE DATA
   getNDEData() {
     this.configKeywordsService.getNDEData().subscribe(data => {
-      console.log("datapppp get --- ", data);
       this.ndeInfo = data
     })
   }
@@ -79,7 +77,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   // To load NDE Routing Rules data
   getNDERoutingRules() {
     this.configKeywordsService.getNDERoutingRulesData().subscribe(data => {
-      console.log("dateaaaaaaaaaaaaaaaaaaa get roting rules", data)
       this.ndeRoutingRulesInfo = data;
     })
   }
@@ -115,31 +112,33 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
     }
     else {
       this.ndeData = new NDE();
-      if (this.selectedNDEData[0].name != this.ndeData.name) {
-        // Check if a master NDE is already created or not
-        for (let i = 0; i < this.ndeInfo.length; i++) {
-          if (this.ndeInfo[i].isMaster == "1") {
-            this.disableMaster = true;
-            this.isMasterChk = false;
-            break;
-          }
-          else {
-            this.disableMaster = false;
-            this.isMasterChk = true
-          }
-        }
-      }
+      // if (this.selectedNDEData[0].name != this.ndeData.name) {
+      // Check if a master NDE is already created or not
+
+      // }
       this.isNDE = false;
       this.addEditNDE = true;
       this.ndeData = Object.assign({}, this.selectedNDEData[0]);
-      if (this.ndeData.isMaster == "1") {
-        this.disableMaster = false;
-        this.isMasterChk = true
+      let flag = false
+      for (let i = 0; i < this.ndeInfo.length; i++) {
+        if (this.ndeInfo[i].isMaster == "1") {
+          flag = true;
+          break;
+        }
       }
-      else {
+
+      if (flag && this.ndeData.isMaster == "1") {
         this.disableMaster = false;
-        this.isMasterChk = false
+        this.isMasterChk = true;
       }
+      else if (this.selectedNDEData[0].isMaster == '0' && flag) {
+        this.disableMaster = true;
+        this.isMasterChk = false;
+      }
+      else if (!flag) {
+        this.disableMaster = false;
+      }
+
       if (this.ndeData.wsPort == "-") {
         this.ndeData.wsPort = "";
       }
@@ -159,11 +158,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       }
     }
     else {
-      if (this.selectedNDEData[0].name != this.ndeData.name) {
-        if (this.checkNDENameAlreadyExist())
-          return;
-      }
-      this.editNDE();
+       this.editNDE();
     }
   }
 
@@ -175,23 +170,45 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
         this.configUtilityService.errorMessage("NDE Name already exists");
         return true;
       }
+      if (this.ndeInfo[i].ip == this.ndeData.ip && this.ndeInfo[i].port == this.ndeData.port) {
+        this.configUtilityService.errorMessage("Same NDE IP and Port already exists");
+        return true;
+      }
     }
   }
 
   checkNDRoutingAlreadyExist(): boolean {
     // if (this.ndeInfo.length != 0) {
-      for (let i = 0; i < this.ndeRoutingRulesInfo.length; i++) {
-        if (this.ndeRoutingRulesInfo[i].nde == this.ndeRoutingRulesData.nde) {
-          this.configUtilityService.errorMessage("NDE Routing Rule already exists");
-          return true;
-        }
+    for (let i = 0; i < this.ndeRoutingRulesInfo.length; i++) {
+      if (this.ndeRoutingRulesInfo[i].nde == this.ndeRoutingRulesData.nde) {
+        this.configUtilityService.errorMessage("NDE Routing Rule already exists");
+        return true;
       }
+    }
     // }
   }
 
   // To edit NDE Data
   editNDE() {
-    this.ndeData = this.modifyData(this.ndeData)
+    this.ndeData = this.modifyData(this.ndeData);
+
+    for (let i = 0; i < this.ndeInfo.length; i++) {
+      if(this.ndeData.name == this.selectedNDEData[0].name){}
+      else if (this.ndeInfo[i].name == this.ndeData.name) {
+        this.configUtilityService.errorMessage("NDE Name already exists");
+        return true;
+      }
+
+      if (this.ndeInfo[i].name != this.ndeData.name) {
+        let strNDEInfo = this.ndeInfo[i].ip + ":" + this.ndeInfo[i].port;
+        let strData = this.ndeData.ip + ":" + this.ndeData.port;
+        if (strNDEInfo.trim() == strData.trim()) {
+          this.configUtilityService.errorMessage("Same NDE IP and Port already exists");
+          return;
+        }
+      }
+    }
+
     this.configKeywordsService.editNDEData(this.ndeData).subscribe(data => {
       console.log("daaaataaaaa   ", data)
       let index = this.getNDEIndex();
@@ -261,11 +278,9 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   // To edit NDE Routing rules
   editNDERoutingRules() {
     this.configKeywordsService.getNDEServerFromNDEName(this.ndeRoutingRulesData.nde.name).subscribe(res => {
-      console.log("get nde server ", res)
       this.ndeRoutingRulesData.nde = res;
       this.ndeRoutingRulesData.tierGroup = this.tierGroupList.join(",")
       this.configKeywordsService.editNDERoutingRules(this.ndeRoutingRulesData).subscribe(data => {
-        console.log("data======== ", data)
         let index = this.getNDERoutingIndex();
         this.selectedNDERoutingRules.length = 0;
         this.ndeRoutingRulesInfo = ImmutableArray.replace(this.ndeRoutingRulesInfo, data, index);
@@ -299,7 +314,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
 
   // Save NDE 
   saveNDE() {
-    console.log("=========", this.ndeData)
     this.ndeData = this.modifyData(this.ndeData)
     this.configKeywordsService.saveNDEData(this.ndeData).subscribe(data => {
       console.log("data- ", data)
@@ -316,18 +330,18 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       this.configUtilityService.errorMessage("Select a NDE Server to delete")
       return;
     }
-    if(this.selectedNDEData.length > 1){
+    if (this.selectedNDEData.length > 1) {
       this.configUtilityService.errorMessage("Select only one NDE Server to delete")
       return;
     }
-    
+
     //Check if selected NDE Server has any routing rules or not, if yes then do not allow delete
-      for(let obj of this.ndeRoutingRulesInfo){
-          if(obj.nde.name == this.selectedNDEData[0].name){
-            this.configUtilityService.errorMessage("NDE Routing rule is configured for NDE Server '" + this.selectedNDEData[0].name + "' ")
-            return;
-          }        
+    for (let obj of this.ndeRoutingRulesInfo) {
+      if (obj.nde.name == this.selectedNDEData[0].name) {
+        this.configUtilityService.errorMessage("NDE Routing rule is configured for NDE Server '" + this.selectedNDEData[0].name + "' ")
+        return;
       }
+    }
 
     this.confirmationService.confirm({
       message: 'Do you want to delete the selected row?',
@@ -394,9 +408,29 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
 
   // To load list of NDE to show in dropdown
   loadNDEList() {
-    this.ndeListItem = []
+    // this.ndeListItem = []
+    // for (let i = 0; i < this.ndeInfo.length; i++) {
+    //   this.ndeListItem.push({ label: this.ndeInfo[i].name, value: this.ndeInfo[i].name });
+    // }
+
+    this.ndeListItem = [];
     for (let i = 0; i < this.ndeInfo.length; i++) {
-      this.ndeListItem.push({ label: this.ndeInfo[i].name, value: this.ndeInfo[i].name });
+      let flag = true;
+      for(let j = 0; j < this.ndeRoutingRulesInfo.length; j++ ){
+        if(this.ndeInfo[i].name == this.ndeRoutingRulesInfo[j].nde.name)
+        {
+          flag = false;
+           break;
+        }
+      }
+      if(flag)
+      {
+        this.ndeListItem.push({ label: this.ndeInfo[i].name, value: this.ndeInfo[i].name });
+      }
+    }
+    if(!this.isNDERule)
+    {
+      this.ndeListItem.push({ label: this.selectedNDERoutingRules[0].nde.name, value: this.selectedNDERoutingRules[0].nde.name });
     }
   }
 
@@ -419,6 +453,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
     else {
       data.isMaster = "0"
     }
+
     return data;
   }
 
@@ -427,7 +462,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       this.configUtilityService.errorMessage("Select a row to delete")
       return;
     }
-    if(this.selectedNDERoutingRules.length > 1){
+    if (this.selectedNDERoutingRules.length > 1) {
       this.configUtilityService.errorMessage("Select only one row to delete")
       return;
     }
@@ -445,7 +480,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
         this.configKeywordsService.deleteNDERoutingRules(arrAppIndex)
           .subscribe(data => {
             this.deleteNDERoutingRulesIndex(arrAppIndex);
-		this.selectedNDERoutingRules = [];
+            this.selectedNDERoutingRules = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           })
       },
@@ -470,8 +505,12 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       this.loadNDEList()
       this.ndeRoutingRulesData = new NDERoutingRules();
       this.ndeRoutingRulesData = Object.assign({}, this.selectedNDERoutingRules[0]);
-      this.tierGroupList = this.ndeRoutingRulesData.tierGroup.split(",")
-      console.log("======= ", this.ndeRoutingRulesData)
+      let tierGroupList = this.ndeRoutingRulesData.tierGroup.split(",");
+      for(let i = 0 ; i < tierGroupList.length ; i++)
+      {
+        this.tierGrpList.push({ label: tierGroupList[i], value: tierGroupList[i] });
+      }
+      this.tierGroupList = tierGroupList;
     }
   }
 }

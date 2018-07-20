@@ -1,11 +1,12 @@
-<div class="accordian-css">
-    <p-accordion class="ndagent">
-        <p-accordionTab header="Add NDE Server">
-            <p-dataTable class="nde-ui" [value]="ndeInfo" [(selection)]="selectedNDEData" [rows]="12" [paginator]="ndeInfo?.length > 12" [pageLinks]="3">
+<div class="ndegui-mainbox">
+    <div class="accordian-css">
+        <p-accordion class="ndagent">
+            <p-accordionTab header="Add NDE Server">
+                <p-dataTable class="nde-ui" [value]="ndeInfo" [(selection)]="selectedNDEData" [rows]="12" [paginator]="ndeInfo?.length > 12" [pageLinks]="3">
 
-                <p-header>
-                    <span class="configui-float-css"> NDE Server List </span>
-                    <span class="configui-float">
+                    <p-header>
+                        <span class="configui-float-css"> NDE Server List </span>
+                        <span class="configui-float">
             <button pButton type="button" title="Add NDE" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
             <button pButton type="button" title="Add NDE" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openNDEDialog()" icon="fa-plus"></button>
             <button pButton type="button" title="Edit an NDE" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
@@ -16,43 +17,43 @@
             <button pButton type="button" class="ui-button-danger" title="Delete NDE" *ngIf="!isProfilePerm" [disabled]="saveDisable"
               (click)="deleteNDE()" icon="fa-trash"></button>
           </span>
-                </p-header>
-                <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                <p-column class="tableCss" field="name" header="NDE Server" [sortable]="true" [style]="{'width':'20%'}">
-                    <template let-col let-nde="rowData" pTemplate>
+                    </p-header>
+                    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+                    <p-column class="tableCss" field="name" header="NDE Server" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-nde="rowData" pTemplate>
+            <span title="{{nde[col.field]}}"><i *ngIf="nde.isMaster == '1'" class="icon ndegui-m-text" style="font-size: 13px; height: 11px; margin: 2px 2px 2px -2px;" ></i>{{nde[col.field]}}</span>
+          </template>
+                    </p-column>
+                    <p-column class="tableCss" field="ip" header="IP" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
           </template>
-                </p-column>
-                <p-column class="tableCss" field="ip" header="IP" [sortable]="true" [style]="{'width':'20%'}">
-                    <template let-col let-nde="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="tableCss" field="port" header="Port" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
           </template>
-                </p-column>
-                <p-column class="tableCss" field="port" header="Port" [sortable]="true" [style]="{'width':'20%'}">
-                    <template let-col let-nde="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="tableCss" field="wsPort" header="WS Port" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
           </template>
-                </p-column>
-                <p-column class="tableCss" field="wsPort" header="WS Port" [sortable]="true" [style]="{'width':'20%'}">
-                    <template let-col let-nde="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="tableCss" field="wssPort" header="WSS Port" [sortable]="true" [style]="{'width':'20%'}">
+                        <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
           </template>
-                </p-column>
-                <p-column class="tableCss" field="wssPort" header="WSS Port" [sortable]="true" [style]="{'width':'20%'}">
-                    <template let-col let-nde="rowData" pTemplate>
-            <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
-          </template>
-                </p-column>
-            </p-dataTable>
+                    </p-column>
+                </p-dataTable>
 
 
-        </p-accordionTab>
-        <p-accordionTab header="NDE Routing Rules">
-            <p-dataTable class="nde-ui" [value]="ndeRoutingRulesInfo" [(selection)]="selectedNDERoutingRules" [rows]="12" [paginator]="ndeRoutingRulesInfo?.length > 12" [pageLinks]="3">
+            </p-accordionTab>
+            <p-accordionTab header="NDE Routing Rules">
+                <p-dataTable class="nde-ui" [value]="ndeRoutingRulesInfo" [(selection)]="selectedNDERoutingRules" [rows]="12" [paginator]="ndeRoutingRulesInfo?.length > 12" [pageLinks]="3">
 
-                <p-header>
-                    <span class="configui-float-css"> NDE Routing Rule List </span>
-                    <span class="configui-float">
+                    <p-header>
+                        <span class="configui-float-css"> NDE Routing Rule List </span>
+                        <span class="configui-float">
             <button pButton type="button" title="Add NDE Routing Rules" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
             <button pButton type="button" title="Add NDE Routing Rules" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openNDERoutingRules()"
               icon="fa-plus"></button>
@@ -66,21 +67,22 @@
             <!-- <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button> -->
             <!-- <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="savendeOnFile()" label="Save"></button> -->
           </span>
-                </p-header>
-                <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                <p-column class="tableCss" field="nde" header="NDE Server" [sortable]="true" [style]="{'width':'15%'}">
-                    <template let-col let-nde="rowData" pTemplate>
+                    </p-header>
+                    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+                    <p-column class="tableCss" field="nde" header="NDE Server" [sortable]="true" [style]="{'width':'15%'}">
+                        <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]|ndeName}}</span>
           </template>
-                </p-column>
-                <p-column class="tableCss" field="tierGroup" header="Tier Group(s)" [sortable]="true" [style]="{'width':'50%'}">
-                    <template let-col let-nde="rowData" pTemplate>
+                    </p-column>
+                    <p-column class="tableCss" field="tierGroup" header="Tier Group(s)" [sortable]="true" [style]="{'width':'50%'}">
+                        <template let-col let-nde="rowData" pTemplate>
             <span title="{{nde[col.field]}}">{{nde[col.field]}}</span>
           </template>
-                </p-column>
-            </p-dataTable>
-        </p-accordionTab>
-    </p-accordion>
+                    </p-column>
+                </p-dataTable>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
 </div>
 
 <p-dialog class="profile-dialog" header="{{isNDE ? 'Add NDE Server' : 'Edit NDE Server'}}" *ngIf="addEditNDE" [(visible)]="addEditNDE" modal="modal" width="500" responsive="true" [resizable]="false">
@@ -90,7 +92,7 @@
                 <label>Server Name</label>
             </div>
             <div class="ui-g-4">
-                <input name="name" type="text" pInputText [(ngModel)]="ndeData.name" autofocus required ngModel />
+                <input name="name" type="text" pInputText [(ngModel)]="ndeData.name" autofocus pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
             </div>
             <div class="ui-g-2"></div>
             <div class="ui-g-2">
@@ -122,14 +124,14 @@
                         <label>WS Port</label>
                     </div>
                     <div class="ui-g-3">
-                        <input name="wsPort" type="text" pInputText pattern="[0-9]*" [(ngModel)]="ndeData.wsPort" ngModel />
+                        <input name="wsPort" type="text" pInputText [(ngModel)]="ndeData.wsPort" ngModel />
                     </div>
                     <div class="ui-g-1"></div>
                     <div class="ui-g-2">
                         <label>WSS Port</label>
                     </div>
                     <div class="ui-g-3">
-                        <input name="wssPort" type="text" pInputText pattern="[0-9]*" [(ngModel)]="ndeData.wssPort" ngModel />
+                        <input name="wssPort" type="text" pInputText [(ngModel)]="ndeData.wssPort" ngModel />
                     </div>
                 </div>
 
@@ -160,7 +162,7 @@
                 <label>Tier Group(s)</label>
             </div>
             <div class="ui-g-8">
-                    <input name="tierGroup" type="text" size="30" class='hidden-validator' [(ngModel)]="tierGroupList" pInputText required ngModel/>
+                <input name="tierGroup" type="text" class='hidden-validator' [(ngModel)]="tierGroupList" pInputText required ngModel/>
                 <p-multiSelect name="tierGroup" class="multiselectdropReqResp headerhttpres nde-ui" appendTo="body" [options]="tierGrpList" [(ngModel)]="tierGroupList" [style]="{'min-width':'100%'}"></p-multiSelect>
             </div>
         </div>
