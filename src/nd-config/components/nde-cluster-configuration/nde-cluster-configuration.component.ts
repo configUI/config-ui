@@ -158,7 +158,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       }
     }
     else {
-       this.editNDE();
+      this.editNDE();
     }
   }
 
@@ -193,7 +193,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
     this.ndeData = this.modifyData(this.ndeData);
 
     for (let i = 0; i < this.ndeInfo.length; i++) {
-      if(this.ndeData.name == this.selectedNDEData[0].name){}
+      if (this.ndeData.name == this.selectedNDEData[0].name) { }
       else if (this.ndeInfo[i].name == this.ndeData.name) {
         this.configUtilityService.errorMessage("NDE Name already exists");
         return true;
@@ -416,20 +416,17 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
     this.ndeListItem = [];
     for (let i = 0; i < this.ndeInfo.length; i++) {
       let flag = true;
-      for(let j = 0; j < this.ndeRoutingRulesInfo.length; j++ ){
-        if(this.ndeInfo[i].name == this.ndeRoutingRulesInfo[j].nde.name)
-        {
+      for (let j = 0; j < this.ndeRoutingRulesInfo.length; j++) {
+        if (this.ndeInfo[i].name == this.ndeRoutingRulesInfo[j].nde.name) {
           flag = false;
-           break;
+          break;
         }
       }
-      if(flag)
-      {
+      if (flag) {
         this.ndeListItem.push({ label: this.ndeInfo[i].name, value: this.ndeInfo[i].name });
       }
     }
-    if(!this.isNDERule)
-    {
+    if (!this.isNDERule) {
       this.ndeListItem.push({ label: this.selectedNDERoutingRules[0].nde.name, value: this.selectedNDERoutingRules[0].nde.name });
     }
   }
@@ -504,11 +501,22 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       this.addEditNDERules = true;
       this.loadNDEList()
       this.ndeRoutingRulesData = new NDERoutingRules();
+      // this.tierGrpList = [];
       this.ndeRoutingRulesData = Object.assign({}, this.selectedNDERoutingRules[0]);
       let tierGroupList = this.ndeRoutingRulesData.tierGroup.split(",");
-      for(let i = 0 ; i < tierGroupList.length ; i++)
-      {
-        this.tierGrpList.push({ label: tierGroupList[i], value: tierGroupList[i] });
+
+
+      for (let i = 0; i < tierGroupList.length; i++) {
+        let flag = true;
+        for (let j = 0; j < this.tierGrpList.length; j++) {
+          if (tierGroupList[i] == this.tierGrpList[j].label.trim()) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          this.tierGrpList.push({ label: tierGroupList[i], value: tierGroupList[i] });
+        }
       }
       this.tierGroupList = tierGroupList;
     }
