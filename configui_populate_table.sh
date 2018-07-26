@@ -227,20 +227,44 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (16,'HTTP Backend For Dot Net','HTTP','HTTP_CALLOUT','HTTP','Dot Net'),
 (17,'SQL Backend For Dot Net','SQL','SQL_CALLOUT','SQL','Dot Net'),
 (18,'Async Call For Dot Net','Async_Call','ASYNC_CALL','ASYNC_CALL','Dot Net'),
-(19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CloudantNoSql','Java'),
+(19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CLOUDANT','Java'),
 (20,'Big Table Backend','Big Table','bigTable','None','Java'),
 (21,'Microsoft SQL Backend','Microsoft SQL','microsoftDB','None','Java'),
 (22,'Log Backend','Log','Log','None','Java'),
 (23,'Exception Backend','Exception','Exception','None','Java'),
 (24,'XATransaction Backend','XATransaction','XATransaction','None','Java'),
-(25,'JDBC Connection Backend','JDBC Connection','DBConnection','DBConnection','Java'),
-(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','neo4jDB','Java'),
-(27,'JMS IBM Backend','JMS-IBM','JMS_IBM','None','Java'),
-(28,'JMS Active Backend','JMS-Active','JMS_Active','JMS_Active','Java'),
-(29,'JMS Rabbit Backend','JMS-Rabbit','JMS_Rabbit','JMS_Rabbit','Java'),
-(30,'JMS ATG Backend','JMS-ATG','JMS_Atg','None','Java'),
-(31,'JMS TIBCO Backend','JMS-TIBCO','JMS_TIBCO','None','Java'),
-(32,'Async HTTP Backend','Async-HTTP','Async_HTTP','Async_HTTP','Java');
+(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','NEO4J','Java'),
+(27,'JMS Backend','JMS','HttpCallout','JMS','Java');
+
+
+INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
+(1,'HTTP Backend','HTTP','HttpCallout','HTTP','Java'),
+(2,'Web Services Backend','Web Services','HttpCallout','WS','Java'),
+(3,'JDBC Backend','JDBC','oracleDB','JDBC','Java'),
+(4,'Coherence Backend','Coherence','HttpCallout','None','Java'),
+(5,'RMI Backend','RMI','HttpCallout','RMI','Java'),
+(6,'Mem Cache Backend','Mem Cache','HttpCallout','None','Java'),
+(7,'Cloudant Backend','Cloudant','HttpCallout','None','Java'),
+(8,'Hadoop Backend','Hadoop','HttpCallout','HBASE','Java'),
+(9,'Custom  Backend','Custom','CustomCallout:','None','Java'),
+(10,'Redis Backend','Redis','redis','REDIS','Java'),
+(11,'Mongo Backend','Mongo','mongodb','MONGO','Java'),
+(12,'Cassandra Backend','Cassandra','cassandra','None','Java'),
+(13,'Custom Log Backend','Custom Log','CustomLog','None','Java'),
+(14,'Custom Error Log Backend','Custom Error Log','CustomErrorlog','None','Java'),
+(15,'Thread Backend','Thread','Thread','None','Java'),
+(16,'HTTP Backend For Dot Net','HTTP','HTTP_CALLOUT','HTTP','Dot Net'),
+(17,'SQL Backend For Dot Net','SQL','SQL_CALLOUT','SQL','Dot Net'),
+(18,'Async Call For Dot Net','Async_Call','ASYNC_CALL','ASYNC_CALL','Dot Net'),
+(19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CLOUDANT','Java'),
+(20,'Big Table Backend','Big Table','bigTable','None','Java'),
+(21,'Microsoft SQL Backend','Microsoft SQL','microsoftDB','None','Java'),
+(22,'Log Backend','Log','Log','None','Java'),
+(23,'Exception Backend','Exception','Exception','None','Java'),
+(24,'XATransaction Backend','XATransaction','XATransaction','None','Java'),
+(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','NEO4J','Java'),
+(27,'JMS Backend','JMS','HttpCallout','JMS','Java');
+
 
 
 INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
@@ -333,7 +357,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (88,'CLOUDANT NoSQL end point','com.cloudant.client.org.lightcouch.CouchDatabaseBase.post(Ljava/lang/Object;)Lcom/cloudant/client/org/lightcouch/Response;','Cloudant NoSQL post',19,false,'-','Java'),
 (89,'CLOUDANT NoSQL end point','com.cloudant.client.org.lightcouch.CouchDatabaseBase.update(Ljava/lang/Object;)Lcom/cloudant/client/org/lightcouch/Response;','Cloudant NoSQL update',19,false,'-','Java'),
 (90,'CLOUDANT NoSQL end point','com.cloudant.client.org.lightcouch.CouchDatabaseBase.remove(Ljava/lang/Object;)Lcom/cloudant/client/org/lightcouch/Response;','Cloudant NoSQL remove',19,false,'-','Java'),
-(91,'WS end point','com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.post(Ljavax/xml/soap/SOAPMessage;Ljava/net/URL;)Ljavax/xml/soap/SOAPMessag e;','post(SOAP,URL)',2,false,'-','Java'),
+(91,'WS end point','com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.post(Ljavax/xml/soap/SOAPMessage;Ljava/net/URL;)Ljavax/xml/soap/SOAPMessage;','post(SOAP,URL)',2,false,'-','Java'),
 (92,'CASSANDRA end point','com.datastax.driver.core.AbstractSession',' AbstractSession : cassandraDB',12,false,'-','Java'),
 (93,'CASSANDRA end point','com.datastax.driver.core.RequestHandler$SpeculativeExecution',' SpeculativeExecution : cassandraDB',12,false,'-','Java'),
 (94,'HTTP end point','com.google.api.client.http.HttpRequest.execute()Lcom/google/api/client/http/HttpResponse;','Big Query',1,false,'-','Java'),
@@ -356,7 +380,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (111,'THREAD end point','java.util.concurrent.ForkJoinPool.forkOrSubmit(Ljava/util/concurrent/ForkJoinTask;)V','forkOrSubmit(ForkJoinTask)',15,false,'-','Java'),
 (112,'THREAD end point','java.util.concurrent.ForkJoinTask.fork()Ljava/util/concurrent/ForkJoinTask;','fork()',15,false,'-','Java'),
 (113,'THREAD end point','java.util.concurrent.ForkJoinTask.doInvoke()I','doInvoke()',15,false,'-','Java'),
-(114,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace()V|CustomErrorlog:0|1','printStackTrace()',14,false,'-','Java'),
+(114,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace()V','printStackTrace()',14,false,'-','Java'),
 (115,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace(Ljava/io/PrintStream;)V','printStackTrace(PrintStream)',14,false,'-','Java'),
 (116,'CUSTOM ERROR LOG end point','java.lang.Throwable.printEnclosedStackTrace(Ljava/lang/Throwable$PrintStreamOrWriter;[Ljava/lang/StackTraceElement;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)V','printEnclosedStackTrace(PrintStreamOrWriter,StackTraceElement,String,String,Set)',14,false,'-','Java'),
 (117,'CUSTOM ERROR LOG end point','java.lang.Throwable.printStackTrace(Ljava/lang/Throwable$PrintStreamOrWriter;)V','printStackTrace(PrintStreamOrWriter)',14,false,'-','Java'),
@@ -385,9 +409,9 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (140,'WS end point','org.apache.cxf.jaxrs.client.WebClient.doInvoke(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Class;Ljava/lang/reflect/Type;Ljava/lang/Class;Ljava/lang/reflect/Type;)Ljavax/ws/rs/core/Response;','doInvoke(String,Object,Class,Type,Class,Type)',2,false,'-','Java'),
 (141,'Log end point','org.apache.log4j.AppenderSkeleton.doAppend(Lorg/apache/log4j/spi/LoggingEvent;)V','Log: doappend(LoggingEvent)',22,false,'-','Java'),
 (142,'XATransaction end point','oracle.jdbc.xa.client.OracleXAResource','XATransaction: OracleXAResource',24,false,'-','Java'),
-(143,'JDBC Connection end point','weblogic.jdbc.common.internal.RmiDataSource','DBConnection: RmiDataSource',25,false,'-','Java'),
-(144,'JDBC Connection end point','java.sql.DriverManager','DBConnection: DriverManager',25,false,'-','Java'),
-(145,'JDBC Connection end point','org.apache.commons.dbcp.BasicDataSource','DBConnection: BasicDataSource',25,false,'-','Java'),
+(143,'JDBC Connection end point','weblogic.jdbc.common.internal.RmiDataSource','DBConnection: RmiDataSource',3,false,'-','Java'),
+(144,'JDBC Connection end point','java.sql.DriverManager','DBConnection: DriverManager',3,false,'-','Java'),
+(145,'JDBC Connection end point','org.apache.commons.dbcp.BasicDataSource','DBConnection: BasicDataSource',3,false,'-','Java'),
 (146,'Neo4j DB Callout end point','org.neo4j.jdbc.http.driver.CypherExecutor.executeQuery(Lorg/neo4j/jdbc/http/driver/Neo4jStatement;)Lorg/neo4j/jdbc/http/driver/Neo4jResponse;','CypherExecutor.executeQuery(Neo4jStatement)',26,false,'-','Java'),
 (147,'Neo4j DB Callout end point','org.neo4j.jdbc.bolt.BoltPreparedStatement.executeQuery()Ljava/sql/ResultSet;','BoltPreparedStatement.executeQuery()',26,false,'-','Java'),
 (148,'Exception end point','java.lang.Throwable.<init>()V','Exception: <init>()V',23,false,'-','Java'),
@@ -399,19 +423,18 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (154,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Message;)V','MQMessageProducer.send(Message)V',27,false,'-','Java'),
 (155,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;)V','MQMessageProducer.send(Destination,Message)V',27,false,'-','Java'),
 (156,'JMS IBM Backend','com.ibm.mq.jms.MQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJ)V','MQMessageProducer.send(Destination,Message,IIJ)V',27,false,'-','Java'),
-(157,'JMS Active Backend','org.apache.activemq.ActiveMQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJ)V','ActiveMQMessageProducer.send(Destination,Message,IIJ)V',28,false,'-','Java'),
-(158,'JMS Active Backend','org.apache.activemq.ActiveMQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJLorg/apache/activemq/AsyncCallback;)V','ActiveMQMessageProducer.send(Destination,Message,AsyncCallback)V',28,false,'-','Java'),
-(159,'JMS Rabbit Backend','com.rabbitmq.client.impl.AMQChannel.transmit(Lcom/rabbitmq/client/Method;)V','AMQChannel.transmit(Method)V',29,false,'-','Java'),
-(160,'JMS Rabbit Backend','com.rabbitmq.client.impl.AMQChannel.transmit(Lcom/rabbitmq/client/impl/AMQCommand;)V','AMQChannel.transmit(AMQCommand)V',29,false,'-','Java'),
-(161,'JMS ATG Backend','atg.dms.local.TopicPublisherImpl.publish(Ljavax/jms/Topic;Ljavax/jms/Message;)V','TopicPublisherImpl.publish(Topic,Message)V',30,false,'-','Java'),
-(162,'JMS TIBCO Backend','com.tibco.tibjms.TibjmsMessageProducer._publish(Ljavax/jms/Destination;Ljavax/jms/Message;ZIIJZLjavax/jms/CompletionListener;)Lcom/tibco/tibjms/TibjmsMessage;','TibjmsMessageProducer._publish(Destination,Message,CompletionListener)V',31,false,'-','Java'),
-(163,'Async HTTP Backend','org.apache.http.impl.nio.client.FutureWrapper','client.FutureWrapper',32,false,'-','Java'),
-(164,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.completed(Ljava/lang/Object;)Z','BasicFuture.completed(Object)',32,false,'-','Java'),
-(165,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.failed(Ljava/lang/Exception;)Z','BasicFuture.failed(Exception)',32,false,'-','Java'),
-(166,'Async HTTP Backend','org.apache.http.impl.nio.client.InternalHttpAsyncClient.execute(Lorg/apache/http/nio/protocol/HttpAsyncRequestProducer;Lorg/apache/http/nio/protocol/HttpAsyncResponseConsumer;Lorg/apache/http/protocol/HttpContext;Lorg/apache/http/concurrent/FutureCallback;)Ljava/util/concurrent/Future;','InternalHttpAsyncClient.execute(HttpAsyncResponseProducer,HttpAsyncResponseConsumer,HttpContext,FutureCallback)',32,false,'-','Java'),
+(157,'JMS Active Backend','org.apache.activemq.ActiveMQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJ)V','ActiveMQMessageProducer.send(Destination,Message,IIJ)V',27,false,'-','Java'),
+(158,'JMS Active Backend','org.apache.activemq.ActiveMQMessageProducer.send(Ljavax/jms/Destination;Ljavax/jms/Message;IIJLorg/apache/activemq/AsyncCallback;)V','ActiveMQMessageProducer.send(Destination,Message,AsyncCallback)V',27,false,'-','Java'),
+(159,'JMS Rabbit Backend','com.rabbitmq.client.impl.AMQChannel.transmit(Lcom/rabbitmq/client/Method;)V','AMQChannel.transmit(Method)V',27,false,'-','Java'),
+(160,'JMS Rabbit Backend','com.rabbitmq.client.impl.AMQChannel.transmit(Lcom/rabbitmq/client/impl/AMQCommand;)V','AMQChannel.transmit(AMQCommand)V',27,false,'-','Java'),
+(161,'JMS ATG Backend','atg.dms.local.TopicPublisherImpl.publish(Ljavax/jms/Topic;Ljavax/jms/Message;)V','TopicPublisherImpl.publish(Topic,Message)V',27,false,'-','Java'),
+(162,'JMS TIBCO Backend','com.tibco.tibjms.TibjmsMessageProducer._publish(Ljavax/jms/Destination;Ljavax/jms/Message;ZIIJZLjavax/jms/CompletionListener;)Lcom/tibco/tibjms/TibjmsMessage;','TibjmsMessageProducer._publish(Destination,Message,CompletionListener)V',27,false,'-','Java'),
+(163,'Async HTTP Backend','org.apache.http.impl.nio.client.FutureWrapper','client.FutureWrapper',1,false,'-','Java'),
+(164,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.completed(Ljava/lang/Object;)Z','BasicFuture.completed(Object)Z',1,false,'-','Java'),
+(165,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.failed(Ljava/lang/Exception;)Z','BasicFuture.failed(Exception)Z',1,false,'-','Java'),
+(166,'Async HTTP Backend','org.apache.http.impl.nio.client.InternalHttpAsyncClient.execute(Lorg/apache/http/nio/protocol/HttpAsyncRequestProducer;Lorg/apache/http/nio/protocol/HttpAsyncResponseConsumer;Lorg/apache/http/protocol/HttpContext;Lorg/apache/http/concurrent/FutureCallback;)Ljava/util/concurrent/Future;','InternalHttpAsyncClient.execute(HttpAsyncRequestProducer,HttpAsyncResponseConsumer,HttpContext,FutureCallback)',1,false,'-','Java'),
 (167,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.finishSetup()V','HTable.finishSetup()V',8,false,'-','Java'),
 (168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java');
-
 
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
@@ -439,14 +462,8 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (22,true,false,false,false,false,false,false,false,false,false,false,false,false,22,1),
 (23,true,false,false,false,false,false,false,false,false,false,false,false,false,23,1),
 (24,true,false,false,false,false,false,false,false,false,false,false,false,false,24,1),
-(25,true,false,false,false,false,false,false,false,false,false,false,false,false,25,1),
 (26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1),
-(27,false,false,false,false,false,false,false,false,false,false,false,true,false,27,1),
-(28,true,true,false,false,false,false,false,false,false,false,false,true,false,28,1),
-(29,true,true,false,false,false,false,false,false,false,false,false,false,false,29,1),
-(30,false,false,false,false,false,false,false,false,false,false,false,false,false,30,1),
-(31,false,false,false,false,false,false,false,false,false,false,false,false,false,31,1),
-(32,true,false,false,false,false,false,false,false,false,false,false,false,false,32,1);
+(27,true,true,false,false,false,false,false,false,false,false,false,true,false,27,1);
 
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
