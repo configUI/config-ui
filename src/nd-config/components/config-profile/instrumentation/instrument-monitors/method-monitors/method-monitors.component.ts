@@ -408,6 +408,14 @@ export class MethodMonitorsComponent implements OnInit {
     openDownloadReports(res) {
       window.open("/common/" + res);
     }
+
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog
+   * related to the current component.
+   */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Instrumentation", "Method Monitor", this.agentType);
+  }
  
   ngOnDestroy() {
    this.isMethodMonitorBrowse = false;
@@ -415,8 +423,3 @@ export class MethodMonitorsComponent implements OnInit {
 
 
   }
-
-
-
-
-

@@ -135,13 +135,12 @@ export class MonitorsComponent implements OnInit {
   }
 getKeyWordDataFromStore(){
   if (this.agentType == 'NodeJS') {
-    this.subscription = this.store.select("keywordData").subscribe(data => {
-      var keywordDataVal = {}
-      this.NodeJSkeywordList.map(function (key) {
-        keywordDataVal[key] = data[key];
-      })
-
-      this.monitor = keywordDataVal;
+    let data = this.configKeywordsService.keywordData;
+      for(let key in data){
+        if(this.NodeJSkeywordList.includes(key)){
+          this.monitor[key].value = data[key].value;
+        }
+      }
       this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       this.eventLoopMonitorChk = this.monitor["eventLoopMonitor"].value == 0 ? false : true;
@@ -151,47 +150,37 @@ getKeyWordDataFromStore(){
       console.log(this.className, "constructor", "this.monitors", this.monitor);
       // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
       this.configKeywordsService.toggleKeywordData();
-    });
   }
   else {
-    this.subscription = this.store.select("keywordData").subscribe(data => {
-      var keywordDataVal = {}
-      this.keywordList.map(function (key) {
-        keywordDataVal[key] = data[key];
-      })
-
-      this.monitor = keywordDataVal;
+    let data = this.configKeywordsService.keywordData;
+      for(let key in data){
+        if(this.keywordList.includes(key)){
+          this.monitor[key].value = data[key].value;
+        }
+      }
       this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
       this.configKeywordsService.toggleKeywordData();
-    });
   }
 }
  /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
-    // let data = cloneObject(this.configKeywordsService.keywordData);
     let data = this.configKeywordsService.keywordData;
     if(this.agentType == "NodeJS"){
       for(let key in data){
         if(this.NodeJSkeywordList.includes(key)){
-          this.monitor[key] = data[key];
+          this.monitor[key].value = data[key].defaultValue;
         }
       }
     }
     else {
     for(let key in data){
       if(this.keywordList.includes(key)){
-        this.monitor[key] = data[key];
+        this.monitor[key].value = data[key].defaultValue;
       }
     }
   }
-    var keywordDataVal = {}
-    keywordDataVal = this.monitor
-    this.keywordList.map(function (key) {
-    keywordDataVal[key].value = data[key].defaultValue
-    })
-    this.monitor = keywordDataVal;
     this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
     this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
     if(this.agentType == 'NodeJS'){

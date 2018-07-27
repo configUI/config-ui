@@ -6,6 +6,7 @@
         </span>
         <span class="configui-float-css"> Enable Method Monitors </span>
         <span class="configui-float">
+            <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
             <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
             <button pButton type="button" title="Add a method monitor" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  icon="fa-plus"></button>

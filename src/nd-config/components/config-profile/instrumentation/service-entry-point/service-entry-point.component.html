@@ -5,6 +5,7 @@
                 </span>
         <span style="float: left">Enable Service Entry Points</span>
         <span style="float :right; margin-top:-3px">
+		 <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
                  <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Service Entry Point"></button>
                  <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openServiceEntryDialog()" icon="fa-plus" title="Add Service Entry Point"></button>
                  <button pButton type="button"  *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" title="Edit service entry point"></button>

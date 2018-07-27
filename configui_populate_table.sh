@@ -238,36 +238,6 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 
 
 INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
-(1,'HTTP Backend','HTTP','HttpCallout','HTTP','Java'),
-(2,'Web Services Backend','Web Services','HttpCallout','WS','Java'),
-(3,'JDBC Backend','JDBC','oracleDB','JDBC','Java'),
-(4,'Coherence Backend','Coherence','HttpCallout','None','Java'),
-(5,'RMI Backend','RMI','HttpCallout','RMI','Java'),
-(6,'Mem Cache Backend','Mem Cache','HttpCallout','None','Java'),
-(7,'Cloudant Backend','Cloudant','HttpCallout','None','Java'),
-(8,'Hadoop Backend','Hadoop','HttpCallout','HBASE','Java'),
-(9,'Custom  Backend','Custom','CustomCallout:','None','Java'),
-(10,'Redis Backend','Redis','redis','REDIS','Java'),
-(11,'Mongo Backend','Mongo','mongodb','MONGO','Java'),
-(12,'Cassandra Backend','Cassandra','cassandra','None','Java'),
-(13,'Custom Log Backend','Custom Log','CustomLog','None','Java'),
-(14,'Custom Error Log Backend','Custom Error Log','CustomErrorlog','None','Java'),
-(15,'Thread Backend','Thread','Thread','None','Java'),
-(16,'HTTP Backend For Dot Net','HTTP','HTTP_CALLOUT','HTTP','Dot Net'),
-(17,'SQL Backend For Dot Net','SQL','SQL_CALLOUT','SQL','Dot Net'),
-(18,'Async Call For Dot Net','Async_Call','ASYNC_CALL','ASYNC_CALL','Dot Net'),
-(19,'Cloudant NoSQL Backend','Cloudant NoSQL','cloudantEntry','CLOUDANT','Java'),
-(20,'Big Table Backend','Big Table','bigTable','None','Java'),
-(21,'Microsoft SQL Backend','Microsoft SQL','microsoftDB','None','Java'),
-(22,'Log Backend','Log','Log','None','Java'),
-(23,'Exception Backend','Exception','Exception','None','Java'),
-(24,'XATransaction Backend','XATransaction','XATransaction','None','Java'),
-(26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','NEO4J','Java'),
-(27,'JMS Backend','JMS','HttpCallout','JMS','Java');
-
-
-
-INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id,custom_entry,module,agent) VALUES
 (1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)V','Apace HTTP Client',1,false,'-','Java'),
 (2,'HTTP end point','com.endeca.navigation.HttpENEConnection.query(Lcom/endeca/navigation/ENEQuery;)Lcom/endeca/navigation/ENEQueryResults;','Endeca',1,false,'-','Java'),
 (3,'HTTP end point','org.apache.http.impl.client.AbstractHttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','Apache AbstractHttpClient',1,false,'-','Java'),

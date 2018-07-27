@@ -380,6 +380,13 @@ export class ExceptionMonitorsComponent implements OnInit {
   openDownloadReports(res) {
     window.open("/common/" + res);
   }
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog
+   * related to the current component.
+   */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Instrumentation", "Exception Monitor", "");
+  }
 
   /* change Browse boolean value on change component */
   ngOnDestroy() {

@@ -110,11 +110,39 @@ export class UrlCapturingComponent implements OnInit {
 
   /* This method is used to reset the keyword data*/
   resetKeywordData() {
-    this.getKeywordData();
+    let data = this.configKeywordsService.keywordData;
+    for(let key in data){
+      if(this.keywordList.includes(key)){
+        this.urlCapturing[key].value = data[key].value;
+      }
+    }
     this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
     this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
     this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
     this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
+    if ((this.urlCapturing["formatIPResourceURL"].value).includes("%20")) {
+      let arr = (this.urlCapturing["formatIPResourceURL"].value).split("%20")
+      this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = true;
+      if (arr[0] === "0") {
+        this.urlCapturingData.includeParameter = false;
+      }
+      else if (arr[0] === "1") {
+        this.urlCapturingData.includeParameter = true;
+      }
+      else
+        this.urlCapturingData.includeParameter = false;
+
+        this.urlCapturingData.urlOffset = arr[1];
+        this.urlCapturingData.maxChar = arr[2];
+    }
+    else {
+      this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = false;
+        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.urlOffset = 0;
+        this.urlCapturingData.maxChar = 256;
+    }
   }
 
   /* This method is used to reset the keyword data to its Default value */
@@ -122,15 +150,9 @@ export class UrlCapturingComponent implements OnInit {
       let data = this.configKeywordsService.keywordData;
       for(let key in data){
         if(this.keywordList.includes(key)){
-          this.urlCapturing[key] = data[key];
+          this.urlCapturing[key].value = data[key].defaultValue;
         }
       }
-      var keywordDataVal = {}
-      keywordDataVal = this.urlCapturing;
-      this.keywordList.map(function (key) {
-      keywordDataVal[key].value = data[key].defaultValue
-      })
-      this.urlCapturing = keywordDataVal;
       this.dumpDefaultCassandraQuery = this.urlCapturing["dumpDefaultCassandraQuery"].value == 0 ? false : true;
       this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
       this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
@@ -236,5 +258,12 @@ export class UrlCapturingComponent implements OnInit {
       maxChar.setCustomValidity('');
     }
     offset.setCustomValidity('');
+  }
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog
+   * related to the current component.
+   */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Instrumentation", "Integartion Point Settings", "");
   }
 }

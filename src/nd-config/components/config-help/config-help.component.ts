@@ -9,7 +9,7 @@ import { ConfigKeywordsService } from './../../services/config-keywords.service'
 export class HelpComponent implements OnInit {
   /**
    *  Author : Himanshu Kumar
-   *  Usage of the varisbles used in this file are as follow:-
+   *  Usage of the variables used in this file are as follow:-
    * -mainheader : It will hold the content for Header of Dilaog
    * -header : It will hold the Header content of the group of setting(s).
    * -headermessage : It will hold the message of the header if any present.
@@ -107,7 +107,7 @@ export class HelpComponent implements OnInit {
       this.mainheader = "Settings";
       this.header = ["Instrumentation Profile Maker"];
       this.messagefirst = ["Instrumentation Profile Maker", "Agent", "Browse", "Import File", "Instrumentation Profile", "View", "Create", "Edit", "Delete", "Clear", "Details"];
-      this.submessagefirst = ["Instrumentation profile maker is a utility provided in ND config UI, which is used to make instrumentation profile. It simply takes inputs as a list of fully qualified methods in .txt file and instrument them.", "Supported agents for instrumentation application are Java, .Net, and NodeJS",
+      this.submessagefirst = ["Instrumentation profile maker is a utility provided in ND config UI, which is used to make instrumentation profile. It simply takes inputs as a list of fully qualified methods in .txt file and instrument them.", "Supported agents for instrumentation application are Java, .Net, and NodeJS.",
         "This is used to browse a file, which contains a list of FQMs.For Java agent, the provided FQMs are first converted into to XML format and then are used for instrumentation.For creating Instrumentation Profile from any file,the separator used is ^.But in case of Interface an extra special character is being used in the end of Interface Name i.e #(hash).Example:-  org.apache.openjpa.lib.util.Closeable.close()#.For other agents, the browsed file content (in the form of FQMs) can be directly used for instrumentation profile.", "To import the file from file system, click the Browse button. This displays a window to browse the file and upload for its conversion. The raw file should contain fully qualified method names and should be with .txt extension. User can also search for a file using the search option.",
         "Instrumentation profile is a file that contains package, class, methods nodes which are used for instrumentation. Instrumentatation profile list is displayed based on the 'Agent type' selected. Select the instrumentation Profile from the drop-down list.",
         "View button enables a user to view the content of instrumentation file in content area.", "Create button enables a user to create instrumentation profile. User can add packages, classes, and methods to create the instrumentation profile.",
@@ -115,6 +115,24 @@ export class HelpComponent implements OnInit {
         "To clear the file content of an instrumentation profile, select the file from the drop-down list and click the 'Clear' button. The content of the file is cleared and nothing is displayed in the content area.",
         "By clicking the 'Details' button, it displays at which level, such as Topology, Tier Group, Tier, Server, Instance this instrumentation profile is applied. "]
       this.helpdialog = true;
+    }
+    if(data.module == "Instrumentation Finder"){
+      this.headermessage = "";
+      this.mainheader = "Settings";
+      this.header = ["Auto Instrumentation","Auto Discover"];
+      this.messagefirst = ["Auto Instrumentation Icon","Active Auto Instrumentation(s)","Auto Instrumented List"];
+      this.submessagefirst = ["On clicking on this button it will redirect to topology page from where user can start Auto Instrumentation after configuring the settings. ",
+    "It will list down the active Auto Instrumentation instance with the options such as (i) Stop : It will stop Auto Instrumentation process, (ii) Refresh : It will refresh elapsed time in order to get updated elapsed time.",
+  "It will list down all (i.e stopped instances of Auto Instrumentation)  Auto Instrumentation Instance with options such as (i) Summary : It will show the summary of the selected auto instrumented instance,(ii) Download : It will download the auto instrumented instance from server,(iii) Edit : It will open the selected auto instrumented instance file in a panel(having left and right panel),(iv) Delete : It will delete the selected auto instrumented instance from server."];
+  this.messagesecond = ["Auto Discover","Agent Type","Connected Agent(s)","Discover by filter","Discover All","Class Filter","Method Filter",
+  "Discover","Reset","Instrument Profile Settings","Autodiscovered Instance(s)","Open"];
+  this.submessagesecond = ["Auto Discover feature is used to discover loaded packages, classes, methods and modules of the selected application instance.","It will list down the type of agent for instrumentation.Currently the agent supported are Java and .NET.",
+  "It will list down all connected agents with the combination of Tier, Server, and instance key to show in drop down list.","It will configure the options for Auto Discovery for the specified classes and methods.",
+  "It will configure the options for  Auto discovery for all packages, classes and methods.","It will take the name of class in the form of Fully Qualified Class Name or its regex for the configuration i.e discover by filter.",
+  "It will take the name of  method in the form of Fully Qualified Method Name or its regex for the configuration i.e discover by filter.","On clicking on this button the configured setting regarding Auto Discover will be proccessed.","On clicking on this button the configured setting will be set to default .",
+  "It will list down all files which had been made during Auto Discover process and these files can be further used to make files to instrument in profiles.","It will list down all files which had been made during Auto Discover process in the drop down.",
+  "It will open the selected file in the form of hierarchical tree like structure in a panel (i.e left panel & right panel)."];
+  this.helpdialog = true;
     }
   }
 
@@ -276,16 +294,49 @@ export class HelpComponent implements OnInit {
    */
   checkForInstrumentationModule(data) {
     if (data.module == "Service Entry Point") {
-      if (data.agentType == "Java") {
         this.mainheader = data.component;
         this.header = ["Service Entry Point"];
-        this.headermessage ="";
-        this.messagefirst = ["Service Entry Point", "", "", "", "", "", "", ""];
-        this.submessagefirst = ["A service entry point is set on an entry. An entry can be a program or service program (where a service entry point is set on all procedures in the program)."
-          , "This section displays a list of service entry points with following details: ", "(i) Service entry type", "(ii)  Service entry name"
-          , "(iii) Enable/Disable Instrumentation", "(iv) Description", "(v) Category", "User can add/edit/delete a service point. For adding a new one, provide service entry type (which can be a service/program/page etc.), service entry name, fully qualified method name, enable/disable the instrumentation for the service entry point, and  its description.  "];
+        this.headermessage ="A service entry point is set on an entry. An entry can be a program or service program (where a service entry point is set on all procedures in the program.";
+        this.messagefirst = [ "", "", "", "", "", "", ""];
+        this.submessagefirst = ["This section displays a list of service entry points with following details: ", "(i) Service Entry Type : Type of the service entry, such as HttpServletService, EntryForWebLogicJSP, JMSCall and so on.", "(ii)  Service Entry Name : Name of the service entry, it should be based on service entry type."
+          , "(iii) Enable/Disable Instrumentation : This shows whether instrumentation is enabled or disabled. User can also change the status using the toggle button.", "(iv) Description : This is the description of the service entry for better understanding.", "(v) Category : This denotes whether it is a predefined service entry point or not.", "User can add/edit/delete a service point. For adding a new one, provide service entry type (which can be a service/program/page etc.), service entry name, fully qualified method name, enable/disable the instrumentation for the service entry point, and  its description.  "];
         this.helpdialog = true;
+    }
+    if(data.module == "Integartion Point Detection"){
+      this.mainheader = data.component;
+      this.header = ["Detection"];
+      this.headermessage ="Integration Point Detection displays a list of integration point detections containing the type of detections along with its description.";
+      this.messagefirst = ["View Details", "Add Integration Point Detection", "Save"];
+      this.submessagefirst = ["To view the integration point detection configuration, click the link, such as HTTP, WS, JDBC, and so on.", "User can add an integration point detection by using the +  icon. A dialog is displayed to add a new integration point detection.Specify the integration point type, its name, and status (enabled / disabled). Enter the full qualified method name along with its description, and click the Save button. The integration point detection is added to the list.", "It will write the table content data on its respective file."];
+      this.helpdialog = true;
+    }
+    if(data.module == "Integartion Point Settings"){
+      this.mainheader = data.component;
+      this.header = ["Settings"];
+      this.headermessage ="This section is used to capture request parameters where user has the provision to skip certain number of character from the URL and can set the maximum character limit in the URL.";
+      this.messagefirst = ["Capture URL","Capture Endpoint URL","Capture request parameters","Extract URL from <n> to <m> character","Capture cassandra query","Capture Thread subclasses","Capture Network Delay"];
+      this.submessagefirst = ["When enabled, URL capturing is activated.",
+        "When enabled, system captures the endpoint URL. All other sections become active after enabling this.","When enabled, system captures the request parameters.","Define the maximum limit of characters in URL.",
+      "When enabled, default cassandra queries are dumped.","When enabled, transformation of thread subclasses are activated.","When enabled,  Network Delay capturing is activated."]
+      this.helpdialog = true;
+    }
+    if(data.module == "Method Monitor"){
+      if(data.agentType == "Java"){
+      this.mainheader = data.component;
+      this.header = [data.module];
+      this.headermessage = "In this section, user can browse a method monitor file, add a new method to monitor, edit an existing method monitor, or delete an existing method monitor.";
+      this.messagefirst = ["Add Method Monitor","Edit Method Monitor","Delete Method Monitor"];
+      this.submessagefirst = ["For adding a new one, provide the following details:(i) Fully qualified method name : Enter a valid method name. Method name can include package, class, and method name, separated by dot (.). Method name cannot include whitespaces.(ii) Display name in monitor : User specified alias name for method monitor.(iii) Description of the method to monitor.","User can Edit any of the method monitor by selecting the specific entry from the table.","User can delete one or more entries by selecting the entries from table."]
+      this.helpdialog = true;
       }
+    }
+    if(data.module == "Exception Monitor"){
+        this.mainheader = data.component;
+        this.header = [data.module];
+        this.headermessage = "Exception monitors are used to monitor exceptions that are occurred in the system while traversing a request.";
+        this.messagefirst = ["Add Exception Monitor","Edit Exception Monitor","Delete Exception Monitor"];
+        this.submessagefirst = ["For adding a new one, provide the following details:(i) Exception Name : Enter a valid exception name (ii) Display Name : User specified alias name for exception monitor.(iii) Description :  Description of the exception to monitor.","User can Edit any of the exception monitor by selecting the specific entry from the table.","User can delete one or more entries by selecting the entries from table."]
+        this.helpdialog = true;
     }
   }
   /**
