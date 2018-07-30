@@ -255,7 +255,7 @@ export class ConfigTreeComponent implements OnInit {
     }
 
     let NODE_IMAGE = {
-      TOPOLOGY: 'ndegui-topology-1',
+      TOPOLOGY: 'instrumentation-profile ndegui-topology-1',
       TIER: 'ndegui-tier',
       SERVER: 'ndegui-server',
       INSTANCE: 'ndegui-instance'

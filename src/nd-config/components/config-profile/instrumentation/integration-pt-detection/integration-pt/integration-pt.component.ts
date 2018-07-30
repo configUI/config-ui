@@ -416,6 +416,13 @@ export class IntegrationPtComponent implements OnInit {
           }
         }
       }
-    } 
+    }
+  /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog
+ * related to the current component.
+ */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Instrumentation", "Integartion Point Detection", "");
+  } 
 }
 

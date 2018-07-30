@@ -426,4 +426,12 @@ export class ServiceEntryPointComponent implements OnInit {
     window.open("/common/" + res);
   }
 
+  /**
+ * Purpose : To invoke the service responsible to open Help Notification Dialog
+ * related to the current component.
+ */
+  sendHelpNotification() {
+  	this.configKeywordsService.getHelpContent("Instrumentation", "Service Entry Point", "");
+  }
+
 }

@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
   keywordList = ['captureHTTPReqFullFp', 'captureHTTPRespFullFp'];
 
   profileId: number;
-  agentType:string;
+  agentType: string;
 
   /* here value of keyworsds should be boolean but from server sides it is giving string so converting it to
    *  to boolean value
@@ -75,8 +75,8 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || this.isProfilePerm)
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if (this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.splitKeywordData(this.header)
   }
@@ -205,29 +205,33 @@ export class HeaderComponent implements OnInit {
   }
 
   resetKeywordData() {
-    this.header = cloneObject(this.configKeywordsService.keywordData);
+    let data = this.configKeywordsService.keywordData;
+    for (let key in data) {
+      if (this.keywordList.includes(key)) {
+        this.header[key].value = data[key].value;
+      }
+    }
     this.splitKeywordData(this.header);
   }
 
-    /* This method is used to reset the keyword data to its Default value */
-    resetKeywordsDataToDefault() {
-      let data = cloneObject(this.configKeywordsService.keywordData);
-      var keywordDataVal = {}
-      keywordDataVal = data
-      this.keywordList.map(function (key) {
-        keywordDataVal[key].value = data[key].defaultValue
-      })
-      this.header = keywordDataVal;
-      this.splitKeywordData(this.header);
-      // this.methodTosetValue(this.exception);
+  /* This method is used to reset the keyword data to its Default value */
+  resetKeywordsDataToDefault() {
+    let data = this.configKeywordsService.keywordData;
+    for (let key in data) {
+      if (this.keywordList.includes(key)) {
+        this.header[key].value = data[key].defaultValue;
+      }
+    }
+    this.splitKeywordData(this.header);
   }
   /**
- * Purpose : To invoke the service responsible to open Help Notification Dialog 
- * related to the current component.
- */
+   * Purpose : To invoke the service responsible to open Help Notification Dialog 
+   * related to the current component.
+   */
   sendHelpNotification() {
-    this.configKeywordsService.getHelpContent("General","Header",this.agentType );
-}
+    this.configKeywordsService.getHelpContent("General", "Header", this.agentType);
+  }
+
 
 }
 //Contains httpReqFullFp Keyword variables

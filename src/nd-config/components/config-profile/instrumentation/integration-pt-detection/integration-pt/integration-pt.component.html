@@ -5,6 +5,7 @@
                 </span>
         <span style="float: left">Enable Integration Points</span>
         <span style="float :right; margin-top:-3px">
+	      <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
               <button pButton type="button" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus" title="Add Integration Point Detection" ></button>
               <button pButton type="button" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="onAddIntegrationPTDetection()" icon="fa-plus" title="Add Integration Point Detection" ></button>
               <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm"  label="Save"></button>
@@ -35,7 +36,7 @@
                 <label>Integration Point Type</label>
             </div>
             <div class="ui-g-8">
-                <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.backendTypeId" required
+                <input name="backendTypeId" type="text" class='hidden-validator' pInputText [(ngModel)]="addIPDetectionDetail.backendTypeId" required
                     ngModel/>
                 <p-dropdown [options]="backendTypeSelecetItem" [style]="{'width':'205px'}" name="backendTypeId" [(ngModel)]="addIPDetectionDetail.backendTypeId"
                     placeholder="-- Select --" required ngModel></p-dropdown>
@@ -64,7 +65,7 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
-            <ng-container *ngIf="(addIPDetectionDetail.backendTypeId === 3 || addIPDetectionDetail.backendTypeId === 10 || addIPDetectionDetail.backendTypeId === 11 || addIPDetectionDetail.backendTypeId === 12 || addIPDetectionDetail.backendTypeId === 21); then first else second">
+            <ng-container *ngIf="(addIPDetectionDetail.backendTypeId === 3 || addIPDetectionDetail.backendTypeId === 10 || addIPDetectionDetail.backendTypeId === 11 || addIPDetectionDetail.backendTypeId === 12 || addIPDetectionDetail.backendTypeId === 21 || addIPDetectionDetail.backendTypeId === 24 || addIPDetectionDetail.backendTypeId === 25); then first else second">
             </ng-container>
             <ng-template #first>
             <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(([;_$\/\[a-zA-Z0-9]*))+[;_$\/\[a-zA-Z0-9].*"
@@ -119,7 +120,7 @@
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Integration Point Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
         <div *ngIf="agentType =='Java'">
-            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL || integrationDetail.type == IP.DBConnection || integrationDetail.type ==IP.NEO4J || integrationDetail.type == IP.JMS_Active || integrationDetail.type == IP.JMS_Rabbit || integrationDetail.type == IP.Async_HTTP">
+<div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL  || integrationDetail.type ==IP.NEO4J || integrationDetail.type == IP.JMS">
                 <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rule(s)</label>
             </div>
         </div>
@@ -146,12 +147,12 @@
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
                 </div>
-                <div class="ui-g config-ui" *ngSwitchCase="IP.Async_HTTP">
+                <!-- <div class="ui-g config-ui" *ngSwitchCase="IP.Async_HTTP">
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
-                </div>
+                </div> -->
             </div>
             <div class="ui-g" *ngSwitchCase="IP.JDBC">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
@@ -179,7 +180,7 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
             </div>
-            <div class="ui-g" *ngSwitchCase="IP.DBConnection">
+            <!-- <div class="ui-g" *ngSwitchCase="IP.DBConnection">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String</md-checkbox>
@@ -189,22 +190,21 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
 
-                <!--Host Port Query String, Database Product Name, Database Product Version, Driver Name, Driver Version, UserName-->
-            </div>
+            </div> -->
             <div class="ui-g" *ngSwitchCase="IP.NEO4J">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query String </md-checkbox>
+                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
             </div>
-            <div class="ui-g" *ngSwitchCase="IP.JMS_Active">
+            <div class="ui-g" *ngSwitchCase="IP.JMS">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query </md-checkbox>
             </div>
-            <div class="ui-g" *ngSwitchCase="IP.JMS_Rabbit">
+            <!-- <div class="ui-g" *ngSwitchCase="IP.JMS_Rabbit">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-            </div>
+            </div> -->
             <div class="ui-g" *ngSwitchDefault>
             </div>
         </div>

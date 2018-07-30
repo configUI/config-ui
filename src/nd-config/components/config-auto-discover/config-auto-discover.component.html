@@ -1,5 +1,8 @@
 <div class='accordian-css tabs-all' >
     <p-tabView (onChange)="handleChange($event)">
+        <div style="text-align: right;margin-top: -13px;">
+            <i class="fa fa-question-circle" style="font-size: 15px;margin: -3px 3px 0px ;" title="Help" (click)="sendHelpNotification()"></i>
+        </div>
       <p-tabPanel header="Auto Instrument" [selected]="index == 0">
         <app-config-auto-instrumentation *ngIf="index == 0"></app-config-auto-instrumentation>
       </p-tabPanel>
