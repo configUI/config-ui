@@ -106,7 +106,7 @@
                 <label>IP</label>
             </div>
             <div class="ui-g-4">
-                <input name="ip" type="text" pInputText pattern="[0-9.]*" [(ngModel)]="ndeData.ip" autofocus required ngModel />
+                <input name="ip" type="text" pInputText pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" [(ngModel)]="ndeData.ip" autofocus required ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1">
@@ -124,14 +124,14 @@
                         <label>WS Port</label>
                     </div>
                     <div class="ui-g-3">
-                        <input name="wsPort" type="text" pInputText [(ngModel)]="ndeData.wsPort" ngModel />
+                        <input name="wsPort" type="text" pattern="[0-9]*" pInputText [(ngModel)]="ndeData.wsPort" ngModel />
                     </div>
                     <div class="ui-g-1"></div>
                     <div class="ui-g-2">
                         <label>WSS Port</label>
                     </div>
                     <div class="ui-g-3">
-                        <input name="wssPort" type="text" pInputText [(ngModel)]="ndeData.wssPort" ngModel />
+                        <input name="wssPort" type="text" pattern="[0-9]*" pInputText [(ngModel)]="ndeData.wssPort" ngModel />
                     </div>
                 </div>
 

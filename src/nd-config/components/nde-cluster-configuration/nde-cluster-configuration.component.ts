@@ -303,7 +303,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
       this.ndeRoutingRulesData.nde = res;
       this.ndeRoutingRulesData.tierGroup = this.tierGroupList.join(",")
       this.configKeywordsService.saveNDERoutingRules(this.ndeRoutingRulesData).subscribe(data => {
-        console.log("res--- ", data);
         this.ndeRoutingRulesInfo = ImmutableArray.push(this.ndeRoutingRulesInfo, data);
         this.configUtilityService.successMessage(Messages);
       })
@@ -316,7 +315,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   saveNDE() {
     this.ndeData = this.modifyData(this.ndeData)
     this.configKeywordsService.saveNDEData(this.ndeData).subscribe(data => {
-      console.log("data- ", data)
 
       this.ndeInfo = ImmutableArray.push(this.ndeInfo, data);
       this.configUtilityService.successMessage(Messages);
