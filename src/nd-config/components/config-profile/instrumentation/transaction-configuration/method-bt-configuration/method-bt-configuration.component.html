@@ -1,5 +1,5 @@
 <!--For showing Business Transaction Pattern(s) list -->
-<p-dataTable class="nde-ui" [value]="businessTransMethodInfo" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="businessTransMethodInfo" *ngIf="flag" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
     <p-header>
         <span style="float: left"> Manage Method Business Transaction Rule(s)</span>
         <span style="float: right; margin-top:-3px">

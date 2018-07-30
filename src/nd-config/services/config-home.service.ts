@@ -19,6 +19,24 @@ export class ConfigHomeService {
 
   private _trData: TRData;
 
+  private selectedFromAD = new Subject<any>();
+  selectedFromAD$ = this.selectedFromAD.asObservable();
+
+
+  public loadBT(data)
+  {
+       this.selectedFromAD.next(data);
+  }
+
+  private BTMethodDataFromAD = new Subject<boolean>();
+  getBTMethodDataFromAD$ = this.BTMethodDataFromAD.asObservable();
+
+
+  public getBTMethodDataFromAD(data)
+  {
+       this.BTMethodDataFromAD.next(data);
+  }
+
   private selectedValueOfBT = new Subject<boolean>();
   selectedValueOfBT$ = this.selectedValueOfBT.asObservable();
 
