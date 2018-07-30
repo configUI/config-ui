@@ -389,7 +389,15 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     createMethodBTRule() {
         this.calledFor = "methodBT";
         let fqmarr: string[] = [];
-        if (this.instrFromLeftSideTree.length > 2) {
+        if(this.instrFromRightSideTree.length !=0){
+            this.configUtilityService.errorMessage("Please select FQM only from the left side tree");
+            return;
+        }
+        if (this.instrFromLeftSideTree.length == 0) {
+            this.configUtilityService.errorMessage("Please select a FQM");
+            return;
+        }
+        else if (this.instrFromLeftSideTree.length > 2) {
             this.configUtilityService.errorMessage("Please select only single FQM");
             return;
         }
@@ -423,6 +431,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
             }
             this.selectProfileDialog = true;
             this.loadProfileList();
+            this.instrFromLeftSideTree = [];
         }
     }
 
