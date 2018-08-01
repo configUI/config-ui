@@ -273,7 +273,7 @@ import { UserConfiguredKeywordComponent } from './components/user-configured-key
 
   providers: [
    // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
-   AlertConfigService, TimerService, CavTopPanelNavigationService, CavDataApiService ,CavConfigService, AuthenticationService,CavMenuNavigatorService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,
+   AlertConfigService, TimerService, CavTopPanelNavigationService, CavDataApiService ,CavConfigService, AuthenticationService,CavMenuNavigatorService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,MethodBTConfigurationComponent,
    // ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]

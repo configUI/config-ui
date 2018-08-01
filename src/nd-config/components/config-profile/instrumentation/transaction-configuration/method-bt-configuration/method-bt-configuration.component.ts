@@ -10,6 +10,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../containers/method-based-custom-data';
 import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant'
+import { ConfigHomeService } from '../../../../../services/config-home.service';
 
 @Component({
   selector: 'app-method-bt-configuration',
@@ -96,11 +97,13 @@ export class MethodBTConfigurationComponent implements OnInit {
   isbTMethodBrowse : boolean;
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;
+  flag:boolean = true;
 
   //used to hold value of "type " i.e data type of return value or argument value whichever is selected
   type: string;
   isProfilePerm: boolean;
-  constructor(private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  fqm:any;
+  constructor(private configHomeService: ConfigHomeService, private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     let arrLabel = ['Numeric', 'String', 'Boolean', 'Char or byte'];
     let arrValue = ['0', '1', '2', '3'];
@@ -110,6 +113,25 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.methodRulesInfo = [];
     this.methodArgRulesInfo = [];
+
+    this.configHomeService.getBTMethodDataFromAD$.subscribe(val => {
+      this.flag = val;
+    });
+    this.configHomeService.selectedFromAD$.subscribe(val => {
+      if(val.includes('#')){
+        this.profileId = val.split("#")[0];
+        this.fqm = val.split("#")[1];
+
+      }
+      this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => {
+        let that = this;
+        data.map(function (val) {
+          that.modifyData(val);
+        })
+        this.businessTransMethodInfo = data;
+        this.openMethodDialog();
+      });
+    });
   }
 
   arrStringLabelReturnType: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception', 'Invocation'];
@@ -198,7 +220,8 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    this.loadBTMethodData();
+    if(this.flag)
+     this.loadBTMethodData();
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
@@ -227,6 +250,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   /** this method used for open dialog for add Method Business Transaction */
   openMethodDialog() {
     this.businessTransMethodDetail = new BusinessTransMethodData();
+    this.businessTransMethodDetail.fqm = this.fqm;
     this.btMethodRulesDetail = new RulesData();
     this.methodRulesInfo = [];
     this.methodArgRulesInfo = [];
@@ -941,6 +965,11 @@ export class MethodBTConfigurationComponent implements OnInit {
       // this.businessTransMethodInfo.push(data)
       this.modifyData(data);
       this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
+      if(!this.flag){
+        this.configKeywordsService.saveBusinessTransMethodData(this.profileId)
+        .subscribe(data => {
+      })
+      }
       this.configUtilityService.successMessage(addMessage);
     });
     this.addBusinessTransMethodDialog = false;
