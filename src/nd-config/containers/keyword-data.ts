@@ -11,3 +11,16 @@ export class KeywordData {
 export class KeywordList{
 
 }
+
+export class UserConfiguredKeywords{
+    defaultValue: any;
+    keyId: number;
+    max: any = '';
+    min: any = '';
+    path?: string;
+    desc: string = '';
+    keyName: string;
+    kmdId: number;
+    agentMode: any;
+    type: string = "user-configured";
+}

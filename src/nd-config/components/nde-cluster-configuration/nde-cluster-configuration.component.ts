@@ -294,8 +294,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
 
   // To save/edit NDE Routing Rules
   saveNDERoutingRules() {
-    console.log("req -  ", this.ndeRoutingRulesData)
-    this.ndeRoutingRulesInfo
 
     // Get NDE object from NDE server name
     this.configKeywordsService.getNDEServerFromNDEName(this.ndeRoutingRulesData.nde.name).subscribe(res => {

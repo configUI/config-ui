@@ -394,3 +394,10 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
   export const DELETE_NDE_ROUTING_RULES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/deletenderoutingrules`;
   export const EDIT_NDE_ROUTING_RULES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/editnderoutingrules`;
 
+  /** URL for User configured Custom keywords */
+  export const SAVE_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/saveuserconfiguredkeywords`;
+  export const GET_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/getuserconfiguredkeywords`;
+  export const DELETE_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/deleteuserconfiguredkeywords`;
+  export const GET_CUSTOM_KEYWORDS_LIST = `${SERVICE_URL}/custom/customkeywords/getcustomkeywordslist`;
+
+

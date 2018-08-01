@@ -66,7 +66,7 @@ export class CustomKeywordsComponent implements OnInit {
   customKeywordData:boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
-
+    this.getCustomKeywordList();
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.agentType = sessionStorage.getItem("agentType");
       this.createDataForTable(data)
@@ -98,7 +98,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
-      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'pre-custom')) {
+      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'pre-custom' || data[key]['type'] == 'user-configured')) {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
         this.customKeywords.keywordName = key;
@@ -108,7 +108,7 @@ export class CustomKeywordsComponent implements OnInit {
         tableData.push(this.customKeywords);
         // this.customKeywordsList.push({ 'value': key, 'label': key});
       }
-      else if (data[key]['type'] == 'pre-custom' || data[key]['type'] == 'custom') {
+      else if (data[key]['type'] == 'pre-custom' || data[key]['type'] == 'custom' || data[key]['type'] == 'user-configured') {
         //  this.customKeywordsList.push({ 'value': key, 'label': key});
       }
     }
@@ -521,5 +521,28 @@ openDownloadReports(res) {
  /* change Browse boolean value on change component */
  ngOnDestroy() {
    this.isCustomConfigurationBrowse = false;
+ }
+
+
+
+
+
+
+ getCustomKeywordList(){
+   this.configKeywordsService.getCustomKeywordsList().subscribe(data => {
+     console.log("custom keywords list -- " , data);
+    for(let keyword in data){
+      console.log("keywords " , keyword)
+      // let bitValueOfComponent = parseInt(keyword.agentMode).toString(2);
+      // let bitValueOfComponent = bitValueOfComponent.split("").reverse().join("");
+      // // this.objTierGroup.selectedComponentList = [];
+      // for (let i = 0; i < bitValueOfComponent.length; i++) {
+      //     if (bitValueOfComponent[i] == "1") {
+      //         arrComponentValue.push(i);
+      //     }
+      // }
+    }
+     this.javaCustomKeywordsList
+   })
  }
 }

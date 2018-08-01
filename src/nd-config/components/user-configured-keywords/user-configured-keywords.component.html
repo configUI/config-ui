@@ -1,0 +1,141 @@
+<div class='tabs-all'>
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="BCI Keywords" [selected]="index == 0">
+      <div id=top-div>
+        <p-dataTable class="nde-ui config-ui" [value]="usrConfiguredKeyList" [(selection)]="selectedUsrConfKeyList">
+          <p-header>
+            <span class="configui-float-css">User Configured Keywords List
+            </span>
+            <span class="configui-float">
+              <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+              <button pButton type="button" title="Add Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+              <button pButton type="button" title="Add Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserDialog()"
+                icon="fa-plus"></button>
+              <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+                icon="fa-trash"></button>
+              <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+                (click)="deleteUserKeywords()" icon="fa-trash"></button>
+
+            </span>
+          </p-header>
+          <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+          <p-column class="tableCss" field="keyName" header="Name" [sortable]="true">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
+              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </template>
+          </p-column>
+          <p-column class="tableCss" field="defaultValue" header="Default Value" [sortable]="true">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
+              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </template>
+          </p-column>
+          <p-column class="tableCss" field="agentMode" header="Agent" [sortable]="true">
+            <template let-col let-key="rowData" pTemplate>
+              <span title="Java" *ngIf="key['agentMode'] == '1' || key['agentMode'] == '3' || key['agentMode'] == '5' || key['agentMode'] == '7'">
+                <i class="icon ndegui-java java-color"></i>
+              </span>
+              <span title="NodeJS" *ngIf="key['agentMode'] == '2' || key['agentMode'] == '3' || key['agentMode'] == '6' || key['agentMode'] == '7'">
+                <i class="icon ndegui-nodejs nodejs-color"></i>
+              </span>
+              <span title="Dot Net" *ngIf="key['agentMode'] == '4' || key['agentMode'] == '5' || key['agentMode'] == '6' || key['agentMode'] == '7'">
+                <i class="icon ndegui-dotnet dotnet-color"></i>
+              </span>
+            </template>
+          </p-column>
+        </p-dataTable>
+        <!-- Download reports as PDF,Excel and Word File  -->
+        <div style="margin-top:5px">
+          <label>Download Reports as: </label>
+          <span>
+            <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")'
+              src='./images/iconWord.gif'>
+          </span>
+          <span>
+            <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")'
+              src='./images/iconExcel.gif'>
+          </span>
+          <span>
+            <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")'
+              src='./images/iconPDF.gif'>
+          </span>
+        </div>
+      </div>
+      <!-- Dialog for user configured keywords-->
+      <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Keyword' : 'Edit Keyword'}}" *ngIf="userDialog" [(visible)]="userDialog"
+        modal="modal" width="550" responsive="true" [resizable]="false">
+        <form (ngSubmit)="saveUserKeywords()" #groupForm="ngForm" ngNativeValidate>
+          <div class="ui-g-12">
+            <div class="ui-g-2">
+              <label>Name</label>
+            </div>
+            <div class="ui-g-4">
+              <input name="keyName" type="text" pInputText [(ngModel)]="usrConfiguredKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required
+                ngModel/>
+            </div>
+            <div class="ui-g-2">
+              <label>Agent</label>
+            </div>
+            <div class="ui-g-4">
+              <input name="agentMode" type="text" class='hidden-validator' [(ngModel)]="agentMode" pInputText required ngModel/>
+              <p-multiSelect name="agentMode" class="multiselectdropReqResp headerhttpres nde-ui" appendTo="body" [style]="{'width': '100%'}" [options]="agentList"
+                [(ngModel)]="agentMode"></p-multiSelect>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-2">
+              <label>Type</label>
+            </div>
+            <div class="ui-g-4">
+              <input name="kmdId" type="text" class='hidden-validator' pInputText [(ngModel)]="usrConfiguredKeyDetail.kmdId" required ngModel/>
+              <p-dropdown name="kmdId" [options]="keywordTypeList" [style]="{'width':'100%'}" [(ngModel)]="usrConfiguredKeyDetail.kmdId"
+                placeholder="--Select--" appendTo="body"></p-dropdown>
+            </div>
+            <div class="ui-g-2">
+              <label>Default Value</label>
+            </div>
+            <div class="ui-g-4" *ngIf="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'">
+              <input name="defaultValue" [disabled]="usrConfiguredKeyDetail.kmdId == undefined" type="text" pInputText [(ngModel)]="usrConfiguredKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
+                required ngModel/>
+            </div>
+            <div class="ui-g-4" *ngIf="usrConfiguredKeyDetail.kmdId == '2' || usrConfiguredKeyDetail.kmdId == '3' || usrConfiguredKeyDetail.kmdId == '4'">
+                <input name="defaultValue" [disabled]="usrConfiguredKeyDetail.kmdId == undefined" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
+                 required ngModel/>
+              </div>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="ui-g-2">
+              <label>Min Value</label>
+            </div>
+            <div class="ui-g-4">
+              <input name="min" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.min" required ngModel/>
+            </div>
+            <div class="ui-g-2">
+              <label>Max Value</label>
+            </div>
+            <div class="ui-g-4">
+              <input name="max" type="number" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" pInputText [(ngModel)]="usrConfiguredKeyDetail.max" required ngModel/>
+            </div>
+          </div>
+          <div class="ui-g">
+            <div class="ui-g-2">
+              <label>Description</label>
+            </div>
+            <div class="ui-g-9">
+              <textarea name="Desc" rows="2" cols="50" pInputTextarea [(ngModel)]="usrConfiguredKeyDetail.desc" ngModel></textarea>
+            </div>
+          </div>
+          <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+              <button type="submit" pButton icon="fa-check" label="Save"></button>
+              <button type="button" pButton icon="fa-close" (click)="userDialog=false" label="Cancel"></button>
+            </div>
+          </footer>
+        </form>
+      </p-dialog>
+    </p-tabPanel>
+    <p-tabPanel header="NDC Keywords" [selected]="index == 1">
+      sss
+    </p-tabPanel>
+  </p-tabView>
+</div>

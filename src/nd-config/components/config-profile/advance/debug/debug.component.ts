@@ -26,12 +26,9 @@ export class DebugComponent {
   className: string = "DebugComponent";
   keywordsData: Keywords;
   /**These are those keyword which are used in current screen. */
-  keywordList = ['enableBciDebug',
-                  'enableBciError',
-                  'InstrTraceLevel',
-                  'ndMethodMonTraceLevel', 
-                  'captureErrorLogs'  // its value = 0/1/2  related to capturing exception related logs
-                  ];
+  NodeJSkeywordList = ['enableBciDebug','ndMethodMonTraceLevel'];
+  //captureErrorLogs : its value = 0/1/2  related to capturing exception related logs
+  javakeywordList = ['enableBciDebug','enableBciError','InstrTraceLevel','ndMethodMonTraceLevel','captureErrorLogs','ndMBeanMonTraceLevel'];
 
   /**It stores keyword data for showing in GUI */
   debug: Object;
@@ -41,11 +38,21 @@ export class DebugComponent {
   subscription: Subscription;
  // subscriptionEG: Subscription;
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
-
     this.agentType = sessionStorage.getItem("agentType");    
+    if(this.agentType == 'Java'){
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        var keywordDataVal = {}
+        this.javakeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.debug = keywordDataVal;
+        console.log(this.className, "constructor", "this.debug", this.debug);
+      });
+    }
+    else{
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
-      this.keywordList.map(function (key) {
+      this.NodeJSkeywordList.map(function (key) {
         keywordDataVal[key] = data[key];
       })
       this.debug = keywordDataVal;
@@ -53,6 +60,7 @@ export class DebugComponent {
     });
    // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.debug.enable);
     this.configKeywordsService.toggleKeywordData();
+  }
   }
 
   ngOnInit() {
@@ -63,26 +71,43 @@ export class DebugComponent {
 
   saveKeywordData() {
     this.keywordData.emit(this.debug);
-
   }
   //Method to reset the default values of the keywords
   resetKeywordData() {
     let data = this.configKeywordsService.keywordData;
+    if(this.agentType == 'Java'){
+      for (let key in data) {
+        if (this.javakeywordList.includes(key)) {
+          this.debug[key].value = data[key].value;
+        }
+      }
+    }
+    else {
     for (let key in data) {
-      if (this.keywordList.includes(key)) {
+      if (this.NodeJSkeywordList.includes(key)) {
         this.debug[key].value = data[key].value;
       }
     }
+  }
 
   }
  /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
      let data = this.configKeywordsService.keywordData;
+     if(this.agentType == 'Java'){
+      for (let key in data) {
+        if (this.javakeywordList.includes(key)) {
+          this.debug[key].value = data[key].defaultValue;
+        }
+      }
+     }
+     else {
      for (let key in data) {
-       if (this.keywordList.includes(key)) {
+       if (this.NodeJSkeywordList.includes(key)) {
          this.debug[key].value = data[key].defaultValue;
        }
      }
+    }
   }
 /**
  * Purpose : To invoke the service responsible to open Help Notification Dialog 
