@@ -205,7 +205,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (107,'correlateEventCallback','0','512','5','0','normal'),
 (108,'enableWaitSyncQueueTime','0','1','2','1','pre-custom'),
 (109,'enableCaptureNetDelay','0','1','2','0','normal'),
-(110,'enableFPMethodStackTrace','0','512','5','0%205%205%205%2010%200','normal');
+(110,'enableFPMethodStackTrace','0','512','5','0%205%205%205%2010%200','normal'),
+(111,'enableJavaGCMonitor','0','1','2','0','normal'),
+(112,'ndMBeanMonTraceLevel','0','6','2','0','normal');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
@@ -307,17 +309,11 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (68,'WS end point','com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.writeSOAPAction(Ljava/util/Map;Ljava/lang/String;)V','writeSOAPAction(Map,String)',2,false,'-','Java'),
 (69,'WS end point','com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.writeSOAPAction(Ljava/util/Map;Ljava/lang/String;Lcom/sun/xml/internal/ws/api/message/Packet;)V','writeSOAPAction(Map,String,Packet)(i.e Lcom/sun/xml/internal/ws/api/message/Packet;)',2,false,'-','Java'),
 (70,'HTTP end point for dot net','System.Net.HttpWebRequest.GetResponse','HttpWebRequest.GetResponse',16,false,'System.dll','Dot Net'),
-(71,'HTTP end point for dot net','System.Net.HttpWebRequest.BeginGetRequestStream', 'HttpWebRequest.BeginGetRequestStream' ,16, false,'System.dll','Dot Net'),
+(71,'HTTP end point for dot net','System.Net.HttpWebRequest.BeginGetRequestStream', 'HttpWebRequest.BeginGetRequestStream' ,18, false,'System.dll','Dot Net'),
 (72,'HTTP end point for dot net','System.Net.HttpWebRequest.BeginGetResponse','HttpWebRequest.BeginGetResponse',16,false,'System.dll','Dot Net'),
 (73,'HTTP end point for dot net','System.Net.HttpWebRequest.EndGetResponse','HttpWebRequest.EndGetResponse',16,false,'System.dll','Dot Net'),
-(74,'HTTP end point for dot net','System.Net.HttpWebRequest.GetRequestStream','HttpWebRequest.GetRequestStream',16,false,'System.dll','Dot Net'),
-(75,'SQL call for dot net','System.Data.SqlClient.SqlCommand.ExecuteReader','SqlCommand.ExecuteReader',17,false,'System.Data.dll','Dot Net'),
-(76,'HTTP end point for dot net','System.Data.SqlClient.SqlCommand.ExecuteScalar', 'SqlCommand.ExecuteScalar' ,17, false,'System.Data.dll','Dot Net'),
-(77,'SQL call for dot net','System.Data.SqlClient.SqlCommand.ExecuteNonQuery','SqlCommand.ExecuteNonQuery',17,false,'System.Data.dll','Dot Net'),
-(78,'SQL call for dot net','System.Data.SqlClient.SqlCommand.ExecuteDbDataReader','SqlCommand.ExecuteDbDataReader',17,false,'System.Data.dll','Dot Net'),
-(79,'SQL call for dot net','System.Data.SqlClient.SqlCommand.FinishExecuteReader','SqlCommand.FinishExecuteReader',17,false,'System.Data.dll','Dot Net'),
+(74,'HTTP end point for dot net','System.Net.HttpWebRequest.GetRequestStream','HttpWebRequest.GetRequestStream',18,false,'System.dll','Dot Net'),
 (80,'SQL call for dot net','System.Data.SqlClient.SqlCommand.RunExecuteReader','SqlCommand.RunExecuteReader',17,false,'System.Data.dll','Dot Net'),
-(81,'SQL call for dot net','System.Data.SqlClient.SqlCommand.RunExecuteReaderTds','SqlCommand.RunExecuteReaderTds',17,false,'System.Data.dll','Dot Net'),
 (82,'SQL call for dot net','System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery','SqlCommand.InternalExecuteNonQuery',17,false,'System.Data.dll','Dot Net'),
 (83,'ASYNC call for dot net','System.Web.HttpApplication.ExecuteStep','HttpApplication.ExecuteStep',18,false,'System.Web.dll','Dot Net'),
 (84,'ASYNC call for dot net','System.Runtime.IOThreadScheduler.ScheduleCallbackLowPriNoFlow','IOThreadScheduler.ScheduleCallbackLowPriNoFlow',18,false,'System.ServiceModel.Internals.dll','Dot Net'),
@@ -404,8 +400,9 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (165,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.failed(Ljava/lang/Exception;)Z','BasicFuture.failed(Exception)Z',1,false,'-','Java'),
 (166,'Async HTTP Backend','org.apache.http.impl.nio.client.InternalHttpAsyncClient.execute(Lorg/apache/http/nio/protocol/HttpAsyncRequestProducer;Lorg/apache/http/nio/protocol/HttpAsyncResponseConsumer;Lorg/apache/http/protocol/HttpContext;Lorg/apache/http/concurrent/FutureCallback;)Ljava/util/concurrent/Future;','InternalHttpAsyncClient.execute(HttpAsyncRequestProducer,HttpAsyncResponseConsumer,HttpContext,FutureCallback)',1,false,'-','Java'),
 (167,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.finishSetup()V','HTable.finishSetup()V',8,false,'-','Java'),
-(168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java');
-
+(168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java'),
+(169,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteReader','OracleCommand.ExecuteReader',17,false,'System.Data.OracleClient.dll','Dot Net'),
+(170,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteNonQueryInternal','OracleCommand.ExecuteNonQueryInternal',17,false,'System.Data.OracleClient.dll','Dot Net');
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
 (1,true,false,false,false,false,false,false,false,false,false,false,false,false,1,1),
@@ -510,13 +507,7 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (72,true,72,888888),
 (73,true,73,888888),
 (74,true,74,888888),
-(75,false,75,888888),
-(76,true,76,888888),
-(77,true,77,888888),
-(78,true,78,888888),
-(79,false,79,888888),
 (80,true,80,888888),
-(81,false,81,888888),
 (82,true,82,888888),
 (83,true,83,888888),
 (84,true,84,888888),
@@ -603,7 +594,9 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (165,true,165,1),
 (166,true,166,1),
 (167,false,167,1),
-(168,false,168,1);
+(168,false,168,1),
+(169,true,169,888888),
+(170,true,170,888888);
 
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
