@@ -118,20 +118,19 @@
 
         </div>
         <div class="ui-g">
-            <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true">
+            <p-fieldset legend="Advance Settings" [toggleable]="true" [collapsed]="true" [style]="{'width':'110%'}">
                 <div class="ui-g-12">
                     <div class="ui-g-2">
                         <label>WS Port</label>
                     </div>
-                    <div class="ui-g-3">
-                        <input name="wsPort" type="text" pattern="[0-9]*" pInputText [(ngModel)]="ndeData.wsPort" ngModel />
+                    <div class="ui-g-4">
+                        <input name="wsPort" size=16 type="text" pattern="[0-9]*" pInputText [(ngModel)]="ndeData.wsPort" ngModel />
                     </div>
-                    <div class="ui-g-1"></div>
                     <div class="ui-g-2">
                         <label>WSS Port</label>
                     </div>
-                    <div class="ui-g-3">
-                        <input name="wssPort" type="text" pattern="[0-9]*" pInputText [(ngModel)]="ndeData.wssPort" ngModel />
+                    <div class="ui-g-4">
+                        <input name="wssPort" size=16 type="text" pattern="[0-9]*" pInputText [(ngModel)]="ndeData.wssPort" ngModel />
                     </div>
                 </div>
 

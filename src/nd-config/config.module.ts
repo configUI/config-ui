@@ -153,6 +153,7 @@ import { AlertConfigService } from './services/alert-config-service';
 import { HelpComponent } from './components/config-help/config-help.component';
 import { EventCorrelationComponent } from './components/config-profile/general/event-correlation/event-correlation.component';
 import { NDEClusterConfiguration, PipeForObject } from './components/nde-cluster-configuration/nde-cluster-configuration.component';
+import { UserConfiguredKeywordComponent } from './components/user-configured-keywords/user-configured-keywords.component';
 
 @NgModule({
   declarations: [
@@ -227,7 +228,8 @@ import { NDEClusterConfiguration, PipeForObject } from './components/nde-cluster
     HelpComponent,
     EventCorrelationComponent,
     NDEClusterConfiguration,
-    PipeForObject
+    PipeForObject,
+    UserConfiguredKeywordComponent
   ],
   imports: [
    // CommonModule,

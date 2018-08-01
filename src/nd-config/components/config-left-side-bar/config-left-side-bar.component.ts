@@ -57,6 +57,7 @@ export class ConfigLeftSideBarComponent implements OnInit {
             { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "ndeicon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
 	          { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover`, icon: "ndeicon ndegui-auto-discover", tooltip: "Instrumentation Finder" },
             { label: "NDE Cluster Configuration", route: `${ROUTING_PATH}/nde-cluster-config`, icon: "ndeicon ndegui-cluster", tooltip: "NDE Cluster Configuration" },
+            { label: "User Configured Keywords", route: `${ROUTING_PATH}/user-configured-keywords`, icon: "ndeicon ndegui-cluster", tooltip: "User Configured Keywords" },
             { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
           ];
         
