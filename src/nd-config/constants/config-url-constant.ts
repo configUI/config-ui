@@ -1,6 +1,7 @@
-//   const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+//  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 //  const  SERVICE_URL = 'https://10.10.40.14/configUI';
  const  SERVICE_URL = 'http://localhost:8090';
+
 
 //For Production use this SERVICE_URL
 //  const SERVICE_URL = '/configUI';
@@ -320,6 +321,8 @@ export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/geta
 /* NDC Keyword URL */
 export const GET_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/getncdkeyworddata`;
 export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddata`;
+export const DELETE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/deletendckeyworddata`;
+export const SAVE_NDC_KEYWORDS_ON_FILE = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddataonfile`;
 
 /* URL for auto-instrumentation */
 export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/applyautoinstrumentation`;
@@ -390,4 +393,11 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
   export const GET_ND_ROUTING_RULES_DATA_URL = `${SERVICE_URL}/custom/ndeclusterconfig/getnderoutingrules`;
   export const DELETE_NDE_ROUTING_RULES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/deletenderoutingrules`;
   export const EDIT_NDE_ROUTING_RULES_URL = `${SERVICE_URL}/custom/ndeclusterconfig/editnderoutingrules`;
+
+  /** URL for User configured Custom keywords */
+  export const SAVE_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/saveuserconfiguredkeywords`;
+  export const GET_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/getuserconfiguredkeywords`;
+  export const DELETE_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/deleteuserconfiguredkeywords`;
+  export const GET_CUSTOM_KEYWORDS_LIST = `${SERVICE_URL}/custom/customkeywords/getcustomkeywordslist`;
+
 

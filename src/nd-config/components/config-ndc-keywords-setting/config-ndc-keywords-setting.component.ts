@@ -9,6 +9,8 @@ import { KeywordData, KeywordList } from '../../containers/keyword-data';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NDC_KEYWORD_DATA } from '../../reducers/ndc-keyword-reducer';
 import { ConfigUiUtility, cloneObject } from '../../utils/config-utility';
+import { NDCCustomKeywordsComponentData } from '../../containers/instrumentation-data';
+import { customKeywordMessage } from '../../constants/config-constant';
 
 
 @Component({
@@ -22,6 +24,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     ndcKeywordData = new EventEmitter();
 
     ndcKeywords: Object;
+
+    custom_keywords: Object;
 
     subscription: Subscription;
 
@@ -51,7 +55,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     NDP_SEQ_BLOB_IN_FILE_FLAG_VAL;
     NDP_SEQ_BLOB_IN_FILE_FLAG_VER;
     NDP_SEQ_BLOB_IN_FILE_FLAG_SIZE;
-    
+
     //Variables for values of NDC_HS_ST_IN_FILE_FLAG keyword
     NDC_HS_ST_IN_FILE_FLAG_VAL;
     NDC_HS_ST_IN_FILE_FLAG_VER;
@@ -67,7 +71,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     timestamp2;
     seqNo1;
     seqNo2;
-    
+
     //Dropdown values containing A and B
     version;
 
@@ -115,7 +119,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION',
         'NDC_DATA_THD_TERM_RETRY_COUNT',
         'NDC_DATA_THD_TERM_RETRY_INTERVAL_MSEC',
-       // 'SND_RESP_TO_BCI_ON_DATA_CONN',
+        // 'SND_RESP_TO_BCI_ON_DATA_CONN',
         'NDC_LOG_BCI_AGGREGATE_RAW_DATA',
         // 'NDDBU_TRACE_LEVEL',
         'NDP_SEQ_BLOB_IN_FILE_FLAG',
@@ -147,7 +151,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'ND_FPI_MASK',
         'ND_ENABLE_MONITOR_LOG',
         'NDP_MAX_ENTRY_EXIT_RECORDS_IN_AN_FP_EX2',
-	// 'ENABLE_AUTO_SCALING',
+        // 'ENABLE_AUTO_SCALING',
         'NDC_MODIFY_TOPO_ENTRY',
         'NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC',
         'NDP_DEBUG_LOGLEVEL',
@@ -168,18 +172,36 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
 
     appId: number;
     isAppPerm: boolean;
-    dropDownLabel= ['hr','min','sec'];
-    dropDownValue =['hr','min','sec'];
-    dropDownOption =  [];
-    selectedFormat : any
-    enableAutoCleanUp :boolean =true;
+    dropDownLabel = ['hr', 'min', 'sec'];
+    dropDownValue = ['hr', 'min', 'sec'];
+    dropDownOption = [];
+    selectedFormat: any
+    enableAutoCleanUp: boolean = true;
+
+    /* Below are the keywords used to handle custom keywords */
+    addEditDialog: boolean = false;
+    isNew: boolean = false;
+    //list holding keywordsNameList
+    customKeywordsList = [];
+
+    /**It stores custom keywords data */
+    customKeywordsDataList: NDCCustomKeywordsComponentData[];
+
+    /**It stores selected method monitor data for edit or add method-monitor */
+    customKeywords: NDCCustomKeywordsComponentData;
+
+    /**It stores selected custom keywords data */
+    selectedCustomKeywordsData: NDCCustomKeywordsComponentData[];
+
+    message: string;
 
     constructor(private _configUtilityService: ConfigUtilityService,
         private confirmationService: ConfirmationService,
         private _configKeywordsService: ConfigKeywordsService,
         private router: Router,
         private route: ActivatedRoute,
-        private store: Store<KeywordList>) {
+        private store: Store<KeywordList>,
+        private configUtilityService: ConfigUtilityService) {
 
         //Getting aplication's Id from URL
         this.route.params.subscribe((params: Params) => {
@@ -197,15 +219,15 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dropDownOption= ConfigUiUtility.createListWithKeyValue(this.dropDownValue,this.dropDownLabel);
-        this.isAppPerm=+sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
+        this.dropDownOption = ConfigUiUtility.createListWithKeyValue(this.dropDownValue, this.dropDownLabel);
+        this.isAppPerm = +sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
         // Getting data on Initial Load
         this.getNDCKeywords();
         this.loadDropDownVal();
     }
 
     //Loads dropdown data 
-    loadDropDownVal(){
+    loadDropDownVal() {
         this.version = [];
         var val = ['A', 'B'];
         var key = ['Uncompressed', 'Compressed'];
@@ -218,8 +240,10 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     getNDCKeywords() {
         // Getting NDC keywords data from Server
         this._configKeywordsService.getNDCKeywords(this.appId).subscribe(data => {
+            this.createDataForTable(data)
             this.splitKeywords(data);
             this.ndcKeywords = data;
+            this.custom_keywords = data;
             this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
         });
     }
@@ -281,51 +305,51 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         //ND_FPI_MASK NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8
         if (data.ND_FPI_MASK.value.includes(":")) {
             let val = data.ND_FPI_MASK.value.split(";");
-            if(val[0].includes("NDEID")){
-            let ndeId = val[0].split(":");
-            this.ndeId1 = ndeId[1];
-            this.ndeId2 = ndeId[2];
+            if (val[0].includes("NDEID")) {
+                let ndeId = val[0].split(":");
+                this.ndeId1 = ndeId[1];
+                this.ndeId2 = ndeId[2];
             }
 
-            if(val[1].includes("AppID")){
-            let appId = val[1].split(":");
-            this.appId1 = appId[1];
-            this.appId2 = appId[2];
+            if (val[1].includes("AppID")) {
+                let appId = val[1].split(":");
+                this.appId1 = appId[1];
+                this.appId2 = appId[2];
             }
 
-            if(val[2].includes("TS")){
-            let ts = val[2].split(":");
-            this.timestamp1 = ts[1];
-            this.timestamp2 = ts[2];
+            if (val[2].includes("TS")) {
+                let ts = val[2].split(":");
+                this.timestamp1 = ts[1];
+                this.timestamp2 = ts[2];
             }
-            if(val[3].includes("SeqNo")){
-            let seqno = val[3].split(":");
-            this.seqNo1 = seqno[1];
-            this.seqNo2 = seqno[2];
+            if (val[3].includes("SeqNo")) {
+                let seqno = val[3].split(":");
+                this.seqNo1 = seqno[1];
+                this.seqNo2 = seqno[2];
             }
         }
-        if (data.NDC_THRESHOLD_TO_MARK_DELETED.value.includes(" ")){
+        if (data.NDC_THRESHOLD_TO_MARK_DELETED.value.includes(" ")) {
             let arr = data.NDC_THRESHOLD_TO_MARK_DELETED.value.split(" ");
-            if(arr[0] == 1){
+            if (arr[0] == 1) {
                 this.enableAutoCleanUp = true;
             }
-            if(arr[1].includes("h")){
+            if (arr[1].includes("h")) {
                 this.selectedFormat = "hr";
                 let arrtime = arr[1].split("h")
                 this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = +arrtime[0];
             }
-            else if(arr[1].includes("m")){
+            else if (arr[1].includes("m")) {
                 this.selectedFormat = "min";
                 let arrtime = arr[1].split("m")
-                this.NDC_THRESHOLD_TO_MARK_DELETED_VAL= +arrtime[0];
+                this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = +arrtime[0];
             }
-            else if(arr[1].includes("s")){
+            else if (arr[1].includes("s")) {
                 this.selectedFormat = "sec";
                 let arrtime = arr[1].split("s")
                 this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = +arrtime[0];
             }
         }
-        else{
+        else {
             this.enableAutoCleanUp = false;
             this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr";
@@ -335,26 +359,26 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
 
     //This function is responsible for saving Keywords value in DB
     saveNDCKeywords() {
-         if(this.enableAutoCleanUp){
-             if(this.selectedFormat == "hr")
-                this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "h";
-                else if(this.selectedFormat == "min")
-                     this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "m";
-                    else
-                        this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value ="1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "s";
+        if (this.enableAutoCleanUp) {
+            if (this.selectedFormat == "hr")
+                this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value = "1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "h";
+            else if (this.selectedFormat == "min")
+                this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value = "1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "m";
+            else
+                this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value = "1 " + this.NDC_THRESHOLD_TO_MARK_DELETED_VAL + "s";
         }
-        else{
-            this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value =0;
+        else {
+            this.ndcKeywords['NDC_THRESHOLD_TO_MARK_DELETED'].value = 0;
             this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr"
         }
-            // Saving Data to Server
-            this.ndcKeywords = this.joinKeywordsVal(this.ndcKeywords)
-            this._configKeywordsService.saveNDCKeywords(this.ndcKeywords, this.appId).subscribe(data => {
-                this.ndcKeywords = data;
-                this._configUtilityService.successMessage("Saved successfully")
-                this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
-            });
+        // Saving Data to Server
+        this.ndcKeywords = this.joinKeywordsVal(this.ndcKeywords)
+        this._configKeywordsService.saveNDCKeywords(this.ndcKeywords, this.appId, true).subscribe(data => {
+            this.ndcKeywords = data;
+            this._configUtilityService.successMessage("Saved successfully")
+            this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
+        });
     }
 
     //This method merges the value of those keywords which have more than one values
@@ -387,14 +411,14 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         return data;
     }
 
-      //Method to reset the default values of the keywords
-  resetKeywordData() {
-      this.getNDCKeywords()
-  }
+    //Method to reset the default values of the keywords
+    resetKeywordData() {
+        this.getNDCKeywords()
+    }
 
- /* This method is used to reset the keyword data to its Default value */
- resetKeywordsDataToDefault() {
-     // Getting NDC keywords data from Server
+    /* This method is used to reset the keyword data to its Default value */
+    resetKeywordsDataToDefault() {
+        // Getting NDC keywords data from Server
         this._configKeywordsService.getNDCKeywords(this.appId).subscribe(data => {
             var keywordDataVal = {}
             keywordDataVal = data
@@ -405,6 +429,122 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.ndcKeywords = keywordDataVal;
             // this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
         });
-}
+    }
+
+    createDataForTable(data) {
+        let tableData = [];
+        this.customKeywordsList = [];
+        for (let key in data) {
+            if (data[key]['assocId'] != -1 && (data[key]['type'] == 'NDP' || data[key]['type'] == 'NDC')) {
+                this.customKeywords = new NDCCustomKeywordsComponentData();
+                this.customKeywords.ndcKeyId = data[key]["ndcKeyId"];
+                this.customKeywords.keywordName = key;
+                this.customKeywords.value = data[key]["value"];
+                this.customKeywords.description = data[key]['desc'];
+                this.customKeywords.type = data[key]['type'];
+                this.customKeywords.assocId = data[key]["assocId"];
+                tableData.push(this.customKeywords);
+                this.customKeywordsList.push({ 'value': key, 'label': key });
+            }
+            else if (data[key]['type'] == 'ndc' || data[key]['type'] == 'ndp') {
+                this.customKeywordsList.push({ 'value': key, 'label': key });
+            }
+        }
+
+        this.customKeywordsDataList = tableData
+    }
+
+    /**For showing add  dialog */
+    openAddDialog(): void {
+        this.customKeywords = new NDCCustomKeywordsComponentData();
+        this.isNew = true;
+        this.addEditDialog = true;
+    }
+
+    /**For showing edit dialog */
+    openEditDialog(): void {
+        if (!this.selectedCustomKeywordsData || this.selectedCustomKeywordsData.length < 1) {
+            this.configUtilityService.errorMessage("Select a row to edit");
+            return;
+        }
+        else if (this.selectedCustomKeywordsData.length > 1) {
+            this.configUtilityService.errorMessage("Select only one row to edit");
+            return;
+        }
+        this.customKeywords = new NDCCustomKeywordsComponentData();
+        this.isNew = false;
+        this.addEditDialog = true;
+        this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
+    }
+
+    saveCustomKeywords() {
+        let keywordExistFlag = false;
+        //To check that keyword name already exists or not
+        if(this.customKeywordsDataList.length != 0){
+            for (let i = 0; i < this.customKeywordsDataList.length; i++) {
+                //checking (isNew) for handling the case of edit functionality
+                if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
+                    this.configUtilityService.errorMessage("Keyword name already exists");
+                    return;
+                }
+            }
+        }
+
+        for (let key in this.custom_keywords) {
+            if (key == this.customKeywords.keywordName) {
+                this.custom_keywords[key].value = this.customKeywords.value;
+                this.custom_keywords[key].desc = this.customKeywords.description;
+                keywordExistFlag = true;
+            }
+        }
+
+        if (this.isNew) {
+            this.message = "Added Successfully";
+        }
+        else {
+            this.message = "Edited Successfully";
+        }
+
+        if (!keywordExistFlag) {
+            this.configUtilityService.errorMessage(customKeywordMessage);
+            return;
+        }
+
+        this.isNew = false;
+        this.selectedCustomKeywordsData = [];
+        this._configKeywordsService.saveNDCKeywords(this.custom_keywords, this.appId, false).subscribe(data => {
+            this.custom_keywords = data;
+            this.createDataForTable(data);
+            this._configUtilityService.successMessage(this.message);
+            this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
+        });
+        this.addEditDialog = false;
+    }
+
+    // This method is used to delete(disable) the keyword
+    deleteCustomKeywords() {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete the selected row?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this._configKeywordsService.deleteNDCKeywords(this.selectedCustomKeywordsData, this.appId).subscribe(data => {
+                    if (data._body == "OK") {
+                        this.getNDCKeywords();
+                        this._configUtilityService.successMessage("Deleted successfully");
+                    }
+                });
+            },
+            reject: () => {
+            }
+        });
+    }
+
+    saveKeywordData(){
+        this._configKeywordsService.saveNDCKeywordsOnFile(this.custom_keywords, this.appId).subscribe(data => {
+            this.custom_keywords = data;
+            this._configUtilityService.successMessage("Saved Successfully");
+        });
+    }
 }
 

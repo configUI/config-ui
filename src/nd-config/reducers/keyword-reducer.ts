@@ -69,7 +69,9 @@ const DEFAULT_DATA = {"ASStackComparingDepth":{"defaultValue":"10","min":"0","ma
 "correlateEventCallback":{"defaultValue":"0","min":"0","max":"512","assocId":-1,"value":"0","keyId":107},
 "enableWaitSyncQueueTime":{"defaultValue":"1","min":"0","max":"1","assocId":-1,"value":"1","keyId":108},
 "enableCaptureNetDelay":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":109},
-"enableFPMethodStackTrace":{"defaultValue":"0%205%205%205%2010%200","min":"0","max":"512","assocId":-1,"value":"0%205%205%205%2010%200","keyId":110}
+"enableFPMethodStackTrace":{"defaultValue":"0%205%205%205%2010%200","min":"0","max":"512","assocId":-1,"value":"0%205%205%205%2010%200","keyId":110},
+"enableJavaGCMonitor":{"defaultValue":"0","min":"0","max":"1","assocId":-1,"value":"0","keyId":111},
+"ndMBeanMonTraceLevel":{"defaultValue":"0","min":"0","max":"6","assocId":-1,"value":"0","keyId":112}
 };
 
 export function keywordReducer(data: KeywordList, action: Action): KeywordList {

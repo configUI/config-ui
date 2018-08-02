@@ -55,8 +55,8 @@
                 <label>Name</label>
             </div>
             <div class="ui-g-8">
-                <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Profile name is of maximum 30 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,29}$" ngModel />
+                <input name="profileName" type="text" size="30" class="configUI-profile-dialog" pInputText [(ngModel)]="profileDetail.profileName" title="Please enter valid profile name. &#013;Profile name is of maximum 50 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,49}$" ngModel />
             </div>
         </div>
         <div class="ui-g">

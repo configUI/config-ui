@@ -372,7 +372,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             'leaf': false,
             'expanded': true,
             'children': [],
-            'icon': "instrumentation-profile ndegui-interface2"
+            'icon': "instrumentation-profile ndegui-interface"
           };
         }
 
@@ -387,7 +387,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             'leaf': false,
             'expanded': true,
             'children': [],
-            'icon': "instrumentation-profile ndegui-class1"
+            'icon': "instrumentation-profile ndegui-class2-1"
           };
         }
 

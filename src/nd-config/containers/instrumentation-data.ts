@@ -291,7 +291,16 @@ export class CustomKeywordsComponentData{
     value :string ;
     description: string;
     enable:boolean;
+    
+}
 
+export class NDCCustomKeywordsComponentData{
+    ndcKeyId:number;
+    keywordName :string;
+    value :string ;
+    description: string;
+    type: string;
+    assocId:number;
 }
 
 /** BT HTTP HEADERS  */

@@ -341,7 +341,7 @@ export class ConfigTreeDetailComponent implements OnInit {
             this.configUtilityService.successMessage("Current Server doesn't contains any Instance, Select other Server, Tier, Tier Group or Topology.");
           }
           if (data.length != 0) {
-            that.configTopologyService.getServerDisplayName(data[0].instanceId).subscribe(data2 => {
+            that.configTopologyService.getServerDisplayName(data[0].instanceId, +sessionStorage.getItem("topoId")).subscribe(data2 => {
               that.serverDisplayName = data2['_body'];
             })
           }
@@ -664,7 +664,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       console.log(this.className, "constructor", "MAKING RUNTIME CHANGES this.nodeData");
       const url = `${URL.RUNTIME_CHANGE_AUTO_INSTR}`;
       //Getting the type of AI process running(AI/DD)
-      this.configTopologyService.getInstanceDesc(id).subscribe(data => {
+      this.configTopologyService.getInstanceDesc(id, +sessionStorage.getItem("topoId")).subscribe(data => {
         desc = data['_body'].toString();
         //If radio button for AI is selected
         if (desc.endsWith("#AI"))
@@ -685,7 +685,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           //Check for successful RTC connection  
           if (data.length != 0 || !data[0]['contains']) {
             that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop", that.topologyName).subscribe(data => {
-              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,this.topologyName).subscribe(data => {
+              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,that.topologyName).subscribe(data => {
 
                 that.topologyData = data;
               });

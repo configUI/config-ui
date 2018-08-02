@@ -153,12 +153,12 @@ export class ConfigTopologyService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_AUTO_INSTR_DATA}/${appName}`, instanceName + "#" + sessionName);
   }
 
-  getServerDisplayName(instanceId: number): Observable<String> {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_SERVER_DIS_NAME}/${instanceId}`);
+  getServerDisplayName(instanceId: number, topoId: number): Observable<String> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_SERVER_DIS_NAME}/${instanceId}/${topoId}`);
   }
 
-  getInstanceDesc(instanceId: number): Observable<String> {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INST_DESC}/${instanceId}`);
+  getInstanceDesc(instanceId: number, topoId: number): Observable<String> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_INST_DESC}/${instanceId}/${topoId}`);
   }
 
 

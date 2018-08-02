@@ -1,3 +1,6 @@
+<div>
+    <app-method-bt-configuration></app-method-bt-configuration>
+</div>
 <div class="ui-g configUI">
     <fieldset>
         <div class="ui-g-12" style="padding:0px">
@@ -27,7 +30,10 @@
                     <button class="unInstrumentation-css" type="button" [disabled]="isAutoPerm" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument' style="width:122px"></button>
                 </div>
                 <div style="padding-top:5px;">
-                    <button type="button" (click)="createMethodAndValidateFQM()" pButton label=' Method Monitor ' style="width:122px"> </button>
+                    <button type="button" (click)="createMethodAndValidateFQM()" pButton label=' Method Monitor ' title="This feature is applicable only for the FQM(s) present in LHS Tree" style="width:122px"> </button>
+                </div>
+                <div style="padding-top:5px;">
+                    <button type="button" (click)="createMethodBTRule()" pButton label=' Method BT ' title="This feature is applicable only for the FQM(s) present in LHS Tree" style="width:122px"> </button>
                 </div>
             </div>
             <div class="ui-g-5">
@@ -52,7 +58,7 @@
 
 <!--Dialog to open select profile dialog -->
 <p-dialog class="profile-dialog" [style]="{'top':'120px'}" header="Select Profile" *ngIf="selectProfileDialog" [(visible)]="selectProfileDialog" modal="modal" width="500" responsive="true" [resizable]="false">
-        <form (ngSubmit)="saveMethodMonitorForSelectedProfile()" #groupForm="ngForm" ngNativeValidate>
+        <form (ngSubmit)="saveMethodMonitorForSelectedProfile(calledFor)" #groupForm="ngForm" ngNativeValidate>
           <div class="ui-g">
             <div class="ui-g-3">
                 <label>Profile Name</label>

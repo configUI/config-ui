@@ -19,11 +19,8 @@ export const INTEGRATION_TYPE = {
     REDIS:'Redis',
     MONGO:'Mongo',
     Cloudant_NoSQL : 'Cloudant NoSQL',
-    DBConnection: 'JDBC Connection',
     NEO4J: 'Neo4j DB Callout',
-    JMS_Active: 'JMS-Active',
-    JMS_Rabbit: 'JMS-Rabbit',
-    Async_HTTP: 'Async-HTTP'
+    JMS: 'JMS'
 }
 
 export const Messages = "Saved Successfully";

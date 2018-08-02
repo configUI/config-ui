@@ -16,6 +16,7 @@ import { ServiceEntryPoint, IntegrationPT, EndPoint, ErrorDetection, MethodMonit
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
+import { UserConfiguredKeywords } from '../containers/keyword-data';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 import { ConfigUtilityService } from '../services/config-utility.service';
 import { Messages, customKeywordMessage } from '../constants/config-constant'
@@ -654,10 +655,19 @@ export class ConfigKeywordsService {
   }
 
   /* Save NDC Keywords data */
-  saveNDCKeywords(data, appId): Observable<any[]> {
-    return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS}/${appId}`, data);
+  saveNDCKeywords(data, appId, flag): Observable<any[]> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS}/${appId}/${flag}`, data);
   }
 
+  /* Delete applied NDC Keywords data */
+  deleteNDCKeywords(data, appId): Observable<any> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_NDC_KEYWORDS}/${appId}`, data);
+  }
+
+    /* Save NDC Keywords data on file */
+    saveNDCKeywordsOnFile(data, appId): Observable<any[]> {
+      return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS_ON_FILE}/${appId}`, data);
+    }
 
   /** This method is for auto instrumetation */
   getRemovedPackageData(textFile, reqId) {
@@ -840,6 +850,22 @@ export class ConfigKeywordsService {
 
   editNDERoutingRules(data): Observable<NDERoutingRules>{
     return this._restApi.getDataByPostReq(`${URL.EDIT_NDE_ROUTING_RULES_URL}/${data.id}`, data)
+  }
+
+  saveUserConfiguredKeywords(data): Observable<UserConfiguredKeywords>{
+    return this._restApi.getDataByPostReq(`${URL.SAVE_USER_CONFIGURED_KEYWORDS}`, data)
+  }
+
+  getUserConfiguredKeywords(): Observable<UserConfiguredKeywords[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_USER_CONFIGURED_KEYWORDS}`)
+  }
+
+  deleteUserConfiguredKeywords(data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.DELETE_USER_CONFIGURED_KEYWORDS}`, data)
+  }
+
+  getCustomKeywordsList(): Observable<any[]>{
+    return this._restApi.getDataByGetReq(`${URL.GET_CUSTOM_KEYWORDS_LIST}`)
   }
 
 }
