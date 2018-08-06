@@ -321,6 +321,8 @@ export const GET_ACTIVITY_LOG_DATA = `${SERVICE_URL}/custom/userActivityLog/geta
 /* NDC Keyword URL */
 export const GET_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/getncdkeyworddata`;
 export const SAVE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddata`;
+export const DELETE_NDC_KEYWORDS = `${SERVICE_URL}/custom/ndckeywordsetting/deletendckeyworddata`;
+export const SAVE_NDC_KEYWORDS_ON_FILE = `${SERVICE_URL}/custom/ndckeywordsetting/savendckeyworddataonfile`;
 
 /* URL for auto-instrumentation */
 export const APPLY_AUTO_INSTR = `${SERVICE_URL}/custom/autoinstrumentation/applyautoinstrumentation`;

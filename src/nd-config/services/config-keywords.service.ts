@@ -655,10 +655,19 @@ export class ConfigKeywordsService {
   }
 
   /* Save NDC Keywords data */
-  saveNDCKeywords(data, appId): Observable<any[]> {
-    return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS}/${appId}`, data);
+  saveNDCKeywords(data, appId, flag): Observable<any[]> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS}/${appId}/${flag}`, data);
   }
 
+  /* Delete applied NDC Keywords data */
+  deleteNDCKeywords(data, appId): Observable<any> {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_NDC_KEYWORDS}/${appId}`, data);
+  }
+
+    /* Save NDC Keywords data on file */
+    saveNDCKeywordsOnFile(data, appId): Observable<any[]> {
+      return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS_ON_FILE}/${appId}`, data);
+    }
 
   /** This method is for auto instrumetation */
   getRemovedPackageData(textFile, reqId) {
