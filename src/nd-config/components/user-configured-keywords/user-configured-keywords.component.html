@@ -1,10 +1,10 @@
 <div class='tabs-all'>
   <p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="BCI Keywords" [selected]="index == 0">
+    <p-tabPanel header="Agent Settings" [selected]="index == 0">
       <div id=top-div>
         <p-dataTable class="nde-ui config-ui" [value]="usrConfiguredKeyList" [(selection)]="selectedUsrConfKeyList">
           <p-header>
-            <span class="configui-float-css">User Configured Keywords List
+            <span class="configui-float-css">User Configured Keyword(s) List
             </span>
             <span class="configui-float">
               <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
@@ -29,7 +29,7 @@
               <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
             </template>
           </p-column>
-          <p-column class="tableCss" field="agentMode" header="Agent" [sortable]="true">
+          <p-column class="tableCss" field="agentMode" header="Supported Agent(s)" [sortable]="true">
             <template let-col let-key="rowData" pTemplate>
               <span title="Java" *ngIf="key['agentMode'] == '1' || key['agentMode'] == '3' || key['agentMode'] == '5' || key['agentMode'] == '7'">
                 <i class="icon ndegui-java java-color"></i>
@@ -43,22 +43,6 @@
             </template>
           </p-column>
         </p-dataTable>
-        <!-- Download reports as PDF,Excel and Word File  -->
-        <div style="margin-top:5px">
-          <label>Download Reports as: </label>
-          <span>
-            <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file" (click)='downloadReports("WordFile")'
-              src='./images/iconWord.gif'>
-          </span>
-          <span>
-            <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file" (click)='downloadReports("ExcelFile")'
-              src='./images/iconExcel.gif'>
-          </span>
-          <span>
-            <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file" (click)='downloadReports("PDFFile")'
-              src='./images/iconPDF.gif'>
-          </span>
-        </div>
       </div>
       <!-- Dialog for user configured keywords-->
       <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Keyword' : 'Edit Keyword'}}" *ngIf="userDialog" [(visible)]="userDialog"
@@ -98,7 +82,7 @@
                 required ngModel/>
             </div>
             <div class="ui-g-4" *ngIf="usrConfiguredKeyDetail.kmdId == '2' || usrConfiguredKeyDetail.kmdId == '3' || usrConfiguredKeyDetail.kmdId == '4'">
-                <input name="defaultValue" [disabled]="usrConfiguredKeyDetail.kmdId == undefined" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
+                <input name="defaultValue" #defaultVal (input)="checkDefault(defaultVal)" [disabled]="usrConfiguredKeyDetail.kmdId == undefined" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
                  required ngModel/>
               </div>
           </div>
@@ -108,13 +92,13 @@
               <label>Min Value</label>
             </div>
             <div class="ui-g-4">
-              <input name="min" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.min" required ngModel/>
+              <input name="min" #min (input)="checkMin(min,max)" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.min" required ngModel/>
             </div>
             <div class="ui-g-2">
               <label>Max Value</label>
             </div>
             <div class="ui-g-4">
-              <input name="max" type="number" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" pInputText [(ngModel)]="usrConfiguredKeyDetail.max" required ngModel/>
+              <input name="max" #max (input)="checkMax(min,max)" type="number" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" pInputText [(ngModel)]="usrConfiguredKeyDetail.max" required ngModel/>
             </div>
           </div>
           <div class="ui-g">
@@ -134,7 +118,7 @@
         </form>
       </p-dialog>
     </p-tabPanel>
-    <p-tabPanel header="NDC Keywords" [selected]="index == 1">
+    <p-tabPanel header="NDC Settings" [selected]="index == 1">
       sss
     </p-tabPanel>
   </p-tabView>
