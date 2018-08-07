@@ -24,3 +24,14 @@ export class UserConfiguredKeywords{
     agentMode: any;
     type: string = "user-configured";
 }
+
+export class UserConfiguredNDCKeywords{
+    defaultValue: any;
+    keyId: number;
+    max: any = '';
+    min: any = '';
+    path?: string;
+    desc: string = '';
+    keyName: string;
+    type: string = "user-configured";
+}

@@ -17,6 +17,7 @@ import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { UserConfiguredKeywords } from '../containers/keyword-data';
+import { UserConfiguredNDCKeywords } from '../containers/keyword-data';
 import { httpReqHeaderInfo } from '../interfaces/httpReqHeaderInfo';
 import { ConfigUtilityService } from '../services/config-utility.service';
 import { Messages, customKeywordMessage } from '../constants/config-constant'
@@ -866,6 +867,24 @@ export class ConfigKeywordsService {
 
   getCustomKeywordsList(): Observable<any[]>{
     return this._restApi.getDataByGetReq(`${URL.GET_CUSTOM_KEYWORDS_LIST}`)
+  }
+
+  // For NDC keywords
+
+  saveUserConfiguredNDCKeywords(data): Observable<UserConfiguredNDCKeywords>{
+    return this._restApi.getDataByPostReq(`${URL.SAVE_USER_CONFIGURED_NDC_KEYWORDS}`, data)
+  }
+
+  getUserConfiguredNDCKeywords(): Observable<UserConfiguredNDCKeywords[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_USER_CONFIGURED_NDC_KEYWORDS}`)
+  }
+
+  deleteUserConfiguredNDCKeywords(data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.DELETE_USER_CONFIGURED_NDC_KEYWORDS}`, data)
+  }
+
+  getCustomNDCKeywordsList(): Observable<any[]>{
+    return this._restApi.getDataByGetReq(`${URL.GET_CUSTOM_NDC_KEYWORDS_LIST}`)
   }
 
   checkIfKeywordIsAssoc(data): Observable<any[]>{
