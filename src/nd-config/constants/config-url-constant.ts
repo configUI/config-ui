@@ -400,4 +400,11 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
   export const DELETE_USER_CONFIGURED_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/deleteuserconfiguredkeywords`;
   export const GET_CUSTOM_KEYWORDS_LIST = `${SERVICE_URL}/custom/customkeywords/getcustomkeywordslist`;
 
+ /** URL for User configured Custom NDC keywords */
+ export const SAVE_USER_CONFIGURED_NDC_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/saveuserconfiguredNDCkeywords`;
+ export const GET_USER_CONFIGURED_NDC_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/getuserconfiguredNDCkeywords`;
+ export const DELETE_USER_CONFIGURED_NDC_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/deleteuserconfiguredNDCkeywords`;
+ export const GET_CUSTOM_NDC_KEYWORDS_LIST = `${SERVICE_URL}/custom/customkeywords/getcustomNDCkeywordslist`;
+
+
 

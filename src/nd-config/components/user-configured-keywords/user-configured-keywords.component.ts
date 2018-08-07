@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserConfiguredKeywords } from './../../containers/keyword-data';
+import { UserConfiguredKeywords, UserConfiguredNDCKeywords } from './../../containers/keyword-data';
 import { ConfigUtilityService } from './../../services/config-utility.service';
 import { ConfigKeywordsService } from './../../services/config-keywords.service';
 import { deleteMany } from './../../utils/config-utility';
@@ -16,12 +16,19 @@ import { Messages } from './../../constants/config-constant';
 })
 export class UserConfiguredKeywordComponent implements OnInit {
 
-  /** To store manually added custom keywords */
+  /** To store manually added BCI custom keywords */
   usrConfiguredKeyList: UserConfiguredKeywords[];
   selectedUsrConfKeyList: UserConfiguredKeywords[];
   usrConfiguredKeyDetail: UserConfiguredKeywords;
 
+  /** To store manually added NDC custom keywords */
+  usrConfiguredNDCKeyList: UserConfiguredNDCKeywords[];
+  selectedUsrConfNDCKeyList: UserConfiguredNDCKeywords[];
+  usrConfiguredNDCKeyDetail: UserConfiguredNDCKeywords;
+
+
   isNewUserDialog: boolean = false;
+  isNewUserNDCDialog: boolean = false;
 
   /**To open/clode user configured keywords dialog */
   userDialog: boolean = false;
@@ -42,20 +49,27 @@ export class UserConfiguredKeywordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadUserConfiguredKeywordList()
+    this.loadUserConfiguredBCIKeywordList();
+    // this.loadUserConfiguredNDCKeywordList();
   }
 
   handleChange(e) {
     this.index = e.index;
   }
 
-  loadUserConfiguredKeywordList() {
+  loadUserConfiguredBCIKeywordList() {
     this.configKeywordsService.getUserConfiguredKeywords().subscribe(data => {
       this.usrConfiguredKeyList = data
     })
   }
 
-  openUserDialog() {
+  loadUserConfiguredNDCKeywordList() {
+    this.configKeywordsService.getUserConfiguredNDCKeywords().subscribe(data => {
+      this.usrConfiguredNDCKeyList = data
+    })
+  }
+
+  openUserBCIDialog() {
     this.usrConfiguredKeyDetail = new UserConfiguredKeywords();
     this.keywordTypeList = []
     this.agentList = []
@@ -64,6 +78,17 @@ export class UserConfiguredKeywordComponent implements OnInit {
     this.loadAgentNames();
     this.loadKeywordType();
   }
+
+  openUserNDCDialog() {
+    this.usrConfiguredNDCKeyDetail = new UserConfiguredNDCKeywords();
+    this.keywordTypeList = []
+    this.agentList = []
+    this.userDialog = true;
+    this.isNewUserNDCDialog = true;
+    // this.loadAgentNames();
+    // this.loadKeywordType();
+  }
+
 
   loadAgentNames() {
     this.agentList = [];
