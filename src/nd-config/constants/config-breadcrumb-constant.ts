@@ -20,7 +20,7 @@ export const LABEL = {
     AUTO_INSTRUMENTATION: 'Instrumentation Finder',
     AI: 'Auto Instrumentation',
     NDE_CLUSTER: 'NDE Cluster Configuration',
-    USER_CONFIG_KEYWORDS: 'User Configured Keywords',
+    USER_CONFIG_KEYWORDS: 'User Configured Settings',
 } 
 
 export const URL = {
