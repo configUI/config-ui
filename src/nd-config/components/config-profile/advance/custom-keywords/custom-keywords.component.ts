@@ -46,9 +46,9 @@ export class CustomKeywordsComponent implements OnInit {
   //list holding keywordsNameList
   customKeywordsList = [];
 
-  javaCustomKeywordsList = ["ASDataBufferMinCount", "ASStackCompareOption", "enableExceptionInSeqBlob", "maxQueryDetailMapSize", "AgentTraceLevel", "maxResourceDetailMapSize", "maxExceptionMessageLength", "ASResumeDataBuffFreePct", "ndHttpHdrCaptureFileList", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "ASTraceLevel","enableWaitSyncQueueTime"];
-  nodeJsCustomKeywordsList = ["ndExceptionFilterList", "enableBackendMonTrace", "enableForcedFPChain", "captureHttpTraceLevel", "maxCharInSeqBlob", "bciMaxNonServiceMethodsPerFP", "bciDataBufferMaxCount", "bciDataBufferMaxSize", "ASDataBufferSize", "ASDataBufferMaxCount", "NVCookie"];
-  dotNetCustomKeywordsList = ["NDHTTPRepHdrCfgListFullFp", "NDHTTPReqHdrCfgListFullFp", "NDHTTPRepHdrCfgListL1Fp", "NDAppLogFile", "ndBackendMonFile", "generateExceptionConfFile", "cavNVURLFile", "NDInterfaceFile", "enableBackendMonTrace", "genNewMonRecord", "BTAggDataArraySize", "AppLogTraceLevel", "ControlThreadTraceLevel", "AgentTraceLevel", "BCITraceMaxSize", "ndHttpHdrCaptureFileList", "ASEnableHotspotRecord", "NVCookie", "doNotDiscardFlowPaths"];
+  javaCustomKeywordsList = [];
+  nodeJsCustomKeywordsList = [];
+  dotNetCustomKeywordsList = [];
 
   subscription: Subscription;
 
@@ -65,12 +65,16 @@ export class CustomKeywordsComponent implements OnInit {
 
   customKeywordData:boolean;
 
+  preCustomList: any[] = [];
+  userConfiguredList: any[] = [];
+
   constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
-    this.getCustomKeywordList();
     this.subscription = this.store.select("keywordData").subscribe(data => {
-      this.agentType = sessionStorage.getItem("agentType");
-      this.createDataForTable(data)
-      var keywordDataVal = {}
+      this.getCustomKeywordList(() => {
+
+        this.agentType = sessionStorage.getItem("agentType");
+        this.createDataForTable(data)
+        var keywordDataVal = {}
       if(this.agentType == "Java"){
         this.javaCustomKeywordsList.map(function (key) {
           keywordDataVal[key] = data[key];
@@ -88,17 +92,18 @@ export class CustomKeywordsComponent implements OnInit {
       }
       this.custom_keyword = keywordDataVal;
     });
-
+  });
+    
   }
-
+  
   //constructing tableData for table [all custom keywords list]
-
+  
   createDataForTable(data) {
     let tableData = [];
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
-      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'pre-custom' || data[key]['type'] == 'user-configured')) {
+      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'pre-custom' || data[key]['type'] == 'user-configured') || data[key]['type'] == 'user-custom') {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
         this.customKeywords.keywordName = key;
@@ -108,7 +113,7 @@ export class CustomKeywordsComponent implements OnInit {
         tableData.push(this.customKeywords);
         // this.customKeywordsList.push({ 'value': key, 'label': key});
       }
-      else if (data[key]['type'] == 'pre-custom' || data[key]['type'] == 'custom' || data[key]['type'] == 'user-configured') {
+      else if (data[key]['type'] == 'pre-custom' || data[key]['type'] == 'custom' || data[key]['type'] == 'user-configured' || data[key]['type'] == 'user-custom') {
         //  this.customKeywordsList.push({ 'value': key, 'label': key});
       }
     }
@@ -433,12 +438,18 @@ export class CustomKeywordsComponent implements OnInit {
       if (key == this.customKeywords.keywordName) {
         this.custom_keyword[key].value = this.customKeywords.value;
         this.custom_keyword[key].desc = this.customKeywords.description;
-        this.custom_keyword[key].type = "custom";
+        if(this.preCustomList.includes(this.customKeywords.keywordName)){
+          this.custom_keyword[key].type = "custom";
+        }
+        else{
+          this.custom_keyword[key].type = "user-custom";
+
+        }
         this.custom_keyword[key].enable = true;
         keywordExistFlag = true;
       }
     }
-
+    console.log("kkkkkkkkk ---- " , this.custom_keyword[this.customKeywords.keywordName].type)
     for(let key in this.custom_keyword){
       this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
     } 
@@ -528,21 +539,34 @@ openDownloadReports(res) {
 
 
 
- getCustomKeywordList(){
+ getCustomKeywordList(callback){
    this.configKeywordsService.getCustomKeywordsList().subscribe(data => {
-     console.log("custom keywords list -- " , data);
-    for(let keyword in data){
-      console.log("keywords " , keyword)
-      // let bitValueOfComponent = parseInt(keyword.agentMode).toString(2);
-      // let bitValueOfComponent = bitValueOfComponent.split("").reverse().join("");
-      // // this.objTierGroup.selectedComponentList = [];
+     
+    for(let index in data){
+
+      let bitValueOfComponent = parseInt(data[index].agentMode).toString(2);
+          bitValueOfComponent = bitValueOfComponent.split("").reverse().join("");
+
+          if(data[index].type == 'pre-custom'){
+            this.preCustomList.push(data[index].keyName)
+          }
+          else{
+            this.userConfiguredList.push(data[index].keyName)
+          }
+      // this.objTierGroup.selectedComponentList = [];
       // for (let i = 0; i < bitValueOfComponent.length; i++) {
-      //     if (bitValueOfComponent[i] == "1") {
-      //         arrComponentValue.push(i);
-      //     }
+          if (bitValueOfComponent[0] == "1") {
+              this.javaCustomKeywordsList.push(data[index].keyName)
+          }
+          if (bitValueOfComponent[1] == "1") {
+            this.nodeJsCustomKeywordsList.push(data[index].keyName)
+        }
+        if (bitValueOfComponent[2] == "1") {
+          this.dotNetCustomKeywordsList.push(data[index].keyName)
       // }
+      }
     }
-     this.javaCustomKeywordsList
+    callback();
    })
  }
 }

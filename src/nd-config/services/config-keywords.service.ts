@@ -887,4 +887,8 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.GET_CUSTOM_NDC_KEYWORDS_LIST}`)
   }
 
+  checkIfKeywordIsAssoc(data): Observable<any[]>{
+    return this._restApi.getDataByGetReq(`${URL.CHECK_KEYWORD_ASSOCIATION}/${data}`)
+  }
+
 }

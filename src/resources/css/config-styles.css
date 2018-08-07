@@ -9,143 +9,127 @@
 /*---------------Fonts CSS---------------*/
 
 @charset "UTF-8";
+
 @font-face {
-    font-family: "ndegui-icon";
-    src: url("../../fonts/ndegui-icon.eot");
-    src: url("../../fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"), url("../../fonts/ndegui-icon.woff") format("woff"), url("../../fonts/ndegui-icon.ttf") format("truetype"), url("../../fonts/ndegui-icon.svg#ndegui-icon") format("svg");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "ndegui-icon";
+  src:url("../../fonts/ndegui-icon.eot");
+  src:url("../../fonts/ndegui-icon.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/ndegui-icon.woff") format("woff"),
+    url("../../fonts/ndegui-icon.ttf") format("truetype"),
+    url("../../fonts/ndegui-icon.svg#ndegui-icon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
 }
 
 [data-icon]:before {
-    font-family: "ndegui-icon" !important;
-    content: attr(data-icon);
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "ndegui-icon" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="ndegui-"]:before,
 [class*=" ndegui-"]:before {
-    font-family: "ndegui-icon" !important;
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "ndegui-icon" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .ndegui-application:before {
-    content: "\e000";
+  content: "\e000";
 }
-
 .ndegui-audit-logs:before {
-    content: "\e001";
+  content: "\e001";
 }
-
 .ndegui-auto-discover:before {
-    content: "\e002";
+  content: "\e002";
 }
-
 .ndegui-class2:before {
-    content: "\e003";
+  content: "\e003";
 }
-
 .ndegui-class2-1:before {
-    content: "\e004";
+  content: "\e004";
 }
-
-.ndegui-data-collector:before {
-    content: "\e005";
-}
-
-.ndegui-dotnet:before {
-    content: "\e006";
-}
-
-.ndegui-group:before {
-    content: "\e007";
-}
-
-.ndegui-home1:before {
-    content: "\e008";
-}
-
-.ndegui-instance:before {
-    content: "\e009";
-}
-
-.ndegui-instrmentation-profile:before {
-    content: "\e00a";
-}
-
-.ndegui-interface:before {
-    content: "\e00b";
-}
-
-.ndegui-interface2:before {
-    content: "\e00c";
-}
-
-.ndegui-java:before {
-    content: "\e00d";
-}
-
-.ndegui-nd-agent:before {
-    content: "\e00e";
-}
-
-.ndegui-nodejs:before {
-    content: "\e00f";
-}
-
-.ndegui-package:before {
-    content: "\e010";
-}
-
-.ndegui-php:before {
-    content: "\e011";
-}
-
-.ndegui-profile:before {
-    content: "\e012";
-}
-
-.ndegui-server:before {
-    content: "\e013";
-}
-
-.ndegui-tier:before {
-    content: "\e014";
-}
-
-.ndegui-tier-group:before {
-    content: "\e015";
-}
-
-.ndegui-topology:before {
-    content: "\e016";
-}
-
-.ndegui-topology-1:before {
-    content: "\e017";
-}
-
 .ndegui-cluster:before {
-    content: "\e018";
+  content: "\e005";
+}
+.ndegui-custom-keyword:before {
+  content: "\e006";
+}
+.ndegui-data-collector:before {
+  content: "\e007";
+}
+.ndegui-dotnet:before {
+  content: "\e008";
+}
+.ndegui-group:before {
+  content: "\e009";
+}
+.ndegui-home1:before {
+  content: "\e00a";
+}
+.ndegui-instance:before {
+  content: "\e00b";
+}
+.ndegui-instrmentation-profile:before {
+  content: "\e00c";
+}
+.ndegui-interface:before {
+  content: "\e00d";
+}
+.ndegui-interface2:before {
+  content: "\e00e";
+}
+.ndegui-java:before {
+  content: "\e00f";
+}
+.ndegui-m-text:before {
+  content: "\e010";
+}
+.ndegui-nd-agent:before {
+  content: "\e011";
+}
+.ndegui-nodejs:before {
+  content: "\e012";
+}
+.ndegui-package:before {
+  content: "\e013";
+}
+.ndegui-php:before {
+  content: "\e014";
+}
+.ndegui-profile:before {
+  content: "\e015";
+}
+.ndegui-server:before {
+  content: "\e016";
+}
+.ndegui-tier:before {
+  content: "\e017";
+}
+.ndegui-tier-group:before {
+  content: "\e018";
+}
+.ndegui-topology:before {
+  content: "\e019";
+}
+.ndegui-topology-1:before {
+  content: "\e01a";
 }
 
-.ndegui-m-text:before {
-    content: "\e019";
-}
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {
     font-weight: 400;

@@ -153,16 +153,25 @@ export class UserConfiguredKeywordComponent implements OnInit {
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].keyId);
         }
-        this.configKeywordsService.deleteUserConfiguredKeywords(arrAppIndex)
-          .subscribe(data => {
-            this.deleteNDEIndex(arrAppIndex);
-            this.selectedUsrConfKeyList = [];
-            this.configUtilityService.infoMessage("Deleted Successfully");
-          })
+
+        this.configKeywordsService.checkIfKeywordIsAssoc(arrAppIndex).subscribe(res => {
+
+          if (res.length == 0) {
+            this.configKeywordsService.deleteUserConfiguredKeywords(arrAppIndex)
+              .subscribe(data => {
+                this.deleteNDEIndex(arrAppIndex);
+                this.selectedUsrConfKeyList = [];
+                this.configUtilityService.infoMessage("Deleted Successfully");
+              });
+          }
+          else {
+            this.configUtilityService.errorMessage("Delete Aborted: '" + this.selectedUsrConfKeyList[0].keyName + "' keyword is used in: " + res)
+          }
+        });
       },
       reject: () => {
       }
-    });
+    })
   }
 
   /**This method is used to delete keyword from Data Table */
@@ -185,4 +194,52 @@ export class UserConfiguredKeywordComponent implements OnInit {
     }
     return -1;
   }
+
+  checkMin(min, max) {
+    if (this.usrConfiguredKeyDetail.min > this.usrConfiguredKeyDetail.max) {
+      min.setCustomValidity('Min value should be less than max Value.');
+    }
+    else if (this.usrConfiguredKeyDetail.min == this.usrConfiguredKeyDetail.max) {
+      min.setCustomValidity('Min and Max values cannot be same.');
+    }
+    else {
+      min.setCustomValidity('');
+    }
+    max.setCustomValidity('');
+
+  }
+
+  checkMax(min, max) {
+    if (this.usrConfiguredKeyDetail.min > this.usrConfiguredKeyDetail.max) {
+      max.setCustomValidity('Max value should be greater than min value.');
+    }
+    else if (this.usrConfiguredKeyDetail.min == this.usrConfiguredKeyDetail.max) {
+      max.setCustomValidity('Min and Max values cannot be same.');
+    }
+    else {
+      max.setCustomValidity('');
+    }
+    min.setCustomValidity('');
+  }
+
+  checkDefault(defaultVal) {
+    if (this.usrConfiguredKeyDetail.min > this.usrConfiguredKeyDetail.defaultValue) {
+      defaultVal.setCustomValidity('Defalut value should be greater than or equal to min value.');
+    }
+    else if (this.usrConfiguredKeyDetail.defaultValue > this.usrConfiguredKeyDetail.max) {
+      defaultVal.setCustomValidity('Defalut value should be less than or equal to max value.');
+    }
+    else {
+      defaultVal.setCustomValidity('');
+    }
+  
+}
+
+/**
+* Purpose : To invoke the service responsible to open Help Notification Dialog 
+* related to the current component.
+*/
+sendHelpNotification() {
+  this.configKeywordsService.getHelpContent("Left Panel", "Agent Settings", "");
+}
 }

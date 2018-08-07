@@ -134,6 +134,20 @@ export class HelpComponent implements OnInit {
   "It will open the selected file in the form of hierarchical tree like structure in a panel (i.e left panel & right panel)."];
   this.helpdialog = true;
     }
+    else if(data.module == "Agent Settings"){
+      //Code content starts from here.....
+      this.mainheader = data.component;
+      this.header = ["Agent Settings"];
+      this.headermessage ="";
+      this.messagefirst = ["User Configured Keywords List", "Add Keyword", "Name","Agent", "Type", "Default Value", "Delete Keyword"];
+      this.submessagefirst = ["User configured keywords list is the list of keywords which are manually supported by user to configure them from UI",
+    "Used to add a new keyword. Keyword can be added for any of the three agents (i.e.,Java, Node JS, Dot Net) and can be configured using Custom Configuration", 
+    "Keyword Name", "Type of agent (Java, Node JS or Dot Net)", "Type of Keyword", "Default value of the keyword",
+    "Used to delete the user configured keyword. Only one keyword can be deleted at a time. If the keyword to be deleted is configured in any profile then user will not be able to delete it"
+  ]
+      this.helpdialog = true;
+      console.log("Inside Agent Settings")
+    }
   }
 
 
