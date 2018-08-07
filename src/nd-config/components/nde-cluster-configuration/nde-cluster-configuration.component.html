@@ -48,7 +48,7 @@
 
 
             </p-accordionTab>
-            <p-accordionTab header="NDE Routing Rules">
+            <p-accordionTab header="NDE Routing Rules" [selected]="true">
                 <p-dataTable class="nde-ui" [value]="ndeRoutingRulesInfo" [(selection)]="selectedNDERoutingRules" [rows]="12" [paginator]="ndeRoutingRulesInfo?.length > 12" [pageLinks]="3">
 
                     <p-header>
