@@ -32,6 +32,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   /**To open/clode user configured keywords dialog */
   userDialog: boolean = false;
+  userNDCDialog: boolean = false;
 
   message: string;
 
@@ -50,7 +51,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   ngOnInit() {
     this.loadUserConfiguredBCIKeywordList();
-    // this.loadUserConfiguredNDCKeywordList();
+    this.loadUserConfiguredNDCKeywordList();
   }
 
   handleChange(e) {
@@ -83,7 +84,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
     this.usrConfiguredNDCKeyDetail = new UserConfiguredNDCKeywords();
     this.keywordTypeList = []
     this.agentList = []
-    this.userDialog = true;
+    this.userNDCDialog = true;
     this.isNewUserNDCDialog = true;
     // this.loadAgentNames();
     // this.loadKeywordType();
@@ -232,14 +233,79 @@ export class UserConfiguredKeywordComponent implements OnInit {
     else {
       defaultVal.setCustomValidity('');
     }
-  
-}
 
-/**
-* Purpose : To invoke the service responsible to open Help Notification Dialog 
-* related to the current component.
-*/
-sendHelpNotification() {
-  this.configKeywordsService.getHelpContent("Left Panel", "Agent Settings", "");
-}
+  }
+
+  /** To save NDC keywords */
+  saveNDCKeywords() {
+    this.configKeywordsService.saveUserConfiguredNDCKeywords(this.usrConfiguredNDCKeyDetail).subscribe(data => {
+      this.usrConfiguredNDCKeyList = ImmutableArray.push(this.usrConfiguredNDCKeyList, data);
+      this.configUtilityService.successMessage(Messages);
+      console.log("ndc data ", data)
+
+    });
+    this.userNDCDialog = false;
+  }
+
+  deleteNDCKeywords() {
+    if (!this.selectedUsrConfNDCKeyList || this.selectedUsrConfNDCKeyList.length < 1) {
+      this.configUtilityService.errorMessage("Select a keyword to delete")
+      return;
+    }
+    if (this.selectedUsrConfNDCKeyList.length > 1) {
+      this.configUtilityService.errorMessage("Select only one keyword to delete")
+      return;
+    }
+
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected body's id
+        let selectedApp = this.selectedUsrConfNDCKeyList;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].keyId);
+        }
+        this.configKeywordsService.deleteUserConfiguredNDCKeywords(arrAppIndex)
+          .subscribe(data => {
+            this.deleteNDCIndex(arrAppIndex);
+            this.selectedUsrConfKeyList = [];
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          });
+      },
+      reject: () => {
+      }
+    })
+  }
+
+    /**This method is used to delete keyword from Data Table */
+    deleteNDCIndex(arrIndex) {
+      let rowIndex: number[] = [];
+  
+      for (let index in arrIndex) {
+        rowIndex.push(this.getNDCDataIndex(arrIndex[index]));
+      }
+      this.usrConfiguredNDCKeyList = deleteMany(this.usrConfiguredNDCKeyList, rowIndex);
+    }
+
+    
+  /**This method returns selected body row on the basis of selected row */
+  getNDCDataIndex(appId: any): number {
+    for (let i = 0; i < this.usrConfiguredNDCKeyList.length; i++) {
+      if (this.usrConfiguredNDCKeyList[i].keyId == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**
+  * Purpose : To invoke the service responsible to open Help Notification Dialog 
+  * related to the current component.
+  */
+  sendHelpNotification() {
+    this.configKeywordsService.getHelpContent("Left Panel", "Agent Settings", "");
+  }
 }
