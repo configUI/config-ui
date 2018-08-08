@@ -2,7 +2,7 @@
   <p-tabView (onChange)="handleChange($event)">
     <p-tabPanel header="Agent Settings" [selected]="index == 0">
       <div id=top-div>
-        <p-dataTable class="nde-ui config-ui" [value]="usrConfiguredBCIKeyList" [(selection)]="selectedUsrConfKeyList">
+        <p-dataTable class="nde-ui config-ui" [value]="usrConfiguredKeyList" [(selection)]="selectedUsrConfKeyList">
           <p-header>
             <span class="configui-float-css">User Configured Keyword(s) List
             </span>
@@ -132,7 +132,7 @@
               <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
                 icon="fa-trash"></button>
               <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable"
-                (click)="deleteUserKeywords()" icon="fa-trash"></button>
+                (click)="deleteNDCKeywords()" icon="fa-trash"></button>
 
             </span>
           </p-header>
@@ -151,15 +151,15 @@
         </p-dataTable>
       </div>
       <!-- Dialog for user configured keywords-->
-      <p-dialog class="profile-dialog" header="{{isNewUserNDCDialog ? 'Add Keyword' : 'Edit Keyword'}}" *ngIf="userDialog" [(visible)]="userDialog"
+      <p-dialog class="profile-dialog" header="{{isNewUserNDCDialog ? 'Add Keyword' : 'Edit Keyword'}}" *ngIf="userNDCDialog" [(visible)]="userNDCDialog"
         modal="modal" width="550" responsive="true" [resizable]="false">
-        <form (ngSubmit)="saveUserKeywords()" #groupForm="ngForm" ngNativeValidate>
+        <form (ngSubmit)="saveNDCKeywords()" #groupForm="ngForm" ngNativeValidate>
           <div class="ui-g-12">
             <div class="ui-g-2">
               <label>Name</label>
             </div>
             <div class="ui-g-4">
-              <input name="keyName" type="text" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required ngModel/>
+              <input name="ndckeyName" type="text" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required ngModel/>
             </div>
           </div>
           <div class="ui-g-12">
@@ -200,7 +200,7 @@
           <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
               <button type="submit" pButton icon="fa-check" label="Save"></button>
-              <button type="button" pButton icon="fa-close" (click)="userDialog=false" label="Cancel"></button>
+              <button type="button" pButton icon="fa-close" (click)="userNDCDialog=false" label="Cancel"></button>
             </div>
           </footer>
         </form>
