@@ -212,6 +212,13 @@
                           <input pInputText type="number" name="NDC_MODIFY_TOPO_ENTRY" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_MODIFY_TOPO_ENTRY'].value"
                             required ngModel/>
                         </div>
+                        <div class="ui-grid-col-5 marginClassTop">
+                            Send Response to Agent on Data Connection
+                        </div>
+                        <div class="ui-grid-col-1">
+                          <input pInputText type="number" name="SND_RESP_TO_BCI_ON_DATA_CONN" min=0 max=1 [(ngModel)]="ndcKeywords['SND_RESP_TO_BCI_ON_DATA_CONN'].value"
+                              required ngModel/>
+                        </div>
                       </div>
                       <hr>
                       <div class="ui-grid-row">
@@ -960,17 +967,17 @@
             </span>
           </p-header>
           <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-          <p-column class="tableCss" field="keywordName" header="Keyword Name" [sortable]="true">
+          <p-column class="tableCss" field="keywordName" header="Name" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
               <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
             </template>
           </p-column>
-          <p-column class="tableCss" field="value" header="Keyword Value" [sortable]="true">
+          <p-column class="tableCss" field="value" header="Value" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
               <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
             </template>
           </p-column>
-          <p-column class="tableCss" field="type" header="Keyword Type" [sortable]="true">
+          <p-column class="tableCss" field="type" header="Type" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
               <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
             </template>
@@ -988,18 +995,27 @@
       <p-dialog class="profile-dialog" header="{{isNew ? 'Add Custom Configuration' : 'Edit Custom Configuration'}}" *ngIf="addEditDialog"
         [(visible)]="addEditDialog" modal="modal" width="500" responsive="true" [resizable]="false">
         <form (ngSubmit)="saveCustomKeywords()" #groupForm="ngForm" ngNativeValidate>
+            <div class="ui-g">
+                <div class="ui-g-3">
+                  <label>Type</label>
+                </div>
+                <div class="ui-g-9">
+                  <input name="type" type="text" size="25" *ngIf="isNew" pInputText [(ngModel)]="customKeywords.type" class='hidden-validator configinput' required ngModel/>
+                  <p-dropdown [options]="customKeywordsTypeList" [disabled]="!isNew" [style]="{'width':'100%'}" name="type" [(ngModel)]="customKeywords.type"
+                    placeholder="--Select--" appendTo="body"></p-dropdown>
+                </div>
+              </div>
           <div class="ui-g">
             <div class="ui-g-3">
               <label>Name</label>
             </div>
             <div class="ui-g-9">
-              <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName"
-                required ngModel/>
-              <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName"
+              <input name="keywordName" type="text" size="25" *ngIf="isNew && customKeywords.type != undefined" pInputText [(ngModel)]="customKeywords.keywordName"
+              class='hidden-validator' required ngModel/>
+              <p-dropdown [options]="customKeywordsList" [disabled]="!isNew || customKeywords.type == undefined" [style]="{'width':'100%'}" name="keywordName" (click) = "getKeywordList(customKeywords.type)" [(ngModel)]="customKeywords.keywordName"
                 placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
           </div>
-
           <div class="ui-g">
             <div class="ui-g-3">
               <label>Value</label>
@@ -1007,16 +1023,6 @@
             <div class="ui-g-9">
               <input name="value" type="text" size="50" class="configUI-common-len" pInputText [(ngModel)]="customKeywords.value" (keydown.space)="$event.preventDefault()"
                 required ngModel/>
-            </div>
-          </div>
-
-          <div class="ui-g">
-            <div class="ui-g-3">
-              <label>Description</label>
-            </div>
-            <div class="ui-g-9">
-              <textarea name="Desc" rows="2" cols="50" class="configUI-common-len" pInputTextarea [(ngModel)]="customKeywords.description"
-                ngModel></textarea>
             </div>
           </div>
           <footer>

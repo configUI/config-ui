@@ -389,7 +389,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     createMethodBTRule() {
         this.calledFor = "methodBT";
         let fqmarr: string[] = [];
-        if(this.instrFromRightSideTree.length !=0){
+        if(this.instrFromRightSideTree != null){
             this.configUtilityService.errorMessage("Please select FQM only from the left side tree");
             return;
         }

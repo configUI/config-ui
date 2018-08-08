@@ -140,7 +140,15 @@
                     required pattern="[a-zA-Z]+[a-zA-Z0-9_#@./&-]{0,99}$" (keydown.space)="$event.preventDefault()" ngModel/>
             </div>
         </div>
-        <div class="ui-g">
+        <div class="ui-g" *ngIf="!type">
+            <div class="ui-g-4">
+                <label>Fully Qualified Method Name</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="fqm" type="text" size="60" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(([;_$\/\[a-zA-Z0-9]*))+[;_$\/\[a-zA-Z0-9].*" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="serviceEntryPointDetail.fqm" required ngModel/>
+            </div>
+        </div>
+        <div class="ui-g" *ngIf="type">
             <div class="ui-g-4">
                 <label>Fully Qualified Method Name</label>
             </div>
