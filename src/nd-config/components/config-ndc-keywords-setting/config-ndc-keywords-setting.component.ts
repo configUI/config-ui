@@ -167,7 +167,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'NDC_MAX_CTRL_CON',
         'NDP_MAX_SQL_INDEX_FROM_BCI',
         'NDC_THRESHOLD_TO_MARK_DELETED',
-        'NDP_DELETED_INSTANCE_CLEANUP_DELAY'
+        'NDP_DELETED_INSTANCE_CLEANUP_DELAY',
+        'SND_RESP_TO_BCI_ON_DATA_CONN'
     ];
 
     appId: number;
@@ -183,6 +184,9 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     isNew: boolean = false;
     //list holding keywordsNameList
     customKeywordsList = [];
+
+    keywordTypeValue = [];
+    customKeywordsTypeList = [];
 
     /**It stores custom keywords data */
     customKeywordsDataList: NDCCustomKeywordsComponentData[];
@@ -435,6 +439,9 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         let tableData = [];
         this.customKeywordsList = [];
         for (let key in data) {
+            if ((data[key]['type'] != null && data[key]['type'] != '') && !this.keywordTypeValue.includes(data[key]['type'])) {
+                this.keywordTypeValue.push(data[key]['type']);
+            }
             if (data[key]['assocId'] != -1 && (data[key]['type'] == 'NDP' || data[key]['type'] == 'NDC')) {
                 this.customKeywords = new NDCCustomKeywordsComponentData();
                 this.customKeywords.ndcKeyId = data[key]["ndcKeyId"];
@@ -446,11 +453,12 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
                 tableData.push(this.customKeywords);
                 this.customKeywordsList.push({ 'value': key, 'label': key });
             }
-            else if (data[key]['type'] == 'ndc' || data[key]['type'] == 'ndp') {
+            else if (data[key]['type'] == 'NDP' || data[key]['type'] == 'NDC') {
                 this.customKeywordsList.push({ 'value': key, 'label': key });
             }
         }
 
+        this.customKeywordsTypeList = ConfigUiUtility.createListWithKeyValue(this.keywordTypeValue.sort(), this.keywordTypeValue.sort());
         this.customKeywordsDataList = tableData
     }
 
@@ -472,15 +480,26 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             return;
         }
         this.customKeywords = new NDCCustomKeywordsComponentData();
+        this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
         this.isNew = false;
         this.addEditDialog = true;
-        this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
+    }
+
+    getKeywordList(type) {
+        this.customKeywordsList = []; 
+        for (let key in this.custom_keywords) {
+            if (null != this.custom_keywords[key].type) {
+                if (this.custom_keywords[key].type == type) {
+                    this.customKeywordsList.push({ 'value': key, 'label': key });
+                }
+            }
+        }
     }
 
     saveCustomKeywords() {
         let keywordExistFlag = false;
         //To check that keyword name already exists or not
-        if(this.customKeywordsDataList.length != 0){
+        if (this.customKeywordsDataList.length != 0) {
             for (let i = 0; i < this.customKeywordsDataList.length; i++) {
                 //checking (isNew) for handling the case of edit functionality
                 if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
@@ -540,7 +559,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         });
     }
 
-    saveKeywordData(){
+    saveKeywordData() {
         this._configKeywordsService.saveNDCKeywordsOnFile(this.custom_keywords, this.appId).subscribe(data => {
             this.custom_keywords = data;
             this._configUtilityService.successMessage("Saved Successfully");
