@@ -10,6 +10,7 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 import { ImmutableArray } from '../../utils/immutable-array';
 import { Messages, descMsg , addMessage } from '../../constants/config-constant';
 import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
+import { ConfigCustomDataService } from '../../services/config-customdata.service';
 
 @Component({
   selector: 'app-config-profile-list',
@@ -18,7 +19,7 @@ import { deleteMany, ConfigUiUtility } from '../../utils/config-utility';
 })
 export class ConfigProfileListComponent implements OnInit {
 
-  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService) { }
+  constructor(private configProfileService: ConfigProfileService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private router: Router,private configKeywordsService: ConfigKeywordsService,private configCustomDataService: ConfigCustomDataService) { }
 
   profileData: ProfileData[];
   selectedProfileData: ProfileData[];
@@ -286,7 +287,14 @@ export class ConfigProfileListComponent implements OnInit {
         this.importFilepath = this.importFilepath + "+" + tempProfileName;
         this.configProfileService.importProfile(this.importFilepath,this.userName).subscribe(data => {
           this.importFilepath = "";
-          this.configUtilityService.successMessage("Profile imported successfully");
+          if(data._body != 0){
+            this.configCustomDataService.updateCaptureCustomDataFile(data._body);
+            this.configUtilityService.successMessage("Profile imported successfully");
+          }
+          else{
+            this.configUtilityService.errorMessage("Please select a valid zip file");
+            return;
+          }
           this.loadProfileList();
           });
        }
@@ -306,7 +314,19 @@ export class ConfigProfileListComponent implements OnInit {
         this.configProfileService.importProfile(this.importFilepath,this.userName).subscribe(data => {
           this.importFilepath = "";
           this.editProfile = "";
-          this.configUtilityService.successMessage("Profile imported successfully");
+          if(data._body != 0){
+            /**
+              * This service has been called to write the captureCustomData file after
+              * completion of Import operation as we are unable to write the file from
+              * backend by calling the same service(function).
+              */
+            this.configCustomDataService.updateCaptureCustomDataFile(data._body);
+            this.configUtilityService.successMessage("Profile imported successfully");
+          }
+          else{
+            this.configUtilityService.errorMessage("Please select a valid zip file");
+            return;
+          }
           this.editImportProfileDialog = false;
           this.loadProfileList();
           });
