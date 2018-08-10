@@ -481,6 +481,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         }
         this.customKeywords = new NDCCustomKeywordsComponentData();
         this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
+        this.customKeywords.keywordName = this.selectedCustomKeywordsData[0].keywordName
         this.isNew = false;
         this.addEditDialog = true;
     }
@@ -489,7 +490,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         this.customKeywordsList = []; 
         for (let key in this.custom_keywords) {
             if (null != this.custom_keywords[key].type) {
-                if (this.custom_keywords[key].type == type) {
+                if (this.custom_keywords[key].type == type && this.custom_keywords[key].assocId == -1) {
                     this.customKeywordsList.push({ 'value': key, 'label': key });
                 }
             }
@@ -565,5 +566,13 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this._configUtilityService.successMessage("Saved Successfully");
         });
     }
+
+ /**
+  * Purpose : To invoke the service responsible to open Help Notification Dialog 
+  * related to the current component.
+  */
+  sendHelpNotification() {
+    this._configKeywordsService.getHelpContent("Application", "ND Controller Settings", "");
+  }
 }
 

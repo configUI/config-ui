@@ -952,6 +952,7 @@
             <span class="configui-float-css">Custom Configuration List
             </span>
             <span class="configui-float">
+                <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
               <button pButton type="button" title="Add Custom configuration" *ngIf="isAppPerm" [disabled]="isAppPerm" icon="fa-plus"></button>
               <button pButton type="button" title="Add Custom configuration" *ngIf="!isAppPerm" [disabled]="saveDisable" (click)="openAddDialog()"
                 icon="fa-plus"></button>
@@ -978,11 +979,6 @@
             </template>
           </p-column>
           <p-column class="tableCss" field="type" header="Type" [sortable]="true">
-            <template let-col let-customKeywordsData="rowData" pTemplate>
-              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
-            </template>
-          </p-column>
-          <p-column class="tableCss" field="description" header="Description" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
               <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
             </template>

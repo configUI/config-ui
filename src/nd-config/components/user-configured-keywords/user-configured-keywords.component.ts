@@ -43,6 +43,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   agentList: SelectItem[];
   keywordTypeList: SelectItem[];
+  ndcType: SelectItem[];
 
   index: number = 0;
 
@@ -72,6 +73,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   openUserBCIDialog() {
     this.usrConfiguredKeyDetail = new UserConfiguredKeywords();
+    this.agentMode = []
     this.keywordTypeList = []
     this.agentList = []
     this.userDialog = true;
@@ -82,12 +84,10 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   openUserNDCDialog() {
     this.usrConfiguredNDCKeyDetail = new UserConfiguredNDCKeywords();
-    this.keywordTypeList = []
-    this.agentList = []
+    this.ndcType = []
     this.userNDCDialog = true;
     this.isNewUserNDCDialog = true;
-    // this.loadAgentNames();
-    // this.loadKeywordType();
+    this.loadNDCType()
   }
 
 
@@ -97,6 +97,14 @@ export class UserConfiguredKeywordComponent implements OnInit {
     let value = ['0', '1', '2']
     for (let i = 0; i < data.length; i++)
       this.agentList.push({ label: data[i], value: value[i] });
+  }
+
+  loadNDCType(){
+    this.ndcType = [];
+    let data = ['NDP', 'NDC']
+    let value = ['NDP', 'NDC']
+    for (let i = 0; i < data.length; i++)
+      this.ndcType.push({ label: data[i], value: value[i] });
   }
 
   // This method is used for get bit value of selected Component List like NDConfig, Montior and NDE scale is 7
@@ -122,7 +130,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
       //If keyword is already present in table then it will return null
       if (data.keyId == null) {
-        this.configUtilityService.errorMessage("Keyword is already configured from NDConfigUI")
+        this.configUtilityService.errorMessage("User Configured Settings already exists")
         return;
       }
       else {
@@ -166,7 +174,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
               });
           }
           else {
-            this.configUtilityService.errorMessage("Delete Aborted: '" + this.selectedUsrConfKeyList[0].keyName + "' keyword is used in: " + res)
+            this.configUtilityService.errorMessage("Delete Aborted: '" + this.selectedUsrConfKeyList[0].keyName + "' setting is used in profile '" + res + "'")
           }
         });
       },
@@ -197,10 +205,10 @@ export class UserConfiguredKeywordComponent implements OnInit {
   }
 
   checkMin(min, max) {
-    if (this.usrConfiguredKeyDetail.min > this.usrConfiguredKeyDetail.max) {
+    if (+this.usrConfiguredKeyDetail.min > +this.usrConfiguredKeyDetail.max) {
       min.setCustomValidity('Min value should be less than max Value.');
     }
-    else if (this.usrConfiguredKeyDetail.min == this.usrConfiguredKeyDetail.max) {
+    else if (+this.usrConfiguredKeyDetail.min == +this.usrConfiguredKeyDetail.max) {
       min.setCustomValidity('Min and Max values cannot be same.');
     }
     else {
@@ -210,37 +218,46 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   }
 
-  checkMax(min, max) {
-    if (this.usrConfiguredKeyDetail.min > this.usrConfiguredKeyDetail.max) {
+  checkMax(min, max, defaultVal) {
+    if (+this.usrConfiguredKeyDetail.min > +this.usrConfiguredKeyDetail.max) {
       max.setCustomValidity('Max value should be greater than min value.');
     }
-    else if (this.usrConfiguredKeyDetail.min == this.usrConfiguredKeyDetail.max) {
+    else if (+this.usrConfiguredKeyDetail.min == +this.usrConfiguredKeyDetail.max) {
       max.setCustomValidity('Min and Max values cannot be same.');
     }
     else {
       max.setCustomValidity('');
     }
     min.setCustomValidity('');
-  }
 
-  checkDefault(defaultVal) {
-    if (this.usrConfiguredKeyDetail.min > this.usrConfiguredKeyDetail.defaultValue) {
+    // For default value input box
+    if (+this.usrConfiguredKeyDetail.min > +this.usrConfiguredKeyDetail.defaultValue) {
       defaultVal.setCustomValidity('Defalut value should be greater than or equal to min value.');
     }
-    else if (this.usrConfiguredKeyDetail.defaultValue > this.usrConfiguredKeyDetail.max) {
+    else if (+this.usrConfiguredKeyDetail.defaultValue > +this.usrConfiguredKeyDetail.max) {
       defaultVal.setCustomValidity('Defalut value should be less than or equal to max value.');
     }
     else {
       defaultVal.setCustomValidity('');
     }
+  }
+
+  checkDefault(defaultVal) {
+
 
   }
 
   /** To save NDC keywords */
   saveNDCKeywords() {
     this.configKeywordsService.saveUserConfiguredNDCKeywords(this.usrConfiguredNDCKeyDetail).subscribe(data => {
+      if (data.keyId == null) {
+        this.configUtilityService.errorMessage("User Configured Settings already exists")
+        return;
+      }
+      else{
       this.usrConfiguredNDCKeyList = ImmutableArray.push(this.usrConfiguredNDCKeyList, data);
       this.configUtilityService.successMessage(Messages);
+      }
       console.log("ndc data ", data)
 
     });
@@ -268,12 +285,19 @@ export class UserConfiguredKeywordComponent implements OnInit {
         for (let index in selectedApp) {
           arrAppIndex.push(selectedApp[index].keyId);
         }
-        this.configKeywordsService.deleteUserConfiguredNDCKeywords(arrAppIndex)
+        this.configKeywordsService.checkIfNDCKeywordIsAssoc(arrAppIndex).subscribe(res => {
+          if(res.length == 0){
+          this.configKeywordsService.deleteUserConfiguredNDCKeywords(arrAppIndex)
           .subscribe(data => {
             this.deleteNDCIndex(arrAppIndex);
             this.selectedUsrConfKeyList = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           });
+        }
+        else {
+          this.configUtilityService.errorMessage("Delete Aborted: '" + this.selectedUsrConfNDCKeyList[0].keyName + "' setting is used in Application '" + res + "'")
+        }
+        })
       },
       reject: () => {
       }
@@ -307,5 +331,9 @@ export class UserConfiguredKeywordComponent implements OnInit {
   */
   sendHelpNotification() {
     this.configKeywordsService.getHelpContent("Left Panel", "Agent Settings", "");
+  }
+
+  sendNDCHelpNotification() {
+    this.configKeywordsService.getHelpContent("Left Panel", "NDC Settings", "");
   }
 }

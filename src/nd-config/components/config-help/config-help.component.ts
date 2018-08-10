@@ -67,6 +67,9 @@ export class HelpComponent implements OnInit {
     if (data.component == "Left Panel") {
       this.checkForLeftPanelModule(data);
     }
+    if(data.component == "Application"){
+      this.checkForApplicationModule(data)
+    }
   }
   /**
    * Purpose : To check the value of module i.e comes under Home component
@@ -139,14 +142,27 @@ export class HelpComponent implements OnInit {
       this.mainheader = data.component;
       this.header = ["Agent Settings"];
       this.headermessage ="";
-      this.messagefirst = ["User Configured Keywords List", "Add Keyword", "Name","Agent", "Type", "Default Value", "Delete Keyword"];
-      this.submessagefirst = ["User configured keywords list is the list of keywords which are manually supported by user to configure them from UI",
-    "Used to add a new keyword. Keyword can be added for any of the three agents (i.e.,Java, Node JS, Dot Net) and can be configured using Custom Configuration", 
-    "Keyword Name", "Type of agent (Java, Node JS or Dot Net)", "Type of Keyword", "Default value of the keyword",
-    "Used to delete the user configured keyword. Only one keyword can be deleted at a time. If the keyword to be deleted is configured in any profile then user will not be able to delete it"
+      this.messagefirst = ["User Configured Settings List", "Add Setting", "Name","Agent", "Type", "Default Value", "Delete Setting"];
+      this.submessagefirst = ["User configured settings list is the list of settings which are manually supported by user to configure them from UI",
+    "Used to add a new setting. Setting can be added for any of the three agents (i.e.,Java, Node JS, Dot Net) and can be configured using Custom Configuration", 
+    "Setting Name", "Type of agent (Java, Node JS or Dot Net)", "Type of Setting ( Char, Long, Double, Integer, String, File)", "Default value of the setting",
+    "Used to delete the user configured setting. Only one setting can be deleted at a time. If the setting to be deleted is configured in any profile then user will not be able to delete it"
   ]
       this.helpdialog = true;
-      console.log("Inside Agent Settings")
+    }
+
+    else if(data.module == "NDC Settings"){
+      //Code content starts from here.....
+      this.mainheader = data.component;
+      this.header = ["NDC Settings"];
+      this.headermessage ="";
+      this.messagefirst = ["User Configured NDC Settings List", "Add Settings", "Name","Type", "Default Value", "Delete Settings"];
+      this.submessagefirst = ["User configured NDC settings list is the list of settings which are manually supported by user to configure them from UI",
+    "Used to add a new NDC settings. NDC Settings can be of two types NDC or NDP. These settings can be applied to an application using Custom Configuration. Min and Max values are optional in this case.", 
+    "Setting Name", "Type of NDC Setting (NDC or NDP)", "Default value of the setting",
+    "Used to delete the user configured keyword. Only one setting can be deleted at a time. If the setting to be deleted is configured in any applicat then user will not be able to delete it"
+  ]
+      this.helpdialog = true;
     }
   }
 
@@ -427,6 +443,18 @@ export class HelpComponent implements OnInit {
       this.messagefirst = ["Add a Custom Configuration", "Edit a Custom Configuration", "Delete Custom Configuration(s)"];
       this.submessagefirst = ["Select the custom configuration from the list, specify its value, and provide its description",
         "Select a row from the table of custom configuration, specify its value, and provide its description", "Delete row(s) from the table of custom configuration"];
+      this.helpdialog = true;
+    }
+  }
+
+  checkForApplicationModule(data){
+    if (data.module == "ND Controller Settings") {
+      this.mainheader = data.module
+      this.header = ["Custom Configuration Settings"];
+      this.headermessage = "This section displays a custom configuration list. User can add , edit and delete  custom configuration.";
+      this.messagefirst = ["Add a Custom Configuration", "Edit a Custom Configuration", "Delete Custom Configuration(s)"];
+      this.submessagefirst = ["Select the type of setting from the list, then select its name, and provide its value",
+        "Select a row from the table of custom configuration, and specify its value", "Delete row(s) from the table of custom configuration"];
       this.helpdialog = true;
     }
   }

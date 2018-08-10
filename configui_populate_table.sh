@@ -838,21 +838,7 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (88,'NDDBU_TMP_FILE_PATH','','','/mnt/tmp','/mnt/tmp'),
 (89,'ND_FPI_MASK','','','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;','NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;'),
 (90,'NDC_THRESHOLD_TO_MARK_DELETED','','','1 8h','1 8h'),
-(91,'NDP_DELETED_INSTANCE_CLEANUP_DELAY','','','3','3'),
-(92,'SEND_NDCOLLECTOR_IP ','0','1','1','1','NDC'),
-(93,'AUTO_SCALE_BLOCKED_TIER','','','','','NDC'),
-(94,'AUTO_SCALE_ALLOWD_TIER','','','','','NDC'),
-(95,'NDP_EXTENDED_METADATA ','0','1','0','0','NDP'),
-(96,'NDP_MAX_BEGIN_SEQ_LEN','0','256','256','256','NDP'),
-(97,'NDP_FREE_FP_MEM_ON_COMPLETION','0','1','0','0','NDP'),
-(98,'NDP_MEMPOOL_SETTINGS ','','','','','NDP'),
-(99,'NDP_MONITORS','','','','','NDP'),
-(100,'NDP_ENABLE_SQL_METADATA_RECOVERY','0','1','1','1','NDP'),
-(101,'NDP_THRESHOLD_DIFF_BET_FP_AND_ENTRY_MTD_RESPTIME_SEC ','','','900','900','NDP'),
-(102,'NDP_NUM_NONPREP_SQL_LOAD_AT_INIT','','','2500','2500','NDP'),
-(103,'NDP_SQL_NONPREP_ROLLOVER_SIZE_MB','','','100','100','NDP'),
-(104,'NDP_PERIODIC_SCANDIR_TIME','','','600','600','NDP'),
-(105,'NDP_MON_LARGE_FLOWPATH_METHOD_COUNT','','','10000','10000','NDP');
+(91,'NDP_DELETED_INSTANCE_CLEANUP_DELAY','','','3','3');
 
 
 INSERT INTO config.container_type(container_id,description,container_type,container_name) VALUES

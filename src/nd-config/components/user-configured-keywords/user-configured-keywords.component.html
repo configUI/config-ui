@@ -4,16 +4,16 @@
       <div id=top-div>
         <p-dataTable class="nde-ui config-ui" [value]="usrConfiguredKeyList" [(selection)]="selectedUsrConfKeyList">
           <p-header>
-            <span class="configui-float-css">User Configured Keyword(s) List
+            <span class="configui-float-css">User Configured Setting(s) List
             </span>
             <span class="configui-float">
               <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
-              <button pButton type="button" title="Add Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
-              <button pButton type="button" title="Add Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserBCIDialog()"
+              <button pButton type="button" title="Add Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+              <button pButton type="button" title="Add Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserBCIDialog()"
                 icon="fa-plus"></button>
-              <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+              <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
                 icon="fa-trash"></button>
-              <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+              <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable"
                 (click)="deleteUserKeywords()" icon="fa-trash"></button>
 
             </span>
@@ -45,7 +45,7 @@
         </p-dataTable>
       </div>
       <!-- Dialog for user configured keywords-->
-      <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Keyword' : 'Edit Keyword'}}" *ngIf="userDialog" [(visible)]="userDialog"
+      <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Settings' : 'Edit Settings'}}" *ngIf="userDialog" [(visible)]="userDialog"
         modal="modal" width="550" responsive="true" [resizable]="false">
         <form (ngSubmit)="saveUserKeywords()" #groupForm="ngForm" ngNativeValidate>
           <div class="ui-g-12">
@@ -82,7 +82,7 @@
                 required ngModel/>
             </div>
             <div class="ui-g-4" *ngIf="usrConfiguredKeyDetail.kmdId == '2' || usrConfiguredKeyDetail.kmdId == '3' || usrConfiguredKeyDetail.kmdId == '4'">
-                <input name="defaultValue" #defaultVal (input)="checkDefault(defaultVal)" [disabled]="usrConfiguredKeyDetail.kmdId == undefined" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
+                <input name="defaultValue" #defaultVal [disabled]="usrConfiguredKeyDetail.kmdId == undefined" type="number" pInputText [(ngModel)]="usrConfiguredKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
                  required ngModel/>
               </div>
           </div>
@@ -98,7 +98,7 @@
               <label>Max Value</label>
             </div>
             <div class="ui-g-4">
-              <input name="max" #max (input)="checkMax(min,max)" type="number" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" pInputText [(ngModel)]="usrConfiguredKeyDetail.max" required ngModel/>
+              <input name="max" #max (input)="checkMax(min,max,defaultVal)" type="number" [disabled]="usrConfiguredKeyDetail.kmdId != '2' && usrConfiguredKeyDetail.kmdId != '3' && usrConfiguredKeyDetail.kmdId != '4'" pInputText [(ngModel)]="usrConfiguredKeyDetail.max" required ngModel/>
             </div>
           </div>
           <div class="ui-g">
@@ -106,7 +106,7 @@
               <label>Description</label>
             </div>
             <div class="ui-g-9">
-              <textarea name="Desc" rows="2" cols="50" pInputTextarea [(ngModel)]="usrConfiguredKeyDetail.desc" ngModel></textarea>
+              <textarea name="Desc" rows="2" cols="63" pInputTextarea [(ngModel)]="usrConfiguredKeyDetail.desc" ngModel></textarea>
             </div>
           </div>
           <footer>
@@ -125,13 +125,13 @@
             <span class="configui-float-css">User Configured NDC Settings List
             </span>
             <span class="configui-float">
-              <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
-              <button pButton type="button" title="Add Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
-              <button pButton type="button" title="Add Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserNDCDialog()"
+              <i class="fa fa-question-circle" title="Help" (click)="sendNDCHelpNotification()"></i>
+              <button pButton type="button" title="Add Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+              <button pButton type="button" title="Add Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserNDCDialog()"
                 icon="fa-plus"></button>
-              <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+              <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
                 icon="fa-trash"></button>
-              <button pButton type="button" class="ui-button-danger" title="Delete Keyword" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+              <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable"
                 (click)="deleteNDCKeywords()" icon="fa-trash"></button>
 
             </span>
@@ -147,28 +147,38 @@
               <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
             </template>
           </p-column>
+          <p-column class="tableCss" field="type" header="Type" [sortable]="true">
+              <template let-col let-customKeywordsData="rowData" pTemplate>
+                <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+              </template>
+            </p-column>
          
         </p-dataTable>
       </div>
       <!-- Dialog for user configured keywords-->
-      <p-dialog class="profile-dialog" header="{{isNewUserNDCDialog ? 'Add Keyword' : 'Edit Keyword'}}" *ngIf="userNDCDialog" [(visible)]="userNDCDialog"
+      <p-dialog class="profile-dialog" header="{{isNewUserNDCDialog ? 'Add Settings' : 'Edit Settings'}}" *ngIf="userNDCDialog" [(visible)]="userNDCDialog"
         modal="modal" width="550" responsive="true" [resizable]="false">
         <form (ngSubmit)="saveNDCKeywords()" #groupForm="ngForm" ngNativeValidate>
           <div class="ui-g-12">
             <div class="ui-g-2">
               <label>Name</label>
             </div>
-            <div class="ui-g-4">
-              <input name="ndckeyName" type="text" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required ngModel/>
+            <div class="ui-g-8">
+              <input name="ndckeyName" type="text" size=62 pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required ngModel/>
             </div>
+
           </div>
           <div class="ui-g-12">
+              <div class="ui-g-2">
+                  <label>Type</label>
+                </div>
+              <div class="ui-g-4">
+                  <input name="ndcType" type="text" class='hidden-validator' pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.type" required ngModel/>
+                  <p-dropdown name="ndcType" [options]="ndcType" [style]="{'width':'100%'}" [(ngModel)]="usrConfiguredNDCKeyDetail.type"
+                    placeholder="--Select--" appendTo="body"></p-dropdown>
+                </div>
             <div class="ui-g-2">
               <label>Default Value</label>
-            </div>
-            <div class="ui-g-4">
-              <input name="defaultValue"  type="text" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"
-                required ngModel/>
             </div>
             <div class="ui-g-4">
                 <input name="defaultValue" type="number" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.defaultValue" (keydown.space)="$event.preventDefault()"        required ngModel/>
@@ -180,13 +190,13 @@
               <label>Min Value</label>
             </div>
             <div class="ui-g-4">
-              <input name="min"  type="number" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.min" required ngModel/>
+              <input name="min"  type="number" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.min" ngModel/>
             </div>
             <div class="ui-g-2">
               <label>Max Value</label>
             </div>
             <div class="ui-g-4">
-              <input name="max" type="number" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.max" required ngModel/>
+              <input name="max" type="number" pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.max" ngModel/>
             </div>
           </div>
           <div class="ui-g">
@@ -194,7 +204,7 @@
               <label>Description</label>
             </div>
             <div class="ui-g-9">
-              <textarea name="Desc" rows="2" cols="50" pInputTextarea [(ngModel)]="usrConfiguredNDCKeyDetail.desc" ngModel></textarea>
+              <textarea name="Desc" rows="2" cols="63" pInputTextarea [(ngModel)]="usrConfiguredNDCKeyDetail.desc" ngModel></textarea>
             </div>
           </div>
           <footer>

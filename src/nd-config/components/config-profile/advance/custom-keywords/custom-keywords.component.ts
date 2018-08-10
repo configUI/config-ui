@@ -104,7 +104,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
-      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'pre-custom' || data[key]['type'] == 'user-configured') || data[key]['type'] == 'user-custom') {
+      if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'user-custom')) {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
         this.customKeywords.keywordName = key;
@@ -119,6 +119,10 @@ export class CustomKeywordsComponent implements OnInit {
       }
     }
     if (this.agentType == "Java") {
+      console.log("this.javaCustomKeywordsList==before= ", this.javaCustomKeywordsList)
+      // this.javaCustomKeywordsList = this.javaCustomKeywordsList.filter(element => element.type == 'pre-custom' || element.type == 'user-configured')
+      console.log("this.javaCustomKeywordsList==after= ", this.javaCustomKeywordsList)
+
       for (let i = 0; i < this.javaCustomKeywordsList.length; i++) {
         this.customKeywordsList.push({ 'value': this.javaCustomKeywordsList[i], 'label': this.javaCustomKeywordsList[i] });
       }
@@ -453,7 +457,6 @@ export class CustomKeywordsComponent implements OnInit {
     }
 
 
-    console.log("kkkkkkkkk ---- ", this.custom_keyword[this.customKeywords.keywordName].type)
     for (let key in this.custom_keyword) {
       this.configKeywordsService.keywordData[key] = this.custom_keyword[key];
     }
@@ -546,6 +549,9 @@ export class CustomKeywordsComponent implements OnInit {
 
 
   getCustomKeywordList(callback) {
+    this.nodeJsCustomKeywordsList = []
+    this.javaCustomKeywordsList = []
+    this.dotNetCustomKeywordsList = []
     this.configKeywordsService.getCustomKeywordsList().subscribe(data => {
       this.keywordList = data
       for (let index in data) {
@@ -559,8 +565,7 @@ export class CustomKeywordsComponent implements OnInit {
         else {
           this.userConfiguredList.push(data[index].keyName)
         }
-        // this.objTierGroup.selectedComponentList = [];
-        // for (let i = 0; i < bitValueOfComponent.length; i++) {
+        
         if (bitValueOfComponent[0] == "1") {
           this.javaCustomKeywordsList.push(data[index].keyName)
         }
@@ -582,10 +587,10 @@ export class CustomKeywordsComponent implements OnInit {
       if (this.keywordList[index].keyName == this.customKeywords.keywordName) {
         console.log("==== matched", this.keywordList[index].max)
         if (this.keywordList[index].min != '') {
-          if (this.customKeywords.value < this.keywordList[index].min) {
+          if (+this.customKeywords.value < +this.keywordList[index].min) {
             minmax.setCustomValidity('Value should be greater than or equal to ' + this.keywordList[index].min)
           }
-          else if (this.customKeywords.value > this.keywordList[index].max) {
+          else if (+this.customKeywords.value > +this.keywordList[index].max) {
             minmax.setCustomValidity('Value should be less than or equal to ' + this.keywordList[index].max)
           }
           else {
