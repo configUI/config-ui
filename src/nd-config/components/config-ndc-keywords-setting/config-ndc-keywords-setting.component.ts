@@ -451,10 +451,6 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
                 this.customKeywords.type = data[key]['type'];
                 this.customKeywords.assocId = data[key]["assocId"];
                 tableData.push(this.customKeywords);
-                this.customKeywordsList.push({ 'value': key, 'label': key });
-            }
-            else if (data[key]['type'] == 'NDP' || data[key]['type'] == 'NDC') {
-                this.customKeywordsList.push({ 'value': key, 'label': key });
             }
         }
 
@@ -484,7 +480,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         this.customKeywords.keywordName = this.selectedCustomKeywordsData[0].keywordName
         this.isNew = false;
         this.addEditDialog = true;
-    }
+    } 
 
     getKeywordList(type) {
         this.customKeywordsList = []; 
