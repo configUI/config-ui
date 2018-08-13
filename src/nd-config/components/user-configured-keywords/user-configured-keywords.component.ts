@@ -46,11 +46,13 @@ export class UserConfiguredKeywordComponent implements OnInit {
   ndcType: SelectItem[];
 
   index: number = 0;
+  isProfilePerm: boolean;
 
   constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false
     this.loadUserConfiguredBCIKeywordList();
     this.loadUserConfiguredNDCKeywordList();
   }
