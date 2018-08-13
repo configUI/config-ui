@@ -163,6 +163,8 @@ export class BusinessTransMethodData    // Business Transaction Method by Lucky
     fqm: string;
     returnType: string;
     rules: RulesData[];
+    methodInvocation :string;
+    methodInvocationIndex : number = -1;
 }
 
 export class RulesData {
@@ -291,16 +293,7 @@ export class CustomKeywordsComponentData{
     value :string ;
     description: string;
     enable:boolean;
-    
-}
 
-export class NDCCustomKeywordsComponentData{
-    ndcKeyId:number;
-    keywordName :string;
-    value :string ;
-    description: string;
-    type: string;
-    assocId:number;
 }
 
 /** BT HTTP HEADERS  */

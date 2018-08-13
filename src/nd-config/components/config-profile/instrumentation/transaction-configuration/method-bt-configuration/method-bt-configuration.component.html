@@ -14,12 +14,12 @@
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-    <p-column class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
+    <p-column [style]="{'width':'80%'}" class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
     </p-column>
-    <p-column class="col-overflow" field="capturingType" header="Capturing Type" [sortable]="true">
+    <p-column [style]="{'width':'18%','text-align' : 'center'}" class="col-overflow" field="capturingType" header="Capturing Type" [sortable]="true">
         <template let-col let-application="rowData" pTemplate>
                 <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
@@ -94,7 +94,7 @@
                         </div>-->
                 <div class="ui-g-3" style="margin-top: -5px">
                     <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
-                    <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList()" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
+                    <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('ARGUMENT')" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
                         [options]="indexList" appendTo="body"></p-dropdown>
                 </div>
             </div>
@@ -126,7 +126,42 @@
                     </p-column>
                 </p-dataTable>
             </div>
+
+    <div class="ui-g-12">
+        <div class="ui-g-4">
+            <p-radioButton name="enableArgumentType" value="invocation" label="BT Rule Based on Method Invocation" [(ngModel)]="enableArgumentType" (click)="validateReturnType(businessTransMethodDetail.fqm)"></p-radioButton>
         </div>
+        <div class="ui-g-3" style="margin-top: -5px">
+            <input name="methodInvocationIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.methodInvocationIndex" required ngModel/>
+            <p-dropdown name="methodInvocationIndex" [disabled]="!(enableArgumentType=='invocation')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('INVOCATION')" placeholder="--Select invocation index--" [(ngModel)]="businessTransMethodDetail.methodInvocationIndex"
+                [options]="indexListForInvoc" appendTo="body"></p-dropdown>
+        </div>
+    </div>
+
+        <div class="ui-g-12" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'">
+            <p-dataTable class="nde-ui" [value]="methodInvocationRulesInfo" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'" [(selection)]="selectedInvocationRules" [rows]="4 " [paginator]="methodInvocationRulesInfo?.length> 4" [pageLinks]="3">
+                <p-header>
+                    <span style="float: left;"> Method Invocation Rule(s) </span>
+                    <span style="float: right; margin-top:-3px">
+                    <button pButton type="submit" title="Add Method Invocation Rule" (click)="third=true" icon="fa-plus"></button>
+                    <button pButton type="button" title="Edit" (click)="openEditInvocationDialog()" icon="fa-pencil" ></button>
+                    <button pButton type="button"class="ui-button-danger" title="Delete Method Invocation type setting(s)" (click)="deleteInvocationsRules()" icon="fa-trash"></button>
+                    </span>
+                </p-header>
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column class="col-overflow" field="btName" header="Default BT Name" [sortable]="true">
+                    <template let-col let-methodInvocation="rowData">
+                            <span title="{{methodInvocation[col.field]}}">{{methodInvocation[col.field]}}</span>
+                    </template>
+                </p-column>
+                <p-column class="col-overflow" field="value" header="Method Name" [sortable]="true">
+                    <template let-col let-methodInvocation="rowData">
+                            <span title="{{methodInvocation[col.field]}}">{{methodInvocation[col.field]}}</span>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
@@ -226,3 +261,36 @@
     
             <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
     </p-dialog>
+
+
+<!-- NEW Add/EDIT BT Method Invocation type info -->
+
+<p-dialog class="profile-dialog" header="{{isNewInvocation ? 'Add Method Invocation Rule' :'Edit Method Invocation Rule'}}" *ngIf="addInvocationRulesDialog" [(visible)]="addInvocationRulesDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveInvocationRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-6">
+                    <label>Default BT Name</label>
+                </div>
+                <div class="ui-g-6">
+                    <label>Method Value</label>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-6">
+                    <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                        required ngModel/>
+                </div>
+                <div class="ui-g-6">
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Method value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" required ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-close" (click)="closeInvocationDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

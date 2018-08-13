@@ -9,7 +9,7 @@ import { ConfigUtilityService } from '../../../../../services/config-utility.ser
 import { deleteMany } from '../../../../../utils/config-utility';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MethodBasedCustomData, ReturnTypeData, ArgumentTypeData } from '../../../../../containers/method-based-custom-data';
-import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant'
+import { Messages, addMessage, editMessage } from '../../../../../constants/config-constant'
 import { ConfigHomeService } from '../../../../../services/config-home.service';
 
 @Component({
@@ -29,6 +29,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   /* Assign data to Rules Business Transaction Data table */
   methodRulesInfo: RulesData[];
   methodArgRulesInfo: RulesData[];
+
   btMethodRulesDetail: RulesData;
 
   selectedMethodRules: RulesData[];
@@ -93,16 +94,32 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   methodBtTypeDelete = [];
 
-  bTMethodBrowse :boolean;
-  isbTMethodBrowse : boolean;
+  bTMethodBrowse: boolean;
+  isbTMethodBrowse: boolean;
   /** To open file explorer dialog */
   openFileExplorerDialog: boolean = false;
-  flag:boolean = true;
+  flag: boolean = true;
 
   //used to hold value of "type " i.e data type of return value or argument value whichever is selected
   type: string;
   isProfilePerm: boolean;
-  fqm:any;
+  fqm: any;
+
+  //All below variables are to implement BT Method Invocation
+  methodInvocationRulesInfo: RulesData[];
+  selectedInvocationRules: RulesData[];
+  btMethodInvococationRulesDetail: RulesData;
+  methodInvocation: string
+  addInvocationRulesDialog: boolean;
+  isNewInvocation: boolean;
+  returnCountForInvocation: number = 0;
+  returnCountForInvocationEdit: number = 0;
+  invocationCount: number = 0
+  invocationCountEdit: number = 0;
+  editInvocationRules: boolean = false;
+  third: boolean;
+  indexListForInvoc: SelectItem[];
+
   constructor(private configHomeService: ConfigHomeService, private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
 
     let arrLabel = ['Numeric', 'String', 'Boolean', 'Char or byte'];
@@ -113,12 +130,13 @@ export class MethodBTConfigurationComponent implements OnInit {
 
     this.methodRulesInfo = [];
     this.methodArgRulesInfo = [];
+    this.methodInvocationRulesInfo = [];
 
     this.configHomeService.getBTMethodDataFromAD$.subscribe(val => {
       this.flag = val;
     });
     this.configHomeService.selectedFromAD$.subscribe(val => {
-      if(val.includes('#')){
+      if (val.includes('#')) {
         this.profileId = val.split("#")[0];
         this.fqm = val.split("#")[1];
 
@@ -135,17 +153,17 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   arrStringLabelReturnType: any[] = ['Equals', 'Not equals', 'Contains', 'Starts with', 'Ends with', 'Exception', 'Invocation'];
-  arrStringValueReturnType: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION','INVOCATION'];
+  arrStringValueReturnType: any[] = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION', 'INVOCATION'];
 
 
   arrNumericLabelReturnType: any[] = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equals to', 'Greater than equals to', 'Exception', 'Invocation'];
-  arrNumericValueReturnType: any[] = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION','INVOCATION'];
+  arrNumericValueReturnType: any[] = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION', 'INVOCATION'];
 
   arrCharLabelReturnType: any[] = ['Exception', 'Equals', 'Not equals', 'Invocation'];
   arrCharValueReturnType: any[] = ['EXCEPTION', 'EQ', 'NE'];
 
   arrBooleanLabelReturnType: any[] = ['True', 'False', 'Exception', 'Invocation'];
-  arrBooleanValueReturnType: any[] = ['TRUE', 'FALSE', 'EXCEPTION','INVOCATION'];
+  arrBooleanValueReturnType: any[] = ['TRUE', 'FALSE', 'EXCEPTION', 'INVOCATION'];
 
   arrVoidLabelReturnType: any[] = ['Invocation'];
   arrVoidValueReturnType: any[] = ['INVOCATION'];
@@ -219,9 +237,9 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.flag)
-     this.loadBTMethodData();
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if (this.flag)
+      this.loadBTMethodData();
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
@@ -232,8 +250,8 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.businessTransMethodDetail = new BusinessTransMethodData();
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-       this.saveDisable =  true;
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable = true;
     });
     //this.businessTransMethodInfo = data
     this.configKeywordsService.getBusinessTransMethodData(this.profileId).subscribe(data => {
@@ -254,7 +272,9 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.btMethodRulesDetail = new RulesData();
     this.methodRulesInfo = [];
     this.methodArgRulesInfo = [];
+    this.methodInvocationRulesInfo = [];
     this.enableArgumentType = "";
+    this.methodInvocation = "";
 
     this.addBusinessTransMethodDialog = true;
     this.isNewMethod = true;
@@ -297,11 +317,19 @@ export class MethodBTConfigurationComponent implements OnInit {
     //  this.businessTransMethodDetail.argumentIndex = Number(this.businessTransMethodDetail.argumentIndex);
     this.businessTransMethodDetail = Object.assign({}, this.selectedbusinessTransMethod[0]);
 
-    if (this.businessTransMethodDetail.enableArgumentType) {
-      this.validateArgAndGetArgumentsNumberList();
+    if (this.businessTransMethodDetail.enableArgumentType && ((this.businessTransMethodDetail.methodInvocation == null || this.businessTransMethodDetail.methodInvocation == '-1'))) {
+      this.validateArgAndGetArgumentsNumberList('ARGUMENT');
       this.methodArgRulesInfo = this.selectedbusinessTransMethod[0].rules;
       this.methodRulesInfo = [];
+      this.methodInvocationRulesInfo = [];
       this.enableArgumentType = "argument";
+    }
+    else if (this.businessTransMethodDetail.enableArgumentType && this.businessTransMethodDetail.methodInvocation == '1') {
+      this.validateArgAndGetArgumentsNumberList('INVOCATION');
+      this.methodInvocationRulesInfo = this.selectedbusinessTransMethod[0].rules;
+      this.methodArgRulesInfo = [];
+      this.methodRulesInfo = [];
+      this.enableArgumentType = "invocation";
     }
     else {
       this.methodRulesInfo = this.selectedbusinessTransMethod[0].rules;
@@ -310,6 +338,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.selectedArgRules = [];
     this.selectedMethodRules = [];
+    this.selectedInvocationRules = [];
     this.indexList = [];
   }
 
@@ -343,6 +372,9 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.enableArgumentType == "returnType") {
       this.businessTransMethodDetail.enableArgumentType = false;
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
+      this.businessTransMethodDetail.methodInvocation = '-1';
+      this.businessTransMethodDetail.methodInvocationIndex = -1;
+      this.businessTransMethodDetail.argumentIndex = -1;
       //If return type is selected then, to delete all the rules from argument table
       if (this.methodRulesInfo != []) {
         for (let index in this.methodArgRulesInfo) {
@@ -350,11 +382,20 @@ export class MethodBTConfigurationComponent implements OnInit {
             this.methodBtTypeDelete.push(this.methodArgRulesInfo[index].btMethodRuleId);
         }
         this.methodArgRulesInfo = [];
+        //If return type is selected then, to delete all the rules from Invocation table
+        for (let index in this.methodInvocationRulesInfo) {
+          if (this.methodInvocationRulesInfo[index].btMethodRuleId != null)
+            this.methodBtTypeDelete.push(this.methodInvocationRulesInfo[index].btMethodRuleId);
+        }
+        this.methodInvocationRulesInfo = [];
       }
     }
     else if (this.enableArgumentType == "argument") {
+      // this.operationListArgumentType();
       this.businessTransMethodDetail.enableArgumentType = true;
       this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
+      this.businessTransMethodDetail.methodInvocation = '-1';
+      this.businessTransMethodDetail.methodInvocationIndex = -1;
 
       //If argument type is selected then, to delete all the rules from return table
       if (this.methodRulesInfo != []) {
@@ -363,14 +404,49 @@ export class MethodBTConfigurationComponent implements OnInit {
             this.methodBtTypeDelete.push(this.methodRulesInfo[index].btMethodRuleId)
         }
         this.methodRulesInfo = [];
+        //If argument type is selected then, to delete all the rules from Invocation table
+        for (let index in this.methodInvocationRulesInfo) {
+          if (this.methodInvocationRulesInfo[index].btMethodRuleId != null)
+            this.methodBtTypeDelete.push(this.methodInvocationRulesInfo[index].btMethodRuleId)
+        }
+        this.methodInvocationRulesInfo = [];
       }
     }
-     if(this.enableArgumentType == "returnType" && this.methodRulesInfo.length == 0){
+    else if (this.enableArgumentType == "invocation") {
+      this.businessTransMethodDetail.enableArgumentType = true;
+      this.businessTransMethodDetail.methodInvocation = '1';
+      this.businessTransMethodDetail.argumentIndex = -1;
+      this.businessTransMethodDetail.rules = this.methodInvocationRulesInfo;
+      //If argument type is selected then, to delete all the rules from return table
+      if (this.methodRulesInfo != []) {
+        for (let index in this.methodRulesInfo) {
+          if (this.methodRulesInfo[index].btMethodRuleId != null)
+            this.methodBtTypeDelete.push(this.methodRulesInfo[index].btMethodRuleId)
+        }
+        this.methodRulesInfo = [];
+        //If argument type is selected then, to delete all the rules from Argument table
+        for (let index in this.methodArgRulesInfo) {
+          if (this.methodArgRulesInfo[index].btMethodRuleId != null)
+            this.methodBtTypeDelete.push(this.methodArgRulesInfo[index].btMethodRuleId);
+        }
+        this.methodArgRulesInfo = [];
+      }
+    }
+    if (this.enableArgumentType == "invocation") {
+      this.businessTransMethodDetail.returnType = '4';
+    }
+    else
+      this.businessTransMethodDetail.returnType = this.type;
+    if (this.enableArgumentType == "returnType" && this.methodRulesInfo.length == 0) {
       this.configUtilityService.errorMessage("Provide return type settings");
       return;
     }
-    if(this.enableArgumentType == "argument" && this.methodArgRulesInfo.length == 0){
+    if (this.enableArgumentType == "argument" && this.methodArgRulesInfo.length == 0) {
       this.configUtilityService.errorMessage("Provide argument type settings");
+      return;
+    }
+    if (this.enableArgumentType == "invocation" && this.methodInvocationRulesInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide invocation type settings");
       return;
     }
     this.businessTransMethodDetail.btMethodId = this.selectedbusinessTransMethod[0].btMethodId;
@@ -393,6 +469,8 @@ export class MethodBTConfigurationComponent implements OnInit {
             val.fqm = data.fqm;
             val.returnType = data.returnType;
             val.rules = data.rules;
+            val.methodInvocation = data.methodInvocation;
+            val.methodInvocationIndex = data.methodInvocationIndex;
           }
           that.modifyData(val);
         })
@@ -404,7 +482,6 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   /**This method is used to delete Mehtod BT*/
   deleteMethodTrans(): void {
-
     if (!this.selectedbusinessTransMethod || this.selectedbusinessTransMethod.length < 1) {
       this.configUtilityService.errorMessage("Select row(s) to delete");
       return;
@@ -533,7 +610,7 @@ export class MethodBTConfigurationComponent implements OnInit {
 
   //For checking FQM 
   saveRules() {
-    if(this.btMethodRulesDetail.value == null || this.btMethodRulesDetail.value == undefined || this.btMethodRulesDetail.value == ''){
+    if (this.btMethodRulesDetail.value == null || this.btMethodRulesDetail.value == undefined || this.btMethodRulesDetail.value == '') {
       this.btMethodRulesDetail.value = 'NA';
     }
     //in edit form, to edit return rules
@@ -551,7 +628,7 @@ export class MethodBTConfigurationComponent implements OnInit {
             val.value = that.btMethodRulesDetail.value;
           }
         })
-          this.selectedMethodRules = [];
+        this.selectedMethodRules = [];
       }
       else {
         //In edit form, to add new return rule
@@ -560,11 +637,9 @@ export class MethodBTConfigurationComponent implements OnInit {
         this.methodRulesInfo = this.businessTransMethodDetail.rules;
         this.returnCountEdit = this.returnCountEdit + 1;
       }
-
-
     }
     else {
-    //in add form, to edit return rules
+      //in add form, to edit return rules
       if (this.editReturnRules) {
         this.editReturnRules = false;
         let that = this;
@@ -592,7 +667,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   saveArgRules() {
-//in edit form, to edit Argument rules
+    //in edit form, to edit Argument rules
     if (!this.isNewMethod) {
       if (this.editArgumentRules) {
         this.editArgumentRules = false;
@@ -607,7 +682,7 @@ export class MethodBTConfigurationComponent implements OnInit {
             val.value = that.btMethodRulesDetail.value;
           }
         })
-          this.selectedArgRules = [];
+        this.selectedArgRules = [];
       }
       else {
         //In edit form, to add new argument rule
@@ -616,11 +691,9 @@ export class MethodBTConfigurationComponent implements OnInit {
         this.methodArgRulesInfo = this.businessTransMethodDetail.rules;
         this.argCountEdit = this.argCountEdit + 1;
       }
-
-
     }
     else {
-    //in add form, to edit return rules
+      //in add form, to edit return rules
       if (this.editArgumentRules) {
         this.editArgumentRules = false;
         let that = this;
@@ -713,13 +786,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.first) {
       this.first = false;
       this.isNewReturn = true;
-
       let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
-
-      // if (returnType == 'void') {
-      //   this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
-      //   //  fqmField.setCustomValidity("FQM doesn't have any return type.");
-      // }
       if (returnType == 'null') {
         this.configUtilityService.errorMessage("FQM doesn't have any return type.");
       }
@@ -731,18 +798,11 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.second = false;
       this.isNewArg = true;
       this.openAddArgumentRulesDialog();
-      //this.openAddArgumentRulesDialog();
-      // let returnType = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
-      // if (returnType == 'void') {
-      //   this.configUtilityService.errorMessage("FQM doesn't have any return type.");
-      //   //  fqmField.setCustomValidity("FQM doesn't have any return type.");
-      // }
-      // else if (returnType == 'null') {
-      //   this.configUtilityService.errorMessage("FQM doesn't have any valid return type.");
-      // }
-      // else {
-      //   this.openAddArgumentRulesDialog();
-      // }
+    }
+    else if (this.third) {
+      this.third = false;
+      this.isNewInvocation = true;
+      this.openAddInvocationDialog();
     }
     else {
       //When add new application
@@ -754,7 +814,6 @@ export class MethodBTConfigurationComponent implements OnInit {
           return;
         }
       }
-
       //When add edit Method
       else {
         if (this.selectedbusinessTransMethod[0].fqm != this.businessTransMethodDetail.fqm) {
@@ -777,14 +836,15 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   modifyData(val) {
-    if (val.enableArgumentType == true) {
-      val.capturingType = "Argument type ";
-      // this.methodArgRulesInfo = val.rules;
+    if (val.enableArgumentType == true && (val.methodInvocation == null || val.methodInvocation == '-1')) {
+      val.capturingType = "Argument";
+    }
+    else if (val.enableArgumentType == true && val.methodInvocation == '1') {
+      val.capturingType = "Invocation";
     }
     else {
-      val.capturingType = "Return type";
+      val.capturingType = "Return";
     }
-
   }
 
   getHdrNames(data) {
@@ -854,7 +914,7 @@ export class MethodBTConfigurationComponent implements OnInit {
               break;
             case 'L':
             case '[':
-              while (charArr[i++] != ';'){
+              while (charArr[i++] != ';') {
               }
               i--;
               if (pi == index)
@@ -873,7 +933,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
 
   //for creating list for index i.e arguments number list
-  validateArgAndGetArgumentsNumberList() {
+  validateArgAndGetArgumentsNumberList(argVal) {
     if (this.businessTransMethodDetail.fqm == null || this.businessTransMethodDetail.fqm == "") {
       this.configUtilityService.errorMessage("Fill out fully qualified method name first");
       this.indexList = [];
@@ -907,9 +967,9 @@ export class MethodBTConfigurationComponent implements OnInit {
               //   return;
               // }
               // else {
-                length++;
-                string = '';
-                flag = false;
+              length++;
+              string = '';
+              flag = false;
               // }
             }
             else
@@ -928,9 +988,17 @@ export class MethodBTConfigurationComponent implements OnInit {
         }
       }
       this.indexList = [];
+      this.indexListForInvoc = [];
       // this.indexList.push({ value: -1, label: '--Select Index--' });
-      for (let i = 1; i <= length; i++) {
-        this.indexList.push({ 'value': i, 'label': i + '' });
+      if (argVal == "ARGUMENT") {
+        for (let i = 1; i <= length; i++) {
+          this.indexList.push({ 'value': i, 'label': i + '' });
+        }
+      }
+      else {
+        for (let i = 0; i <= length; i++) {
+          this.indexListForInvoc.push({ 'value': i, 'label': i + '' });
+        }
       }
     }
   }
@@ -946,29 +1014,41 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.businessTransMethodDetail.enableArgumentType = true;
       this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
     }
-
-    this.businessTransMethodDetail.returnType = this.type;
+    else if (this.enableArgumentType == "invocation") {
+      this.businessTransMethodDetail.enableArgumentType = true;
+      this.businessTransMethodDetail.rules = this.methodInvocationRulesInfo;
+      this.businessTransMethodDetail.methodInvocation = "1";
+    }
+    if (this.enableArgumentType == "invocation") {
+      this.businessTransMethodDetail.returnType = '4';
+    }
+    else
+      this.businessTransMethodDetail.returnType = this.type;
 
     if (this.enableArgumentType == "") {
       this.configUtilityService.errorMessage("Select enable return/argument type capturing");
       return;
     }
-    if(this.enableArgumentType == "returnType" && this.methodRulesInfo.length == 0){
+    if (this.enableArgumentType == "returnType" && this.methodRulesInfo.length == 0) {
       this.configUtilityService.errorMessage("Provide return type settings");
       return;
     }
-    if(this.enableArgumentType == "argument" && this.methodArgRulesInfo.length == 0){
+    if (this.enableArgumentType == "argument" && this.methodArgRulesInfo.length == 0) {
       this.configUtilityService.errorMessage("Provide argument type settings");
+      return;
+    }
+    if (this.enableArgumentType == "invocation" && this.methodInvocationRulesInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide invocation type settings");
       return;
     }
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
       this.modifyData(data);
       this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
-      if(!this.flag){
+      if (!this.flag) {
         this.configKeywordsService.saveBusinessTransMethodData(this.profileId)
-        .subscribe(data => {
-      })
+          .subscribe(data => {
+          })
       }
       this.configUtilityService.successMessage(addMessage);
     });
@@ -990,9 +1070,9 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.editReturnRules = true;
       let selectedRules = this.selectedMethodRules;
       this.addRulesDialog = true;
-       let that = this;
-     this.methodRulesInfo.map(function(val){
-        val.id =that.returnCount;
+      let that = this;
+      this.methodRulesInfo.map(function (val) {
+        val.id = that.returnCount;
         that.returnCount = that.returnCount + 1;
         // val.typeName = that.getTypeName(val.type)
       })
@@ -1012,9 +1092,9 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.isNewArg = false;
       this.editArgumentRules = true;
       let selectedRules = this.selectedArgRules;
-         let that = this;
-     this.methodArgRulesInfo.map(function(val){
-        val.id =that.argCount;
+      let that = this;
+      this.methodArgRulesInfo.map(function (val) {
+        val.id = that.argCount;
         that.argCount = that.argCount + 1;
         // val.typeName = that.getTypeName(val.type)
       })
@@ -1103,9 +1183,9 @@ export class MethodBTConfigurationComponent implements OnInit {
       }
       return returnType;
     }
-  } 
+  }
 
-  openFileManager(){
+  openFileManager() {
     this.openFileExplorerDialog = true;
     this.isbTMethodBrowse = true;
   }
@@ -1118,36 +1198,170 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.isbTMethodBrowse == true) {
       this.isbTMethodBrowse = false;
       this.openFileExplorerDialog = false;
-    let fileNameWithExt: string;
-    let fileExt: string;
-    fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
-    fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
-    let check: boolean;
-    if (fileExt == ".btr" || fileExt == ".txt") {
+      let fileNameWithExt: string;
+      let fileExt: string;
+      fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+      fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
+      let check: boolean;
+      if (fileExt == ".btr" || fileExt == ".txt") {
         check = true;
-    }
-    else {
+      }
+      else {
         check = false;
-    }
-    if (check == false) {
+      }
+      if (check == false) {
         this.configUtilityService.errorMessage("File Extension(s) other than .txt and .btr are not supported");
         return;
-    }
+      }
 
-    if (filepath.includes(";")) {
+      if (filepath.includes(";")) {
         this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
         return;
-    }
+      }
       this.configKeywordsService.uploadBTMethodFile(filepath, this.profileId).subscribe(data => {
-          if(data.length == this.businessTransMethodInfo.length){
-            this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
-          }
-          let that = this;
-          data.map(function (val) {
-            that.modifyData(val);
-          })
-          this.businessTransMethodInfo = data;
-       });
+        if (data.length == this.businessTransMethodInfo.length) {
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
+        }
+        let that = this;
+        data.map(function (val) {
+          that.modifyData(val);
+        })
+        this.businessTransMethodInfo = data;
+      });
     }
-}
+  }
+
+  //Method Invoked to open Dialog of Invocation during ADD
+  openAddInvocationDialog() {
+    this.btMethodRulesDetail = new RulesData();
+    this.addInvocationRulesDialog = true;
+  }
+//Method Invoked to open Dialog of Invocation during EDIT
+  openEditInvocationDialog() {
+    if (!this.selectedInvocationRules || this.selectedInvocationRules.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+    }
+    else if (this.selectedInvocationRules.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit")
+    }
+    else {
+      this.isNewInvocation = false;
+      this.editInvocationRules = true;
+      let selectedRules = this.selectedInvocationRules;
+      let that = this;
+      this.methodInvocationRulesInfo.map(function (val) {
+        val.id = that.invocationCount;
+        that.invocationCount = that.invocationCount + 1;
+      })
+      this.addInvocationRulesDialog = true;
+      this.btMethodRulesDetail = Object.assign({}, this.selectedInvocationRules[0]);
+    }
+  }
+  //saveInvocationRules called from Dialog of INVOCATION
+  saveInvocationRules() {
+    this.btMethodRulesDetail.operationName = "INVOCATION";
+    //in edit form, to edit Invocation rules
+    if (!this.isNewMethod) {
+      if (this.editInvocationRules) {
+        this.editInvocationRules = false;
+        let that = this;
+        this.methodInvocationRulesInfo.map(function (val) {
+          if (val.id == that.btMethodRulesDetail.id) {
+            val.btName = that.btMethodRulesDetail.btName;
+            val.opCode = that.btMethodRulesDetail.opCode;
+            val.operationName = that.btMethodRulesDetail.operationName;
+            val.previousBtMethodRulesIds = that.btMethodRulesDetail.previousBtMethodRulesIds;
+            val.value = that.btMethodRulesDetail.value;
+          }
+        })
+        this.selectedInvocationRules = [];
+      }
+      else {
+        //In edit form, to add new Invocation rule
+        this.btMethodRulesDetail["id"] = this.invocationCountEdit;
+        this.businessTransMethodDetail.rules = ImmutableArray.push(this.methodInvocationRulesInfo, this.btMethodRulesDetail);
+        this.methodInvocationRulesInfo = this.businessTransMethodDetail.rules;
+        this.invocationCountEdit = this.invocationCountEdit + 1;
+      }
+    }
+    else {
+      //in add form, to edit Invocation rules
+      if (this.editInvocationRules) {
+        this.editInvocationRules = false;
+        let that = this;
+        this.methodInvocationRulesInfo.map(function (val) {
+          if (val.id == that.btMethodRulesDetail.id) {
+            val.btName = that.btMethodRulesDetail.btName;
+            val.opCode = that.btMethodRulesDetail.opCode;
+            val.operationName = that.btMethodRulesDetail.operationName;
+            val.previousBtMethodRulesIds = that.btMethodRulesDetail.previousBtMethodRulesIds;
+            val.value = that.btMethodRulesDetail.value;
+          }
+        })
+        this.selectedInvocationRules = [];
+      }
+      else {
+        //In add form, to add new Invocation rule
+        this.btMethodRulesDetail["id"] = this.invocationCountEdit;
+        this.methodInvocationRulesInfo = ImmutableArray.push(this.methodInvocationRulesInfo, this.btMethodRulesDetail);
+        this.invocationCountEdit = this.invocationCountEdit + 1;
+      }
+    }
+    this.addInvocationRulesDialog = false;
+    this.selectedInvocationRules = [];
+  }
+
+  //Deletimg  Method Invocation rules
+  deleteInvocationsRules(): void {
+    if (!this.selectedInvocationRules || this.selectedInvocationRules.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    let selectedRules = this.selectedInvocationRules;
+    let arrInvocationIndex = [];
+    for (let index in selectedRules) {
+      arrInvocationIndex.push(selectedRules[index]);
+      if (selectedRules[index].hasOwnProperty('btMethodRuleId')) {
+        this.methodBtTypeDelete.push(selectedRules[index].btMethodRuleId);
+      }
+    }
+    this.deleteInvocationRulesFromTable(arrInvocationIndex);
+    this.selectedInvocationRules = [];
+  }
+
+  /**This method is used to delete  Method Invocation Rules from Data Table */
+  deleteInvocationRulesFromTable(arrRulesIndex: any[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    for (let index in arrRulesIndex) {
+      rowIndex.push(this.getInvocationRulesIndex(arrRulesIndex[index]));
+    }
+    this.methodInvocationRulesInfo = deleteMany(this.methodInvocationRulesInfo, rowIndex);
+  }
+
+  /**This method returns selected method invocation row on the basis of selected row */
+  getInvocationRulesIndex(methodInvocationId: any): number {
+    for (let i = 0; i < this.methodInvocationRulesInfo.length; i++) {
+      if (this.methodInvocationRulesInfo[i] == methodInvocationId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**This method is used to validate the name of MethodBT  already exists. */
+  checkMethodBTNameNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.methodInvocationRulesInfo.length; i++) {
+      if (this.methodInvocationRulesInfo[i].btName == this.btMethodRulesDetail.btName) {
+        this.configUtilityService.errorMessage("Default BT Name already exist");
+        return true;
+      }
+    }
+  }
+  closeInvocationDialog() {
+    this.addInvocationRulesDialog = false;
+    this.selectedInvocationRules = [];
+    this.addBusinessTransMethodDialog = true;
+  }
 }

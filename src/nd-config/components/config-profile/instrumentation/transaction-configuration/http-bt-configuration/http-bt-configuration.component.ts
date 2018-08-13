@@ -223,7 +223,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
    * @param value 
    */
   setSelectedValueOfBT(value) {
-    if (value == true) {
+    this.profileId = value.profileId
+    if (value.message == true) {
       value = this.selectedQueryPattern;
     }
     this.saveBusinessTransaction();

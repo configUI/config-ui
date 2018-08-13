@@ -187,7 +187,7 @@ export class TransactionConfigurationComponent implements OnInit {
       .subscribe(data => {
         console.log("return type",data)
     })
-    this.configHomeService.callTosetSelectedValueOfBT(true);
+    this.configHomeService.callTosetSelectedValueOfBT(true,this.profileId);
     }
     }
     

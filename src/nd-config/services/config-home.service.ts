@@ -37,13 +37,13 @@ export class ConfigHomeService {
        this.BTMethodDataFromAD.next(data);
   }
 
-  private selectedValueOfBT = new Subject<boolean>();
+  private selectedValueOfBT = new Subject<Object>();
   selectedValueOfBT$ = this.selectedValueOfBT.asObservable();
 
 
-  public callTosetSelectedValueOfBT(data)
+  public callTosetSelectedValueOfBT(message : boolean , profileId : number)
   {
-       this.selectedValueOfBT.next(data);
+       this.selectedValueOfBT.next({ "message": message, "profileId": profileId});
   }
 
   public getAIStartStopOperationValue(data)
