@@ -403,3 +403,12 @@ export class FPMethodStackData {
     countStackTraceFP : number;
     durationStackTraceFP : number;
 }
+
+export class NDCCustomKeywordsComponentData{
+    ndcKeyId:number;
+    keywordName :string;
+    value :string ;
+    description: string;
+    type: string;
+    assocId:number;
+}
