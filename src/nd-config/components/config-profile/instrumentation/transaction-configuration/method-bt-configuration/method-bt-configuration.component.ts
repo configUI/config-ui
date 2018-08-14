@@ -937,6 +937,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.businessTransMethodDetail.fqm == null || this.businessTransMethodDetail.fqm == "") {
       this.configUtilityService.errorMessage("Fill out fully qualified method name first");
       this.indexList = [];
+      this.indexList = [];
       return;
     }
     else {
