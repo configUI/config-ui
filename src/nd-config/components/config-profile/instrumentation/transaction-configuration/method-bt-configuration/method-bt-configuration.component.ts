@@ -1008,11 +1008,14 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.enableArgumentType == "returnType") {
       this.businessTransMethodDetail.enableArgumentType = false;
       this.businessTransMethodDetail.rules = this.methodRulesInfo;
+      this.businessTransMethodDetail.methodInvocation = '-1';
+      this.businessTransMethodDetail.methodInvocationIndex = -1;
     }
-
     else if (this.enableArgumentType == "argument") {
       this.businessTransMethodDetail.enableArgumentType = true;
       this.businessTransMethodDetail.rules = this.methodArgRulesInfo;
+      this.businessTransMethodDetail.methodInvocation = '-1';
+      this.businessTransMethodDetail.methodInvocationIndex = -1;
     }
     else if (this.enableArgumentType == "invocation") {
       this.businessTransMethodDetail.enableArgumentType = true;
@@ -1173,8 +1176,8 @@ export class MethodBTConfigurationComponent implements OnInit {
             break;
           case 'V':
             returnType = "void";
-            this.enableArgumentType = "void";
-            this.configUtilityService.errorMessage("Operation not permitted for FQM's having return type as Void");
+            // this.enableArgumentType = "void";
+            // this.configUtilityService.errorMessage("Operation not permitted for FQM's having return type as Void");
             break;
           default:
             returnType = null;
@@ -1259,7 +1262,7 @@ export class MethodBTConfigurationComponent implements OnInit {
   }
   //saveInvocationRules called from Dialog of INVOCATION
   saveInvocationRules() {
-    this.btMethodRulesDetail.operationName = "INVOCATION";
+    this.btMethodRulesDetail.operationName = "METHODRETVALUE";
     //in edit form, to edit Invocation rules
     if (!this.isNewMethod) {
       if (this.editInvocationRules) {

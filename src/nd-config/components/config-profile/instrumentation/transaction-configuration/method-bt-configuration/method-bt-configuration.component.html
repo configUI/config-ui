@@ -129,7 +129,7 @@
 
     <div class="ui-g-12">
         <div class="ui-g-4">
-            <p-radioButton name="enableArgumentType" value="invocation" label="BT Rule Based on Method Invocation" [(ngModel)]="enableArgumentType" (click)="validateReturnType(businessTransMethodDetail.fqm)"></p-radioButton>
+            <p-radioButton name="enableArgumentType" value="invocation" label="BT Rule Based on Method Invocation" [(ngModel)]="enableArgumentType"></p-radioButton>
         </div>
         <div class="ui-g-3" style="margin-top: -5px">
             <input name="methodInvocationIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.methodInvocationIndex" required ngModel/>
