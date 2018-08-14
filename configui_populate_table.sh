@@ -52,7 +52,10 @@ INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name
 (28,' ','com.tibco.plugin.share.http.servlet.BwServlet.doDelete(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doDelete(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
 (29,' ','com.tibco.plugin.share.http.servlet.BwServlet.doOptions(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','doOptions(HttpServletRequest,HttpServletResponse)',1,false,'-','Java'),
 (30,' ','com.tibco.plugin.share.http.servlet.BwServlet.a(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;Ljava/lang/String;)V','a(HttpServletRequest,HttpServletResponse,String)',1,false,'-','Java'),
-(31,' ','org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(Ljavax/jms/Session;Ljavax/jms/Message;)V','invokeListener(Session,Message)',7,false,'-','Java');
+(31,' ','org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(Ljavax/jms/Session;Ljavax/jms/Message;)V','invokeListener(Session,Message)',7,false,'-','Java'),
+(32,' ','org.springframework.batch.core.job.AbstractJob.execute(Lorg/springframework/batch/core/JobExecution;)V','AbstractJob_Execute',6,false,'-','Java'),
+(33,' ','org.springframework.batch.core.job.SimpleJob.doExecute(Lorg/springframework/batch/core/JobExecution;)V','SimpleJob_doExecute',6,false,'-','Java');
+
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
 (1, true, 1, 1),
@@ -85,7 +88,9 @@ INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, ent
 (28, true, 28, 1),
 (29, true, 29, 1),
 (30, true, 30, 1),
-(31, false, 31, 1);
+(31, false, 31, 1),
+(32, false, 32, 1),
+(33, false, 33, 1);
 
 
 INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
