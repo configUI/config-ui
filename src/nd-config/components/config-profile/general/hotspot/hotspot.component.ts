@@ -26,7 +26,8 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  keywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff', 'ASDepthFilter'];
+  javaKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff', 'ASDepthFilter'];
+  dotNetKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth'];
   nodeJsKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'enableHSLongStack',]
 
   /**It stores keyword data for showing in GUI */
@@ -63,19 +64,28 @@ export class HotspotComponent implements OnInit, OnDestroy {
         })
         this.hotspot = keywordDataVal;
       }
-      else {
-        this.keywordList.map(function (key) {
+      else if (this.agentType == 'Java') {
+        this.javaKeywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
         this.hotspot = keywordDataVal;
+
         if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
           this.includedException = null;
         else
           this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
-        // this.includedExceptionChk = this.hotspot["ASPositiveThreadFilters"].value != null ? true : false;
+
         if (this.hotspot["ASNegativeThreadFilter"].value != null)
           this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
+
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+      }
+      else {
+        this.dotNetKeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.hotspot = keywordDataVal;
+
       }
     });
     this.configKeywordsService.toggleKeywordData();
@@ -102,29 +112,37 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
-      let data = this.configKeywordsService.keywordData;
-      var keywordDataVal = {}
-      if (this.agentType == 'NodeJS') {
-        for (let key in data) {
-          if (this.nodeJsKeywordList.includes(key)) {
-            this.hotspot[key].value = data[key].value;
-          }
+    let data = this.configKeywordsService.keywordData;
+    var keywordDataVal = {}
+    if (this.agentType == 'NodeJS') {
+      for (let key in data) {
+        if (this.nodeJsKeywordList.includes(key)) {
+          this.hotspot[key].value = data[key].value;
         }
-        this.methodToSetValue(this.hotspot)
       }
-      else {
-        for (let key in data) {
-          if (this.keywordList.includes(key)) {
-            this.hotspot[key].value = data[key].value;
-          }
+      this.methodToSetValue(this.hotspot)
+    }
+    else if (this.agentType == 'Java') {
+      for (let key in data) {
+        if (this.javaKeywordList.includes(key)) {
+          this.hotspot[key].value = data[key].value;
         }
-        if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
-          this.includedException = null;
-        else
-          this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
-        if (this.hotspot["ASNegativeThreadFilter"].value != null)
-          this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
       }
+      if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
+        this.includedException = null;
+      else
+        this.includedException = this.hotspot["ASPositiveThreadFilters"].value.split("&");
+
+      if (this.hotspot["ASNegativeThreadFilter"].value != null)
+        this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
+    }
+    else {
+      for (let key in data) {
+        if (this.dotNetKeywordList.includes(key)) {
+          this.hotspot[key].value = data[key].value;
+        }
+      }
+    }
   }
   //This method is used to set value of data depending on data received in its argument
   methodToSetValue(data) {
@@ -163,20 +181,13 @@ export class HotspotComponent implements OnInit, OnDestroy {
     *     'ASpositivethreadFilter='' ;  default value of this keyword is "NA"
     * 
     */
-    if (this.agentType != 'NodeJS') {
+    if(this.agentType == 'Java')
+    {
       if (this.hotspot["ASPositiveThreadFilters"].value != null && this.hotspot["ASPositiveThreadFilters"].value.length != 0 && this.includedException != null) {
         this.hotspot["ASPositiveThreadFilters"].value = this.includedException.join("&");
       }
       else {
         this.hotspot["ASPositiveThreadFilters"].value = this.hotspot["ASPositiveThreadFilters"].defaultValue;
-      }
-
-      if (this.excludedException != null && this.excludedException.length != 0) {
-        this.hotspot["ASNegativeThreadFilter"].value = this.excludedException.join("&");
-      }
-
-      else {
-        this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].defaultValue;
       }
 
       if (this.includedException != null) {
@@ -185,7 +196,16 @@ export class HotspotComponent implements OnInit, OnDestroy {
           this.includedException = null;
         }
       }
+
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
+
+      if (this.excludedException != null && this.excludedException.length != 0) {
+        this.hotspot["ASNegativeThreadFilter"].value = this.excludedException.join("&");
+      }
+
+      else {
+        this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].defaultValue;
+      }
     }
     if (this.agentType == "NodeJS") {
       /**
@@ -231,12 +251,13 @@ export class HotspotComponent implements OnInit, OnDestroy {
       this.hotspot["enableHSLongStack"].value = this.hotspot["enableHSLongStack"].value;
       this.methodToSetValue(this.hotspot)
     }
-    else {
+    else if (this.agentType == 'Java') {
       for (let key in data) {
-        if (this.keywordList.includes(key)) {
+        if (this.javaKeywordList.includes(key)) {
           this.hotspot[key].value = data[key].defaultValue;
         }
       }
+
       if (this.hotspot["ASPositiveThreadFilters"].value == "NA")
         this.includedException = null;
       else
@@ -244,6 +265,13 @@ export class HotspotComponent implements OnInit, OnDestroy {
       if (this.hotspot["ASNegativeThreadFilter"].value != null)
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+    }
+    else {
+      for (let key in data) {
+        if (this.dotNetKeywordList.includes(key)) {
+          this.hotspot[key].value = data[key].defaultValue;
+        }
+      }
     }
   }
   /**
@@ -255,7 +283,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.agentType != 'NodeJS')
+    if (this.agentType != 'Java')
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
     if (this.subscription)
       this.subscription.unsubscribe();
