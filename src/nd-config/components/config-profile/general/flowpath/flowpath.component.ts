@@ -91,7 +91,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
           keywordDataVal[key] = data[key];
         })
         this.flowPath = keywordDataVal;
-
         if (this.flowPath['enableCpuTime'].value.includes("%20")) {
           this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
           this.childCpuFp = true;
@@ -99,7 +98,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         else {
           this.cpuTime = this.flowPath['enableCpuTime'].value
         }
-
         if (this.flowPath['enableMethodBreakDownTime'].value.includes("%20")) {
           this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0, 1);
           this.childBrkDown = true;
@@ -119,7 +117,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
           this.normalMethodResponseTime = arrResTimeFilter[1];
           this.slowVerySlowMethodResponseTime = arrResTimeFilter[2];
         }
-
         if (this.flowPath['enableFPMethodStackTrace'].value.includes("%20")) {
           var arrFPMethodStackTrace = this.flowPath['enableFPMethodStackTrace'].value.split("%20");
           this.enableFPMethodStackTrace = arrFPMethodStackTrace[0] == 0 ? false : true;
@@ -129,7 +126,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
           this.fpMethodStackData.durationStackTraceFP = arrFPMethodStackTrace[4];
           this.enablecallOutFPMethodStackTrace = arrFPMethodStackTrace[5] == 0 ? false : true;
         }
-
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -139,7 +135,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.dotNetKeywordList.map(function (key) {
           keywordDataVal[key] = data[key];
         })
-
         this.flowPath = keywordDataVal;
         if (this.flowPath['enableCpuTime'].value.includes("%20")) {
           this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
@@ -148,7 +143,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         else {
           this.cpuTime = this.flowPath['enableCpuTime'].value
         }
-
         this.correlationIDHeader = this.flowPath['correlationIDHeader'].value;
         this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
       });
@@ -156,7 +150,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   }
 
   saveKeywordData() {
-
     if (this.agentType == 'NodeJS') {
       if (this.excludeMethodOnRespTimeChk) {
         this.flowPath["excludeMethodOnRespTime"].value = 1;
@@ -166,7 +159,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       }
       sessionStorage.setItem("excludeMethodOnRespTime", String(this.flowPath["excludeMethodOnRespTime"].value));
     }
-   
     else if (this.agentType == "Java") {
       if (this.methodBreakDownTime == "0" || this.childBrkDown == false) {
         this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime
@@ -175,7 +167,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       else if (this.childBrkDown == true) {
         this.flowPath['enableMethodBreakDownTime'].value = this.methodBreakDownTime + "%201";
       }
-
       if (this.dumpOnlyMethodExitInFP == true) {
         this.flowPath['dumpOnlyMethodExitInFP'].value = 1;
         var methodResTime = 0;
@@ -201,11 +192,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       else {
         this.flowPath['enableFPMethodStackTrace'].value = "0%205%205%205%2010%200";
       }
-
-    }
-
-    else if (this.agentType !== 'NodeJS') {
-
       if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
         this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
       else
@@ -225,7 +211,26 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
       }
     }
+    else {
+      if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
+        this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
+      else
+        this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
 
+      if (this.captureMethodForAllFPChk) {
+        this.flowPath["captureMethodForAllFP"].value = 1;
+      }
+      else {
+        this.flowPath["captureMethodForAllFP"].value = 0;
+      }
+      if (this.cpuTime == "0" || this.childCpuFp == false) {
+        this.flowPath['enableCpuTime'].value = this.cpuTime
+        this.childCpuFp = false
+      }
+      else if (this.childCpuFp == true) {
+        this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
+      }
+    }
     this.keywordData.emit(this.flowPath);
   }
 
@@ -289,24 +294,11 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   //Purpose : Set the values of data as received in its argument
   methodToSetValues(data) {
     this.flowPath = data;
-    if(this.agentType !== 'NodeJS') {
-      this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
-      if (this.flowPath['enableCpuTime'].value.includes("%20")) {
-        this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
-        this.childCpuFp = true;
-      }
-      else {
-        this.cpuTime = this.flowPath['enableCpuTime'].value;
-        this.childCpuFp = false;
-      }
-      this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
-    }
-    else if (this.agentType == "NodeJS") {
+    if (this.agentType == "NodeJS") {
       this.excludeMethodOnRespTimeChk = this.flowPath["excludeMethodOnRespTime"].value == 0 ? false : true;
       this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
     }
-    else if(this.agentType !== 'Java')
-    {
+    else if (this.agentType == 'Java') {
       if (this.flowPath['enableMethodBreakDownTime'].value.includes("%20")) {
         this.methodBreakDownTime = this.flowPath['enableMethodBreakDownTime'].value.substring(0, 1);
         this.childBrkDown = true;
@@ -332,9 +324,30 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.enablecallOutFPMethodStackTrace = arrFPMethodStackTrace[5] == 0 ? false : true;
         this.configKeywordsService.toggleKeywordData();
       }
+      this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
+      if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+        this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
+        this.childCpuFp = true;
+      }
+      else {
+        this.cpuTime = this.flowPath['enableCpuTime'].value;
+        this.childCpuFp = false;
+      }
+      this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
 
     }
-    
+    else {
+      this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
+      if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+        this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
+        this.childCpuFp = true;
+      }
+      else {
+        this.cpuTime = this.flowPath['enableCpuTime'].value;
+        this.childCpuFp = false;
+      }
+      this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+    }
   }
 
   //To reset keywords to default values
