@@ -212,7 +212,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (109,'enableCaptureNetDelay','0','1','2','0','normal','1'),
 (110,'enableFPMethodStackTrace','0','512','5','0%205%205%205%2010%200','normal','1'),
 (111,'enableJavaGCMonitor','0','1','2','0','normal','1'),
-(112,'ndMBeanMonTraceLevel','0','6','2','0','normal','1');
+(112,'ndMBeanMonTraceLevel','0','6','2','0','normal','1'),
+(113,'FPMaxAllowedAgeInSec','1','40000000','2','300','pre-custom');
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES

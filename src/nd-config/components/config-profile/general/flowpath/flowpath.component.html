@@ -285,6 +285,14 @@
                         </div>
 
                     </div>
+                        <div class="ui-g-12">
+                        <!-- <div class="ui-g-1"></div> -->
+                        <div class="ui-g-6" style="padding-left:6px">
+                            <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath"></i>
+                        </div>
+
+                    </div>
                     <div class="ui-g-12">
                         <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3">
