@@ -154,6 +154,7 @@ import { HelpComponent } from './components/config-help/config-help.component';
 import { EventCorrelationComponent } from './components/config-profile/general/event-correlation/event-correlation.component';
 import { NDEClusterConfiguration, PipeForObject } from './components/nde-cluster-configuration/nde-cluster-configuration.component';
 import { UserConfiguredKeywordComponent } from './components/user-configured-keywords/user-configured-keywords.component';
+import { PipeForType } from './pipes/config-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -229,7 +230,8 @@ import { UserConfiguredKeywordComponent } from './components/user-configured-key
     EventCorrelationComponent,
     NDEClusterConfiguration,
     PipeForObject,
-    UserConfiguredKeywordComponent
+    UserConfiguredKeywordComponent,
+    PipeForType
   ],
   imports: [
    // CommonModule,
@@ -273,7 +275,7 @@ import { UserConfiguredKeywordComponent } from './components/user-configured-key
 
   providers: [
    // { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } }, Logger,
-   AlertConfigService, TimerService, CavTopPanelNavigationService, CavDataApiService ,CavConfigService, AuthenticationService,CavMenuNavigatorService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,MethodBTConfigurationComponent,
+   AlertConfigService, TimerService, CavTopPanelNavigationService, CavDataApiService ,CavConfigService, AuthenticationService,CavMenuNavigatorService, ConfigApplicationService, ConfigProfileService, ConfigTopologyService, ConfigNdAgentService, ConfigBreadcrumbService, ConfigRestApiService, ConfigUtilityService, ConfirmationService, ConfigHomeService, ConfigKeywordsService,ConfigCustomDataService,ConfigExceptionFilterService,MethodBTConfigurationComponent,PipeForType,
    // ApiService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [AppComponentForConfig]

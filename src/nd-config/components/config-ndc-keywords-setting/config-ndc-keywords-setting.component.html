@@ -2,7 +2,7 @@
   <p-tabView>
     <p-tabPanel header="Settings" [style]="{'width':'800px'}">
       <form (ngSubmit)="saveNDCKeywords()" #groupForm="ngForm" ngNativeValidate>
-        <div class="configUI">
+        <div class="configUI ndegui-mainbox">
           <div class="header label">
             <i aria-hidden="true"></i>ND Controller Settings
             <div class="pull-right">
@@ -831,10 +831,12 @@
                         Delay in Clean Up for Deleted Instance
                       </div>
                       <div class="ui-grid-col-1">
+                          <input pInputText type="number" name="NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL" min="0"  [(ngModel)]="NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL"
+                          required ngModel/>
                       </div>
                       <div class="ui-grid-col-1">
-                        <input pInputText type="number" name="NDP_DELETED_INSTANCE_CLEANUP_DELAY" min="0" max="25" [(ngModel)]="ndcKeywords['NDP_DELETED_INSTANCE_CLEANUP_DELAY'].value"
-                          required ngModel/>
+                          <p-dropdown [options]="dropDownNDICDelayOption" [style]="{'width':'100%'}" name="dropDownNDICDelayOption" [(ngModel)]="selectedFormatForNDICDelay"
+                          placeholder="--Select--"></p-dropdown>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -980,7 +982,7 @@
           </p-column>
           <p-column class="tableCss" field="type" header="Type" [sortable]="true">
             <template let-col let-customKeywordsData="rowData" pTemplate>
-              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+              <span title="{{customKeywordsData[col.field]|typeLabel}}">{{customKeywordsData[col.field]|typeLabel}}</span>
             </template>
           </p-column>
         </p-dataTable>

@@ -95,7 +95,7 @@ const DEFAULT_DATA = {
 "NDDBU_TMP_FILE_PATH":{"ndcKeyId":88,"defaultValue":"/mnt/tmp","min":"","max":"","value":"/mnt/tmp","assocId":-1},
 "ND_FPI_MASK":{"ndcKeyId":89,"defaultValue":"NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;","min":"","max":"","value":"NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;","assocId":-1},
 "NDC_THRESHOLD_TO_MARK_DELETED": {"ndcKeyId":90,"defaultValue":"1 8h","min":"","max":"","value":"1 8h","assocId":-1},
-"NDP_DELETED_INSTANCE_CLEANUP_DELAY": {"ndcKeyId":91,"defaultValue":"3","min":"0","max":"25","value":"3","assocId":-1}
+"NDP_DELETED_INSTANCE_CLEANUP_DELAY": {"ndcKeyId":91,"defaultValue":"3D","min":"0","max":"","value":"3D","assocId":-1}
 };
 
 export function ndcKeywordReducer(data: KeywordList, action: Action): KeywordList {

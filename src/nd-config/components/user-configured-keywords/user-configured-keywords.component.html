@@ -149,7 +149,7 @@
           </p-column>
           <p-column class="tableCss" field="type" header="Type" [sortable]="true">
               <template let-col let-customKeywordsData="rowData" pTemplate>
-                <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+                <span title="{{customKeywordsData[col.field]|typeLabel}}">{{customKeywordsData[col.field]|typeLabel}}</span>
               </template>
             </p-column>
          

@@ -7,6 +7,7 @@ import { ImmutableArray } from '../../utils/immutable-array';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { deleteMany } from '../../utils/config-utility';
 import { Pipe, PipeTransform } from '@angular/core';
+import { ConfigHomeService } from '../../services/config-home.service';
 
 @Component({
   selector: 'app-nde-cluster-configuration',
@@ -44,7 +45,7 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
 
   tierGroupList: any = []
 
-  constructor(private configUtilityService: ConfigUtilityService, private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService) {
+  constructor(private configUtilityService: ConfigUtilityService, private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private configHomeService: ConfigHomeService) {
   }
 
   ngOnInit(): void {
@@ -192,8 +193,19 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
   editNDE() {
     this.ndeData = this.modifyData(this.ndeData);
 
+    // If test is running then do not allow to uncheck Master box for Master NDE 
+    if (this.configHomeService.trData.switch != false && this.configHomeService.trData.status != null){
+      if(this.selectedNDEData[0].isMaster == true){
+        if(this.ndeData.isMaster == false){
+          this.configUtilityService.errorMessage("Master NDE Role change is not allowed while Session is running")
+          return;
+        }
+      }
+    }
+
     for (let i = 0; i < this.ndeInfo.length; i++) {
       if (this.ndeData.name == this.selectedNDEData[0].name) { }
+      
       else if (this.ndeInfo[i].name == this.ndeData.name) {
         this.configUtilityService.errorMessage("NDE Name already exists");
         return true;
@@ -210,7 +222,6 @@ export class NDEClusterConfiguration implements OnInit, OnDestroy {
     }
 
     this.configKeywordsService.editNDEData(this.ndeData).subscribe(data => {
-      console.log("daaaataaaaa   ", data)
       let index = this.getNDEIndex();
       this.selectedNDEData.length = 0;
       this.ndeInfo = ImmutableArray.replace(this.ndeInfo, data, index);

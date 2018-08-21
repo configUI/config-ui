@@ -7,6 +7,7 @@ import { ConfigUiUtility } from './../../utils/config-utility';
 import { SelectItem, ConfirmationService } from 'primeng/primeng'
 import { ImmutableArray } from './../../utils/immutable-array';
 import { Messages } from './../../constants/config-constant';
+import { PipeForType } from '../../pipes/config-pipe.pipe'
 
 
 @Component({
@@ -48,7 +49,8 @@ export class UserConfiguredKeywordComponent implements OnInit {
   index: number = 0;
   isProfilePerm: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private pipeForType: PipeForType) {
+
   }
 
   ngOnInit() {
@@ -70,6 +72,10 @@ export class UserConfiguredKeywordComponent implements OnInit {
   loadUserConfiguredNDCKeywordList() {
     this.configKeywordsService.getUserConfiguredNDCKeywords().subscribe(data => {
       this.usrConfiguredNDCKeyList = data
+      for(let obj of this.usrConfiguredNDCKeyList){
+        this.pipeForType.transform(obj.type)
+
+      }
     })
   }
 
@@ -104,7 +110,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
   loadNDCType(){
     this.ndcType = [];
     let data = ['NDP', 'NDC']
-    let value = ['NDP', 'NDC']
+    let value = ['NDP#', 'NDC#']
     for (let i = 0; i < data.length; i++)
       this.ndcType.push({ label: data[i], value: value[i] });
   }
@@ -260,7 +266,6 @@ export class UserConfiguredKeywordComponent implements OnInit {
       this.usrConfiguredNDCKeyList = ImmutableArray.push(this.usrConfiguredNDCKeyList, data);
       this.configUtilityService.successMessage(Messages);
       }
-      console.log("ndc data ", data)
 
     });
     this.userNDCDialog = false;
@@ -339,3 +344,4 @@ export class UserConfiguredKeywordComponent implements OnInit {
     this.configKeywordsService.getHelpContent("Left Panel", "NDC Settings", "");
   }
 }
+

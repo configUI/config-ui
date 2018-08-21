@@ -27,7 +27,7 @@ export class CustomKeywordsComponent implements OnInit {
   keywordData = new EventEmitter();
 
   /**It stores custom keywords data */
-  customKeywordsDataList: CustomKeywordsComponentData[];
+  customKeywordsDataList: CustomKeywordsComponentData[] = [];
 
   /**It stores selected method monitor data for edit or add method-monitor */
   customKeywords: CustomKeywordsComponentData;
@@ -118,28 +118,38 @@ export class CustomKeywordsComponent implements OnInit {
         //  this.customKeywordsList.push({ 'value': key, 'label': key});
       }
     }
-    if (this.agentType == "Java") {
-      console.log("this.javaCustomKeywordsList==before= ", this.javaCustomKeywordsList)
-      // this.javaCustomKeywordsList = this.javaCustomKeywordsList.filter(element => element.type == 'pre-custom' || element.type == 'user-configured')
-      console.log("this.javaCustomKeywordsList==after= ", this.javaCustomKeywordsList)
+    this.getKeyList();
 
+
+    this.customKeywordsDataList = tableData
+  }
+
+  private getKeyList() {
+    if (this.agentType == "Java") {
+      for (let i = 0; i < this.customKeywordsDataList.length; i++) {
+        this.javaCustomKeywordsList = this.javaCustomKeywordsList.filter(item => item !== this.customKeywordsDataList[i].keywordName);
+      }
       for (let i = 0; i < this.javaCustomKeywordsList.length; i++) {
         this.customKeywordsList.push({ 'value': this.javaCustomKeywordsList[i], 'label': this.javaCustomKeywordsList[i] });
       }
     }
-
     if (this.agentType == "NodeJS") {
+      for (let i = 0; i < this.customKeywordsDataList.length; i++) {
+        this.nodeJsCustomKeywordsList = this.nodeJsCustomKeywordsList.filter(item => item !== this.customKeywordsDataList[i].keywordName);
+      }
       for (let i = 0; i < this.nodeJsCustomKeywordsList.length; i++) {
         this.customKeywordsList.push({ 'value': this.nodeJsCustomKeywordsList[i], 'label': this.nodeJsCustomKeywordsList[i] });
       }
     }
 
     if (this.agentType == "Dot Net") {
+      for (let i = 0; i < this.customKeywordsDataList.length; i++) {
+        this.dotNetCustomKeywordsList = this.dotNetCustomKeywordsList.filter(item => item !== this.customKeywordsDataList[i].keywordName);
+      }
       for (let i = 0; i < this.dotNetCustomKeywordsList.length; i++) {
         this.customKeywordsList.push({ 'value': this.dotNetCustomKeywordsList[i], 'label': this.dotNetCustomKeywordsList[i] });
       }
     }
-    this.customKeywordsDataList = tableData
   }
 
   ngOnInit() {
@@ -215,230 +225,6 @@ export class CustomKeywordsComponent implements OnInit {
   saveCustomKeywords() {
     //flag used to determine if keyword entered by user exist in db or not
     let keywordExistFlag = false;
-    let data = [];
-    var keywordDataVal = {}
-
-    // //  Description field should not contain more than 500 characters
-    // if (this.customKeywords.description != null) {
-    //   if (this.customKeywords.description.length > 500) {
-    //     this.configUtilityService.errorMessage(descMsg);
-    //     return;
-    //   }
-    // }
-
-    // //Validation check for custom keywords
-    // if (this.customKeywords.keywordName == 'ASDataBufferMinCount') {
-    //   if (+this.customKeywords.value < 2 || +this.customKeywords.value > 1024) {
-    //     this.configUtilityService.errorMessage("Please enter value between 2 and 1024");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'maxQueryDetailMapSize') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 10000000) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 10000000");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ASStackCompareOption') {
-    //   if (+this.customKeywords.value < 1 || +this.customKeywords.value > 2) {
-    //     this.configUtilityService.errorMessage("Please enter value between 1 and 2");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'enableExceptionInSeqBlob') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 1");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'AgentTraceLevel') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 4) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 4");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ASTraceLevel') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 20) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 20");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'maxExceptionMessageLength') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 10000) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 10000");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'maxResourceDetailMapSize') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1000000) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 1000000");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ASResumeDataBuffFreePct') {
-    //   if (+this.customKeywords.value < 1 || +this.customKeywords.value > 100) {
-    //     this.configUtilityService.errorMessage("Please enter value between 1 and 100");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ndExceptionFilterList') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 10240) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 10240");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'enableBackendMonTrace') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 6) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 6");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'enableForcedFPChain') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 3) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 3");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'captureHttpTraceLevel') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 6) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 6");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'maxCharInSeqBlob') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1024000000) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 1024000000");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'bciMaxNonServiceMethodsPerFP') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 2147483647) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 2147483647");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'bciDataBufferMaxCount') {
-    //   if (+this.customKeywords.value < 1 || +this.customKeywords.value > 30000) {
-    //     this.configUtilityService.errorMessage("Please enter value between 1 and 30000");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'bciDataBufferMaxSize') {
-    //   if (+this.customKeywords.value < 128 || +this.customKeywords.value > 65536) {
-    //     this.configUtilityService.errorMessage("Please enter value between 128 and 65536");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ASDataBufferSize') {
-    //   if (+this.customKeywords.value < 1 || +this.customKeywords.value > 2147483647) {
-    //     this.configUtilityService.errorMessage("Please enter value between 1 and 2147483647");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ASDataBufferMaxCount') {
-    //   if (+this.customKeywords.value < 2 || +this.customKeywords.value > 1024) {
-    //     this.configUtilityService.errorMessage("Please enter value between 2 and 1024");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'NVCookie') {
-    //   if (+this.customKeywords.value < 2 || +this.customKeywords.value > 1048576) {
-    //     this.configUtilityService.errorMessage("Please enter value between 2 and 1048576");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'genNewMonRecord') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 1");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'BTAggDataArraySize') {
-    //   if (+this.customKeywords.value < 50 || +this.customKeywords.value > 5000) {
-    //     this.configUtilityService.errorMessage("Please enter value between 50 and 5000");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'AppLogTraceLevel') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 6) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 6");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ControlThreadTraceLevel') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 4) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 4");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'AgentTraceLevel') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 4) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 4");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'BCITraceMaxSize') {
-    //   if (+this.customKeywords.value < 1024 || +this.customKeywords.value > 1073741824) {
-    //     this.configUtilityService.errorMessage("Please enter value between 1024 and 1073741824");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'ASEnableHotspotRecord') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 2) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 2");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'doNotDiscardFlowPaths') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 1");
-    //     return;
-    //   }
-    // }
-
-    // if (this.customKeywords.keywordName == 'enableWaitSyncQueueTime') {
-    //   if (+this.customKeywords.value < 0 || +this.customKeywords.value > 1) {
-    //     this.configUtilityService.errorMessage("Please enter value between 0 and 1");
-    //     return;
-    //   }
-    // }
-
-    // //To check that keyword name already exists or not
-    // for (let i = 0; i < this.customKeywordsDataList.length; i++) {
-    //   //checking (isNew) for handling the case of edit functionality
-    //   if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
-    //     this.configUtilityService.errorMessage("Keyword name already exists");
-    //     return true;
-    //   }
-    // }
-
 
     for (let key in this.custom_keyword) {
       if (key == this.customKeywords.keywordName) {
@@ -476,7 +262,6 @@ export class CustomKeywordsComponent implements OnInit {
 
     this.addEditDialog = false;
     this.isNew = false;
-    console.log("kkkkkkkkk ---- ", this.custom_keyword[this.customKeywords.keywordName].type)
 
     this.selectedCustomKeywordsData = [];
   }
@@ -542,12 +327,7 @@ export class CustomKeywordsComponent implements OnInit {
   ngOnDestroy() {
     this.isCustomConfigurationBrowse = false;
   }
-
-
-
-
-
-
+  
   getCustomKeywordList(callback) {
     this.nodeJsCustomKeywordsList = []
     this.javaCustomKeywordsList = []
@@ -585,13 +365,15 @@ export class CustomKeywordsComponent implements OnInit {
 
     for (let index in this.keywordList) {
       if (this.keywordList[index].keyName == this.customKeywords.keywordName) {
-        console.log("==== matched", this.keywordList[index].max)
         if (this.keywordList[index].min != '') {
           if (+this.customKeywords.value < +this.keywordList[index].min) {
             minmax.setCustomValidity('Value should be greater than or equal to ' + this.keywordList[index].min)
           }
           else if (+this.customKeywords.value > +this.keywordList[index].max) {
             minmax.setCustomValidity('Value should be less than or equal to ' + this.keywordList[index].max)
+          }
+          else if (+this.customKeywords.value == +this.keywordList[index].defaultValue) {
+            minmax.setCustomValidity('Provided value should be different from default value')
           }
           else {
             minmax.setCustomValidity('')

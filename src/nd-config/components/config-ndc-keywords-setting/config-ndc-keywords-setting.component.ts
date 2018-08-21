@@ -11,6 +11,7 @@ import { NDC_KEYWORD_DATA } from '../../reducers/ndc-keyword-reducer';
 import { ConfigUiUtility, cloneObject } from '../../utils/config-utility';
 import { NDCCustomKeywordsComponentData } from '../../containers/instrumentation-data';
 import { customKeywordMessage } from '../../constants/config-constant';
+import { PipeForType } from '../../pipes/config-pipe.pipe'
 
 
 @Component({
@@ -185,7 +186,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     //list holding keywordsNameList
     customKeywordsList = [];
 
-    keywordTypeValue = [];
+    keywordTypeValue = ['NDP', 'NDC'];
     customKeywordsTypeList = [];
 
     /**It stores custom keywords data */
@@ -199,13 +200,21 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
 
     message: string;
 
+    //The below variables are used for implementing Keyword : NDP_DELETED_INSTANCE_CLEANUP_DELAY
+    NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL = 3;
+    labelForNDICDelay = ['Day(s)', 'Hour(s)', 'Minute(s)'];
+    valueForNDICDelay = ['D', 'H', 'M'];
+    dropDownNDICDelayOption = [];
+    selectedFormatForNDICDelay: any;
+
     constructor(private _configUtilityService: ConfigUtilityService,
         private confirmationService: ConfirmationService,
         private _configKeywordsService: ConfigKeywordsService,
         private router: Router,
         private route: ActivatedRoute,
         private store: Store<KeywordList>,
-        private configUtilityService: ConfigUtilityService) {
+        private configUtilityService: ConfigUtilityService,
+        private pipeForType: PipeForType) {
 
         //Getting aplication's Id from URL
         this.route.params.subscribe((params: Params) => {
@@ -236,6 +245,9 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         var val = ['A', 'B'];
         var key = ['Uncompressed', 'Compressed'];
         this.version = ConfigUiUtility.createListWithKeyValue(key, val);
+
+        //Dropdown for NDP_DELETED_INSTANCE_CLEANUP_DELAY
+        this.dropDownNDICDelayOption = ConfigUiUtility.createListWithKeyValue(this.labelForNDICDelay, this.valueForNDICDelay);
     }
 
     /**
@@ -358,6 +370,24 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr";
         }
+        //Splitting Data of NDP_DELETED_INSTANCE_CLEANUP_DELAY 
+        if (data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('D') || data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('H') || data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('M')) {
+            let valueOfKeyword = data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.substring(0, data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.length - 1);
+            this.NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL = +valueOfKeyword;
+            if (data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('D')) {
+                this.selectedFormatForNDICDelay = "D";
+            }
+            else if (data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('H')) {
+                this.selectedFormatForNDICDelay = "H";
+            }
+            else {
+                this.selectedFormatForNDICDelay = "M";
+            }
+        }
+        else {
+            this.NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL = data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value;
+            this.selectedFormatForNDICDelay = "D";
+        }
     }
 
 
@@ -376,8 +406,19 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr"
         }
+        //Making Data for Keyword : NDP_DELETED_INSTANCE_CLEANUP_DELAY
+        if (this.selectedFormatForNDICDelay == 'D') {
+            this.ndcKeywords['NDP_DELETED_INSTANCE_CLEANUP_DELAY'].value = this.NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL + "D";
+        }
+        else if (this.selectedFormatForNDICDelay == 'H') {
+            this.ndcKeywords['NDP_DELETED_INSTANCE_CLEANUP_DELAY'].value = this.NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL + "H";
+        }
+        else {
+            this.ndcKeywords['NDP_DELETED_INSTANCE_CLEANUP_DELAY'].value = this.NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL + "M";
+        }
         // Saving Data to Server
         this.ndcKeywords = this.joinKeywordsVal(this.ndcKeywords)
+        this.ndcKeywords = Object.assign(this.custom_keywords, this.ndcKeywords)
         this._configKeywordsService.saveNDCKeywords(this.ndcKeywords, this.appId, true).subscribe(data => {
             this.ndcKeywords = data;
             this._configUtilityService.successMessage("Saved successfully")
@@ -439,16 +480,14 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         let tableData = [];
         this.customKeywordsList = [];
         for (let key in data) {
-            if ((data[key]['type'] != null && data[key]['type'] != '') && !this.keywordTypeValue.includes(data[key]['type'])) {
-                this.keywordTypeValue.push(data[key]['type']);
-            }
-            if (data[key]['assocId'] != -1 && (data[key]['type'] == 'NDP' || data[key]['type'] == 'NDC')) {
+            if (data[key]['assocId'] != -1 && (data[key]['type'] == 'NDP' || data[key]['type'] == 'NDC' || data[key]['type'] == 'NDC#' || data[key]['type'] == 'NDP#')) {
                 this.customKeywords = new NDCCustomKeywordsComponentData();
                 this.customKeywords.ndcKeyId = data[key]["ndcKeyId"];
                 this.customKeywords.keywordName = key;
                 this.customKeywords.value = data[key]["value"];
                 this.customKeywords.description = data[key]['desc'];
                 this.customKeywords.type = data[key]['type'];
+                this.pipeForType.transform(this.customKeywords.type)
                 this.customKeywords.assocId = data[key]["assocId"];
                 tableData.push(this.customKeywords);
             }
@@ -480,13 +519,13 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         this.customKeywords.keywordName = this.selectedCustomKeywordsData[0].keywordName
         this.isNew = false;
         this.addEditDialog = true;
-    } 
+    }
 
     getKeywordList(type) {
-        this.customKeywordsList = []; 
+        this.customKeywordsList = [];
         for (let key in this.custom_keywords) {
             if (null != this.custom_keywords[key].type) {
-                if (this.custom_keywords[key].type == type && this.custom_keywords[key].assocId == -1) {
+                if (this.custom_keywords[key].type.includes(type) && this.custom_keywords[key].assocId == -1) {
                     this.customKeywordsList.push({ 'value': key, 'label': key });
                 }
             }
@@ -559,16 +598,17 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     saveKeywordData() {
         this._configKeywordsService.saveNDCKeywordsOnFile(this.custom_keywords, this.appId).subscribe(data => {
             this.custom_keywords = data;
+            this.custom_keywords = Object.assign(this.ndcKeywords, this.custom_keywords)
             this._configUtilityService.successMessage("Saved Successfully");
         });
     }
 
- /**
-  * Purpose : To invoke the service responsible to open Help Notification Dialog 
-  * related to the current component.
-  */
-  sendHelpNotification() {
-    this._configKeywordsService.getHelpContent("Application", "ND Controller Settings", "");
-  }
+    /**
+     * Purpose : To invoke the service responsible to open Help Notification Dialog 
+     * related to the current component.
+     */
+    sendHelpNotification() {
+        this._configKeywordsService.getHelpContent("Application", "ND Controller Settings", "");
+    }
 }
 

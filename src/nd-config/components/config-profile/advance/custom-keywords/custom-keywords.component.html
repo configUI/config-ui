@@ -62,9 +62,9 @@
                 <input name="keywordName" [disabled]="!isNew" type="text" size="50" pInputText [(ngModel)]="customKeywords.keywordName" required autofocus ngModel/>
             </div>-->
 
-            <div class="ui-g-6">
-                <input name="dropdown" [disabled]="!isNew" type="text" size="25" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
-                <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" placeholder="--Select--" appendTo="body"></p-dropdown>
+            <div class="ui-g-9">
+                <input name="dropdown" [disabled]="!isNew" type="text" size="35" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
+                <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" (click)="getKeyList()" placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
             <div class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
                 <div class="ui-g-2">
