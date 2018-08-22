@@ -539,7 +539,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             for (let i = 0; i < this.customKeywordsDataList.length; i++) {
                 //checking (isNew) for handling the case of edit functionality
                 if (this.isNew && this.customKeywordsDataList[i].keywordName == this.customKeywords.keywordName) {
-                    this.configUtilityService.errorMessage("Keyword name already exists");
+                    this.configUtilityService.errorMessage("Provided settings already exists");
                     return;
                 }
             }
