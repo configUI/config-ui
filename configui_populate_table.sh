@@ -222,7 +222,7 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (162,'fpVersionID','0','10240','5','1.0','pre-custom','5'),
 (163,'ndDynamicDiagnosticsConfFile','1','1024','6','NA','pre-custom','1'),
 (164,'threadIdleTimeout','0','2147483647','2','10','pre-custom','1'),
-(165,'NDP_ALLOW_FP_TO_START_WITH_SEQNUM_OTHER_THAN_1','0','1','1','0','pre-custom','1'),
+(165,'ndPoolFile','0','2048','6','NA','pre-custom','5'),
 (166,'ASReportBufferMaxSize','1','2147483647','4','262144','pre-custom','1'),
 (167,'BTTConfig','1','1024','6','NA','pre-custom','7'),
 (168,'enableDCHeartBeat','0','3600','2','0','pre-custom','7'),
@@ -249,8 +249,8 @@ INSERT INTO config.ndc_keywords(ndc_key_id, ndc_key_name, ndc_key_min, ndc_key_m
 (189,'dynamicSlowVslowThreshold','0','1','2','0','pre-custom','2'),
 (190,'ndILRewritterFile','0','2048','6','NA','pre-custom','5'),
 (191,'ndModuleFile','0','2048','6','NA','pre-custom','5'),
-(192,'ndProcessesFile','0','2048','6','NA','pre-custom','5'),
-(193,'ndPoolFile','0','2048','6','NA','pre-custom','5');
+(192,'ndProcessesFile','0','2048','6','NA','pre-custom','5');
+
 
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
