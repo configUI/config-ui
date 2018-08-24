@@ -29,19 +29,21 @@
       <p-tabPanel header="Hotspot" [selected]="index == 1">
         <app-hotspot *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-hotspot>
       </p-tabPanel>
-      <p-tabPanel header="Header" [selected]="index == 2">
-        <app-header *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
+      <p-tabPanel header="Exception Capturing" [selected]="index == 2">
+        <app-exception-capturing *ngIf="index == 2" (keywordData)="saveKeywordData($event)"></app-exception-capturing>
       </p-tabPanel>
-      <p-tabPanel header="Custom Data" [selected]="index == 3">
-        <app-custom-data *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-data>
+      <p-tabPanel header="Header" [selected]="index == 3">
+        <app-header *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
       </p-tabPanel>
-      <p-tabPanel header="Instrumentation Profile" [selected]="index == 4">
-        <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
+      <p-tabPanel header="Custom Data" [selected]="index == 4">
+        <app-custom-data *ngIf="index == 4" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-custom-data>
       </p-tabPanel>
-      <p-tabPanel header="Event Correlation" [selected]="index == 5">
-          <app-event-correlation [profileId]="profileId" *ngIf="index == 5" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-event-correlation>
-        </p-tabPanel>
-
+      <p-tabPanel header="Instrumentation Profile" [selected]="index == 5">
+        <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 5" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
+      </p-tabPanel>
+      <p-tabPanel header="Event Correlation" [selected]="index == 6">
+	<app-event-correlation [profileId]="profileId" *ngIf="index == 6" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-event-correlation>
+      </p-tabPanel>
     </p-tabView>
   </div>
 
@@ -53,8 +55,11 @@
         <p-tabPanel header="Hotspot" [selected]="index == 1">
           <app-hotspot *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-hotspot>
         </p-tabPanel>
-        <p-tabPanel header="Instrumentation Profile" [selected]="index == 2">
-          <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
+        <p-tabPanel header="Header" [selected]="index == 2">
+          <app-header *ngIf="index == 2" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-header>
+        </p-tabPanel>
+        <p-tabPanel header="Instrumentation Profile" [selected]="index == 3">
+          <app-instrumentation-profiles [profileId]="profileId" *ngIf="index == 3" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-instrumentation-profiles>
         </p-tabPanel>
       </p-tabView>
     </div>

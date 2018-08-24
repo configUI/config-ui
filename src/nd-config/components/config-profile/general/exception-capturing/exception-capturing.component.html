@@ -25,9 +25,18 @@
                         </div>
                         <div class="ui-g-12">
                             <div class="ui-g-7" style="margin-left: 16px">
-                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using API (java.util.logging, log4j, ATG logger) "
+                                <ng-container *ngIf="(agentType === 'NodeJS'); then first else second">
+                                </ng-container>
+                                <ng-template #first>
+                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using API"
                                     name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
                                 </p-checkbox>
+                                </ng-template>
+                                <ng-template #second>
+                                <p-checkbox [disabled]="!exceptionData.instrumentException" label="Capture exception logged using API (java.util.logging, log4j, ATG logger) "
+                                    name="exceptionType" [(ngModel)]="exceptionData.exceptionType" binary="true">
+                                </p-checkbox>      
+                                </ng-template>
                             </div>
                         </div>
                         <div class="ui-g-12">
