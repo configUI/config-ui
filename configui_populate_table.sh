@@ -103,7 +103,7 @@ INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 
 INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value,type,agent_mode) VALUES
 (1,'bciInstrSessionPct','0','100','5','0','normal','7'),
-(2,'logLevelOneFpMethod','0','1','1','1','pre-custom','1'),
+(2,'logLevelOneFpMethod','0','1','1','1','pre-custom','5'),
 (3,'enableBciDebug','0','6','1','1','normal','3'),
 (4,'enableBciError','1','100','5','1','normal','1'),
 (5,'doNotDiscardFlowPaths','0','1','2','0','pre-custom','4'),
