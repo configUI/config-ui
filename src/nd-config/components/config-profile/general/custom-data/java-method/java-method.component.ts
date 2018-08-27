@@ -628,6 +628,11 @@ export class JavaMethodComponent implements OnInit {
         let that = this
         this.argumentTypeData.map(function(val){
           if(val.id == that.argumentTypeRules.id){
+            if(that.argumentTypeRules.operationName == 'CAPTURE' || that.argumentTypeRules.operationName == 'EXCEPTION' || that.argumentTypeRules.operationName == 'INVOCATION'){
+              that.argumentTypeRules.headerVal = 'NA';
+              that.argumentTypeRules.lb = '';
+              that.argumentTypeRules.rb = '';
+            }
             val.headerName = that.argumentTypeRules.headerName
             val.indexVal = that.argumentTypeRules.indexVal
             val.mode  = that.argumentTypeRules.mode

@@ -93,8 +93,9 @@
                             <label> Argument Index</label>
                         </div>-->
                 <div class="ui-g-3" style="margin-top: -5px">
-                    <input name="argumentIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
-                    <p-dropdown name="argumentIndex" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('ARGUMENT')" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
+                    <input name="argumentIndex" type="text" *ngIf="enableArgumentType == 'argument'" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
+                    <p-dropdown name="argumentIndex" *ngIf="enableArgumentType != 'argument'" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" placeholder="--Select argument index--"></p-dropdown>
+                    <p-dropdown name="argumentIndex" *ngIf="enableArgumentType == 'argument'" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('ARGUMENT')" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
                         [options]="indexList" appendTo="body"></p-dropdown>
                 </div>
             </div>
@@ -127,41 +128,43 @@
                 </p-dataTable>
             </div>
 
-    <div class="ui-g-12">
-        <div class="ui-g-4">
-            <p-radioButton name="enableArgumentType" value="invocation" label="BT Rule Based on Method Invocation" [(ngModel)]="enableArgumentType"></p-radioButton>
-        </div>
-        <div class="ui-g-3" style="margin-top: -5px">
-            <input name="methodInvocationIndex" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.methodInvocationIndex" required ngModel/>
-            <p-dropdown name="methodInvocationIndex" [disabled]="!(enableArgumentType=='invocation')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('INVOCATION')" placeholder="--Select invocation index--" [(ngModel)]="businessTransMethodDetail.methodInvocationIndex"
-                [options]="indexListForInvoc" appendTo="body"></p-dropdown>
-        </div>
-    </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-radioButton name="enableArgumentType" value="invocation" label="BT Rule Based on Method Invocation" [(ngModel)]="enableArgumentType"></p-radioButton>
+                </div>
+                <div class="ui-g-3" style="margin-top: -5px">
+                    <input name="methodInvocationIndex" *ngIf="enableArgumentType == 'invocation'" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.methodInvocationIndex" required ngModel/>
+                    <p-dropdown name="methodInvocationIndex" *ngIf="enableArgumentType != 'invocation'" [disabled]="!(enableArgumentType=='invocation')" [style]="{'width': '100%'}" placeholder="--Select invocation index--"></p-dropdown>
+                    <p-dropdown name="methodInvocationIndex" *ngIf="enableArgumentType == 'invocation'" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('INVOCATION')" placeholder="--Select invocation index--" [(ngModel)]="businessTransMethodDetail.methodInvocationIndex"
+                        [options]="indexListForInvoc" appendTo="body"></p-dropdown>
+                </div>
+            </div>
 
-        <div class="ui-g-12" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'">
-            <p-dataTable class="nde-ui" [value]="methodInvocationRulesInfo" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'" [(selection)]="selectedInvocationRules" [rows]="4 " [paginator]="methodInvocationRulesInfo?.length> 4" [pageLinks]="3">
-                <p-header>
-                    <span style="float: left;"> Method Invocation Rule(s) </span>
-                    <span style="float: right; margin-top:-3px">
+            <div class="ui-g-12" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'">
+                <p-dataTable class="nde-ui" [value]="methodInvocationRulesInfo" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'" [(selection)]="selectedInvocationRules" [rows]="4 " [paginator]="methodInvocationRulesInfo?.length> 4"
+                    [pageLinks]="3">
+                    <p-header>
+                        <span style="float: left;"> Method Invocation Rule(s) </span>
+                        <span style="float: right; margin-top:-3px">
                     <button pButton type="submit" title="Add Method Invocation Rule" (click)="third=true" icon="fa-plus"></button>
                     <button pButton type="button" title="Edit" (click)="openEditInvocationDialog()" icon="fa-pencil" ></button>
                     <button pButton type="button"class="ui-button-danger" title="Delete Method Invocation type setting(s)" (click)="deleteInvocationsRules()" icon="fa-trash"></button>
                     </span>
-                </p-header>
-                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                <p-column class="col-overflow" field="btName" header="Default BT Name" [sortable]="true">
-                    <template let-col let-methodInvocation="rowData">
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column class="col-overflow" field="btName" header="Default BT Name" [sortable]="true">
+                        <template let-col let-methodInvocation="rowData">
                             <span title="{{methodInvocation[col.field]}}">{{methodInvocation[col.field]}}</span>
                     </template>
-                </p-column>
-                <p-column class="col-overflow" field="value" header="Method Name" [sortable]="true">
-                    <template let-col let-methodInvocation="rowData">
+                    </p-column>
+                    <p-column class="col-overflow" field="value" header="Method Name" [sortable]="true">
+                        <template let-col let-methodInvocation="rowData">
                             <span title="{{methodInvocation[col.field]}}">{{methodInvocation[col.field]}}</span>
                     </template>
-                </p-column>
-            </p-dataTable>
+                    </p-column>
+                </p-dataTable>
+            </div>
         </div>
-    </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
@@ -201,7 +204,7 @@
                     <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." required (keydown.space)="$event.preventDefault()" ngModel />
                 </div>
                 <div class="ui-g-4" *ngIf="btMethodRulesDetail.operationName == 'INVOCATION'">
-                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed."  (keydown.space)="$event.preventDefault()" ngModel />
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" ngModel />
                 </div>
             </div>
         </div>
@@ -256,11 +259,11 @@
 <!--Dialog to open file explorer dialog -->
 <p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
 
-        <!-- This will look for this component in the ProductUI at this path -
+    <!-- This will look for this component in the ProductUI at this path -
                      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
-    
-            <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
-    </p-dialog>
+
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>
 
 
 <!-- NEW Add/EDIT BT Method Invocation type info -->
