@@ -62,12 +62,13 @@
                 <input name="keywordName" [disabled]="!isNew" type="text" size="50" pInputText [(ngModel)]="customKeywords.keywordName" required autofocus ngModel/>
             </div>-->
 
-            <div class="ui-g-9">
-                <input name="dropdown" [disabled]="!isNew" type="text" size="35" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
-                <p-dropdown [options]="customKeywordsList" [disabled]="!isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" (click)="getKeyList()" placeholder="--Select--" appendTo="body"></p-dropdown>
+            <div class="ui-g-7">
+                <input name="dropdown" *ngIf="isNew" type="text" size="35" class='hidden-validator' pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
+                <input name="dropdown" *ngIf="!isNew" type="text" size="35" [disabled]="!isNew" pInputText [(ngModel)]="customKeywords.keywordName" required ngModel/>
+                <p-dropdown [options]="customKeywordsList" *ngIf="isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" (click)="getKeyList()" placeholder="--Select--" appendTo="body"></p-dropdown>
             </div>
+            <div class="ui-g-2" style="padding-left: 0px; margin-left: -2px">
             <div class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
-                <div class="ui-g-2">
                     <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open" label="Browse"></button>
                 </div>
             </div>

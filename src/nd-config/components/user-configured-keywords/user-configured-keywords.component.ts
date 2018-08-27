@@ -297,7 +297,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
           this.configKeywordsService.deleteUserConfiguredNDCKeywords(arrAppIndex)
           .subscribe(data => {
             this.deleteNDCIndex(arrAppIndex);
-            this.selectedUsrConfKeyList = [];
+            this.selectedUsrConfNDCKeyList = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           });
         }
