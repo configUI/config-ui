@@ -516,6 +516,16 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         }
         this.customKeywords = new NDCCustomKeywordsComponentData();
         this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
+        if(this.selectedCustomKeywordsData[0].type == "NDP#"){
+            this.customKeywords.type = "NDP"
+        }
+        else if(this.selectedCustomKeywordsData[0].type = "NDC#"){
+            this.customKeywords.type = "NDC"
+        }
+        else{
+            this.customKeywords.type = this.selectedCustomKeywordsData[0].type
+        }
+        this.getKeywordList(this.customKeywords.type)
         this.customKeywords.keywordName = this.selectedCustomKeywordsData[0].keywordName
         this.isNew = false;
         this.addEditDialog = true;
