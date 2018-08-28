@@ -78,6 +78,8 @@
                         <button pButton type="button" label="Expand all" icon="fa-expand" (click)="expandAll(false)"></button>
                         <button pButton type="button" label="Collapse all" icon="fa-compress" (click)="collapseAll(false)"></button>
                         <button pButton type="button" title="Save" icon="fa-floppy-o" [disabled]="isInstrPerm" (click)="saveModifiedXMLNodes(false)" label="Save" style="float: right;"></button>
+                        <button pButton type="button" title="Save As" icon="fa-floppy-o" [disabled]="isInstrPerm" (click)="saveEditedXMLFileNameAs()" label="Save As" style="float: right;"></button>
+                        <span style="float: right; padding-right: 5px">Enter File Name <input type="text" pInputText (keydown.dot)="$event.preventDefault()" [(ngModel)]="saveEditedXMLFileAs"/></span>
                     </div>
                     <p-contextMenu class="configContextMenu" #cm [model]="xmlTreeMenu"></p-contextMenu>
                 </p-panel>

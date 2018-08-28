@@ -11,15 +11,16 @@ INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail)
 (1,'HttpServletService','description'),
 (2,'EntryForWebLogicJSP','description'),
 (3,'ApacheJsperService','description'),
-(4,'JerseyCall', 'description'),
-(5,'GlassFishJersey', 'description'),
+(4,'jerseyCall', 'description'),
+(5,'glassFishJersey', 'description'), 
 (6,'Generic', 'description'),
 (7,'JMSCall', 'description'),
 (8,'EntryForJBOSS', 'description'),
 (9,'ErrorPageEntry','description'),
 (10,'HessianCallOut','description'),
 (11,'ATGServlet','description'),
-(12,'TXExit','description');
+(12,'TX_EXIT','description'),
+(13,'playEntryPoint','description');
 
 INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name,entry_type_id,custom_entry,module,agent) VALUES
 (1,'Fully qualified name for the service method for HttpServlet Class','javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','HttpServlet.service', 1,false,'-','Java'),

@@ -50,6 +50,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     methodMonitorMap: any;
     calledFor: any;
     fqm: any;
+    profileIdList: number[];
     constructor(private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, 
         private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, 
         private configHomeService: ConfigHomeService) {
@@ -335,7 +336,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this.selectProfileDialog = false;
         if (calledFrom == "methodMonitor") {
             let methodMonitorFrom = 'AD';
-            this._configKeywordsService.addMethodMonitorFromAutoDiscover(this.methodMonitorMap, this.profileId, methodMonitorFrom)
+            this._configKeywordsService.addMethodMonitorFromAutoDiscover(this.methodMonitorMap, this.profileIdList, methodMonitorFrom)
                 .subscribe(data => {
                     if (data._body == "OK") {
                         this.configUtilityService.successMessage("FQM(s) are added successfully");
@@ -351,6 +352,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             this.configHomeService.loadBT(this.profileId + "#" + this.fqm);   
         }
         this.profileId = null;
+        this.profileIdList = null;
     }
 
     reset(){
