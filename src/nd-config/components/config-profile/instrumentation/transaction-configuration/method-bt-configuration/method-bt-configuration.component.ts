@@ -937,7 +937,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     if (this.businessTransMethodDetail.fqm == null || this.businessTransMethodDetail.fqm == "") {
       this.configUtilityService.errorMessage("Fill out fully qualified method name first");
       this.indexList = [];
-      this.indexList = [];
+      this.indexListForInvoc = [];
       return;
     }
     else {
@@ -988,15 +988,15 @@ export class MethodBTConfigurationComponent implements OnInit {
           }
         }
       }
-      this.indexList = [];
-      this.indexListForInvoc = [];
       // this.indexList.push({ value: -1, label: '--Select Index--' });
       if (argVal == "ARGUMENT") {
+        this.indexList = [];
         for (let i = 1; i <= length; i++) {
           this.indexList.push({ 'value': i, 'label': i + '' });
         }
       }
       else {
+        this.indexListForInvoc = [];
         for (let i = 0; i <= length; i++) {
           this.indexListForInvoc.push({ 'value': i, 'label': i + '' });
         }

@@ -36,6 +36,7 @@ export class ExceptionCapturingComponent implements OnInit {
 
     /**These are those keyword which are used in current screen. */
     keywordList: string[] = ['instrExceptions', 'enableExceptionsWithSourceAndVars', 'enableSourceCodeFilters'];
+    NodeKeyWordList : string[] = ['instrExceptions'];
     //exceptionfilter: Object;
     selectedValues: boolean;
     keywordValue: Object;
@@ -111,7 +112,11 @@ export class ExceptionCapturingComponent implements OnInit {
             }
             this.configKeywordsService.keywordData[key] = this.exception[key];
         }
-
+        if(this.agentType == 'NodeJS')
+        {
+            this.keywordData.emit(this.exception);
+            return;
+        }
         this.configExceptionFilterService.writeExceptionFilterFile(this.profileId).subscribe(data => {
             console.log("data", data)
         });
@@ -125,6 +130,7 @@ export class ExceptionCapturingComponent implements OnInit {
                 filePath = filePath + "/enableSourceCodeFilters.ecf";
             }
             this.exception['enableSourceCodeFilters'].path = filePath;
+
             this.keywordData.emit(this.exception);
         });
     }
@@ -132,21 +138,48 @@ export class ExceptionCapturingComponent implements OnInit {
     /* This method is used to reset the keyword data */
     resetKeywordData() {
         let data = this.configKeywordsService.keywordData
+        if(this.agentType == 'Java')
+        {
         for (let key in data) {
             if (this.keywordList.includes(key)) {
               this.exception[key].value = data[key].value;
             }
           }
+        }
+        else
+        {
+            for (let key in data) 
+            {
+                if (this.NodeKeyWordList.includes(key)) 
+                {
+                    this.exception[key].value = data[key].value;
+                }
+            }
+        }
           this.methodToSetValue(this.exception);
     }
     /* This method is used to reset the keyword data to its Default value */
     resetKeywordsDataToDefault() {
-        let data = this.configKeywordsService.keywordData
+        let data = this.configKeywordsService.keywordData;
+        if(this.agentType == 'Java')
+        {
         for (let key in data) {
             if (this.keywordList.includes(key)) {
               this.exception[key].value = data[key].defaultValue;
             }
           }
+        }
+        else 
+        {
+            for (let key in data) 
+            {
+                if (this.NodeKeyWordList.includes(key)) 
+                {
+                    this.exception[key].value = data[key].defaultValue;
+                }
+            }          
+        }
+
         this.methodToSetValue(this.exception);
     }
 
@@ -216,9 +249,18 @@ export class ExceptionCapturingComponent implements OnInit {
         // let keywordData = this.configKeywordsService.keywordData;
         this.subscription = this.store.select("keywordData").subscribe(data => {
             var keywordDataVal = {}
-            this.keywordList.map(function (key) {
+            if(this.agentType == 'Java')
+            {
+                this.keywordList.map(function (key) {
                 keywordDataVal[key] = data[key];
-            })
+                })
+            }
+            else 
+            {
+                this.NodeKeyWordList.map(function (key) {
+                keywordDataVal[key] = data[key];
+                })  
+            }
             this.exception = keywordDataVal;
             this.methodToSetValue(this.exception );
         });

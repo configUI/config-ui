@@ -525,7 +525,7 @@ ul.cav-menu-ul {
 }
 
 #top-div md-card {
-    height: 190px;
+    height: 200px;
     /*margin: 6px;*/
     padding: 14px;
 }
@@ -1190,4 +1190,8 @@ body {
     font-size: 1.4em;
     margin-bottom: -10px;
     padding-top: 1px;
+}
+
+.customsearchfield .ui-dropdown-panel .ui-dropdown-filter-container {
+    width: 97%;
 }

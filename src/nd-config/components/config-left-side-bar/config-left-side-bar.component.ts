@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTING_PATH } from '../../constants/config-url-constant';
 import{ Http} from '@angular/http';
 import { Router } from '@angular/router';
+import { ConfigHomeService } from '../../services/config-home.service';
 
 @Component({
   selector: 'app-config-left-side-bar',
@@ -19,7 +20,8 @@ export class ConfigLeftSideBarComponent implements OnInit {
   noAutodisPerm: boolean;
   noInstrProfPerm: boolean;
   noPerm  = [];
-  constructor(private http: Http,private router: Router) { }
+  adminMode:boolean;
+  constructor(private http: Http,private router: Router, private configHomeService: ConfigHomeService) { }
 
   ngOnInit() {
   var userName = sessionStorage.getItem('sesLoginName');
@@ -48,19 +50,35 @@ export class ConfigLeftSideBarComponent implements OnInit {
       //     if(+data["InstrumentationProfileMaker"] == 0)
       //       this.noPerm.push("Instrumentation Profile Maker");
 
-          /* Main Menu Array.  */
-          this.navMenuArray = [
-            { label: "Home", route: `${ROUTING_PATH}/home`, icon: "ndeicon ndegui-home1", tooltip: "Home" },
-            { label: "Application", route: `${ROUTING_PATH}/application-list`, icon: "ndeicon ndegui-application", tooltip: "Application" },
-            { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "ndeicon ndegui-profile", tooltip: "Profile" },
-            { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "ndeicon ndegui-topology", tooltip: "Topology" },
-            { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "ndeicon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
-	          { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover`, icon: "ndeicon ndegui-auto-discover", tooltip: "Instrumentation Finder" },
-            { label: "NDE Cluster Configuration", route: `${ROUTING_PATH}/nde-cluster-config`, icon: "ndeicon ndegui-cluster", tooltip: "NDE Cluster Configuration" },
-            { label: "User Configured Settings", route: `${ROUTING_PATH}/user-configured-keywords`, icon: "ndeicon ndegui-custom-keyword", tooltip: "User Configured Keywords" },
-            { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
-          ];
-        
+      this.configHomeService.getMainData().subscribe(data => {
+      this.adminMode = data.adminMode;
+      /* Main Menu Array.  */
+      if(this.adminMode)
+      this.navMenuArray = [
+        { label: "Home", route: `${ROUTING_PATH}/home`, icon: "ndeicon ndegui-home1", tooltip: "Home" },
+        { label: "Application", route: `${ROUTING_PATH}/application-list`, icon: "ndeicon ndegui-application", tooltip: "Application" },
+        { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "ndeicon ndegui-profile", tooltip: "Profile" },
+        { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "ndeicon ndegui-topology", tooltip: "Topology" },
+        { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "ndeicon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
+        { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover`, icon: "ndeicon ndegui-auto-discover", tooltip: "Instrumentation Finder" },
+        { label: "NDE Cluster Configuration", route: `${ROUTING_PATH}/nde-cluster-config`, icon: "ndeicon ndegui-cluster", tooltip: "NDE Cluster Configuration" },
+        { label: "User Configured Settings", route: `${ROUTING_PATH}/user-configured-keywords`, icon: "ndeicon ndegui-custom-keyword", tooltip: "User Configured Keywords" },
+        { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
+      ];
+      else
+      this.navMenuArray = [
+        { label: "Home", route: `${ROUTING_PATH}/home`, icon: "ndeicon ndegui-home1", tooltip: "Home" },
+        { label: "Application", route: `${ROUTING_PATH}/application-list`, icon: "ndeicon ndegui-application", tooltip: "Application" },
+        { label: "Profile", route: `${ROUTING_PATH}/profile/profile-list`, icon: "ndeicon ndegui-profile", tooltip: "Profile" },
+        { label: "Topology", route: `${ROUTING_PATH}/topology-list`, icon: "ndeicon ndegui-topology", tooltip: "Topology" },
+        { label: "Instrumentation Profile Maker" , route: `${ROUTING_PATH}/instrumentation-profile-maker`, icon: "ndeicon ndegui-instrmentation-profile", tooltip: "Instrumentation Profile Maker"},
+        { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover`, icon: "ndeicon ndegui-auto-discover", tooltip: "Instrumentation Finder" },
+        { label: "NDE Cluster Configuration", route: `${ROUTING_PATH}/nde-cluster-config`, icon: "ndeicon ndegui-cluster", tooltip: "NDE Cluster Configuration" },
+        { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
+      ];
+    }
+    );
+      
         //   for(let i=0;i<this.navMenuArray.length;i++){
         //     for(let j=0;j<this.noPerm.length;j++){
         //       if (this.navMenuArray[i]['label'] == this.noPerm[j]) {

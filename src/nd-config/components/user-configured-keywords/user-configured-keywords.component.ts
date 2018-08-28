@@ -240,7 +240,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
     // For default value input box
     if (+this.usrConfiguredKeyDetail.min > +this.usrConfiguredKeyDetail.defaultValue) {
-      defaultVal.setCustomValidity('Defalut value should be greater than or equal to min value.');
+      defaultVal.setCustomValidity('Default value should be greater than or equal to min value.');
     }
     else if (+this.usrConfiguredKeyDetail.defaultValue > +this.usrConfiguredKeyDetail.max) {
       defaultVal.setCustomValidity('Defalut value should be less than or equal to max value.');
@@ -297,7 +297,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
           this.configKeywordsService.deleteUserConfiguredNDCKeywords(arrAppIndex)
           .subscribe(data => {
             this.deleteNDCIndex(arrAppIndex);
-            this.selectedUsrConfKeyList = [];
+            this.selectedUsrConfNDCKeyList = [];
             this.configUtilityService.infoMessage("Deleted Successfully");
           });
         }

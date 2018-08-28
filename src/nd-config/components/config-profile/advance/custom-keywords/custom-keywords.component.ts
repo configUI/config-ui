@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,Inject } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ActivatedRoute, Params } from '@angular/router';
 import { CustomKeywordsComponentData } from '../../../../containers/instrumentation-data';
@@ -9,6 +9,7 @@ import { deleteMany } from '../../../../utils/config-utility';
 import { Messages, descMsg, customKeywordMessage } from '../../../../constants/config-constant';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-custom-keywords',
@@ -69,7 +70,11 @@ export class CustomKeywordsComponent implements OnInit {
   userConfiguredList: any[] = [];
   keywordList: any[] = [];
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
+  javaConfiguredKeyList: any[];
+  nodeConfiguredKeyList: any[];
+  dotConfiguredKeyList: any[];
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>,@Inject(DOCUMENT) private document: Document) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.getCustomKeywordList(() => {
 
@@ -77,17 +82,17 @@ export class CustomKeywordsComponent implements OnInit {
         this.createDataForTable(data)
         var keywordDataVal = {}
         if (this.agentType == "Java") {
-          this.javaCustomKeywordsList.map(function (key) {
+          this.javaConfiguredKeyList.map(function (key) {
             keywordDataVal[key] = data[key];
           })
         }
         else if (this.agentType == "NodeJS") {
-          this.nodeJsCustomKeywordsList.map(function (key) {
+          this.nodeConfiguredKeyList.map(function (key) {
             keywordDataVal[key] = data[key];
           })
         }
         else if (this.agentType == "Dot Net") {
-          this.dotNetCustomKeywordsList.map(function (key) {
+          this.dotConfiguredKeyList.map(function (key) {
             keywordDataVal[key] = data[key];
           })
         }
@@ -125,12 +130,13 @@ export class CustomKeywordsComponent implements OnInit {
   }
 
   private getKeyList() {
+    let customKeywordsList = [];
     if (this.agentType == "Java") {
       for (let i = 0; i < this.customKeywordsDataList.length; i++) {
         this.javaCustomKeywordsList = this.javaCustomKeywordsList.filter(item => item !== this.customKeywordsDataList[i].keywordName);
       }
       for (let i = 0; i < this.javaCustomKeywordsList.length; i++) {
-        this.customKeywordsList.push({ 'value': this.javaCustomKeywordsList[i], 'label': this.javaCustomKeywordsList[i] });
+        customKeywordsList.push({ 'value': this.javaCustomKeywordsList[i], 'label': this.javaCustomKeywordsList[i] });
       }
     }
     if (this.agentType == "NodeJS") {
@@ -138,7 +144,7 @@ export class CustomKeywordsComponent implements OnInit {
         this.nodeJsCustomKeywordsList = this.nodeJsCustomKeywordsList.filter(item => item !== this.customKeywordsDataList[i].keywordName);
       }
       for (let i = 0; i < this.nodeJsCustomKeywordsList.length; i++) {
-        this.customKeywordsList.push({ 'value': this.nodeJsCustomKeywordsList[i], 'label': this.nodeJsCustomKeywordsList[i] });
+        customKeywordsList.push({ 'value': this.nodeJsCustomKeywordsList[i], 'label': this.nodeJsCustomKeywordsList[i] });
       }
     }
 
@@ -147,9 +153,10 @@ export class CustomKeywordsComponent implements OnInit {
         this.dotNetCustomKeywordsList = this.dotNetCustomKeywordsList.filter(item => item !== this.customKeywordsDataList[i].keywordName);
       }
       for (let i = 0; i < this.dotNetCustomKeywordsList.length; i++) {
-        this.customKeywordsList.push({ 'value': this.dotNetCustomKeywordsList[i], 'label': this.dotNetCustomKeywordsList[i] });
+        customKeywordsList.push({ 'value': this.dotNetCustomKeywordsList[i], 'label': this.dotNetCustomKeywordsList[i] });
       }
     }
+    this.customKeywordsList = customKeywordsList;
   }
 
   ngOnInit() {
@@ -158,10 +165,12 @@ export class CustomKeywordsComponent implements OnInit {
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
+    this.document.body.classList.add('customsearchfield');
   }
 
   /**For showing add  dialog */
   openAddDialog(): void {
+    this.customKeywordsList = [];
     this.customKeywords = new CustomKeywordsComponentData();
     this.isNew = true;
     this.addEditDialog = true;
@@ -347,7 +356,7 @@ export class CustomKeywordsComponent implements OnInit {
         }
         
         if (bitValueOfComponent[0] == "1") {
-          this.javaCustomKeywordsList.push(data[index].keyName)
+          this.javaCustomKeywordsList.push(data[index].keyName);
         }
         if (bitValueOfComponent[1] == "1") {
           this.nodeJsCustomKeywordsList.push(data[index].keyName)
@@ -357,9 +366,13 @@ export class CustomKeywordsComponent implements OnInit {
           // }
         }
       }
+      this.javaConfiguredKeyList= this.javaCustomKeywordsList;
+      this.nodeConfiguredKeyList = this.nodeJsCustomKeywordsList;
+      this.dotConfiguredKeyList = this.dotNetCustomKeywordsList;
       callback();
     })
   }
+
 
   checkMinMax(minmax) {
 
