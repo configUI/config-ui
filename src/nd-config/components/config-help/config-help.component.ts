@@ -245,6 +245,8 @@ export class HelpComponent implements OnInit {
       }
     }
     else if (data.module == "Exception Capturing") {
+      if(data.agentType == "Java")
+      {
       this.mainheader = data.component + " " + "Settings";
       this.header = ["Exception", "Advanced", "Filter"];
       this.headermessage = "Exceptions are events that occur during the execution of programs that disrupt the normal flow of instructions (e.g. divide by zero, array access out of bound, etc.). In Java, an exception is an object that wraps an error event that occurred within a method and contains: Information about the error including its type.";
@@ -255,6 +257,16 @@ export class HelpComponent implements OnInit {
       this.submessagesecond = ["Here, user can specify the criteria to capture stack trace. There are multiple options:*Disable: Stack trace of exceptions are not captured*Stack Trace only: Only stack trace of exceptions are captured*Stack Trace with Source code only: Stack trace of exceptions with source code are captured  User can select any one from them."];
       this.submessagethird = ["This is used to apply filtering in captured exceptions. Here, system displays a list of exception filters with details, such as pattern, mode, and operation. To apply filters, select Enable Exception Filters check box. *User can import a pattern file from NDE box or from a local machine (.txt and .ecf), *Add a filter: Select the operation, then specify a pattern, and then select the mode (either enable or disable). <Description of Pattern, mode, operation>  *Edit an existing filter *Delete a filter"];
       this.helpdialog = true;
+      }
+      else if(data.agentType == "NodeJS")
+       {
+        this.mainheader = data.component + " " + "Settings";
+        this.header = ["Exception"];
+        this.headermessage = "Exceptions are events that occur during the execution of programs that disrupt the normal flow of instructions (e.g. divide by zero, array access out of bound, etc.). In NodeJS, an exception is an object that wraps an error event that occurred within a method and contains: Information about the error including its type.";
+        this.messagefirst = ["Capture Exceptions"];
+        this.submessagefirst = ["When enabled, exceptions are captured. In addition, to capture exceptions logged using API , select the subsequent check box. Furthermore, specify <n> frames of exception stack trace to be captured. User can capture exceptions from un-instrumented flowpath(s) too."];
+        this.helpdialog = true;
+      }
     }
     else if (data.module == "Header") {
       this.mainheader = data.component + " " + "Settings"

@@ -1191,3 +1191,7 @@ body {
     margin-bottom: -10px;
     padding-top: 1px;
 }
+
+.customsearchfield .ui-dropdown-panel .ui-dropdown-filter-container {
+    width: 97%;
+}
