@@ -61,7 +61,7 @@
             </div>
             <div class="ui-g-4">
               <input name="agentMode" type="text" class='hidden-validator' [(ngModel)]="agentMode" pInputText required ngModel/>
-              <p-multiSelect name="agentMode" class="multiselectdropReqResp headerhttpres nde-ui" appendTo="body" [style]="{'width': '100%'}" [options]="agentList"
+              <p-multiSelect name="agentMode" class="multiselectdropReqResp headerhttpres nde-ui" [style]="{'width': '95%'}" [options]="agentList"
                 [(ngModel)]="agentMode"></p-multiSelect>
             </div>
           </div>
@@ -71,8 +71,8 @@
             </div>
             <div class="ui-g-4">
               <input name="kmdId" type="text" class='hidden-validator' pInputText [(ngModel)]="usrConfiguredKeyDetail.kmdId" required ngModel/>
-              <p-dropdown name="kmdId" [options]="keywordTypeList" [style]="{'width':'100%'}" [(ngModel)]="usrConfiguredKeyDetail.kmdId"
-                placeholder="--Select--" appendTo="body"></p-dropdown>
+              <p-dropdown name="kmdId" [options]="keywordTypeList" [style]="{'width':'95%'}" [(ngModel)]="usrConfiguredKeyDetail.kmdId"
+                placeholder="--Select--"></p-dropdown>
             </div>
             <div class="ui-g-2">
               <label>Default Value</label>
