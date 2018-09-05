@@ -407,6 +407,7 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const DELETE_USER_CONFIGURED_NDC_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/deleteuserconfiguredNDCkeywords`;
  export const GET_CUSTOM_NDC_KEYWORDS_LIST = `${SERVICE_URL}/custom/customkeywords/getcustomNDCkeywordslist`;
  export const CHECK_NDC_KEYWORD_ASSOCIATION = `${SERVICE_URL}/custom/customkeywords/checkndckeywordassoc`;
-
+ export const EDIT_AGENT_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/editagentkeyword`;
+ export const EDIT_NDC_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/editNDCkeyword`;
 
 
