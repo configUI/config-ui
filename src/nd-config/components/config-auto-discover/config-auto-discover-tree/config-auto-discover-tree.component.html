@@ -63,7 +63,13 @@
             <div class="ui-g-3">
                 <label>Profile Name</label>
             </div>
-            <div class="ui-g-9">
+            <div class="ui-g-9" *ngIf="calledFor == 'methodMonitor'">
+                <input name="profileIdList" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileIdList"
+                    required ngModel/>
+                <p-multiSelect [options]="profileListItem" name="profileIdList" [style]="{'width':'210px'}" required [(ngModel)]="profileIdList"
+                    placeholder="Select Profile(s)" appendTo="body"></p-multiSelect>
+            </div>
+            <div class="ui-g-9" *ngIf="calledFor == 'methodBT'">
                 <input name="dropdown1" type="text" size="25" class='hidden-validator configinput' pInputText [(ngModel)]="profileId"
                     required ngModel/>
                 <p-dropdown [options]="profileListItem" name="dropdown1" [style]="{'width':'210px'}" required [(ngModel)]="profileId"

@@ -763,8 +763,8 @@ export class ConfigKeywordsService {
   }
 
   /** URL for creating method monitor from auto discover */
-  addMethodMonitorFromAutoDiscover(methodMonitorMap , profileId,methodFrom) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AD}/${profileId}/${methodFrom}`, methodMonitorMap);
+  addMethodMonitorFromAutoDiscover(methodMonitorMap , profileIdList,methodFrom) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AD}/${profileIdList}/${methodFrom}`, methodMonitorMap);
   }
 
     /** URL for creating method monitor from auto discover */
@@ -774,8 +774,8 @@ export class ConfigKeywordsService {
 
 
    /** URL for creating method monitor from auto instrumentation */
-   addMethodMonitorFromAutoInstr(methodMonitorMap, profileId,methodFrom) {
-    return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AI}/${profileId}/${methodFrom}`, methodMonitorMap);
+   addMethodMonitorFromAutoInstr(methodMonitorMap, profileIdList,methodFrom) {
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AI}/${profileIdList}/${methodFrom}`, methodMonitorMap);
   }
     /** URL for creating method monitor from auto instrumentation */
     createMethodMonitorAndValidateFQMFromAI(nodeInfo, reqId) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,Inject } from '@angular/core';
 import { ConfirmationService, SelectItem } from 'primeng/primeng'
 import { ActivatedRoute, Params } from '@angular/router';
 import { CustomKeywordsComponentData } from '../../../../containers/instrumentation-data';
@@ -9,6 +9,7 @@ import { deleteMany } from '../../../../utils/config-utility';
 import { Messages, descMsg, customKeywordMessage } from '../../../../constants/config-constant';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-custom-keywords',
@@ -73,7 +74,7 @@ export class CustomKeywordsComponent implements OnInit {
   nodeConfiguredKeyList: any[];
   dotConfiguredKeyList: any[];
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>) {
+  constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService, private route: ActivatedRoute, private configUtilityService: ConfigUtilityService, private store: Store<Object>,@Inject(DOCUMENT) private document: Document) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       this.getCustomKeywordList(() => {
 
@@ -164,6 +165,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
+    this.document.body.classList.add('customsearchfield');
   }
 
   /**For showing add  dialog */
@@ -171,6 +173,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     this.customKeywords = new CustomKeywordsComponentData();
     this.isNew = true;
+    this.getKeyList();
     this.addEditDialog = true;
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter ,Inject } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { ConfirmationService } from 'primeng/primeng';
@@ -11,7 +11,8 @@ import { NDC_KEYWORD_DATA } from '../../reducers/ndc-keyword-reducer';
 import { ConfigUiUtility, cloneObject } from '../../utils/config-utility';
 import { NDCCustomKeywordsComponentData } from '../../containers/instrumentation-data';
 import { customKeywordMessage } from '../../constants/config-constant';
-import { PipeForType } from '../../pipes/config-pipe.pipe'
+import { PipeForType } from '../../pipes/config-pipe.pipe';
+import { DOCUMENT } from '@angular/platform-browser';
 
 
 @Component({
@@ -214,7 +215,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         private route: ActivatedRoute,
         private store: Store<KeywordList>,
         private configUtilityService: ConfigUtilityService,
-        private pipeForType: PipeForType) {
+        private pipeForType: PipeForType ,
+        @Inject(DOCUMENT) private document: Document) {
 
         //Getting aplication's Id from URL
         this.route.params.subscribe((params: Params) => {
@@ -234,6 +236,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     ngOnInit() {
         this.dropDownOption = ConfigUiUtility.createListWithKeyValue(this.dropDownValue, this.dropDownLabel);
         this.isAppPerm = +sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
+        this.document.body.classList.add('ndc_keywords');
         // Getting data on Initial Load
         this.getNDCKeywords();
         this.loadDropDownVal();
@@ -525,7 +528,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         else{
             this.customKeywords.type = this.selectedCustomKeywordsData[0].type
         }
-        this.getKeywordList(this.customKeywords.type)
+        // this.getKeywordList(this.customKeywords.type)
         this.customKeywords.keywordName = this.selectedCustomKeywordsData[0].keywordName
         this.isNew = false;
         this.addEditDialog = true;
@@ -619,6 +622,17 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
      */
     sendHelpNotification() {
         this._configKeywordsService.getHelpContent("Application", "ND Controller Settings", "");
+    }
+    //On changing Type from Dialog , Method changeOfType() invoked to load corresponding Dropdown
+    changeOfType()
+    {
+        if(this.customKeywords.type == 'NDC'){
+            this.getKeywordList('NDC');
+        }
+        else
+        {
+            this.getKeywordList('NDP');
+        }
     }
 }
 

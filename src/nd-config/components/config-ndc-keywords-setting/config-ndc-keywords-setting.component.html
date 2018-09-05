@@ -1000,19 +1000,35 @@
                 <div class="ui-g-9">
                   <input name="type" type="text" size="25" *ngIf="isNew" pInputText [(ngModel)]="customKeywords.type" class='hidden-validator configinput' required ngModel/>
                   <p-dropdown [options]="customKeywordsTypeList" [disabled]="!isNew" [style]="{'width':'100%'}" name="type" [(ngModel)]="customKeywords.type"
-                    placeholder="--Select--" appendTo="body"></p-dropdown>
+                    placeholder="--Select--" appendTo="body" (onChange)="changeOfType()"></p-dropdown>
                 </div>
               </div>
           <div class="ui-g">
             <div class="ui-g-3">
               <label>Name</label>
             </div>
-            <div class="ui-g-9">
+            <ng-container *ngIf="(isNew === true) ; then add else edit">
+            </ng-container>
+            <ng-template #add>
+                <div class="ui-g-9">
+                    <input name="keywordName" type="text" size="25" *ngIf="isNew && customKeywords.type != undefined" pInputText [(ngModel)]="customKeywords.keywordName"
+                    class='hidden-validator' required ngModel/>
+                    <p-dropdown [options]="customKeywordsList" [disabled]="!isNew || customKeywords.type == undefined" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName"
+                      placeholder="--Select--" class='ndc_keywords' appendTo="body"></p-dropdown>
+                  </div>
+            </ng-template>
+            <ng-template #edit>
+                <div class="ui-g-9">
+                <input name="keywordName" type="text" size="50" *ngIf="isNew == false" [disabled]=true pInputText [(ngModel)]="customKeywords.keywordName"
+                class='hidden-validator' required ngModel/>   
+              </div>
+            </ng-template>
+            <!-- <div class="ui-g-9">
               <input name="keywordName" type="text" size="25" *ngIf="isNew && customKeywords.type != undefined" pInputText [(ngModel)]="customKeywords.keywordName"
               class='hidden-validator' required ngModel/>
-              <p-dropdown [options]="customKeywordsList" [disabled]="!isNew || customKeywords.type == undefined" [style]="{'width':'100%'}" name="keywordName" (click) = "getKeywordList(customKeywords.type)" [(ngModel)]="customKeywords.keywordName"
+              <p-dropdown [options]="customKeywordsList" [disabled]="!isNew || customKeywords.type == undefined" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName"
                 placeholder="--Select--" appendTo="body"></p-dropdown>
-            </div>
+            </div> -->
           </div>
           <div class="ui-g">
             <div class="ui-g-3">

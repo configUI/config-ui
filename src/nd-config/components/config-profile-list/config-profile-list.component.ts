@@ -241,7 +241,12 @@ export class ConfigProfileListComponent implements OnInit {
     }
     this.exportPath = "defaultPath";
     this.configProfileService.exportProfile(this.exportPath,arrAppIndex).subscribe(data => {
-      this.configUtilityService.successMessage("Exported successfully");
+      if(data.length == 0){
+        this.configUtilityService.successMessage("Exported successfully");
+      }
+      else {
+        this.configUtilityService.errorMessage("Export failure for profile(s):- " + data); 
+      }
     })
 
   }

@@ -47,6 +47,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
     methodMonitorMap: any;
     calledFor: any;
     fqm: any;
+    profileIdList: number[];
     constructor(private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService) {
         this.leftSideTreeData = [];
         this.selectedArr = [];
@@ -369,7 +370,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
         this.selectProfileDialog = false;
         if (calledFrom == "methodMonitor") {
             let methodMonitorFrom = 'AI';
-            this._configKeywordsService.addMethodMonitorFromAutoInstr(this.methodMonitorMap, this.profileId, methodMonitorFrom)
+            this._configKeywordsService.addMethodMonitorFromAutoInstr(this.methodMonitorMap, this.profileIdList, methodMonitorFrom)
                 .subscribe(data => {
                     if (data._body == "OK") {
                         this.configUtilityService.successMessage("FQM(s) are added successfully");
@@ -384,6 +385,7 @@ export class ConfigEditAutoInstrumentationComponent implements OnInit {
             this.configHomeService.loadBT(this.profileId + "#" + this.fqm);
         }
         this.profileId = null;
+        this.profileIdList = null;
     }
 
     createMethodBTRule() {

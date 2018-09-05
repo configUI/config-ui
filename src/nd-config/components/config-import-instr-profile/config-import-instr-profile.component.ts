@@ -51,6 +51,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   saveXMLFileName: string = '';
   isConferMationAgentSelected: boolean;
   viewXMLInstrumentation:boolean;
+  saveEditedXMLFileAs: string = '';
   ngOnInit() {
     this.isInstrPerm = +sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
 
@@ -684,7 +685,13 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       }
 
       dataToBeUploaded = this.parsedXMLData[0]['children'];
-      fileName = this.selectedXMLFile.split('.')[0];
+      // The below conditional check have been put to handle the Save As case
+      if(this.saveEditedXMLFileAs != ''){
+        fileName = this.saveXMLFileName.split('.')[0];
+      }
+      else{
+        fileName = this.selectedXMLFile.split('.')[0];
+      }
     }
 
     var trMsg = ""
@@ -974,6 +981,23 @@ export class ConfigImportInstrProfileComponent implements OnInit {
  */
   sendHelpNotification() {
     this._configKeywordsService.getHelpContent("Left Panel", "Instrumentation Profile Maker", "");
+  }
+
+  // This method will be called when user clicks on Save As button
+  saveEditedXMLFileNameAs(){
+    if (this.saveEditedXMLFileAs === '') {
+      this._configUtilityService.errorMessage("Enter File Name before Saving");
+      return;
+    }
+
+    if (this.saveEditedXMLFileAs.split(" ").length > 1) {
+      this._configUtilityService.errorMessage("No spaces allowed in File Name");
+      return;
+    }
+
+    this.saveXMLFileName = this.saveEditedXMLFileAs;
+    this.saveModifiedXMLNodes(false);
+    this.saveEditedXMLFileAs = '';
   }
 
   ngOnDestroy() {
