@@ -295,7 +295,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   /** To save NDC keywords */
   saveNDCKeywords() {
-    if(this.isNewUserDialog)
+    if(this.isNewUserNDCDialog)
       this.addNDCKeywords();
     else{
       this.editNDCKeywords();
