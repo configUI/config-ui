@@ -68,13 +68,13 @@
                 <p-dropdown [options]="customKeywordsList" *ngIf="isNew" [style]="{'width':'100%'}" name="keywordName" [(ngModel)]="customKeywords.keywordName" (click)="getKeyList()" placeholder="--Select--" appendTo="body" class="customsearchfield" [filter]="true"></p-dropdown>
             </div>
             <div class="ui-g-2" style="padding-left: 0px; margin-left: -2px">
-            <div class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
+            <div class="custom-browse" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile' || customKeywords.keywordName=='jedisCommands'">
                     <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open" label="Browse"></button>
                 </div>
             </div>
         </div>
 
-        <div class="ui-g custom-config-dialog" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile'">
+        <div class="ui-g custom-config-dialog" *ngIf="customKeywords.keywordName=='NDHTTPReqHdrCfgListL1Fp' || customKeywords.keywordName=='NDHTTPRepHdrCfgListL1Fp' || customKeywords.keywordName=='ndHttpHdrCaptureFileList' || customKeywords.keywordName=='NDHTTPRepHdrCfgListFullFp' || customKeywords.keywordName=='NDHTTPReqHdrCfgListFullFp' || customKeywords.keywordName=='NDAppLogFile' || customKeywords.keywordName=='ndBackendMonFile' || customKeywords.keywordName=='generateExceptionConfFile' || customKeywords.keywordName=='cavNVURLFile' || customKeywords.keywordName=='NDInterfaceFile' || customKeywords.keywordName=='jedisCommands'">
             <div class="ui-g-3">
                 <label>Path</label>
             </div>
@@ -84,7 +84,7 @@
         </div>
 
 
-        <div class="ui-g" *ngIf="customKeywords.keywordName!='NDHTTPReqHdrCfgListL1Fp' && customKeywords.keywordName!='NDHTTPRepHdrCfgListL1Fp' && customKeywords.keywordName!='ndHttpHdrCaptureFileList' && customKeywords.keywordName!='NDHTTPRepHdrCfgListFullFp' && customKeywords.keywordName!='NDHTTPReqHdrCfgListFullFp' && customKeywords.keywordName!='NDAppLogFile' && customKeywords.keywordName!='ndBackendMonFile' && customKeywords.keywordName!='generateExceptionConfFile' && customKeywords.keywordName!='cavNVURLFile' && customKeywords.keywordName!='NDInterfaceFile'">
+        <div class="ui-g" *ngIf="customKeywords.keywordName!='NDHTTPReqHdrCfgListL1Fp' && customKeywords.keywordName!='NDHTTPRepHdrCfgListL1Fp' && customKeywords.keywordName!='ndHttpHdrCaptureFileList' && customKeywords.keywordName!='NDHTTPRepHdrCfgListFullFp' && customKeywords.keywordName!='NDHTTPReqHdrCfgListFullFp' && customKeywords.keywordName!='NDAppLogFile' && customKeywords.keywordName!='ndBackendMonFile' && customKeywords.keywordName!='generateExceptionConfFile' && customKeywords.keywordName!='cavNVURLFile' && customKeywords.keywordName!='NDInterfaceFile' && customKeywords.keywordName!='jedisCommands'">
             <div class="ui-g-3">
                 <label>Value</label>
             </div>

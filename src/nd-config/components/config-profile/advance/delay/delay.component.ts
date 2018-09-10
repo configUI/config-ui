@@ -36,6 +36,9 @@ export class DelayComponent implements OnInit {
   isProfilePerm: boolean;
   agentType :string;
 
+  //The below flag is used for wheather the Reset to Default has been clicked or not
+  isResetToDefault: boolean = false;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService, ) {
     this.agentType = sessionStorage.getItem("agentType");
 
@@ -91,7 +94,7 @@ export class DelayComponent implements OnInit {
           this.delayData.autoInstrumentChk = false;
         if(arrColon.length > 3){
           if (arrColon[4] == "1")
-             this.delayData.stackTraceChk = true;
+            this.delayData.stackTraceChk = true;
           else
             this.delayData.stackTraceChk = false;
         }
@@ -118,11 +121,19 @@ export class DelayComponent implements OnInit {
 
     }
   }
+
   saveKeywordData(data) {
     let delayValue = this.delayMethodValue();
     for (let key in this.delay) {
-      if (key == 'putDelayInMethod')
-        this.delay[key]["value"] = delayValue;
+      if (key == 'putDelayInMethod'){
+        if(this.isResetToDefault){
+          this.delay[key]["value"] = 0;
+          this.isResetToDefault = false;
+        }
+        else{
+          this.delay[key]["value"] = delayValue;
+        }
+      }
     }
     this.keywordData.emit(this.delay);
   }
@@ -131,7 +142,21 @@ export class DelayComponent implements OnInit {
     this.getKeyWordDataFromStore();
     this.splitDelayKeywordData();
   }
-  getKeyWordDataFromStore(){
+
+  /* This method is used to reset the keyword data to its Default value */
+  resetKeywordsDataToDefault() {
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+      keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.delay = keywordDataVal;
+    this.splitDelayKeywordData();
+    this.isResetToDefault = true;
+  }
+
+  getKeyWordDataFromStore() {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -175,14 +200,15 @@ export class DelayComponent implements OnInit {
     }
     from.setCustomValidity('');
   }
-/**
- * Purpose : To invoke the service responsible to open Help Notification Dialog 
- * related to the current component.
- */
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog 
+   * related to the current component.
+   */
   sendHelpNotification() {
     this.configKeywordsService.getHelpContent("Advance","Put Delay In Method",this.agentType );
   }
 }
+
 //Contains putDelayInMethod Keyword variables
 class DelayData {
   fullyQualifiedName: string;

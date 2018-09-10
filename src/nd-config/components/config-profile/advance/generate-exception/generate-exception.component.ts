@@ -35,7 +35,11 @@ export class GenerateExceptionComponent implements OnInit {
   // enableGroupKeyword: boolean;
 
   isProfilePerm: boolean;
-  agentType:string;
+  agentType: string;
+
+  //The below flag is used for wheather the Reset to Default has been clicked or not
+  isResetToDefault: boolean = false;
+
   // Items to be displayed in Exception Type drop-down menu
   createExceptionTypeSelectType() {
     this.exceptionType = [];
@@ -45,7 +49,7 @@ export class GenerateExceptionComponent implements OnInit {
       { value: 2, label: 'Array IndexOutOfBounds Exception' },
       { value: 3, label: 'Class Cast Exception' },
       { value: 5, label: 'Illegal Exception' },
-      { value: 1, label: 'Null Pointer Exception' }, );
+      { value: 1, label: 'Null Pointer Exception' });
   }
 
   /**
@@ -69,13 +73,15 @@ export class GenerateExceptionComponent implements OnInit {
     // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.generate_exception.enable);
     this.configKeywordsService.toggleKeywordData();
   }
+  
   ngOnInit() {
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if(this.saveDisable || this.isProfilePerm)
+    this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    if (this.saveDisable || this.isProfilePerm)
       this.configUtilityService.infoMessage("Reset and Save are disabled");
     this.createExceptionTypeSelectType();
     this.GenExceptionKeywordValue();
   }
+
   //Method to split the generateExceptionInMethod keyword values by %20 e.g. 2%20abc%3Baaa%3Baaa%201%20sd will be splitted by %20 and %3B
   GenExceptionKeywordValue() {
     if ((this.genException["generateExceptionInMethod"].value).includes("%20")) {
@@ -91,26 +97,34 @@ export class GenerateExceptionComponent implements OnInit {
     else {
       this.genExceptionData = new GenExceptionData();
       if (this.genException["generateExceptionInMethod"].value == 0) {
-        this.genExceptionData.fullyqualifiedName = null;
+        this.genExceptionData.fullyqualifiedName = "";
         this.genExceptionData.percentage = 0;
-        this.genExceptionData.exceptionName = null;
+        this.genExceptionData.exceptionName = "";
         this.genExceptionData.exceptionType = false;
 
       }
       if (this.genException["generateExceptionInMethod"].value == 1) {
-        this.genExceptionData.fullyqualifiedName = null;
+        this.genExceptionData.fullyqualifiedName = "";
         this.genExceptionData.percentage = 0;
-        this.genExceptionData.exceptionName = null;
+        this.genExceptionData.exceptionName = "";
         this.genExceptionData.exceptionType = false;
       }
 
     }
   }
+
   saveKeywordData(data) {
     let genExceptionValue = this.genExceptionValueMethod(data);
     for (let key in this.genException) {
-      if (key == 'generateExceptionInMethod')
-        this.genException[key]["value"] = genExceptionValue;
+      if (key == 'generateExceptionInMethod'){
+        if(this.isResetToDefault){
+          this.genException[key]["value"] = 0;
+          this.isResetToDefault = false;
+        }
+        else{
+          this.genException[key]["value"] = genExceptionValue;
+        }
+      }
     }
     this.keywordData.emit(this.genException);
   }
@@ -120,7 +134,20 @@ export class GenerateExceptionComponent implements OnInit {
     this.GenExceptionKeywordValue();
   }
 
-  getKeyWordDataFromStore(){
+  /* This method is used to reset the keyword data to its Default value */
+  resetKeywordsDataToDefault() {
+    let data = cloneObject(this.configKeywordsService.keywordData);
+    var keywordDataVal = {}
+    keywordDataVal = data
+    this.keywordList.map(function (key) {
+      keywordDataVal[key].value = data[key].defaultValue
+    })
+    this.genException = keywordDataVal;
+    this.GenExceptionKeywordValue();
+    this.isResetToDefault = true;
+  }
+
+  getKeyWordDataFromStore() {
     this.subscription = this.store.select("keywordData").subscribe(data => {
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
@@ -133,18 +160,18 @@ export class GenerateExceptionComponent implements OnInit {
 
   // Method used to construct the value of generateExceptionInMethod keyword in '2%20abc%3Baaa%3Baaa%201%20sd' form.
   genExceptionValueMethod(data) {
-
     let fqm = this.genExceptionData.fullyqualifiedName.split(";").join("%3B");
     let genExceptionKeywordVaule = `${this.genExceptionData.percentage}%20${fqm}%20${this.genExceptionData.exceptionType}%20${this.genExceptionData.exceptionName}`;
     return genExceptionKeywordVaule;
 
   }
-/**
- * Purpose : To invoke the service responsible to open Help Notification Dialog 
- * related to the current component.
- */
+
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog 
+   * related to the current component.
+   */
   sendHelpNotification() {
-    this.configKeywordsService.getHelpContent("Advance","Generate Exception In Method",this.agentType );
+    this.configKeywordsService.getHelpContent("Advance", "Generate Exception In Method", this.agentType);
   }
 
   ngOnDestroy() {
@@ -154,6 +181,7 @@ export class GenerateExceptionComponent implements OnInit {
     //   this.subscriptionEG.unsubscribe();
   }
 }
+
 //Contains generateExceptionInMethod Keyword variables
 class GenExceptionData {
   fullyqualifiedName: string;
