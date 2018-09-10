@@ -173,6 +173,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     this.customKeywords = new CustomKeywordsComponentData();
     this.isNew = true;
+    this.getKeyList();
     this.addEditDialog = true;
   }
 

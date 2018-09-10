@@ -6,7 +6,7 @@ import { deleteMany } from './../../utils/config-utility';
 import { ConfigUiUtility } from './../../utils/config-utility';
 import { SelectItem, ConfirmationService } from 'primeng/primeng'
 import { ImmutableArray } from './../../utils/immutable-array';
-import { Messages } from './../../constants/config-constant';
+import { Messages, editMessage } from './../../constants/config-constant';
 import { PipeForType } from '../../pipes/config-pipe.pipe'
 
 
@@ -115,7 +115,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
       this.ndcType.push({ label: data[i], value: value[i] });
   }
 
-  // This method is used for get bit value of selected Component List like NDConfig, Montior and NDE scale is 7
+  // This method is used for get bit value of selected Component List like Java, NodeJS and DotNet is 7
   getBitValueFromAgentList() {
     let agentValue = 0;
     for (let i = 0; i < this.agentMode.length; i++) {
@@ -123,7 +123,7 @@ export class UserConfiguredKeywordComponent implements OnInit {
     }
     this.usrConfiguredKeyDetail.agentMode = agentValue.toString();
   }
-
+  
   loadKeywordType() {
     this.keywordTypeList = [];
     let typeLabel = ["Char", "Integer", "Double", "Long", "String", "File"];
@@ -134,18 +134,56 @@ export class UserConfiguredKeywordComponent implements OnInit {
   /** To save user configured keyowrds in database(config.keywords table) */
   saveUserKeywords() {
     this.getBitValueFromAgentList();
-    this.configKeywordsService.saveUserConfiguredKeywords(this.usrConfiguredKeyDetail).subscribe(data => {
+    if(this.isNewUserDialog){
+    this.addUserKeywords();
+    }
+    else{
+      this.editAgentKeyword();
+    }
+  }
 
+  editAgentKeyword(){
+    
+    this.configKeywordsService.checkIfKeywordIsAssoc(this.selectedUsrConfKeyList[0].keyId).subscribe(res => {
+
+      if (res.length == 0) {
+    this.configKeywordsService.editAgentKeyword(this.usrConfiguredKeyDetail).subscribe(data => {
+      this.usrConfiguredKeyList.map(function (val) {
+        if (val.keyId == data.keyId) {
+            val.agentMode = data.agentMode;
+            val.kmdId = data.kmdId;
+            val.keyName = data.keyName;
+            val.min = data.min;
+            val.max = data.max;
+            val.defaultValue = data.defaultValue;
+            val.desc = data.desc;
+            val.type = data.type;
+        }
+      });
+      this.configUtilityService.successMessage(editMessage)
+    })
+  }
+  
+  else {
+    this.configUtilityService.errorMessage("Edit Aborted: '" + this.selectedUsrConfKeyList[0].keyName + "' setting is used in profile '" + res + "'")
+  }
+});
+
+    this.userDialog = false
+  }
+
+  private addUserKeywords() {
+    this.configKeywordsService.saveUserConfiguredKeywords(this.usrConfiguredKeyDetail).subscribe(data => {
       //If keyword is already present in table then it will return null
       if (data.keyId == null) {
-        this.configUtilityService.errorMessage("User Configured Settings already exists")
+        this.configUtilityService.errorMessage("User Configured Settings already exists");
         return;
       }
       else {
         this.usrConfiguredKeyList = ImmutableArray.push(this.usrConfiguredKeyList, data);
         this.configUtilityService.successMessage(Messages);
       }
-    })
+    });
     this.userDialog = false;
   }
 
@@ -257,18 +295,51 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   /** To save NDC keywords */
   saveNDCKeywords() {
+    if(this.isNewUserNDCDialog)
+      this.addNDCKeywords();
+    else{
+      this.editNDCKeywords();
+    }
+  }
+
+  private addNDCKeywords() {
     this.configKeywordsService.saveUserConfiguredNDCKeywords(this.usrConfiguredNDCKeyDetail).subscribe(data => {
       if (data.keyId == null) {
-        this.configUtilityService.errorMessage("User Configured Settings already exists")
+        this.configUtilityService.errorMessage("User Configured Settings already exists");
         return;
       }
-      else{
-      this.usrConfiguredNDCKeyList = ImmutableArray.push(this.usrConfiguredNDCKeyList, data);
-      this.configUtilityService.successMessage(Messages);
+      else {
+        this.usrConfiguredNDCKeyList = ImmutableArray.push(this.usrConfiguredNDCKeyList, data);
+        this.configUtilityService.successMessage(Messages);
       }
-
     });
     this.userNDCDialog = false;
+  }
+
+  editNDCKeywords(){
+    this.configKeywordsService.checkIfNDCKeywordIsAssoc(this.selectedUsrConfNDCKeyList[0].keyId).subscribe(res => {
+      if(res.length == 0){
+    this.configKeywordsService.editNDCKeyword(this.usrConfiguredNDCKeyDetail).subscribe(data => {
+      this.usrConfiguredNDCKeyList.map(function (val) {
+        if (val.keyId == data.keyId) {
+            val.desc = data.desc;
+            val.keyName = data.keyName;
+            val.min = data.min;
+            val.max = data.max;
+            val.defaultValue = data.defaultValue;
+            val.type = data.type;
+        }
+      });
+      this.configUtilityService.successMessage(editMessage)
+    })
+  }
+  else {
+    this.configUtilityService.errorMessage("Edit Aborted: '" + this.selectedUsrConfNDCKeyList[0].keyName + "' setting is used in Application '" + res + "'")
+  }
+
+  
+}); 
+    this.userNDCDialog = false; 
   }
 
   deleteNDCKeywords() {
@@ -343,5 +414,58 @@ export class UserConfiguredKeywordComponent implements OnInit {
   sendNDCHelpNotification() {
     this.configKeywordsService.getHelpContent("Left Panel", "NDC Settings", "");
   }
+
+    /**For showing edit dialog */
+    openEditAgentDialog(): void {
+      if (!this.selectedUsrConfKeyList || this.selectedUsrConfKeyList.length < 1) {
+        this.configUtilityService.errorMessage("Select a row to edit");
+        return;
+      }
+      else if (this.selectedUsrConfKeyList.length > 1) {
+        this.configUtilityService.errorMessage("Select only one row to edit");
+        return;
+      }
+      this.loadAgentNames();
+      this.getComponentValueFromBitValue(this.selectedUsrConfKeyList[0])
+      this.loadKeywordType();
+      this.isNewUserDialog = false;
+      this.userDialog = true;
+      this.usrConfiguredKeyDetail = Object.assign({}, this.selectedUsrConfKeyList[0]);
+    }
+
+    /**For showing edit NDC dialog */
+    openEditNDCDialog(): void {
+      if (!this.selectedUsrConfNDCKeyList || this.selectedUsrConfNDCKeyList.length < 1) {
+        this.configUtilityService.errorMessage("Select a row to edit");
+        return;
+      }
+      else if (this.selectedUsrConfNDCKeyList.length > 1) {
+        this.configUtilityService.errorMessage("Select only one row to edit");
+        return;
+      }
+      this.loadNDCType()
+      this.isNewUserNDCDialog = false;
+      this.userNDCDialog = true;
+      this.usrConfiguredNDCKeyDetail = Object.assign({}, this.selectedUsrConfNDCKeyList[0]);
+    }
+
+    getComponentValueFromBitValue(data) {
+      let agentBitVal = "";
+          let agentVal = [];
+          let strAgent = "";
+          agentBitVal = parseInt(data.agentMode).toString(2);
+          agentBitVal = agentBitVal.split("").reverse().join("");
+          // this.objTierGroup.selectedComponentList = [];
+          for (let i = 0; i < agentBitVal.length; i++) {
+              if (agentBitVal[i] == "1") {
+                  agentVal.push(i);
+              }
+            }
+         this.agentMode = agentVal;
+  }
+
 }
+
+
+
 

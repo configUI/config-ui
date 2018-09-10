@@ -879,6 +879,7 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.GET_USER_CONFIGURED_NDC_KEYWORDS}`)
   }
 
+
   deleteUserConfiguredNDCKeywords(data): Observable<any[]>{
     return this._restApi.getDataByPostReq(`${URL.DELETE_USER_CONFIGURED_NDC_KEYWORDS}`, data)
   }
@@ -893,6 +894,14 @@ export class ConfigKeywordsService {
 
   checkIfNDCKeywordIsAssoc(data): Observable<any[]>{
     return this._restApi.getDataByGetReq(`${URL.CHECK_NDC_KEYWORD_ASSOCIATION}/${data}`)
+  }
+
+  editAgentKeyword(data): Observable<UserConfiguredKeywords>{
+    return this._restApi.getDataByPostReq(`${URL.EDIT_AGENT_KEYWORDS}/${data.keyId}`, data)
+  }
+
+  editNDCKeyword(data): Observable<UserConfiguredNDCKeywords>{
+    return this._restApi.getDataByPostReq(`${URL.EDIT_NDC_KEYWORDS}/${data.keyId}`, data)
   }
 
 }

@@ -1192,6 +1192,19 @@ body {
     padding-top: 1px;
 }
 
+/*To align the custom search field with input box */
 .customsearchfield .ui-dropdown-panel .ui-dropdown-filter-container {
     width: 97%;
+}
+
+/*To set the height of Type ( multiselect) in custom configure settings */
+.user_conf_setngs .ui-multiselect-panel .ui-multiselect-items-wrapper {
+    overflow-x: hidden;
+    height: 60px;
+}
+
+/* To align the dropdown with input in Name(dropdown) in Custom Configuration(NDC & NDP)*/
+.ndc_keywords .ui-dropdown-panel .ui-dropdown-items-wrapper {
+    max-width: 317px;
+    overflow-x: hidden;
 }

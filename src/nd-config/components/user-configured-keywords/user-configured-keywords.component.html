@@ -11,6 +11,8 @@
               <button pButton type="button" title="Add Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
               <button pButton type="button" title="Add Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserBCIDialog()"
                 icon="fa-plus"></button>
+              <button pButton type="button" title="Edit Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
+              <button pButton type="button" title="Edit Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditAgentDialog()" icon="fa-pencil"></button>
               <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
                 icon="fa-trash"></button>
               <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable"
@@ -42,6 +44,11 @@
               </span>
             </template>
           </p-column>
+          <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+            <template let-col let-customKeywordsData="rowData" pTemplate>
+              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </template>
+          </p-column>
         </p-dataTable>
       </div>
       <!-- Dialog for user configured keywords-->
@@ -53,7 +60,7 @@
               <label>Name</label>
             </div>
             <div class="ui-g-4">
-              <input name="keyName" type="text" pInputText [(ngModel)]="usrConfiguredKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required
+              <input name="keyName" type="text" [disabled]="!isNewUserDialog" pInputText [(ngModel)]="usrConfiguredKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required
                 ngModel/>
             </div>
             <div class="ui-g-2">
@@ -61,7 +68,7 @@
             </div>
             <div class="ui-g-4">
               <input name="agentMode" type="text" class='hidden-validator' [(ngModel)]="agentMode" pInputText required ngModel/>
-              <p-multiSelect name="agentMode" class="multiselectdropReqResp headerhttpres nde-ui" appendTo="body" [style]="{'width': '100%'}" [options]="agentList"
+              <p-multiSelect name="agentMode" class="multiselectdropReqResp user_conf_setngs  nde-ui"  [style]="{'width': '95%'}" [options]="agentList"
                 [(ngModel)]="agentMode"></p-multiSelect>
             </div>
           </div>
@@ -71,8 +78,8 @@
             </div>
             <div class="ui-g-4">
               <input name="kmdId" type="text" class='hidden-validator' pInputText [(ngModel)]="usrConfiguredKeyDetail.kmdId" required ngModel/>
-              <p-dropdown name="kmdId" [options]="keywordTypeList" [style]="{'width':'100%'}" [(ngModel)]="usrConfiguredKeyDetail.kmdId"
-                placeholder="--Select--" appendTo="body"></p-dropdown>
+              <p-dropdown name="kmdId" [options]="keywordTypeList" [style]="{'width':'95%'}" [(ngModel)]="usrConfiguredKeyDetail.kmdId"
+                placeholder="--Select--"></p-dropdown>
             </div>
             <div class="ui-g-2">
               <label>Default Value</label>
@@ -129,6 +136,8 @@
               <button pButton type="button" title="Add Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
               <button pButton type="button" title="Add Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openUserNDCDialog()"
                 icon="fa-plus"></button>
+              <button pButton type="button" title="Edit Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
+              <button pButton type="button" title="Edit Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditNDCDialog()" icon="fa-pencil"></button>
               <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
                 icon="fa-trash"></button>
               <button pButton type="button" class="ui-button-danger" title="Delete Settings" *ngIf="!isProfilePerm" [disabled]="saveDisable"
@@ -152,6 +161,11 @@
                 <span title="{{customKeywordsData[col.field]|typeLabel}}">{{customKeywordsData[col.field]|typeLabel}}</span>
               </template>
             </p-column>
+            <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+              <template let-col let-customKeywordsData="rowData" pTemplate>
+                <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+              </template>
+            </p-column>
          
         </p-dataTable>
       </div>
@@ -164,7 +178,7 @@
               <label>Name</label>
             </div>
             <div class="ui-g-8">
-              <input name="ndckeyName" type="text" size=62 pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required ngModel/>
+              <input name="ndckeyName" [disabled]="!isNewUserNDCDialog" type="text" size=62 pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.keyName" (keydown.space)="$event.preventDefault()" required ngModel/>
             </div>
 
           </div>
@@ -174,7 +188,7 @@
                 </div>
               <div class="ui-g-4">
                   <input name="ndcType" type="text" class='hidden-validator' pInputText [(ngModel)]="usrConfiguredNDCKeyDetail.type" required ngModel/>
-                  <p-dropdown name="ndcType" [options]="ndcType" [style]="{'width':'100%'}" [(ngModel)]="usrConfiguredNDCKeyDetail.type"
+                  <p-dropdown name="ndcType" [options]="ndcType" [style]="{'width':'95%'}" [(ngModel)]="usrConfiguredNDCKeyDetail.type"
                     placeholder="--Select--" appendTo="body"></p-dropdown>
                 </div>
             <div class="ui-g-2">
