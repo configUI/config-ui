@@ -52,6 +52,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   isConferMationAgentSelected: boolean;
   viewXMLInstrumentation:boolean;
   saveEditedXMLFileAs: string = '';
+  isSaveAsEditedXMLFile: boolean = false;
   ngOnInit() {
     this.isInstrPerm = +sessionStorage.getItem("InstrProfAccess") == 4 ? true : false;
 
@@ -230,7 +231,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           icon: 'fa-trash',
           'command': (event) => {
             this.confirmationService.confirm({
-              message: 'Are you sure that you want to perform this action?',
+              message: 'Do you want to perform this action?',
               header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
@@ -263,7 +264,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           icon: 'fa-trash',
           'command': (event) => {
             this.confirmationService.confirm({
-              message: 'Are you sure that you want to perform this action?',
+              message: 'Do you want to perform this action?',
               header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
@@ -295,7 +296,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           icon: 'fa-trash',
           'command': (event) => {
             this.confirmationService.confirm({
-              message: 'Are you sure that you want to perform this action?',
+              message: 'Do you want to perform this action?',
               header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
@@ -313,7 +314,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           icon: 'fa-trash',
           'command': (event) => {
             this.confirmationService.confirm({
-              message: 'Are you sure that you want to perform this action?',
+              message: 'Do you want to perform this action?',
               header: 'Confirmation',
               accept: () => {
                 this.deleteNodeFromTree(type, contextMenuEvent['node']['label'], contextMenuEvent);
@@ -417,7 +418,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentPackageNode': this.nodeObj['parentPackageNode'],
           'parentClassNode': this.nodeObj['parentClassNode'],
           'selected': false,
-          'leaf': false,
+          // 'leaf': false,
           'expanded': true,
           'children': []
         };
@@ -454,7 +455,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
           'parentPackageNode': this.nodeObj['parentPackageNode'],
           'parentInterfaceNode': this.nodeObj['parentInterfaceNode'],
           'selected': false,
-          'leaf': false,
+          // 'leaf': false,
           'expanded': true,
           'children': []
         };
@@ -708,12 +709,12 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.details = data["_body"];
       var msg = this.details.toString().substring(0, this.details.toString().length - 1);
       let confirmMsg = ""
-      if (msg != "") {
+      if (msg != "" && !this.isSaveAsEditedXMLFile) {
         confirmMsg = "<div>Selected instrumentation profile is used in topology. Click on 'Details' for more information<br></div>"
-          + "<br>Are you sure you want to save changes?"
+          + "<br>Do you want to save changes?"
       }
       else {
-        confirmMsg = "Are you sure that you want to save changes?"
+        confirmMsg = "Do you want to save changes?"
       }
       this.confirmationService.confirm({
         message: confirmMsg + '',
@@ -822,6 +823,8 @@ export class ConfigImportInstrProfileComponent implements OnInit {
 
         }
       });
+      this.saveEditedXMLFileAs = '';
+      this.isSaveAsEditedXMLFile = false;
     })
   }
 
@@ -844,7 +847,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       }
       else {
         this.confirmationService.confirm({
-          message: 'Are you sure that you want to delete the selected File?',
+          message: 'Do you want to delete the selected File?',
           header: 'Confirmation',
           accept: () => {
             let fileName = this.selectedXMLFile.split('.')[0];
@@ -996,8 +999,9 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     }
 
     this.saveXMLFileName = this.saveEditedXMLFileAs;
+    // The below flag has just been used to show the changes in confirmation message for Save As case 
+    this.isSaveAsEditedXMLFile = true;
     this.saveModifiedXMLNodes(false);
-    this.saveEditedXMLFileAs = '';
   }
 
   ngOnDestroy() {
