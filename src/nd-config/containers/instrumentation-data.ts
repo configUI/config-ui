@@ -293,6 +293,7 @@ export class CustomKeywordsComponentData{
     value :string ;
     description: string;
     enable:boolean;
+    kmdId: any;
 
 }
 
