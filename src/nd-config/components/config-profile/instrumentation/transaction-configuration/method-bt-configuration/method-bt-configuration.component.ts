@@ -334,6 +334,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     else {
       this.methodRulesInfo = this.selectedbusinessTransMethod[0].rules;
       this.methodArgRulesInfo = [];
+      this.methodInvocationRulesInfo = [];
       this.enableArgumentType = "returnType";
     }
     this.selectedArgRules = [];
