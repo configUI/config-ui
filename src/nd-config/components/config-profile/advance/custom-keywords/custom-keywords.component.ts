@@ -88,7 +88,7 @@ export class CustomKeywordsComponent implements OnInit {
         }
         else if (this.agentType == "NodeJS") {
           this.nodeConfiguredKeyList.map(function (key) {
-            keywordDataVal[key] = data[key];
+            keywordDataVal[key] = data[key]; 
           })
         }
         else if (this.agentType == "Dot Net") {
@@ -109,6 +109,7 @@ export class CustomKeywordsComponent implements OnInit {
     this.customKeywordsList = [];
     // this.customKeywordsList.push({ value: -1, label: '--Select --' });
     for (let key in data) {
+
       if (!(data[key]['assocId'] == -1) && data[key]['enable'] == true && (data[key]['type'] == 'custom' || data[key]['type'] == 'user-custom')) {
         this.customKeywords = new CustomKeywordsComponentData();
         this.customKeywords.id = data[key]["keyId"];
@@ -116,6 +117,13 @@ export class CustomKeywordsComponent implements OnInit {
         this.customKeywords.value = data[key]["value"];
         this.customKeywords.description = data[key]['desc'];
         this.customKeywords.enable = data[key]['enable'];
+        for(var index = 0; index< this.keywordList.length; index++){
+          if(this.keywordList[index]['keyName'] == key){
+          this.customKeywords.kmdId = this.keywordList[index]['kmdId']
+          break;
+          }
+
+        }
         tableData.push(this.customKeywords);
         // this.customKeywordsList.push({ 'value': key, 'label': key});
       }
@@ -127,6 +135,17 @@ export class CustomKeywordsComponent implements OnInit {
 
 
     this.customKeywordsDataList = tableData
+  }
+
+
+  getKmdIdFromName(keyName){
+    for(var index = 0; index< this.keywordList.length; index++){
+      if(this.keywordList[index]['keyName'] == keyName){
+      this.customKeywords.kmdId = this.keywordList[index]['kmdId']
+      break;
+      }
+
+    }
   }
 
   private getKeyList() {
