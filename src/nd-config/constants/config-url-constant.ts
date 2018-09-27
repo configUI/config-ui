@@ -410,4 +410,8 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const EDIT_AGENT_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/editagentkeyword`;
  export const EDIT_NDC_KEYWORDS = `${SERVICE_URL}/custom/customkeywords/editNDCkeyword`;
 
+ /* Url for Backend Detection Interface */
+ export const FETCH_BACKEND_INTERFACE_TABLEDATA = `${SERVICE_URL}/custom/backenddetectioninterface`;
+ export const UPDATE_BACKEND_POINT_INTERFACE = `${SERVICE_URL}/custom/backenddetectioninterface/updatebackendinterface`;
+ export const SAVE_INTERFACE_END_POINT = `${SERVICE_URL}/custom/backenddetectioninterface/save`;
 

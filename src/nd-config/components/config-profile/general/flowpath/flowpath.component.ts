@@ -192,10 +192,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       else {
         this.flowPath['enableFPMethodStackTrace'].value = "0%205%205%205%2010%200";
       }
-      if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
-        this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
-      else
-        this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
 
       if (this.captureMethodForAllFPChk) {
         this.flowPath["captureMethodForAllFP"].value = 1;
@@ -212,11 +208,6 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       }
     }
     else {
-      if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
-        this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
-      else
-        this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
-
       if (this.captureMethodForAllFPChk) {
         this.flowPath["captureMethodForAllFP"].value = 1;
       }
@@ -231,6 +222,11 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
       }
     }
+
+    if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
+      this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
+    else
+      this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
     this.keywordData.emit(this.flowPath);
   }
 

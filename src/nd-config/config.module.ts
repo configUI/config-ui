@@ -128,6 +128,7 @@ import { ExceptionMonitorsComponent } from './components/config-profile/instrume
 import { HttpStatsMonitorsComponent, PipeForFpDump } from './components/config-profile/instrumentation/instrument-monitors/http-stats-monitors/http-stats-monitors.component';
 
 import { IntegrationPtComponent } from './components/config-profile/instrumentation/integration-pt-detection/integration-pt/integration-pt.component';
+import { InterfaceEntryPointComponent } from './components/config-profile/instrumentation/integration-pt-detection/interface-entry-point/interface-entry-point.component';
 import { UrlCapturingComponent } from './components/config-profile/instrumentation/integration-pt-detection/url-capturing/url-capturing.component';
 import { ConfigImportInstrProfileComponent } from './components/config-import-instr-profile/config-import-instr-profile.component';
 import { ConfigAutoDiscoverComponent } from './components/config-auto-discover/config-auto-discover.component';
@@ -231,7 +232,8 @@ import { PipeForType } from './pipes/config-pipe.pipe';
     NDEClusterConfiguration,
     PipeForObject,
     UserConfiguredKeywordComponent,
-    PipeForType
+    PipeForType,
+    InterfaceEntryPointComponent
   ],
   imports: [
    // CommonModule,

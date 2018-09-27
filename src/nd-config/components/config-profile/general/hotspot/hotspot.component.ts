@@ -110,6 +110,8 @@ export class HotspotComponent implements OnInit, OnDestroy {
       this.methodToSetValue(this.hotspot);
     }
   }
+
+
   /* This method is used to get the existing keyword data from the backend */
   getKeywordData() {
     let data = this.configKeywordsService.keywordData;
@@ -135,6 +137,8 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
       if (this.hotspot["ASNegativeThreadFilter"].value != null)
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
+
+      this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
     }
     else {
       for (let key in data) {
@@ -144,6 +148,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   //This method is used to set value of data depending on data received in its argument
   methodToSetValue(data) {
     this.hotspot = data;
@@ -171,7 +176,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
   *  ASMethodHotspots = 0/1 value to be wriiten in file
   * so its value = false/true is conerted to "0/1" beforre sending to server
   */
-
   saveKeywordData() {
     //Joining the values of ASNegativeThreadFilter and ASPositiveThreadFilters keywords with &.
     /*
@@ -206,6 +210,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
       else {
         this.hotspot["ASNegativeThreadFilter"].value = this.hotspot["ASNegativeThreadFilter"].defaultValue;
       }
+
     }
     if (this.agentType == "NodeJS") {
       /**
@@ -232,12 +237,15 @@ export class HotspotComponent implements OnInit, OnDestroy {
         }
       }
     }
+
     this.keywordData.emit(this.hotspot);
+    this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
   }
 
   resetKeywordData() {
     this.getKeywordData();
   }
+
   //To reset the Keywords to its Default value
   resetKeywordsDataToDefault() {
     let data = this.configKeywordsService.keywordData;
@@ -274,6 +282,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   /**
    * Purpose : To invoke the service responsible to open Help Notification Dialog 
    * related to the current component.
@@ -283,11 +292,12 @@ export class HotspotComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.agentType != 'Java')
+    if (this.agentType == 'Java')
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
     if (this.subscription)
       this.subscription.unsubscribe();
     //  if(this.subscriptionEG)
     //    this.subscriptionEG.unsubscribe();
   }
+
 }

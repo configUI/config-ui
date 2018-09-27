@@ -12,7 +12,7 @@ import { BusinessTransMethodInfo } from '../interfaces/business-trans-method-inf
 import { Subscription } from 'rxjs/Subscription';
 
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection, BTResponseHeaderData, HTTPResponseHdrComponentData, RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
-import { ServiceEntryPoint, IntegrationPT, EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody } from '../containers/instrumentation-data';
+import { ServiceEntryPoint, IntegrationPT, EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody, InterfacePoint, InterfaceEndPoint } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
@@ -203,6 +203,7 @@ export class ConfigKeywordsService {
   addIntegrationPTDetectionData(profileId, data): Observable<AddIPDetection> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NEW_BACKEND_POINT}/${profileId}`, data);
   }
+
   saveIntegrationPointData(profileId): Observable<AddIPDetection> {
     return this._restApi.getDataByPostReq(`${URL.SAVE_NEW_BACKEND_POINT}/${profileId}`);
   }
@@ -665,10 +666,10 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DELETE_NDC_KEYWORDS}/${appId}`, data);
   }
 
-    /* Save NDC Keywords data on file */
-    saveNDCKeywordsOnFile(data, appId): Observable<any[]> {
-      return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS_ON_FILE}/${appId}`, data);
-    }
+  /* Save NDC Keywords data on file */
+  saveNDCKeywordsOnFile(data, appId): Observable<any[]> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_NDC_KEYWORDS_ON_FILE}/${appId}`, data);
+  }
 
   /** This method is for auto instrumetation */
   getRemovedPackageData(textFile, reqId) {
@@ -763,27 +764,27 @@ export class ConfigKeywordsService {
   }
 
   /** URL for creating method monitor from auto discover */
-  addMethodMonitorFromAutoDiscover(methodMonitorMap , profileIdList,methodFrom) {
+  addMethodMonitorFromAutoDiscover(methodMonitorMap, profileIdList, methodFrom) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AD}/${profileIdList}/${methodFrom}`, methodMonitorMap);
   }
 
-    /** URL for creating method monitor from auto discover */
-   createMethodMonitorAndValidateFQMFromAD(nodeInfo, reqId, instanceFileName):  Observable<any> {
-      return this._restApi.getDataByPostReq(`${URL.CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AD}/${reqId + ',' + instanceFileName}`, nodeInfo);
-    }
+  /** URL for creating method monitor from auto discover */
+  createMethodMonitorAndValidateFQMFromAD(nodeInfo, reqId, instanceFileName): Observable<any> {
+    return this._restApi.getDataByPostReq(`${URL.CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AD}/${reqId + ',' + instanceFileName}`, nodeInfo);
+  }
 
 
-   /** URL for creating method monitor from auto instrumentation */
-   addMethodMonitorFromAutoInstr(methodMonitorMap, profileIdList,methodFrom) {
+  /** URL for creating method monitor from auto instrumentation */
+  addMethodMonitorFromAutoInstr(methodMonitorMap, profileIdList, methodFrom) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.ADD_METHOD_MONITOR_FROM_AI}/${profileIdList}/${methodFrom}`, methodMonitorMap);
   }
-    /** URL for creating method monitor from auto instrumentation */
-    createMethodMonitorAndValidateFQMFromAI(nodeInfo, reqId) {
-      return this._restApi.getDataByPostReq(`${URL.CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AI}/${reqId}`, nodeInfo);
-    }
+  /** URL for creating method monitor from auto instrumentation */
+  createMethodMonitorAndValidateFQMFromAI(nodeInfo, reqId) {
+    return this._restApi.getDataByPostReq(`${URL.CREATE_METHOD_MONITOR_AND_VALIDATE_FQM_FROM_AI}/${reqId}`, nodeInfo);
+  }
 
 
-  downloadReports(data){
+  downloadReports(data) {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_REPORTS}`, data)
   }
 
@@ -817,43 +818,43 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.ADD_NDE_URL}`, data);
   }
 
-  getNDEData(): Observable<NDE[]>{
+  getNDEData(): Observable<NDE[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_NDE_DATA_URL}`)
   }
 
-  deleteNDEData(data): Observable<NDE[]>{
+  deleteNDEData(data): Observable<NDE[]> {
     return this._restApi.getDataByPostReq(`${URL.DELETE_NDE_DATA_URL}`, data)
   }
 
-  editNDEData(data): Observable<NDE>{
+  editNDEData(data): Observable<NDE> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_NDE_DATA_URL}/${data.id}`, data)
   }
 
-  getTierGroupNames(): Observable<string[]>{
+  getTierGroupNames(): Observable<string[]> {
     return this._restApi.getDataByGetReq(`${URL.LOAD_TIER_GROUP_NAME_URL}`)
   }
 
-  saveNDERoutingRules(data): Observable<NDERoutingRules>{
+  saveNDERoutingRules(data): Observable<NDERoutingRules> {
     return this._restApi.getDataByPostReq(`${URL.ADD_NDE_ROUTING_ROUTES_URL}`, data)
   }
 
-  getNDEServerFromNDEName(data): Observable<NDE>{
+  getNDEServerFromNDEName(data): Observable<NDE> {
     return this._restApi.getDataByGetReq(`${URL.GET_NDE_SERVER_OBJ_URL}/${data}`)
   }
 
-  getNDERoutingRulesData(): Observable<NDERoutingRules[]>{
+  getNDERoutingRulesData(): Observable<NDERoutingRules[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_ND_ROUTING_RULES_DATA_URL}`)
   }
 
-  deleteNDERoutingRules(data): Observable<any[]>{
+  deleteNDERoutingRules(data): Observable<any[]> {
     return this._restApi.getDataByPostReq(`${URL.DELETE_NDE_ROUTING_RULES_URL}`, data)
   }
 
-  editNDERoutingRules(data): Observable<NDERoutingRules>{
+  editNDERoutingRules(data): Observable<NDERoutingRules> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_NDE_ROUTING_RULES_URL}/${data.id}`, data)
   }
 
-  saveUserConfiguredKeywords(data): Observable<UserConfiguredKeywords>{
+  saveUserConfiguredKeywords(data): Observable<UserConfiguredKeywords> {
     return this._restApi.getDataByPostReq(`${URL.SAVE_USER_CONFIGURED_KEYWORDS}`, data)
   }
 
@@ -861,17 +862,17 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByGetReq(`${URL.GET_USER_CONFIGURED_KEYWORDS}`)
   }
 
-  deleteUserConfiguredKeywords(data): Observable<any[]>{
+  deleteUserConfiguredKeywords(data): Observable<any[]> {
     return this._restApi.getDataByPostReq(`${URL.DELETE_USER_CONFIGURED_KEYWORDS}`, data)
   }
 
-  getCustomKeywordsList(): Observable<any[]>{
+  getCustomKeywordsList(): Observable<any[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_CUSTOM_KEYWORDS_LIST}`)
   }
 
   // For NDC keywords
 
-  saveUserConfiguredNDCKeywords(data): Observable<UserConfiguredNDCKeywords>{
+  saveUserConfiguredNDCKeywords(data): Observable<UserConfiguredNDCKeywords> {
     return this._restApi.getDataByPostReq(`${URL.SAVE_USER_CONFIGURED_NDC_KEYWORDS}`, data)
   }
 
@@ -880,28 +881,42 @@ export class ConfigKeywordsService {
   }
 
 
-  deleteUserConfiguredNDCKeywords(data): Observable<any[]>{
+  deleteUserConfiguredNDCKeywords(data): Observable<any[]> {
     return this._restApi.getDataByPostReq(`${URL.DELETE_USER_CONFIGURED_NDC_KEYWORDS}`, data)
   }
 
-  getCustomNDCKeywordsList(): Observable<any[]>{
+  getCustomNDCKeywordsList(): Observable<any[]> {
     return this._restApi.getDataByGetReq(`${URL.GET_CUSTOM_NDC_KEYWORDS_LIST}`)
   }
 
-  checkIfKeywordIsAssoc(data): Observable<any[]>{
+  checkIfKeywordIsAssoc(data): Observable<any[]> {
     return this._restApi.getDataByGetReq(`${URL.CHECK_KEYWORD_ASSOCIATION}/${data}`)
   }
 
-  checkIfNDCKeywordIsAssoc(data): Observable<any[]>{
+  checkIfNDCKeywordIsAssoc(data): Observable<any[]> {
     return this._restApi.getDataByGetReq(`${URL.CHECK_NDC_KEYWORD_ASSOCIATION}/${data}`)
   }
 
-  editAgentKeyword(data): Observable<UserConfiguredKeywords>{
+  editAgentKeyword(data): Observable<UserConfiguredKeywords> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_AGENT_KEYWORDS}/${data.keyId}`, data)
   }
 
-  editNDCKeyword(data): Observable<UserConfiguredNDCKeywords>{
+  editNDCKeyword(data): Observable<UserConfiguredNDCKeywords> {
     return this._restApi.getDataByPostReq(`${URL.EDIT_NDC_KEYWORDS}/${data.keyId}`, data)
+  }
+
+
+  /**For Integration PT Detection */
+  getInterfaceTypeList(profileId): Observable<IntegrationPT[]> {
+    return this._restApi.getDataByGetReq(`${URL.FETCH_BACKEND_INTERFACE_TABLEDATA}/${profileId}`);
+  }
+
+  updateProfileInterfaceAssoc(profileId, data): Observable<InterfacePoint> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BACKEND_POINT_INTERFACE}/${profileId}`, data);
+  }
+
+  saveInterfacePointDataOnFile(profileId): Observable<InterfaceEndPoint> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_INTERFACE_END_POINT}/${profileId}`);
   }
 
 }

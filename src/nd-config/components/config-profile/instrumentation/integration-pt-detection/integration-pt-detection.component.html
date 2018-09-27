@@ -1,6 +1,9 @@
 <p-tabView>
-    <p-tabPanel header="Detection">
+    <p-tabPanel header="Detection By Classes">
         <app-integration-pt (keywordData)="saveKeywordData($event)"></app-integration-pt>
+    </p-tabPanel>
+    <p-tabPanel header="Detection By Interfaces" *ngIf="agentType == 'Java'">
+        <app-interface-point (keywordData)="saveKeywordData($event)"></app-interface-point>
     </p-tabPanel>
     <p-tabPanel header="Settings" *ngIf="agentType == 'Java'">
         <app-url-capturing (keywordData)="saveKeywordData($event)"></app-url-capturing>

@@ -1,0 +1,83 @@
+<p-dataTable class="nde-ui" [value]="ipDetectionData" selectionMode="single" [(selection)]="selectedIpDetectionData"
+    (onRowSelect)="onRowSelect()" [rows]="12" [paginator]="ipDetectionData?.length > 12" [pageLinks]="3">
+    <p-header>
+        <span class="configui-float-css">
+            <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxValue" binary="true" *ngIf="isProfilePerm"
+                [disabled]="isProfilePerm"></p-checkbox>
+            <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxValue" binary="true" *ngIf="!isProfilePerm"
+                [disabled]="saveDisable"></p-checkbox>
+        </span>
+        <span style="float: left">Enable Integration Points</span>
+        <span style="float :right; margin-top:-3px">
+            <!-- <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i> -->
+            <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
+            <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveIntegrationPointOnFile()"
+                label="Save"></button>
+        </span>
+    </p-header>
+    <p-column class="tableCss" field="type" header="Integration Point Type" [sortable]="true">
+        <template let-col let-integrationPTDetection="rowData" pTemplate>
+            <span class="hyperlink" title=" Click to Open {{integrationPTDetection[col.field]}} details">{{integrationPTDetection[col.field]}}</span>
+        </template>
+    </p-column>
+    <p-column class="tableCss" field="detail" header="Description" [sortable]="true">
+        <template let-col let-integrationPTDetection="rowData" pTemplate>
+            <span title="{{integrationPTDetection[col.field]}}">{{integrationPTDetection[col.field]}}</span>
+        </template>
+    </p-column>
+</p-dataTable>
+
+
+<!--This dialog showing the 'Integration Point Naming Rules' & 'Exit Points' values for particular service entry point-->
+<p-dialog class="profile-dialog interfaceDialog" *ngIf="detailDialog" header="Manage {{selectedIpDetectionData.type}} Integration Point"
+    [(visible)]="detailDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+    <div style="max-height: 500px; overflow-y: auto;">
+        <div class="ui-g config-ui">
+            <div class="ui-g-12" style="padding: 0px" *ngIf="selectedIpDetectionData.lstInterfaceEndPoints[0].type != '-'">
+                <div class="ui-g-6" style="padding: 0px">
+                    <label style="font-weight: bolder;font-size: larger">{{selectedIpDetectionData.type}} </label>
+                </div>
+                <div class="ui-g-6">
+                    <input name="dropdown" type="text" class='hidden-validator' pInputText [(ngModel)]="type" required
+                        ngModel />
+                    <p-dropdown name="type" [options]="typeSelectItem" placeholder="--Select Type--" [style]="{'width':'100%','margin-left': '-19px'}"
+                        [(ngModel)]="type" (onChange)="createAccordian()" appendTo="body" required ngModel></p-dropdown>
+                </div>
+            </div>
+            <div><label style="font-weight: bolder;font-size: larger">Integration Exit Point(s)</label></div>
+            <div class="ui-g-12 interfacePoint">
+                <div *ngIf="integrationDetail.lstInterfaceEndPoints != undefined && selectedIpDetectionData.lstInterfaceEndPoints[0].type != '-'">
+                    <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstInterfaceEndPoints; let i = index">
+                        <div class="ui-g-10" style="overflow : hidden;text-overflow : ellipsis" *ngIf="typeRepeatArr[i] == type">
+                            <label>{{endPoints.name}}</label><i class="fa fa-info-circle" aria-hidden="true" title={{endPoints.fqm}}></i>
+                        </div>
+                        <div class="ui-g-2" *ngIf="typeRepeatArr[i] == type">
+                            <div>
+                                <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="integrationDetail.lstInterfaceEndPoints != undefined && selectedIpDetectionData.lstInterfaceEndPoints[0].type == '-'">
+                    <div class="ui-g" style="padding: 0px" *ngFor="let endPoints of integrationDetail.lstInterfaceEndPoints">
+                        <div class="ui-g-10" style="overflow : hidden;text-overflow : ellipsis">
+                            <label>{{endPoints.name}}</label><i class="fa fa-info-circle" aria-hidden="true" title={{endPoints.fqm}}></i>
+                        </div>
+                        <div class="ui-g-2">
+                            <div>
+                                <md-slide-toggle class="config-toggle" [(ngModel)]="endPoints.enabled"></md-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" [disabled]="saveDisable" (click)="saveIntegrationDetail()"
+                label="Save"></button>
+            <button type="button" pButton icon="fa-close" (click)="detailDialog=false" label="Cancel"></button>
+        </div>
+    </footer>
+</p-dialog>

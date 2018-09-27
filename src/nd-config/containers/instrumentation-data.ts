@@ -36,6 +36,7 @@ export class AddIPDetection {
     module: string;
     argumentIndex: number;
 }
+
 export class BackendTableInfo {
     type: string;
     detail: string;
@@ -59,6 +60,7 @@ export class NamingRule {
     url: boolean;
     userName: boolean;
 }
+
 export class IntegrationPTDetection {
     type: string;
     detail: string;
@@ -105,6 +107,7 @@ export class NamingRuleAndExitPoint {
     userName: boolean;
     lstEndPoints: EndPointInfo[];
 }
+
 export class EndPointInfo {
     id: number;
     enabled: boolean;
@@ -293,7 +296,7 @@ export class CustomKeywordsComponentData{
     value :string ;
     description: string;
     enable:boolean;
-
+    kmdId: any;
 }
 
 /** BT HTTP HEADERS  */
@@ -411,4 +414,43 @@ export class NDCCustomKeywordsComponentData{
     description: string;
     type: string;
     assocId:number;
+}
+
+export class BackendInterfaceTableInfo {
+    type: string;
+    detail: string;
+    enabled: boolean;
+    id: number;
+    lstInterfaceEndPoints: InterfaceEndPoint[];
+}
+
+export class InterfaceEndPoint {
+    id: number;
+    name: string;
+    description: string;
+    enabled: boolean;
+    fqm: string;
+    isCustomEntry:boolean=true;
+    agent: string;
+    module: string;
+    type: string;
+    subType: string;
+}
+
+export class InterfaceDetail {
+    type: string;
+    detail: string;
+    enabled: boolean;
+    id: number;
+    lstInterfaceEndPoints: InterfaceEndPoint[];
+}
+
+export class InterfacePoint {
+    backendTypeInterfaceId: number;
+    lstInterfaceEndPoints: InterfaceEndPointInfo[];
+}
+
+export class InterfaceEndPointInfo {
+    id: number;
+    enabled: boolean;
 }

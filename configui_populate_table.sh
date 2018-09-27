@@ -138,7 +138,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (34,'ASPositiveThreadFilters','2','1048576','5','NA','normal','1'),
 (35,'ASNegativeThreadFilter','2','1048576','5','NDControlConnection','normal','1'),
 (36,'maxStackSizeDiff','0','1000','4','20','normal','1'),
-(37,'ASMethodHotspots','0','1','1','-1','normal','1'),
+(37,'ASMethodHotspots','0','1','1','0','normal','1'),
 (38,'enableExceptionInSeqBlob','0','1','2','0','pre-custom','1'),
 (39,'captureErrorLogs','0','2','2','0','normal','1'),
 (40,'maxExceptionMessageLength','0','10000','2','50','pre-custom','1'), 
@@ -291,8 +291,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (189,'dynamicSlowVslowThreshold','0','1','2','0','pre-custom','2'),
 (190,'ndILRewritterFile','0','2048','6','NA','pre-custom','5'),
 (191,'ndModuleFile','0','2048','6','NA','pre-custom','5'),
-(192,'ndProcessesFile','0','2048','6','NA','pre-custom','5');
-
+(192,'ndProcessesFile','0','2048','6','NA','pre-custom','5'),
+(193,'NDInterfaceEntryPointsFile','0','1024','6','false','normal','1');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
 (1,'HTTP Backend','HTTP','HttpCallout','HTTP','Java'),
@@ -977,6 +977,38 @@ INSERT INTO config.profile_async_type_assoc(assoc_id,container_id,enabled,profil
 (1,1,true,1),
 (2,2,true,1),
 (3,3,true,1);
+
+INSERT INTO config.backend_type_interface(backend_type_interface_id,backend_type_interface_name,backend_type_interface_desc,backend_type_interface_entrypointsfile,agent) VALUES
+(1,'Logger','Logger Backend','Logger','Java');
+
+INSERT INTO config.backend_points_interface(end_point_interface_id,end_point_interface_desc,end_point_interface_fqm,end_point_interface_name,backend_type_interface_id,custom_entry,module,agent,type,sub_type) VALUES
+(1,'SLF4J End Point','org.slf4j.Logger.info','Logger.info',1,false,'-','Java','SLF4J','info'),
+(2,'SLF4J End Point','org.slf4j.Logger.debug','Logger.debug',1,false,'-','Java','SLF4J','debug'),
+(3,'SLF4J End Point','org.slf4j.Logger.trace','Logger.trace',1,false,'-','Java','SLF4J','trace'),
+(4,'SLF4J End Point','org.slf4j.Logger.warn','Logger.warn',1,false,'-','Java','SLF4J','warn'),
+(5,'SLF4J End Point','org.slf4j.Logger.error','Logger.error',1,false,'-','Java','SLF4J','error'),
+(6,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.trace','ExtendedLogger.trace',1,false,'-','Java','LOG4J','trace'),
+(7,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.info','ExtendedLogger.info',1,false,'-','Java','LOG4J','info'),
+(8,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.debug','ExtendedLogger.debug',1,false,'-','Java','LOG4J','debug'),
+(9,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.warn','ExtendedLogger.warn',1,false,'-','Java','LOG4J','warn'),
+(10,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.fatal','ExtendedLogger.fatal',1,false,'-','Java','LOG4J','fatal'),
+(11,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.error','ExtendedLogger.error',1,false,'-','Java','LOG4J','error'),
+(12,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.log','ExtendedLogger.log',1,false,'-','Java','LOG4J','log');
+
+INSERT INTO config.profile_backend_point_interface_asso(assoc_id,enabled,end_point_interface_id,profile_id) VALUES
+(1,false,1,1),
+(2,false,2,1),
+(3,false,3,1),
+(4,false,4,1),
+(5,false,5,1),
+(6,false,6,1),
+(7,false,7,1),
+(8,false,8,1),
+(9,false,9,1),
+(10,false,10,1),
+(11,false,11,1),
+(12,false,12,1);
+
 CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;
 
 COMMIT;

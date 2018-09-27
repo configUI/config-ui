@@ -1208,3 +1208,13 @@ body {
     max-width: 317px;
     overflow-x: hidden;
 }
+
+/* To fix interface detection point dialog */
+.interfaceDialog .ui-dialog {
+    top: 140px !important;
+}
+
+.interfacePoint {
+    overflow-y: auto;
+    max-height: 250px;
+}
