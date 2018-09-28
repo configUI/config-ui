@@ -8,9 +8,6 @@ import { ConfigHomeService } from '../../services/config-home.service'
 import { ConfigUtilityService } from '../../services/config-utility.service';
 
 import { ApplicationData } from '../../containers/application-data';
-import { ApplicationInfo } from '../../interfaces/application-info';
-
-import { MainInfo } from '../../interfaces/main-info';
 import { EntityInfo } from '../../interfaces/entity-info';
 import { deleteMany } from '../../utils/config-utility';
 
@@ -18,8 +15,7 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 
 import { ImmutableArray } from '../../utils/immutable-array';
 
-import { Messages, descMsg , addMessage ,editMessage} from '../../constants/config-constant';
-import { ConfigUiUtility } from '../../utils/config-utility';
+import { descMsg , addMessage ,editMessage} from '../../constants/config-constant';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 
 @Component({
@@ -60,7 +56,6 @@ export class ConfigApplicationListComponent implements OnInit {
     this.isAppPerm = +sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
     sessionStorage.setItem("agentType", "");
     this.loadApplicationData();
-    // this.loadTopologyData();
   }
 
 
@@ -72,6 +67,7 @@ export class ConfigApplicationListComponent implements OnInit {
     });
   }
 
+
   /**Getting topology list. further we will optimize. */
   loadTopologyData(): void {
     this.topologySelectItem = []
@@ -82,6 +78,7 @@ export class ConfigApplicationListComponent implements OnInit {
     })
   }
 
+
   /**For showing add application dialog */
   openAppDialog(): void {
     this.applicationDetail = new ApplicationData();
@@ -89,6 +86,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.addEditAppDialog = true;
     this.createTopologySelectItem(this.topoNameList);
   }
+
 
   /**For showing edit application dialog */
   editAppDialog(): void {
@@ -107,6 +105,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.topologySelectItem.push({label:this.selectedApplicationData[0].topoName, value:this.selectedApplicationData[0].topoName})
   }
 
+
   /**This method is used to delete application */
   deleteApp(): void {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
@@ -123,27 +122,23 @@ export class ConfigApplicationListComponent implements OnInit {
         let arrAppIndex = [];
         // let arrId = [];
         for (let index in selectedApp) {
-          
           arrAppIndex.push(selectedApp[index].appId);
           // arrId.push(selectedApp[index].topoId)
-
         }
+
         let that = this;
         //delete appication
         this.configApplicationService.deleteApplicationData(arrAppIndex)
         .subscribe(data => {
           this.deleteApplications(arrAppIndex);
-          //Delete topology associated with it
-          // this.configTopologyService.deleteTopology(arrId).subscribe(data => {
-            this.configUtilityService.infoMessage("Deleted Successfully");
-            // })
+          this.configUtilityService.infoMessage("Deleted Successfully");
         })
       },
       reject: () => {
-
       }
     });
   }
+
 
   /**This method is common method for save or edit application detail*/
   saveEditApp(): void {
@@ -151,6 +146,7 @@ export class ConfigApplicationListComponent implements OnInit {
     if (this.isNewApp) {
       //Check for app name already exist or not
       if (!this.checkAppNameAlreadyExist()) {
+        this.addEditAppDialog = false;
         this.saveApp();
         return;
       }
@@ -161,9 +157,11 @@ export class ConfigApplicationListComponent implements OnInit {
         if (this.checkAppNameAlreadyExist())
           return;
       }
+      this.addEditAppDialog = false;
       this.editApp();
     }
   }
+
 
   /**This method is used to validate the name of application is already exists. */
   checkAppNameAlreadyExist(): boolean {
@@ -174,6 +172,7 @@ export class ConfigApplicationListComponent implements OnInit {
       }
     }
   }
+
 
   /**This method is used to add application detail */
   saveApp(): void {
@@ -186,25 +185,21 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-    // this.configApplicationService.addTopoDetails(arr).subscribe(data => {
-    //   for(let i=0;i<data.length;i++){
-    //     if(data[i].name == this.applicationDetail.topoName)
-    //       this.applicationDetail.topoId = data[i].id
-    //   }
       this.configApplicationService.addApplicationData(this.applicationDetail)
         .subscribe(data => {
-          //Insert data in main table after inserting application in DB
-          // this.applicationData.push(data);
-
+          if(data[Object.keys(data)[0]] == "Provided Application Name already exists!!!"){
+            this.configUtilityService.errorMessage("Application Name already exists.");
+            return;
+          }
           //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
           this.applicationData = ImmutableArray.push(this.applicationData, data);
           this.configUtilityService.successMessage(addMessage);
           this.loadApplicationData();
           this.closeDialog();
         });
-    // });
   }
 
+  
   /**This method is used to edit application detail */
   editApp(): void {
     if (this.applicationDetail.appDesc != null) {
@@ -215,17 +210,11 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-    // this.configApplicationService.addTopoDetails(arr).subscribe(data => {
-    //   for(let i=0;i<data.length;i++){
-    //     if(data[i].name == this.applicationDetail.topoName)
-    //       this.applicationDetail.topoId = data[i].id
-    //   }
     this.configApplicationService.editApplicationData(this.applicationDetail)
       .subscribe(data => {
         let index = this.getAppIndex(this.applicationDetail.appId);
         this.selectedApplicationData.length = 0;
         this.selectedApplicationData.push(data);
-        // this.applicationData[index] = data;
         //to edit a row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
         this.applicationData = ImmutableArray.replace(this.applicationData, data, index);
         this.configUtilityService.successMessage(editMessage);
@@ -233,13 +222,14 @@ export class ConfigApplicationListComponent implements OnInit {
         this.selectedApplicationData.length = 0;
       });
       this.closeDialog();
-      // });
   }
+
 
   /**For close add/edit application dialog box */
   closeDialog(): void {
     this.addEditAppDialog = false;
   }
+
 
   /**This method returns selected application row on the basis of AppId */
   getAppIndex(appId: number): number {
@@ -250,6 +240,7 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     return -1;
   }
+
 
   /***** This method is used to creating topology select item object *****/
   createTopologySelectItem(data) {
@@ -267,6 +258,7 @@ export class ConfigApplicationListComponent implements OnInit {
     }
   }
 
+
   /**This method is used to delete application */
   deleteApplications(arrAppId: number[]): void {
     //For stores table row index
@@ -281,6 +273,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.selectedApplicationData = [];
   }
 
+
   routeToTree(selectedAppId, selectedAppName) {
     //Observable app name
     this.configApplicationService.applicationNameObserver(selectedAppName);
@@ -289,11 +282,13 @@ export class ConfigApplicationListComponent implements OnInit {
 
   }
 
+
   //Route to NDC Keyword 
   routeToNDCKeywords(selectedAppId) {
     sessionStorage.setItem("agentType", "");
     this.router.navigate([ROUTING_PATH + '/application-list/ndc-keywords-setting', selectedAppId])
   }
+
 
   generateNDConfFile() {
     if (!this.selectedApplicationData || this.selectedApplicationData.length < 1) {
@@ -312,4 +307,5 @@ export class ConfigApplicationListComponent implements OnInit {
     this.configApplicationService.generateNDConf(arrAppIndex).subscribe(data =>
       this.configUtilityService.infoMessage("Agent configuration settings generated successfully at path : " + data));
   }
+
 }
