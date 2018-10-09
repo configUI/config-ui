@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter ,Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { ConfirmationService } from 'primeng/primeng';
@@ -49,9 +49,9 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     MONGODB;
     CASSANDRA;
 
-    //Variables for values of NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE keyword
-    NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN;
-    NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX;
+    // //Variables for values of NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE keyword
+    // NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN;
+    // NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX;
 
     //Variable for values of NDP_SEQ_BLOB_IN_FILE_FLAG keyword
     NDP_SEQ_BLOB_IN_FILE_FLAG_VAL;
@@ -208,6 +208,20 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     dropDownNDICDelayOption = [];
     selectedFormatForNDICDelay: any;
 
+
+    //The below variables are used for implementing Keyword : NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL
+    NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL = 1;
+
+    NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL = 10;
+    labelForMarkAppInactive = ['hr', 'min', 'sec'];
+    valueForMarkAppInactive = ['hr', 'min', 'sec'];
+    dropDownForMarkAppInactive = [];
+    selectedForMarkAppInactive: any;
+
+    dropDownForWaitMarkAppInactive = [];
+    selectedForWaitMarkAppInactive: any;
+
+
     constructor(private _configUtilityService: ConfigUtilityService,
         private confirmationService: ConfirmationService,
         private _configKeywordsService: ConfigKeywordsService,
@@ -215,7 +229,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         private route: ActivatedRoute,
         private store: Store<KeywordList>,
         private configUtilityService: ConfigUtilityService,
-        private pipeForType: PipeForType ,
+        private pipeForType: PipeForType,
         @Inject(DOCUMENT) private document: Document) {
 
         //Getting aplication's Id from URL
@@ -251,6 +265,10 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
 
         //Dropdown for NDP_DELETED_INSTANCE_CLEANUP_DELAY
         this.dropDownNDICDelayOption = ConfigUiUtility.createListWithKeyValue(this.labelForNDICDelay, this.valueForNDICDelay);
+
+        //Dropdown for NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE
+        this.dropDownForMarkAppInactive = ConfigUiUtility.createListWithKeyValue(this.labelForMarkAppInactive, this.valueForMarkAppInactive);
+        this.dropDownForWaitMarkAppInactive = ConfigUiUtility.createListWithKeyValue(this.labelForMarkAppInactive, this.valueForMarkAppInactive);
     }
 
     /**
@@ -270,7 +288,6 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
 
     //This method splits the value of those keywords which have can have multiple values 
     splitKeywords(data) {
-
         //NDC_TRACING_LEVEL 1 50
         if (data.NDC_TRACING_LEVEL.value.includes(" ")) {
             let val = data.NDC_TRACING_LEVEL.value.split(" ");
@@ -300,11 +317,11 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         }
 
         //NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE 3600000 600000
-        if (data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes(" ")) {
-            let val = data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.split(" ");
-            this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN = val[0];
-            this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX = val[1];
-        }
+        // if (data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes(" ")) {
+        //     let val = data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.split(" ");
+        //     this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN = val[0];
+        //     this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX = val[1];
+        // }
 
         //NDP_SEQ_BLOB_IN_FILE_FLAG 1 B 100000
         if (data.NDP_SEQ_BLOB_IN_FILE_FLAG.value.includes(" ")) {
@@ -373,6 +390,47 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.NDC_THRESHOLD_TO_MARK_DELETED_VAL = 8;
             this.selectedFormat = "hr";
         }
+
+        //Splitting Data of NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE
+        if (data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes("H") || data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes("M") || data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes("S")) {
+            let valueOfKeyword = data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value;
+            let value = valueOfKeyword.split(" ");
+            let valueOfMarkAppInactive = value[0];
+            let valueOfWaitMarkAppInactive = value[1];
+            let waitMarkAppInactiveValue = valueOfWaitMarkAppInactive.substring(0, valueOfWaitMarkAppInactive.length - 1);
+            let markAppInactiveValue = valueOfMarkAppInactive.substring(0, valueOfMarkAppInactive.length - 1);
+            this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL = +markAppInactiveValue;
+            this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL = +waitMarkAppInactiveValue;
+            if (valueOfMarkAppInactive.includes('H')) {
+                this.selectedForMarkAppInactive = "hr";
+            }
+            else if (valueOfMarkAppInactive.includess('M')) {
+                this.selectedForMarkAppInactive = "min";
+            }
+            else {
+                this.selectedForMarkAppInactive = "sec";
+            }
+
+            if (valueOfWaitMarkAppInactive.includes('H')) {
+                this.selectedForWaitMarkAppInactive = "hr";
+            }
+            else if (valueOfWaitMarkAppInactive.includes('M')) {
+                this.selectedForWaitMarkAppInactive = "min";
+            }
+            else {
+                this.selectedForWaitMarkAppInactive = "sec";
+            }
+        }
+        else {
+            this.selectedForMarkAppInactive = "hr";
+            this.selectedForWaitMarkAppInactive = "min";
+            data['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = "1H 10M";
+            this._configKeywordsService.saveNDCKeywords(data, this.appId, true).subscribe(data => {
+                this.ndcKeywords = data;
+                this.store.dispatch({ type: NDC_KEYWORD_DATA, payload: data });
+            });
+        }
+
         //Splitting Data of NDP_DELETED_INSTANCE_CLEANUP_DELAY 
         if (data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('D') || data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('H') || data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.includes('M')) {
             let valueOfKeyword = data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.substring(0, data.NDP_DELETED_INSTANCE_CLEANUP_DELAY.value.length - 1);
@@ -419,6 +477,27 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         else {
             this.ndcKeywords['NDP_DELETED_INSTANCE_CLEANUP_DELAY'].value = this.NDP_DELETED_INSTANCE_CLEANUP_DELAY_VAL + "M";
         }
+
+        //Making Data for Keyword : NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE
+        if (this.selectedForMarkAppInactive == 'hr') {
+            this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL + "H";
+        }
+        else if (this.selectedForMarkAppInactive == 'min') {
+            this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL + "M";
+        }
+        else {
+            this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL + "S";
+        }
+
+        if (this.selectedForWaitMarkAppInactive == 'hr') {
+            this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL + "H";
+        }
+        else if (this.selectedForWaitMarkAppInactive == 'min') {
+            this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL + "M";
+        }
+        else {
+            this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL + "S";
+        }
         // Saving Data to Server
         this.ndcKeywords = this.joinKeywordsVal(this.ndcKeywords)
         this.ndcKeywords = Object.assign(this.custom_keywords, this.ndcKeywords)
@@ -445,7 +524,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         data["ND_ENABLE_CAPTURE_DB_TIMING"].value = this.JDBC + " " + this.REDIX + " " + this.MONGODB + " " + this.CASSANDRA;
 
         //NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE
-        data["NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE"].value = this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX;
+        //data["NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE"].value = this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX;
 
         //NDP_SEQ_BLOB_IN_FILE_FLAG
         data["NDP_SEQ_BLOB_IN_FILE_FLAG"].value = this.NDP_SEQ_BLOB_IN_FILE_FLAG_VAL + " " + this.NDP_SEQ_BLOB_IN_FILE_FLAG_VER + " " + this.NDP_SEQ_BLOB_IN_FILE_FLAG_SIZE;
@@ -519,13 +598,13 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         }
         this.customKeywords = new NDCCustomKeywordsComponentData();
         this.customKeywords = Object.assign({}, this.selectedCustomKeywordsData[0]);
-        if(this.selectedCustomKeywordsData[0].type == "NDP#"){
+        if (this.selectedCustomKeywordsData[0].type == "NDP#") {
             this.customKeywords.type = "NDP"
         }
-        else if(this.selectedCustomKeywordsData[0].type = "NDC#"){
+        else if (this.selectedCustomKeywordsData[0].type = "NDC#") {
             this.customKeywords.type = "NDC"
         }
-        else{
+        else {
             this.customKeywords.type = this.selectedCustomKeywordsData[0].type
         }
         // this.getKeywordList(this.customKeywords.type)
@@ -624,15 +703,12 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         this._configKeywordsService.getHelpContent("Application", "ND Controller Settings", "");
     }
     //On changing Type from Dialog , Method changeOfType() invoked to load corresponding Dropdown
-    changeOfType()
-    {
-        if(this.customKeywords.type == 'NDC'){
+    changeOfType() {
+        if (this.customKeywords.type == 'NDC') {
             this.getKeywordList('NDC');
         }
-        else
-        {
+        else {
             this.getKeywordList('NDP');
         }
     }
 }
-

@@ -91,7 +91,7 @@ const DEFAULT_DATA = {
 // "NDDBU_RD_INST_COUNT_AND_SKIP":{"ndcKeyId":84,"defaultValue":"0 5","min":"","max":"","value":"0 5","assocId":-1},
 "NDC_HS_ST_IN_FILE_FLAG":{"ndcKeyId":85,"defaultValue":"1 B","min":"","max":"","value":"1 B","assocId":-1},
 "ND_ENABLE_CAPTURE_DB_TIMING":{"ndcKeyId":86,"defaultValue":"1 0 0 0","min":"","max":"","value":"1 0 0 0","assocId":-1},
-"NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE":{"ndcKeyId":87,"defaultValue":"3600000 600000","min":"","max":"","value":"3600000 600000","assocId":-1},
+"NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE":{"ndcKeyId":87,"defaultValue":"1H 10M","min":"","max":"","value":"1H 10M","assocId":-1},
 "NDDBU_TMP_FILE_PATH":{"ndcKeyId":88,"defaultValue":"/mnt/tmp","min":"","max":"","value":"/mnt/tmp","assocId":-1},
 "ND_FPI_MASK":{"ndcKeyId":89,"defaultValue":"NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;","min":"","max":"","value":"NDEID:56:4;AppID:46:10;TS:8:38;SeqNo:0:8;","assocId":-1},
 "NDC_THRESHOLD_TO_MARK_DELETED": {"ndcKeyId":90,"defaultValue":"1 8h","min":"","max":"","value":"1 8h","assocId":-1},

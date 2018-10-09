@@ -283,18 +283,26 @@
                       <hr>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Mark instances which goes down (in ms)
+                          Mark instances which goes down
                         </div>
                         <div class="ui-grid-col-1">
-                          <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN" min=0 [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MIN"
-                            required ngModel/>
+                          <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL" min=0
+                            [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL" required ngModel />
+                        </div>
+                        <div class="ui-grid-col-1">
+                          <p-dropdown [options]="dropDownForMarkAppInactive" [style]="{'width':'80%'}" name="selectedForMarkAppInactive"
+                            [(ngModel)]="selectedForMarkAppInactive" placeholder="--Select--"></p-dropdown>
                         </div>
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop"></div>
                         <div class="ui-grid-col-1">
-                          <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX" min=0 [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_MAX"
-                            required ngModel/>
+                          <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL" min=0
+                            [(ngModel)]="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL" required ngModel />
+                        </div>
+                        <div class="ui-grid-col-1">
+                          <p-dropdown [options]="dropDownForWaitMarkAppInactive" [style]="{'width':'80%'}" name="selectedForWaitMarkAppInactive"
+                            [(ngModel)]="selectedForWaitMarkAppInactive" placeholder="--Select--"></p-dropdown>
                         </div>
                       </div>
                       <hr>
