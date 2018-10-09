@@ -401,13 +401,14 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             let markAppInactiveValue = valueOfMarkAppInactive.substring(0, valueOfMarkAppInactive.length - 1);
             this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL = +markAppInactiveValue;
             this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL = +waitMarkAppInactiveValue;
+
             if (valueOfMarkAppInactive.includes('H')) {
                 this.selectedForMarkAppInactive = "hr";
             }
-            else if (valueOfMarkAppInactive.includess('M')) {
+            else if (valueOfMarkAppInactive.includes('M')) {
                 this.selectedForMarkAppInactive = "min";
             }
-            else {
+            else  {
                 this.selectedForMarkAppInactive = "sec";
             }
 
