@@ -51,6 +51,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     calledFor: any;
     fqm: any;
     profileIdList: number[];
+    agentType: string = '';
     constructor(private configNdAgentService: ConfigNdAgentService, private http: Http, private _configKeywordsService: ConfigKeywordsService, 
         private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, 
         private configHomeService: ConfigHomeService) {
@@ -73,8 +74,8 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             let configRequestId = `${userName}-${Math.random()}-${timestamp}`;
             sessionStorage.setItem('configRequestID', configRequestId);
         }
-        let agentType = sessionStorage.getItem("agentType");
-        this.adrFile = this.adrFile + "@" + agentType;
+        this.agentType = sessionStorage.getItem("agentType");
+        this.adrFile = this.adrFile + "@" + this.agentType;
         this._configKeywordsService.getAutoDiscoverTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
             this.getleftSideTreeData(data);
         });
@@ -90,7 +91,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
 
     // Save Instrumentation File 
     saveInstrumentationFile() {
-        let agentType = sessionStorage.getItem("agentType");
+        this.agentType = sessionStorage.getItem("agentType");
         if (this.instrfileName == "" || this.instrfileName == null) {
             this.configUtilityService.errorMessage("Provide a file name to save it");
             return;
@@ -100,7 +101,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
             this.configUtilityService.errorMessage("At least Select a package, class or method for instrumentation");
             return;
         }
-        this.instrfileName = this.instrfileName + "@" + agentType;
+        this.instrfileName = this.instrfileName + "@" + this.agentType;
         this._configKeywordsService.saveInsrumentationFileInXMLFormat(this.instrfileName, this.reqId, this.instanceFileName).subscribe(data =>
             console.log(data));
         this.configUtilityService.successMessage("Saved successfully");
@@ -134,6 +135,13 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
                     event.node.children = data.node
                     for(let i = 0 ; i < event.node.children.length; i++)
                     {
+                        /**
+                         * The below code is done to disable the method level
+                         * checkbox in case of NodeJS agent type
+                         */                        
+                        if(this.agentType == "NodeJS" && event.node.children[i].type == "method"){
+                            event.node.children[i].selectable = false;
+                        }
                         if(event.node.children[i].selected == true)
                             this.instrFromLeftSideTree.push(event.node.children[i]);
                     }
@@ -187,8 +195,24 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         }
 
         this._configKeywordsService.getSelectedNodeInfo(this.selectedNodes, this.reqId, this.instanceFileName).subscribe(data => {
+           /**
+            * The below code is done to disable the method level
+            * checkbox in case of NodeJS agent type
+            */
+            if(this.agentType == "NodeJS"){
+                for(let i = 0; i < data.backendDetailList[0].children.length; i++){
+                    for(let j = 0; j < data.backendDetailList[0].children[i].children.length; j++){
+                        for(let k = 0; k < data.backendDetailList[0].children[i].children[j].children.length; k++){
+                            if(data.backendDetailList[0].children[i].children[j].children[k].type == "method"){
+                                data.backendDetailList[0].children[i].children[j].children[k].selectable = false;
+                            }
+                        }
+                    }
+                }
+            }
+
             this.rightSideTreeData = data.backendDetailList;
-            this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
+            this.adrFile = this.adrFile + "@" + this.agentType;
             // this service for getting selected node and showing left side tree
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
                 this.getleftSideTreeData(data);
@@ -220,7 +244,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
         this._configKeywordsService.getUninstrumentaionTreeData(this.selectedNodes, this.reqId, this.instanceFileName ).subscribe(data => {
 
             this.rightSideTreeData = data.backendDetailList;
-            this.adrFile = this.adrFile + "@" + sessionStorage.getItem("agentType");
+            this.adrFile = this.adrFile + "@" + this.agentType;
             // this service for getting unselected node and showing in left side tree
             this._configKeywordsService.getAutoDiscoverSelectedTreeData(this.adrFile, this.reqId, this.instanceFileName).subscribe(data => {
                 this.getleftSideTreeData(data);
@@ -274,7 +298,7 @@ export class ConfigAutoDiscoverTreeComponent implements OnInit {
     loadProfileList() {
         this.configProfileService.getProfileList().subscribe(data => {
             this.profileData = data;
-            this.getAgentSpecificProfiles(sessionStorage.getItem("agentType"));
+            this.getAgentSpecificProfiles(this.agentType);
         });
     }
 

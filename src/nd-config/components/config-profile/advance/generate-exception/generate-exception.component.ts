@@ -136,13 +136,13 @@ export class GenerateExceptionComponent implements OnInit {
 
   /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
-    var keywordDataVal = {}
-    keywordDataVal = data
-    this.keywordList.map(function (key) {
-      keywordDataVal[key].value = data[key].defaultValue
-    })
-    this.genException = keywordDataVal;
+    let data = this.configKeywordsService.keywordData;
+    for( let key in data){
+        if(this.keywordList.includes(key)){
+        this.genException[key].value = data[key].defaultValue;
+      }
+    }
+
     this.GenExceptionKeywordValue();
     this.isResetToDefault = true;
   }

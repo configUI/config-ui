@@ -48,8 +48,8 @@ export class ConfigAutoDiscoverMainComponent implements OnInit {
     // this.loadNDAgentStatusData();
     // this.loadAdrFiles();    
     this.autoDiscoverDetail.discoveryMode = 1;
-    this.agentTypeLabel = ["DotNet" , "Java"];
-    this.agentTypeValue = ["DotNet", "Java"];
+    this.agentTypeLabel = ["DotNet" , "Java", "NodeJS"];
+    this.agentTypeValue = ["DotNet", "Java", "NodeJS"];
     this.agent = ConfigUiUtility.createListWithKeyValue(this.agentTypeLabel, this.agentTypeValue);
     if(this.selectedAgent  == null || this.selectedAgent  == ""){
       this.isAgentSelected =true;

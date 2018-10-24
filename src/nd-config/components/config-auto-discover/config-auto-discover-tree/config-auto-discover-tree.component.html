@@ -6,8 +6,13 @@
         <div class="ui-g-12" style="padding:0px">
             <div class="ui-g-5">
                 <div class="ui-g-12 header" style="padding:3.5px">
-                    <div class="ui-g-5" style="margin-top: 3px; padding:0px">Auto Discovered data by agent</div>
-                    <div class="ui-g-7" style="padding:0px">
+                    <div class="ui-g-4" style="margin-top: 3px; padding:0px">Auto Discovered data by Agent</div>
+                    <div class="ui-g-1" style="margin-left: -8px">
+                        <span title="{{agentType}}" *ngIf="agentType == 'DotNet'"><i class="icon ndegui-dotnet dotnet-color"></i></span>
+                        <span title="{{agentType}}" *ngIf="agentType == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color"></i></span>
+                        <span title="{{agentType}}" *ngIf="agentType == 'Java'"><i class="icon ndegui-java java-color"></i></span>
+                    </div>
+                    <div class="ui-g-5" style="padding:0px;margin-left: -8px">
                         <input type="text" [disabled]="true" [(ngModel)]="instanceFileName" required size=35 title="{{instanceFileName}}" pInputText>
                     </div>
                 </div>
@@ -20,7 +25,7 @@
                 </div>
             </div>
             <div class="ui-g-2 config-ui-auto" align="center">
-                <div>
+                <div *ngIf="agentType != 'NodeJS'">
                     <button type="button" (click)="reset()" pButton label=' Reset ' style="width:122px"> </button>
                 </div>
                 <div style="padding-top:5px;">
@@ -29,10 +34,10 @@
                 <div style="padding-top:5px;">
                     <button class="unInstrumentation-css" type="button" [disabled]="isAutoPerm" (click)="removeValuesFromSelectedList()" pButton label='<< Uninstrument' style="width:122px"></button>
                 </div>
-                <div style="padding-top:5px;">
+                <div style="padding-top:5px;" *ngIf="agentType != 'NodeJS'">
                     <button type="button" (click)="createMethodAndValidateFQM()" pButton label=' Method Monitor ' title="This feature is applicable only for the FQM(s) present in LHS Tree" style="width:122px"> </button>
                 </div>
-                <div style="padding-top:5px;">
+                <div style="padding-top:5px;" *ngIf="agentType != 'NodeJS'">
                     <button type="button" (click)="createMethodBTRule()" pButton label=' Method BT ' title="This feature is applicable only for the FQM(s) present in LHS Tree" style="width:122px"> </button>
                 </div>
             </div>

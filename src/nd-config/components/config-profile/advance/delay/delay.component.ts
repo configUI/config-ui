@@ -145,13 +145,13 @@ export class DelayComponent implements OnInit {
 
   /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
-    var keywordDataVal = {}
-    keywordDataVal = data
-    this.keywordList.map(function (key) {
-      keywordDataVal[key].value = data[key].defaultValue
-    })
-    this.delay = keywordDataVal;
+    let data = this.configKeywordsService.keywordData;
+    for(let key in data ) {
+      if(this.keywordList.includes(key)){
+        this.delay[key].value = data[key].defaultValue
+      }
+    }
+
     this.splitDelayKeywordData();
     this.isResetToDefault = true;
   }
