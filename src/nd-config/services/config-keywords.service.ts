@@ -478,7 +478,11 @@ export class ConfigKeywordsService {
           rtcMsg = [];
           rtcErrMsg = [];
         }
-
+        else if (data[0].includes("NoChangesInConfiguration")) {
+          this.configUtilityService.errorMessage(" Changes in configuration for Runtime changes.");
+          rtcMsg = [];
+          rtcErrMsg = [];
+        }
         //When result=Error, then no RTC applied
         else {
           this.configUtilityService.errorMessage(" No runtime changes applied");
