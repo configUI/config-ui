@@ -356,7 +356,7 @@ export class ServiceEntryPointComponent implements OnInit {
     this.configKeywordsService.saveServiceEntryData(this.profileId)
       .subscribe(data => {
         console.log("return type", data);
-        this.configUtilityService.successMessage("Saved Successfully");
+        // this.configUtilityService.successMessage("Saved Successfully");
         let filePath;
         this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
 
