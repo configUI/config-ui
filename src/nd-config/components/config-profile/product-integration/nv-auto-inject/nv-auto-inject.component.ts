@@ -82,7 +82,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /* Object to Hold Auto Inject Tag Rule Selection */
     selectedAutoInjectionTagRule: NVAutoInjectionTagRule[];
 
-    abc: string;
+    emptyString: string = "";
 
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,
         private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
