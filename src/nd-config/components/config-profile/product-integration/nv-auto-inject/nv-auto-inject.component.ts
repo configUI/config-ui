@@ -214,6 +214,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * This method is used to save the New Auto Injection Policy Rule Data
      */
     saveNewAutoInjectionPolicyRule() {
+        this.modifyParameterAndHeaderValues();
         this.configKeywordsService.addAutoInjectionPolicyRule(this.profileId, this.autoInjectionPolicyRuleDialogData)
             .subscribe(data => {
                 if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
@@ -229,9 +230,26 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     }
 
     /**
+     * The below method is used to modify the value of Parameter value/Operation
+     * and Header Value/Operation on the basis of Parameter and Header Name
+     */
+    modifyParameterAndHeaderValues(){
+        if(this.autoInjectionPolicyRuleDialogData.parameterName == "" || this.autoInjectionPolicyRuleDialogData.parameterName == null){
+            this.autoInjectionPolicyRuleDialogData.parameterValue = "";
+            this.autoInjectionPolicyRuleDialogData.parameterOperation = "";
+        }
+
+        if(this.autoInjectionPolicyRuleDialogData.headerName == "" || this.autoInjectionPolicyRuleDialogData.headerName == null){
+            this.autoInjectionPolicyRuleDialogData.headerValue = "";
+            this.autoInjectionPolicyRuleDialogData.headerOperation = "";
+        }
+    }
+
+    /**
      * This method is used to save the Edited Auto Injection Data
      */
     editAutoInjectionPolicyRule() {
+        this.modifyParameterAndHeaderValues();
         this.configKeywordsService.editAutoInjectionPolicyRule(this.profileId, this.autoInjectionPolicyRuleDialogData)
             .subscribe(data => {
                 if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {

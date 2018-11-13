@@ -51,13 +51,13 @@
                             </p-column>
                             <p-column class="tableCss" field="httpUrl" header="HTTP URL" [sortable]="true" [style]="{'width':'30%'}">
                                 <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
-                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}" class="timpStamp-float-css">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
                                 </template>
                             </p-column>
                             <p-column class="tableCss" field="httpMethod" header="HTTP Method" [sortable]="true"
                                 [style]="{'width':'10%'}">
                                 <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
-                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}" class="timpStamp-float-css">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
                                 </template>
                             </p-column>
                             <p-column class="tableCss" field="queryParameter" header="Query Parameter" [sortable]="true"
@@ -104,12 +104,12 @@
                                 </span>
                             </p-header>
                             <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                            <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'27%'}">
+                            <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'23%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column class="tableCss" field="htmlTag" header="HTML Tag" [sortable]="true" [style]="{'width':'8%'}">
+                            <p-column class="tableCss" field="htmlTag" header="HTML Tag" [sortable]="true" [style]="{'width':'12%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
@@ -166,7 +166,7 @@
             </div>
             <div class="ui-g-5">
                 <input name="btName" type="text" size="45" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.btName"
-                   ngModel />
+                    ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2">
@@ -260,7 +260,7 @@
             </div>
             <div class="ui-g-2">
                 <input name="headerName" type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName"
-                  ngModel />
+                    ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
@@ -312,7 +312,7 @@
             </div>
             <div class="ui-g-4">
                 <input name="ruleName" type="text" size="27" pInputText [(ngModel)]="autoInjectionTagRuleDialogData.ruleName"
-                autofocus required ngModel />
+                    autofocus required ngModel />
             </div>
             <div class="ui-g-2"></div>
 
@@ -329,8 +329,8 @@
                 <label>HTML Tag</label>
             </div>
             <div class="ui-g-4">
-                <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag" pInputText
-                    required pattern = "<(\'[^\'']*\'|'[^']*'|[^'\''>])*>" ngModel />
+                <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag"
+                    pInputText required pattern="<(\'[^\'']*\'|'[^']*'|[^'\''>])*>" ngModel />
             </div>
             <div class="ui-g-2"></div>
             <div class="ui-g-2">
@@ -347,7 +347,7 @@
             </div>
             <div class="ui-g-8">
                 <textarea name="desc" rows="5" cols="53" pInputTextarea [(ngModel)]="autoInjectionTagRuleDialogData.jsCode"
-                    ngModel></textarea>
+                    required ngModel></textarea>
             </div>
         </div>
 
