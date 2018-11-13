@@ -239,7 +239,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
     }
 
     this.keywordData.emit(this.hotspot);
-    this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+    // this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
   }
 
   resetKeywordData() {

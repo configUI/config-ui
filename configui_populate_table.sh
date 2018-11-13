@@ -996,7 +996,7 @@ INSERT INTO config.backend_points_interface(end_point_interface_id,end_point_int
 (11,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.error','ExtendedLogger.error',1,false,'-','Java','LOG4J','error'),
 (12,'LOG4J End Point','org.apache.logging.log4j.spi.ExtendedLogger.log','ExtendedLogger.log',1,false,'-','Java','LOG4J','log');
 
-INSERT INTO config.profile_backend_point_interface_asso(assoc_id,enabled,end_point_interface_id,profile_id) VALUES
+INSERT INTO config.profile_backend_point_interface_asso (assoc_id,enabled,end_point_interface_id,profile_id) VALUES
 (1,false,1,1),
 (2,false,2,1),
 (3,false,3,1),
