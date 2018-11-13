@@ -1,0 +1,361 @@
+<form (ngSubmit)="saveAutoInjectionDataOnFile()" #groupForm="ngForm" ngNativeValidate>
+    <div class="configUI ndegui-mainbox">
+        <div class="header label">
+            <span class="configui-float-css">
+                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm"
+                    [disabled]="isProfilePerm"></p-checkbox>
+                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm"
+                    [disabled]="saveDisable"></p-checkbox>
+            </span>
+            <span class="configui-float-css">Enable Auto Injection </span>
+            <div class="pull-right">
+                <button pButton type="submit" style="float:right" title="Save" [disabled]="isAppPerm" icon="fa-save"
+                    label="Save"></button>
+            </div>
+        </div>
+        <div class="ndegui-mainbox">
+            <div class="accordian-css">
+                <p-accordion class="ndagent">
+                    <p-accordionTab header="Auto Injection Policy Rules" [selected]="true">
+                        <p-dataTable class="nde-ui" [value]="nvautoinjectionPolicyData" [(selection)]="selectedAutoInjectionPolicyRule"
+                            [rows]="12" [paginator]="nvautoinjectionPolicyData?.length > 12" [pageLinks]="3">
+                            <p-header>
+                                <span class="configui-float-css"> Auto-Injection Rule Configuration List </span>
+                                <span class="configui-float">
+                                    <button pButton type="button" title="Add Auto-Injection Rule Configuration" *ngIf="isProfilePerm"
+                                        [disabled]="isProfilePerm" icon="fa-plus"></button>
+                                    <button pButton type="button" title="Add Auto-Injection Rule Configuration" *ngIf="!isProfilePerm"
+                                        [disabled]="saveDisable" (click)="openAddPolicyRuleDialog()" icon="fa-plus"></button>
+                                    <button pButton type="button" title="Edit an Auto-Injection Rule Configuration"
+                                        *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
+                                    <button pButton type="button" title="Edit an Auto-Injection Rule Configuration"
+                                        *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditPolicyRuleDialog()"
+                                        icon="fa-pencil"></button>
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Rule Configuration"
+                                        *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Rule Configuration"
+                                        *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteAutoInjectionRule()"
+                                        icon="fa-trash"></button>
+                                </span>
+                            </p-header>
+                            <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+                            <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'14%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="btName" header="BT Name" [sortable]="true" [style]="{'width':'15%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="httpUrl" header="HTTP URL" [sortable]="true" [style]="{'width':'30%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}" class="timpStamp-float-css">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="httpMethod" header="HTTP Method" [sortable]="true"
+                                [style]="{'width':'10%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}" class="timpStamp-float-css">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="queryParameter" header="Query Parameter" [sortable]="true"
+                                [style]="{'width':'12%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="httpHeader" header="HTTP Header" [sortable]="true"
+                                [style]="{'width':'12%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'7%'}">
+                                <template let-col let-nvAutoInjectionPolicyRule="rowData" pTemplate>
+                                    <span title="{{nvAutoInjectionPolicyRule[col.field]}}">{{nvAutoInjectionPolicyRule[col.field]}}</span>
+                                </template>
+                            </p-column>
+                        </p-dataTable>
+
+
+                    </p-accordionTab>
+                    <p-accordionTab header="Auto Injection Configuration" [selected]="false">
+                        <p-dataTable class="nde-ui" [value]="nvautoinjectionTagRuleData" [(selection)]="selectedAutoInjectionTagRule"
+                            [rows]="12" [paginator]="nvautoinjectionTagRuleData?.length > 12" [pageLinks]="3">
+
+                            <p-header>
+                                <span class="configui-float-css"> Tag Injection Rule List </span>
+                                <span class="configui-float">
+                                    <button pButton type="button" title="Add Tag Injection Rule" *ngIf="isProfilePerm"
+                                        [disabled]="isProfilePerm" icon="fa-plus"></button>
+                                    <button pButton type="button" title="Add Tag Injection Rule" *ngIf="!isProfilePerm"
+                                        [disabled]="saveDisable" (click)="openAddTagInjectionDialog()" icon="fa-plus"></button>
+                                    <button pButton type="button" title="Edit Tag Injection Rule" *ngIf="isProfilePerm"
+                                        [disabled]="isProfilePerm" icon="fa-pencil"></button>
+                                    <button pButton type="button" title="Edit Tag Injection Rule" *ngIf="!isProfilePerm"
+                                        [disabled]="saveDisable" (click)="openEditTagInjectionDialog()" icon="fa-pencil"></button>
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Tag Injection Rule(s)"
+                                        *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Tag Injection Rule(s)"
+                                        *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteTagInjectionRules()"
+                                        icon="fa-trash"></button>
+                                </span>
+                            </p-header>
+                            <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+                            <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'27%'}">
+                                <template let-col let-nvtag="rowData" pTemplate>
+                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="htmlTag" header="HTML Tag" [sortable]="true" [style]="{'width':'8%'}">
+                                <template let-col let-nvtag="rowData" pTemplate>
+                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="beforeAfterTag" header="Before/After" [sortable]="true"
+                                [style]="{'width':'8%'}">
+                                <template let-col let-nvtag="rowData" pTemplate>
+                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'7%'}">
+                                <template let-col let-nvtag="rowData" pTemplate>
+                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
+                                </template>
+                            </p-column>
+                            <p-column class="tableCss" field="jsCode" header=" JavaScript Code" [sortable]="true"
+                                [style]="{'width':'50%'}">
+                                <template let-col let-nvtag="rowData" pTemplate>
+                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
+                                </template>
+                            </p-column>
+                        </p-dataTable>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+        </div>
+    </div>
+</form>
+
+<p-dialog class="profile-dialog" header="{{isNewAutoInjectionPolicyRule ? 'Add Auto Injection Rule' : 'Edit Auto Injection Rule'}}"
+    *ngIf="addEditAutoInjectionPolicyRuleDialog" [(visible)]="addEditAutoInjectionPolicyRuleDialog" modal="modal" width="720"
+    responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveAddEditAutoInject()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>Rule Name</label>
+            </div>
+            <div class="ui-g-5">
+                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.ruleName"
+                    autofocus required ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-2">
+                <label>Enabled</label>
+            </div>
+            <div class="ui-g-1">
+                <md-slide-toggle [(ngModel)]="autoInjectionPolicyRuleDialogData.enabled" name="enabled" class="configui-error-css-2"></md-slide-toggle>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>BT Name</label>
+            </div>
+            <div class="ui-g-5">
+                <input name="btName" type="text" size="45" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.btName"
+                    autofocus ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-2">
+                <label>Exclude</label>
+            </div>
+            <div class="ui-g-2">
+                <p-checkbox name="checkbox" value="val" [(ngModel)]="autoInjectionPolicyRuleDialogData.exclude" binary="true"></p-checkbox>
+            </div>
+
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>HTTP URL</label>
+            </div>
+            <div class="ui-g-5">
+                <input name="httpUrl" type="text" size="45" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.httpUrl"
+                    autofocus ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-2">
+                <label>HTTP Method</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="dropdown2" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod"
+                    ngModel />
+                <p-dropdown name="httpMethod" [style]="{'width':'90.5%'}" [options]="methodTypeList" placeholder="--Select--"
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod" appendTo="body" ngModel></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>Extension</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="extension" type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.extension"
+                    autofocus ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-25px">
+                <label>Type</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="type" type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.type"
+                    autofocus ngModel />
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>Parameter Name</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="parameterName" type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName"
+                    autofocus ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-25px">
+                <label>Value</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="parameterValue" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    type="text" size="15" pInputText [(ngModel)]="abc" autofocus ngModel />
+                <input name="parameterValue" *ngIf="autoInjectionPolicyRuleDialogData.parameterName != ''" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
+                    autofocus required ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-25px">
+                <label>Operation</label>
+            </div>
+            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''">
+                <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    pInputText [(ngModel)]="abc" ngModel />
+                <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    placeholder="--Select--" [(ngModel)]="abc" appendTo="body" ngModel></p-dropdown>
+            </div>
+            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.parameterName != ''">
+                <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation" required ngModel />
+                <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation"
+                    appendTo="body" ngModel></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>Header Name</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="headerName" type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName"
+                    autofocus ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-25px">
+                <label>Value</label>
+            </div>
+            <div class="ui-g-2">
+                <input name="headerValue" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    type="text" size="15" pInputText [(ngModel)]="abc" autofocus ngModel />
+                <input name="headerValue" *ngIf="autoInjectionPolicyRuleDialogData.headerName != ''" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    type="text" size="15" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
+                    autofocus required ngModel />
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-25px">
+                <label>Operation</label>
+            </div>
+            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''">
+                <input name="dropdown1" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    pInputText [(ngModel)]="abc" ngModel />
+                <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    placeholder="--Select--" [(ngModel)]="abc" appendTo="body" ngModel></p-dropdown>
+            </div>
+            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.headerName != ''">
+                <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" required ngModel />
+                <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" appendTo="body"
+                    ngModel></p-dropdown>
+            </div>
+        </div>
+
+        <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix" style="margin-top: -1px;">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="addEditAutoInjectionPolicyRuleDialog=false"
+                    label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<p-dialog class="profile-dialog" header="{{isNewAutoInjectionTagRule ? 'Add Auto Injection Configuration Rule' : 'Edit Auto Injection Configuration Rule'}}"
+    *ngIf="addEditAutoInjectionTagRule" [(visible)]="addEditAutoInjectionTagRule" modal="modal" width="500" responsive="true"
+    [resizable]="false">
+    <form (ngSubmit)="saveAddEditTagInject()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>Rule Name</label>
+            </div>
+            <div class="ui-g-4">
+                <input name="ruleName" type="text" size="27" pInputText [(ngModel)]="autoInjectionTagRuleDialogData.ruleName"
+                    required ngModel />
+            </div>
+            <div class="ui-g-2"></div>
+
+            <div class="ui-g-2">
+                <label>Enabled</label>
+            </div>
+            <div class="ui-g-1">
+                <md-slide-toggle [(ngModel)]="autoInjectionTagRuleDialogData.enabled" name="enabled" class="configui-error-css-2"></md-slide-toggle>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>HTML Tag</label>
+            </div>
+            <div class="ui-g-4">
+                <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag" pInputText
+                    required pattern = "<(\'[^\'']*\'|'[^']*'|[^'\''>])*>" ngModel />
+            </div>
+            <div class="ui-g-2"></div>
+            <div class="ui-g-2">
+                <label>Before</label>
+            </div>
+            <div class="ui-g-2">
+                <p-checkbox name="checkbox" value="val" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfter" binary="true"></p-checkbox>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2">
+                <label>Actual Code</label>
+            </div>
+            <div class="ui-g-8">
+                <textarea name="desc" rows="5" cols="53" pInputTextarea [(ngModel)]="autoInjectionTagRuleDialogData.jsCode"
+                    ngModel></textarea>
+            </div>
+        </div>
+
+        <footer>
+            <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix" style="margin-top: -3px;">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="addEditAutoInjectionTagRule=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

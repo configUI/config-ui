@@ -36,13 +36,13 @@
                             <label>Extract URL from</label>
                         </div>
                         <div class="ui-g-1">
-                            <input [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
+                            <input [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="urlOffset" type="number" #offset (input)="checkOffset(offset, maxChar)" min="0" max="256" [(ngModel)]="urlCapturingData.urlOffset" pInputText ngModel/>
                         </div>
                         <div class="ui-g-1" style="width: 2%">
                             <label>to</label>
                         </div>
                         <div class="ui-g-1">
-                            <input [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="10000" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
+                            <input [disabled]="!this.enableFormatIPResourceURL || !this.enableIPResourceURL" name="maxChar" type="number" #maxChar (input)="checkMaxChar(offset, maxChar)" min="0" max="256" [(ngModel)]="urlCapturingData.maxChar" pInputText ngModel/>
                         </div>
                         <div class="ui-g-1">
                             <label>characters</label>

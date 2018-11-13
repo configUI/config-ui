@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { BusinessTransMethodData, BusinessTransPatternData, SessionAtrributeComponentsData, HTTPRequestHdrComponentData, RulesHTTPRequestHdrComponentData, AddIPDetection, BTResponseHeaderData, HTTPResponseHdrComponentData, RulesHTTPResponseHdrComponentData } from '../containers/instrumentation-data';
 import { ServiceEntryPoint, IntegrationPT, EndPoint, ErrorDetection, MethodMonitorData, NamingRuleAndExitPoint, HttpStatsMonitorData, BTHTTPHeaderData, ExceptionMonitor, ExceptionMonitorData, AsynchronousRuleType, BTHTTPBody, InterfacePoint, InterfaceEndPoint } from '../containers/instrumentation-data';
 import { GroupKeyword } from '../containers/group-keyword';
+import { NVAutoInjectionPolicyRule, NVAutoInjectionTagRule} from '../containers/product-integration-data';
 
 import { BackendInfo, ServiceEntryType } from '../interfaces/instrumentation-info';
 import { UserConfiguredKeywords } from '../containers/keyword-data';
@@ -919,4 +920,48 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.SAVE_INTERFACE_END_POINT}/${profileId}`);
   }
 
+  /** For Adding Auto Injection Policy Rule */
+  addAutoInjectionPolicyRule(profileId,data): Observable<NVAutoInjectionPolicyRule> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_AUTO_INJECTION_POLICY_DATA}/${profileId}`, data);
+  }
+
+  /** For Getting Auto Injection Policy Rule */
+  getAutoInjectionPolicyRule(profileId): Observable<NVAutoInjectionPolicyRule[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INJECTION_POLICY_DATA}/${profileId}`);
+  }
+
+  /** For Editing Auto Injection Policy Rule */
+  editAutoInjectionPolicyRule(profileId,data): Observable<NVAutoInjectionPolicyRule> {
+    return this._restApi.getDataByPutReq(`${URL.EDIT_AUTO_INJECTION_POLICY_DATA}/${profileId}`, data);
+  }
+
+  /** For Deleting Auto Injection Policy Rule */
+  deleteAutoInjectionPolicyRule(data, profileId): Observable<NVAutoInjectionPolicyRule> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_AUTO_INJECTION_POLICY_DATA}/${profileId}`, data);
+  }
+
+  /** For Adding Auto Injection Tag Rule*/
+  addAutoInjectionTagRule(profileId,data): Observable<NVAutoInjectionTagRule> {
+    return this._restApi.getDataByPostReq(`${URL.ADD_AUTO_INJECTION_TAG_DATA}/${profileId}`, data);
+  }
+
+  /** For Getting Auto Injection Tag Rule */
+  getAutoInjectionTagRule(profileId): Observable<NVAutoInjectionTagRule[]> {
+    return this._restApi.getDataByGetReq(`${URL.GET_AUTO_INJECTION_TAG_DATA}/${profileId}`);
+  }
+
+  /** For Editing Auto Injection Tag Rule */
+  editAutoInjectionTagRule(profileId,data): Observable<NVAutoInjectionTagRule> {
+    return this._restApi.getDataByPutReq(`${URL.EDIT_AUTO_INJECTION_TAG_DATA}/${profileId}`, data);
+  }
+
+  /** For Deleting Auto Injection Tag Rule */
+  deleteAutoInjectionTagRule(data, profileId): Observable<NVAutoInjectionTagRule> {
+    return this._restApi.getDataByPostReq(`${URL.DELETE_AUTO_INJECTION_TAG_DATA}/${profileId}`, data);
+  }
+
+  /** For saving auto Injection Data on File */
+  saveAutoInjectionData(profileId): Observable<ErrorDetection> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_AUTO_INJECTION_DATA_ON_FILE}/${profileId}`);
+  }
 }

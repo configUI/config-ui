@@ -156,6 +156,7 @@ import { EventCorrelationComponent } from './components/config-profile/general/e
 import { NDEClusterConfiguration, PipeForObject } from './components/nde-cluster-configuration/nde-cluster-configuration.component';
 import { UserConfiguredKeywordComponent } from './components/user-configured-keywords/user-configured-keywords.component';
 import { PipeForType } from './pipes/config-pipe.pipe';
+import { NVAutoInjectConfiguration } from './components/config-profile/product-integration/nv-auto-inject/nv-auto-inject.component';
 
 @NgModule({
   declarations: [
@@ -233,7 +234,8 @@ import { PipeForType } from './pipes/config-pipe.pipe';
     PipeForObject,
     UserConfiguredKeywordComponent,
     PipeForType,
-    InterfaceEntryPointComponent
+    InterfaceEntryPointComponent,
+    NVAutoInjectConfiguration
   ],
   imports: [
    // CommonModule,

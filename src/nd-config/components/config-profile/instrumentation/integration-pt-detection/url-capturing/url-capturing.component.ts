@@ -76,13 +76,12 @@ export class UrlCapturingComponent implements OnInit {
       }
     }
     else {
-      this.enableFormatIPResourceURL = false;
-      this.enableFormatIPResourceURL == false;
+      this.enableFormatIPResourceURL = true;
       this.urlCapturingData.urlOffset = 0;
-      this.urlCapturingData.maxChar = 256 ;
-      this.urlCapturingData.includeParameter =false;
+      this.urlCapturingData.maxChar = 50 ;
+      this.urlCapturingData.includeParameter = false;
       this.urlCapturing["enableIPResourceURL"].value = 0;
-      this.urlCapturing["formatIPResourceURL"]["value"] = 0;
+      this.urlCapturing["formatIPResourceURL"].value = 1;
 
     }
     if (this.dumpDefaultCassandraQuery) {
@@ -106,6 +105,10 @@ export class UrlCapturingComponent implements OnInit {
       this.urlCapturing["enableCaptureNetDelay"].value = 0;
     }
     this.keywordData.emit(this.urlCapturing);
+    this.configKeywordsService.getProfileKeywords(this.profileId),()=>{
+      this.getKeywordData();
+    }
+    
   }
 
   /* This method is used to reset the keyword data*/
@@ -125,10 +128,10 @@ export class UrlCapturingComponent implements OnInit {
       this.urlCapturingData = new UrlCapturingData();
       this.enableFormatIPResourceURL = true;
       if (arr[0] === "0") {
-        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.includeParameter = true;
       }
       else if (arr[0] === "1") {
-        this.urlCapturingData.includeParameter = true;
+        this.urlCapturingData.includeParameter = false;
       }
       else
         this.urlCapturingData.includeParameter = false;
@@ -136,12 +139,19 @@ export class UrlCapturingComponent implements OnInit {
         this.urlCapturingData.urlOffset = arr[1];
         this.urlCapturingData.maxChar = arr[2];
     }
+    else if(this.urlCapturing["formatIPResourceURL"].value == 1){
+      this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = true;
+        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.urlOffset = 0;
+        this.urlCapturingData.maxChar = 50;
+    }
     else {
       this.urlCapturingData = new UrlCapturingData();
       this.enableFormatIPResourceURL = false;
-        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.includeParameter = true;
         this.urlCapturingData.urlOffset = 0;
-        this.urlCapturingData.maxChar = 256;
+        this.urlCapturingData.maxChar = 50;
     }
   }
 
@@ -157,10 +167,10 @@ export class UrlCapturingComponent implements OnInit {
       this.enableIPResourceURL = this.urlCapturing["enableIPResourceURL"].value == 0 ? false : true;
       this.enableTransformThreadSubClass = this.urlCapturing["enableTransformThreadSubClass"].value == 0 ? false : true;
       this.enableCaptureNetDelay = this.urlCapturing["enableCaptureNetDelay"].value == 0 ? false : true;
-      this.enableFormatIPResourceURL = false;
+      this.enableFormatIPResourceURL = true;
       this.urlCapturingData.includeParameter = false;
       this.urlCapturingData.urlOffset = 0;
-      this.urlCapturingData.maxChar = 256;
+      this.urlCapturingData.maxChar = 50;
     }
 
   /* This method is used to get the existing value of keyword from the backend*/
@@ -186,10 +196,10 @@ export class UrlCapturingComponent implements OnInit {
       this.enableFormatIPResourceURL = true;
 
       if (arr[0] === "0") {
-        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.includeParameter = true;
       }
       else if (arr[0] === "1") {
-        this.urlCapturingData.includeParameter = true;
+        this.urlCapturingData.includeParameter = false;
       }
       else
         this.urlCapturingData.includeParameter = false;
@@ -197,12 +207,19 @@ export class UrlCapturingComponent implements OnInit {
         this.urlCapturingData.urlOffset = arr[1];
         this.urlCapturingData.maxChar = arr[2];
     }
+    else if(this.urlCapturing["formatIPResourceURL"].value = 1){
+      this.urlCapturingData = new UrlCapturingData();
+      this.enableFormatIPResourceURL = true;
+        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.urlOffset = 0;
+        this.urlCapturingData.maxChar = 50;
+    }
     else {
       this.urlCapturingData = new UrlCapturingData();
       this.enableFormatIPResourceURL = false;
-        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.includeParameter = true;
         this.urlCapturingData.urlOffset = 0;
-        this.urlCapturingData.maxChar = 256;
+        this.urlCapturingData.maxChar = 50;
     }
   }
 
@@ -218,9 +235,9 @@ export class UrlCapturingComponent implements OnInit {
     var formatIPVal = {};
      if (this.enableFormatIPResourceURL == true) {
          if (this.urlCapturingData.includeParameter == true)
-            formatIPVal = "1";
-         else
             formatIPVal = "0";
+         else
+            formatIPVal = "1";
          if (this.urlCapturingData.urlOffset != null)
             formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
          else

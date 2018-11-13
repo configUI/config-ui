@@ -415,3 +415,17 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const UPDATE_BACKEND_POINT_INTERFACE = `${SERVICE_URL}/custom/backenddetectioninterface/updatebackendinterface`;
  export const SAVE_INTERFACE_END_POINT = `${SERVICE_URL}/custom/backenddetectioninterface/save`;
 
+ /* Url for Auto Injection Policy Rule */
+ export const ADD_AUTO_INJECTION_POLICY_DATA = `${SERVICE_URL}/custom/autoinjection/addpolicyrule`;
+ export const GET_AUTO_INJECTION_POLICY_DATA = `${SERVICE_URL}/custom/autoinjection/getpolicyrule`;
+ export const EDIT_AUTO_INJECTION_POLICY_DATA = `${SERVICE_URL}/custom/autoinjection/editpolicyrule`;
+ export const DELETE_AUTO_INJECTION_POLICY_DATA = `${SERVICE_URL}/custom/autoinjection/deletepolicyrule`;
+
+ /* Url for Tag Injection Tag Rule */
+ export const ADD_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/addtagconfigrule`;
+ export const GET_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/gettagconfigrule`;
+ export const EDIT_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/edittagconfigrule`;
+ export const DELETE_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/deletetagconfigrule`;
+ 
+ /* Url for Auto Injection Data On File */
+ export const SAVE_AUTO_INJECTION_DATA_ON_FILE = `${SERVICE_URL}/custom/autoinjection/saveonfile`;
