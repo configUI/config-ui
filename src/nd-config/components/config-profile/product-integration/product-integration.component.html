@@ -3,7 +3,7 @@
         <p-tabPanel header="NV-ND sessions" [selected]="index == 0">
             <app-nvcookie *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-nvcookie>
         </p-tabPanel>
-        <p-tabPanel header="NV-ND Auto Inject" [selected]="index == 1">
+        <p-tabPanel *ngIf="agentType == 'Java'" header="NV-ND Auto Inject" [selected]="index == 1">
           <app-nv-auto-inject *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)" [profileId]=profileId></app-nv-auto-inject>
       </p-tabPanel>
     </p-tabView>

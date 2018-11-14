@@ -35,6 +35,7 @@ export class ProductIntegrationComponent implements OnInit {
   errDialog: boolean = false;
   msg = [];
   errMsg = [];
+  agentType: string="";
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
     private route: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ProductIntegrationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.agentType = sessionStorage.getItem("agentType");
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
       if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)

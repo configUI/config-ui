@@ -355,7 +355,7 @@
                                 <li>
                                     <a [routerLink]="['../../integration', profileId, 0]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> NV-ND Sessions</a>
                                 </li>
-                                <li>
+                                <li *ngIf="agentType == 'Java'">
                                     <a [routerLink]="['../../integration', profileId, 1]" class="contents"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> NV-ND Auto Inject</a>
                                 </li>
                             </ul>

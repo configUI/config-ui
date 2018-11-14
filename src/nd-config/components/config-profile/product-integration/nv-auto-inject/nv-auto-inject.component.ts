@@ -334,6 +334,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 this.nvautoinjectionPolicyData = ImmutableArray.replace(this.nvautoinjectionPolicyData, data, index);
                 this.configUtilityService.successMessage(editMessage);
                 this.addEditAutoInjectionPolicyRuleDialog = false;
+                this.modifyPolicyRuleTableData();
             });
     }
 
