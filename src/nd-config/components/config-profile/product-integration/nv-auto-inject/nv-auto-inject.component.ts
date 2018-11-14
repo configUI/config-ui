@@ -47,7 +47,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     nvautoinjectionPolicyData: NVAutoInjectionPolicyRule[];
 
     /* Object for Auto Injection Policy Rule */
-    nvAutoInjectionPolicyRule: Object;
+    nvAutoInjection: Object;
 
     /* Object to Hold Auto Inject Policy Rule Selection */
     selectedAutoInjectionPolicyRule: NVAutoInjectionPolicyRule[];
@@ -114,11 +114,11 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 this.keywordValue = keywordDataVal;
             });
         }
-        this.nvAutoInjectionPolicyRule = {};
+        this.nvAutoInjection = {};
         this.keywordList.forEach((key) => {
             if (this.keywordValue.hasOwnProperty(key)) {
-                this.nvAutoInjectionPolicyRule[key] = this.keywordValue[key];
-                if (this.nvAutoInjectionPolicyRule[key].value == "true")
+                this.nvAutoInjection[key] = this.keywordValue[key];
+                if (this.nvAutoInjection[key].value == "true")
                     this.selectedValues = true;
                 else
                     this.selectedValues = false;
@@ -130,17 +130,40 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * The below method is used to load Auto Injection Policy Rule Data
      */
     loadPolicyRuleData() {
-        console.log("------------this.profileId---------------" + this.profileId)
         this.configKeywordsService.getAutoInjectionPolicyRule(this.profileId).subscribe(data => {
             this.nvautoinjectionPolicyData = data;
+            this.modifyPolicyRuleTableData();
         });
+    }
+
+    /**
+     * The below method is used to modify the Policy Rule Table data
+     */
+    modifyPolicyRuleTableData() {
+        for (let i = 0; i < this.nvautoinjectionPolicyData.length; i++) {
+            if (this.nvautoinjectionPolicyData[i].parameterName != "-" && this.nvautoinjectionPolicyData[i].parameterName != "" 
+                && this.nvautoinjectionPolicyData[i].parameterName != null) {
+                this.nvautoinjectionPolicyData[i].queryParameter = this.nvautoinjectionPolicyData[i].parameterName + ":" 
+                + this.nvautoinjectionPolicyData[i].parameterValue + ":" + this.nvautoinjectionPolicyData[i].parameterOperation
+            }
+            else{
+                this.nvautoinjectionPolicyData[i].queryParameter = "-";
+            }
+            if (this.nvautoinjectionPolicyData[i].headerName != "-" && this.nvautoinjectionPolicyData[i].headerName != "" 
+                && this.nvautoinjectionPolicyData[i].headerName != null) {
+                this.nvautoinjectionPolicyData[i].httpHeader = this.nvautoinjectionPolicyData[i].headerName + ":" + 
+                this.nvautoinjectionPolicyData[i].headerValue + ":" + this.nvautoinjectionPolicyData[i].headerOperation;
+            }
+            else{
+                this.nvautoinjectionPolicyData[i].httpHeader = "-";
+            }
+        }
     }
 
     /**
      * The below method is used to load Auto Injection Configuration(Tag Injection) Data
      */
     loadTagInjectionData() {
-        console.log("------------this.profileId---------------" + this.profileId)
         this.configKeywordsService.getAutoInjectionTagRule(this.profileId).subscribe(data => {
             this.nvautoinjectionTagRuleData = data;
         });
@@ -173,6 +196,39 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.autoInjectionPolicyRuleDialogData = new NVAutoInjectionPolicyRule();
         this.addEditAutoInjectionPolicyRuleDialog = true;
         this.autoInjectionPolicyRuleDialogData = Object.assign({}, this.selectedAutoInjectionPolicyRule[0]);
+        this.modifyPolicyRuleValuesForDialog();
+    }
+
+    /**
+     * The below method is used to modify the autoInjectionPolicyRuleDialogData
+     * for opening dialog box edit policy rule operation
+     */
+    modifyPolicyRuleValuesForDialog() {
+        if (this.autoInjectionPolicyRuleDialogData.btName == "-" || this.autoInjectionPolicyRuleDialogData.btName == null) {
+            this.autoInjectionPolicyRuleDialogData.btName = "";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.extension == "-" || this.autoInjectionPolicyRuleDialogData.extension == null) {
+            this.autoInjectionPolicyRuleDialogData.extension = "";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.httpMethod == "-" || this.autoInjectionPolicyRuleDialogData.httpMethod == null) {
+            this.autoInjectionPolicyRuleDialogData.httpMethod = "";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.httpUrl == "-" || this.autoInjectionPolicyRuleDialogData.httpUrl == null) {
+            this.autoInjectionPolicyRuleDialogData.httpUrl = "";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.type == "-" || this.autoInjectionPolicyRuleDialogData.type == null) {
+            this.autoInjectionPolicyRuleDialogData.type = "";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.parameterName == "-" || this.autoInjectionPolicyRuleDialogData.parameterName == null) {
+            this.autoInjectionPolicyRuleDialogData.parameterName = ""
+            this.autoInjectionPolicyRuleDialogData.parameterValue = "";
+            this.autoInjectionPolicyRuleDialogData.parameterOperation = "";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.headerName == "-" || this.autoInjectionPolicyRuleDialogData.headerName == null) {
+            this.autoInjectionPolicyRuleDialogData.headerName = "";
+            this.autoInjectionPolicyRuleDialogData.headerValue = "";
+            this.autoInjectionPolicyRuleDialogData.headerOperation = "";
+        }
     }
 
     /**
@@ -214,7 +270,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * This method is used to save the New Auto Injection Policy Rule Data
      */
     saveNewAutoInjectionPolicyRule() {
-        this.modifyParameterAndHeaderValues();
+        this.modifyPolicyRuleValuesBeforeSave();
         this.configKeywordsService.addAutoInjectionPolicyRule(this.profileId, this.autoInjectionPolicyRuleDialogData)
             .subscribe(data => {
                 if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
@@ -230,18 +286,34 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     }
 
     /**
-     * The below method is used to modify the value of Parameter value/Operation
-     * and Header Value/Operation on the basis of Parameter and Header Name
+     * The below method is used to modify the value of autoInjectionPolicyRuleDialogData
+     * before saving them
      */
-    modifyParameterAndHeaderValues(){
-        if(this.autoInjectionPolicyRuleDialogData.parameterName == "" || this.autoInjectionPolicyRuleDialogData.parameterName == null){
-            this.autoInjectionPolicyRuleDialogData.parameterValue = "";
-            this.autoInjectionPolicyRuleDialogData.parameterOperation = "";
+    modifyPolicyRuleValuesBeforeSave() {
+        if (this.autoInjectionPolicyRuleDialogData.btName == "" || this.autoInjectionPolicyRuleDialogData.btName == null) {
+            this.autoInjectionPolicyRuleDialogData.btName = "-";
         }
-
-        if(this.autoInjectionPolicyRuleDialogData.headerName == "" || this.autoInjectionPolicyRuleDialogData.headerName == null){
-            this.autoInjectionPolicyRuleDialogData.headerValue = "";
-            this.autoInjectionPolicyRuleDialogData.headerOperation = "";
+        if (this.autoInjectionPolicyRuleDialogData.extension == "" || this.autoInjectionPolicyRuleDialogData.extension == null) {
+            this.autoInjectionPolicyRuleDialogData.extension = "-";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.httpMethod == "" || this.autoInjectionPolicyRuleDialogData.httpMethod == null) {
+            this.autoInjectionPolicyRuleDialogData.httpMethod = "-";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.httpUrl == "" || this.autoInjectionPolicyRuleDialogData.httpUrl == null) {
+            this.autoInjectionPolicyRuleDialogData.httpUrl = "-";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.type == "" || this.autoInjectionPolicyRuleDialogData.type == null) {
+            this.autoInjectionPolicyRuleDialogData.type = "-";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.parameterName == "" || this.autoInjectionPolicyRuleDialogData.parameterName == null) {
+            this.autoInjectionPolicyRuleDialogData.parameterName = "-"
+            this.autoInjectionPolicyRuleDialogData.parameterValue = "-";
+            this.autoInjectionPolicyRuleDialogData.parameterOperation = "-";
+        }
+        if (this.autoInjectionPolicyRuleDialogData.headerName == "" || this.autoInjectionPolicyRuleDialogData.headerName == null) {
+            this.autoInjectionPolicyRuleDialogData.headerName = "-";
+            this.autoInjectionPolicyRuleDialogData.headerValue = "-";
+            this.autoInjectionPolicyRuleDialogData.headerOperation = "-";
         }
     }
 
@@ -249,7 +321,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * This method is used to save the Edited Auto Injection Data
      */
     editAutoInjectionPolicyRule() {
-        this.modifyParameterAndHeaderValues();
+        this.modifyPolicyRuleValuesBeforeSave();
         this.configKeywordsService.editAutoInjectionPolicyRule(this.profileId, this.autoInjectionPolicyRuleDialogData)
             .subscribe(data => {
                 if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
@@ -336,16 +408,16 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
             return;
         }
         let filePath = '';
-        for (let key in this.nvAutoInjectionPolicyRule) {
+        for (let key in this.nvAutoInjection) {
             if (key == 'AutoInjectionRuleConfig') {
                 if (this.selectedValues == true) {
-                    this.nvAutoInjectionPolicyRule[key]["value"] = "true";
+                    this.nvAutoInjection[key]["value"] = "true";
                 }
                 else {
-                    this.nvAutoInjectionPolicyRule[key]["value"] = "false";
+                    this.nvAutoInjection[key]["value"] = "false";
                 }
             }
-            this.configKeywordsService.keywordData[key] = this.nvAutoInjectionPolicyRule[key];
+            this.configKeywordsService.keywordData[key] = this.nvAutoInjection[key];
         }
 
         this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
@@ -356,8 +428,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 filePath = data["_body"];
                 filePath = filePath + "/NDNVInjectTagProcessor.txt";
             }
-            this.nvAutoInjectionPolicyRule['AutoInjectionRuleConfig'].path = filePath;
-            this.keywordData.emit(this.nvAutoInjectionPolicyRule);
+            this.nvAutoInjection['AutoInjectionRuleConfig'].path = filePath;
+            this.keywordData.emit(this.nvAutoInjection);
         });
     }
 
@@ -369,7 +441,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.configKeywordsService.saveAutoInjectionData(this.profileId)
             .subscribe(data => {
                 console.log("return type", data)
-
             })
     }
 
@@ -444,7 +515,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * This method is used to save the New Tag Configuration Rule Data
      */
     saveNewTagInjectionRule() {
-        console.log("----this.autoInjectionTagRuleDialogData-----",this.autoInjectionTagRuleDialogData)
+        console.log("----this.autoInjectionTagRuleDialogData-----", this.autoInjectionTagRuleDialogData)
         this.configKeywordsService.addAutoInjectionTagRule(this.profileId, this.autoInjectionTagRuleDialogData)
             .subscribe(data => {
                 if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
