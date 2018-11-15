@@ -1,0 +1,11 @@
+.activeIconClass {
+    font-size: 20px;
+    color: rgba(4, 153, 4, 0.67);
+    height: 12px;
+}
+
+.inActiveIconClass {
+    font-size: 20px;
+    color: rgba(255, 0, 0, 0.77);
+    height: 12px;
+}

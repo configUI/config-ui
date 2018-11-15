@@ -39,7 +39,7 @@
                                 </span>
                             </p-header>
                             <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                            <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'14%'}">
+                            <p-column class="tableCss" field="ruleName" header="Rule Name" [sortable]="true" [style]="{'width':'14%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
@@ -74,7 +74,12 @@
                             </p-column>
                             <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'7%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
-                                    <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
+                                    <span *ngIf="policyRule[col.field] == true" title="{{policyRule[col.field]}}">
+                                        <md-icon class="activeIconClass">fiber_manual_record</md-icon>
+                                    </span>
+                                    <span *ngIf="policyRule[col.field] == false" title="{{policyRule[col.field]}}">
+                                        <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
+                                    </span>
                                 </template>
                             </p-column>
                         </p-dataTable>
@@ -104,7 +109,7 @@
                                 </span>
                             </p-header>
                             <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                            <p-column class="tableCss" field="ruleName" header="Name" [sortable]="true" [style]="{'width':'23%'}">
+                            <p-column class="tableCss" field="ruleName" header="Rule Name" [sortable]="true" [style]="{'width':'23%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
@@ -122,7 +127,12 @@
                             </p-column>
                             <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'7%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
-                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
+                                    <span *ngIf="nvtag[col.field] == true" title="{{nvtag[col.field]}}">
+                                        <md-icon class="activeIconClass">fiber_manual_record</md-icon>
+                                    </span>
+                                    <span *ngIf="nvtag[col.field] == false" title="{{nvtag[col.field]}}">
+                                        <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
+                                    </span>
                                 </template>
                             </p-column>
                             <p-column class="tableCss" field="jsCode" header=" JavaScript Code" [sortable]="true"
@@ -229,8 +239,6 @@
                 <label>Value</label>
             </div>
             <div class="ui-g-2">
-                <!-- <input name="parameterValue" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    type="text" size="15" pInputText [(ngModel)]="emptyString" ngModel /> -->
                 <input name="parameterValue" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
                     required pattern="^(?!.*%3A).*$" ngModel />
@@ -239,12 +247,6 @@
             <div class="ui-g-1" style="margin-left:-25px">
                 <label>Operation</label>
             </div>
-            <!-- <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''">
-                <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    pInputText [(ngModel)]="emptyString" ngModel />
-                <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    placeholder="--Select--" [(ngModel)]="emptyString" appendTo="body" ngModel></p-dropdown>
-            </div> -->
             <div class="ui-g-2" style="margin-left:25px">
                 <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation" required ngModel />
@@ -267,8 +269,6 @@
                 <label>Value</label>
             </div>
             <div class="ui-g-2">
-                <!-- <input name="headerValue" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    type="text" size="15" pInputText [(ngModel)]="emptyString" ngModel /> -->
                 <input name="headerValue" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
                     required pattern="^(?!.*%3A).*$" ngModel />
@@ -277,12 +277,6 @@
             <div class="ui-g-1" style="margin-left:-25px">
                 <label>Operation</label>
             </div>
-            <!-- <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''">
-                <input name="dropdown1" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    pInputText [(ngModel)]="emptyString" ngModel />
-                <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    placeholder="--Select--" [(ngModel)]="emptyString" appendTo="body" ngModel></p-dropdown>
-            </div> -->
             <div class="ui-g-2" style="margin-left:25px">
                 <input name="dropdown1" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" required ngModel />
@@ -330,7 +324,7 @@
             </div>
             <div class="ui-g-4">
                 <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag"
-                    pInputText required pattern="<([^]*|'[^']*'|[^'>])*>" ngModel /> 
+                    pInputText required pattern="<([^]*|'[^']*'|[^'>])*>" ngModel />
             </div>
             <div class="ui-g-2"></div>
             <div class="ui-g-2">
@@ -343,7 +337,7 @@
 
         <div class="ui-g">
             <div class="ui-g-2">
-                <label>Actual Code</label>
+                <label>JavaScript Code</label>
             </div>
             <div class="ui-g-8">
                 <textarea name="desc" rows="5" cols="53" pInputTextarea [(ngModel)]="autoInjectionTagRuleDialogData.jsCode"

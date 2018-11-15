@@ -239,7 +239,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         if (this.isNewAutoInjectionPolicyRule) {                // For new Auto Injection Policy Rule
             //Check for app name already exist or not
             if (!this.checkAutoInjectionPolicyRuleNameAlreadyExist()) {
-                this.validationCheckForPolicyRules();
                 this.addEditAutoInjectionPolicyRuleDialog = false;
                 this.saveNewAutoInjectionPolicyRule();
                 return;
@@ -250,28 +249,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 if (this.checkAutoInjectionPolicyRuleNameAlreadyExist())
                     return;
             }
-            this.validationCheckForPolicyRules();
             this.addEditAutoInjectionPolicyRuleDialog = false;
             this.editAutoInjectionPolicyRule();
-        }
-    }
-
-    /**
-     * The below method is used to validate the data before saving it
-     */
-    validationCheckForPolicyRules() {
-        if ((this.autoInjectionPolicyRuleDialogData.parameterName != "" || this.autoInjectionPolicyRuleDialogData.parameterName != null)
-            && ((this.autoInjectionPolicyRuleDialogData.parameterValue == "" || this.autoInjectionPolicyRuleDialogData.parameterValue == null)
-                || (this.autoInjectionPolicyRuleDialogData.parameterOperation == "" || this.autoInjectionPolicyRuleDialogData.parameterOperation == null))) {
-            this.configUtilityService.errorMessage("Please provide Parameter Value and Operation field");
-            return;
-        }
-
-        if ((this.autoInjectionPolicyRuleDialogData.headerName != "" || this.autoInjectionPolicyRuleDialogData.headerName != null)
-            && ((this.autoInjectionPolicyRuleDialogData.headerValue == "" || this.autoInjectionPolicyRuleDialogData.headerValue == null)
-                || (this.autoInjectionPolicyRuleDialogData.headerOperation == "" || this.autoInjectionPolicyRuleDialogData.headerOperation == null))) {
-            this.configUtilityService.errorMessage("Please provide Header Value and Operation field");
-            return;
         }
     }
 
