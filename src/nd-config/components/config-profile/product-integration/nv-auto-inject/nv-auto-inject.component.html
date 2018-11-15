@@ -229,9 +229,9 @@
                 <label>Value</label>
             </div>
             <div class="ui-g-2">
-                <input name="parameterValue" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    type="text" size="15" pInputText [(ngModel)]="emptyString" ngModel />
-                <input name="parameterValue" *ngIf="autoInjectionPolicyRuleDialogData.parameterName != ''" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                <!-- <input name="parameterValue" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    type="text" size="15" pInputText [(ngModel)]="emptyString" ngModel /> -->
+                <input name="parameterValue" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
                     required pattern="^(?!.*%3A).*$" ngModel />
             </div>
@@ -239,13 +239,13 @@
             <div class="ui-g-1" style="margin-left:-25px">
                 <label>Operation</label>
             </div>
-            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''">
+            <!-- <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.parameterName == ''">
                 <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     pInputText [(ngModel)]="emptyString" ngModel />
                 <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     placeholder="--Select--" [(ngModel)]="emptyString" appendTo="body" ngModel></p-dropdown>
-            </div>
-            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.parameterName != ''">
+            </div> -->
+            <div class="ui-g-2" style="margin-left:25px">
                 <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation" required ngModel />
                 <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
@@ -267,9 +267,9 @@
                 <label>Value</label>
             </div>
             <div class="ui-g-2">
-                <input name="headerValue" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    type="text" size="15" pInputText [(ngModel)]="emptyString" ngModel />
-                <input name="headerValue" *ngIf="autoInjectionPolicyRuleDialogData.headerName != ''" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                <!-- <input name="headerValue" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    type="text" size="15" pInputText [(ngModel)]="emptyString" ngModel /> -->
+                <input name="headerValue" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
                     required pattern="^(?!.*%3A).*$" ngModel />
             </div>
@@ -277,13 +277,13 @@
             <div class="ui-g-1" style="margin-left:-25px">
                 <label>Operation</label>
             </div>
-            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''">
+            <!-- <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.headerName == ''">
                 <input name="dropdown1" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     pInputText [(ngModel)]="emptyString" ngModel />
                 <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     placeholder="--Select--" [(ngModel)]="emptyString" appendTo="body" ngModel></p-dropdown>
-            </div>
-            <div class="ui-g-2" style="margin-left:25px" *ngIf="autoInjectionPolicyRuleDialogData.headerName != ''">
+            </div> -->
+            <div class="ui-g-2" style="margin-left:25px">
                 <input name="dropdown1" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" required ngModel />
                 <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"

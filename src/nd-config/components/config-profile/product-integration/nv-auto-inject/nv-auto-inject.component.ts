@@ -141,20 +141,20 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      */
     modifyPolicyRuleTableData() {
         for (let i = 0; i < this.nvautoinjectionPolicyData.length; i++) {
-            if (this.nvautoinjectionPolicyData[i].parameterName != "-" && this.nvautoinjectionPolicyData[i].parameterName != "" 
+            if (this.nvautoinjectionPolicyData[i].parameterName != "-" && this.nvautoinjectionPolicyData[i].parameterName != ""
                 && this.nvautoinjectionPolicyData[i].parameterName != null) {
-                this.nvautoinjectionPolicyData[i].queryParameter = this.nvautoinjectionPolicyData[i].parameterName + ":" 
-                + this.nvautoinjectionPolicyData[i].parameterValue + ":" + this.nvautoinjectionPolicyData[i].parameterOperation
+                this.nvautoinjectionPolicyData[i].queryParameter = this.nvautoinjectionPolicyData[i].parameterName + ":"
+                    + this.nvautoinjectionPolicyData[i].parameterValue + ":" + this.nvautoinjectionPolicyData[i].parameterOperation
             }
-            else{
+            else {
                 this.nvautoinjectionPolicyData[i].queryParameter = "-";
             }
-            if (this.nvautoinjectionPolicyData[i].headerName != "-" && this.nvautoinjectionPolicyData[i].headerName != "" 
+            if (this.nvautoinjectionPolicyData[i].headerName != "-" && this.nvautoinjectionPolicyData[i].headerName != ""
                 && this.nvautoinjectionPolicyData[i].headerName != null) {
-                this.nvautoinjectionPolicyData[i].httpHeader = this.nvautoinjectionPolicyData[i].headerName + ":" + 
-                this.nvautoinjectionPolicyData[i].headerValue + ":" + this.nvautoinjectionPolicyData[i].headerOperation;
+                this.nvautoinjectionPolicyData[i].httpHeader = this.nvautoinjectionPolicyData[i].headerName + ":" +
+                    this.nvautoinjectionPolicyData[i].headerValue + ":" + this.nvautoinjectionPolicyData[i].headerOperation;
             }
-            else{
+            else {
                 this.nvautoinjectionPolicyData[i].httpHeader = "-";
             }
         }
@@ -239,18 +239,39 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         if (this.isNewAutoInjectionPolicyRule) {                // For new Auto Injection Policy Rule
             //Check for app name already exist or not
             if (!this.checkAutoInjectionPolicyRuleNameAlreadyExist()) {
+                this.validationCheckForPolicyRules();
                 this.addEditAutoInjectionPolicyRuleDialog = false;
                 this.saveNewAutoInjectionPolicyRule();
                 return;
             }
         }
-        else {                                       // For existing Auto Injection Policy Rule
+        else {                                                 // For existing Auto Injection Policy Rule
             if (this.selectedAutoInjectionPolicyRule[0].ruleName != this.autoInjectionPolicyRuleDialogData.ruleName) {
                 if (this.checkAutoInjectionPolicyRuleNameAlreadyExist())
                     return;
             }
+            this.validationCheckForPolicyRules();
             this.addEditAutoInjectionPolicyRuleDialog = false;
             this.editAutoInjectionPolicyRule();
+        }
+    }
+
+    /**
+     * The below method is used to validate the data before saving it
+     */
+    validationCheckForPolicyRules() {
+        if ((this.autoInjectionPolicyRuleDialogData.parameterName != "" || this.autoInjectionPolicyRuleDialogData.parameterName != null)
+            && ((this.autoInjectionPolicyRuleDialogData.parameterValue == "" || this.autoInjectionPolicyRuleDialogData.parameterValue == null)
+                || (this.autoInjectionPolicyRuleDialogData.parameterOperation == "" || this.autoInjectionPolicyRuleDialogData.parameterOperation == null))) {
+            this.configUtilityService.errorMessage("Please provide Parameter Value and Operation field");
+            return;
+        }
+
+        if ((this.autoInjectionPolicyRuleDialogData.headerName != "" || this.autoInjectionPolicyRuleDialogData.headerName != null)
+            && ((this.autoInjectionPolicyRuleDialogData.headerValue == "" || this.autoInjectionPolicyRuleDialogData.headerValue == null)
+                || (this.autoInjectionPolicyRuleDialogData.headerOperation == "" || this.autoInjectionPolicyRuleDialogData.headerOperation == null))) {
+            this.configUtilityService.errorMessage("Please provide Header Value and Operation field");
+            return;
         }
     }
 
@@ -516,7 +537,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * This method is used to save the New Tag Configuration Rule Data
      */
     saveNewTagInjectionRule() {
-        console.log("----this.autoInjectionTagRuleDialogData-----", this.autoInjectionTagRuleDialogData)
         this.configKeywordsService.addAutoInjectionTagRule(this.profileId, this.autoInjectionTagRuleDialogData)
             .subscribe(data => {
                 if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
