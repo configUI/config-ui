@@ -617,6 +617,55 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         return -1;
     }
 
+    /** The below method is used to download policy rule reports in different formats  */
+    downloadPolicyRuleReports(reports: string) {
+        let arrHeader = { "0": "Rule Name", "1": "BT Name", "2": "HTTP URL", "3": "HTTP Method", "4": "Query Parameter", "5": "HTTP Header", "6": "Enabled" };
+        let arrcolSize = { "0": 2, "1": 1, "2": 1, "3": 1, "4": 2, "5": 1, "6": 1 };
+        let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left", "3": "left", "4": "left", "5": "left", "6": "center" };
+        let arrFieldName = { "0": "ruleName", "1": "btName", "2": "httpUrl", "3": "httpMethod", "4": "queryParameter", "5": "httpHeader", "6": "enabled" };
+        let object =
+        {
+            data: this.nvautoinjectionPolicyData,
+            headerList: arrHeader,
+            colSize: arrcolSize,
+            alignArr: arrAlignmentOfColumn,
+            fieldName: arrFieldName,
+            downloadType: reports,
+            title: "Auto Injection Policy Rules",
+            fileName: "autoInjectionPolicyRules",
+        }
+        this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => { 
+            this.openDownloadReports(data._body)
+        })
+    }
+
+    /** The below method is used to download tag rule reports in different formats  */
+    downloadTagRuleReports(reports: string) {
+        let arrHeader = { "0": "Rule Name", "1": "HTML Tag", "2": "JavaScript Code", "3": "Enabled" };
+        let arrcolSize = { "0": 2, "1": 1, "4": 1, "3": 1 };
+        let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left", "3": "center" };
+        let arrFieldName = { "0": "ruleName", "1": "htmlTag", "2": "jsCode", "3": "enabled" };
+        let object =
+        {
+            data: this.nvautoinjectionTagRuleData,
+            headerList: arrHeader,
+            colSize: arrcolSize,
+            alignArr: arrAlignmentOfColumn,
+            fieldName: arrFieldName,
+            downloadType: reports,
+            title: "Auto Injection Tag Rules",
+            fileName: "autoInjectionTagRules",
+        }
+        this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
+            this.openDownloadReports(data._body)
+        })
+    }
+
+    /* for open download reports*/
+    openDownloadReports(res) {
+        window.open("/common/" + res);
+    }
+
     ngOnDestroy(): void {
     }
 

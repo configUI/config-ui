@@ -26,11 +26,10 @@
                                         [disabled]="isProfilePerm" icon="fa-plus"></button>
                                     <button pButton type="button" title="Add Auto-Injection Policy Rule" *ngIf="!isProfilePerm"
                                         [disabled]="saveDisable" (click)="openAddPolicyRuleDialog()" icon="fa-plus"></button>
-                                    <button pButton type="button" title="Edit Auto-Injection Policy Rule"
-                                        *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
-                                    <button pButton type="button" title="Edit Auto-Injection Policy Rule"
-                                        *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditPolicyRuleDialog()"
-                                        icon="fa-pencil"></button>
+                                    <button pButton type="button" title="Edit Auto-Injection Policy Rule" *ngIf="isProfilePerm"
+                                        [disabled]="isProfilePerm" icon="fa-pencil"></button>
+                                    <button pButton type="button" title="Edit Auto-Injection Policy Rule" *ngIf="!isProfilePerm"
+                                        [disabled]="saveDisable" (click)="openEditPolicyRuleDialog()" icon="fa-pencil"></button>
                                     <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Policy Rule(s)"
                                         *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
                                     <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Policy Rule(s)"
@@ -84,6 +83,17 @@
                             </p-column>
                         </p-dataTable>
 
+                        <!-- Download reports as PDF,Excel and Word File  -->
+                        <div style="margin-top:5px">
+                            <label>Download Reports as: </label>
+                            <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer'
+                                    title="Download Word file" (click)='downloadPolicyRuleReports("WordFile")' src='./images/iconWord.gif'></span>
+                            <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer'
+                                    title="Download Excel file" (click)='downloadPolicyRuleReports("ExcelFile")' src='./images/iconExcel.gif'></span>
+                            <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer'
+                                    title="Download PDF file" (click)='downloadPolicyRuleReports("PDFFile")' src='./images/iconPDF.gif'></span>
+                        </div>
+
 
                     </p-accordionTab>
                     <p-accordionTab header="Auto Injection Configuration" [selected]="false">
@@ -136,6 +146,16 @@
                                 </template>
                             </p-column>
                         </p-dataTable>
+                        <!-- Download reports as PDF,Excel and Word File  -->
+                        <div style="margin-top:5px">
+                            <label>Download Reports as: </label>
+                            <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer'
+                                    title="Download Word file" (click)='downloadTagRuleReports("WordFile")' src='./images/iconWord.gif'></span>
+                            <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer'
+                                    title="Download Excel file" (click)='downloadTagRuleReports("ExcelFile")' src='./images/iconExcel.gif'></span>
+                            <span><img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer'
+                                    title="Download PDF file" (click)='downloadTagRuleReports("PDFFile")' src='./images/iconPDF.gif'></span>
+                        </div>
                     </p-accordionTab>
                 </p-accordion>
             </div>
@@ -226,7 +246,8 @@
             </div>
             <div class="ui-g-2">
                 <input name="parameterName" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName" pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName" pattern="^(?!.*\|)(?!.*%3A).*$"
+                    ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
@@ -300,7 +321,8 @@
             </div>
             <div class="ui-g-4">
                 <input name="ruleName" type="text" size="27" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionTagRuleDialogData.ruleName" autofocus required pattern="^(?!.*\|).*$" ngModel />
+                    [(ngModel)]="autoInjectionTagRuleDialogData.ruleName" autofocus required pattern="^(?!.*\|).*$"
+                    ngModel />
             </div>
             <div class="ui-g-2"></div>
 
