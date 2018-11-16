@@ -82,10 +82,12 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /* Object to Hold Auto Inject Tag Rule Selection */
     selectedAutoInjectionTagRule: NVAutoInjectionTagRule[];
 
-    emptyString: string = "";
+    agentType: string = "";
 
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,
         private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
+        /* To hold agent type of profile */
+        this.agentType = sessionStorage.getItem("agentType")
         /* Assign  dropdown values to methodTypeList */
         this.methodTypeList = [];
         let arrLabel = ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'TRACE', 'CONNECT', 'OPTIONS'];
@@ -634,7 +636,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
             title: "Auto Injection Policy Rules",
             fileName: "autoInjectionPolicyRules",
         }
-        this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => { 
+        this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
             this.openDownloadReports(data._body)
         })
     }
@@ -664,6 +666,14 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /* for open download reports*/
     openDownloadReports(res) {
         window.open("/common/" + res);
+    }
+
+    /**
+    * Purpose : To invoke the service responsible to open Help Notification Dialog 
+    * related to the current component.
+    */
+    sendHelpNotification() {
+        this.configKeywordsService.getHelpContent("Product Integration", "NV-ND Auto Inject", this.agentType);
     }
 
     ngOnDestroy(): void {

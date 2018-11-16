@@ -480,7 +480,7 @@ export class ConfigKeywordsService {
           rtcErrMsg = [];
         }
         else if (data[0].includes("NoChangesInConfiguration")) {
-          this.configUtilityService.errorMessage("No changes in Configuration.");
+          this.configUtilityService.errorMessage("No changes in Configuration !!!");
           rtcMsg = [];
           rtcErrMsg = [];
         }

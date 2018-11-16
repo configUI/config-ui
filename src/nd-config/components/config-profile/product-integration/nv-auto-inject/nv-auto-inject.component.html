@@ -9,8 +9,11 @@
             </span>
             <span class="configui-float-css" style="margin-top: 2px">Enable Auto Injection </span>
             <div class="pull-right">
-                <button pButton type="submit" style="float:right" title="Save" [disabled]="isAppPerm" icon="fa-save"
-                    label="Save"></button>
+                <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+                <button pButton type="submit" style="float:right" title="Save" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+                    icon="fa-save" label="Save"></button>
+                <button pButton type="submit" style="float:right" title="Save" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+                    icon="fa-save" label="Save"></button>
             </div>
         </div>
         <div class="ndegui-mainbox">

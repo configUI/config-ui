@@ -70,6 +70,9 @@ export class HelpComponent implements OnInit {
     if(data.component == "Application"){
       this.checkForApplicationModule(data)
     }
+    if (data.component == "Product Integration") {
+      this.checkForProductIntegrationModule(data);
+    }
   }
   /**
    * Purpose : To check the value of module i.e comes under Home component
@@ -468,6 +471,20 @@ export class HelpComponent implements OnInit {
       this.submessagefirst = ["Select the type of setting from the list, then select its name, and provide its value",
         "Select a row from the table of custom configuration, and specify its value", "Delete row(s) from the table of custom configuration"];
       this.helpdialog = true;
+    }
+  }
+  
+  checkForProductIntegrationModule(data){
+    if(data.module == "NV-ND Auto Inject"){
+      if (data.agentType == "Java") {
+        this.mainheader = data.component + " " + "Settings"
+        this.header = ["NV-ND Auto Inject"];
+        this.headermessage = "This feature helps ND agent (running with the client application) to inject the NV agent automatically by identifying all required pages or transactions where NV agent needs to be injected based on configuration.";
+        this.messagefirst = ["Auto Injection Policy Rules", "Auto Injection Configuration"];
+        this.submessagefirst = ["Policy rules are used for filtering Http requests or transactions for injecting NV agent tag. NV agent tag will be injected into all filtered requests or transactions based on policy rules configured. User can configure one or more policy rules and they will be applied in sequence on all requests or transactions. If any one or the policy rule is matched, then NV agent will be injected into the response body of the selected transaction.",
+          "Auto-injection configuration rule is used to configure details of the NV agent to be injected like NV agent tag, Html tab name where NV agent tag will be injected etc."];
+        this.helpdialog = true;
+      }
     }
   }
 }
