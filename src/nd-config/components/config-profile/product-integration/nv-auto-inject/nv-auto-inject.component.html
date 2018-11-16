@@ -1,5 +1,5 @@
 <form (ngSubmit)="saveAutoInjectionDataOnFile()" #groupForm="ngForm" ngNativeValidate>
-    <div class="configUI ndegui-mainbox">
+    <div class="configUI ndegui-mainbox" style="height: fit-content">
         <div class="header label">
             <span class="configui-float-css">
                 <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm"
@@ -7,7 +7,7 @@
                 <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm"
                     [disabled]="saveDisable"></p-checkbox>
             </span>
-            <span class="configui-float-css">Enable Auto Injection </span>
+            <span class="configui-float-css" style="margin-top: 2px">Enable Auto Injection </span>
             <div class="pull-right">
                 <button pButton type="submit" style="float:right" title="Save" [disabled]="isAppPerm" icon="fa-save"
                     label="Save"></button>
@@ -22,57 +22,57 @@
                             <p-header>
                                 <span class="configui-float-css"> Auto Injection Policy Rule List </span>
                                 <span class="configui-float">
-                                    <button pButton type="button" title="Add Auto-Injection Rule Configuration" *ngIf="isProfilePerm"
+                                    <button pButton type="button" title="Add Auto-Injection Policy Rule" *ngIf="isProfilePerm"
                                         [disabled]="isProfilePerm" icon="fa-plus"></button>
-                                    <button pButton type="button" title="Add Auto-Injection Rule Configuration" *ngIf="!isProfilePerm"
+                                    <button pButton type="button" title="Add Auto-Injection Policy Rule" *ngIf="!isProfilePerm"
                                         [disabled]="saveDisable" (click)="openAddPolicyRuleDialog()" icon="fa-plus"></button>
-                                    <button pButton type="button" title="Edit an Auto-Injection Rule Configuration"
+                                    <button pButton type="button" title="Edit Auto-Injection Policy Rule"
                                         *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil"></button>
-                                    <button pButton type="button" title="Edit an Auto-Injection Rule Configuration"
+                                    <button pButton type="button" title="Edit Auto-Injection Policy Rule"
                                         *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditPolicyRuleDialog()"
                                         icon="fa-pencil"></button>
-                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Rule Configuration"
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Policy Rule(s)"
                                         *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
-                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Rule Configuration"
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Policy Rule(s)"
                                         *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteAutoInjectionRule()"
                                         icon="fa-trash"></button>
                                 </span>
                             </p-header>
                             <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                            <p-column class="tableCss" field="ruleName" header="Rule Name" [sortable]="true" [style]="{'width':'14%'}">
+                            <p-column class="tableCss" field="ruleName" header="Rule Name" [sortable]="true" [style]="{'width':'12%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column class="tableCss" field="btName" header="BT Name" [sortable]="true" [style]="{'width':'15%'}">
+                            <p-column class="tableCss" field="btName" header="BT Name" [sortable]="true" [style]="{'width':'12%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column class="tableCss" field="httpUrl" header="HTTP URL" [sortable]="true" [style]="{'width':'30%'}">
+                            <p-column class="tableCss" field="httpUrl" header="HTTP URL" [sortable]="true" [style]="{'width':'29%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
                             </p-column>
                             <p-column class="tableCss" field="httpMethod" header="HTTP Method" [sortable]="true"
-                                [style]="{'width':'10%'}">
+                                [style]="{'width':'9%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
                             </p-column>
                             <p-column class="tableCss" field="queryParameter" header="Query Parameter" [sortable]="true"
-                                [style]="{'width':'12%'}">
+                                [style]="{'width':'16%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
                             </p-column>
                             <p-column class="tableCss" field="httpHeader" header="HTTP Header" [sortable]="true"
-                                [style]="{'width':'12%'}">
+                                [style]="{'width':'16%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span title="{{policyRule[col.field]}}">{{policyRule[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'7%'}">
+                            <p-column field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align': 'center','width':'6%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
                                     <span *ngIf="policyRule[col.field] == true" title="{{policyRule[col.field]}}">
                                         <md-icon class="activeIconClass">fiber_manual_record</md-icon>
@@ -93,39 +93,39 @@
                             <p-header>
                                 <span class="configui-float-css"> Auo Injection Configuration Rule List </span>
                                 <span class="configui-float">
-                                    <button pButton type="button" title="Add Tag Injection Rule" *ngIf="isProfilePerm"
+                                    <button pButton type="button" title="Add Auto-Injection Configuration Rule" *ngIf="isProfilePerm"
                                         [disabled]="isProfilePerm" icon="fa-plus"></button>
-                                    <button pButton type="button" title="Add Tag Injection Rule" *ngIf="!isProfilePerm"
+                                    <button pButton type="button" title="Add Auto-Injection Configuration Rule" *ngIf="!isProfilePerm"
                                         [disabled]="saveDisable" (click)="openAddTagInjectionDialog()" icon="fa-plus"></button>
-                                    <button pButton type="button" title="Edit Tag Injection Rule" *ngIf="isProfilePerm"
+                                    <button pButton type="button" title="Edit Auto-Injection Configuration Rule" *ngIf="isProfilePerm"
                                         [disabled]="isProfilePerm" icon="fa-pencil"></button>
-                                    <button pButton type="button" title="Edit Tag Injection Rule" *ngIf="!isProfilePerm"
+                                    <button pButton type="button" title="Edit Auto-Injection Configuration Rule" *ngIf="!isProfilePerm"
                                         [disabled]="saveDisable" (click)="openEditTagInjectionDialog()" icon="fa-pencil"></button>
-                                    <button pButton type="button" class="ui-button-danger" title="Delete Tag Injection Rule(s)"
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Configuration Rule(s)"
                                         *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
-                                    <button pButton type="button" class="ui-button-danger" title="Delete Tag Injection Rule(s)"
+                                    <button pButton type="button" class="ui-button-danger" title="Delete Auto-Injection Configuration Rule(s)"
                                         *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteTagInjectionRules()"
                                         icon="fa-trash"></button>
                                 </span>
                             </p-header>
                             <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
-                            <p-column class="tableCss" field="ruleName" header="Rule Name" [sortable]="true" [style]="{'width':'23%'}">
+                            <p-column class="tableCss" field="ruleName" header="Rule Name" [sortable]="true" [style]="{'width':'25%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column class="tableCss" field="htmlTag" header="HTML Tag" [sortable]="true" [style]="{'width':'12%'}">
+                            <p-column class="tableCss" field="htmlTag" header="HTML Tag" [sortable]="true" [style]="{'width':'15%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column class="tableCss" field="beforeAfterTag" header="Before/After" [sortable]="true"
-                                [style]="{'width':'8%'}">
+                            <p-column class="tableCss" field="jsCode" header=" JavaScript Code" [sortable]="true"
+                                [style]="{'width':'53%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column field="enabled" header="Enabled" [style]="{'text-align': 'center','width':'7%'}">
+                            <p-column field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align': 'center','width':'7%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span *ngIf="nvtag[col.field] == true" title="{{nvtag[col.field]}}">
                                         <md-icon class="activeIconClass">fiber_manual_record</md-icon>
@@ -133,12 +133,6 @@
                                     <span *ngIf="nvtag[col.field] == false" title="{{nvtag[col.field]}}">
                                         <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
                                     </span>
-                                </template>
-                            </p-column>
-                            <p-column class="tableCss" field="jsCode" header=" JavaScript Code" [sortable]="true"
-                                [style]="{'width':'50%'}">
-                                <template let-col let-nvtag="rowData" pTemplate>
-                                    <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
                             </p-column>
                         </p-dataTable>
@@ -159,7 +153,7 @@
             </div>
             <div class="ui-g-5">
                 <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.ruleName"
-                    (keydown.space)="$event.preventDefault()" autofocus required ngModel />
+                    (keydown.space)="$event.preventDefault()" autofocus required pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2">
@@ -176,7 +170,7 @@
             </div>
             <div class="ui-g-5">
                 <input name="btName" type="text" size="45" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.btName" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.btName" pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2">
@@ -194,7 +188,7 @@
             </div>
             <div class="ui-g-5">
                 <input name="httpUrl" type="text" size="45" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.httpUrl" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.httpUrl" pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2">
@@ -202,7 +196,7 @@
             </div>
             <div class="ui-g-2">
                 <input name="dropdown2" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod"
-                    ngModel />
+                    required ngModel />
                 <p-dropdown name="httpMethod" [style]="{'width':'90.5%'}" [options]="methodTypeList" placeholder="--Select--"
                     [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod" appendTo="body" ngModel></p-dropdown>
             </div>
@@ -214,15 +208,15 @@
             </div>
             <div class="ui-g-2">
                 <input name="extension" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.extension" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.extension" pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
-                <label>Type</label>
+                <label>Content Type</label>
             </div>
             <div class="ui-g-2">
                 <input name="type" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.type" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.type" pattern="^(?!.*\|).*$" ngModel />
             </div>
         </div>
 
@@ -232,7 +226,7 @@
             </div>
             <div class="ui-g-2">
                 <input name="parameterName" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName" pattern="^(?!.*%3A).*$" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName" pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
@@ -241,7 +235,7 @@
             <div class="ui-g-2">
                 <input name="parameterValue" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
-                    required pattern="^(?!.*%3A).*$" ngModel />
+                    required pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
@@ -262,7 +256,7 @@
             </div>
             <div class="ui-g-2">
                 <input name="headerName" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName" pattern="^(?!.*%3A).*$" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName" pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
@@ -271,7 +265,7 @@
             <div class="ui-g-2">
                 <input name="headerValue" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
-                    required pattern="^(?!.*%3A).*$" ngModel />
+                    required pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
@@ -306,7 +300,7 @@
             </div>
             <div class="ui-g-4">
                 <input name="ruleName" type="text" size="27" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionTagRuleDialogData.ruleName" autofocus required ngModel />
+                    [(ngModel)]="autoInjectionTagRuleDialogData.ruleName" autofocus required pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-2"></div>
 
@@ -324,14 +318,14 @@
             </div>
             <div class="ui-g-4">
                 <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag"
-                    pInputText required pattern="<([^]*|'[^']*'|[^'>])*>" ngModel />
+                    pInputText required pattern="^<[^<>|]+>$" ngModel />
             </div>
             <div class="ui-g-2"></div>
             <div class="ui-g-2">
-                <label>Before</label>
+                <p-radioButton name="beforeAfterTag" label="Before" value="1" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfterTag"></p-radioButton>
             </div>
             <div class="ui-g-2">
-                <p-checkbox name="checkbox" value="val" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfter" binary="true"></p-checkbox>
+                <p-radioButton name="beforeAfterTag" label="After" value="0" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfterTag"></p-radioButton>
             </div>
         </div>
 
@@ -341,7 +335,7 @@
             </div>
             <div class="ui-g-8">
                 <textarea name="desc" rows="5" cols="53" pInputTextarea [(ngModel)]="autoInjectionTagRuleDialogData.jsCode"
-                    required ngModel></textarea>
+                    required pattern="^(?!.*\|).*$" ngModel></textarea>
             </div>
         </div>
 

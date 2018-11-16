@@ -32,9 +32,9 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     subscription: Subscription;
 
     /* List to Hold Keywords */
-    keywordList: string[] = ['AutoInjectionRuleConfig'];
+    keywordList: string[] = ['NVAutoInjectionRuleFile'];
 
-    /* Flag for AutoInjectionRuleConfig Keyword action */
+    /* Flag for NVAutoInjectionRuleFile Keyword action */
     selectedValues: boolean;
 
     keywordValue: Object;
@@ -410,7 +410,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         }
         let filePath = '';
         for (let key in this.nvAutoInjection) {
-            if (key == 'AutoInjectionRuleConfig') {
+            if (key == 'NVAutoInjectionRuleFile') {
                 if (this.selectedValues == true) {
                     this.nvAutoInjection[key]["value"] = "true";
                 }
@@ -429,7 +429,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 filePath = data["_body"];
                 filePath = filePath + "/NDNVInjectTagProcessor.txt";
             }
-            this.nvAutoInjection['AutoInjectionRuleConfig'].path = filePath;
+            this.nvAutoInjection['NVAutoInjectionRuleFile'].path = filePath;
             this.keywordData.emit(this.nvAutoInjection);
         });
     }
