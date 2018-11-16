@@ -170,7 +170,8 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         'NDP_MAX_SQL_INDEX_FROM_BCI',
         'NDC_THRESHOLD_TO_MARK_DELETED',
         'NDP_DELETED_INSTANCE_CLEANUP_DELAY',
-        'SND_RESP_TO_BCI_ON_DATA_CONN'
+        'SND_RESP_TO_BCI_ON_DATA_CONN',
+        'NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS'
     ];
 
     appId: number;
@@ -221,6 +222,12 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
     dropDownForWaitMarkAppInactive = [];
     selectedForWaitMarkAppInactive: any;
 
+    //Variables for KeyWord : NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS
+    enableAutoCleanUpForInvalidServer: boolean = true;
+    selectedFormatForInvalidServer: any;
+    NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL = 1;
+    dropDownOptionForInvalidServer =[];
+
 
     constructor(private _configUtilityService: ConfigUtilityService,
         private confirmationService: ConfirmationService,
@@ -249,6 +256,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
 
     ngOnInit() {
         this.dropDownOption = ConfigUiUtility.createListWithKeyValue(this.dropDownValue, this.dropDownLabel);
+        this.dropDownOptionForInvalidServer = ConfigUiUtility.createListWithKeyValue(this.dropDownValue, this.dropDownLabel);
         this.isAppPerm = +sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
         this.document.body.classList.add('ndc_keywords');
         // Getting data on Initial Load
@@ -391,6 +399,34 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             this.selectedFormat = "hr";
         }
 
+        //Splitting Data of NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS
+        if (data.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS.value.includes(" ")) {
+            let arr = data.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS.value.split(" ");
+            if (arr[0] == 1) {
+                this.enableAutoCleanUpForInvalidServer = true;
+            }
+            if (arr[1].includes("h")) {
+                this.selectedFormatForInvalidServer = "hr";
+                let arrtime = arr[1].split("h")
+                this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL = +arrtime[0];
+            }
+            else if (arr[1].includes("m")) {
+                this.selectedFormatForInvalidServer = "min";
+                let arrtime = arr[1].split("m")
+                this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL = +arrtime[0];
+            }
+            else if (arr[1].includes("s")) {
+                this.selectedFormatForInvalidServer = "sec";
+                let arrtime = arr[1].split("s")
+                this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL = +arrtime[0];
+            }
+        }
+        else {
+            this.enableAutoCleanUpForInvalidServer = false;
+            this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL = 1;
+            this.selectedFormatForInvalidServer = "hr";
+        }
+
         //Splitting Data of NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE
         if (data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes("H") || data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes("M") || data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value.includes("S")) {
             let valueOfKeyword = data.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE.value;
@@ -408,7 +444,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
             else if (valueOfMarkAppInactive.includes('M')) {
                 this.selectedForMarkAppInactive = "min";
             }
-            else  {
+            else {
                 this.selectedForMarkAppInactive = "sec";
             }
 
@@ -498,6 +534,21 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
         }
         else {
             this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value = this.ndcKeywords['NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE'].value + " " + this.NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_WAIT_VAL + "S";
+        }
+
+        //For KeyWord : NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS
+        if (this.enableAutoCleanUpForInvalidServer) {
+            if (this.selectedFormatForInvalidServer == "hr")
+                this.ndcKeywords['NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS'].value = "1 " + this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL + "h";
+            else if (this.selectedFormatForInvalidServer == "min")
+                this.ndcKeywords['NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS'].value = "1 " + this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL + "m";
+            else
+                this.ndcKeywords['NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS'].value = "1 " + this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL + "s";
+        }
+        else {
+            this.ndcKeywords['NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS'].value = 0;
+            this.NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL = 1;
+            this.selectedFormatForInvalidServer = "hr"
         }
         // Saving Data to Server
         this.ndcKeywords = this.joinKeywordsVal(this.ndcKeywords)
