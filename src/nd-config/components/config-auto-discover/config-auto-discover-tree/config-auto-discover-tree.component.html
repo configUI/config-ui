@@ -6,13 +6,13 @@
         <div class="ui-g-12" style="padding:0px">
             <div class="ui-g-5">
                 <div class="ui-g-12 header" style="padding:3.5px">
-                    <div class="ui-g-4" style="margin-top: 3px; padding:0px">Auto Discovered data by Agent</div>
+                    <div class="ui-g-4" style="margin-top: 8px; padding:0px">Auto Discovered data by Agent</div>
                     <div class="ui-g-1" style="margin-left: -8px">
                         <span title="{{agentType}}" *ngIf="agentType == 'DotNet'"><i class="icon ndegui-dotnet dotnet-color"></i></span>
                         <span title="{{agentType}}" *ngIf="agentType == 'NodeJS'"><i class="icon ndegui-nodejs nodejs-color"></i></span>
                         <span title="{{agentType}}" *ngIf="agentType == 'Java'"><i class="icon ndegui-java java-color"></i></span>
                     </div>
-                    <div class="ui-g-5" style="padding:0px;margin-left: -8px">
+                    <div class="ui-g-5" style="padding:0px;margin-left: -8px;margin-top: 5px">
                         <input type="text" [disabled]="true" [(ngModel)]="instanceFileName" required size=35 title="{{instanceFileName}}" pInputText>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                 </div>
             </div>
             <div class="ui-g-5">
-                <div class="ui-g-12 header">
-                    <div style="margin-top: 3px">Instrumented List</div>
+                <div class="ui-g-12 header" style="line-height: 30px">
+                    <div style="margin-bottom: 1px">Instrumented List</div>
                 </div>
                 <div class="ui-g-12" style="background:white; border: 1px solid lightgray">
                     <p-tree class="nde-ui" [value]="rightSideTreeData" selectionMode="checkbox" [style]="{'height':'400px','width':'42.4em','margin':'-6px 0px -6px -6px'}" [(selection)]="instrFromRightSideTree"></p-tree>
@@ -51,7 +51,7 @@
             </div>
         </div>
         <br>
-        <div class="ui-g-12 " style="background-color:white">
+        <div class="ui-g-12 " style="background-color:white;margin-left: 6px;width: 99%;">
             <div style="float:right">
                 <span>Save instrumentation profile as</span>
                 <span><input type="text" onkeypress="return String.fromCharCode(event.charCode).match(/[_\-a-zA-Z0-9 ]/g) != null" [(ngModel)]="instrfileName" size=25 pInputText (keydown.space)="$event.preventDefault()"></span>
