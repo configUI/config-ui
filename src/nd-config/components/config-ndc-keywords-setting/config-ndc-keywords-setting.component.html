@@ -356,6 +356,24 @@
                         </div>
                       </div>
                       <hr>
+                      <div class="ui-grid-row">
+                        <div class="ui-g-12">
+                          <p-checkbox name="enableAutoCleanUpForInvalidServer" label="Enable Auto Cleanup for Invalid Servers" [(ngModel)]="enableAutoCleanUpForInvalidServer" binary="true"></p-checkbox>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-5 marginClassTop">
+                          Time (in hours/minutes/seconds) for Auto Cleanup for Invalid Servers
+                        </div>
+                        <div class="ui-grid-col-1">
+                          <input pInputText type="number" name="NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL" min=0 [disabled]="!enableAutoCleanUpForInvalidServer" [(ngModel)]="NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL" required 
+                          ngModel/>
+                        </div>
+                        <div class="ui-grid-col-1">
+                          <p-dropdown [options]="dropDownOptionForInvalidServer" [style]="{'width':'80%'}" [disabled]="!enableAutoCleanUpForInvalidServer" name="dropDownOptionForInvalidServer" [(ngModel)]="selectedFormatForInvalidServer"
+                            placeholder="--Select--"></p-dropdown>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
