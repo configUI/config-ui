@@ -81,8 +81,14 @@ export class ProductIntegrationComponent implements OnInit {
     
         let keyWordDataList = [];
         for (let key in data) {
-          keyWordDataList.push(key + "=" + data[key].value);
+          if(data[key].path){
+            keyWordDataList.push(key + "=" + data[key].path);
+          }
+          else{
+            keyWordDataList.push(key + "=" + data[key].value);
+          }
         }
+        
         console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
         console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
     

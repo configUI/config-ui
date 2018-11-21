@@ -10,10 +10,14 @@
             <span class="configui-float-css" style="margin-top: 2px">Enable Auto Injection </span>
             <div class="pull-right">
                 <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
-                <button pButton type="submit" style="float:right" title="Save" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
-                    icon="fa-save" label="Save"></button>
-                <button pButton type="submit" style="float:right" title="Save" *ngIf="!isProfilePerm" [disabled]="saveDisable"
-                    icon="fa-save" label="Save"></button>
+                <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()"
+                    icon="fa-folder-open"></button>
+                <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()"
+                    icon="fa-folder-open"></button>
+                <button pButton type="submit" title="Save" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-save"
+                    label="Save"></button>
+                <button pButton type="submit" title="Save" *ngIf="!isProfilePerm" [disabled]="saveDisable" icon="fa-save"
+                    label="Save"></button>
             </div>
         </div>
         <div class="ndegui-mainbox">
@@ -76,10 +80,10 @@
                             </p-column>
                             <p-column field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align': 'center','width':'6%'}">
                                 <template let-col let-policyRule="rowData" pTemplate>
-                                    <span *ngIf="policyRule[col.field] == true" title="{{policyRule[col.field]}}">
+                                    <span *ngIf="policyRule[col.field] == true" title="Enabled">
                                         <md-icon class="activeIconClass">fiber_manual_record</md-icon>
                                     </span>
-                                    <span *ngIf="policyRule[col.field] == false" title="{{policyRule[col.field]}}">
+                                    <span *ngIf="policyRule[col.field] == false" title="Disabled">
                                         <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
                                     </span>
                                 </template>
@@ -140,10 +144,10 @@
                             </p-column>
                             <p-column field="enabled" header="Enabled" [sortable]="true" [style]="{'text-align': 'center','width':'7%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
-                                    <span *ngIf="nvtag[col.field] == true" title="{{nvtag[col.field]}}">
+                                    <span *ngIf="nvtag[col.field] == true" title="Enabled">
                                         <md-icon class="activeIconClass">fiber_manual_record</md-icon>
                                     </span>
-                                    <span *ngIf="nvtag[col.field] == false" title="{{nvtag[col.field]}}">
+                                    <span *ngIf="nvtag[col.field] == false" title="Disabled">
                                         <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
                                     </span>
                                 </template>
@@ -175,14 +179,14 @@
                 <label>Rule Name</label>
             </div>
             <div class="ui-g-5">
-                <input name="ruleName" type="text" size="45" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.ruleName"
+                <input name="ruleName" type="text" size="49" style="width: 327px" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.ruleName"
                     (keydown.space)="$event.preventDefault()" autofocus required pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
-            <div class="ui-g-2">
+            <div class="ui-g-2" style="margin-left: 22px">
                 <label>Enabled</label>
             </div>
-            <div class="ui-g-1 config-ui">
+            <div class="ui-g-1 config-ui" style="margin-left: -22px">
                 <md-slide-toggle [(ngModel)]="autoInjectionPolicyRuleDialogData.enabled" name="enabled" class="configui-error-css-2"></md-slide-toggle>
             </div>
         </div>
@@ -192,14 +196,14 @@
                 <label>BT Name</label>
             </div>
             <div class="ui-g-5">
-                <input name="btName" type="text" size="45" pInputText (keydown.space)="$event.preventDefault()"
+                <input name="btName" type="text" size="49" style="width: 327px" pInputText (keydown.space)="$event.preventDefault()"
                     [(ngModel)]="autoInjectionPolicyRuleDialogData.btName" pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
-            <div class="ui-g-2">
+            <div class="ui-g-2" style="margin-left: 22px">
                 <label>Exclude</label>
             </div>
-            <div class="ui-g-2">
+            <div class="ui-g-2" style="margin-left: -22px">
                 <p-checkbox name="checkbox" value="val" [(ngModel)]="autoInjectionPolicyRuleDialogData.exclude" binary="true"></p-checkbox>
             </div>
 
@@ -210,35 +214,35 @@
                 <label>HTTP URL</label>
             </div>
             <div class="ui-g-5">
-                <input name="httpUrl" type="text" size="45" pInputText (keydown.space)="$event.preventDefault()"
+                <input name="httpUrl" type="text" size="49" style="width: 327px" pInputText (keydown.space)="$event.preventDefault()"
                     [(ngModel)]="autoInjectionPolicyRuleDialogData.httpUrl" pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
-            <div class="ui-g-2">
+            <div class="ui-g-2" style="margin-left: 22px">
                 <label>HTTP Method</label>
             </div>
-            <div class="ui-g-2">
-                <input name="dropdown2" type="text" size="10" class='hidden-validator' pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod"
+            <div class="ui-g-2" style="margin-left: -22px">
+                <input name="dropdown2" type="text" size="8" class='hidden-validator' pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod"
                     required ngModel />
-                <p-dropdown name="httpMethod" [style]="{'width':'90.5%'}" [options]="methodTypeList" placeholder="--Select--"
+                <p-dropdown name="httpMethod" [style]="{'width':'81.5%'}" [options]="methodTypeList" placeholder="--Select--"
                     [(ngModel)]="autoInjectionPolicyRuleDialogData.httpMethod" appendTo="body" ngModel></p-dropdown>
             </div>
         </div>
 
         <div class="ui-g">
             <div class="ui-g-2">
-                <label>Extension</label>
+                <label>File Extension</label>
             </div>
             <div class="ui-g-2">
                 <input name="extension" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
                     [(ngModel)]="autoInjectionPolicyRuleDialogData.extension" pattern="^(?!.*\|).*$" ngModel />
             </div>
             <div class="ui-g-1"></div>
-            <div class="ui-g-1" style="margin-left:-25px">
+            <div class="ui-g-2" style="margin-left:-25px">
                 <label>Content Type</label>
             </div>
-            <div class="ui-g-2">
-                <input name="type" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
+            <div class="ui-g-2" style="margin-left:-31px">
+                <input name="type" type="text" size="12" pInputText (keydown.space)="$event.preventDefault()"
                     [(ngModel)]="autoInjectionPolicyRuleDialogData.type" pattern="^(?!.*\|).*$" ngModel />
             </div>
         </div>
@@ -254,23 +258,23 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
+                <label>Operation</label>
+            </div>
+            <div class="ui-g-2" style="margin-left:25px">
+                <input name="dropdown" type="text" size="10" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation" required ngModel />
+                <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                    placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation"
+                    appendTo="body" ngModel></p-dropdown>
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-36px">
                 <label>Value</label>
             </div>
             <div class="ui-g-2">
                 <input name="parameterValue" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
                     required pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-1" style="margin-left:-25px">
-                <label>Operation</label>
-            </div>
-            <div class="ui-g-2" style="margin-left:25px">
-                <input name="dropdown" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation" required ngModel />
-                <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation"
-                    appendTo="body" ngModel></p-dropdown>
             </div>
         </div>
 
@@ -284,23 +288,23 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
+                <label>Operation</label>
+            </div>
+            <div class="ui-g-2" style="margin-left:25px">
+                <input name="dropdown1" type="text" size="10" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" required ngModel />
+                <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                    placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" appendTo="body"
+                    ngModel></p-dropdown>
+            </div>
+            <div class="ui-g-1"></div>
+            <div class="ui-g-1" style="margin-left:-36px">
                 <label>Value</label>
             </div>
             <div class="ui-g-2">
                 <input name="headerValue" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
                     required pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
-            </div>
-            <div class="ui-g-1"></div>
-            <div class="ui-g-1" style="margin-left:-25px">
-                <label>Operation</label>
-            </div>
-            <div class="ui-g-2" style="margin-left:25px">
-                <input name="dropdown1" type="text" size="8" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" required ngModel />
-                <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" appendTo="body"
-                    ngModel></p-dropdown>
             </div>
         </div>
 
@@ -345,12 +349,18 @@
                 <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag"
                     pInputText required pattern="^<[^<>|]+>$" ngModel />
             </div>
-            <div class="ui-g-2"></div>
-            <div class="ui-g-2">
-                <p-radioButton name="beforeAfterTag" label="Before" value="1" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfterTag"></p-radioButton>
+            <div class="ui-g-1" style="margin-left: 43px;margin-top: 4px;">
+                <i class="fa fa-info-circle" aria-hidden="true" title="This field can only contain single HTML tag for example:- <head> , </head>"></i>
             </div>
-            <div class="ui-g-2">
-                <p-radioButton name="beforeAfterTag" label="After" value="0" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfterTag"></p-radioButton>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-2"></div>
+            <div class="ui-g-4">
+                <p-radioButton name="beforeAfterTag" label="Inject Before Tag" value="1" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfterTag"></p-radioButton>
+            </div>
+            <div class="ui-g-4">
+                <p-radioButton name="beforeAfterTag" label="Inject After Tag" value="0" [(ngModel)]="autoInjectionTagRuleDialogData.beforeAfterTag"></p-radioButton>
             </div>
         </div>
 
@@ -371,4 +381,14 @@
             </div>
         </footer>
     </form>
+</p-dialog>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss headerCss" header="File Manager" *ngIf="openFileExplorerDialog"
+    [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true" [resizable]="false">
+
+    <!-- This will look for this component in the ProductUI at this path -
+         ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer-->
+
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>

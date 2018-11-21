@@ -968,4 +968,9 @@ export class ConfigKeywordsService {
   saveAutoInjectionData(profileId): Observable<ErrorDetection> {
     return this._restApi.getDataByPostReq(`${URL.SAVE_AUTO_INJECTION_DATA_ON_FILE}/${profileId}`);
   }
+
+  /** For Uploading Auto Injection file */
+  uploadAutoInjectionFile(filePath, profileId) {
+    return this._restApi.getDataByPostReq(`${URL.UPLOAD_AUTO_INJECTION_FILE}/${profileId}`, filePath);
+  }
 }

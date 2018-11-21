@@ -427,5 +427,8 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const EDIT_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/edittagconfigrule`;
  export const DELETE_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/deletetagconfigrule`;
  
- /* Url for Auto Injection Data On File */
+ /* Url for Writing Auto Injection Data On File */
  export const SAVE_AUTO_INJECTION_DATA_ON_FILE = `${SERVICE_URL}/custom/autoinjection/saveonfile`;
+
+ /* Url for Uploading Auto Injection File */
+ export const UPLOAD_AUTO_INJECTION_FILE = `${SERVICE_URL}/custom/autoinjection/uploadfile`;

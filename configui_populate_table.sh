@@ -116,7 +116,6 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (11,'ASTraceLevel','0','20','2','0','pre-custom','3'),
 (12,'enableNDSession','0','1024','5','0','normal','7'),
 (13,'enableCpuTime','0','1024','1','0','normal','5'),
-(14,'enableForcedFPChain','0','3','2','1','normal','7'),
 (15,'InstrTraceLevel','0','11','2','0','normal','5'),
 (16,'instrExceptions','0','512','5','1%201%200%2020','normal','3'),
 (17,'correlationIDHeader','0','1024','5','-','normal','7'),

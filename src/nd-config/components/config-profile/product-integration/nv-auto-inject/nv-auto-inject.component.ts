@@ -82,7 +82,14 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /* Object to Hold Auto Inject Tag Rule Selection */
     selectedAutoInjectionTagRule: NVAutoInjectionTagRule[];
 
+    /* To hold agentType of profile */
     agentType: string = "";
+
+    /* Flag for Auto Injection Browse */
+    isAutoInjectionBrowse: boolean = false;
+
+    /** To open file explorer dialog */
+    openFileExplorerDialog: boolean = false;
 
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,
         private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
@@ -126,6 +133,10 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                     this.selectedValues = false;
             }
         });
+
+        this.configKeywordsService.fileListProvider.subscribe(data => {
+            this.uploadFile(data);
+          });
     }
 
     /**
@@ -335,8 +346,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
                 this.nvautoinjectionPolicyData = ImmutableArray.replace(this.nvautoinjectionPolicyData, data, index);
                 this.configUtilityService.successMessage(editMessage);
+                this.loadPolicyRuleData();
                 this.addEditAutoInjectionPolicyRuleDialog = false;
-                this.modifyPolicyRuleTableData();
             });
     }
 
@@ -547,6 +558,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
                 this.nvautoinjectionTagRuleData = ImmutableArray.replace(this.nvautoinjectionTagRuleData, data, index);
                 this.configUtilityService.successMessage(editMessage);
+                this.loadTagInjectionData();
                 this.addEditAutoInjectionTagRule = false;
             });
     }
@@ -619,10 +631,50 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         return -1;
     }
 
+  /**
+   * This method is called on clicking the browse button 
+   * for opening the file manager
+   */
+  openFileManager() {
+    this.openFileExplorerDialog = true;
+    this.isAutoInjectionBrowse = true;
+  }
+
+
+  /**
+   * This method is called form ProductUI config-nd-file-explorer component with the path
+   * ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\
+   * @param filepath
+   * filepath is the relative filepath for the selected file in the file manager
+   */
+  uploadFile(filepath) {
+    if (this.isAutoInjectionBrowse == true) {
+      this.isAutoInjectionBrowse = false;
+      this.openFileExplorerDialog = false;
+
+      if (filepath.includes(";")) {
+        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+        return;
+      }
+
+      // let filepath = "";
+      this.configKeywordsService.uploadAutoInjectionFile(filepath, this.profileId).subscribe(data => {
+        if (data.length == (this.nvautoinjectionPolicyData.length + this.nvautoinjectionTagRuleData.length)) {
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+          return;
+        }
+
+        this.loadPolicyRuleData();
+        this.loadTagInjectionData();
+        this.configUtilityService.successMessage("File uploaded successfully");
+      });
+    }
+  }
+
     /** The below method is used to download policy rule reports in different formats  */
     downloadPolicyRuleReports(reports: string) {
         let arrHeader = { "0": "Rule Name", "1": "BT Name", "2": "HTTP URL", "3": "HTTP Method", "4": "Query Parameter", "5": "HTTP Header", "6": "Enabled" };
-        let arrcolSize = { "0": 2, "1": 1, "2": 1, "3": 1, "4": 2, "5": 1, "6": 1 };
+        let arrcolSize = { "0": 1, "1": 1, "2": 3, "3": 1, "4": 2, "5": 2, "6": 1 };
         let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left", "3": "left", "4": "left", "5": "left", "6": "center" };
         let arrFieldName = { "0": "ruleName", "1": "btName", "2": "httpUrl", "3": "httpMethod", "4": "queryParameter", "5": "httpHeader", "6": "enabled" };
         let object =
