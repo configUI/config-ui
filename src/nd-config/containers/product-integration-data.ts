@@ -22,7 +22,7 @@ export class NVAutoInjectionPolicyRule {
 export class NVAutoInjectionTagRule {
     id: number;
     ruleName: string = "";
-    htmlTag: number;
+    htmlTag: string= "";
     beforeAfterTag: string = "1";
     enabled: boolean = false;
     jsCode: string = "";

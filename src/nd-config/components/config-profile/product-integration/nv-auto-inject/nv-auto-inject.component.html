@@ -179,8 +179,9 @@
                 <label>Rule Name</label>
             </div>
             <div class="ui-g-5">
-                <input name="ruleName" type="text" size="49" style="width: 327px" pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.ruleName"
-                    (keydown.space)="$event.preventDefault()" autofocus required pattern="^(?!.*\|).*$" ngModel />
+                <input name="ruleName" type="text" size="49" style="width: 327px" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not be NA. &#013;Rule 3: Input is of maximum 255 characters."
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.ruleName" (keydown.space)="$event.preventDefault()"
+                    autofocus required pattern="^(?!.*\|).{0,254}$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2" style="margin-left: 22px">
@@ -196,8 +197,9 @@
                 <label>BT Name</label>
             </div>
             <div class="ui-g-5">
-                <input name="btName" type="text" size="49" style="width: 327px" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.btName" pattern="^(?!.*\|).*$" ngModel />
+                <input name="btName" type="text" size="49" style="width: 327px" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not be NA. &#013;Rule 3: Input is of maximum 255 characters."
+                    (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.btName"
+                    pattern="^(?!.*\|).{0,254}$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2" style="margin-left: 22px">
@@ -214,8 +216,10 @@
                 <label>HTTP URL</label>
             </div>
             <div class="ui-g-5">
-                <input name="httpUrl" type="text" size="49" style="width: 327px" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.httpUrl" pattern="^(?!.*\|).*$" ngModel />
+                <input name="httpUrl" type="text" size="49" style="width: 327px" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not be NA. &#013;Rule 3: Input is of maximum 4096 characters."
+                    (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.httpUrl"
+                    pattern="^(?!.*\|).{0,4095}$" ngModel />
+
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2" style="margin-left: 22px">
@@ -235,15 +239,16 @@
             </div>
             <div class="ui-g-2">
                 <input name="extension" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.extension" pattern="^(?!.*\|).*$" ngModel />
+                    title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not be NA. &#013;Rule 3: Input is of maximum 255 characters."
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.extension" pattern="^(?!.*\|).{0,254}$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-2" style="margin-left:-25px">
                 <label>Content Type</label>
             </div>
             <div class="ui-g-2" style="margin-left:-31px">
-                <input name="type" type="text" size="12" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.type" pattern="^(?!.*\|).*$" ngModel />
+                <input name="type" type="text" size="12" pInputText (keydown.space)="$event.preventDefault()" title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not be NA. &#013;Rule 3: Input is of maximum 255 characters."
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.type" pattern="^(?!.*\|).{0,254}$" ngModel />
             </div>
         </div>
 
@@ -252,8 +257,9 @@
                 <label>Parameter Name</label>
             </div>
             <div class="ui-g-2">
-                <input name="parameterName" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName" pattern="^(?!.*\|)(?!.*%3A).*$"
+                <input name="parameterName" type="text" size="15" pInputText (input)="onParameterNameChange($event.target.value)"
+                    (keydown.space)="$event.preventDefault()" title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not contains %3A. &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterName" pattern="^(?!.*\|)(?!.*%3A).{0,254}$"
                     ngModel />
             </div>
             <div class="ui-g-1"></div>
@@ -261,7 +267,7 @@
                 <label>Operation</label>
             </div>
             <div class="ui-g-2" style="margin-left:25px">
-                <input name="dropdown" type="text" size="10" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
+                <input name="dropdown" type="text" size="12" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation" required ngModel />
                 <p-dropdown name="parameterOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
                     placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterOperation"
@@ -273,8 +279,9 @@
             </div>
             <div class="ui-g-2">
                 <input name="parameterValue" [disabled]="autoInjectionPolicyRuleDialogData.parameterName == '' || autoInjectionPolicyRuleDialogData.parameterName == null"
-                    type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
-                    required pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
+                    type="text" size="15" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not contains %3A. &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
+                    (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.parameterValue"
+                    required pattern="^(?!.*\|)(?!.*%3A).{0,254}$" ngModel />
             </div>
         </div>
 
@@ -283,15 +290,16 @@
                 <label>Header Name</label>
             </div>
             <div class="ui-g-2">
-                <input name="headerName" type="text" size="15" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName" pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
+                <input name="headerName" type="text" size="15" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character. &#013;Rule 2: Input must not contains %3A. &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
+                    (input)="onHeaderNameChange($event.target.value)" (keydown.space)="$event.preventDefault()"
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName" pattern="^(?!.*\|)(?!.*%3A).{0,254}$" ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
                 <label>Operation</label>
             </div>
             <div class="ui-g-2" style="margin-left:25px">
-                <input name="dropdown1" type="text" size="10" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
+                <input name="dropdown1" type="text" size="12" class='hidden-validator' [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     pInputText [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" required ngModel />
                 <p-dropdown name="headerOperation" [style]="{'width':'100.5%'}" [options]="operationList" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
                     placeholder="--Select--" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerOperation" appendTo="body"
@@ -303,8 +311,9 @@
             </div>
             <div class="ui-g-2">
                 <input name="headerValue" [disabled]="autoInjectionPolicyRuleDialogData.headerName == '' || autoInjectionPolicyRuleDialogData.headerName == null"
-                    type="text" size="15" pInputText (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
-                    required pattern="^(?!.*\|)(?!.*%3A).*$" ngModel />
+                    type="text" size="15" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not contains %3A. &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
+                    (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionPolicyRuleDialogData.headerValue"
+                    required pattern="^(?!.*\|)(?!.*%3A).{0,254}$" ngModel />
             </div>
         </div>
 
@@ -327,9 +336,9 @@
                 <label>Rule Name</label>
             </div>
             <div class="ui-g-4">
-                <input name="ruleName" type="text" size="27" pInputText (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionTagRuleDialogData.ruleName" autofocus required pattern="^(?!.*\|).*$"
-                    ngModel />
+                <input name="ruleName" type="text" size="27" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.   &#013;Rule 2: Input must not contains - . &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
+                    (keydown.space)="$event.preventDefault()" [(ngModel)]="autoInjectionTagRuleDialogData.ruleName"
+                    autofocus required pattern="^(?!.*\|).{0,254}$" ngModel />
             </div>
             <div class="ui-g-2"></div>
 
@@ -347,10 +356,11 @@
             </div>
             <div class="ui-g-4">
                 <input name="htmlTag" size="27" type="text" [(ngModel)]="autoInjectionTagRuleDialogData.htmlTag"
-                    pInputText required pattern="^<[^<>|]+>$" ngModel />
+                    pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character. &#013;Rule 2: Input must not contains - . &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
+                    required pattern="^<[^<>|]{1,253}>$" ngModel />
             </div>
             <div class="ui-g-1" style="margin-left: 43px;margin-top: 4px;">
-                <i class="fa fa-info-circle" aria-hidden="true" title="This field can only contain single HTML tag for example:- <head> , </head>"></i>
+                <i class="fa fa-info-circle" aria-hidden="true" title="This field can only contain single HTML tag e.g:- <head> or </head>"></i>
             </div>
         </div>
 
@@ -369,8 +379,9 @@
                 <label>JavaScript Code</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="desc" rows="5" cols="53" pInputTextarea [(ngModel)]="autoInjectionTagRuleDialogData.jsCode"
-                    required pattern="^(?!.*\|).*$" ngModel></textarea>
+                <textarea name="desc" rows="5" cols="53" pInputTextarea (input)="onJSCodeValueChange($event.target.value)"
+                    title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not contains - . &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 4096 characters."
+                    [(ngModel)]="autoInjectionTagRuleDialogData.jsCode" required ngModel></textarea>
             </div>
         </div>
 

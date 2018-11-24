@@ -91,6 +91,9 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /** To open file explorer dialog */
     openFileExplorerDialog: boolean = false;
 
+    /** Flag for valid JScode */
+    jsCodeFlag: boolean = false;
+
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,
         private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
         /* To hold agent type of profile */
@@ -249,6 +252,22 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * Add/Edit Auto Injection Policy Rule
      */
     saveAddEditAutoInject() {
+        if(this.autoInjectionPolicyRuleDialogData.headerName == "" && this.autoInjectionPolicyRuleDialogData.headerValue == "NA"){
+            this.autoInjectionPolicyRuleDialogData.headerValue = "";
+        }
+
+        if(this.autoInjectionPolicyRuleDialogData.parameterName == "" && this.autoInjectionPolicyRuleDialogData.parameterValue == "NA"){
+            this.autoInjectionPolicyRuleDialogData.parameterValue = "";
+        }
+
+        if(this.autoInjectionPolicyRuleDialogData.ruleName == "NA" || this.autoInjectionPolicyRuleDialogData.btName == "NA" 
+        || this.autoInjectionPolicyRuleDialogData.extension == "NA" || this.autoInjectionPolicyRuleDialogData.headerName == "NA" 
+        || this.autoInjectionPolicyRuleDialogData.headerValue == "NA" || this.autoInjectionPolicyRuleDialogData.httpUrl == "NA" 
+        || this.autoInjectionPolicyRuleDialogData.parameterName == "NA" || this.autoInjectionPolicyRuleDialogData.parameterValue == "NA"
+        || this.autoInjectionPolicyRuleDialogData.type == "NA"){
+         this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA'");
+         return;
+        }
         if (this.isNewAutoInjectionPolicyRule) {                // For new Auto Injection Policy Rule
             //Check for app name already exist or not
             if (!this.checkAutoInjectionPolicyRuleNameAlreadyExist()) {
@@ -286,10 +305,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.modifyPolicyRuleValuesBeforeSave();
         this.configKeywordsService.addAutoInjectionPolicyRule(this.profileId, this.autoInjectionPolicyRuleDialogData)
             .subscribe(data => {
-                if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
-                    this.configUtilityService.errorMessage("Rule Name already exists.");
-                    return;
-                }
                 //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
                 this.nvautoinjectionPolicyData = ImmutableArray.push(this.nvautoinjectionPolicyData, data);
                 this.configUtilityService.successMessage(addMessage);
@@ -337,10 +352,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.modifyPolicyRuleValuesBeforeSave();
         this.configKeywordsService.editAutoInjectionPolicyRule(this.profileId, this.autoInjectionPolicyRuleDialogData)
             .subscribe(data => {
-                if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
-                    this.configUtilityService.errorMessage("Rule Name already exists.");
-                    return;
-                }
                 let index = this.getAutoInjectionRuleIndex();
                 this.selectedAutoInjectionPolicyRule.length = 0;
                 //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
@@ -495,6 +506,17 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * Add/Edit Auto Injection Configuration Rule(Tag Injection)
      */
     saveAddEditTagInject() {
+        this.autoInjectionTagRuleDialogData.jsCode = this.autoInjectionTagRuleDialogData.jsCode.trim();
+        if(this.autoInjectionTagRuleDialogData.jsCode == "" || this.jsCodeFlag == true){
+            this.configUtilityService.errorMessage("Please enter valid JavaScript Code.");
+            return;
+        }
+        if(this.autoInjectionTagRuleDialogData.ruleName == "NA" || this.autoInjectionTagRuleDialogData.ruleName == "-"
+        || this.autoInjectionTagRuleDialogData.htmlTag == "NA" || this.autoInjectionTagRuleDialogData.htmlTag == "-" 
+        || this.autoInjectionTagRuleDialogData.jsCode == "NA" || this.autoInjectionTagRuleDialogData.jsCode == "-"){
+         this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA' or '-'");
+         return;
+        }
         if (this.isNewAutoInjectionTagRule) {                // For new Tag Injection Rule
             //Check for app name already exist or not
             if (!this.checkTagInjectionRuleNameAlreadyExist()) {
@@ -531,10 +553,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     saveNewTagInjectionRule() {
         this.configKeywordsService.addAutoInjectionTagRule(this.profileId, this.autoInjectionTagRuleDialogData)
             .subscribe(data => {
-                if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
-                    this.configUtilityService.errorMessage("Rule Name already exists.");
-                    return;
-                }
                 //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
                 this.nvautoinjectionTagRuleData = ImmutableArray.push(this.nvautoinjectionTagRuleData, data);
                 this.configUtilityService.successMessage(addMessage);
@@ -549,10 +567,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     editTagInjectionRule() {
         this.configKeywordsService.editAutoInjectionTagRule(this.profileId, this.autoInjectionTagRuleDialogData)
             .subscribe(data => {
-                if (data[Object.keys(data)[0]] == "Provided Rule Name already exists!!!") {
-                    this.configUtilityService.errorMessage("Rule Name already exists.");
-                    return;
-                }
                 let index = this.getTagInjectionRuleIndex();
                 this.selectedAutoInjectionTagRule.length = 0;
                 //to insert new row in table ImmutableArray.replace() is created as primeng 4.0.0 does not support above line 
@@ -657,6 +671,12 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         return;
       }
 
+      var endsWith = filepath.substring(parseInt(filepath.lastIndexOf("."))+1, filepath.length);
+      if(endsWith != "txt"){
+        this.configUtilityService.errorMessage("Please select a valid .txt file");
+         return;
+       }
+
       // let filepath = "";
       this.configKeywordsService.uploadAutoInjectionFile(filepath, this.profileId).subscribe(data => {
         if (data.length == (this.nvautoinjectionPolicyData.length + this.nvautoinjectionTagRuleData.length)) {
@@ -726,6 +746,46 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     */
     sendHelpNotification() {
         this.configKeywordsService.getHelpContent("Product Integration", "NV-ND Auto Inject", this.agentType);
+    }
+
+
+    /**
+     * The below method is used to overwrite the parameterValue and 
+     * parameterOperation when user clears the parameterName
+     * @param parameterName 
+     */
+    onParameterNameChange(parameterName : string ) {  
+        if(parameterName == ""){
+            this.autoInjectionPolicyRuleDialogData.parameterValue = "";
+            this.autoInjectionPolicyRuleDialogData.parameterOperation = "";
+        }
+    }
+
+    /**
+     * The below method is used to overwrite the headerValue and 
+     * headerOperation when user clears the headerName
+     * @param headerName 
+     */
+    onHeaderNameChange(headerName : string ) {  
+        if(headerName == ""){
+            this.autoInjectionPolicyRuleDialogData.headerValue = "";
+            this.autoInjectionPolicyRuleDialogData.headerOperation = "";
+        }
+    }
+
+    /**
+     * The below method is used to match the jsCode for |(pipe)
+     * validation check
+     * @param jsCode 
+     */
+    onJSCodeValueChange(jsCode : string ) {
+        if(jsCode.includes("|")) {
+            this.configUtilityService.errorMessage("None of the fields should contains '|' character");
+            this.jsCodeFlag = true;
+        }
+        else{
+            this.jsCodeFlag = false;
+        }
     }
 
     ngOnDestroy(): void {
