@@ -19,7 +19,7 @@
                     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Time (in seconds) to receive data from cavmon after test is over
+                          Duration (secs) for which ND Collector continues to receive data from machine agent after test is over
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_WAIT_TIME_AFTER_TEST_IS_OVER" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_AFTER_TEST_IS_OVER'].value"
@@ -28,7 +28,7 @@
                         <!-- </div>
           <div class="ui-grid-row"> -->
                         <div class="ui-grid-col-5 marginClassTop">
-                          Time (in seconds) before sending error response to NS/GUI
+                          ND Collector wait time (secs) to send response to Netstorm/GUI
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_CONTROL_MSG_ACK_TIMEOUT" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_CONTROL_MSG_ACK_TIMEOUT'].value"
@@ -37,7 +37,7 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Timeout (in seconds) for control thread epoll wait for receiving any event
+                          Duration (secs) for which ND Collector waits for events from machine agents on control connection
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_CONTROL_THREAD_EPOLL_TIMEOUT" min=10 max=300 [(ngModel)]="ndcKeywords['NDC_CONTROL_THREAD_EPOLL_TIMEOUT'].value"
@@ -46,7 +46,7 @@
                         <!-- </div>
           <div class="ui-grid-row"> -->
                         <div class="ui-grid-col-5 marginClassTop">
-                          Behaviour of ND Collector in the error conditions
+                          ND Collector behaviour on error conditions
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR" min=0 max=2 [(ngModel)]="ndcKeywords['NDC_CONTINUE_ON_CONTROL_CONNECTION_ERROR'].value"
@@ -55,14 +55,14 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Time (in seconds) between continuous heart beat messages
+                          Duration (secs) between two heartbeat messages to application agent
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI" min=0 [(ngModel)]="ndcKeywords['NDC_TIME_TO_SEND_HEART_BEAT_TO_BCI'].value"
                             required ngModel/>
                         </div>
                         <div class="ui-grid-col-5 marginClassTop">
-                          Timeout (in ms) to stop instrumentation response message from BCI
+                          Duration (secs) after which Instrumentation start request to application agent times out
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_STOP_INSTRUMENTATION_RESPONSE_TIMEOUT" min=0 [(ngModel)]="ndcKeywords['NDC_STOP_INSTRUMENTATION_RESPONSE_TIMEOUT'].value"
@@ -71,7 +71,7 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Accept/Reject new data connection request
+                          Accept or reject new connection from application agent when connection already exists from that agent
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION" min=0 max=1 [(ngModel)]="ndcKeywords['NDC_ACCEPT_NEW_AND_CLOSE_CURRENT_DATA_CONNECTION'].value"
@@ -87,14 +87,14 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Maximum no. of times the signal is sent to data thread till connection disconnects
+                          Retry Count for sending signal
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_DATA_THD_TERM_RETRY_COUNT" min=0 [(ngModel)]="ndcKeywords['NDC_DATA_THD_TERM_RETRY_COUNT'].value"
                             required ngModel/>
                         </div>
                         <div class="ui-grid-col-5 marginClassTop">
-                          Interval (in seconds) between two consecutive attempts to terminate a thread by sending
+                          ND Collector wait time for thread to exit after sending signal for exit
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC" min=0 [(ngModel)]="ndcKeywords['NDC_DATA_THD_TERM_RETRY_INTERVAL_SEC'].value"
@@ -103,14 +103,14 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Control time (in seconds) for sending FORCE_STOP_COMP_SIG signal to NDP
+                          Duration (secs) after which ND Collector forcefully stops the ND Processor process after test is over
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_WAIT_TIME_TO_SEND_FORCE_STOP_COMP_SIG" min=0 [(ngModel)]="ndcKeywords['NDC_WAIT_TIME_TO_SEND_FORCE_STOP_COMP_SIG'].value"
                             required ngModel/>
                         </div>
                         <div class="ui-grid-col-5 marginClassTop">
-                          Control size (in bytes) of stacktrace file
+                          Control size (bytes) of stacktrace file
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_HS_ST_IN_FILE_MIN_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_IN_FILE_MIN_SIZE'].value"
@@ -126,7 +126,7 @@
                             required ngModel/>
                         </div>
                         <div class="ui-grid-col-5 marginClassTop">
-                          Threshold time (in ms) of difference between NDC timestamp and BCI timestamp
+                          Threshold (ms) of difference between ND Collector timestamp and Application agent timestamp
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_BCI_TIME_DIFF_THRESHOLD_IN_MS" min=0 [(ngModel)]="ndcKeywords['NDC_BCI_TIME_DIFF_THRESHOLD_IN_MS'].value"
@@ -135,7 +135,7 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Control compression buffer init size (in bytes)
+                          Stacktrace Compression buffer initial allocated size
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE" min=1 max=2000000000 [(ngModel)]="ndcKeywords['NDC_HS_ST_COMPRESSION_BUFFER_INIT_SIZE'].value"
@@ -151,7 +151,7 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          NDC reuse instance ID time (in minutes)
+                          Threshold (mins) reuse instance id
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_REUSE_INSTANCE_ID_TIME_IN_MIN" min=0 [(ngModel)]="ndcKeywords['NDC_REUSE_INSTANCE_ID_TIME_IN_MIN'].value"
@@ -223,12 +223,12 @@
                       <hr>
                       <div class="ui-grid-row">
                         <div class="ui-g-12">
-                          <p-checkbox name="enableAutoCleanUp" label="Enable Auto Cleanup" [(ngModel)]="enableAutoCleanUp" binary="true"></p-checkbox>
+                          <p-checkbox name="enableAutoCleanUp" label="Enable Auto Cleanup of Topology" [(ngModel)]="enableAutoCleanUp" binary="true"></p-checkbox>
                         </div>
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Time (in hours/minutes/seconds) for Auto Cleanup of topology
+                          Cleanup topology after every HH:MM:SS
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_THRESHOLD_TO_MARK_DELETED_VAL" min=0 [disabled]="!enableAutoCleanUp" [(ngModel)]="NDC_THRESHOLD_TO_MARK_DELETED_VAL" required 
@@ -243,7 +243,7 @@
                       <hr>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-4 marginClassTop">
-                          Dump the NDC logs in ndc_trace.log file
+                          ND Collector logging level
                         </div>
                         <div class="ui-g-1">
                           Value:
@@ -253,7 +253,7 @@
                             max=4 required ngModel/>
                         </div>
                         <div class="ui-grid-col-4 marginClassTop">
-                          Control stacktrace compression version
+                          Compression of stack trace data
                         </div>
                         <div class="ui-g-1">
                           Redirect to path:
@@ -265,7 +265,7 @@
                       <div class="ui-grid-row">
                         <div class="ui-g-4"></div>
                         <div class="ui-g-1">
-                          Size (in MB):
+                          Log file max size
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_TRACING_LEVEL_SIZE" min=0 placeholder="Size" [(ngModel)]="NDC_TRACING_LEVEL_SIZE"
@@ -283,7 +283,7 @@
                       <hr>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Mark instances which goes down
+                          Duration (HH:MM:SS) of inactivity after which an instance is marked inactive
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_THRESHOLD_TIME_TO_MARK_APP_INACTIVE_VAL" min=0
@@ -308,7 +308,7 @@
                       <hr>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-4 marginClassTop">
-                          Set FPI mask
+                          Number of bits for flowpath mask
                         </div>
                         <div class="ui-g-1">
                           NDE ID:
@@ -363,7 +363,7 @@
                       </div>
                       <div class="ui-grid-row">
                         <div class="ui-grid-col-5 marginClassTop">
-                          Time (in hours/minutes/seconds) for Auto Cleanup for Invalid Servers
+                          Cleanup Invalid Servers after every HH:MM:SS
                         </div>
                         <div class="ui-grid-col-1">
                           <input pInputText type="number" name="NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL" min=0 [disabled]="!enableAutoCleanUpForInvalidServer" [(ngModel)]="NDC_THRESHOLD_TO_DELETE_INVALID_SERVERS_VAL" required 
@@ -630,24 +630,24 @@
                           required ngModel/>
                       </div>
                     </div>
-                    <div class="ui-grid-row">
-                      <div class="ui-grid-col-5 marginClassTop">
+                    <!-- <div class="ui-grid-row"> -->
+                      <!-- <div class="ui-grid-col-5 marginClassTop">
                         Maximum number of concurrent flowpath instances
                       </div>
                       <div class="ui-grid-col-1">
                         <input pInputText type="number" name="NDP_MAX_CONCURRENT_THREADS_IN_JVM" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_CONCURRENT_THREADS_IN_JVM'].value"
                           required ngModel/>
-                      </div>
+                      </div> -->
                       <!-- </div>
           <div class="ui-grid-row"> -->
-                      <div class="ui-grid-col-5 marginClassTop">
+                      <!-- <div class="ui-grid-col-5 marginClassTop">
                         Interval (in seconds) between consecutive flushes of method timing array to CSV file.
                       </div>
                       <div class="ui-grid-col-1">
                         <input pInputText type="number" name="NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS" min=0 max=10000000 [(ngModel)]="ndcKeywords['NDP_METHOD_TIMING_CSV_FLUSH_INTERVAL_SECS'].value"
                           required ngModel/>
-                      </div>
-                    </div>
+                      </div> -->
+                    <!-- </div> -->
                     <div class="ui-grid-row">
                       <div class="ui-grid-col-5 marginClassTop">
                         Disable the dumping of captured HTTP body
@@ -806,18 +806,25 @@
                       </div>
                     </div>
                     <div class="ui-grid-row">
-                      <div class="ui-grid-col-5 marginClassTop">
+                      <!-- <div class="ui-grid-col-5 marginClassTop">
                         NDP debug log level
                       </div>
                       <div class="ui-grid-col-1">
                         <input pInputText type="number" name="NDP_DEBUG_LOGLEVEL" min=0 max=4 [(ngModel)]="ndcKeywords['NDP_DEBUG_LOGLEVEL'].value"
                           required ngModel/>
-                      </div>
+                      </div> -->
                       <div class="ui-grid-col-5 marginClassTop">
                         Maximum SQL index
                       </div>
                       <div class="ui-grid-col-1">
                         <input pInputText type="number" name="NDP_MAX_SQL_INDEX_FROM_BCI" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_SQL_INDEX_FROM_BCI'].value"
+                          required ngModel/>
+                      </div>
+                      <div class="ui-grid-col-5 marginClassTop">
+                        Maximum number of concurrent flowpath instances
+                      </div>
+                      <div class="ui-grid-col-1">
+                        <input pInputText type="number" name="NDP_MAX_CONCURRENT_THREADS_IN_JVM" min=0 [(ngModel)]="ndcKeywords['NDP_MAX_CONCURRENT_THREADS_IN_JVM'].value"
                           required ngModel/>
                       </div>
                       <!-- </div>

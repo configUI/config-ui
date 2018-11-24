@@ -221,7 +221,7 @@ export class InterfaceEntryPointComponent implements OnInit {
     }
     this.configKeywordsService.saveInterfacePointDataOnFile(this.profileId)
       .subscribe(data => {
-        this.configUtilityService.successMessage("Saved Successfully");
+       // this.configUtilityService.successMessage("Saved Successfully");
       let filePath = '';
       for (let key in this.interfacePoints) {
         if (key == 'NDInterfaceEntryPointsFile') {
