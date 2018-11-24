@@ -319,7 +319,7 @@ export class IntegrationPtComponent implements OnInit {
   saveIntegrationPointOnFile() {
     this.configKeywordsService.saveIntegrationPointData(this.profileId)
       .subscribe(data => {
-        // this.configUtilityService.successMessage("Saved Successfully");
+        //this.configUtilityService.successMessage("Saved Successfully");
         let that = this;
         let filePath;
         that.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
