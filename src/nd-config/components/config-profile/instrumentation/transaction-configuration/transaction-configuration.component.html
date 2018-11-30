@@ -16,7 +16,7 @@
     <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Split by Method Execution">
         <app-method-bt-configuration (keywordData)="saveKeywordData($event)"></app-method-bt-configuration>
     </p-tabPanel>
-    <p-tabPanel header="Split by HTTP Headers">
+    <p-tabPanel header="Split by Request Headers">
         <bt-http-headers (keywordData)="saveKeywordData($event)"></bt-http-headers>
     </p-tabPanel>
      <p-tabPanel header="Split by Response Headers">
