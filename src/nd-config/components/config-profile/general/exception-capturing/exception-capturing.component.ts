@@ -138,7 +138,7 @@ export class ExceptionCapturingComponent implements OnInit {
     /* This method is used to reset the keyword data */
     resetKeywordData() {
         let data = this.configKeywordsService.keywordData
-        if(this.agentType == 'Java')
+        if(this.agentType == 'Java' || this.agentType == 'Dot Net')
         {
         for (let key in data) {
             if (this.keywordList.includes(key)) {
@@ -161,7 +161,7 @@ export class ExceptionCapturingComponent implements OnInit {
     /* This method is used to reset the keyword data to its Default value */
     resetKeywordsDataToDefault() {
         let data = this.configKeywordsService.keywordData;
-        if(this.agentType == 'Java')
+        if(this.agentType == 'Java' || this.agentType == 'Dot Net')
         {
         for (let key in data) {
             if (this.keywordList.includes(key)) {
@@ -249,7 +249,7 @@ export class ExceptionCapturingComponent implements OnInit {
         // let keywordData = this.configKeywordsService.keywordData;
         this.subscription = this.store.select("keywordData").subscribe(data => {
             var keywordDataVal = {}
-            if(this.agentType == 'Java')
+            if(this.agentType == 'Java' || this.agentType == 'Dot Net')
             {
                 this.keywordList.map(function (key) {
                 keywordDataVal[key] = data[key];

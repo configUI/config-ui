@@ -1,6 +1,6 @@
 <p-dataTable class="nde-ui" [value]="btHttpHeadersInfo" [(selection)]="selectedHTTPHeaders" [rows]="12" [pageLinks]="3">
     <p-header>
-        <span style="float: left"> Manage HTTP Headers Rule(s)</span>
+        <span style="float: left"> Manage Request Headers Rule(s)</span>
         <span style="float: right; margin-top:-3px">
                        <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
@@ -27,7 +27,7 @@
 </p-dataTable>
 
 <!--Dialog for adding BT HTTP headers-->
-<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT HTTP Header' : 'Edit BT HTTP Header'}}" *ngIf="addResReqHeaderDialog" [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT Request Header' : 'Edit BT Request Header'}}" *ngIf="addResReqHeaderDialog" [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveAddEditHttpheaders()" ngNativeValidate>
 
         <div class="ui-g">
@@ -151,5 +151,5 @@
         <!-- This will look for this component in the ProductUI at this path -
                      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
     
-            <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+             <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
     </p-dialog>
