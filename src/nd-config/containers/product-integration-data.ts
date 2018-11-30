@@ -27,3 +27,9 @@ export class NVAutoInjectionTagRule {
     enabled: boolean = false;
     jsCode: string = "";
 }
+
+export class AutoInjectionData {
+    enabledAutoInject: boolean = false;
+    enabledContentTypeChecking: boolean = true;
+    contentType: any = [];
+}

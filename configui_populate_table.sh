@@ -292,7 +292,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (191,'ndModuleFile','0','2048','6','NA','pre-custom','5'),
 (192,'ndProcessesFile','0','2048','6','NA','pre-custom','5'),
 (193,'NDInterfaceEntryPointsFile','0','1024','6','false','normal','1'),
-(194,'NVAutoInjectionRuleFile','0','1024','6','false','normal','1');
+(194,'NVAutoInjectionRuleFile','0','1024','6','false','normal','1'),
+(195,'enableNVInjectingTag','0','2048','5','0%201%20text/html','normal','1');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
 (1,'HTTP Backend','HTTP','HttpCallout','HTTP','Java'),

@@ -5,15 +5,14 @@ import { Store } from '@ngrx/store';
 import { ImmutableArray } from '../../../../utils/immutable-array';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 
-import { NVAutoInjectionPolicyRule, NVAutoInjectionTagRule } from '../../../../containers/product-integration-data';
+import { NVAutoInjectionPolicyRule, NVAutoInjectionTagRule, AutoInjectionData } from '../../../../containers/product-integration-data';
 import { ConfigKeywordsService } from '../../../../services/config-keywords.service';
 import { ConfigUtilityService } from '../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../utils/config-utility';
-import { Messages, descMsg, addMessage, editMessage } from '../../../../constants/config-constant'
-import { KeywordData, KeywordList } from '../../../../containers/keyword-data';
+import { addMessage, editMessage } from '../../../../constants/config-constant'
+import { KeywordList } from '../../../../containers/keyword-data';
 
-import { deleteMany } from '../../../../utils/config-utility';
-import { Pipe, PipeTransform } from '@angular/core';
+import { deleteMany, cloneObject } from '../../../../utils/config-utility';
 
 @Component({
     selector: 'app-nv-auto-inject',
@@ -32,12 +31,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     subscription: Subscription;
 
     /* List to Hold Keywords */
-    keywordList: string[] = ['NVAutoInjectionRuleFile'];
+    keywordList: string[] = ['enableNVInjectingTag', 'NVAutoInjectionRuleFile'];
 
-    /* Flag for NVAutoInjectionRuleFile Keyword action */
-    selectedValues: boolean;
-
-    keywordValue: Object;
     subscriptionEG: Subscription;
 
     /* Flag for Profile Permission */
@@ -94,6 +89,12 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /** Flag for valid JScode */
     jsCodeFlag: boolean = false;
 
+    /** Object to hold  enableNVInjectingTag keyword data */
+    enableAutoInjection: AutoInjectionData;
+
+    /** To hold options for content type multiselect */
+    contentTypes: SelectItem[];
+
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,
         private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
         /* To hold agent type of profile */
@@ -106,6 +107,9 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.operationList = [];
         arrLabel = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
         this.operationList = ConfigUiUtility.createDropdown(arrLabel);
+        let contentTypesList = ['text/html', 'text/javascript', 'text/plain'];
+
+        this.contentTypes = ConfigUiUtility.createDropdown(contentTypesList);
     }
 
     ngOnInit() {
@@ -115,7 +119,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
             this.saveDisable = true;
         if (this.configKeywordsService.keywordData != undefined) {
-            this.keywordValue = this.configKeywordsService.keywordData;
+            this.nvAutoInjection = this.configKeywordsService.keywordData;
         }
         else {
             this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -123,23 +127,55 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 this.keywordList.map(function (key) {
                     keywordDataVal[key] = data[key];
                 })
-                this.keywordValue = keywordDataVal;
+                this.nvAutoInjection = keywordDataVal;
             });
         }
-        this.nvAutoInjection = {};
-        this.keywordList.forEach((key) => {
-            if (this.keywordValue.hasOwnProperty(key)) {
-                this.nvAutoInjection[key] = this.keywordValue[key];
-                if (this.nvAutoInjection[key].value == "true")
-                    this.selectedValues = true;
-                else
-                    this.selectedValues = false;
-            }
-        });
+
+        this.methodToSetValue(this.nvAutoInjection);
 
         this.configKeywordsService.fileListProvider.subscribe(data => {
             this.uploadFile(data);
-          });
+        });
+    }
+
+    /**
+     * The below method is used to set values to fields on the basis of paased arguments
+     * @param data 
+     */
+    methodToSetValue(data) {
+        this.nvAutoInjection = data;
+        if ((this.nvAutoInjection["enableNVInjectingTag"].value).includes("%20")) {
+            let arr = (this.nvAutoInjection["enableNVInjectingTag"].value).split("%20")
+            this.enableAutoInjection = new AutoInjectionData();
+            if (arr[0] === "1") {
+                this.enableAutoInjection.enabledAutoInject = true;
+            }
+            else {
+                this.enableAutoInjection.enabledAutoInject = false;
+            }
+            if (arr[1] === "1") {
+                this.enableAutoInjection.enabledContentTypeChecking = true;
+            }
+            else {
+                this.enableAutoInjection.enabledContentTypeChecking = false;
+            }
+            if (arr[2].includes("%3B")) {
+                let contentTypeArr = arr[2].split("%3B");
+                this.enableAutoInjection.contentType = contentTypeArr;
+            }
+            else {
+                let tempArr = [];
+                tempArr[0] = arr[2];
+                this.enableAutoInjection.contentType = tempArr;
+            }
+        }
+        else {
+            let arr = [];
+            arr[0] = 'text/html';
+            this.enableAutoInjection.enabledAutoInject = false;
+            this.enableAutoInjection.enabledContentTypeChecking = true;
+            this.enableAutoInjection.contentType = arr;
+        }
     }
 
     /**
@@ -193,6 +229,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.isNewAutoInjectionPolicyRule = true;
         this.addEditAutoInjectionPolicyRuleDialog = true;
         this.autoInjectionPolicyRuleDialogData = new NVAutoInjectionPolicyRule();
+        this.autoInjectionPolicyRuleDialogData.httpMethod = "GET";
     }
 
     /**
@@ -252,21 +289,21 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * Add/Edit Auto Injection Policy Rule
      */
     saveAddEditAutoInject() {
-        if(this.autoInjectionPolicyRuleDialogData.headerName == "" && this.autoInjectionPolicyRuleDialogData.headerValue == "NA"){
+        if (this.autoInjectionPolicyRuleDialogData.headerName == "" && this.autoInjectionPolicyRuleDialogData.headerValue == "NA") {
             this.autoInjectionPolicyRuleDialogData.headerValue = "";
         }
 
-        if(this.autoInjectionPolicyRuleDialogData.parameterName == "" && this.autoInjectionPolicyRuleDialogData.parameterValue == "NA"){
+        if (this.autoInjectionPolicyRuleDialogData.parameterName == "" && this.autoInjectionPolicyRuleDialogData.parameterValue == "NA") {
             this.autoInjectionPolicyRuleDialogData.parameterValue = "";
         }
 
-        if(this.autoInjectionPolicyRuleDialogData.ruleName == "NA" || this.autoInjectionPolicyRuleDialogData.btName == "NA" 
-        || this.autoInjectionPolicyRuleDialogData.extension == "NA" || this.autoInjectionPolicyRuleDialogData.headerName == "NA" 
-        || this.autoInjectionPolicyRuleDialogData.headerValue == "NA" || this.autoInjectionPolicyRuleDialogData.httpUrl == "NA" 
-        || this.autoInjectionPolicyRuleDialogData.parameterName == "NA" || this.autoInjectionPolicyRuleDialogData.parameterValue == "NA"
-        || this.autoInjectionPolicyRuleDialogData.type == "NA"){
-         this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA'");
-         return;
+        if (this.autoInjectionPolicyRuleDialogData.ruleName == "NA" || this.autoInjectionPolicyRuleDialogData.btName == "NA"
+            || this.autoInjectionPolicyRuleDialogData.extension == "NA" || this.autoInjectionPolicyRuleDialogData.headerName == "NA"
+            || this.autoInjectionPolicyRuleDialogData.headerValue == "NA" || this.autoInjectionPolicyRuleDialogData.httpUrl == "NA"
+            || this.autoInjectionPolicyRuleDialogData.parameterName == "NA" || this.autoInjectionPolicyRuleDialogData.parameterValue == "NA"
+            || this.autoInjectionPolicyRuleDialogData.type == "NA") {
+            this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA'");
+            return;
         }
         if (this.isNewAutoInjectionPolicyRule) {                // For new Auto Injection Policy Rule
             //Check for app name already exist or not
@@ -428,25 +465,52 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         return -1;
     }
 
+    /**
+     * The below method is used to save the keyword data
+     */
     saveKeywordData() {
         if (this.saveDisable == true) {
             return;
         }
         let filePath = '';
         for (let key in this.nvAutoInjection) {
-            if (key == 'NVAutoInjectionRuleFile') {
-                if (this.selectedValues == true) {
-                    this.nvAutoInjection[key]["value"] = "true";
+            if (key == 'enableNVInjectingTag') {
+                let contentTypeValue = "";
+                // Creating "%3B" separated list of content types
+                if (this.enableAutoInjection.enabledContentTypeChecking) {
+                    let arr = [];
+                    arr = this.enableAutoInjection.contentType;
+                    if (arr.length > 1) {
+                        for (var i = 0; i < arr.length; i++) {
+                            contentTypeValue += arr[i];
+                            if (i <= arr.length - 2) {
+                                contentTypeValue += "%3B";
+                            }
+                        }
+                    } else {
+                        contentTypeValue = arr[0];
+                    }
+                } else {
+                    contentTypeValue = "text/html";
+                }
+
+                let enableNVTag = this.enableAutoInjection.enabledAutoInject == true ? "1" : "0";
+                let enableContentType = this.enableAutoInjection.enabledContentTypeChecking == true ? "1" : "0";
+                this.nvAutoInjection[key]["value"] = enableNVTag + "%20" + enableContentType + "%20" + contentTypeValue;
+
+                if (this.enableAutoInjection.enabledAutoInject == true) {
+                    this.nvAutoInjection['NVAutoInjectionRuleFile']["value"] = "true";
                 }
                 else {
-                    this.nvAutoInjection[key]["value"] = "false";
+                    this.nvAutoInjection['NVAutoInjectionRuleFile']["value"] = "false";
                 }
+                this.methodToSetValue(this.nvAutoInjection);
             }
             this.configKeywordsService.keywordData[key] = this.nvAutoInjection[key];
         }
 
         this.configKeywordsService.getFilePath(this.profileId).subscribe(data => {
-            if (this.selectedValues == false) {
+            if (this.enableAutoInjection.enabledAutoInject == false) {
                 filePath = "NA";
             }
             else {
@@ -507,15 +571,15 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      */
     saveAddEditTagInject() {
         this.autoInjectionTagRuleDialogData.jsCode = this.autoInjectionTagRuleDialogData.jsCode.trim();
-        if(this.autoInjectionTagRuleDialogData.jsCode == "" || this.jsCodeFlag == true){
+        if (this.autoInjectionTagRuleDialogData.jsCode == "" || this.jsCodeFlag == true) {
             this.configUtilityService.errorMessage("Please enter valid JavaScript Code.");
             return;
         }
-        if(this.autoInjectionTagRuleDialogData.ruleName == "NA" || this.autoInjectionTagRuleDialogData.ruleName == "-"
-        || this.autoInjectionTagRuleDialogData.htmlTag == "NA" || this.autoInjectionTagRuleDialogData.htmlTag == "-" 
-        || this.autoInjectionTagRuleDialogData.jsCode == "NA" || this.autoInjectionTagRuleDialogData.jsCode == "-"){
-         this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA' or '-'");
-         return;
+        if (this.autoInjectionTagRuleDialogData.ruleName == "NA" || this.autoInjectionTagRuleDialogData.ruleName == "-"
+            || this.autoInjectionTagRuleDialogData.htmlTag == "NA" || this.autoInjectionTagRuleDialogData.htmlTag == "-"
+            || this.autoInjectionTagRuleDialogData.jsCode == "NA" || this.autoInjectionTagRuleDialogData.jsCode == "-") {
+            this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA' or '-'");
+            return;
         }
         if (this.isNewAutoInjectionTagRule) {                // For new Tag Injection Rule
             //Check for app name already exist or not
@@ -645,51 +709,51 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         return -1;
     }
 
-  /**
-   * This method is called on clicking the browse button 
-   * for opening the file manager
-   */
-  openFileManager() {
-    this.openFileExplorerDialog = true;
-    this.isAutoInjectionBrowse = true;
-  }
-
-
-  /**
-   * This method is called form ProductUI config-nd-file-explorer component with the path
-   * ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\
-   * @param filepath
-   * filepath is the relative filepath for the selected file in the file manager
-   */
-  uploadFile(filepath) {
-    if (this.isAutoInjectionBrowse == true) {
-      this.isAutoInjectionBrowse = false;
-      this.openFileExplorerDialog = false;
-
-      if (filepath.includes(";")) {
-        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
-        return;
-      }
-
-      var endsWith = filepath.substring(parseInt(filepath.lastIndexOf("."))+1, filepath.length);
-      if(endsWith != "txt"){
-        this.configUtilityService.errorMessage("Please select a valid .txt file");
-         return;
-       }
-
-      // let filepath = "";
-      this.configKeywordsService.uploadAutoInjectionFile(filepath, this.profileId).subscribe(data => {
-        if (data.length == (this.nvautoinjectionPolicyData.length + this.nvautoinjectionTagRuleData.length)) {
-          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
-          return;
-        }
-
-        this.loadPolicyRuleData();
-        this.loadTagInjectionData();
-        this.configUtilityService.successMessage("File uploaded successfully");
-      });
+    /**
+     * This method is called on clicking the browse button 
+     * for opening the file manager
+     */
+    openFileManager() {
+        this.openFileExplorerDialog = true;
+        this.isAutoInjectionBrowse = true;
     }
-  }
+
+
+    /**
+     * This method is called form ProductUI config-nd-file-explorer component with the path
+     * ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\
+     * @param filepath
+     * filepath is the relative filepath for the selected file in the file manager
+     */
+    uploadFile(filepath) {
+        if (this.isAutoInjectionBrowse == true) {
+            this.isAutoInjectionBrowse = false;
+            this.openFileExplorerDialog = false;
+
+            if (filepath.includes(";")) {
+                this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+                return;
+            }
+
+            var endsWith = filepath.substring(parseInt(filepath.lastIndexOf(".")) + 1, filepath.length);
+            if (endsWith != "txt") {
+                this.configUtilityService.errorMessage("Please select a valid .txt file");
+                return;
+            }
+
+            // let filepath = "";
+            this.configKeywordsService.uploadAutoInjectionFile(filepath, this.profileId).subscribe(data => {
+                if (data.length == (this.nvautoinjectionPolicyData.length + this.nvautoinjectionTagRuleData.length)) {
+                    this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data ");
+                    return;
+                }
+
+                this.loadPolicyRuleData();
+                this.loadTagInjectionData();
+                this.configUtilityService.successMessage("File uploaded successfully");
+            });
+        }
+    }
 
     /** The below method is used to download policy rule reports in different formats  */
     downloadPolicyRuleReports(reports: string) {
@@ -740,7 +804,7 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         window.open("/common/" + res);
     }
 
-    /**
+   /**
     * Purpose : To invoke the service responsible to open Help Notification Dialog 
     * related to the current component.
     */
@@ -748,14 +812,13 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         this.configKeywordsService.getHelpContent("Product Integration", "NV-ND Auto Inject", this.agentType);
     }
 
-
     /**
      * The below method is used to overwrite the parameterValue and 
      * parameterOperation when user clears the parameterName
      * @param parameterName 
      */
-    onParameterNameChange(parameterName : string ) {  
-        if(parameterName == ""){
+    onParameterNameChange(parameterName: string) {
+        if (parameterName == "") {
             this.autoInjectionPolicyRuleDialogData.parameterValue = "";
             this.autoInjectionPolicyRuleDialogData.parameterOperation = "";
         }
@@ -766,8 +829,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * headerOperation when user clears the headerName
      * @param headerName 
      */
-    onHeaderNameChange(headerName : string ) {  
-        if(headerName == ""){
+    onHeaderNameChange(headerName: string) {
+        if (headerName == "") {
             this.autoInjectionPolicyRuleDialogData.headerValue = "";
             this.autoInjectionPolicyRuleDialogData.headerOperation = "";
         }
@@ -778,18 +841,39 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * validation check
      * @param jsCode 
      */
-    onJSCodeValueChange(jsCode : string ) {
-        if(jsCode.includes("|")) {
+    onJSCodeValueChange(jsCode: string) {
+        if (jsCode.includes("|")) {
             this.configUtilityService.errorMessage("None of the fields should contains '|' character");
             this.jsCodeFlag = true;
         }
-        else{
+        else {
             this.jsCodeFlag = false;
         }
+    }
+
+    /**
+     * The below method is used to reset the keyword value
+     */
+    resetKeywordData() {
+        this.nvAutoInjection = cloneObject(this.configKeywordsService.keywordData);
+        this.methodToSetValue(this.nvAutoInjection);
+    }
+
+    /**
+     * This method is used to reset the keyword data to its Default value
+     */
+    resetKeywordsDataToDefault() {
+        let data = cloneObject(this.configKeywordsService.keywordData);
+        var keywordDataVal = {}
+        keywordDataVal = data
+        this.keywordList.map(function (key) {
+            keywordDataVal[key].value = data[key].defaultValue
+        })
+        this.nvAutoInjection = keywordDataVal;
+        this.methodToSetValue(this.nvAutoInjection);
     }
 
     ngOnDestroy(): void {
     }
 
 }
-

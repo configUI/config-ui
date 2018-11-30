@@ -1,23 +1,45 @@
 <form (ngSubmit)="saveAutoInjectionDataOnFile()" #groupForm="ngForm" ngNativeValidate>
     <div class="configUI ndegui-mainbox" style="height: fit-content">
         <div class="header label">
-            <span class="configui-float-css">
-                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="isProfilePerm"
-                    [disabled]="isProfilePerm"></p-checkbox>
-                <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" binary="true" *ngIf="!isProfilePerm"
-                    [disabled]="saveDisable"></p-checkbox>
-            </span>
-            <span class="configui-float-css" style="margin-top: 2px">Enable Auto Injection </span>
+            <span class="configui-float-css" style="margin-top: 2px">Auto Injection </span>
             <div class="pull-right">
                 <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
                 <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()"
                     icon="fa-folder-open"></button>
                 <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()"
                     icon="fa-folder-open"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset to Default" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset to Default" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()"
+                    label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()"
+                    label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+                    (click)="resetKeywordData()" label="Reset"></button>
                 <button pButton type="submit" title="Save" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-save"
                     label="Save"></button>
                 <button pButton type="submit" title="Save" *ngIf="!isProfilePerm" [disabled]="saveDisable" icon="fa-save"
                     label="Save"></button>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-5">
+                    <p-checkbox label="Auto Injection NV Tag" name="enabledAutoInject" [(ngModel)]="enableAutoInjection.enabledAutoInject"
+                        binary="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-2" style="margin-left: 16px">
+                    <p-checkbox label="Content Type" [disabled]="!enableAutoInjection.enabledAutoInject"
+                        name="enabledContentTypeChecking" [(ngModel)]="enableAutoInjection.enabledContentTypeChecking"
+                        binary="true"></p-checkbox>
+                </div>
+                <div class="ui-g-2">
+                    <input type="text" name="contentType" size="30" class='hidden-validator' [(ngModel)]="enableAutoInjection.contentType"
+                        pInputText required ngModel />
+                    <p-multiSelect name="contentType" [disabled]="!(enableAutoInjection.enabledAutoInject && enableAutoInjection.enabledContentTypeChecking)"
+                        [options]="contentTypes" [style]="{'min-width':'57%'}" [(ngModel)]="enableAutoInjection.contentType"></p-multiSelect>
+                </div>
             </div>
         </div>
         <div class="ndegui-mainbox">
@@ -25,7 +47,7 @@
                 <p-accordion class="ndagent">
                     <p-accordionTab header="Auto Injection Policy Rules" [selected]="true">
                         <p-dataTable class="nde-ui" [value]="nvautoinjectionPolicyData" [(selection)]="selectedAutoInjectionPolicyRule"
-                            [rows]="6" [paginator]="nvautoinjectionPolicyData?.length > 6" [pageLinks]="3">
+                            [rows]="3" [paginator]="nvautoinjectionPolicyData?.length > 3" [pageLinks]="3">
                             <p-header>
                                 <span class="configui-float-css"> Auto Injection Policy Rule List </span>
                                 <span class="configui-float">
@@ -105,7 +127,7 @@
                     </p-accordionTab>
                     <p-accordionTab header="Auto Injection Configuration" [selected]="false">
                         <p-dataTable class="nde-ui" [value]="nvautoinjectionTagRuleData" [(selection)]="selectedAutoInjectionTagRule"
-                            [rows]="6" [paginator]="nvautoinjectionTagRuleData?.length > 6" [pageLinks]="3">
+                            [rows]="3" [paginator]="nvautoinjectionTagRuleData?.length > 3" [pageLinks]="3">
 
                             <p-header>
                                 <span class="configui-float-css"> Auo Injection Configuration Rule List </span>
@@ -292,7 +314,8 @@
             <div class="ui-g-2">
                 <input name="headerName" type="text" size="15" pInputText title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character. &#013;Rule 2: Input must not contains %3A. &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 255 characters."
                     (input)="onHeaderNameChange($event.target.value)" (keydown.space)="$event.preventDefault()"
-                    [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName" pattern="^(?!.*\|)(?!.*%3A).{0,254}$" ngModel />
+                    [(ngModel)]="autoInjectionPolicyRuleDialogData.headerName" pattern="^(?!.*\|)(?!.*%3A).{0,254}$"
+                    ngModel />
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-1" style="margin-left:-25px">
