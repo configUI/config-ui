@@ -26,6 +26,7 @@ export class NVAutoInjectionTagRule {
     beforeAfterTag: string = "1";
     enabled: boolean = false;
     jsCode: string = "";
+    src: string = "";
 }
 
 export class AutoInjectionData {

@@ -86,9 +86,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /** To open file explorer dialog */
     openFileExplorerDialog: boolean = false;
 
-    /** Flag for valid JScode */
-    jsCodeFlag: boolean = false;
-
     /** Object to hold  enableNVInjectingTag keyword data */
     enableAutoInjection: AutoInjectionData;
 
@@ -570,14 +567,14 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * Add/Edit Auto Injection Configuration Rule(Tag Injection)
      */
     saveAddEditTagInject() {
-        this.autoInjectionTagRuleDialogData.jsCode = this.autoInjectionTagRuleDialogData.jsCode.trim();
-        if (this.autoInjectionTagRuleDialogData.jsCode == "" || this.jsCodeFlag == true) {
-            this.configUtilityService.errorMessage("Please enter valid JavaScript Code.");
+        this.autoInjectionTagRuleDialogData.src = this.autoInjectionTagRuleDialogData.src.trim();
+        if (this.autoInjectionTagRuleDialogData.src == "") {
+            this.configUtilityService.errorMessage("Please enter valid Script Path.");
             return;
         }
         if (this.autoInjectionTagRuleDialogData.ruleName == "NA" || this.autoInjectionTagRuleDialogData.ruleName == "-"
             || this.autoInjectionTagRuleDialogData.htmlTag == "NA" || this.autoInjectionTagRuleDialogData.htmlTag == "-"
-            || this.autoInjectionTagRuleDialogData.jsCode == "NA" || this.autoInjectionTagRuleDialogData.jsCode == "-") {
+            || this.autoInjectionTagRuleDialogData.src == "NA" || this.autoInjectionTagRuleDialogData.src == "-") {
             this.configUtilityService.errorMessage("None of the fields can have value as:- 'NA' or '-'");
             return;
         }
@@ -779,10 +776,10 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
 
     /** The below method is used to download tag rule reports in different formats  */
     downloadTagRuleReports(reports: string) {
-        let arrHeader = { "0": "Rule Name", "1": "HTML Tag", "2": "JavaScript Code", "3": "Enabled" };
+        let arrHeader = { "0": "Rule Name", "1": "HTML Tag", "2": "Script Path", "3": "Enabled" };
         let arrcolSize = { "0": 2, "1": 1, "4": 1, "3": 1 };
         let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left", "3": "center" };
-        let arrFieldName = { "0": "ruleName", "1": "htmlTag", "2": "jsCode", "3": "enabled" };
+        let arrFieldName = { "0": "ruleName", "1": "htmlTag", "2": "src", "3": "enabled" };
         let object =
         {
             data: this.nvautoinjectionTagRuleData,
@@ -833,21 +830,6 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         if (headerName == "") {
             this.autoInjectionPolicyRuleDialogData.headerValue = "";
             this.autoInjectionPolicyRuleDialogData.headerOperation = "";
-        }
-    }
-
-    /**
-     * The below method is used to match the jsCode for |(pipe)
-     * validation check
-     * @param jsCode 
-     */
-    onJSCodeValueChange(jsCode: string) {
-        if (jsCode.includes("|")) {
-            this.configUtilityService.errorMessage("None of the fields should contains '|' character");
-            this.jsCodeFlag = true;
-        }
-        else {
-            this.jsCodeFlag = false;
         }
     }
 

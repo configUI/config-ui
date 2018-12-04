@@ -8,11 +8,12 @@
                     icon="fa-folder-open"></button>
                 <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()"
                     icon="fa-folder-open"></button>
-                <button type="button" pButton icon="fa-refresh" title="Reset to Default" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
-                <button type="button" pButton icon="fa-refresh" title="Reset to Default" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()"
-                    label="Reset to Default"></button>
-                <button type="button" pButton icon="fa-refresh" title="Reset" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="resetKeywordData()"
-                    label="Reset"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset to Default" *ngIf="isProfilePerm"
+                    [disabled]="isProfilePerm" label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset to Default" *ngIf="!isProfilePerm"
+                    [disabled]="saveDisable" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
+                <button type="button" pButton icon="fa-refresh" title="Reset" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+                    (click)="resetKeywordData()" label="Reset"></button>
                 <button type="button" pButton icon="fa-refresh" title="Reset" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
                     (click)="resetKeywordData()" label="Reset"></button>
                 <button pButton type="submit" title="Save" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-save"
@@ -30,9 +31,8 @@
             </div>
             <div class="ui-g-12">
                 <div class="ui-g-2" style="margin-left: 16px">
-                    <p-checkbox label="Content Type" [disabled]="!enableAutoInjection.enabledAutoInject"
-                        name="enabledContentTypeChecking" [(ngModel)]="enableAutoInjection.enabledContentTypeChecking"
-                        binary="true"></p-checkbox>
+                    <p-checkbox label="Content Type" [disabled]="!enableAutoInjection.enabledAutoInject" name="enabledContentTypeChecking"
+                        [(ngModel)]="enableAutoInjection.enabledContentTypeChecking" binary="true"></p-checkbox>
                 </div>
                 <div class="ui-g-2">
                     <input type="text" name="contentType" size="30" class='hidden-validator' [(ngModel)]="enableAutoInjection.contentType"
@@ -158,8 +158,7 @@
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
                             </p-column>
-                            <p-column class="tableCss" field="jsCode" header=" JavaScript Code" [sortable]="true"
-                                [style]="{'width':'53%'}">
+                            <p-column class="tableCss" field="src" header="Script Path" [sortable]="true" [style]="{'width':'53%'}">
                                 <template let-col let-nvtag="rowData" pTemplate>
                                     <span title="{{nvtag[col.field]}}">{{nvtag[col.field]}}</span>
                                 </template>
@@ -399,12 +398,11 @@
 
         <div class="ui-g">
             <div class="ui-g-2">
-                <label>JavaScript Code</label>
+                <label>Script Path</label>
             </div>
             <div class="ui-g-8">
-                <textarea name="desc" rows="5" cols="53" pInputTextarea (input)="onJSCodeValueChange($event.target.value)"
-                    title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not contains - . &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 4096 characters."
-                    [(ngModel)]="autoInjectionTagRuleDialogData.jsCode" required ngModel></textarea>
+                <input name="src" size="52" type="text" pInputTextarea (keydown.space)="$event.preventDefault()" title="Please enter valid input. &#013;Rule 1: Input must not contains |(pipe) character.  &#013;Rule 2: Input must not contains - . &#013;Rule 3: Input must not be NA. &#013;Rule 4: Input is of maximum 4096 characters."
+                    [(ngModel)]="autoInjectionTagRuleDialogData.src" required pattern="[a-zA-Z0-9_\/.@?*%#$:&=-]{0,4000}$" ngModel />
             </div>
         </div>
 
