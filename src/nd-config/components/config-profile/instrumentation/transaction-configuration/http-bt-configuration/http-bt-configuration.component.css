@@ -11,3 +11,12 @@
 .ui-g-11 {
     padding: 0em;
 }
+
+.textBoxSize{
+    width: 75%;
+}
+
+.toggle-height .mat-slide-toggle{
+    height: 14px;
+    margin-top: 3px;
+}

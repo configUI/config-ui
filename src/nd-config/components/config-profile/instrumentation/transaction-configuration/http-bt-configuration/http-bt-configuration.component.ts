@@ -112,6 +112,24 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   asyncTrans: boolean = false;
 
+  //Dialog for global threshold values
+  globalThresholdDialog: boolean = false;
+
+  //global slow threshold value
+  slowThresholdGlobalValue: any ;
+  //global very slow threshold value
+  vslowThresholdGlobalValue: any ;
+
+  //To apply global/default threshold values
+  globalCheck: boolean = true;
+
+  // To store global file data
+  globalFileData: string = "";
+
+  //To display the label of save/apply button in global threshold value dailog
+  globalSaveLabel: string = "Save";
+
+
   constructor(private route: ActivatedRoute,
     private configKeywordsService: ConfigKeywordsService,
     private store: Store<KeywordList>,
@@ -187,6 +205,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.configKeywordsService.fileListProvider.subscribe(data => {
       this.uploadFile(data);
     });
+
+    //Read global threshold values from .globalThreshold.txt file or create file if not exists
+    this.readGlobalThresholdFile();
   }
 
 
@@ -470,6 +491,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   openAddPatternDialog() {
     this.businessTransPatternDetail = new BusinessTransPatternData();
     this.reqParamInfo = [];
+    this.readGlobalThresholdFile();
     this.businessTransPatternDetail.slowTransaction = "3000";
     this.businessTransPatternDetail.verySlowTransaction = "5000";
     this.businessTransPatternDetail.slowDynamicThreshold = "10";
@@ -479,6 +501,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.addEditPatternDialog = true;
     this.reqParamKeyCheck = false;
     this.asyncTrans = false;
+    this.globalCheck = false;
   }
 
 
@@ -520,8 +543,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
     if (this.reqParamInfo.length == 0) {
       this.reqParamKeyCheck = false;
     }
+    this.readGlobalThresholdFile();
     this.isNewApp = false;
     this.addEditPatternDialog = true;
+    this.globalCheck = false;
 
     this.businessTransPatternDetail = Object.assign({}, this.selectedPatternData[0]);
   }
@@ -1060,6 +1085,111 @@ export class HTTPBTConfigurationComponent implements OnInit {
    */
   openDownloadReports(res) {
     window.open("/common/" + res);
+  }
+
+  /** Open global threshold values dialog to apply values to all BTs or to change global threshold values */
+  openGlobalThresholdDialog(){
+
+    //Put label = Save if no BT is selected otherwise put Save and Apply
+    if(this.selectedPatternData.length == 0){
+      this.globalSaveLabel = "Save";
+    }
+    else{
+      this.globalSaveLabel = "Save and Apply";
+    }
+    this.globalThresholdDialog = true;
+    //Updating global threshold values when dialog opens
+    this.readGlobalThresholdFile()
+  }
+
+  //Read global threshold values from .globalThreshold.txt file or create file if not exists
+  readGlobalThresholdFile(){
+
+    this.configKeywordsService.readGlobalThresholdFile(this.profileId).subscribe(data => {
+      this.globalFileData = data._body.split("|")
+      this.slowThresholdGlobalValue = this.globalFileData[0];
+      this.vslowThresholdGlobalValue = this.globalFileData[1];
+      
+    })
+
+  }
+
+  /** To save global threshold values in hidden file and apply these values to selected BT */
+  applyGlobalThresholdValues(){
+    let fileData = this.slowThresholdGlobalValue + "|" + this.vslowThresholdGlobalValue
+    this.configKeywordsService.saveGlobalThresholdFile(this.profileId, fileData).subscribe(data => {
+
+      // If any BT is selected then update its value with global threshold values
+      if(this.selectedPatternData.length > 0){
+        this.confirmationService.confirm({
+          message: 'Do you want to update the selected Business Transaction Global Threshold values?',
+          header: 'Update Confirmation',
+          icon: 'fa fa-trash',
+          accept: () => {
+            this.updateBTWithGlobalThreshold(fileData);
+          },
+          reject: () => {
+
+          }
+          })
+      }
+      else{
+        this.globalThresholdDialog = false;
+        this.configUtilityService.successMessage(Messages);
+      }
+
+    })
+
+  }
+
+  /** UPDATE selected BT with global threshold values  */
+  updateBTWithGlobalThreshold(fileData){
+    let btIdArr = [];
+    //Get the selected BTs bt_pattern_id and store in an array
+    for(let bt of this.selectedPatternData){
+      btIdArr.push(bt.id);
+    }
+    this.configKeywordsService.updateBTWithGlobalThreshold(btIdArr, this.profileId).subscribe(data => {
+      this.loadBTPatternData();
+    })
+    this.configUtilityService.successMessage("Transaction Threshold global values updated successfully")
+    this.globalThresholdDialog = false;
+
+  }
+
+  /**Change the threshold values on toggle change- If ON then apply global values */
+  changeThresholdOnClick(){
+    if(!this.globalCheck){
+      this.businessTransPatternDetail.slowTransaction = this.slowThresholdGlobalValue
+      this.businessTransPatternDetail.verySlowTransaction = this.vslowThresholdGlobalValue
+    }
+    else{
+      //ADD Pattern case
+      if(this.isNewApp){
+        this.businessTransPatternDetail.slowTransaction = "3000";
+        this.businessTransPatternDetail.verySlowTransaction = "5000";
+      }
+      //Edit pattern case
+      else{
+        this.businessTransPatternDetail.slowTransaction = this.selectedPatternData[0].slowTransaction;
+        this.businessTransPatternDetail.verySlowTransaction = this.selectedPatternData[0].verySlowTransaction;
+      }
+    }
+  }
+
+    /**
+   * This method is used for validating slow and very slow transactions
+   * @param slow 
+   * @param vslow 
+   */
+  checkGlobalThresholdValidity(slow, vslow) {
+    if (this.slowThresholdGlobalValue >= this.vslowThresholdGlobalValue) {
+      vslow.setCustomValidity('Very slow value should be greater than slow value.');
+    }
+    else {
+      vslow.setCustomValidity('');
+    }
+    slow.setCustomValidity('');
   }
 
   /* change Browse boolean value on change component */

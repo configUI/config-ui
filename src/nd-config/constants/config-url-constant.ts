@@ -1,4 +1,4 @@
-    // const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+//  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 //  const  SERVICE_URL = 'https://10.10.40.14/configUI';
  const  SERVICE_URL = 'http://localhost:8090';
 
@@ -10,7 +10,7 @@
 export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-//   export const ROUTING_PATH: string = "/home/config";
+  // export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -107,6 +107,9 @@ export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGrou
 export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
 export const UPLOAD_FILE = `${SERVICE_URL}/custom/btpattern/uploadfile`;
 export const FETCH_BT_NAMES = `${SERVICE_URL}/custom/btpattern/fetchbtnames`;
+export const READ_GLOBAL_THRESHOLD_FILE = `${SERVICE_URL}/custom/btpattern/readglobalthresholdfile`;
+export const SAVE_GLOBAL_THRESHOLD_FILE = `${SERVICE_URL}/custom/btpattern/saveglobalthresholdfile`;
+export const UPDATE_BT_WITH_GLOBAL_THRESHOLD = `${SERVICE_URL}/custom/btpattern/updatebtwithglobalthreshold`;
 
 
 /* Url fot BussinessTransactionGlobal */
@@ -427,7 +430,7 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const EDIT_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/edittagconfigrule`;
  export const DELETE_AUTO_INJECTION_TAG_DATA = `${SERVICE_URL}/custom/autoinjection/deletetagconfigrule`;
  
- /* Url for Writing Auto Injection Data On File */
+ /* Url for Auto Injection Data On File */
  export const SAVE_AUTO_INJECTION_DATA_ON_FILE = `${SERVICE_URL}/custom/autoinjection/saveonfile`;
 
  /* Url for Uploading Auto Injection File */

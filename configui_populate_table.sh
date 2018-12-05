@@ -1011,7 +1011,10 @@ INSERT INTO config.profile_backend_point_interface_asso (assoc_id,enabled,end_po
 (11,false,11,1),
 (12,false,12,1);
 
-CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;
+
 
 COMMIT;
 +
+
+
+CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;

@@ -92,6 +92,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
     /** To hold options for content type multiselect */
     contentTypes: SelectItem[];
 
+    keywordValue: Object;
+
     constructor(private configKeywordsService: ConfigKeywordsService, private confirmationService: ConfirmationService,
         private configUtilityService: ConfigUtilityService, private store: Store<KeywordList>) {
         /* To hold agent type of profile */
@@ -116,7 +118,8 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
         if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
             this.saveDisable = true;
         if (this.configKeywordsService.keywordData != undefined) {
-            this.nvAutoInjection = this.configKeywordsService.keywordData;
+
+            this.keywordValue = this.configKeywordsService.keywordData;
         }
         else {
             this.subscription = this.store.select("keywordData").subscribe(data => {
@@ -124,9 +127,15 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
                 this.keywordList.map(function (key) {
                     keywordDataVal[key] = data[key];
                 })
-                this.nvAutoInjection = keywordDataVal;
+                this.keywordValue = keywordDataVal;
             });
         }
+        this.nvAutoInjection = {};
+        this.keywordList.forEach((key) => {
+          if (this.keywordValue.hasOwnProperty(key)) {
+            this.nvAutoInjection[key] = this.keywordValue[key];
+          }
+        });
 
         this.methodToSetValue(this.nvAutoInjection);
 

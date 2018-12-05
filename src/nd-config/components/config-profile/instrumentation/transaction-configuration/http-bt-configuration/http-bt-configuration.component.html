@@ -130,6 +130,8 @@
         <p-header [style]="{'height':'25px'}">
             <span style="float: left;">Business Transaction Pattern List</span>
             <span style="float: right; margin-top:-3px">
+                       <button pButton type="button" title="Configure Global Threshold Value(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openGlobalThresholdDialog()" icon="fa-globe"></button>
+                       <button pButton type="button" title="Configure Global Threshold Value(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openGlobalThresholdDialog()" icon="fa-globe"></button>
                        <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
                        <button pButton type="button" title="Add a Business Transaction Pattern" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddPatternDialog()" icon="fa-plus"></button>
@@ -230,7 +232,7 @@
                         <label>URL Pattern</label>
                     </div>
                     <div class="ui-g-4">
-                        <input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$:&=-]{0,249}$" title="Please enter valid URL. &#013;Rule1 : Cannot include whitespaces. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-,=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
+		<input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$:&=-\{\}]{0,249}$" title="Please enter valid URL. &#013;Rule1 : Cannot include whitespaces				. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-{},=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
                             [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
                     <div class="ui-g-3">
@@ -251,16 +253,19 @@
                     <label>Slow</label>
                 </div>
                 <div class="ui-g-2" style="margin-left: -4px">
-                    <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel />
+                    <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel /> ms
                 </div>
-                <div class="ui-g-1" style="margin-left: -27px;margin-top: 5px">ms</div>
-                <div class="ui-g-1 label" style="margin-left: -30px; margin-right: -8px">
+                <!-- <div class="ui-g-1" style="margin-left: -27px;margin-top: 5px">ms</div> -->
+                <div class="ui-g-1 label" style="margin-right: -8px">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-2">
-                    <input name="verySlowTransaction" #vslow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel />
+                    <input name="verySlowTransaction" #vslow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel /> ms
                 </div>
-                <div class="ui-g-1" style="margin-left: -30px;margin-top: 5px">ms</div>
+                <!-- <div class="ui-g-1" style="margin-left: -30px;margin-top: 5px">ms</div> -->
+                <div class="ui-g-3" style="margin-left:24px;">
+                        Apply Global Threshold Value(s)  <md-slide-toggle name="globalCheck" class="config-ui" (click)="changeThresholdOnClick()" [(ngModel)]="globalCheck"></md-slide-toggle>
+                </div>
             </div>
 
             <div class="ui-g-12 pattern-dialog-border" *ngIf="agentType == 'NodeJS'">
@@ -356,4 +361,39 @@
      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer-->
 
     <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>
+
+<!--Dialog to edit/update global threshold values -->
+<p-dialog class="profile-dialog" header='Apply Global Threshold Value(s)' *ngIf="globalThresholdDialog" [(visible)]="globalThresholdDialog" modal="modal" width="300" responsive="true" [resizable]="false">
+    <form (ngSubmit)="applyGlobalThresholdValues()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="pattern-dialog-border">
+                <!-- Slow Value -->
+                <div class="ui-g-12">
+                    <div class="ui-g-8">
+                        <label>Slow</label>
+                    </div>
+                    <div class="ui-g-4">
+                        <input class="textBoxSize" name="slowThresholdGlobalValue" type="number" size="20" #slowThreshold (input)="checkGlobalThresholdValidity(slowThreshold, vslowThreshold)" min=0 pInputText [(ngModel)]="slowThresholdGlobalValue" autofocus required ngModel/> ms
+                    </div>
+                </div>
+
+                <!-- Very slow value -->
+                <div class="ui-g-12">
+                    <div class="ui-g-8">
+                        <label>Very Slow</label>
+                    </div>
+                    <div class="ui-g-4">
+                        <input class="textBoxSize" name="vslowThresholdGlobalValue" type="number" size="20" #vslowThreshold (input)="checkGlobalThresholdValidity(slowThreshold, vslowThreshold)" min=0 pInputText [(ngModel)]="vslowThresholdGlobalValue" required ngModel/> ms
+                    </div>
+                </div>
+            </div>
+        </div>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content">
+                   <button type="submit" pButton icon="fa-check" label={{globalSaveLabel}}></button>
+                   <button type="button" pButton icon="fa-close" (click)="globalThresholdDialog=false" label="Cancel"></button>
+                </div>
+            </footer>
+    </form>
 </p-dialog>

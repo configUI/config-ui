@@ -403,6 +403,22 @@ export class ConfigKeywordsService {
   deleteBusinessTransPattern(data, profileId): Observable<BusinessTransPatternData[]> {
     return this._restApi.getDataByPostReq(`${URL.DEL_BT_PATTERN_DETAILS}/${profileId}`, data);
   }
+ 
+  /** Read Global threshold file */
+  readGlobalThresholdFile(profileId){
+    return this._restApi.getDataByGetReqWithNoJson(`${URL.READ_GLOBAL_THRESHOLD_FILE}/${profileId}`);
+  }
+
+  /**Save threshold values in globalThreshold file */
+  saveGlobalThresholdFile(profileId, data){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.SAVE_GLOBAL_THRESHOLD_FILE}/${profileId}`, data);
+  }
+
+  
+  /**Save threshold values in globalThreshold file */
+  updateBTWithGlobalThreshold(btIdArr, profileId){
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BT_WITH_GLOBAL_THRESHOLD}/${profileId}`, btIdArr);
+  }
 
   /*  FETCH HTTP REQUEST HEADER TABLEDATA */
   getFetchHTTPReqHeaderTable(profileId): Observable<httpReqHeaderInfo[]> {
@@ -973,4 +989,5 @@ export class ConfigKeywordsService {
   uploadAutoInjectionFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_AUTO_INJECTION_FILE}/${profileId}`, filePath);
   }
+
 }
