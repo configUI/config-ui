@@ -60,7 +60,7 @@ export class ConfigHomeComponent implements OnInit {
 var userName = sessionStorage.getItem('sesLoginName');
 var passWord =  sessionStorage.getItem('sesLoginPass');
 // let URL=sessionStorage.getItem('host');
-// var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName + '&passWord=' + passWord
+// var url =  URL + 'DashboardServer/acl/user/authenticateNDConfigUI?userName=' + userName;
 // this.http.get(url).map(res => res.json()).subscribe(data => {
   sessionStorage.setItem("ProfileAccess","6");
   sessionStorage.setItem("ApplicationAccess","6");
