@@ -66,7 +66,6 @@ export class UrlCapturingComponent implements OnInit {
 
   /* This method is used to save the formatIPResourceURL data in the backend*/
   saveKeywordData() {
-    // if()
     if (this.enableIPResourceURL) {
       this.urlCapturing["enableIPResourceURL"].value = 1;
       let formatIPVal = this.formatIPResourceURLValue();
@@ -80,9 +79,8 @@ export class UrlCapturingComponent implements OnInit {
       this.urlCapturingData.urlOffset = 0;
       this.urlCapturingData.maxChar = 50 ;
       this.urlCapturingData.includeParameter = false;
-      this.urlCapturing["enableIPResourceURL"].value = 0;
-      this.urlCapturing["formatIPResourceURL"].value = 1;
-
+      this.urlCapturing["enableIPResourceURL"]["value"] = 0;
+      this.urlCapturing["formatIPResourceURL"]["value"] = 1;
     }
     if (this.dumpDefaultCassandraQuery) {
       this.urlCapturing["dumpDefaultCassandraQuery"].value = 1;
@@ -196,10 +194,10 @@ export class UrlCapturingComponent implements OnInit {
       this.enableFormatIPResourceURL = true;
 
       if (arr[0] === "0") {
-        this.urlCapturingData.includeParameter = true;
+        this.urlCapturingData.includeParameter = false;
       }
       else if (arr[0] === "1") {
-        this.urlCapturingData.includeParameter = false;
+        this.urlCapturingData.includeParameter = true;
       }
       else
         this.urlCapturingData.includeParameter = false;
@@ -235,9 +233,9 @@ export class UrlCapturingComponent implements OnInit {
     var formatIPVal = {};
      if (this.enableFormatIPResourceURL == true) {
          if (this.urlCapturingData.includeParameter == true)
-            formatIPVal = "0";
-         else
             formatIPVal = "1";
+         else
+            formatIPVal = "0";
          if (this.urlCapturingData.urlOffset != null)
             formatIPVal = formatIPVal + "%20" + this.urlCapturingData.urlOffset;
          else
@@ -251,7 +249,7 @@ export class UrlCapturingComponent implements OnInit {
       return formatIPVal;
      }
      else {
-      return 0;
+      return 1;
      }
   }
 
