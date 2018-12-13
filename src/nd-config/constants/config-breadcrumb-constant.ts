@@ -16,7 +16,7 @@ export const LABEL = {
     INSTRUMENTATION_PROFILE_MAKER: 'Instrumentation Profile Maker',
     AUTO_DISCOVER: 'Auto Discover',
     VIEW_AUDIT_LOG: 'View Audit Log',
-    NDC_KEYWORDS: 'ND Controller',
+    NDC_KEYWORDS: 'ND Collector',
     AUTO_INSTRUMENTATION: 'Instrumentation Finder',
     AI: 'Auto Instrumentation',
     NDE_CLUSTER: 'NDE Cluster Configuration',

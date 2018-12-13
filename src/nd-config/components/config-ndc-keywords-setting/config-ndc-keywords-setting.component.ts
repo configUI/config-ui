@@ -753,7 +753,7 @@ export class ConfigNDCKeywordsSettingComponent implements OnInit {
      * related to the current component.
      */
     sendHelpNotification() {
-        this._configKeywordsService.getHelpContent("Application", "ND Controller Settings", "");
+        this._configKeywordsService.getHelpContent("Application", "ND Collector Settings", "");
     }
     //On changing Type from Dialog , Method changeOfType() invoked to load corresponding Dropdown
     changeOfType() {

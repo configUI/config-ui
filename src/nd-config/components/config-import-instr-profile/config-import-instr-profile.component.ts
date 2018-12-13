@@ -769,28 +769,53 @@ export class ConfigImportInstrProfileComponent implements OnInit {
             if (this.configHomeService.trData.switch == true && this.configHomeService.trData.status != null) {
 
               this._configKeywordsService.rtcInstrProfile(this.details + "%" + this.selectedXMLFile, sessionStorage.getItem("sesLoginName")).subscribe(data => {
-                this.rtcMsg = []
+                this.rtcMsg = [];
+		let commaSeparate = [];
+
                 if (data1['status'] === 'ok') {
                   this._configUtilityService.successMessage("File saved successfully")
+
                   if (data.length > 0) {
                     for (let i = 0; i < data.length; i++) {
+                      commaSeparate=data[i].split(";");
 
                       //Result=Ok case
                       if (data[i].includes("Ok")) {
-                        data[i] = data[i].substring(data[i].indexOf("Ok;") + 3, data[i].lastIndexOf("=")) + "  (Success)"
-                        this.rtcMsg.push(data[i])
+
+		      /** data[i] = nd_control_rep:action=modify;result=Ok;NDTomcat26:cavisson-ProLiant-ML110-G6:nsecom1=710;Nsecom:CAV-QA-30-29:Instance1=10335;
+			* 2nd index is the message to be displayed
+			* Same for OK and PartialError Case
+		      */
+                      for(let i=2; i<commaSeparate.length-1; i++)
+                      {
+                        this.rtcMsg.push(commaSeparate[i])
+                      }
 
                       }
                       //PartialError case
                       else if (data[i].includes("PartialError")) {
-                        data[i] = data[i].substring(data[i].indexOf("Error;") + 6, data[i].lastIndexOf("=")) + "  (Partial Error)"
-                        this.rtcMsg.push(data[i])
+                       for(let i=2; i<commaSeparate.length-1; i++)
+                      	{
+                        	this.rtcMsg.push(commaSeparate[i])
+                      	}
                       }
 
                       // Error case
                       else if (data[i].includes("Error")) {
-                        data[i] = data[i].substring(data[i].indexOf("Error;") + 6, data[i].lastIndexOf("=")) + "  (Error)"
-                        this.rtcMsg.push(data[i])
+                        if(commaSeparate.length > 2){
+                        for(let i=2; i<commaSeparate.length-1; i++)
+                      {
+                        this.rtcMsg.push(commaSeparate[i])
+                      }
+                    }
+		    //[nd_control_rep:action=modify;result=Error: There is no running test run] 
+                    else{
+                      let tempCommaSeparate :string;
+                      tempCommaSeparate= commaSeparate[1];
+                      let collonSeparate = tempCommaSeparate.split(":");
+		      let value = collonSeparate[1].substring(0, collonSeparate[1].length-1);
+                      this.rtcMsg.push(value);
+                    }
                       }
 
                     }
@@ -804,7 +829,6 @@ export class ConfigImportInstrProfileComponent implements OnInit {
                   });
                 }
               })
-
             }
             else {
               if (data1['status'] === 'ok') {

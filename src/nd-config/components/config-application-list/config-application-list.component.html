@@ -36,9 +36,9 @@
                     <span title="{{application[col.field]}}" class="timpStamp-float-css">{{application[col.field]}}</span>
                 </template>
                 </p-column>
-               <p-column class="col-overflow" field="appName" header="ND Controller Settings" [sortable]="true" [style]="{'width':'14%', 'text-align':'center'}">
+               <p-column class="col-overflow" field="appName" header="ND Collector Settings" [sortable]="true" [style]="{'width':'14%', 'text-align':'center'}">
                     <template let-col let-application="rowData" pTemplate>
-                <a (click)="routeToNDCKeywords(application['appId'])" title="Click to Open '{{application[col.field]}}' ND Controller Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
+                <a (click)="routeToNDCKeywords(application['appId'])" title="Click to Open '{{application[col.field]}}' ND Collector Settings"><i style="font-size: 20px ; margin-left:43%; cursor: pointer;" class="icon ndegui-data-collector"></i></a>
                 </template>
                 </p-column>
                 <p-column class="col-overflow" field="appDesc" header="Description" [sortable]="true" [style]="{'width':'35%'}">

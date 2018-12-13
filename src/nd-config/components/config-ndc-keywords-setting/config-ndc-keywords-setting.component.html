@@ -4,7 +4,7 @@
       <form (ngSubmit)="saveNDCKeywords()" #groupForm="ngForm" ngNativeValidate>
         <div class="configUI ndegui-mainbox">
           <div class="header label">
-            <i aria-hidden="true"></i>ND Controller Settings
+            <i aria-hidden="true"></i>ND Collector Settings
             <div class="pull-right">
               <button type="button" pButton icon="fa-refresh" [disabled]="isAppPerm" (click)="resetKeywordsDataToDefault()" label="Reset to Default"></button>
               <button pButton type="submit" style="float:right" title="Save" [disabled]="isAppPerm" icon="fa-save" label="Save"></button>
@@ -13,7 +13,7 @@
           </div>
           <div class="config-ui-table-margin">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
-              <p-fieldset legend="ND Controller" [toggleable]="true" [collapsed]="false">
+              <p-fieldset legend="ND Collector" [toggleable]="true" [collapsed]="false">
                 <div class="configUI">
                   <div class="config-ui-table-margin">
                     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
