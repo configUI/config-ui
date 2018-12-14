@@ -12,10 +12,12 @@ export interface NDAgentInfo {
 	at:string;
 	pid:string;
 	ch:string;
+	si:string;
+	cpath:string;
 }
 
 export interface CmonInfo{
-   	cp:string;
+	cp:string;
 	tier: string;
 	sn:string;
 	mt:string;
@@ -23,7 +25,9 @@ export interface CmonInfo{
 	aia: string;
 	cst:string;
 	id:number;
-        si:any;
+	si:any;
+	cpath:string;
+	ccut: string;
 	// serverIp: string;
 	// testRunNo:string;
 	// testRunning:boolean;
@@ -31,4 +35,10 @@ export interface CmonInfo{
 	// appName:string;
 	// cmonHome:string;
 	// cmonJavaHome:string;
+}
+
+export interface CmonEnvInfo {
+    displayName: string;
+    vaue: number;
+    Type: string;
 }
