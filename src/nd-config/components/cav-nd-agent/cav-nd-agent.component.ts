@@ -466,7 +466,7 @@ export class CavNdAgentComponent implements OnInit {
         let str = key.split("##");
 
         if (str[1] == 'Normal') {
-         if(str[0] == "Class Path" || str[0] == "Machine Settings")
+         if(str[0] == "Class Path" || str[0] == "Machine Settings" || str[0] == "Machine agent Settings")
          {
           this.cmonEnvNormalTextAreaLabelList.push(str[0]);
           this.cmonEnvNormalTextAreaValueList.push(data[key]);
@@ -507,7 +507,7 @@ export class CavNdAgentComponent implements OnInit {
       this.viewEditCmonDialog = true;
       for (let key in data) {
         if (data[key]["type"] == 'Normal') {
-          if(data[key]["displayName"] == "Class Path" || data[key]["displayName"] == "Machine Settings")
+          if(data[key]["displayName"] == "Class Path" || data[key]["displayName"] == "Machine Settings" || data[key]["displayName"] == "Machine agent Settings")
           {
            this.cmonEnvNormalTextAreaLabelList.push(data[key]["displayName"]);
            this.cmonEnvNormalTextAreaValueList.push(data[key]["value"]);
@@ -535,7 +535,12 @@ export class CavNdAgentComponent implements OnInit {
     concatValueList = concatValueList.concat(this.cmonEnvNormalTextAreaValueList);
     for (let i = 0; i < concatValueList.length; i++) {
       if (concatValueList[i].length != 0) {
-        obj[concatlabelList[i]] = concatValueList[i];
+        if(concatValueList[i].indexOf(",") > -1)
+        {
+          obj[concatlabelList[i]] = concatValueList[i].replace(/,/g , "#");
+        }
+        else
+          obj[concatlabelList[i]] = concatValueList[i];
       }
     }
     this.loading = true;

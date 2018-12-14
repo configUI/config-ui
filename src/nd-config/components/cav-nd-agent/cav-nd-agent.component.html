@@ -275,16 +275,16 @@
             <div *ngIf="cmonEnvNormalKeyLabelList.length != 0" class="ui-g">
                 <div *ngFor='let label of cmonEnvNormalTextAreaLabelList; let i=index; trackBy:trackByFn'>
                     <div class="ui-g-12">
-                        <div class="ui-g-2">
+                        <div class="ui-g-3" style="width: 137px">
                             <div style="padding-top: 9px">
-                                <label title=" {{label}}" class="labelDisplay">
-                                    {{label}} <label style="color:red"  *ngIf="label == 'Class Path' && isUpdate">*</label>
+                                <label title="{{label}}" class="labelDisplay">
+                                    {{label}} <label style="color:red"  *ngIf="(label == 'Class Path' || label == 'Machine agent Settings') && isUpdate">*</label>
                                 </label>
                             </div>
                         </div>
-                        <div class="ui-g-10">
+                        <div class="ui-g-9">
                             <div>
-                                <textarea [cols]="100" [rows]="3" pInputTextarea [disabled]='!isUpdate' title=" {{cmonEnvNormalTextAreaValueList[i]}}" style="max-width:533px" [(ngModel)]="cmonEnvNormalTextAreaValueList[i]" autoResize="autoResize"></textarea>
+                                <textarea [cols]="100" [rows]="3" pInputTextarea [disabled]='!isUpdate' title=" {{cmonEnvNormalTextAreaValueList[i]}}" style="max-width:500px" [(ngModel)]="cmonEnvNormalTextAreaValueList[i]" autoResize="autoResize"></textarea>
                             </div>
                         </div>
                     </div>
@@ -294,13 +294,10 @@
                         <div class="ui-g-6">
                             <div *ngFor='let label of cmonEnvNormalKeyLabelList; let i=index'>
                                 <div *ngIf="i%2 == 0">
-                                    <div style="width:95%; float:left; padding-top: 7px">
+                                    <div style="padding-top: 7px">
                                         <label title=" {{label}}" class="labelDisplay">
                                         {{label}}
                                         </label>
-                                    </div>
-                                    <div>
-                                        <label style="color:red; padding-top: 7px" *ngIf="label == 'Machine agent Settings' && isUpdate ">*</label>
                                     </div>
                                 </div>
                             </div>
@@ -317,13 +314,10 @@
                         <div class="ui-g-6">
                             <div *ngFor='let label of cmonEnvNormalKeyLabelList; let i = index'>
                                 <div *ngIf="i%2 != 0">
-                                    <div style="width:96%; float:left; padding-top: 7px">
+                                    <div style="padding-top: 7px">
                                         <label title=" {{label}}" class="labelDisplay">
                                          {{label}}
                                     </label>
-                                    </div>
-                                    <div>
-                                        <label style="color:red; padding-top: 7px" *ngIf="label == 'Machine agent Settings' && isUpdate">*</label>
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +341,7 @@
                     <div class="ui-g-6">
                         <div class="ui-g-6">
                             <div *ngFor='let label of cmonEnvAdvancedKeyLabelList; let i=index'>
-                                <div *ngIf="i%2 == 0 && !(label == 'Class Path' || label == 'Machine Settings')" style="padding-top: 7px">
+                                <div *ngIf="i%2 == 0" style="padding-top: 7px">
                                     <label title=" {{label}}" class="labelDisplay">
                                         {{label}}
                                     </label>
@@ -357,28 +351,28 @@
                         <div class="ui-g-6">
                             <div *ngFor="let value of cmonEnvAdvancedValueList; let i=index ;trackBy:trackByFn">
                                 <div *ngIf="!isUpdate">
-                                    <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings')" style="padding-top: 3px;margin-right: 5px">
-                                        <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings')" style="padding-top: 3px;margin-right: 5px">
+                                            <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div *ngIf="isUpdate">
-                                    <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
-                                        <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                    <div *ngIf="isUpdate">
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
+                                            <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                        </div>
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
+                                            <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                        </div>
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
+                                            <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
+                                        </div>
                                     </div>
-                                    <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
-                                        <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
-                                    </div>
-                                    <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
-                                        <p-dropdown [options]=" protocolList " [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name " [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="ui-g-6 ">
                         <div class="ui-g-6 ">
                             <div *ngFor='let label of cmonEnvAdvancedKeyLabelList; let i = index'>
-                                <div *ngIf="i%2 !=0 && !(label=='Class Path' || label=='Machine Settings' ) " style="padding-top: 7px ">
+                                <div *ngIf="i%2 !=0" style="padding-top: 7px ">
                                     <label title=" {{label}} " class="labelDisplay ">
                                             {{label}}
                                         </label>
@@ -391,18 +385,18 @@
                                     <input name='cmonEnvAdvancedValueList' [disabled]='!isUpdate' type="text " pInputText title="{{cmonEnvAdvancedValueList[i]}} " [(ngModel)]="cmonEnvAdvancedValueList[i] " ngModel />
                                 </div> -->
                                 <div *ngIf="!isUpdate">
-                                    <div *ngIf="i%2 != 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings')" style="padding-top: 3px;margin-right: 5px">
+                                    <div *ngIf="i%2 != 0" style="padding-top: 3px;margin-right: 5px">
                                         <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel/>
                                     </div>
                                 </div>
                                 <div *ngIf="isUpdate">
-                                    <div *ngIf="i%2 != 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
+                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
                                         <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
                                     </div>
-                                    <div *ngIf="i%2 != 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
+                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
                                         <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
                                     </div>
-                                    <div *ngIf="i%2 != 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
+                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
                                         <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
                                     </div>
                                 </div>
