@@ -33,8 +33,11 @@ export class NVCookieComponent implements OnInit {
   isProfilePerm: boolean;
 
   keyValue : boolean;
+  agentType :any;
+
   constructor(private configKeywordsService: ConfigKeywordsService, private store: Store<KeywordList>, private configUtilityService: ConfigUtilityService) {
     this.subscription = this.store.select("keywordData").subscribe(data => {
+      this.agentType = sessionStorage.getItem("agentType");
       var keywordDataVal = {}
       this.keywordList.map(function (key) {
         keywordDataVal[key] = data[key];
@@ -73,10 +76,8 @@ export class NVCookieComponent implements OnInit {
 
     }
     else {
-      console.log("inside=======")
       if (this.ndSession["enableNDSession"].value == 0) {
 this.keyValue =true;
-console.log("inside iffffffffffff")
         this.ndSessionData = new NDSessionData();
         this.ndSessionData.methodEntryDepth = 0;
         this.ndSessionData.methodExitDepth = 0;
@@ -105,7 +106,6 @@ console.log("inside iffffffffffff")
 
   saveKeywordData(data) {
     let ndSessionValue = this.ndSessionValueMethod(data);
-    console.log("ndSessionValue============>",ndSessionValue)
     let arr = ndSessionValue.split("%20");
     if(ndSessionValue == "0%200%200%200%20CavNV%20null%201800%201000"){
       ndSessionValue = "0";
@@ -136,15 +136,30 @@ console.log("inside iffffffffffff")
   }
 
   resetKeywordData() {
-    this.ndSession = cloneObject(this.configKeywordsService.keywordData);
+    this.getKeyWordDataFromStore();
     this.splitNDSessionKeywordValue();
+  }
+  getKeyWordDataFromStore(){
+    this.subscription = this.store.select("keywordData").subscribe(data => {
+      var keywordDataVal = {}
+      this.keywordList.map(function (key) {
+        keywordDataVal[key] = data[key];
+      })
+      this.ndSession = keywordDataVal;
+    });
   }
 
  /* This method is used to reset the keyword data to its Default value */
   resetKeywordsDataToDefault() {
-    let data = cloneObject(this.configKeywordsService.keywordData);
+    // let data = cloneObject(this.configKeywordsService.keywordData);
+    let data = this.configKeywordsService.keywordData;
+    for(let key in data){
+      if(this.keywordList.includes(key)){
+        this.ndSession[key] = data[key];
+      }
+    }
     var keywordDataVal = {}
-    keywordDataVal = data
+    keywordDataVal = this.ndSession;
     this.keywordList.map(function (key) {
     keywordDataVal[key].value = data[key].defaultValue
   })
