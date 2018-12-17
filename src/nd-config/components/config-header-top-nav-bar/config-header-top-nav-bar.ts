@@ -19,7 +19,7 @@ import { Http, Response } from '@angular/http';
 @Component({
   selector: 'app-config-header-top-nav-bar',
   templateUrl: './config-header-top-nav-bar.html',
-  styleUrls: ['./config-header-top-nav-bar.css']
+  styleUrls: ['./config-header-top-nav-bar.scss']
 })
 export class ConfigTopHeaderNavBarComponent implements OnInit {
   
