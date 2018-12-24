@@ -106,6 +106,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     key.splice(key.indexOf("-"), 1)
             
             }
+            key.push('Sequential')
             key.push('Custom')
             this.btNameList = ConfigUiUtility.createListWithKeyValue(key, key);
             this.currentInsId = id;
