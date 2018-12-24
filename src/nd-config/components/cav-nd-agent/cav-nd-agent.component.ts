@@ -9,6 +9,13 @@ import { NDAgentInfo, CmonInfo } from '../../interfaces/nd-agent-info';
 import { CavConfigService } from '../../services/cav-config.service';
 import { ConfigUtilityService } from '../../services/config-utility.service';
 
+
+// import { ConfigNdAgentService } from '../../../modules/nd-config/services/config-nd-agent.service';
+// import { NDAgentInfo, CmonInfo } from '../../../modules/nd-config/interfaces/nd-agent-info';
+// import { CavConfigService } from '../../services/cav-config.service';
+// import { ConfigUtilityService } from '../../../modules/nd-config/services/config-utility.service';
+
+
 @Component({
   selector: 'app-config-nd-agent',
   templateUrl: './cav-nd-agent.component.html',
@@ -16,11 +23,12 @@ import { ConfigUtilityService } from '../../services/config-utility.service';
 })
 export class CavNdAgentComponent implements OnInit {
 
+  
   constructor(private configNdAgentService: ConfigNdAgentService, private _http: Http, private _config: CavConfigService, private configUtilityService: ConfigUtilityService) { }
 
   /**Getting application list data */
   ndAgentStatusData: NDAgentInfo[];
-  cmonStatusData: any[];
+  cmonStatusData: CmonInfo[];
   selectedCmonAgent: boolean = false;
   selectedNdAgent: boolean = false;
 
@@ -71,10 +79,19 @@ export class CavNdAgentComponent implements OnInit {
   readWritePermission:string;
 
   rowDataServerID: string; // si for view, edit and save 
+  cmonHomePath: string;
+  cmonPid: string;
+  cmonTier: string;
+  cmonServerName: string;
+  cmonMachineType: string;
+
 
   //Variables to create dropdown for table : Application Agent Status
   selectedViewColsApp: any[] = [];
   columnOptionsForApp: any[] = [];
+
+  pathForCmon: string;
+
 
   ngOnInit() {
     this.loadCmonAgentData();
@@ -166,11 +183,10 @@ export class CavNdAgentComponent implements OnInit {
       /*Assign Total Agent and Active agetns */
       for (var i = 0; i < data.length; i++) {
         if (data[i].aia == "Active" || data[i].aia == "active")
-          count++
+          count++; 
       }
       this.totalMachineAgent = " (Total: " + data.length + ", Active: " + count + ")";
     });
-
   }
 
   /* for download Excel, word, Pdf File */
@@ -413,7 +429,7 @@ export class CavNdAgentComponent implements OnInit {
   /**
    * This Method is used for ViewAndUpdateCmonEnvData
    */
-  public ViewAndUpdateCmonEnvData(type: string, rowDataServerID: any): void {
+  public ViewAndUpdateCmonEnvData(type: string, cmonPid: string, rowDataServerID: any, cmonHomePath: string, cmonTier: string, cmonServerName: string, cmonMachineType: string): void {
     this.cmonEnvAdvancedKeyLabelList = [];
     this.cmonEnvAdvancedValueList = [];
     this.cmonEnvNormalKeyLabelList = [];
@@ -431,7 +447,7 @@ export class CavNdAgentComponent implements OnInit {
       //   return;
       // }
       this.isUpdate = true;
-      this.updateSelectedCmonAgentSettings(rowDataServerID);
+      this.updateSelectedCmonAgentSettings(cmonPid, rowDataServerID, cmonHomePath, cmonTier, cmonServerName, cmonMachineType);
     }
     else {
       // if (!this.selectedCmonAgentList || this.selectedCmonAgentList.length < 1) {
@@ -443,15 +459,15 @@ export class CavNdAgentComponent implements OnInit {
       //   return;
       // }
       this.isUpdate = false;
-      this.viewSelectedCmonAgentSettings(rowDataServerID);
+  
+      this.viewSelectedCmonAgentSettings(cmonPid, rowDataServerID, cmonHomePath, cmonTier, cmonServerName, cmonMachineType);
     }
   }
 
   /**
    * This Method is used to View Settings of Selected Cmon Agent
    */
-  private viewSelectedCmonAgentSettings(rowDataServerID): void {
-
+  private viewSelectedCmonAgentSettings(cmonPid, rowDataServerID, cmonHomePath, cmonTier, cmonServerName, cmonMachineType): void {
     this.cmonEnvAdvancedKeyLabelList = [];
     this.cmonEnvAdvancedValueList = [];
     this.cmonEnvNormalKeyLabelList = [];
@@ -459,7 +475,13 @@ export class CavNdAgentComponent implements OnInit {
     this.cmonEnvNormalTextAreaLabelList = [];
     this.cmonEnvNormalTextAreaValueList = [];
     this.loading = true;
-    this.configNdAgentService.getCmonEnvKeyValueForShow(rowDataServerID).subscribe(data => {
+    let cmonInfoArr = [];
+    cmonInfoArr[0] = rowDataServerID;
+    cmonInfoArr[1] = cmonHomePath;
+    cmonInfoArr[2] = cmonPid+ "~~" + cmonTier + "~~" + cmonServerName;
+    cmonInfoArr[3] = cmonMachineType;
+    
+    this.configNdAgentService.getCmonEnvKeyValueForShow(cmonInfoArr).subscribe(data => {
       this.loading = false;
       this.viewEditCmonDialog = true;
       for (let key in data) {
@@ -489,7 +511,7 @@ export class CavNdAgentComponent implements OnInit {
   /**
    * This Method is used to View Settings of Selected Cmon Agent
    */
-  private updateSelectedCmonAgentSettings(rowDataServerID): void {
+  private updateSelectedCmonAgentSettings(cmonPid, rowDataServerID, cmonHomePath, cmonTier, cmonServerName, cmonMachineType): void {
     this.cmonEnvAdvancedKeyLabelList = [];
     this.cmonEnvAdvancedValueList = [];
     this.cmonEnvNormalKeyLabelList = [];
@@ -502,7 +524,17 @@ export class CavNdAgentComponent implements OnInit {
       {label: 'WS', value: 'WS'},
       {label: 'TCP/IP', value: 'TCP/IP'} ];
     this.rowDataServerID = rowDataServerID;
-    this.configNdAgentService.getCmonEnvKeyValueForEdit(rowDataServerID).subscribe(data => {
+    this.cmonHomePath = cmonHomePath;
+    this.cmonPid = cmonPid;
+    this.cmonTier = cmonTier;
+    this.cmonServerName = cmonServerName;
+    this.cmonMachineType = cmonMachineType;
+    let cmonInfoArr = [];
+    cmonInfoArr[0] = rowDataServerID;
+    cmonInfoArr[1] = cmonHomePath;
+    cmonInfoArr[2] = cmonPid + "~~" + cmonTier + "~~" + cmonServerName;
+    cmonInfoArr[3] = cmonMachineType;
+    this.configNdAgentService.getCmonEnvKeyValueForEdit(cmonInfoArr).subscribe(data => {
       this.loading = false;
       this.viewEditCmonDialog = true;
       for (let key in data) {
@@ -527,8 +559,7 @@ export class CavNdAgentComponent implements OnInit {
 
   // This Method is used for save Edited value in cmon.env
   saveSettingsOfCmonAgent() {
-    let obj = new Object();
-
+    let obj = {};
     let concatlabelList = this.cmonEnvNormalKeyLabelList.concat(this.cmonEnvAdvancedKeyLabelList);
     let concatValueList = this.cmonEnvNormalValueList.concat(this.cmonEnvAdvancedValueList);
     concatlabelList = concatlabelList.concat(this.cmonEnvNormalTextAreaLabelList);
@@ -544,19 +575,21 @@ export class CavNdAgentComponent implements OnInit {
       }
     }
     this.loading = true;
-    this.configNdAgentService.getCmonEnvKeyValueUpdate(this.rowDataServerID, obj).subscribe(data => {
+    let cmonInfoArr = new Array();
+    cmonInfoArr[0] = this.rowDataServerID;
+    cmonInfoArr[1] = this.cmonHomePath;
+    cmonInfoArr[2] = this.cmonPid+ "~~" + this.cmonTier + "~~" + this.cmonServerName;
+    cmonInfoArr[3] = JSON.stringify(obj);
+    cmonInfoArr[4] = this.cmonMachineType;
+
+      this.configNdAgentService.getCmonEnvKeyValueUpdate(cmonInfoArr).subscribe(data => {
       this.viewEditCmonDialog = false;
       this.loading = false;
       this.message = [{ severity: 'success', detail: "Configuration Updated Successfully." }];
     });
-
   }
-
   //This Method is used for getting focus on textbox
   trackByFn(index: any, item: any) {
     return index;
   }
-
-
 }
-

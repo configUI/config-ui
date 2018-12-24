@@ -98,10 +98,10 @@
                     <p-column field="act" *ngIf="selectedViewCols.indexOf('act') != -1" header="Action(s)" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'85px'}">
                         <template let-col let-ndagent="rowData" pTemplate>
                             <div style="font-size: 16px; text-align: center;">
-                                <span style="cursor: pointer;" (click)="ViewAndUpdateCmonEnvData('View', ndagent['si'])">
+                                <span style="cursor: pointer;" (click)="ViewAndUpdateCmonEnvData('View', ndagent['cp'], ndagent['si'], ndagent['ch'], ndagent['tier'], ndagent['sn'], ndagent['mt'])">
                                     <i class="fa fa-eye" aria-hidden="true" title="View Configuration"></i>
                                 </span>
-                                <span style="cursor: pointer;" *ngIf="readWritePermission != '4'" (click)="ViewAndUpdateCmonEnvData('Edit', ndagent['si'])">
+                                <span style="cursor: pointer;" *ngIf="readWritePermission != '4'" (click)="ViewAndUpdateCmonEnvData('Edit', ndagent['cp'], ndagent['si'], ndagent['ch'], ndagent['tier'], ndagent['sn'], ndagent['mt'])">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Update Configuration"></i>
                                 </span>
                                 <!-- <span *ngFor="let member of selectedCmonAgentPidList">

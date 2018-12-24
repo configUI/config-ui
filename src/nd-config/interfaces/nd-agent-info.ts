@@ -28,6 +28,7 @@ export interface CmonInfo{
 	si:any;
 	cpath:string;
 	ccut: string;
+	ch: string;
 	// serverIp: string;
 	// testRunNo:string;
 	// testRunning:boolean;

@@ -28,22 +28,19 @@ export class ConfigNdAgentService {
     return this._restApi.getDataByPostReq(URL.DISCOVER_DATA, data);
   }
 
-  getCmonEnvKeyValueForShow(serverIp: string): Observable<object> {
-    return this._restApi.getDataByPostReq(URL.FETCH_CMON_ENV_KEYVALUE_VIEW, serverIp);
+    getCmonEnvKeyValueForShow(cmonInfoArr: any): Observable<object> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_CMON_ENV_KEYVALUE_VIEW}`, cmonInfoArr);
     }
     
-    getCmonEnvKeyValueForEdit(serverIp: string): Observable<CmonEnvInfo> {
-    return this._restApi.getDataByPostReq(URL.FETCH_CMON_ENV_KEYVALUE_EDIT, serverIp);
+    getCmonEnvKeyValueForEdit(cmonInfoArr : any): Observable<CmonEnvInfo> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_CMON_ENV_KEYVALUE_EDIT}`,cmonInfoArr);
     }
     
-    getCmonEnvKeyValueUpdate(serverIp: string, updatedCmonSettings): Observable<object> {
-    return this._restApi.getDataByPostReq(`${URL.UPDATE_CMON_ENV_KEYVALUE}/${serverIp}`,updatedCmonSettings);
+    getCmonEnvKeyValueUpdate(cmonInfoArr:any): Observable<any> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_CMON_ENV_KEYVALUE}`,cmonInfoArr);
     }
     
     getCmonEnvRestartedStatus(restartedCmonAgentList: string[]): Observable<object> {
     return this._restApi.getDataByPostReq(`${URL.RESTART_CMON_ENV_AGENT}`, restartedCmonAgentList);
     }
-
-
-
 }
