@@ -253,14 +253,14 @@
                     <label>Slow</label>
                 </div>
                 <div class="ui-g-2" style="margin-left: -4px">
-                    <input name="slowTransaction" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel /> ms
+                    <input name="slowTransaction" disabled="{{globalCheck}}" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel /> ms
                 </div>
                 <!-- <div class="ui-g-1" style="margin-left: -27px;margin-top: 5px">ms</div> -->
                 <div class="ui-g-1 label" style="margin-right: -8px">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-2">
-                    <input name="verySlowTransaction" #vslow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel /> ms
+                    <input name="verySlowTransaction" disabled="{{globalCheck}}" #vslow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel /> ms
                 </div>
                 <!-- <div class="ui-g-1" style="margin-left: -30px;margin-top: 5px">ms</div> -->
                 <div class="ui-g-3" style="margin-left:24px;">
