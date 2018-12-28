@@ -323,6 +323,7 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','NEO4J','Java'),
 (27,'JMS Backend','JMS','HttpCallout','JMS','Java'),
 (28,'Custom Backend','Custom','CUSTOM_ENTRY','None','Dot Net');
+(29,'FTP Backend','FTP','FTPCallout','FTP','Java');
 
 
 
@@ -490,6 +491,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java'),
 (169,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteReader','OracleCommand.ExecuteReader',17,false,'System.Data.OracleClient.dll','Dot Net'),
 (170,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteNonQueryInternal','OracleCommand.ExecuteNonQueryInternal',17,false,'System.Data.OracleClient.dll','Dot Net');
+(171,'','org.apache.commons.net.ftp.FTP.sendCommand(Ljava/lang/String;Ljava/lang/String;)I','FTP.sendCommand(String;String)I',29,false,'-','Java');
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
 (1,true,false,false,false,false,false,false,false,false,false,false,false,false,1,1),
@@ -518,6 +520,7 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (24,true,false,false,false,false,false,false,false,false,false,false,false,false,24,1),
 (26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1),
 (27,true,true,false,false,false,false,false,false,false,false,false,true,false,27,1);
+(29,true,false,false,false,false,false,false,false,false,false,false,false,false,29,1);
 
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
@@ -684,6 +687,7 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (168,false,168,1),
 (169,true,169,888888),
 (170,true,170,888888);
+(171,true,171,1);
 
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
