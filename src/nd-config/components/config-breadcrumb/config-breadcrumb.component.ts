@@ -232,6 +232,9 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     else if (url.startsWith(BREADCRUMB.URL.VIEW_AUDIT_LOG)) {
       this.items.push({ label: BREADCRUMB.LABEL.VIEW_AUDIT_LOG });
     }
+    else if (url.startsWith(BREADCRUMB.URL.ND_AGENT_INFO)) {
+      this.items.push({ label: BREADCRUMB.LABEL.ND_AGENT_INFO});
+    }
     else if (url.startsWith(BREADCRUMB.URL.NDE_CLUSTER_CONFIG)) {
       this.items.push({ label: BREADCRUMB.LABEL.NDE_CLUSTER });
     }

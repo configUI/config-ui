@@ -1,0 +1,420 @@
+<p-growl life="5000" [value]=message></p-growl>
+<div class="ndegui-mainbox">
+
+    <!-- <p-blockUI [blocked]="loading"></p-blockUI>
+    <img *ngIf="loading" class="loadingIcon" src="./images/loading.gif" /> -->
+    <div class="accordian-css">
+        <p-accordion class="ndagent">
+            <p-accordionTab header="Machine Agent Status {{totalMachineAgent}}" [selected]="true">
+                <div class="ui-widget-header" style="padding:6px 10px;border-bottom: 0 none">
+                    <input #ga type="text" pInputText size="50" />
+                    <span>
+                        <i class="fa fa-search" style="margin:4px 4px 0 -20px"></i>
+                    </span>
+                    <span *ngIf="isCmonCheckFilter" title="Show column filters" (click)="showCmonFilter('check')">
+                        <i class="fa fa-filter IconCss"></i>
+                    </span>
+                    <span *ngIf="isCmonCloseFilter" title="Hide column filters" (click)="showCmonFilter('uncheck')">
+                        <i class="fa fa-filter IconCss"></i>
+                    </span>
+                    <div class="refreshIcon">
+                        <span title="Refresh" (click)="loadCmonAgentData()">
+                            <i class="fa fa-refresh" style="font-size:13px; padding: 3px 1px; cursor: pointer"></i>
+                        </span>
+                    </div>
+                    <div class="refreshIcon" *ngIf="readWritePermission != '4'">
+                        <span title="Restart" (click)="restartCmonAgent()">
+                            <i class="fa fa-play-circle" style="font-size:13px; padding: 3px 1px; cursor: pointer"></i>
+                        </span>
+                    </div>
+                    <div class="column_Toggle">
+                        <p-multiSelect [options]="columnOptions" name="selectedViewCols" [(ngModel)]="selectedViewCols" class="headeragentinfo"></p-multiSelect>
+                    </div>
+                </div>
+                <p-dataTable [value]="cmonStatusData" id=accordion [globalFilter]="ga" #dt [rows]="15" scrollable="true" scrollHeight="400px" [(selection)]="selectedCmonAgentList" class="nde-ui" [paginator]="cmonStatusData?.length > 15" [rowsPerPageOptions]="[15,30,50,100,150,200]"
+                    [pageLinks]="3">
+                    <p-column [style]="{'width':'26px'}" selectionMode="multiple"></p-column>
+                    <p-column field="cp" *ngIf="selectedViewCols.indexOf('cp') != -1" header="Pid" sortable="custom" (sortFunction)="myCmonSort($event,cmonStatusData)" [style]="{'width':'5%'}" [filter]="isCmonFilter" filterMatchMode="contains">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="tier" *ngIf="selectedViewCols.indexOf('tier') != -1" header="Tier" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" filterMatchMode="contains" [style]="{'width':'15%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="sn" *ngIf="selectedViewCols.indexOf('sn') != -1" header="Server" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'15%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="si" *ngIf="selectedViewCols.indexOf('si') != -1" header="Server IP" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'11%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}" style="float:right">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="mt" *ngIf="selectedViewCols.indexOf('mt') != -1" header="OS" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'10%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="cv" *ngIf="selectedViewCols.indexOf('cv') != -1" header="Version" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'10%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}} ({{ndagent.ch}})">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="cst" *ngIf="selectedViewCols.indexOf('cst') != -1" header="Agent Start Time" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'12%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="cpath" *ngIf="selectedViewCols.indexOf('cpath') != -1" [filter]="isCmonFilter" header="Configuration URL" [sortable]="true" filterMatchMode="contains" [style]="{'width':'12%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}" style="float:left">
+                                <a class="hyperlink" *ngIf="ndagent[col.field] != '-'; else notLink" (click)='routeToConfigPath(ndagent)'>{{ndagent[col.field]}}</a>
+                                <ng-template #notLink>
+                                    <span>{{ndagent[col.field]}}</span>
+                                </ng-template>
+                            </span>
+                        </template>
+                    </p-column>
+                    <p-column field="ccut" *ngIf="selectedViewCols.indexOf('ccut') != -1" header="Setting Last Updated Time" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'16%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column [style]="{'text-align':'center', 'width':'65px'}" *ngIf="selectedViewCols.indexOf('aia') != -1" field="aia" header="Status" [sortable]="true">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span *ngIf="ndagent[col.field] == 'Active' || ndagent[col.field] == 'active'" title="{{ndagent[col.field]}}">
+                                <md-icon class="activeIconClass">fiber_manual_record</md-icon>
+                            </span>
+                            <span *ngIf="ndagent[col.field] == 'Inactive' || ndagent[col.field] == 'InActive'" title="{{ndagent[col.field]}}">
+                                <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
+                            </span>
+                            <!--<span *ngIf="ndagent[col.field] != 'Active' && ndagent[col.field] != 'active' &&  ndagent[col.field] != 'Inactive' && ndagent[col.field] != 'InActive'" title="{{ndagent[col.field]}}"><md-icon class="blockerIconClass">fiber_manual_record</md-icon></span>  -->
+                        </template>
+                    </p-column>
+                    <p-column field="act" *ngIf="selectedViewCols.indexOf('act') != -1" header="Action(s)" [sortable]="true" [filter]="isCmonFilter" filterMatchMode="contains" [style]="{'width':'85px'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <div style="font-size: 16px; text-align: center;">
+                                <span style="cursor: pointer;" (click)="ViewAndUpdateCmonEnvData('View', ndagent['cp'], ndagent['si'], ndagent['ch'], ndagent['tier'], ndagent['sn'], ndagent['mt'])">
+                                    <i class="fa fa-eye" aria-hidden="true" title="View Configuration"></i>
+                                </span>
+                                <span style="cursor: pointer;" *ngIf="readWritePermission != '4'" (click)="ViewAndUpdateCmonEnvData('Edit', ndagent['cp'], ndagent['si'], ndagent['ch'], ndagent['tier'], ndagent['sn'], ndagent['mt'])">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true" title="Update Configuration"></i>
+                                </span>
+                                <!-- <span *ngFor="let member of selectedCmonAgentPidList">
+
+                                    <span *ngIf="restartStatus == 'waiting' && member == ndagent['cp']">
+                                        <i class="fa fa-opera" aria-hidden="true"></i>
+                                    </span>
+                                </span>
+                                <span *ngFor="let member of arrComplete; let i=index">
+                                    <span *ngIf="completedStatus == 'complete' && member == ndagent['cp']">
+                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    </span>
+                                </span>
+                                <span *ngIf="runningStatus == 'running' && processId == ndagent['cp']">
+                                    <img class="loadingIconAgentInfo" src="./images/loading.gif" />
+                                </span>
+                                <span *ngIf="runningStatus == 'running' && processId == ndagent['cp']" (click)="stopRunningCmonAgent(ndagent['cp'])"
+                                    style="cursor: pointer;">
+                                    <i class="fa fa-ban" aria-hidden="true" title="Stop Cmon Process"></i>
+                                </span> -->
+                            </div>
+                        </template>
+                    </p-column>
+
+                </p-dataTable>
+                <div style="margin-top:5px">
+                    <label>Download Reports as: </label>
+                    <span>
+                        <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file"
+                            (click)='downloadReports("WordFile")' src='./images/iconWord.gif'>
+                    </span>
+                    <span>
+                        <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file"
+                            (click)='downloadReports("ExcelFile")' src='./images/iconExcel.gif'>
+                    </span>
+                    <span>
+                        <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file"
+                            (click)='downloadReports("PDFFile")' src='./images/iconPDF.gif'>
+                    </span>
+                </div>
+            </p-accordionTab>
+
+            <p-accordionTab header="Application Agent Status {{totalApplicationAgent}}">
+                <div class="ui-widget-header" style="padding:6px 10px;border-bottom: 0 none">
+                    <input #gb type="text" pInputText size="50" />
+                    <span>
+                        <i class="fa fa-search" style="margin:4px 4px 0 -20px"></i>
+                    </span>
+                    <span *ngIf="isNdCheckFilter" title="Show column filters" (click)="showNDFilter('check')">
+                        <i class="fa fa-filter IconCss"></i>
+                    </span>
+                    <span *ngIf="isNdCloseFilter" title="Hide column filters" (click)="showNDFilter('uncheck')">
+                        <i class="fa fa-filter IconCss"></i>
+                    </span>
+                    <div class="refreshIcon">
+                        <span title="Refresh" (click)="loadNDAgentStatusData()">
+                            <i class="fa fa-refresh" style="font-size:13px; padding: 3px 1px; cursor: pointer"></i>
+                        </span>
+                    </div>
+                    <div class="column_Toggle">
+                        <p-multiSelect [options]="columnOptionsForApp" name="selectedViewColsApp" [(ngModel)]="selectedViewColsApp" class="headeragentinfo"></p-multiSelect>
+                    </div>
+                    <!-- <span *ngIf="isShowBCIConfigPath" title="Show Configuration Path URL" (click)="showBCIConfigPath('check')"><i class="fa fa-cogs IconCss" ></i></span>
+                    <span *ngIf="isHideBCIConfigPath" title="Hide Configuration Path URL" (click)="showBCIConfigPath('uncheck')"><i class="fa fa-cogs IconCss"></i></span> -->
+                </div>
+                <p-dataTable [value]="ndAgentStatusData" id=accordion [rows]="15" scrollable="true" scrollHeight="400px" [globalFilter]="gb" #dt class="nde-ui" selectionMode="multiple" [paginator]="ndAgentStatusData?.length > 15" [rowsPerPageOptions]="[15,30,50,100,150,200]"
+                    [pageLinks]="3">
+                    <p-column field="pid" header="Pid" *ngIf="selectedViewColsApp.indexOf('pid') != -1"  sortable="custom" (sortFunction)="mysort($event,ndAgentStatusData)" [style]="{'width':'4%'}" [filter]="isNdFilter" filterMatchMode="contains">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="tier" header="Tier" *ngIf="selectedViewColsApp.indexOf('tier') != -1" [sortable]="true" [filter]="isNdFilter" [style]="{'width':'10%'}" filterMatchMode="contains">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="server" header="Server" *ngIf="selectedViewColsApp.indexOf('server') != -1" [sortable]="true" [filter]="isNdFilter" filterMatchMode="contains" [style]="{'width':'10%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="si" [filter]="isNdFilter" header="Server IP" *ngIf="selectedViewColsApp.indexOf('si') != -1" [sortable]="true" filterMatchMode="contains" [style]="{'width':'6%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}" style="float:right">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="instance" header="Instance" *ngIf="selectedViewColsApp.indexOf('instance') != -1" [sortable]="true" [filter]="isNdFilter" filterMatchMode="contains" [style]="{'width':'10%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="iD" header="Installation Dir" *ngIf="selectedViewColsApp.indexOf('iD') != -1"  [sortable]="true" [filter]="isNdFilter" filterMatchMode="contains" [style]="{'width':'10%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="at" header="Agent Type" *ngIf="selectedViewColsApp.indexOf('at') != -1"  [sortable]="true" [filter]="isNdFilter" filterMatchMode="contains" [style]="{'width':'6%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="ver" header="Version" *ngIf="selectedViewColsApp.indexOf('ver') != -1"  [sortable]="true" [filter]="isNdFilter" filterMatchMode="contains" [style]="{'width':'6%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+                    <p-column field="brs" header="Agent Start Time" *ngIf="selectedViewColsApp.indexOf('brs') != -1" [sortable]="true" [filter]="isNdFilter" filterMatchMode="contains" [style]="{'width':'8%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span style="float:right" title="{{ndagent[col.field]}}">{{ndagent[col.field]}}</span>
+                        </template>
+                    </p-column>
+
+                    <p-column field="cpath" [filter]="isNdFilter" header="Configuration URL" *ngIf="selectedViewColsApp.indexOf('cpath') != -1" [sortable]="true" filterMatchMode="contains" [style]="{'width':'12%'}">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span title="{{ndagent[col.field]}}" style="float:left">
+                                <a class="hyperlink" *ngIf="ndagent[col.field] != '-'; else notLink" (click)='routeToConfigPath(ndagent)'>{{ndagent[col.field]}}</a>
+                                <ng-template #notLink>
+                                    <span>{{ndagent[col.field]}}</span>
+                                </ng-template>
+                            </span>
+                        </template>
+                    </p-column>
+                    <p-column field="st" header="Status" *ngIf="selectedViewColsApp.indexOf('st') != -1" [style]="{'text-align':'center','width':'4%'}" [sortable]="true">
+                        <template let-col let-ndagent="rowData" pTemplate>
+                            <span *ngIf="ndagent[col.field] == 'Active' || ndagent[col.field] == 'active'" title="{{ndagent[col.field]}}">
+                                <md-icon class="activeIconClass">fiber_manual_record</md-icon>
+                            </span>
+                            <span *ngIf="ndagent[col.field] == 'Inactive' || ndagent[col.field] == 'InActive'" title="{{ndagent[col.field]}}">
+                                <md-icon class="inActiveIconClass">fiber_manual_record</md-icon>
+                            </span>
+                            <span *ngIf="ndagent[col.field] != 'Active' && ndagent[col.field] != 'active' && ndagent[col.field] != 'Inactive' && ndagent[col.field] != 'InActive'"
+                                title="{{ndagent[col.field]}}">
+                                <md-icon class="blockerIconClass">fiber_manual_record</md-icon>
+                            </span>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+                <div style="margin-top:5px">
+                    <label>Download Reports as: </label>
+                    <span>
+                        <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Word file"
+                            (click)='downloadNdReports("WordFile")' src='./images/iconWord.gif'>
+                    </span>
+                    <span>
+                        <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download Excel file"
+                            (click)='downloadNdReports("ExcelFile")' src='./images/iconExcel.gif'>
+                    </span>
+                    <span>
+                        <img border='0' width='15' height='15' style='margin-bottom: -3px; cursor:pointer' title="Download PDF file"
+                            (click)='downloadNdReports("PDFFile")' src='./images/iconPDF.gif'>
+                    </span>
+                </div>
+            </p-accordionTab>
+
+        </p-accordion>
+    </div>
+
+</div>
+
+<p-dialog class="profile-dialog agentInfoTopDialog" header="{{isUpdate ? 'Edit Machine Configuration' : 'Machine Configuration (View Only)'}}" *ngIf="viewEditCmonDialog" [(visible)]="viewEditCmonDialog" modal="modal" width="700" responsive="true" [style]="{'top': '39px'}"
+    [resizable]="false">
+    <!-- <form (ngSubmit)="saveUpdatedCmonAgent()" #groupForm="ngForm" ngNativeValidate> -->
+    <p-accordion class="ndagent ddAIaccordion" [multiple]="true">
+        <p-accordionTab header="Setting(s)" [selected]="true">
+            <div *ngIf="cmonEnvNormalKeyLabelList.length == 0" class="ui-g">
+                <div class="ui-g-12" style="text-align: center">
+                    <label>There is no Normal Setting(s)</label>
+                </div>
+            </div>
+            <div *ngIf="cmonEnvNormalKeyLabelList.length != 0" class="ui-g">
+                <div *ngFor='let label of cmonEnvNormalTextAreaLabelList; let i=index; trackBy:trackByFn'>
+                    <div class="ui-g-12">
+                        <div class="ui-g-3" style="width: 137px">
+                            <div style="padding-top: 9px">
+                                <label title="{{label}}" class="labelDisplay">
+                                    {{label}} <label style="color:red"  *ngIf="(label == 'Class Path' || label == 'Machine agent Settings') && isUpdate">*</label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="ui-g-9">
+                            <div>
+                                <textarea [cols]="100" [rows]="3" pInputTextarea [disabled]='!isUpdate' title=" {{cmonEnvNormalTextAreaValueList[i]}}" style="max-width:500px" [(ngModel)]="cmonEnvNormalTextAreaValueList[i]" autoResize="autoResize"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-12" style="padding: 0px">
+                    <div class="ui-g-6">
+                        <div class="ui-g-6">
+                            <div *ngFor='let label of cmonEnvNormalKeyLabelList; let i=index'>
+                                <div *ngIf="i%2 == 0">
+                                    <div style="padding-top: 7px">
+                                        <label title=" {{label}}" class="labelDisplay">
+                                        {{label}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-6">
+                            <div *ngFor="let value of cmonEnvNormalValueList; let i=index ;trackBy:trackByFn">
+                                <div *ngIf="i%2 == 0" style="padding-top: 3px;margin-right: 5px">
+                                    <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvNormalValueList[i]}}" [(ngModel)]="cmonEnvNormalValueList[i]" ngModel />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6">
+                        <div class="ui-g-6">
+                            <div *ngFor='let label of cmonEnvNormalKeyLabelList; let i = index'>
+                                <div *ngIf="i%2 != 0">
+                                    <div style="padding-top: 7px">
+                                        <label title=" {{label}}" class="labelDisplay">
+                                         {{label}}
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-6">
+                            <div *ngFor="let value of cmonEnvNormalValueList; let i=index; trackBy:trackByFn">
+                                <div *ngIf="i%2 != 0" style="padding-top: 3px;margin-right: 5px">
+                                    <input name='cmonEnvNormalValueList' title="{{cmonEnvNormalValueList[i]}}" [disabled]='!isUpdate' type="text " pInputText [(ngModel)]="cmonEnvNormalValueList[i] " ngModel /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+        <p-accordionTab header="Advanced Setting(s)">
+            <div class="ui-g">
+                <div *ngIf="cmonEnvAdvancedKeyLabelList.length == 0" class="ui-g-12" style="text-align: center;">
+                    <label>There is no Advanced Setting(s)</label>
+                </div>
+                <div *ngIf="cmonEnvAdvancedKeyLabelList.length != 0" class="ui-g-12" style="margin-top: -5px">
+                    <div class="ui-g-6">
+                        <div class="ui-g-6">
+                            <div *ngFor='let label of cmonEnvAdvancedKeyLabelList; let i=index'>
+                                <div *ngIf="i%2 == 0" style="padding-top: 7px">
+                                    <label title=" {{label}}" class="labelDisplay">
+                                        {{label}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-6">
+                            <div *ngFor="let value of cmonEnvAdvancedValueList; let i=index ;trackBy:trackByFn">
+                                <div *ngIf="!isUpdate">
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings')" style="padding-top: 3px;margin-right: 5px">
+                                            <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel/>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="isUpdate">
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
+                                            <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                        </div>
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
+                                            <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                        </div>
+                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
+                                            <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ">
+                        <div class="ui-g-6 ">
+                            <div *ngFor='let label of cmonEnvAdvancedKeyLabelList; let i = index'>
+                                <div *ngIf="i%2 !=0" style="padding-top: 7px ">
+                                    <label title=" {{label}} " class="labelDisplay ">
+                                            {{label}}
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-6 ">
+                            <div *ngFor="let value of cmonEnvAdvancedValueList; let i=index; trackBy:trackByFn ">
+                                <!-- <div *ngIf="i%2 !=0 && !(cmonEnvAdvancedKeyLabelList[i]=='Class Path' || cmonEnvAdvancedKeyLabelList[i]=='Machine Settings' ) " style="padding-top: 3px;margin-right: 5px ">
+                                    <input name='cmonEnvAdvancedValueList' [disabled]='!isUpdate' type="text " pInputText title="{{cmonEnvAdvancedValueList[i]}} " [(ngModel)]="cmonEnvAdvancedValueList[i] " ngModel />
+                                </div> -->
+                                <div *ngIf="!isUpdate">
+                                    <div *ngIf="i%2 != 0" style="padding-top: 3px;margin-right: 5px">
+                                        <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel/>
+                                    </div>
+                                </div>
+                                <div *ngIf="isUpdate">
+                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
+                                        <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                    </div>
+                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
+                                        <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
+                                    </div>
+                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
+                                        <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+    <footer style="margin: 10px -5px 0px ">
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix ">
+            <label *ngIf="isUpdate " style="margin: 9px 0px 0px 6px; float:left "><b>Note: </b> Change(s) in field(s) with asterisk (*) needs CMON Re-Starts.</label>
+            <button *ngIf="isUpdate " type="button " pButton icon="fa-check " (click)="saveSettingsOfCmonAgent() " label="Save "></button>
+            <button *ngIf="isUpdate " type="button " pButton icon="fa-close " (click)="viewEditCmonDialog=false " label="Cancel "></button>
+            <button *ngIf="!isUpdate " type="button " pButton icon="fa-check " (click)="viewEditCmonDialog=false " label="Ok "></button>
+        </div>
+    </footer>
+    <!-- </form> -->
+</p-dialog>

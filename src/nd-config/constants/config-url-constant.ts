@@ -1,6 +1,6 @@
 //  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 //  const  SERVICE_URL = 'https://10.10.40.14/configUI';
- const  SERVICE_URL = 'http://localhost:8090';
+const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -203,6 +203,10 @@ export const RUNTIME_CHANGE_INSTR_PROFILE = `${SERVICE_URL}/custom/runtimechange
 /* URL for ND Agent Status */
 export const FETCH_ND_AGENT_TABLEDATA = `${SERVICE_URL}/ndagent`;
 export const FETCH_CMON_TABLEDATA = `${SERVICE_URL}/getcmondata`;
+export const FETCH_CMON_ENV_KEYVALUE_EDIT = `${SERVICE_URL}/downloadcmonagentinfoforedit`;
+export const FETCH_CMON_ENV_KEYVALUE_VIEW = `${SERVICE_URL}/downloadcmonagentinfoforview`;
+export const UPDATE_CMON_ENV_KEYVALUE = `${SERVICE_URL}/updatecmonagentinfo`;
+export const RESTART_CMON_ENV_AGENT = `${SERVICE_URL}/restartcmonagent`;
 
 /* URL for SessionAtrributeMonitor */
 export const FETCH_SESSION_ATTR_TABLEDATA = `${SERVICE_URL}/custom/sessionattrmonitor/getallsessionattrdata`;

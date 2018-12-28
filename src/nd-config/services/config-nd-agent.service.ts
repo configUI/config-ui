@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 
 import {ConfigRestApiService} from './config-rest-api.service';
-import { NDAgentInfo, CmonInfo } from '../interfaces/nd-agent-info';
+import { NDAgentInfo, CmonInfo, CmonEnvInfo } from '../interfaces/nd-agent-info';
 import * as URL from '../constants/config-url-constant';
 import { AutoDiscoverData } from "../containers/auto-discover-data";
 
@@ -28,5 +28,19 @@ export class ConfigNdAgentService {
     return this._restApi.getDataByPostReq(URL.DISCOVER_DATA, data);
   }
 
-
+    getCmonEnvKeyValueForShow(cmonInfoArr: any): Observable<object> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_CMON_ENV_KEYVALUE_VIEW}`, cmonInfoArr);
+    }
+    
+    getCmonEnvKeyValueForEdit(cmonInfoArr : any): Observable<CmonEnvInfo> {
+    return this._restApi.getDataByPostReq(`${URL.FETCH_CMON_ENV_KEYVALUE_EDIT}`,cmonInfoArr);
+    }
+    
+    getCmonEnvKeyValueUpdate(cmonInfoArr:any): Observable<any> {
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_CMON_ENV_KEYVALUE}`,cmonInfoArr);
+    }
+    
+    getCmonEnvRestartedStatus(restartedCmonAgentList: string[]): Observable<object> {
+    return this._restApi.getDataByPostReq(`${URL.RESTART_CMON_ENV_AGENT}`, restartedCmonAgentList);
+    }
 }

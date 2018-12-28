@@ -158,6 +158,9 @@ import { UserConfiguredKeywordComponent } from './components/user-configured-key
 import { PipeForType } from './pipes/config-pipe.pipe';
 import { NVAutoInjectConfiguration } from './components/config-profile/product-integration/nv-auto-inject/nv-auto-inject.component';
 
+
+import { CavNdAgentComponent } from './components/cav-nd-agent/cav-nd-agent.component';
+
 @NgModule({
   declarations: [
     AppComponentForConfig,
@@ -235,7 +238,8 @@ import { NVAutoInjectConfiguration } from './components/config-profile/product-i
     UserConfiguredKeywordComponent,
     PipeForType,
     InterfaceEntryPointComponent,
-    NVAutoInjectConfiguration
+    NVAutoInjectConfiguration,
+    CavNdAgentComponent
   ],
   imports: [
    // CommonModule,

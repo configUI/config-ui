@@ -22,7 +22,7 @@ export class ConfigMainComponent implements OnInit {
       }, 1);
       
     });
-       this.calcheight = window.innerHeight - 104 + "px";	
+       this.calcheight = window.innerHeight - 81 + "px";	
   }
 
 }
