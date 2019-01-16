@@ -4,17 +4,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { SelectItem, Message } from 'primeng/primeng';
 import { Http, Response } from '@angular/http';
 
-import { ConfigNdAgentService } from '../../services/config-nd-agent.service';
-import { NDAgentInfo, CmonInfo } from '../../interfaces/nd-agent-info';
-import { CavConfigService } from '../../services/cav-config.service';
-import { ConfigUtilityService } from '../../services/config-utility.service';
-
-
 // import { ConfigNdAgentService } from '../../../modules/nd-config/services/config-nd-agent.service';
 // import { NDAgentInfo, CmonInfo } from '../../../modules/nd-config/interfaces/nd-agent-info';
 // import { CavConfigService } from '../../services/cav-config.service';
 // import { ConfigUtilityService } from '../../../modules/nd-config/services/config-utility.service';
 
+import { ConfigNdAgentService } from '../../services/config-nd-agent.service';
+import { NDAgentInfo, CmonInfo } from '../../interfaces/nd-agent-info';
+import { CavConfigService } from '../../services/cav-config.service';
+import { ConfigUtilityService } from '../../services/config-utility.service';
 
 @Component({
   selector: 'app-config-nd-agent',
@@ -568,6 +566,11 @@ export class CavNdAgentComponent implements OnInit {
       if (concatValueList[i].length != 0) {
         if(concatValueList[i].indexOf(",") > -1)
         {
+          for (let j = 0; j < concatValueList.length; j++) {
+            if (concatValueList[j].indexOf('"') > -1) {
+              concatValueList[j] = concatValueList[j].replace(/"/g, "");
+            }
+          }
           obj[concatlabelList[i]] = concatValueList[i].replace(/,/g , "#");
         }
         else
@@ -579,7 +582,16 @@ export class CavNdAgentComponent implements OnInit {
     cmonInfoArr[0] = this.rowDataServerID;
     cmonInfoArr[1] = this.cmonHomePath;
     cmonInfoArr[2] = this.cmonPid+ "~~" + this.cmonTier + "~~" + this.cmonServerName;
-    cmonInfoArr[3] = JSON.stringify(obj);
+    //This approach is used to restrict extra backslashes added .
+    //Previously , the approach of JSON.stringify for the object had been followed but in that case extra backslashes appended.
+    //After the loop the string will looks as {"key1":"value","key2":"value2",... so on } 
+    let strForObject = '\{';
+    Object.keys(obj)
+      .forEach(function eachKey(key) {
+        strForObject = strForObject + '\"' + key + '\"' + '\:' + '\"' + obj[key] + '\"' + ',';
+      });
+    strForObject = strForObject.replace(/.$/, '\}');
+    cmonInfoArr[3] = strForObject;
     cmonInfoArr[4] = this.cmonMachineType;
 
       this.configNdAgentService.getCmonEnvKeyValueUpdate(cmonInfoArr).subscribe(data => {
@@ -591,5 +603,22 @@ export class CavNdAgentComponent implements OnInit {
   //This Method is used for getting focus on textbox
   trackByFn(index: any, item: any) {
     return index;
+  }
+/**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog
+   * related to the current component.
+   */
+  customDataHelpDialogMachine : boolean;
+  sendHelpNotificationForMachine() {
+    this.customDataHelpDialogMachine = true;
+  }
+
+  /**
+   * Purpose : To invoke the service responsible to open Help Notification Dialog
+   * related to the current component.
+   */
+  customDataHelpDialogApplication : boolean;
+  sendHelpNotificationForApplication() {
+    this.customDataHelpDialogApplication = true;
   }
 }
