@@ -1,0 +1,226 @@
+<div class="ui-g ndegui-mainbox">
+    <div class="ui-g-12">
+
+        <!-- Left side-->
+        <div class="ui-g-3">
+            <form (ngSubmit)="showFiles()" #groupForm="ngForm" ngNativeValidate>
+
+                <!-- Tier/server/instance-->
+                <div class="ui-g-12">
+                    <!-- Tier field-->
+                    <div class="ui-g-12">
+                        <div class="ui-g-3 label">
+                            <label>Tier</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input name="tier" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedTier"
+                                required ngModel />
+                            <p-dropdown [options]="tierList" name="tier" [style]="{'width':'100%'}" [(ngModel)]="selectedTier"
+                                (ngModelChange)="fetchServer(selectedTier)" placeholder="--Select--" required></p-dropdown>
+                        </div>
+                    </div>
+
+                    <!-- Server field-->
+                    <div class="ui-g-12">
+                        <div class="ui-g-3 label">
+                            <label>Server</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input name="server" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedServer"
+                                required ngModel />
+                            <p-dropdown [options]="serverList" name="server" disabled="{{selectedTier == ''}}" [style]="{'width':'100%'}"
+                                [(ngModel)]="selectedServer" (ngModelChange)="fetchInstance(selectedServer)"
+                                placeholder="--Select--" required></p-dropdown>
+                        </div>
+                    </div>
+
+                    <!-- Instance field-->
+                    <div class="ui-g-12">
+                        <div class="ui-g-3 label">
+                            <label>Instance</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input name="instance" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedInstance"
+                                required ngModel />
+                            <p-dropdown [options]="instanceList" name="instance" disabled="{{selectedServer == ''}}"
+                                [style]="{'width':'100%'}" [(ngModel)]="selectedInstance" (ngModelChange)="identifyOSType()"
+                                placeholder="--Select--" required></p-dropdown>
+                        </div>
+                    </div>
+
+                    <!-- File Type-->
+                    <div class="ui-g-12">
+                        <div class="ui-g-3 label">
+                            <label>File Type</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input name="fileType" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedFileType"
+                                required ngModel />
+                            <p-dropdown [options]="fileTypeList" name="fileType" [style]="{'width':'100%'}" [(ngModel)]="selectedFileType"
+                                placeholder="--Select--" required></p-dropdown>
+                        </div>
+                    </div>
+
+                    <!-- Custom field(Optional)-->
+                    <div class="ui-g-12" *ngIf="selectedFileType=='Custom'">
+                        <div class="ui-g-3 label">
+                            <label>Source Path</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input type="text" name="source" pInputText [(ngModel)]="viewAdvanceSetting.sourcePath"
+                                style="width:100%" required />
+                        </div>
+                    </div>
+
+                    <!-- Agent Mode-->
+                    <div class="ui-g-12">
+                        <div class="ui-g-3 label">
+                            <label>Agent Type</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input name="agentMode" type="text" class='hidden-validator' pInputText [(ngModel)]="viewAdvanceSetting.agentMode"
+                                required ngModel />
+                            <p-dropdown [options]="agentList" name="agentMode" [style]="{'width':'100%'}" [(ngModel)]="viewAdvanceSetting.agentMode"
+                                placeholder="--Select--" required></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced setting-->
+                <div class="ui-g-12" class="flowpathheader-accordion">
+                    <p-fieldset legend="Advanced Settings" [toggleable]="true" [collapsed]="true">
+
+                        <!-- Timeout -->
+                        <div class="ui-g-12">
+                            <div class="ui-g-4 label">
+                                <label>Timeout</label>
+                            </div>
+                            <div class="ui-g-4">
+                                <input type="number" name="timeout" style="width: 100%" pInputText [(ngModel)]="viewAdvanceSetting.timeout"
+                                    required />
+                            </div>
+                        </div>
+
+                        <!-- Compressed Mode -->
+                        <div class="ui-g-12">
+                            <div class="ui-g-8">
+                                <p-checkbox name="compressedMode" [(ngModel)]="viewAdvanceSetting.compressedMode"
+                                    binary="true" ngModel label="Compressed Mode"></p-checkbox>
+
+                            </div>
+                        </div>
+
+                        <!-- Execute forcefully -->
+                        <div class="ui-g-12">
+                            <div class="ui-g-8">
+                                <p-checkbox name="executeForcefully" [(ngModel)]="viewAdvanceSetting.executeForcefully"
+                                    binary="true" ngModel label="Execute Forcefully"></p-checkbox>
+                            </div>
+                        </div>
+
+                    </p-fieldset>
+
+                    <!-- Buttons to show files and reset data-->
+                    <div class="pull-right" style="margin-top: 7px">
+                        <button type="submit" pButton icon="fa-files-o" label="Show files"></button>
+                    </div>
+                </div>
+
+            </form>
+        </div><!-- Left side end-->
+
+        <!-- Right side-->
+        <div class="ui-g-9">
+
+            <!-- Files list from BCI side-->
+            <div class="ui-g-12 ">
+                <md-card class="ndegui-card" style="padding: 0px">
+                    <md-card-subtitle class="md-card-subtitle-css" style="margin-bottom: 2px">
+                        <!-- <div class="header-Name" *ngIf="messageFields.tier == ''">Download Files</div> -->
+                        <div class="header-Name" *ngIf="messageFields.tier != ''">
+                            ({{messageFields.tier}} > {{messageFields.server}} > {{messageFields.instance}})</div>
+                        <div class="header-button" style="height: 20px;">
+                            <!-- Search box-->
+                            <input *ngIf="fileListArr.length!=0" [(ngModel)]="searchText" class="search_css"
+                                placeholder="Search...">
+                        </div>
+                    </md-card-subtitle>
+
+                    <div class="ui-g">
+
+                        <div class="ui-g-12 radio-css">
+
+                            <!-- To go back from current path-->
+                            <a (click)="goBack(file)" *ngIf="messageFields.fileType=='Custom' && fileListArr.length!=0" style="color: black;margin-left: 6px" class="contents"><i class="fa fa-folder-open icon_size"
+                                    aria-hidden="true"></i>../</a>
+
+                            <!-- Files list shown with radio button-->
+                            <div class="ui-g-12" *ngFor="let file of fileListArr | filter : searchText">
+
+                                <!-- If it is a folder then show folder icon-->
+                                <a *ngIf="file.endsWith('/')" (click)="doubleClick(file)" style="color: black" class="contents"><i
+                                        class="fa fa-folder-open icon_size" aria-hidden="true"></i> {{file}}</a>
+
+                                <!-- If it is a file then show radio button-->
+                                <p-radioButton *ngIf="!file.endsWith('/')" name="files" label="{{file}}" value="{{file}}"
+                                    [(ngModel)]="selectedFile"></p-radioButton>
+                            </div>
+
+                        </div>
+
+                        <div class="ui-g-12" style="text-align: right">
+                            <button type="button" [disabled]="fileListArr.length==0" pButton icon="fa-download" (click)="openDownloadFileDialog()"
+                                label="Download and View"></button>
+                        </div>
+
+                    </div>
+                </md-card>
+            </div>
+
+            <!-- To show the content of the file-->
+            <div class="ui-g-12" *ngIf="showContentBox == true">
+                <md-card class="ndegui-card" style="padding: 0px">
+                    <md-card-subtitle class="md-card-subtitle-css" style="margin-bottom: 2px">
+
+                        <div class="header-Name">{{fileNameHeader}} </div>
+                        <div class="header-button" style="height: 20px;">
+                            <!-- Search box-->
+                            <!-- <input [(ngModel)]="searchFileText" class="search_css" placeholder="Search..."> -->
+                        </div>
+                    </md-card-subtitle>
+                    <p-panel>
+                        <div class="file_textarea instrprofileview" #createPanel>
+                            <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="fileContent | highlight : searchFileText"></code></pre>
+                        </div>
+                    </p-panel>
+                </md-card>
+            </div>
+
+
+        </div><!-- Right side end-->
+
+    </div>
+</div>
+
+<!-- Dialog to ask user for destination path-->
+<p-dialog class="profile-dialog" header="Download File: {{selectedFile}}" *ngIf="downloadDialog" [(visible)]="downloadDialog"
+    modal="modal" width="400" responsive="true" [resizable]="false">
+    <form (ngSubmit)="downloadFile(groupForm)" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <label>Destination Path</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="destPath" type="text" pInputText [(ngModel)]="viewAdvanceSetting.destPath" autofocus
+                    required ngModel />
+                <!-- <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button> -->
+            </div>
+        </div>
+        <footer style="margin-top: 10px">
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-download" label="Download"></button>
+                <button type="button" pButton icon="fa-close" (click)="downloadDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>

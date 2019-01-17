@@ -43,4 +43,12 @@ export class ConfigNdAgentService {
     getCmonEnvRestartedStatus(restartedCmonAgentList: string[]): Observable<object> {
     return this._restApi.getDataByPostReq(`${URL.RESTART_CMON_ENV_AGENT}`, restartedCmonAgentList);
     }
+
+    listFiles(data: string): Observable<string[]>{
+      return this._restApi.getDataByPostReq(`${URL.LIST_BCI_FILES}`, data)
+    }
+
+    downloadAgentFile(data: string): Observable<any>{
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.DOWNLOAD_BCI_FILE}`, data)
+    }
 }

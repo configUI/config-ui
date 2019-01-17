@@ -241,6 +241,9 @@ export class ConfigBreadcrumbComponent implements OnInit, OnDestroy {
     else if (url.startsWith(BREADCRUMB.URL.USER_CONFIGURED_KEYWORD)) {
       this.items.push({ label: BREADCRUMB.LABEL.USER_CONFIG_KEYWORDS });
     }
+    else if (url.startsWith(BREADCRUMB.URL.BCI_LOGS)) {
+      this.items.push({ label: BREADCRUMB.LABEL.BCI_LOGS });
+    }
 
     console.log("this.items", this.items);
   }

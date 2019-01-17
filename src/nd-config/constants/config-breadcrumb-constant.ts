@@ -21,7 +21,8 @@ export const LABEL = {
     AI: 'Auto Instrumentation',
     NDE_CLUSTER: 'NDE Cluster Configuration',
     USER_CONFIG_KEYWORDS: 'User Configured Settings',
-    ND_AGENT_INFO: 'ND Agent Info'
+    ND_AGENT_INFO: 'ND Agent Info',
+    BCI_LOGS: 'Download Agent Logs'
 } 
 
 export const URL = {
@@ -64,4 +65,5 @@ export const URL = {
     USER_CONFIGURED_KEYWORD: `${ROUTING_PATH}/user-configured-keywords`,
     VIEW_AUDIT_LOG: `${ROUTING_PATH}/audit-log-view`,
     ND_AGENT_INFO: `${ROUTING_PATH}/nd-agent-info`,
+    BCI_LOGS: `${ROUTING_PATH}/bci-logs`
 };  

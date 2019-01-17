@@ -1,0 +1,23 @@
+.radio-css{
+    overflow: auto;
+    max-height: 144px
+}
+
+.file_textarea{
+    min-width: 99%;
+    min-height: 200px;
+    max-height: 430px;
+    overflow-y: auto;
+    height: 200px;
+}
+
+.search_css{
+    border-radius: 3px;
+
+}
+
+.icon_size{
+    font-size: 14px;
+    margin-right: 5px;
+
+}

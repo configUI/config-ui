@@ -27,6 +27,7 @@ import { ConfigAutoInstrumentationComponent } from '../components/config-auto-di
 import { ConfigEditAutoInstrumentationComponent } from '../components/config-auto-discover/config-edit-auto-instrumentation/config-edit-auto-instrumentation.component';
 import { NDEClusterConfiguration } from '../components/nde-cluster-configuration/nde-cluster-configuration.component';
 import { UserConfiguredKeywordComponent } from '../components/user-configured-keywords/user-configured-keywords.component';
+import { ConfigBCILogsComponent } from '../components/config-bci-logs/config-bci-logs.component';
 
 // /**For ProductUI */
 // const routes: Routes = [
@@ -118,6 +119,7 @@ const routes: Routes = [
             { path: 'auto-discover-tree', component: ConfigAutoDiscoverTreeComponent },
         { path: 'audit-log-view', component: ConfigViewAuditLogComponent },
         { path: 'nd-agent-info', component: CavNdAgentComponent },
+        { path: 'bci-logs', component: ConfigBCILogsComponent},
         { path: 'nde-cluster-config', component: NDEClusterConfiguration},
         { path: 'user-configured-keywords', component: UserConfiguredKeywordComponent},
 	    { path: 'application-list/ndc-keywords-setting/:appId', component: ConfigNDCKeywordsSettingComponent },

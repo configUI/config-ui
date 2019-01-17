@@ -6,14 +6,15 @@ export interface NDAgentInfo {
 	iD:string;
 	ver:string;
 	brs:string;
-	bst:string;
+	bst?:string;
 	nst :string;
 	st:string;
 	at:string;
 	pid:string;
-	ch:string;
+	ch?:string;
 	si:string;
 	cpath:string;
+	os?:string;
 }
 
 export interface CmonInfo{

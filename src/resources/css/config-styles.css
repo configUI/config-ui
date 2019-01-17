@@ -129,6 +129,10 @@
 .ndegui-topology-1:before {
   content: "\e01a";
 }
+.ndegui-download-logs:before {
+  content: "\e01b";
+}
+
 
 
 .nde-ui .ui-datatable .ui-datatable-thead>tr>th {

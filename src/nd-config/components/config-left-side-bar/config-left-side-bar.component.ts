@@ -64,7 +64,8 @@ export class ConfigLeftSideBarComponent implements OnInit {
         { label: "NDE Cluster Configuration", route: `${ROUTING_PATH}/nde-cluster-config`, icon: "ndeicon ndegui-cluster", tooltip: "NDE Cluster Configuration" },
         { label: "User Configured Settings", route: `${ROUTING_PATH}/user-configured-keywords`, icon: "ndeicon ndegui-custom-keyword", tooltip: "User Configured Keywords" },
         { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
-        { label: "ND Agent Info", route: `${ROUTING_PATH}/nd-agent-info`, icon: "ndeicon ndegui-audit-logs", tooltip: "ND Agent Info" },
+        // { label: "ND Agent Info", route: `${ROUTING_PATH}/nd-agent-info`, icon: "ndeicon ndegui-audit-logs", tooltip: "ND Agent Info" },
+        { label: "Download Agent logs", route: `${ROUTING_PATH}/bci-logs`, icon: "ndeicon ndegui-download-logs", tooltip: "Download Agent logs" },
       ];
       else
       this.navMenuArray = [
@@ -76,6 +77,7 @@ export class ConfigLeftSideBarComponent implements OnInit {
         { label: "Auto Discover", route: `${ROUTING_PATH}/auto-discover`, icon: "ndeicon ndegui-auto-discover", tooltip: "Instrumentation Finder" },
         { label: "NDE Cluster Configuration", route: `${ROUTING_PATH}/nde-cluster-config`, icon: "ndeicon ndegui-cluster", tooltip: "NDE Cluster Configuration" },
         { label: "Audit Log", route: `${ROUTING_PATH}/audit-log-view`, icon: "ndeicon ndegui-audit-logs", tooltip: "Audit Log" },
+        { label: "Download Agent logs", route: `${ROUTING_PATH}/bci-logs`, icon: "ndeicon ndegui-download-logs", tooltip: "Download Agent logs" },
       ];
     }
     );

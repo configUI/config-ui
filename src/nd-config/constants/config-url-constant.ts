@@ -1,6 +1,6 @@
-//  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+ const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 //  const  SERVICE_URL = 'https://10.10.40.14/configUI';
-const  SERVICE_URL = 'http://localhost:8090';
+// const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
@@ -439,3 +439,8 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
 
  /* Url for Uploading Auto Injection File */
  export const UPLOAD_AUTO_INJECTION_FILE = `${SERVICE_URL}/custom/autoinjection/uploadfile`;
+
+
+ /** URL for BCI Logs */
+ export const LIST_BCI_FILES = `${SERVICE_URL}/custom/bcilogs/listFiles`;
+ export const DOWNLOAD_BCI_FILE = `${SERVICE_URL}/custom/bcilogs/downloadagentfile`;
