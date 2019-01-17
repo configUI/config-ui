@@ -72,3 +72,36 @@ div.section {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.configHelpFile{
+    margin: 5px;
+    padding: 2px 4px 4px;
+    border: 1px #d6d6d6 solid;
+    border-radius: 2px;
+    /* box-shadow: 0 0 2px 2px #cecece; */
+ }
+
+.configHelpSubHeading {
+    padding: 5px 0 0 5px;
+    font-size: 12px;
+    font-weight: 500;
+    /* color: #525252; */
+}
+.configHelpSubHeading i {
+    font-size: 6px;
+}
+.configHelpSubHeadText{
+    padding: 0 0 0 26px;
+    margin: 8px 0;
+    font-size: 11px;
+    font-weight: 400;
+    /* color: #777; */
+    line-height: 20px;
+}
+.configHelpFile{
+    margin: 5px;
+    padding: 2px 4px 4px;
+    border: 1px #d6d6d6 solid;
+    border-radius: 2px;
+    /* box-shadow: 0 0 2px 2px #cecece; */
+  }

@@ -1,8 +1,8 @@
 <p-growl life="5000" [value]=message></p-growl>
 <div class="ndegui-mainbox">
 
-    <!-- <p-blockUI [blocked]="loading"></p-blockUI>
-    <img *ngIf="loading" class="loadingIcon" src="./images/loading.gif" /> -->
+<!--     <p-blockUI [blocked]="loading"></p-blockUI>
+    <img *ngIf="loading" class="loadingIcon" src="./images/loading.gif" />   -->
     <div class="accordian-css">
         <p-accordion class="ndagent">
             <p-accordionTab header="Machine Agent Status {{totalMachineAgent}}" [selected]="true">
@@ -10,6 +10,10 @@
                     <input #ga type="text" pInputText size="50" />
                     <span>
                         <i class="fa fa-search" style="margin:4px 4px 0 -20px"></i>
+                    </span>
+                    <!--Help Icon-->
+                    <span style="margin-left: 60.4%">
+                            <i class="fa fa-question-circle helpicon" style="color: #1b1d1f; padding-top: 7px" title="Help" (click)="sendHelpNotificationForMachine()"></i>
                     </span>
                     <span *ngIf="isCmonCheckFilter" title="Show column filters" (click)="showCmonFilter('check')">
                         <i class="fa fa-filter IconCss"></i>
@@ -149,6 +153,10 @@
                     <input #gb type="text" pInputText size="50" />
                     <span>
                         <i class="fa fa-search" style="margin:4px 4px 0 -20px"></i>
+                    </span>
+                    <!--Help Icon-->
+                    <span style="margin-left: 62.1%">
+                            <i class="fa fa-question-circle helpicon" style="color: #1b1d1f; padding-top: 7px" title="Help" (click)="sendHelpNotificationForApplication()"></i>
                     </span>
                     <span *ngIf="isNdCheckFilter" title="Show column filters" (click)="showNDFilter('check')">
                         <i class="fa fa-filter IconCss"></i>
@@ -417,4 +425,259 @@
         </div>
     </footer>
     <!-- </form> -->
+</p-dialog>
+<!--
+    Help Icon Dialog for Machine Agent Status
+-->
+<p-dialog class="profile-dialog" header="Agent Info" *ngIf="customDataHelpDialogMachine" [(visible)]="customDataHelpDialogMachine"
+    modal="modal" width="700" responsive="true" [resizable]="false">
+    <p-accordion class="ndagent ddAIaccordion" [multiple]="true">
+        <p-accordionTab [selected]="true">
+            <p-header>
+                <span class="fa fa-cogs"><label style="margin-left: 6px">Machine Agent Status </label></span>
+            </p-header>
+            <div class="configHelpFile configHelp configHelpColor">
+                <div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Pid 
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the ID of the process.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Tier
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the tier in which the server is running.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Server
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the server which is running in the given tier.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Server IP
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the IP address of the server.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> OS
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the operating system on which the agent is deployed.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Version
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the build of the agent.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Agent Start Time
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the time when the agent was started.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Configuration URL
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This refers the URL path of the server where the configuration settings are stored.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Setting Last Updated Time
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the time when the settings of the agent were last updated.                                
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Status
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the status of the agent in a color format (Green  Active, Yellow  Inactive, Red  Disconnected).                               
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Actions
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the actions which the user can perform, such as view and update the configurations.                               
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+</p-dialog>
+
+<!--
+    Help Icon Dialog for Application Agent Status
+-->
+<p-dialog class="profile-dialog" header="Agent Info" *ngIf="customDataHelpDialogApplication" [(visible)]="customDataHelpDialogApplication"
+    modal="modal" width="700" responsive="true" [resizable]="false">
+    <p-accordion class="ndagent ddAIaccordion" [multiple]="true">
+        <p-accordionTab [selected]="true">
+            <p-header>
+                <span class="fa fa-cogs"><label style="margin-left: 6px">Application Agent Status </label></span>
+            </p-header>
+            <div class="configHelpFile configHelp configHelpColor">
+                <div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Pid 
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the ID of the process.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Tier
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the tier in which the server is running.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Server
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the server which is running in the given tier.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Server IP
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the IP address of the server.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Instance
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the instance of the server.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Installation Directory
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This is the directory in which the agent is installed.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Agent Type
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the type of agent, such as Java, .NET, and so on.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Version
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the build of the agent.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Agent Start Time
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the time when the agent was started.                                
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Configuration URL
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This refers the URL path of the server where the configuration settings are stored.                           
+			    </p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="configHelpSubHeading">
+                            <i class="fa fa-square" aria-hidden="true"></i> Status
+                        </span>
+                        <div>
+                            <p class="configHelpSubHeadText" name="name" style="margin-right: 6px">
+                                This shows the status of the agent in a color format (Green  Active, Yellow  Inactive, Red  Disconnected).                               
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
 </p-dialog>

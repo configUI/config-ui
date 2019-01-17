@@ -1,9 +1,9 @@
 <div class="ui-g" *ngIf="DDOrAIGUI == 'ND ConfigUI'" style="margin:-10px 9px">
-    <div class="ui-g-12 divCss">
+    <div class="ui-g-12 divCss" *ngIf="agentTypes == 'Java' || agentTypes == 'Dot Net' || agentTypes == 'DotNet'">
         <div class="ui-g-6">
             <p-radioButton name="AIDDGUI" value="0" label="Auto Instrumentation" [(ngModel)]="AIDDGUI" [disabled]="false"></p-radioButton>
         </div>
-        <div class="ui-g-6" *ngIf="agentTypes == 'Java'">
+        <div class="ui-g-6">
             <p-radioButton name="AIDDGUI" value="1" label="Dynamic Diagnostics" [(ngModel)]="AIDDGUI" [disabled]="false"></p-radioButton>
         </div>
     </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="minStackDepthAutoInstrSession" [(ngModel)]="autoInstrObj['minStackDepthAutoInstrSession']" pInputText min=0 max=1000 class="text-width" required ngModel>
+                <input type="number" size='20' name="minStackDepthAutoInstrSession" [(ngModel)]="autoInstrObj['minStackDepthAutoInstrSession']" pInputText min=1 max=1000 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -54,7 +54,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrSampleThreshold" [(ngModel)]="autoInstrObj['autoInstrSampleThreshold']" pInputText min=0 max=5000 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrSampleThreshold" [(ngModel)]="autoInstrObj['autoInstrSampleThreshold']" pInputText min=10 max=10000 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -63,7 +63,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrPct" [(ngModel)]="autoInstrObj['autoInstrPct']" pInputText min=1 max=100 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -72,7 +72,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoDeInstrPct" [(ngModel)]="autoInstrObj['autoDeInstrPct']" pInputText min=1 max=100 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -82,17 +82,17 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrMapSize" [(ngModel)]="autoInstrObj['autoInstrMapSize']" pInputText min=0 max=10000000 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrMapSize" [(ngModel)]="autoInstrObj['autoInstrMapSize']" pInputText min=1000 max=1000000 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
             <div class="ui-g-7">
-                <label>Minimum average execution time of method for Instrumentation (in ms)</label>
+                <label>Maximum average execution time of method for Instrumentation (in ms)</label>
                 <i class="fa fa-info-circle" aria-hidden="true" title="Methods will be un-instrumemted if average execution time of method less than the provided value"></i>
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrMaxAvgDuration" [(ngModel)]="autoInstrObj['autoInstrMaxAvgDuration']" pInputText min=0 max=100 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrMaxAvgDuration" [(ngModel)]="autoInstrObj['autoInstrMaxAvgDuration']" pInputText min=1 max=1000 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss">
@@ -102,7 +102,7 @@
             </div>
             <div class="ui-g-1"></div>
             <div class="ui-g-4">
-                <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=0 class="text-width" required ngModel>
+                <input type="number" size='20' name="autoInstrClassWeight" [(ngModel)]="autoInstrObj['autoInstrClassWeight']" pInputText min=1 max=1000 class="text-width" required ngModel>
             </div>
         </div>
         <div class="ui-g-12 divCss" style="margin-left: 5px">
@@ -206,7 +206,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="stackDepthFilter" [(ngModel)]="ddAIData['stackDepthFilter']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="stackDepthFilter" [(ngModel)]="ddAIData['stackDepthFilter']" pInputText min=1 max=1000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -215,7 +215,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="ddsampleInterval" [(ngModel)]="ddAIData['ddsampleInterval']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="ddsampleInterval" [(ngModel)]="ddAIData['ddsampleInterval']" pInputText min=1 max=1000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -225,7 +225,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="ddtraceLevel" [(ngModel)]="ddAIData['ddtraceLevel']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="ddtraceLevel" [(ngModel)]="ddAIData['ddtraceLevel']" pInputText min=1 max=3 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -234,7 +234,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="autoInstrsampleThreshold" [(ngModel)]="ddAIData['autoInstrsampleThreshold']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="autoInstrsampleThreshold" [(ngModel)]="ddAIData['autoInstrsampleThreshold']" pInputText min=10 max=10000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -243,7 +243,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="instrPct" [(ngModel)]="ddAIData['instrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                            <input type="number" size='20' name="instrPct" [(ngModel)]="ddAIData['instrPct']" pInputText min=1 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -252,7 +252,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="removeInstrPct" [(ngModel)]="ddAIData['removeInstrPct']" pInputText min=0 max=100 class="text-width" required ngModel>
+                            <input type="number" size='20' name="removeInstrPct" [(ngModel)]="ddAIData['removeInstrPct']" pInputText min=1 max=100 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -262,7 +262,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="maxMethods" [(ngModel)]="ddAIData['maxMethods']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="maxMethods" [(ngModel)]="ddAIData['maxMethods']" pInputText min=1000 max=10000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -272,7 +272,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="minAvgResponseTime" [(ngModel)]="ddAIData['minAvgResponseTime']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="minAvgResponseTime" [(ngModel)]="ddAIData['minAvgResponseTime']" pInputText min=1 max=1000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -282,7 +282,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="weightage" [(ngModel)]="ddAIData['weightage']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="weightage" [(ngModel)]="ddAIData['weightage']" pInputText min=1 max=1000 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -292,7 +292,7 @@
                         </div>
                         <div class="ui-g-1"></div>
                         <div class="ui-g-4">
-                            <input type="number" size='20' name="aiThreshold" [(ngModel)]="ddAIData['aiThreshold']" pInputText min=0 class="text-width" required ngModel>
+                            <input type="number" size='20' name="aiThreshold" [(ngModel)]="ddAIData['aiThreshold']" pInputText min=1 max=10 class="text-width" required ngModel>
                         </div>
                     </div>
                     <div class="ui-g-12 divCss">
@@ -304,7 +304,7 @@
                             <input type="number" size='20' name="dumpdata" [(ngModel)]="ddAIData['dump_data']" pInputText min=0 max=2 class="text-width" required ngModel>
                         </div>
                     </div>
-                    <div class="ui-g-12 divCss">
+                    <div class="ui-g-12 divCss" *ngIf="agentTypes == 'Java'">
                         <div class="ui-g-4">
                             <label>Thread blacklist filter </label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Provided thread names are excluded in the DD AI session"></i>
@@ -314,7 +314,7 @@
                             <input type="text" size='36' name="ddaithreadblackList" pattern="[a-zA-Z0-9_#@./&,-]*" [(ngModel)]="ddAIData['ddaithreadblackList']" pInputText ngModel>
                         </div>
                     </div>
-                    <div class="ui-g-12 divCss">
+                    <div class="ui-g-12 divCss" *ngIf="agentTypes == 'Java'">
                         <div class="ui-g-4">
                             <label>Thread whitelist filter</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Provided thread names are included in the DD AI session"></i>
@@ -365,9 +365,9 @@
         <footer style="margin: -4px 0px;">
             <br>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix ">
-                <button type="submit " pButton icon="fa-play " label="Start"></button>
-                <button type="button " pButton icon="fa-refresh " (click)="resetToDefault() " style="float:left" label="Reset to default "></button>
-                <button type="button " pButton icon="fa-close " (click)="closeAutoInstrDDDialog() " label="Cancel "></button>
+                <button type="submit" pButton icon="fa-play " label="Start"></button>
+                <button type="button" pButton icon="fa-close " (click)="closeAutoInstrDDDialog() " label="Cancel "></button>
+		<button type="button" pButton icon="fa-refresh " (click)="resetToDefault() " style="float:left" label="Reset to default "></button>
             </div>
         </footer>
     </form>

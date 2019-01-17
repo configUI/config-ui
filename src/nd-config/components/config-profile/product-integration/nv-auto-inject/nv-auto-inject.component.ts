@@ -846,7 +846,12 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * The below method is used to reset the keyword value
      */
     resetKeywordData() {
-        this.nvAutoInjection = cloneObject(this.configKeywordsService.keywordData);
+        let data = this.configKeywordsService.keywordData;
+        for( let key in data){
+            if(this.keywordList.includes(key)){
+            this.nvAutoInjection[key].value = data[key].value;
+          }
+        }
         this.methodToSetValue(this.nvAutoInjection);
     }
 
@@ -854,13 +859,12 @@ export class NVAutoInjectConfiguration implements OnInit, OnDestroy {
      * This method is used to reset the keyword data to its Default value
      */
     resetKeywordsDataToDefault() {
-        let data = cloneObject(this.configKeywordsService.keywordData);
-        var keywordDataVal = {}
-        keywordDataVal = data
-        this.keywordList.map(function (key) {
-            keywordDataVal[key].value = data[key].defaultValue
-        })
-        this.nvAutoInjection = keywordDataVal;
+        let data = this.configKeywordsService.keywordData;
+        for( let key in data){
+            if(this.keywordList.includes(key)){
+            this.nvAutoInjection[key].value = data[key].defaultValue;
+          }
+        }
         this.methodToSetValue(this.nvAutoInjection);
     }
 
