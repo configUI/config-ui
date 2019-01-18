@@ -62,10 +62,10 @@ export class DynamicDiagnosticsComponent implements OnInit {
     DDOrAIGUI: string;
     accordionTab: number;
     agentTypes: string;
-    trStatus:string;
+    trStatus: string;
     topoName: string;
     instanceFileId: string;
-    testRunNo:string;
+    testRunNo: string;
     constructor(private configKeywordsService: ConfigKeywordsService, private configTopologyService: ConfigTopologyService, private configProfileService: ConfigProfileService, private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService) {
     }
     ngOnInit() {
@@ -88,8 +88,16 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();
+
+        //Check if agent is Java or DotNet, change their default values
+        if (this.agentTypes != "Java") {
+            this.ddAIData.instrPct = 60;
+            this.ddAIData.removeInstrPct = 80;
+            this.ddAIData.stackDepthFilter = 2;
+        }
+
         if (this.DDOrAIGUI != "ND ConfigUI") {
-           // this.other = this.passAIDDSettings[7];
+            // this.other = this.passAIDDSettings[7];
             this.ddAIData.bt = this.passAIDDSettings[7];
         }
 
@@ -97,14 +105,14 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.configKeywordsService.fetchBtNames(this.profileId).subscribe(data => {
             if (data.length > 0) {
                 key = key.concat(data)
-                
+
                 //Remove duplicate bt names
                 key = Array.from(new Set(key))
 
                 //Remove - from bt names array
-                if(key.indexOf("-") != -1)
+                if (key.indexOf("-") != -1)
                     key.splice(key.indexOf("-"), 1)
-            
+
             }
             key.push('Sequential')
             key.push('Custom')
@@ -136,10 +144,10 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     let arr = data["_body"].split("#");
                     this.topoName = arr[0];
                     this.instanceFileId = arr[1];
-                    if(this.DDOrAIGUI == "DDR"){
+                    if (this.DDOrAIGUI == "DDR") {
                         this.currentInsId = +this.instanceFileId;
                         this.autoInstrDto.instanceId = this.currentInsId;
-                } 
+                    }
                 })
             })
         })
@@ -246,7 +254,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                     //Check for successful RTC connection
                     if (success == "success") {
                         that.configTopologyService.updateAIEnable(that.currentInsId, true, "AI", that.topoName).subscribe(data => {
-                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,that.topoName).subscribe(data => {
+                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity, that.topoName).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
                             that.configHomeService.getAIStartStopOperationValue(true);
@@ -261,7 +269,7 @@ export class DynamicDiagnosticsComponent implements OnInit {
                         this.configUtilityService.infoMessage("Auto Instrumentation started");
                         this.resultAfterStart.emit("Auto Instrumentation started");
                         that.configTopologyService.updateAIEnable(that.currentInsId, true, "DD", this.topoName).subscribe(data => {
-                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,that.topoName).subscribe(data => {
+                            that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity, that.topoName).subscribe(data => {
                                 that.topologyData.emit(data);
                             });
                             that.configHomeService.getAIStartStopOperationValue(true);
@@ -320,15 +328,20 @@ export class DynamicDiagnosticsComponent implements OnInit {
         this.autoInstrObj = new AutoInstrSettings();
         this.autoInstrDto = new AutoIntrDTO();
         this.ddAIData = new DDAIInfo();
+        //Check if agent is Java or DotNet, change their default values
+        if (this.agentTypes != "Java") {
+            this.ddAIData.instrPct = 60;
+            this.ddAIData.removeInstrPct = 80;
+            this.ddAIData.stackDepthFilter = 2;
+        }
         this.autoInstrDto.sessionName = this.t_s_i_name;
-        
-        if (this.DDOrAIGUI != "ND ConfigUI")
-        {
-         this.ddAIData.bt = this.passAIDDSettings[7];
-         this.ddAIData.sessionName = this.tierName + "_" + this.passAIDDSettings[7];
+
+        if (this.DDOrAIGUI != "ND ConfigUI") {
+            this.ddAIData.bt = this.passAIDDSettings[7];
+            this.ddAIData.sessionName = this.tierName + "_" + this.passAIDDSettings[7];
         }
         else
-          this.ddAIData.sessionName = this.tierName + "_" + this.ddAIData.bt;
+            this.ddAIData.sessionName = this.tierName + "_" + this.ddAIData.bt;
     }
 
     // Create Tier_Server_Instance name
