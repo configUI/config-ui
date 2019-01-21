@@ -105,9 +105,14 @@
             <div class="ui-g-4">
                 <label>Fully Qualified Method Name</label>
             </div>
-            <div class="ui-g-8">
+            <div class="ui-g-8"  *ngIf="agentType === 'Java'">
                 <input name="methodName" type="text" size="50" class="configUI-common-len" (keydown.space)="$event.preventDefault()" pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
                     required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\((.*)\))+.*" autofocus ngModel/>
+            </div>
+            <div class="ui-g-8" *ngIf="agentType === 'Dot Net'">
+                <input name="methodName" type="text" size="50" class="configUI-common-len" (keydown.space)="$event.preventDefault()"
+                    pInputText [(ngModel)]="methodMonitorDetail.methodName" title="Please enter valid method name. &#013;Rule 1: Method name can include package,class and method name separated by dot(.) . &#013;Rule 2: Method name cannot include whitespaces."
+                    required pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+((.*))+.*" ngModel />
             </div>
         </div>
         <div class="ui-g">

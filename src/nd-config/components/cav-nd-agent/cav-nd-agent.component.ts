@@ -481,8 +481,12 @@ export class CavNdAgentComponent implements OnInit {
     
     this.configNdAgentService.getCmonEnvKeyValueForShow(cmonInfoArr).subscribe(data => {
       this.loading = false;
-      this.viewEditCmonDialog = true;
       for (let key in data) {
+	//If status of download of cmon.env fails then we don't open View dialog
+        if(key == "message" && data[key] == "Failed to download"){
+          this.message = [{ severity: 'error', detail: "View operation failed : Please check configuration settings" }];
+          return;
+      }
         let str = key.split("##");
 
         if (str[1] == 'Normal') {
@@ -501,6 +505,7 @@ export class CavNdAgentComponent implements OnInit {
           this.cmonEnvAdvancedValueList.push(data[key]);
         }
       }
+	this.viewEditCmonDialog = true;
     });
   }
 
@@ -534,8 +539,14 @@ export class CavNdAgentComponent implements OnInit {
     cmonInfoArr[3] = cmonMachineType;
     this.configNdAgentService.getCmonEnvKeyValueForEdit(cmonInfoArr).subscribe(data => {
       this.loading = false;
-      this.viewEditCmonDialog = true;
       for (let key in data) {
+      //If status of download fails then we don't open edit dialog
+        for(let subkey in data[key]){
+          if(subkey === "downloadmsg" && data[key][subkey] == "Failed to download due to some Error"){
+              this.message = [{ severity: 'error', detail: "Edit operation failed : Please check configuration settings" }];
+              return;
+          }
+        }
         if (data[key]["type"] == 'Normal') {
           if(data[key]["displayName"] == "Class Path" || data[key]["displayName"] == "Machine Settings" || data[key]["displayName"] == "Machine agent Settings")
           {
@@ -552,6 +563,7 @@ export class CavNdAgentComponent implements OnInit {
           this.cmonEnvAdvancedValueList.push(data[key]["value"]);
         }
       }
+	this.viewEditCmonDialog = true;
     });
   }
 

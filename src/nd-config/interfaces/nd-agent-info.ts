@@ -43,4 +43,5 @@ export interface CmonEnvInfo {
     displayName: string;
     vaue: number;
     Type: string;
+    downloadmsg : string;
 }
