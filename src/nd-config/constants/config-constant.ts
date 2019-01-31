@@ -21,7 +21,13 @@ export const INTEGRATION_TYPE = {
     Cloudant_NoSQL : 'Cloudant NoSQL',
     NEO4J: 'Neo4j DB Callout',
     JMS: 'JMS',
-    FTP : 'FTP'
+    FTP : 'FTP',
+    SQL : 'SQL',
+    //NODEJS
+    POSTGRESQL : 'Postgresql',
+    ZOOKEEPER : 'Zookeeper',
+    MEMCACHE : 'MemCache'
+
 }
 
 export const Messages = "Saved Successfully";

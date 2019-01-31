@@ -65,7 +65,7 @@
                 <label>Fully Qualified Method Name</label>
             </div>
             <div class="ui-g-8">
-            <ng-container *ngIf="(addIPDetectionDetail.backendTypeId === 3 || addIPDetectionDetail.backendTypeId === 10 || addIPDetectionDetail.backendTypeId === 11 || addIPDetectionDetail.backendTypeId === 12 || addIPDetectionDetail.backendTypeId === 21 || addIPDetectionDetail.backendTypeId === 24 || agentType =='Dot Net'); then first else second">
+            <ng-container *ngIf="(addIPDetectionDetail.backendTypeId === 3 || addIPDetectionDetail.backendTypeId === 10 || addIPDetectionDetail.backendTypeId === 11 || addIPDetectionDetail.backendTypeId === 12 || addIPDetectionDetail.backendTypeId === 21 || addIPDetectionDetail.backendTypeId === 24 || agentType =='Dot Net' || agentType =='NodeJS'); then first else second">
             </ng-container>
             <ng-template #first>
             <input name="fqm" type="text" size="60" title="Please enter valid FQM" pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(([;_$\/\[a-zA-Z0-9]*))+[;_$\/\[a-zA-Z0-9].*"
@@ -120,11 +120,11 @@
     <div style="max-height: 500px; overflow-y: auto;">
         <!--Integration Point Naming Rules are not showing for these Integration Points COHERENCE, MEM_CACHE, CLOUDANT, CUSTOM -->
         <div *ngIf="agentType =='Java'">
-<div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL  || integrationDetail.type ==IP.NEO4J || integrationDetail.type == IP.JMS">
+            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.WS || integrationDetail.type ==  IP.RMI || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.JDBC  || integrationDetail.type ==  IP.REDIS  || integrationDetail.type ==  IP.MONGO || integrationDetail.type ==  IP.Cloudant_NoSQL  || integrationDetail.type ==IP.NEO4J || integrationDetail.type == IP.JMS|| integrationDetail.type == IP.FTP">
                 <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rule(s)</label>
             </div>
         </div>
-        <div class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
+        <div *ngIf="agentType =='Java'" class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
             <div class="ui-g" *ngSwitchCase="IP.WS">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
@@ -136,24 +136,14 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service name </md-checkbox>
             </div>
-<!--            <div class="ui-g config-ui" *ngSwitchCase="IP.HADOOP">
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.tableName"> Table name </md-checkbox>
-            </div> -->
-            <div *ngIf="agentType =='Java'">
+            <!-- <div *ngIf="agentType =='Java'"> -->
                 <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
                 </div>
-                <!-- <div class="ui-g config-ui" *ngSwitchCase="IP.Async_HTTP">
-                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
-                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
-                </div> -->
-            </div>
+            <!-- </div> -->
             <div class="ui-g" *ngSwitchCase="IP.JDBC">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
@@ -180,17 +170,6 @@
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
             </div>
-            <!-- <div class="ui-g" *ngSwitchCase="IP.DBConnection">
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductVersion"> Database Product Version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverName"> Driver Name</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.driverVersion"> Driver Version</md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name </md-checkbox>
-
-            </div> -->
             <div class="ui-g" *ngSwitchCase="IP.NEO4J">
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
@@ -207,12 +186,62 @@
 		<md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
                 <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
             </div>
-            <!-- <div class="ui-g" *ngSwitchCase="IP.JMS_Rabbit">
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
-                <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
-            </div> -->
             <div class="ui-g" *ngSwitchDefault>
             </div>
+        </div>
+        <div *ngIf="agentType =='Dot Net'">
+            <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.HTTP || integrationDetail.type == IP.SQL">
+                <label style="font-weight: bolder;font-size: larger;margin-top: -20px">Integration Point Naming Rule(s)</label>
+            </div>
+        </div>
+        <div class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
+            <div style="margin-bottom: 19px" *ngIf="agentType =='Dot Net'">
+                <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.SQL">
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+                </div>
+            </div> 
+            <div class="ui-g" *ngSwitchDefault>
+            </div>
+        </div>
+        <div *ngIf="agentType =='NodeJS'">
+                <div class="ui-g config-ui" *ngIf="integrationDetail.type ==  IP.POSTGRESQL || integrationDetail.type ==  IP.ZOOKEEPER || integrationDetail.type ==  IP.HTTP || integrationDetail.type ==  IP.MEMCACHE || integrationDetail.type ==  IP.REDIS || integrationDetail.type ==  IP.MONGO" >
+                        <label style="font-weight: bolder;font-size: larger">Integration Point Naming Rule(s)</label>
+                </div>
+        </div>
+        <div *ngIf="agentType =='NodeJS'" class="ui-g config-ui" [ngSwitch]="integrationDetail.type">
+                <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.query"> Query </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.REDIS">
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.MONGO">
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.POSTGRESQL">
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.ZOOKEEPER">
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                </div>
+                <div class="ui-g config-ui" *ngSwitchCase="IP.MEMCACHE">
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+                        <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+                </div>
+                <div class="ui-g" *ngSwitchDefault>
+                </div>
         </div>
 
         <div class="ui-g config-ui">
@@ -233,7 +262,6 @@
                                 (click)="deleteIP(endPoints)" title="Delete custom integration point" icon="fa-trash"></button>
                             <button *ngIf="endPoints.customEntry == false" pButton type="button" style="background:gray;border:gray" title="Pre-Defined Custom Integration Point"
                                 icon="fa-trash"></button>
-
                         </div>
                     </div>
                 </div>
