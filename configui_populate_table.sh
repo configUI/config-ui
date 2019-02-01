@@ -518,7 +518,7 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (184,'CONSOLE Backend point','log','log',39,false,'-','NodeJS'),
 (185,'CONSOLE Backend point','warn','warn',39,false,'-','NodeJS'),
 (186,'JDBC end point','org.postgresql.jdbc.PgStatement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet;','PgStatement.executeQuery(String;)Ljava/sql/ResultSet;',3,false,'-','Java'),
-(187,'JDBC end point','org.postgresql.jdbc.PgStatement.execute(Lorg/postgresql/core/CachedQuery;Lorg/postgresql/core/ParameterList;I)V','PgStatement.execute(CachedQuery;ParameterList;I)V',3,false,'-','Java')
+(187,'JDBC end point','org.postgresql.jdbc.PgStatement.execute(Lorg/postgresql/core/CachedQuery;Lorg/postgresql/core/ParameterList;I)V','PgStatement.execute(CachedQuery;ParameterList;I)V',3,false,'-','Java'),
 (188,'SQL callout for dot net','System.Data.SqlClient.SqlConnection.Open','SqlConnection.Open',17,false,'System.Data.dll','Dot Net'),
 (189,'SQL callout for dot net','System.Data.OracleClient.OracleConnection.Open','OracleConnection.Open',17,false,'System.Data.OracleClient.dll','Dot Net');
 
