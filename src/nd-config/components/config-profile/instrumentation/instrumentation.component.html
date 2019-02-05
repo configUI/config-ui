@@ -24,15 +24,17 @@
 
 <div class='tabs-all' *ngIf="agentType == 'NodeJS'">
         <p-tabView (onChange)="handleChange($event)">
-    
-            <p-tabPanel header="Business Transaction" [selected]="index == 0">
-                <app-transaction-configuration *ngIf="index == 0" [profileId]=profileId></app-transaction-configuration>
+            <p-tabPanel header="Integration Point" [selected]="index == 0">
+                <app-integration-pt-detection *ngIf="index == 0" [profileId]="profileId"></app-integration-pt-detection>
+            </p-tabPanel> 
+            <p-tabPanel header="Business Transaction" [selected]="index == 1">
+                <app-transaction-configuration *ngIf="index == 1" [profileId]=profileId></app-transaction-configuration>
             </p-tabPanel>
-            <p-tabPanel header="Instrument Monitors" [selected]="index == 1" >
-                <app-instrument-monitors *ngIf="index == 1" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
+            <p-tabPanel header="Instrument Monitors" [selected]="index == 2" >
+                <app-instrument-monitors *ngIf="index == 2" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
             </p-tabPanel>
-            <p-tabPanel header="Error Detection" [selected]="index == 2">
-                <app-error-detection *ngIf="index == 2" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
+            <p-tabPanel header="Error Detection" [selected]="index == 3">
+                <app-error-detection *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
             </p-tabPanel>
         </p-tabView>
     </div>

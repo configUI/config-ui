@@ -293,7 +293,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (192,'ndProcessesFile','0','2048','6','NA','pre-custom','5'),
 (193,'NDInterfaceEntryPointsFile','0','1024','6','false','normal','1'),
 (194,'NVAutoInjectionRuleFile','0','1024','6','false','normal','1'),
-(195,'enableNVInjectingTag','0','2048','5','0%201%20text/html','normal','1');
+(195,'enableNVInjectingTag','0','2048','5','0%201%20text/html','normal','1'),
+(196,'enableASTransactionHotspot','0','1','2','0','normal','1'),
+(197,'maxThreadsforTransactionHostspot','0','10000000','2','10000','normal','1');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile,agent) VALUES
 (1,'HTTP Backend','HTTP','HttpCallout','HTTP','Java'),
@@ -323,7 +325,16 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (26,'Neo4j DB Callout Backend','Neo4j DB Callout','neo4jDB','NEO4J','Java'),
 (27,'JMS Backend','JMS','HttpCallout','JMS','Java'),
 (28,'Custom Backend','Custom','CUSTOM_ENTRY','None','Dot Net');
-(29,'FTP Backend','FTP','FTPCallout','FTP','Java');
+(33,'FTP Backend','FTP','FTPCallout','FTP','Java'),
+(34,'HTTP Backend','HTTP','HTTP','HTTP','NodeJS'),
+(35,'HTTP_Request Backend','Http_Request','HTTP_REQUEST','None','NodeJS'),
+(36,'Mongo Backend','Mongo','mongo','MONGO','NodeJS'),
+(37,'Redis Backend','Redis','redis','REDIS','NodeJS'),
+(38,'Winston Backend','Winston','winston','None','NodeJS'),
+(39,'Console Backend','Console','console','None','NodeJS'),
+(40,'Postgresql Backend','Postgresql','postgresql','POSTGRESQL','NodeJS'),
+(41,'Zookeeper Backend','Zookeeper','zookeeper','ZOOKEEPER','NodeJS'),
+(42,'MemCache Backend','MemCache','memcache','MEMCACHE','NodeJS');
 
 
 
@@ -491,7 +502,27 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java'),
 (169,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteReader','OracleCommand.ExecuteReader',17,false,'System.Data.OracleClient.dll','Dot Net'),
 (170,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteNonQueryInternal','OracleCommand.ExecuteNonQueryInternal',17,false,'System.Data.OracleClient.dll','Dot Net');
-(171,'','org.apache.commons.net.ftp.FTP.sendCommand(Ljava/lang/String;Ljava/lang/String;)I','FTP.sendCommand(String;String)I',29,false,'-','Java');
+(171,'','org.apache.commons.net.ftp.FTP.sendCommand(Ljava/lang/String;Ljava/lang/String;)I','FTP.sendCommand(String;String)I',33,false,'-','Java'),
+(172,'HTTP Backend','ON:ADDLISTNER','ON:ADDLISTNER',34,true,'-','NodeJS'),
+(173,'HTTP_Request Backend','Command','Command',35,true,'-','NodeJS''),
+(174,'MONGO Backend','Command','Command',36,true,'-','NodeJS'),
+(175,'REDIS Backend','Command','Command',37,true,'-','NodeJS'),
+(176,'WINSTON Backend point','error','error',38,false,'-','NodeJS'),
+(177,'WINSTON Backend point','warn','warn',38,false,'-','NodeJS'),
+(178,'WINSTON Backend point','info','info',38,false,'-','NodeJS'),
+(179,'WINSTON Backend point','verbose','verbose',38,false,'-','NodeJS'),
+(180,'WINSTON Backend point','debug','debug',38,false,'-','NodeJS'),
+(181,'WINSTON Backend point','silly','silly',38,false,'-','NodeJS'),
+(182,'CONSOLE Backend point','info','info',39,false,'-','NodeJS'),
+(183,'CONSOLE Backend point','debug','debug',39,false,'-','NodeJS'),
+(184,'CONSOLE Backend point','log','log',39,false,'-','NodeJS'),
+(185,'CONSOLE Backend point','warn','warn',39,false,'-','NodeJS'),
+(186,'JDBC end point','org.postgresql.jdbc.PgStatement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet;','PgStatement.executeQuery(String;)Ljava/sql/ResultSet;',3,false,'-','Java'),
+(187,'JDBC end point','org.postgresql.jdbc.PgStatement.execute(Lorg/postgresql/core/CachedQuery;Lorg/postgresql/core/ParameterList;I)V','PgStatement.execute(CachedQuery;ParameterList;I)V',3,false,'-','Java'),
+(188,'SQL callout for dot net','System.Data.SqlClient.SqlConnection.Open','SqlConnection.Open',17,false,'System.Data.dll','Dot Net'),
+(189,'SQL callout for dot net','System.Data.OracleClient.OracleConnection.Open','OracleConnection.Open',17,false,'System.Data.OracleClient.dll','Dot Net');
+
+
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
 (1,true,false,false,false,false,false,false,false,false,false,false,false,false,1,1),
@@ -520,7 +551,20 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (24,true,false,false,false,false,false,false,false,false,false,false,false,false,24,1),
 (26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1),
 (27,true,true,false,false,false,false,false,false,false,false,false,true,false,27,1);
-(29,true,false,false,false,false,false,false,false,false,false,false,false,false,29,1);
+(33,true,false,false,false,false,false,false,false,false,false,false,false,false,33,1),
+(34,true,false,false,false,false,false,false,false,false,false,false,false,false,34,777777),
+(35,false,false,false,false,false,false,false,false,false,false,false,false,false,35,777777),
+(36,true,false,false,false,false,false,false,false,false,false,false,false,false,36,777777),
+(37,true,false,false,false,false,false,false,false,false,false,false,false,false,37,777777),
+(38,false,false,false,false,false,false,false,false,false,false,false,false,false,38,777777),
+(39,false,false,false,false,false,false,false,false,false,false,false,false,false,39,777777),
+(40,true,false,false,false,false,false,false,false,false,false,false,false,false,40,777777),
+(41,true,false,false,false,false,false,false,false,false,false,false,false,false,41,777777),
+(42,true,false,false,false,false,false,false,false,false,false,false,false,false,42,777777);
+
+
+
+
 
 
 INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,profile_id) VALUES
@@ -687,7 +731,27 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (168,false,168,1),
 (169,true,169,888888),
 (170,true,170,888888);
-(171,true,171,1);
+(171,true,171,1),
+(172,true,172,777777),
+(173,true,173,777777),
+(174,true,174,777777),
+(175,true,175,777777),
+(176,false,176,777777),
+(177,false,177,777777),
+(178,false,178,777777),
+(179,false,179,777777),
+(180,false,180,777777),
+(181,false,181,777777),
+(182,false,182,777777),
+(183,false,183,777777),
+(184,false,184,777777),
+(185,false,185,777777),
+(186,true,186,1),
+(187,true,187,1),
+(188,false,188,888888),
+(189,false,189,888888);
+
+
 
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES
