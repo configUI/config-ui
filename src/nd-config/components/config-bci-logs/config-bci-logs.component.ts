@@ -6,6 +6,7 @@ import { ConfigUiUtility } from '../../utils/config-utility';
 import { ViewAdvanceSettings, InputFields } from '../../interfaces/bci-log';
 import { ConfigNdAgentService } from '../../services/config-nd-agent.service';
 import { ConfigUtilityService } from '../../services/config-utility.service';
+import { ConfigKeywordsService } from '../../services/config-keywords.service';
 
 declare var Prism;
 
@@ -47,6 +48,9 @@ export class ConfigBCILogsComponent implements OnInit {
     /** To store list of files recieved from BCI */
     fileListArr: any[] = [];
 
+    /**Filtered items ..copy of fileListArr */
+    filteredItems: any[] = [];
+
     /** File selected on radio button click */
     selectedFile: string = "";
 
@@ -55,6 +59,9 @@ export class ConfigBCILogsComponent implements OnInit {
 
     /** To store the file content */
     fileContent: string = "";
+
+    /**Highlighted file content */
+    fileHighLightContent: string = "";
 
     /** flag to show the content area of the file */
     showContentBox: boolean = false;
@@ -77,25 +84,52 @@ export class ConfigBCILogsComponent implements OnInit {
     /**To check if goBack is clicked */
     isGoBack: boolean = false;
 
+    /** Check to diffrentiate for show files and show size check */
+    isShowSize: boolean = false;
+
+    /** To display selected file size */
+    fileSize: number;
+
+    /** To show header message in download file dialog */
+    hdrMsg: string = "";
+
 
     constructor(private configNdAgentService: ConfigNdAgentService,
-        private configUtilityService: ConfigUtilityService) {
+        private configUtilityService: ConfigUtilityService,
+        private configKeywordsService: ConfigKeywordsService,) {
     }
 
     ngOnInit() {
+        /** Get connected agents list by executing get_bci_agents_info shell */
+        this.loadNDAgentStatusData();
+    }
+
+    loadNDAgentStatusData() {
+        /** Initialiazing server and instance with blank array */
+        this.tierList = []
+        this.serverList = []
+        this.instanceList = []
+        this.selectedTier = "";
+        this.selectedServer = "";
+        this.selectedInstance = "";
+        this.selectedFileType = "";
+        this.searchText = "";
+        this.searchFileText = "";
+        this.fileListArr = [];
+        this.filteredItems = [];
+        this.showContentBox = false;
 
         //Initializing file content as no files selected 
         this.fileContent = "No files selected"
+        this.fileHighLightContent = "No files selected"
 
         this.messageFields = new InputFields();
 
         //Creating instance of view
         this.viewAdvanceSetting = new ViewAdvanceSettings();
 
-        /** Get connected agents list by executing get_bci_agents_info shell */
         this.configNdAgentService.getNDAgentStatusData().subscribe(data => {
             // data = [{"nst":"1546408316788","at":"Java","st":"Active","pid":"26104","si":"10.10.30.6","cpath":"-","ai":1,"tier":"AppServer_6","server":"netstorm-ProLiant-ML110-G7","instance":"Instance1","iD":"/opt/cavisson/netdiagnostics","ver":"4.1.13 BUILD 29","brs":"01/02/19 11:20:56"},{"nst":"1546406580654","at":"Java","st":"Active","pid":"28434","si":"10.10.30.54","cpath":"-","ai":2,"tier":"Cmon54","server":"cavisson-ProLiant-ML10-v2","instance":"Instance1","iD":"/home/cavisson/netdiagnostics","ver":"4.1.13 BUILD 31","brs":"12/28/18 15:49:50"},{"nst":"1546406580543","at":"Java","st":"Active","pid":"13002","si":"10.10.30.29","cpath":"-","ai":3,"tier":"Appserver_29","server":"CAV-QA-30-29","instance":"Instance1","iD":"/opt/cavisson/netdiagnostics","ver":"4.1.13 BUILD 32","brs":"12/31/18 13:00:53"},{"nst":"1546406584023","at":"Java","st":"Active","pid":"49529","si":"10.10.30.48","cpath":"-","ai":4,"tier":"AtgTier","server":"netstorm-ProLiant-ML10-v2","instance":"Instance1","iD":"/opt/cavisson/netdiagnostics","ver":"4.1.13 BUILD 32","brs":"12/31/18 16:02:50"}]
-
             this.ndAgentStatusData = data;
 
             //Create tierList dropdown
@@ -103,7 +137,6 @@ export class ConfigBCILogsComponent implements OnInit {
             this.createFileType();
             this.createAgentList();
         });
-
     }
 
     /** Method to get tier list from nd agent status data  */
@@ -197,7 +230,7 @@ export class ConfigBCILogsComponent implements OnInit {
     }
 
     /** To remove duplicate elements from the list */
-    private removeDuplicateElements(tempList: any[]) {
+    removeDuplicateElements(tempList: any[]) {
         return Array.from(new Set(tempList));
     }
 
@@ -216,38 +249,76 @@ export class ConfigBCILogsComponent implements OnInit {
     showFiles() {
 
         let message: string = "";
+        let command = "";
+        this.fileSize = 0;
+        //If download is clicked then send req to show size of the file
+        if(this.isShowSize){
+            command = "ls -ltr "
+        }
+        else{
+            command = "ls -p "
+        }
+
         //to construct list file message
-        message = this.constructMessage();
+        message = this.constructMessage(command);
 
 
         // Sending message to NDC to get the list of files from the specified directory
         this.configNdAgentService.listFiles(message).subscribe(data => {
-            if (!data[0].includes("Error")) {
-                //response array will contain last element as - ;] , so remove this element from array
-                this.fileListArr = data.slice(0, -1);
-                //Assigning selected tier/server/instance to the tier/server/instance variables that are used to send the message to the NDC
-                this.createMessageFieldsOnShowClick();
-            }
-            else if (data[0].includes("Not a directory") || data[0].includes("No such file or directory")) {
-                this.configUtilityService.errorMessage("Not a directory")
 
-            }
-            else {
-                this.configUtilityService.errorMessage("Error in listing files <br> Source Path might be invalid")
+            //Show files case
+            if(!this.isShowSize){
+
+                if (!data[0].includes("Error")) {
+                    //response array will contain last element as - ;] , so remove this element from array
+                    this.fileListArr = data.slice(0, -1);
+                    this.filteredItems = this.fileListArr
+                    //Assigning selected tier/server/instance to the tier/server/instance variables that are used to send the message to the NDC
+                    this.createMessageFieldsOnShowClick();
+                }
+                else if (data[0].includes("Not a directory") || data[0].includes("No such file or directory")) {
+                    this.configUtilityService.errorMessage("Not a directory")
+                    
+                }
+                else {
+                    this.configUtilityService.errorMessage(data[0].substring(0, data[0].length - 2))
                 this.fileListArr = [];
+                this.filteredItems = [];
                 this.showContentBox = false;
                 this.messageFields = new InputFields();
             }
+            this.selectedFile = "";
+        }
+        //View size case
+        else{
+            if(!data[0].includes("Error")){
+                let arr = data[0].split(" ")
+                this.fileSize = +arr[4];
+                let size = "";
 
-            this.fileNameOnClick = "";
+                if(this.fileSize > 100000){
+                    size = (this.fileSize / 1000000).toFixed(2) + "MB"
+                }
+                else if(this.fileSize > 1000){
+                    size = (this.fileSize / 1000).toFixed(2) + "KB"
+                }
+                else{
+                    size = this.fileSize + "B"
+                }
 
-        })
-
-        this.selectedFile = "";
+                this.hdrMsg = "Download File: " +  this.selectedFile + " (Size: " + size + ")"
+            }
+            else{
+                this.configUtilityService.errorMessage("Error in getting file size")
+            }
+        }
+        this.isShowSize = false
+        this.fileNameOnClick = "";
+    })    
     }
 
     /** To initialize the message  input fields when user clicks on show files button */
-    private createMessageFieldsOnShowClick() {
+    createMessageFieldsOnShowClick() {
         this.messageFields.tier = this.selectedTier;
         this.messageFields.server = this.selectedServer;
         this.messageFields.instance = this.selectedInstance;
@@ -261,7 +332,7 @@ export class ConfigBCILogsComponent implements OnInit {
     }
 
     //Method to create message to send to NDC to list files of the specified directory
-    constructMessage() {
+    constructMessage(command) {
 
         /**AgentType=Java;Arguments= ls ../logs/;DownloadFile=0;
          * Tier=T1;Server=S1;Instance=A1;TestRun=1;Path=;TimeOut=60;ExecuteForceFully=0;CompressMode=0;'*/
@@ -275,16 +346,37 @@ export class ConfigBCILogsComponent implements OnInit {
             //If selected file type is not custom
             if (this.selectedFileType != 'Custom') {
                 if (this.fileNameOnClick != "")
-                    argument = "ls -p " + this.viewAdvanceSetting.installationDir + "/" + this.selectedFileType + "/" + this.fileNameOnClick + "/"
+                    argument = command + this.viewAdvanceSetting.installationDir + "/" + this.selectedFileType + "/" + this.fileNameOnClick
                 else {
-                    argument = "ls -p " + this.viewAdvanceSetting.installationDir + "/" + this.selectedFileType + "/"
+                    argument = command + this.viewAdvanceSetting.installationDir + "/" + this.selectedFileType
                 }
             }
             else {
-                if (this.fileNameOnClick != "")
+                let args = "";
+                //When file is selected
+                if (this.fileNameOnClick != ""){
+                    //if file is a directory then include directory name in sourcepath
+                    if(this.fileNameOnClick.endsWith("/")){
+                            this.viewAdvanceSetting.sourcePath = this.viewAdvanceSetting.sourcePath + "/" + this.fileNameOnClick
+                            this.viewAdvanceSetting.sourcePath = this.viewAdvanceSetting.sourcePath.substring(0, this.viewAdvanceSetting.sourcePath.length - 1);
+                            args = this.viewAdvanceSetting.sourcePath;
+                            
+                    }
+                    //Otherwise dont include in source path
+                    else{
+                        args = this.viewAdvanceSetting.sourcePath + "/" + this.fileNameOnClick
+                    }
+                }
+                //Show files case when no file is selected
+                else{
                     this.viewAdvanceSetting.sourcePath = this.viewAdvanceSetting.sourcePath + "/" + this.fileNameOnClick
+                    this.viewAdvanceSetting.sourcePath = this.viewAdvanceSetting.sourcePath.substring(0, this.viewAdvanceSetting.sourcePath.length - 1);
+                    args = this.viewAdvanceSetting.sourcePath
 
-                argument = "ls -p " + "/" + this.viewAdvanceSetting.sourcePath
+                }
+
+                //Creating message to send to NDC
+                argument = command + "/" + args
 
             }
         }
@@ -298,7 +390,7 @@ export class ConfigBCILogsComponent implements OnInit {
 
 
     /** To get TRNo if test is running */
-    private getTRNo() {
+    getTRNo() {
         let trNo = "";
         if (sessionStorage.getItem("isTrNumber") != "null" && sessionStorage.getItem("isTrNumber") != null) {
             trNo = sessionStorage.getItem("isTrNumber"); // When test is running
@@ -317,10 +409,15 @@ export class ConfigBCILogsComponent implements OnInit {
             this.configUtilityService.errorMessage("Choose a file to download");
             return;
         }
-        this.downloadDialog = true;
-
+        this.isShowSize = true;
+        this.fileNameOnClick = this.selectedFile
+        this.showFiles();
+        
         //Assigning with default path
         this.viewAdvanceSetting.destPath = "/tmp";
+        this.viewAdvanceSetting.newFileName = this.selectedFile;
+        this.downloadDialog = true;
+        
     }
 
     /** To download selected file */
@@ -328,7 +425,7 @@ export class ConfigBCILogsComponent implements OnInit {
 
         /** Download message format will be: 
          * ndi_communicate_with_ndc 10.10.40.12 7892 'download_file_req:AgentType=java;FileName=nd_bci_9_debug.log0;
-         * Tier=T1;Server=S1;Instance=A1;TestRun=1;FileType=logs;Path=/tmp;TimeOut=10;DeleteFile=0;
+         * Tier=T1;Server=S1;Instance=A1;TestRun=1;FileType=logs;Path=/tmp;TimeOut=10;DeleteFile=0;New file name=newFile.xml;FileSize=20
          */
 
         let fileType = "";
@@ -350,12 +447,16 @@ export class ConfigBCILogsComponent implements OnInit {
             + ";TimeOut=" + this.messageFields.timeout + ";DeleteFile=0;"
 
 
+        //Appenging new file name and and file size with the  message
+        message = message + ";New file name=" + this.viewAdvanceSetting.newFileName + ";FileSize=" + this.fileSize
+
         this.configNdAgentService.downloadAgentFile(message).subscribe(data => {
 
             if (data["_body"] != "Error in downloading files") {
-                this.configUtilityService.successMessage("File download successfully at path : " + this.viewAdvanceSetting.destPath);
+                this.configUtilityService.successMessage("File downloaded successfully at path : " + this.viewAdvanceSetting.destPath);
                 this.fileContent = data['_body'];
                 this.fileContent = Prism.highlight(data._body, Prism.languages.markup);
+                this.fileHighLightContent = this.fileContent;
                 this.showContentBox = true;
                 //Setting file header name over textarea
                 this.fileNameHeader = this.selectedFile;
@@ -399,6 +500,41 @@ export class ConfigBCILogsComponent implements OnInit {
         }
         this.showFiles()
     }
+
+    /**
+    * Purpose : To invoke the service responsible to open Help Notification Dialog 
+    * related to the current component.
+    */
+    sendHelpNotification() {
+        //currently only java agent is supported
+        this.configKeywordsService.getHelpContent("Agent Logs", "Download Agent Logs", "");
+    }
+
+    //assign the copy of fileListArr in filteredItems
+    assignCopy(){
+        this.filteredItems = Object.assign([], this.fileListArr);
+     }
+
+     //Filter file names
+     filterItem(value){
+        if(!value){
+            this.assignCopy();
+        } // when nothing has typed
+        this.filteredItems = Object.assign([], this.fileListArr).filter(
+            it => {
+                return it.toLowerCase().includes(value);}
+        )
+        // this.assignCopy();
+     }
+
+     //Search content in file opened
+     searchContent(args){
+        if (!args) { return this.fileContent; }
+        var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
+        this.fileHighLightContent = this.fileContent;
+        this.fileHighLightContent =  this.fileHighLightContent.replace(re, "<mark>" + args + "</mark>");
+      }
+     
 
 
 }

@@ -73,6 +73,9 @@ export class HelpComponent implements OnInit {
     if (data.component == "Product Integration") {
       this.checkForProductIntegrationModule(data);
     }
+    if(data.component == "Agent Logs"){
+      this.checkForAgentLogs(data);
+    }
   }
   /**
    * Purpose : To check the value of module i.e comes under Home component
@@ -508,5 +511,26 @@ export class HelpComponent implements OnInit {
         this.helpdialog = true;
       }
     }
+  }
+
+  checkForAgentLogs(data){
+    this.mainheader = data.module
+    this.header = [data.module];
+    this.headermessage = "This feature is used to download and view file(s) located at server side.";
+    this.messagefirst = ["Tier/Server/Instance", "File Type", "Agent Type", "Advanced Settings", "Show Files", "Reset", "Download and View"];
+    this.submessagefirst = ["List of connected Tier/Server/Instance",
+      "List of the pre-defined and custom paths, such as Logs, Scripts and Custom. " + 
+      "Selecting 'Logs' displays logs within the ND_HOME directory. " +
+      "Selecting 'Scripts' displays scripts within the ND_HOME directory. " + 
+      "Selecting ‘Custom’ prompts a user to provide the customized source path. ",
+      "Type of agent on which files are to be downloaded. Currently this feature is supported for Java agent only. ",
+      "To download Agent file, some parameters are required by NDC. " +
+      "Timeout: This is the time (in minutes) after which the system stops waiting for the response. Its default value is 10 minutes. " +
+      "Compressed Mode: If this is selected, the file is downloaded in compressed mode. By default, the file is downloaded in non-compressed mode."+
+      "Execute Forcefully: If this is selected, request is processed forcefully and priority is provided for its execution as compared to those in which this option is not selected.",
+      "Clicking this button displays a list of files (at provided Tier > Server > Instance path) with size on right panel.",
+      "Clicking this button sets all the fields with their default values and also refreshes the connected instances list in case any instance goes Active/Inactive",
+      "By clicking this button, a user can download the selected file with the provided name and destination. User can also view the file content on the bottom panel."];
+    this.helpdialog = true;
   }
 }

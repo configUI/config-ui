@@ -122,8 +122,12 @@
 
                     <!-- Buttons to show files and reset data-->
                     <div class="pull-right" style="margin-top: 7px">
+                        <!-- To refresh the connected tier/server/instance-->
+                        <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
+                        <button type="button" pButton icon="fa fa-refresh" (click)="loadNDAgentStatusData()" title="Reload connected Instances and reset fields to default value" label="Reset"></button>
                         <button type="submit" pButton icon="fa-files-o" label="Show files"></button>
                     </div>
+
                 </div>
 
             </form>
@@ -143,6 +147,7 @@
                             <!-- Search box-->
                             <input *ngIf="fileListArr.length!=0" [(ngModel)]="searchText" class="search_css"
                                 placeholder="Search...">
+                            <button *ngIf="fileListArr.length!=0" type="button" [disabled]="searchText==''" pButton icon="fa-search" (click)="filterItem(searchText)"></button>
                         </div>
                     </md-card-subtitle>
 
@@ -155,7 +160,7 @@
                                     aria-hidden="true"></i>../</a>
 
                             <!-- Files list shown with radio button-->
-                            <div class="ui-g-12" *ngFor="let file of fileListArr | filter : searchText">
+                            <div class="ui-g-12" *ngFor="let file of filteredItems">
 
                                 <!-- If it is a folder then show folder icon-->
                                 <a *ngIf="file.endsWith('/')" (click)="doubleClick(file)" style="color: black" class="contents"><i
@@ -185,12 +190,13 @@
                         <div class="header-Name">{{fileNameHeader}} </div>
                         <div class="header-button" style="height: 20px;">
                             <!-- Search box-->
-                            <!-- <input [(ngModel)]="searchFileText" class="search_css" placeholder="Search..."> -->
+                            <input [(ngModel)]="searchFileText" class="search_css" placeholder="Search...">
+                            <button type="button" [disabled]="searchFileText==''" pButton icon="fa-search" (click)="searchContent(searchFileText)"></button>
                         </div>
                     </md-card-subtitle>
                     <p-panel>
                         <div class="file_textarea instrprofileview" #createPanel>
-                            <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="fileContent | highlight : searchFileText"></code></pre>
+                            <pre style="margin: 0px 0px"><code class="codeClass" [innerHtml]="fileHighLightContent"></code></pre>
                         </div>
                     </p-panel>
                 </md-card>
@@ -203,7 +209,7 @@
 </div>
 
 <!-- Dialog to ask user for destination path-->
-<p-dialog class="profile-dialog" header="Download File: {{selectedFile}}" *ngIf="downloadDialog" [(visible)]="downloadDialog"
+<p-dialog class="profile-dialog" header={{hdrMsg}} *ngIf="downloadDialog" [(visible)]="downloadDialog"
     modal="modal" width="400" responsive="true" [resizable]="false">
     <form (ngSubmit)="downloadFile(groupForm)" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
@@ -215,6 +221,15 @@
                     required ngModel />
                 <!-- <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button> -->
             </div>
+            <div class="ui-g-4">
+                <label>Save File As</label>
+            </div>
+            <div class="ui-g-8">
+                <input name="newFileName" type="text" pInputText [(ngModel)]="viewAdvanceSetting.newFileName" autofocus
+                    required ngModel />
+                <!-- <button pButton type="button" title="Browse" (click)="openFileManager()" icon="fa-folder-open"></button> -->
+            </div>
+            <h5 style="color: red" *ngIf="fileSize > 10000000">* No preview available for the file size greater than 10 MB</h5>
         </div>
         <footer style="margin-top: 10px">
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">

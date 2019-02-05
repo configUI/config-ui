@@ -1,5 +1,3 @@
-import { SelectItem } from "primeng/primeng";
-
 export class ViewAdvanceSettings{
         sourcePath: string = "";
         agentMode: string = "";
@@ -9,6 +7,7 @@ export class ViewAdvanceSettings{
         osType: string = "";
         installationDir = "";
         destPath: string = "/tmp";
+        newFileName: string = "";
 
 }
 
