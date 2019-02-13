@@ -639,9 +639,19 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.SAVE_EDITED_XML_DATA_FROM_SELECTED_XML_FILE}`, dataArr);
   }
 
-  /* Delete XML File */
-  deleteXMLFile(fileName) {
-    return this._restApi.getDataByGetReq(`${URL.DELETE_XML_FILE}?fileName=${fileName}`);
+  /*this method is used for get selected json instrumnetation profile in json format*/
+  editJSONDataFromSelectedJSONFile(data) {
+    return this._restApi.getDataByGetReq(`${URL.EDIT_JSON_DATA_FROM_SELECTED_JSON_FILE}?filePath=${data}`);
+  }
+
+   /*this method is resposible for saving JSON data after Editing */
+   saveInstrumentedDataInJSONFile(JSONdataArr) {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_EDITED_JSON_DATA_FROM_SELECTED_XML_FILE}`, JSONdataArr);
+  }
+
+  /* Delete File */
+  deleteFile(fileName) {
+    return this._restApi.getDataByGetReq(`${URL.DELETE_FILE}?fileName=${fileName}`);
   }
 
   getAutoDiscoverTreeData(adrFile, reqId, fileName) {

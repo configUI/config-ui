@@ -1,16 +1,16 @@
- const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+//  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 //  const  SERVICE_URL = 'https://10.10.40.14/configUI';
-// const  SERVICE_URL = 'http://localhost:8090';
+//  const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
-//  const SERVICE_URL = '/configUI';
+ const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-export const ROUTING_PATH: string = "";
+// export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-  // export const ROUTING_PATH: string = "/home/config";
+  export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -307,8 +307,12 @@ export const GET_TOPO_NAME = `${SERVICE_URL}/custom/instrumentation/gettoponame`
 
 /*Edit Instrumentation Profile */
 export const EDIT_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/generatetreenodefromxml`;
-export const DELETE_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/deletexmlfile`;
 export const SAVE_EDITED_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/saveinstrumenteddatainxmlfile`;
+export const DELETE_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/deletefile`;
+
+//Save and Edit Instrumentation Profile for JSON Profile
+export const SAVE_EDITED_JSON_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/saveinstrumenteddatainJSONfile`;
+export const EDIT_JSON_DATA_FROM_SELECTED_JSON_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/editjsondatafromselectedjsonfile`;
 
 /**Auto discover */
 export const FETCH_AUTO_DISCOVERED_INSTANCE = `${SERVICE_URL}/custom/autodiscover/getadrfiles`;
@@ -440,7 +444,7 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  /* Url for Uploading Auto Injection File */
  export const UPLOAD_AUTO_INJECTION_FILE = `${SERVICE_URL}/custom/autoinjection/uploadfile`;
 
-
  /** URL for BCI Logs */
  export const LIST_BCI_FILES = `${SERVICE_URL}/custom/bcilogs/listFiles`;
  export const DOWNLOAD_BCI_FILE = `${SERVICE_URL}/custom/bcilogs/downloadagentfile`;
+

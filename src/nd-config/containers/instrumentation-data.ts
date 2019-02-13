@@ -454,3 +454,8 @@ export class InterfaceEndPointInfo {
     id: number;
     enabled: boolean;
 }
+
+export class InstrumentationProfileForNodeJS {
+    moduleName: string;
+    isInstrument: boolean = false;
+}
