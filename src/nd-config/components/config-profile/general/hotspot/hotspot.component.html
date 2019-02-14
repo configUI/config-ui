@@ -55,6 +55,9 @@
                         <div class="ui-g-6">
                             <p-checkbox name="ASMethodHotspots" binary="true" [(ngModel)]="hotspot.ASMethodHotspots.value" label=" Enable Method Hotspot sensor"></p-checkbox>
                         </div>
+                        <div class="ui-g-6">
+                            <p-checkbox name="enableASTransactionHotspot" binary="true" [(ngModel)]="hotspot.enableASTransactionHotspot.value" label=" Transaction based HotSpot(s)"></p-checkbox>
+                        </div>
                     </div>
                     <div class="ui-g-12">
                         <div class="ui-g-4 configui-hotspot-css-2" style="width:34.3333%">
@@ -65,6 +68,15 @@
                             <input name="maxStackSizeDiff" disabled="{{!hotspot.ASMethodHotspots.value}}" type="number" class="configui-hotspot-css"
                                 pInputText [(ngModel)]="hotspot.maxStackSizeDiff.value" min={{hotspot.maxStackSizeDiff.min}}
                                 max={{hotspot.maxStackSizeDiff.max}} required ngModel/>
+                        </div>
+                        <div class="ui-g-4" style="width:21%; margin-left: 107px">
+                            <label>Max threads for Transaction hotspot(s)</label>
+                            <!-- <i class="fa fa-info-circle" aria-hidden="true" title=""></i> -->
+                        </div>
+                        <div class="ui-g-1">
+                            <input name="maxThreadsforTransactionHostspot" disabled="{{!hotspot.enableASTransactionHotspot.value}}" type="number" class="configui-hotspot-css"
+                                pInputText [(ngModel)]="hotspot.maxThreadsforTransactionHostspot.value" min={{hotspot.maxThreadsforTransactionHostspot.min}}
+                                max={{hotspot.maxThreadsforTransactionHostspot.max}} required ngModel/>
                         </div>
                     </div>
                 </p-fieldset>

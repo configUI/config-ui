@@ -26,7 +26,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
   className: string = "HotspotComponent";
 
   /**These are those keyword which are used in current screen. */
-  javaKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff', 'ASDepthFilter'];
+  javaKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth', 'ASPositiveThreadFilters', 'ASNegativeThreadFilter', 'ASMethodHotspots', 'maxStackSizeDiff', 'ASDepthFilter', 'maxThreadsforTransactionHostspot', 'enableASTransactionHotspot'];
   dotNetKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASStackComparingDepth'];
   nodeJsKeywordList: string[] = ['ASSampleInterval', 'ASThresholdMatchCount', 'enableHSLongStack',]
 
@@ -79,6 +79,8 @@ export class HotspotComponent implements OnInit, OnDestroy {
           this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
 
         this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+        this.hotspot["enableASTransactionHotspot"].value = this.hotspot["enableASTransactionHotspot"].value == 1 ? true : false;
+
       }
       else {
         this.dotNetKeywordList.map(function (key) {
@@ -139,6 +141,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
 
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+      this.hotspot["enableASTransactionHotspot"].value = this.hotspot["enableASTransactionHotspot"].value == 1 ? true : false;
     }
     else {
       for (let key in data) {
@@ -173,7 +176,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
 
   /*
-  *  ASMethodHotspots = 0/1 value to be wriiten in file
+  *  ASMethodHotspots, enableASTransactionHotspot = 0/1 value to be wriiten in file
   * so its value = false/true is conerted to "0/1" beforre sending to server
   */
   saveKeywordData() {
@@ -202,6 +205,12 @@ export class HotspotComponent implements OnInit, OnDestroy {
       }
 
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
+      this.hotspot["enableASTransactionHotspot"].value = this.hotspot["enableASTransactionHotspot"].value == true ? 1 : 0;
+
+      //maxThreadsforTransactionHostspot keyword is dependent on enableASTransactionHotspot. If enableASTransactionHotspot is disable then maxThreadsforTransactionHostspot gets default value.
+      if(this.hotspot["enableASTransactionHotspot"].value == false){
+        this.hotspot["maxThreadsforTransactionHostspot"].value = this.hotspot["maxThreadsforTransactionHostspot"].defaultValue;
+      }
 
       if (this.excludedException != null && this.excludedException.length != 0) {
         this.hotspot["ASNegativeThreadFilter"].value = this.excludedException.join("&");
@@ -237,7 +246,6 @@ export class HotspotComponent implements OnInit, OnDestroy {
         }
       }
     }
-
     this.keywordData.emit(this.hotspot);
     // this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
   }
@@ -273,6 +281,7 @@ export class HotspotComponent implements OnInit, OnDestroy {
       if (this.hotspot["ASNegativeThreadFilter"].value != null)
         this.excludedException = this.hotspot["ASNegativeThreadFilter"].value.split("&");
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == 1 ? true : false;
+      this.hotspot["enableASTransactionHotspot"].value = this.hotspot["enableASTransactionHotspot"].value == 1 ? true : false;
     }
     else {
       for (let key in data) {
@@ -293,11 +302,13 @@ export class HotspotComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.agentType == 'Java')
+    {
       this.hotspot["ASMethodHotspots"].value = this.hotspot["ASMethodHotspots"].value == true ? 1 : 0;
+      this.hotspot["enableASTransactionHotspot"].value = this.hotspot["enableASTransactionHotspot"].value == true ? 1 : 0;
+    }
     if (this.subscription)
       this.subscription.unsubscribe();
     //  if(this.subscriptionEG)
     //    this.subscriptionEG.unsubscribe();
   }
-
 }
