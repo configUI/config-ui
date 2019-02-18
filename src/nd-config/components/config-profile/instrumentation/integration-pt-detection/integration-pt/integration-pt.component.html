@@ -199,10 +199,14 @@
                 <div class="ui-g config-ui" *ngSwitchCase="IP.HTTP">
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
+		    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.url"> Query String </md-checkbox>
                 </div>
                 <div class="ui-g config-ui" *ngSwitchCase="IP.SQL">
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.host"> Host </md-checkbox>
+		    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.port"> Port </md-checkbox>
                     <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.databaseProductName"> Database Product Name</md-checkbox>
+		    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.userName"> User Name</md-checkbox>
+		    <md-checkbox class="config-margin" [(ngModel)]="integrationDetail.namingRule.serviceName"> Service Name</md-checkbox>
                 </div>
             </div> 
             <div class="ui-g" *ngSwitchDefault>
