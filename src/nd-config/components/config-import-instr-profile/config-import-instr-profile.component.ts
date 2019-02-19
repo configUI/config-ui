@@ -39,6 +39,18 @@ export class ConfigImportInstrProfileComponent implements OnInit {
   instrprofdata: InstrumentationProfileForNodeJS[] = [];
   instrDialogDetail: InstrumentationProfileForNodeJS;
 
+  //Previous Module name before editting
+  prevModuleStr = '';
+
+  //Previous instrument before editing
+  isPrevInstrument : boolean = false;
+
+  //This flag is checking whether edit or create operation.
+  isEditModuleInfo : boolean = false;
+
+  //This flag keeps the dialog open if there is duplicate module entry
+  isDuplicateModuleDialog : boolean;
+
   //Edit Tree Node
   editFile: boolean = false;
   parsedData: TreeNode[];
@@ -94,6 +106,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       this.createInstrumentation = false;
       this.editFile = false;
     }
+    this.clearWindow();
     this.viewInstrumentation = false;
     this.createDropDown("filename", () => { });
   }
@@ -370,6 +383,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     // Filling Menu on basis of type.
     if (this.selectedAgent == 'NodeJS') {
       if (type === 'All') {
+      this.isEditModuleInfo = false;
         this.TreeMenu = [
           {
             label: 'Add Module',
@@ -388,6 +402,30 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       else if (type === 'module') {
         let contextMenuEvent = event;
         this.TreeMenu = [
+          {
+            //For Edit Module Dialog
+            label: 'Edit Module',
+            icon: 'fa-pencil',
+            'command': (event) => {
+              for (let i = 0; i < this.instrprofdata.length; i++) {
+                this.instrDialogDetail = new InstrumentationProfileForNodeJS();
+                if (this.instrprofdata[i].moduleName == contextMenuEvent['node']['label']) {
+                  this.prevModuleStr = this.instrprofdata[i].moduleName;
+                  this.isPrevInstrument = this.instrprofdata[i].isInstrument;
+                  this.isEditModuleInfo = true;
+
+                  //put instrument and module into dialog to show  
+                  this.instrDialogDetail.moduleName = this.instrprofdata[i].moduleName;
+                  this.instrDialogDetail.isInstrument = this.instrprofdata[i].isInstrument;
+                  this.nodeObj['type'] = 'All';
+
+                  //Open dialog box
+                  this.openNodeJSDialog = true;
+                  break;
+                }
+              }
+            }
+          },
           {
             label: 'Delete Module',
             icon: 'fa-trash',
@@ -560,18 +598,42 @@ export class ConfigImportInstrProfileComponent implements OnInit {
       }
 
       if (this.selectedAgent == 'NodeJS') {
-        if (type === 'All') { //Add Module
-          if (this.checkForDuplicacyOfModule('All', label, DataArr)) {
-            this._configUtilityService.errorMessage("Duplicate module entry is not allowed");
-            return;
+        if (type === 'All') { // Add Module if there is no duplicate entry 
+          //If Add Module operation is being performed
+          if(this.isEditModuleInfo == false)
+          {
+            if (this.checkForDuplicacyOfModule('All', label, DataArr)) {
+              this._configUtilityService.errorMessage("Duplicate module entry is not allowed");
+	      this.isDuplicateModuleDialog = true;
+              return;
+            }
           }
+          //If Edit Module operation is being performed
+          else
+          {
+            if(this.prevModuleStr == this.instrDialogDetail.moduleName && this.isPrevInstrument == this.instrDialogDetail.isInstrument)
+            {
+              this.isDuplicateModuleDialog = false;
+              return;
+            }
+            else if(this.prevModuleStr != this.instrDialogDetail.moduleName && (this.isPrevInstrument == this.instrDialogDetail.isInstrument || this.isPrevInstrument != this.instrDialogDetail.isInstrument))
+            {
+              if(this.checkForDuplicacyOfModule('All', label, DataArr))
+              {
+                this.isDuplicateModuleDialog = true;
+                this._configUtilityService.errorMessage("Duplicate module entry is not allowed");
+                return;
+              }
+            }
+          }
+
           // Handling Icon appearance
           let obj;
           if (this.instrDialogDetail.isInstrument === true) {
             obj = {
               'label': label,
               'type': 'module',
-              'icon': "fa fa-info"
+              'icon': "fa fa-info",
             };
           }
           else {
@@ -580,9 +642,37 @@ export class ConfigImportInstrProfileComponent implements OnInit {
               'type': 'module',
             };
           }
-          DataArr[0]['children'].push(obj);
-          this.instrprofdata.push(this.instrDialogDetail);
+
+          //If Edit Module operation is being performed
+          if(this.isEditModuleInfo)
+          {
+            for (let i = 0; i < DataArr[0]['children'].length; i++) {
+              if (this.prevModuleStr == DataArr[0]['children'][i]['label']) {
+                // Editting Tree node Module at same index
+                DataArr[0]['children'].splice(i,1,obj);
+                break;
+              }
+            }
+
+            for (let i = 0; i < this.instrprofdata.length; i++) {
+              if (this.instrprofdata[i].moduleName == this.prevModuleStr) {
+                // Editting Module or/and Instrument at same index
+                this.instrprofdata.splice(i,1,this.instrDialogDetail);
+                break;
+              }
+            }
+            this.isDuplicateModuleDialog = false; 
+          }
+
+          //If Create Module operation is being performed
+          else
+          {
+            DataArr[0]['children'].push(obj);
+            this.instrprofdata.push(this.instrDialogDetail);
+            this.isDuplicateModuleDialog = false;
+          }     
         }
+        this.isEditModuleInfo = false;
       }
       // Checking if Creation or Edition is being done
       if (this.nodeObj['isCreate']) {
@@ -700,6 +790,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     this.saveFileName = '';
     this.createData = [];
     this.instrprofdata = [];
+    this.isEditModuleInfo = false;
 
     if (this.selectedAgent == 'Java') {
       let rootObj = {
@@ -818,7 +909,7 @@ export class ConfigImportInstrProfileComponent implements OnInit {
     // Adding entered dialog box data into NodeTree and object
     if (this.selectedAgent == 'NodeJS') {
       if (this.nodeObj['type'] === 'All') {
-        if (this.instrDialogDetail.moduleName == null) {
+        if (this.instrDialogDetail.moduleName == null || this.instrDialogDetail.moduleName=='') {
           this._configUtilityService.errorMessage('Enter module name');
           return;
         }
@@ -830,9 +921,10 @@ export class ConfigImportInstrProfileComponent implements OnInit {
         }
       }
       this.addNodeToTree(this.nodeObj['type'], this.instrDialogDetail.moduleName);
-
-      //this.instrprofdata.push(this.instrDialogDetail);
-      this.openNodeJSDialog = false;
+      if(!this.isDuplicateModuleDialog)
+      {
+        this.openNodeJSDialog = false;
+      }
     }
   }
 

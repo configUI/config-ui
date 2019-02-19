@@ -92,7 +92,9 @@ export class ConfigBCILogsComponent implements OnInit {
 
     /** To show header message in download file dialog */
     hdrMsg: string = "";
-
+ 
+    /** To disable profile permissions for users */
+    isProfilePerm: boolean;
 
     constructor(private configNdAgentService: ConfigNdAgentService,
         private configUtilityService: ConfigUtilityService,
@@ -100,6 +102,9 @@ export class ConfigBCILogsComponent implements OnInit {
     }
 
     ngOnInit() {
+ 	/** For Profile Access Permission */
+	this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+
         /** Get connected agents list by executing get_bci_agents_info shell */
         this.loadNDAgentStatusData();
     }
@@ -240,6 +245,9 @@ export class ConfigBCILogsComponent implements OnInit {
             if (this.selectedTier == obj.tier && this.selectedServer == obj.server && this.selectedInstance == obj.instance) {
                 this.viewAdvanceSetting.osType = obj.os;
                 this.viewAdvanceSetting.installationDir = obj.iD;
+
+                //To identify the agent and auto fill in textfield
+                this.viewAdvanceSetting.agentMode = obj.at;
                 break;
             }
         }
