@@ -367,11 +367,9 @@
                                         <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
                                             <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
                                         </div>
-                                        <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
-                                            <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
-                                        </div>
+                                        
                                         <div *ngIf="i%2 == 0 && !(cmonEnvAdvancedKeyLabelList[i] == 'Class Path' || cmonEnvAdvancedKeyLabelList[i] == 'Machine Settings') && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
-                                            <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
+                                            <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '104%'}" appendTo="body"></p-dropdown>
                                         </div>
                                     </div>
                             </div>
@@ -401,11 +399,9 @@
                                     <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] != 'NDC communication protocol'" style="padding-top: 3px;margin-right: 5px">
                                         <input type="text" pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
                                     </div>
-                                    <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px; margin-right: 5px ; width: 49%; float: left;">
-                                        <input type="text" size=7 pInputText [disabled]='!isUpdate' title="{{cmonEnvAdvancedValueList[i]}}" [(ngModel)]="cmonEnvAdvancedValueList[i]" ngModel />
-                                    </div>
+                                   
                                     <div *ngIf="i%2 != 0 && cmonEnvAdvancedKeyLabelList[i] == 'NDC communication protocol'" style="padding-top: 3px;">
-                                        <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '47%'}" appendTo="body"></p-dropdown>
+                                        <p-dropdown [options]="protocolList" [(ngModel)]="cmonEnvAdvancedValueList[i] " placeholder="-Select-" optionLabel="name" [style]="{'width': '104%'}" appendTo="body"></p-dropdown>
                                     </div>
                                 </div>
 
