@@ -232,7 +232,7 @@
                         <label>URL Pattern</label>
                     </div>
                     <div class="ui-g-4">
-		<input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9_\/.|@?*%#$:&=-\{\}]{0,249}$" title="Please enter valid URL. &#013;Rule1 : Cannot include whitespaces				. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-{},=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
+		<input name="urlName" type="text" size="40" pInputText pattern="[a-zA-Z0-9-_\/.|@?*%#$:&=\{\}]{0,249}$" title="Please enter valid URL. &#013;Rule1 : Cannot include whitespaces				. &#013;Rule2 : Can include alphanumerics ,@,#,$,%,&,*,-{},=,?,.,|,/,: and underscore. &#013;Rule3 :Maximum of 250 characters are allowed."
                             [(ngModel)]="businessTransPatternDetail.urlName" required ngModel />
                     </div>
                     <div class="ui-g-3">
@@ -397,3 +397,329 @@
             </footer>
     </form>
 </p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ---------------------------Method Bt Starts------------------- -->
+
+
+
+<!--For showing Business Transaction Pattern(s) list -->
+<p-dataTable class="nde-ui" [value]="businessTransMethodInfo" *ngIf="flag" [(selection)]="selectedbusinessTransMethod" [rows]="12" [paginator]="businessTransMethodInfo?.length > 12" [pageLinks]="3">
+    <p-header>
+        <span style="float: left"> Manage Method Business Transaction Rule(s)</span>
+        <span style="float: right; margin-top:-3px">
+                          <button pButton type="button" title="Browse" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openFileManager()" icon="fa-folder-open"></button>
+                           <button pButton type="button" title="Browse" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openFileManager()" icon="fa-folder-open"></button>
+                           <button pButton type="button" title="Add a Method Business Transaction" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-plus"></button>
+                           <button pButton type="button" title="Add a Method Business Transaction" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openMethodDialog()" icon="fa-plus"></button>
+                           <button pButton type="button" title="Edit a Method Business Transaction " *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-pencil" ></button>
+                           <button pButton type="button" title="Edit a Method Business Transaction " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="editMethodTrans()" icon="fa-pencil" ></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete Method Business Transaction(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" icon="fa-trash"></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete Method Business Transaction(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteMethodTrans()" icon="fa-trash"></button>
+        </span>
+    </p-header>
+    <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+    <p-column [style]="{'width':'80%'}" class="col-overflow" field="fqm" header="Fully Qualified Method Name" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+    </p-column>
+    <p-column [style]="{'width':'18%','text-align' : 'center'}" class="col-overflow" field="capturingType" header="Capturing Type" [sortable]="true">
+        <template let-col let-application="rowData" pTemplate>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+    </p-column>
+    <!--<p-column class="col-overflow" field="returnType" header="Return type" [sortable]="true">
+            <template let-col let-application="rowData" pTemplate>
+                <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+        </p-column>-->
+</p-dataTable>
+
+<!--Dialog for adding Business Transaction Method-->
+<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business Transaction Method Rule' :'Edit Business Transaction Method Rule'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true"
+    [resizable]="false">
+    <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Fully Qualified Method Name</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="fqm" type="text" size="65" title="Please enter valid FQM" #fqmField pattern="[a-zA-Z]+[a-zA-Z0-9_$.]+(\(([;_$\/\[a-zA-Z0-9]*)\))+[;_$\/\[a-zA-Z0-9]*" [disabled]="!isNewMethod" pInputText [(ngModel)]="businessTransMethodDetail.fqm" autofocus
+                        required ngModel/>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-radioButton name="enableArgumentType" value="returnType" label="BT Rule Based on Return Type" [(ngModel)]="enableArgumentType"></p-radioButton>
+                </div>
+                <div class="ui-g-12" *ngIf="enableArgumentType=='returnType'">
+                    <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
+                        <p-header>
+                            <span style="float: left;">  Return Type Value Rule(s) </span>
+                            <span style="float: right; margin-top:-3px">
+                           <button pButton type="submit" title="Add Return Type Value Rule" (click)="first=true" icon="fa-plus"></button>
+                           <button pButton type="button" title="Edit" (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete Return Type Setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
+                        </span>
+                        </p-header>
+                        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                        <p-column class="col-overflow" field="btName" header="BT Name" [sortable]="true">
+                            <template let-col let-application="rowData">
+                                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                                    </template>
+                        </p-column>
+                        <p-column class="col-overflow" field="operationName" header="Match Criteria" [sortable]="true">
+                            <template let-col let-application="rowData">
+                                        <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                                    </template>
+                        </p-column>
+                        <p-column class="col-overflow" field="value" header="Match Value" [sortable]="true">
+                            <template let-col let-application="rowData">
+                                        <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                                    </template>
+                        </p-column>
+                    </p-dataTable>
+                </div>
+                <!--<div class="ui-g-3">
+                            <input name="dropdown" type="text" size="22" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.returnType"
+                                required ngModel/>
+                            <p-dropdown name="returnType" [style]="{'min-width':'100%'}" [options]="returnTypeList" [(ngModel)]="businessTransMethodDetail.returnType"
+                                placeholder="--Select--" required ngModel></p-dropdown>
+                        </div>-->
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-radioButton name="enableArgumentType" value="argument" label="BT Rule Based on Argument" [(ngModel)]="enableArgumentType" (click)="validateReturnType(businessTransMethodDetail.fqm)"></p-radioButton>
+                </div>
+                <!--<div class="ui-g-2">
+                            <label> Argument Index</label>
+                        </div>-->
+                <div class="ui-g-3" style="margin-top: -5px">
+                    <input name="argumentIndex" type="text" *ngIf="enableArgumentType == 'argument'" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.argumentIndex" required ngModel/>
+                    <p-dropdown name="argumentIndex" *ngIf="enableArgumentType != 'argument'" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" placeholder="--Select argument index--"></p-dropdown>
+                    <p-dropdown name="argumentIndex" *ngIf="enableArgumentType == 'argument'" [disabled]="!(enableArgumentType=='argument')" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('ARGUMENT')" placeholder="--Select argument index--" [(ngModel)]="businessTransMethodDetail.argumentIndex"
+                        [options]="indexList" appendTo="body"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
+                <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'" [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
+                    <p-header>
+                        <span style="float: left;"> Argument Rule(s) </span>
+                        <span style="float: right; margin-top:-3px">
+                           <button pButton type="submit" title="Add Argument Rule" (click)="second=true" icon="fa-plus"></button>
+                           <button pButton type="button" title="Edit" (click)="openEditArgRulesDialog()" icon="fa-pencil" ></button>
+                           <button pButton type="button"class="ui-button-danger" title="Delete argument type setting(s)" (click)="deleteArgumentsRules()" icon="fa-trash"></button>
+                        </span>
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column class="col-overflow" field="btName" header="BT Name" [sortable]="true">
+                        <template let-col let-application="rowData">
+                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                                </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="operationName" header="Match Criteria" [sortable]="true">
+                        <template let-col let-application="rowData">
+                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                                </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="value" header="Match Value" [sortable]="true">
+                        <template let-col let-application="rowData">
+                                    <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
+                                </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <p-radioButton name="enableArgumentType" value="invocation" label="BT Rule Based on Method Invocation" [(ngModel)]="enableArgumentType"></p-radioButton>
+                </div>
+                <div class="ui-g-3" style="margin-top: -5px">
+                    <input name="methodInvocationIndex" *ngIf="enableArgumentType == 'invocation'" type="text" class='hidden-validator' pInputText [(ngModel)]="businessTransMethodDetail.methodInvocationIndex" required ngModel/>
+                    <p-dropdown name="methodInvocationIndex" *ngIf="enableArgumentType != 'invocation'" [disabled]="!(enableArgumentType=='invocation')" [style]="{'width': '100%'}" placeholder="--Select invocation index--"></p-dropdown>
+                    <p-dropdown name="methodInvocationIndex" *ngIf="enableArgumentType == 'invocation'" [style]="{'width': '100%'}" (click)="validateArgAndGetArgumentsNumberList('INVOCATION')" placeholder="--Select invocation index--" [(ngModel)]="businessTransMethodDetail.methodInvocationIndex"
+                        [options]="indexListForInvoc" appendTo="body"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'">
+                <p-dataTable class="nde-ui" [value]="methodInvocationRulesInfo" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'" [(selection)]="selectedInvocationRules" [rows]="4 " [paginator]="methodInvocationRulesInfo?.length> 4"
+                    [pageLinks]="3">
+                    <p-header>
+                        <span style="float: left;"> Method Invocation Rule(s) </span>
+                        <span style="float: right; margin-top:-3px">
+                    <button pButton type="submit" title="Add Method Invocation Rule" (click)="third=true" icon="fa-plus"></button>
+                    <button pButton type="button" title="Edit" (click)="openEditInvocationDialog()" icon="fa-pencil" ></button>
+                    <button pButton type="button"class="ui-button-danger" title="Delete Method Invocation type setting(s)" (click)="deleteInvocationsRules()" icon="fa-trash"></button>
+                    </span>
+                    </p-header>
+                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                    <p-column class="col-overflow" field="btName" header="Default BT Name" [sortable]="true">
+                        <template let-col let-methodInvocation="rowData">
+                            <span title="{{methodInvocation[col.field]}}">{{methodInvocation[col.field]}}</span>
+                    </template>
+                    </p-column>
+                    <p-column class="col-overflow" field="value" header="Method Name" [sortable]="true">
+                        <template let-col let-methodInvocation="rowData">
+                            <span title="{{methodInvocation[col.field]}}">{{methodInvocation[col.field]}}</span>
+                    </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog1()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!-- Add new Return type info -->
+
+<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add Return Type Value Rule' :'Edit Return Type Value Rule'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="600" responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>BT Name</label>
+                </div>
+                <div class="ui-g-4">
+                    <label>Match Criteria</label>
+                </div>
+                <div class="ui-g-4">
+                    <label>Match Value</label>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                        required ngModel/>
+                </div>
+                <div class="ui-g-4">
+                    <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                    <p-dropdown name="operationName" [options]="returnOperationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" appendTo="body"></p-dropdown>
+                </div>
+                <div class="ui-g-4" *ngIf="btMethodRulesDetail.operationName != 'INVOCATION'">
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." required (keydown.space)="$event.preventDefault()" ngModel />
+                </div>
+                <div class="ui-g-4" *ngIf="btMethodRulesDetail.operationName == 'INVOCATION'">
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" ngModel />
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-close" (click)="closeReturnDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!-- Add new Argument type info -->
+
+<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add Argument Rule' :'Edit Argument Rule'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="600" responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>BT Name</label>
+                </div>
+                <div class="ui-g-4">
+                    <label>Match Criteria</label>
+                </div>
+                <div class="ui-g-4">
+                    <label>Match Value</label>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                        required ngModel/>
+                </div>
+                <div class="ui-g-4">
+                    <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                    <p-dropdown name="operationName" [options]="operationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
+                </div>
+                <div class="ui-g-4">
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" required ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-close" (click)="closeArgDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+<!--Dialog to open file explorer dialog -->
+<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+
+    <!-- This will look for this component in the ProductUI at this path -
+                     ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
+
+    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+</p-dialog>
+
+
+<!-- NEW Add/EDIT BT Method Invocation type info -->
+
+<p-dialog class="profile-dialog" header="{{isNewInvocation ? 'Add Method Invocation Rule' :'Edit Method Invocation Rule'}}" *ngIf="addInvocationRulesDialog" [(visible)]="addInvocationRulesDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+    <form (ngSubmit)="saveInvocationRules()" #groupForm="ngForm" ngNativeValidate>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-6">
+                    <label>Default BT Name</label>
+                </div>
+                <div class="ui-g-6">
+                    <label>Method Value</label>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-6">
+                    <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                        required ngModel/>
+                </div>
+                <div class="ui-g-6">
+                    <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Method value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" required ngModel/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                <button type="submit" pButton icon="fa-close" (click)="closeInvocationDialog()" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
+</p-dialog>
+
+
+
+
+<!-- ---------------------------Method Bt Ends------------------- -->
