@@ -1,4 +1,4 @@
-#! /bin/sh
+
 
 BEGIN;
 
@@ -505,10 +505,10 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (167,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.finishSetup()V','HTable.finishSetup()V',8,false,'-','Java'),
 (168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java'),
 (169,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteReader','OracleCommand.ExecuteReader',17,false,'System.Data.OracleClient.dll','Dot Net'),
-(170,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteNonQueryInternal','OracleCommand.ExecuteNonQueryInternal',17,false,'System.Data.OracleClient.dll','Dot Net');
+(170,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteNonQueryInternal','OracleCommand.ExecuteNonQueryInternal',17,false,'System.Data.OracleClient.dll','Dot Net'),
 (171,'','org.apache.commons.net.ftp.FTP.sendCommand(Ljava/lang/String;Ljava/lang/String;)I','FTP.sendCommand(String;String)I',33,false,'-','Java'),
 (172,'HTTP Backend','ON:ADDLISTNER','ON:ADDLISTNER',34,true,'-','NodeJS'),
-(173,'HTTP_Request Backend','Command','Command',35,true,'-','NodeJS''),
+(173,'HTTP_Request Backend','Command','Command',35,true,'-','NodeJS'),
 (174,'MONGO Backend','Command','Command',36,true,'-','NodeJS'),
 (175,'REDIS Backend','Command','Command',37,true,'-','NodeJS'),
 (176,'WINSTON Backend point','error','error',38,false,'-','NodeJS'),
@@ -561,7 +561,7 @@ INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,pref
 (23,true,false,false,false,false,false,false,false,false,false,false,false,false,23,1),
 (24,true,false,false,false,false,false,false,false,false,false,false,false,false,24,1),
 (26,true,true,false,false,false,false,true,false,false,false,false,false,false,26,1),
-(27,true,true,false,false,false,false,false,false,false,false,false,true,false,27,1);
+(27,true,true,false,false,false,false,false,false,false,false,false,true,false,27,1),
 (33,true,false,false,false,false,false,false,false,false,false,false,false,false,33,1),
 (34,true,false,false,false,false,false,false,false,false,false,false,false,false,34,777777),
 (35,false,false,false,false,false,false,false,false,false,false,false,false,false,35,777777),
@@ -742,7 +742,7 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (167,false,167,1),
 (168,false,168,1),
 (169,true,169,888888),
-(170,true,170,888888);
+(170,true,170,888888),
 (171,true,171,1),
 (172,true,172,777777),
 (173,true,173,777777),
@@ -1103,7 +1103,7 @@ INSERT INTO config.profile_backend_point_interface_asso (assoc_id,enabled,end_po
 
 
 COMMIT;
-+
+
 
 
 CREATE SEQUENCE config.hibernate_sequence START WITH 1 INCREMENT BY 1 NO CYCLE;
