@@ -291,9 +291,13 @@ export class MethodBTConfigurationComponent implements OnInit {
     * to know data type of return value of provided fqm
     * and creating opertaion list a/c to return type
     */
-    let type = this.getTypeReturnType(this.businessTransMethodDetail.fqm)
-    this.changeOpertionType(type)
+    this.createMatchCriteria();
     // this.changeOpertionType();
+  }
+
+ createMatchCriteria() {
+    let type = this.getTypeReturnType(this.businessTransMethodDetail.fqm);
+    this.changeOpertionType(type);
   }
 
   openAddArgumentRulesDialog() {
@@ -665,6 +669,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.selectedMethodRules = [];
     this.addRulesDialog = false;
+    this.btMethodRulesDetail = new RulesData();
   }
 
   saveArgRules() {
@@ -1071,10 +1076,10 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row to edit")
     }
     else {
-      this.isNewReturn = false;
+      // this.isNewReturn = false;
       this.editReturnRules = true;
       let selectedRules = this.selectedMethodRules;
-      this.addRulesDialog = true;
+      // this.addRulesDialog = true;
       let that = this;
       this.methodRulesInfo.map(function (val) {
         val.id = that.returnCount;

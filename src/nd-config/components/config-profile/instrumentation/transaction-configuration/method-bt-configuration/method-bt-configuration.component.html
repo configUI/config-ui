@@ -32,7 +32,7 @@
 </p-dataTable>
 
 <!--Dialog for adding Business Transaction Method-->
-<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business Transaction Method Rule' :'Edit Business Transaction Method Rule'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog" modal="modal" width="700" responsive="true"
+<p-dialog class="profile-dialog" header="{{isNewMethod ? 'Add Business Transaction Method Rule' :'Edit Business Transaction Method Rule'}}" *ngIf="addBusinessTransMethodDialog" [(visible)]="addBusinessTransMethodDialog"  width="700" responsive="true"
     [resizable]="false">
     <form (ngSubmit)="saveADDEditMethodTrans(fqmField)" #groupForm="ngForm" ngNativeValidate>
 
@@ -50,12 +50,35 @@
                 <div class="ui-g-4">
                     <p-radioButton name="enableArgumentType" value="returnType" label="BT Rule Based on Return Type" [(ngModel)]="enableArgumentType"></p-radioButton>
                 </div>
+                <form (ngSubmit)="saveRules()" *ngIf="enableArgumentType=='returnType'" #groupForm="ngForm" ngNativeValidate>
+                            <div class="ui-g-12">
+                                <div class="ui-g-1"></div>
+                                <div class="ui-g-3">
+                                    <input name="btName" type="text" placeholder="BT Name" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                                        required ngModel/>
+                                </div>
+                                <div class="ui-g-3">
+                                    <input name="operationName" type="text" class='hidden-validator' [style]="{'width':'18%'}"  pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                                    <p-dropdown name="operationName" [options]="returnOperationList" (click)="createMatchCriteria()" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select Match Citeria--" appendTo="body"></p-dropdown>
+                                </div>
+                                <div class="ui-g-3" *ngIf="btMethodRulesDetail.operationName != 'INVOCATION'">
+                                    <input name="value" placeholder="Match Value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." required (keydown.space)="$event.preventDefault()" ngModel />
+                                </div>
+                                <div class="ui-g-3" *ngIf="btMethodRulesDetail.operationName == 'INVOCATION'">
+                                    <input name="value" placeholder="Match Value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" ngModel />
+                                </div>
+                                <div class="ui-g-1"></div>
+                                    <div class="ui-g-3">
+                                        <button type="submit" pButton icon="fa-plus" label="Add"></button>
+                                    </div>
+                                </div>
+                    </form>
                 <div class="ui-g-12" *ngIf="enableArgumentType=='returnType'">
                     <p-dataTable class="nde-ui" [value]="methodRulesInfo" *ngIf="enableArgumentType" [(selection)]="selectedMethodRules" [rows]="4" [paginator]="methodRulesInfo?.length > 4" [pageLinks]="3">
                         <p-header>
                             <span style="float: left;">  Return Type Value Rule(s) </span>
                             <span style="float: right; margin-top:-3px">
-                           <button pButton type="submit" title="Add Return Type Value Rule" (click)="first=true" icon="fa-plus"></button>
+                           <!-- <button pButton type="submit" title="Add Return Type Value Rule" (click)="first=true" icon="fa-plus"></button> -->
                            <button pButton type="button" title="Edit" (click)="openEditReturnRulesDialog()" icon="fa-pencil" ></button>
                            <button pButton type="button"class="ui-button-danger" title="Delete Return Type Setting(s)" (click)="deleteRules()" icon="fa-trash"></button>
                         </span>
@@ -99,6 +122,24 @@
                         [options]="indexList" appendTo="body"></p-dropdown>
                 </div>
             </div>
+            <form (ngSubmit)="saveArgRules()" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'" #groupForm="ngForm" ngNativeValidate>
+                    <div class="ui-g-12">
+                        <div class="ui-g-3">
+                            <input name="btName" type="text" placeholder="BT Name" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                                required ngModel/>
+                        </div>
+                        <div class="ui-g-3">
+                            <input name="operationName" type="text" class='hidden-validator' pInputText [(ngModel)]="btMethodRulesDetail.operationName" required ngModel/>
+                            <p-dropdown name="operationName" placeholder="Match Criteria" [options]="operationList" [style]="{'width':'83%'}" [(ngModel)]="btMethodRulesDetail.operationName" placeholder="--Select--" (click)="operationListArgumentType()" appendTo="body"></p-dropdown>
+                        </div>
+                        <div class="ui-g-3">
+                            <input name="value" type="text" placeholder="Match Value" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Match value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" required ngModel/>
+                        </div>
+                        <div class="ui-g-3">
+                            <button type="submit" pButton icon="fa-check" label="Save"></button>
+                        </div>
+                    </div>
+            </form>
             <div class="ui-g-12" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'">
                 <p-dataTable class="nde-ui" [value]="methodArgRulesInfo" *ngIf="businessTransMethodDetail.argumentIndex>0 && enableArgumentType=='argument'" [(selection)]="selectedArgRules" [rows]="4 " [paginator]="methodArgRulesInfo?.length> 4" [pageLinks]="3">
                     <p-header>
@@ -139,7 +180,32 @@
                         [options]="indexListForInvoc" appendTo="body"></p-dropdown>
                 </div>
             </div>
-
+            <form (ngSubmit)="saveInvocationRules()" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'" #groupForm="ngForm" ngNativeValidate>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <label>Default BT Name</label>
+                        </div>
+                        <div class="ui-g-6">
+                            <label>Method Value</label>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <input name="btName" type="text" autofocus pInputText [(ngModel)]="btMethodRulesDetail.btName" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()" title="Please enter valid BT name. &#013;Rule 1:Cannot include whitespaces & Can't start with special characters . &#013;Rule 2: In between alphanumeric character only this set of special character will be accepted [_-@#%.] ."
+                                required ngModel/>
+                        </div>
+                        <div class="ui-g-6">
+                            <input name="value" type="text" pInputText [(ngModel)]="btMethodRulesDetail.value" title="Please enter valid Method value. &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()" required ngModel/>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                        <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    </div>
+                </footer>
+            </form>
             <div class="ui-g-12" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'">
                 <p-dataTable class="nde-ui" [value]="methodInvocationRulesInfo" *ngIf="businessTransMethodDetail.methodInvocationIndex>=0 && enableArgumentType=='invocation'" [(selection)]="selectedInvocationRules" [rows]="4 " [paginator]="methodInvocationRulesInfo?.length> 4"
                     [pageLinks]="3">
@@ -176,7 +242,7 @@
 
 <!-- Add new Return type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add Return Type Value Rule' :'Edit Return Type Value Rule'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog" modal="modal" width="600" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewReturn ? 'Add Return Type Value Rule' :'Edit Return Type Value Rule'}}" *ngIf="addRulesDialog" [(visible)]="addRulesDialog"  width="600" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -219,7 +285,7 @@
 
 <!-- Add new Argument type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add Argument Rule' :'Edit Argument Rule'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog" modal="modal" width="600" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewArg ? 'Add Argument Rule' :'Edit Argument Rule'}}" *ngIf="addArgRulesDialog" [(visible)]="addArgRulesDialog"  width="600" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveArgRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
@@ -257,7 +323,7 @@
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
-<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog" modal="modal" width="650" responsive="true">
+<p-dialog class="profile-dialog browseTopCss" [resizable]="false" header="File Manager" *ngIf="openFileExplorerDialog" [(visible)]="openFileExplorerDialog"  width="650" responsive="true">
 
     <!-- This will look for this component in the ProductUI at this path -
                      ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
@@ -268,7 +334,7 @@
 
 <!-- NEW Add/EDIT BT Method Invocation type info -->
 
-<p-dialog class="profile-dialog" header="{{isNewInvocation ? 'Add Method Invocation Rule' :'Edit Method Invocation Rule'}}" *ngIf="addInvocationRulesDialog" [(visible)]="addInvocationRulesDialog" modal="modal" width="500" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewInvocation ? 'Add Method Invocation Rule' :'Edit Method Invocation Rule'}}" *ngIf="addInvocationRulesDialog" [(visible)]="addInvocationRulesDialog"  width="500" responsive="true" [resizable]="false">
     <form (ngSubmit)="saveInvocationRules()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="ui-g-12">
