@@ -212,11 +212,12 @@
 
 <!--Dialog for ADD and Edit Pattern-->
 <p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog"  width="950" responsive="true" [resizable]="false">
+        <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>   
+        <div class="pull-right">
+                <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable"  label="Save"></button>
+            </div>
         <p-tabView>
                 <p-tabPanel header="Configure Detection Rules">
-                    <!-- <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration> -->
- 
-    <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>
         <div class="ui-g">
             <div class="pattern-dialog-border">
                 <div class="ui-g-12">
@@ -259,14 +260,12 @@
                 <div class="ui-g-2" style="margin-left: -4px">
                     <input name="slowTransaction" disabled="{{globalCheck}}" #slow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.slowTransaction" required ngModel /> ms
                 </div>
-                <!-- <div class="ui-g-1" style="margin-left: -27px;margin-top: 5px">ms</div> -->
                 <div class="ui-g-1 label" style="margin-right: -8px">
                     <label>Very Slow</label>
                 </div>
                 <div class="ui-g-2">
                     <input name="verySlowTransaction" disabled="{{globalCheck}}" #vslow (input)="checkSlow(slow, vslow)" style="text-align:right; width:115px " type="number" min=1 pInputText [(ngModel)]="businessTransPatternDetail.verySlowTransaction" required ngModel /> ms
                 </div>
-                <!-- <div class="ui-g-1" style="margin-left: -30px;margin-top: 5px">ms</div> -->
                 <div class="ui-g-3" style="margin-left:24px;">
                         Apply Global Threshold Value(s)  <md-slide-toggle name="globalCheck" class="config-ui" (click)="changeThresholdOnClick()" [(ngModel)]="globalCheck"></md-slide-toggle>
                 </div>
@@ -349,13 +348,6 @@
 
             </div>
         </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
 </p-tabPanel>
     <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Split by Method Execution">
             <app-method-bt-configuration (keywordData)="saveKeywordData($event)"></app-method-bt-configuration>
@@ -370,6 +362,7 @@
             <bt-http-body (keywordData)="saveKeywordData($event)"></bt-http-body>
          </p-tabPanel>
     </p-tabView>
+</form>
 </p-dialog>
 
 <!--Dialog to open file explorer dialog -->
@@ -415,21 +408,3 @@
             </footer>
     </form>
 </p-dialog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
