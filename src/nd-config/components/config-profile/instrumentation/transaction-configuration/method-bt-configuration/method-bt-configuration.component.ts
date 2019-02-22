@@ -725,6 +725,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.addArgRulesDialog = false;
     this.selectedArgRules = [];
+    this.btMethodRulesDetail = new RulesData();
   }
 
   getTypeReturnType(fqm) {
@@ -1108,7 +1109,7 @@ export class MethodBTConfigurationComponent implements OnInit {
         that.argCount = that.argCount + 1;
         // val.typeName = that.getTypeName(val.type)
       })
-      this.addArgRulesDialog = true;
+      // this.addArgRulesDialog = true;
       this.btMethodRulesDetail = Object.assign({}, this.selectedArgRules[0]);
     }
   }
@@ -1263,7 +1264,7 @@ export class MethodBTConfigurationComponent implements OnInit {
         val.id = that.invocationCount;
         that.invocationCount = that.invocationCount + 1;
       })
-      this.addInvocationRulesDialog = true;
+      // this.addInvocationRulesDialog = true;
       this.btMethodRulesDetail = Object.assign({}, this.selectedInvocationRules[0]);
     }
   }
@@ -1319,6 +1320,7 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
     this.addInvocationRulesDialog = false;
     this.selectedInvocationRules = [];
+    this.btMethodRulesDetail = new RulesData();
   }
 
   //Deletimg  Method Invocation rules
