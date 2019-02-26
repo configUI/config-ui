@@ -120,7 +120,24 @@ export class MethodBTConfigurationComponent implements OnInit {
   third: boolean;
   indexListForInvoc: SelectItem[];
 
+  bt_parent_id : number;
+  parent_rule_id : number;
+
   constructor(private configHomeService: ConfigHomeService, private route: ActivatedRoute, private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService) {
+
+
+    //New Method
+    this.configKeywordsService.childBTOfPattern$.subscribe(data => {
+      console.log("Inside Method BTTT  data coming is====>",data);
+      this.bt_parent_id = data['bt_parent_id'];
+      this.parent_rule_id = data['parent_rule_id'];
+      console.log("this.bt_parent_id=====>",this.bt_parent_id)
+      console.log("this.parent_rule_id=====>",this.parent_rule_id)
+      if(data['operation'] == 'Add'){
+        this.saveMethod("From Main Save");
+      }
+
+    });
 
     let arrLabel = ['Numeric', 'String', 'Boolean', 'Char or byte'];
     let arrValue = ['0', '1', '2', '3'];
@@ -816,7 +833,8 @@ export class MethodBTConfigurationComponent implements OnInit {
       if (this.isNewMethod) {
         //Check for app name already exist or not
         if (!this.checkMethodNameAlreadyExist()) {
-          this.saveMethod();
+
+          this.saveMethod('From Child');
           this.btMethodRulesDetail = new RulesData();
           return;
         }
@@ -1011,7 +1029,8 @@ export class MethodBTConfigurationComponent implements OnInit {
     }
   }
 
-  saveMethod() {
+  saveMethod(arg) {
+    
     this.businessTransMethodDetail.rules = [];
     if (this.enableArgumentType == "returnType") {
       this.businessTransMethodDetail.enableArgumentType = false;
@@ -1052,6 +1071,23 @@ export class MethodBTConfigurationComponent implements OnInit {
       this.configUtilityService.errorMessage("Provide invocation type settings");
       return;
     }
+    
+    this.businessTransMethodDetail.btPatternId = this.bt_parent_id;
+    this.businessTransMethodDetail.parentRuleId = this.parent_rule_id;
+    // let dataDTO : BusinessTransMethodData[] = [];
+    // dataDTO.push(this.businessTransMethodDetail);
+    // dataDTO[0].parentRuleId = this.parent_rule_id;
+    // dataDTO[0].btMethodId = this.bt_parent_id;
+    
+    // console.log('Array of DTO is ====>',dataDTO)
+    this.configUtilityService.successMessage(addMessage);
+    console.log("Arg value is ====>",arg)
+    if(arg == 'From Main Save'){
+      // if(arg == 'From Child'){
+        
+        
+        console.log("Before Hitting Service data is ======>",this.businessTransMethodDetail);
+  
     this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
       // this.businessTransMethodInfo.push(data)
       this.modifyData(data);
@@ -1066,6 +1102,10 @@ export class MethodBTConfigurationComponent implements OnInit {
     this.addBusinessTransMethodDialog = false;
     this.selectedbusinessTransMethod = [];
     this.indexList = [];
+  }
+  else{
+    this.addBusinessTransMethodDialog = false;
+  }
   }
 
   //For openong edit form of return type rules

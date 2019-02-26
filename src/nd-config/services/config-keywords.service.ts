@@ -28,6 +28,19 @@ import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 @Injectable()
 export class ConfigKeywordsService {
 
+
+  private childBTOfPattern = new Subject<Object>();
+
+  childBTOfPattern$ = this.childBTOfPattern.asObservable();
+
+  public getInvokeChildBTs(bt_parent_id,parent_rule_id,operation) {
+
+    this.childBTOfPattern.next({ "bt_parent_id": bt_parent_id,'parent_rule_id' : parent_rule_id,'operation':operation});
+
+  }
+
+
+
   /**
   *To support Help Notification the getHelpContent()
   *method is made in this class

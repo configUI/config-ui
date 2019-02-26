@@ -474,6 +474,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
       .subscribe(data => {
+        let id :number;
+        console.log("Data  =====>",data)
+        console.log("Data id is =====>",data[data.length-1].id)
+        console.log("Data parentRuleId is =====>",data[data.length-1].btRuleId)
+        // id = data.
+        this.invokeChildBTs(data[data.length-1].id,data[data.length-1].btRuleId,'Add');
 
         // The below method is called to set all values that contains "-" to null
         this.methodToSetValuesForGUI(data);
@@ -483,6 +489,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       });
     this.closeDialog();
   }
+
+
+//To invoke other 
+ invokeChildBTs(bt_parent_id,parent_rule_id,operation) {
+  this.configKeywordsService.getInvokeChildBTs(bt_parent_id,parent_rule_id,operation);
+}
 
 
   /**

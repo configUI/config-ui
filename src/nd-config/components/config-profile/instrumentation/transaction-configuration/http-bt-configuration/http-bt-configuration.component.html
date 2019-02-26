@@ -212,7 +212,7 @@
 
 <!--Dialog for ADD and Edit Pattern-->
 <p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog"  width="950" responsive="true" [resizable]="false">
-        <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" ngNativeValidate>   
+        <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" >   
         <div class="pull-right">
                 <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable"  label="Save"></button>
             </div>
