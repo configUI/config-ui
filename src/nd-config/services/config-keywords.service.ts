@@ -29,15 +29,15 @@ import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 export class ConfigKeywordsService {
 
 
-  private childBTOfPattern = new Subject<Object>();
+  // private childBTOfPattern = new Subject<Object>();
 
-  childBTOfPattern$ = this.childBTOfPattern.asObservable();
+  // childBTOfPattern$ = this.childBTOfPattern.asObservable();
 
-  public getInvokeChildBTs(bt_parent_id,parent_rule_id,operation) {
+  // public getInvokeChildBTs(btPatternId,parentRuleId,operation) {
 
-    this.childBTOfPattern.next({ "bt_parent_id": bt_parent_id,'parent_rule_id' : parent_rule_id,'operation':operation});
+  //   this.childBTOfPattern.next({ "btPatternId": btPatternId,'parentRuleId' : parentRuleId,'operation':operation});
 
-  }
+  // }
 
 
 
@@ -805,6 +805,31 @@ export class ConfigKeywordsService {
   /** Method to upload file */
   uploadBTMethodFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
+  }
+
+  /** Set btpattern and parent rule id in btmethod */
+  updateParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BT_METHOD_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
+  updateReqParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_REQ_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
+  updateResParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_RES_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
+  getAssocBTMethod(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_BTMETHOD_ON_EDIT}/${id}`)
+  }
+
+  getAssocReqHdr(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_ASSOC_REQ_HDR}/${id}`)
+  }
+
+  getAssocResHdr(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_ASSOC_RES_HDR}/${id}`)
   }
 
   /** URL for creating method monitor from auto discover */
