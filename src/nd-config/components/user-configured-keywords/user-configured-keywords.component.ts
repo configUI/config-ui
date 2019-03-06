@@ -49,14 +49,21 @@ export class UserConfiguredKeywordComponent implements OnInit {
   index: number = 0;
   isProfilePerm: boolean;
 
-  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private pipeForType: PipeForType) {
+  /* Holds Global Settings */
+  keywordList : string[] = ['rtcTimeOut'];
 
+  /* Global Settings object to keeps the global settings list*/
+  globalSettingsObj : Object = {};
+
+  constructor(private configKeywordsService: ConfigKeywordsService, private configUtilityService: ConfigUtilityService, private confirmationService: ConfirmationService, private pipeForType: PipeForType) {
   }
+
 
   ngOnInit() {
     this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false
     this.loadUserConfiguredBCIKeywordList();
     this.loadUserConfiguredNDCKeywordList();
+    this.loadGlobalSettingsList();
   }
 
   handleChange(e) {
@@ -473,8 +480,38 @@ export class UserConfiguredKeywordComponent implements OnInit {
     this.agentMode = agentVal;
   }
 
+  /* Get global settings and fill into object */
+  loadGlobalSettingsList()
+  {
+    this.configKeywordsService.getGlobalSettings().subscribe(data => {
+      let keywordDataVal = {};
+        this.keywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.globalSettingsObj = keywordDataVal;
+      })
+  }
+
+  /** This method sends global settings on server */
+  saveGlobalSettingsData(){
+    this.configKeywordsService.saveGlobalSettings(this.globalSettingsObj).subscribe(data => {
+    this.configUtilityService.successMessage("Saved successfully");
+    });
+  }
+
+  /** This method reset global settings to default value */
+  resetGlobalSettingsToDefault(){
+    this.globalSettingsObj['rtcTimeOut'].keyValue = this.globalSettingsObj['rtcTimeOut'].defaultValue;
+  }
+
+  /** This method reset global settings */
+  resetGlobalSettingsData(){
+    this.loadGlobalSettingsList();
+  }
+
+  /** Method for Help Icon content */
+  globalSettingsHelp(){
+    this.configKeywordsService.getHelpContent("Left Panel", "Settings", "");
+  }
+
 }
-
-
-
-

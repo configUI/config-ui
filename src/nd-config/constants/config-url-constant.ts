@@ -448,3 +448,6 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const LIST_BCI_FILES = `${SERVICE_URL}/custom/bcilogs/listFiles`;
  export const DOWNLOAD_BCI_FILE = `${SERVICE_URL}/custom/bcilogs/downloadagentfile`;
 
+/** URL for Global Settings*/
+ export const GET_GLOBAL_SETTINGS = `${SERVICE_URL}/custom/customkeywords/getGlobalSettings`;
+ export const SAVE_GLOBAL_SETTINGS = `${SERVICE_URL}/custom/customkeywords/saveGlobalSettings`;
