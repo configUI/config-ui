@@ -16,7 +16,7 @@
                             <input name="tier" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedTier"
                                 required ngModel />
                             <p-dropdown [options]="tierList" name="tier" [style]="{'width':'100%'}" [(ngModel)]="selectedTier"
-                                (ngModelChange)="fetchServer(selectedTier)" placeholder="--Select--" required></p-dropdown>
+                                (ngModelChange)="fetchServer(selectedTier)" filter="filter" class="instrprofmaker autosearchfield" placeholder="--Select--" required></p-dropdown>
                         </div>
                     </div>
 
@@ -29,7 +29,7 @@
                             <input name="server" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedServer"
                                 required ngModel />
                             <p-dropdown [options]="serverList" name="server" disabled="{{selectedTier == ''}}" [style]="{'width':'100%'}"
-                                [(ngModel)]="selectedServer" (ngModelChange)="fetchInstance(selectedServer)"
+                                [(ngModel)]="selectedServer" filter="filter" class="instrprofmaker autosearchfield" (ngModelChange)="fetchInstance(selectedServer)"
                                 placeholder="--Select--" required></p-dropdown>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <input name="instance" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedInstance"
                                 required ngModel />
                             <p-dropdown [options]="instanceList" name="instance" disabled="{{selectedServer == ''}}"
-                                [style]="{'width':'100%'}" [(ngModel)]="selectedInstance" (ngModelChange)="identifyOSType()"
+                                [style]="{'width':'100%'}" [(ngModel)]="selectedInstance" filter="filter" class="instrprofmaker autosearchfield" (ngModelChange)="identifyOSType()"
                                 placeholder="--Select--" required></p-dropdown>
                         </div>
                     </div>
@@ -156,14 +156,14 @@
                         <div class="ui-g-12 radio-css">
 
                             <!-- To go back from current path-->
-                            <a (click)="goBack(file)" *ngIf="messageFields.fileType=='Custom' && fileListArr.length!=0" style="color: black;margin-left: 6px" class="contents"><i class="fa fa-folder-open icon_size"
+                            <a (click)="goBack(file)" *ngIf="messageFields.fileType=='Custom' && fileListArr.length!=0" style="color: black;margin-left: 6px;cursor: pointer;" class="contents"><i class="fa fa-folder-open icon_size"
                                     aria-hidden="true"></i>../</a>
 
                             <!-- Files list shown with radio button-->
                             <div class="ui-g-12" *ngFor="let file of filteredItems">
 
                                 <!-- If it is a folder then show folder icon-->
-                                <a *ngIf="file.endsWith('/')" (click)="doubleClick(file)" style="color: black" class="contents"><i
+                                <a *ngIf="file.endsWith('/')" (click)="doubleClick(file)" style="color: black;cursor: pointer;" class="contents"><i
                                         class="fa fa-folder-open icon_size" aria-hidden="true"></i> {{file}}</a>
 
                                 <!-- If it is a file then show radio button-->

@@ -98,4 +98,8 @@ export class ConfigHomeService {
   {
     return this._restApi.getDataByGetReqForRunningTestStatus(URL.GET_TEST_RUN_STATUS);
   }
+
+  getRunningApp(trNo){
+    return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_RUNNING_APP}/${trNo}`)
+  }
 }

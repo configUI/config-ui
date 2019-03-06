@@ -44,25 +44,44 @@
     </p-tabView>
 </div>
 
+
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
-width="500" responsive="true">
-<div style="max-height: 500px; overflow-y: auto;">
-  Runtime changes successfully applied on: 
-  <ul>
-   <li *ngFor="let err of msg">
-      <span>{{err}}</span>
-   </li>
-  </ul>
-  Error while applying Runtime changes on:
-  <ul>
-    <li *ngFor="let e of errMsg">
-       <span>{{e}}</span>
-    </li>
-   </ul>
-</div>
-<footer>
-  <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-    <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
+  width="500" responsive="true">
+  <div style="max-height: 500px; overflow-y: auto;" *ngIf="!showLevels">
+    Runtime changes successfully applied on: 
+    <ul>
+     <li *ngFor="let err of msg">
+        <span>{{err}}</span>
+     </li>
+    </ul>
+    Error while applying Runtime changes on:
+    <ul>
+      <li *ngFor="let e of errMsg">
+         <span>{{e}}</span>
+      </li>
+     </ul>
   </div>
-</footer>
+  <div *ngIf="showLevels" style="font-size: 13px;color: #111113;">
+This profile is applied at following levels:
+<br><br>
+<b>
+  <ul>
+    <li *ngFor="let i of info">
+      <span>{{i}}</span>
+    </li>
+  </ul>
+</b>
+<br>
+Are you sure you want to send Run Time Changes ?
+<br>
+<!-- <h6 style="color: red">Saving settings will also send the RTC at the above levels</h6> -->
+  </div>
+  <footer>
+    <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+      <button type="button" pButton (click)="errDialog=false" *ngIf="!showLevels"  icon="fa-check" label="Ok"></button>
+      <button type="button" pButton (click)="saveSettings()" *ngIf="showLevels" icon="fa-check" label="Save"></button> 
+      <button type="button" pButton (click)="errDialog=false" *ngIf="showLevels" icon="fa-close" label="Cancel"></button>      
+    </div>
+  </footer>
 </p-dialog>
+

@@ -32,6 +32,9 @@ export class ConfigProfileListComponent implements OnInit {
   showMsg: boolean = false;
   displayErrMsg = [];
 
+  //Applied profile list
+  appliedProfileList = [];
+
   isProfilePerm: boolean;
   ROUTING_PATH = ROUTING_PATH;
 
@@ -48,10 +51,15 @@ export class ConfigProfileListComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    this.loadProfileList();
-    this.loadAgentList();
-    this.configKeywordsService.fileListProvider.subscribe(data => {
-      this.uploadFile(data);
+
+    /** Get list of applied profile in the application */
+    this.configProfileService.getListOfAppliedProfile((data) => {
+      this.appliedProfileList = data
+      this.loadProfileList();
+      this.loadAgentList();
+      this.configKeywordsService.fileListProvider.subscribe(data => {
+        this.uploadFile(data);
+      })
     });
   }
 
@@ -147,6 +155,14 @@ export class ConfigProfileListComponent implements OnInit {
   routeToConfiguration(selectedProfileId, selectedProfileName, entity, selectedProfileAgent) {
 
     sessionStorage.setItem("agentType", selectedProfileAgent);
+
+    //Check if the selected profile is applied at running application or not if yes then set in session
+    if(this.appliedProfileList.includes(selectedProfileName)){
+      sessionStorage.setItem("isAppliedProfile", "true");
+    }
+    else{
+      sessionStorage.setItem("isAppliedProfile", "false");
+    }
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
       this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null, 'nodeName': null, 'topologyName' : null };
 
@@ -363,6 +379,7 @@ export class ConfigProfileListComponent implements OnInit {
     openDownloadReports(res) {
       window.open( "/common/" + res);
     }
+
   ngOnDestroy() {
    this.isProfileListBrowse = false;
   }

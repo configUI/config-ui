@@ -85,4 +85,30 @@ export class ConfigProfileService {
     return this._restApi.getDataByPostReqWithNoJSON(`${URL.EXPORT_PROFILE}/${username}`, exportData);
   }
 
+  /** To get the list of applied profile */
+  getAppliedProfile(trNo): Observable<string[]>{
+    return this._restApi.getDataByPostReq(`${URL.GET_APPLIED_PROFILE}`, trNo);
+  }
+
+    /** To get the details of applied profile */
+    getAppliedProfileDetails(profileId): Observable<string[]>{
+      return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_APPLIED_PROFILE_DETAILS}/${profileId}`);
+    }
+
+  
+    /**Get list of applied profiles in the topology levels */
+    getListOfAppliedProfile(callback){
+      let trNo = sessionStorage.getItem("isTrNumber");
+
+      //If test is not running then send -1 to the backend
+      if(trNo == "null"){
+        trNo = "-1";
+      }
+      console.log("trno  ", trNo)
+      this.getAppliedProfile(trNo).subscribe( data => {
+        callback(data)
+      })
+    }
+
+
 }

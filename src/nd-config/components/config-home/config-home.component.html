@@ -14,6 +14,7 @@
         <p-dataTable [value]="applicationInfo" class="nde-ui">
           <p-column rowStyleClass="col-overflow" field="name" header="Name">
             <template let-col let-application="rowData" pTemplate>
+                <i class="fa fa-spinner icon_size" style="color: #073c77" title="Running Application" *ngIf="runningApp==application[col.field]"></i>
               <span title="Click to open '{{application[col.field]}}' topology details">
                 <a class="hyperlink" (click)="routeToTreemain(application['dcId'], application['name'],'application')">{{application[col.field]}}</a>
               </span>
@@ -49,6 +50,7 @@
         <p-dataTable [value]="profileInfo" class="nde-ui">
           <p-column rowStyleClass="col-overflow" field="name" header="Name">
             <template let-col let-profile="rowData" pTemplate>
+                <i class="fa fa-circle icon_size" style="color: mediumseagreen" title="Active profile (Used in running Application)" *ngIf="appliedProfileList.includes(profile['name'])"></i>
               <span title="Click to open '{{profile[col.field]}}' profile configuration">
                 <a class="hyperlink" (click)="routeToConfiguration(profile['id'], profile['name'], profile,profile['agent'])" >{{profile[col.field]}}</a>
               </span>

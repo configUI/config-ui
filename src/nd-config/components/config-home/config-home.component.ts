@@ -48,6 +48,11 @@ export class ConfigHomeComponent implements OnInit {
   noTopoPerm:boolean;
   isHomePermDialog: boolean;
 
+    //Applied profile list
+    appliedProfileList = [];
+
+    //To store running application
+    runningApp: string = "";
   
   refreshIntervalTime = 30000;
   subscription: Subscription;
@@ -55,6 +60,9 @@ export class ConfigHomeComponent implements OnInit {
   constructor(private configKeywordsService: ConfigKeywordsService,private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
+        /** Get list of applied profile in the application */
+        this.configProfileService.getListOfAppliedProfile((data) => {
+          this.appliedProfileList = data
     //this.configHomeService.getAIStartStopOperationOnHome();
 // this.configHomeService.getAIStartStopOperationOnHome();
 var userName = sessionStorage.getItem('sesLoginName');
@@ -77,6 +85,19 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
     this.isHomePermDialog=true;
   this.loadHomeData();
        ///  });
+        });
+
+        //If test is running then get the running application name
+        let trNo = sessionStorage.getItem("isTrNumber");
+        if(trNo != "null")
+          this.loadRunningApp(trNo);
+  }
+
+  //To get the running application name when test is running
+  loadRunningApp(trNo): any {
+    this.configHomeService.getRunningApp(trNo).subscribe(data => {
+      this.runningApp = data["_body"];
+    })
   }
 
   // loadTopologyList(){
@@ -159,6 +180,7 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
   routeToTreemain(selectedTypeId, selectedName, type) {
     sessionStorage.setItem("agentType", "");
     sessionStorage.setItem("showserverinstance", "false");
+    sessionStorage.setItem("isAppliedProfile", "false");
     //Observable application name
     if (type == 'topology') {
       //it routes to (independent) topology screen
@@ -173,6 +195,14 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
 
   routeToConfiguration(selectedProfileId, selectedProfileName, entity,selectedProfileAgent) {
   sessionStorage.setItem("agentType", selectedProfileAgent);
+
+      //Check if the selected profile is applied at running application or not if yes then set in session
+      if(this.appliedProfileList.includes(selectedProfileName)){
+        sessionStorage.setItem("isAppliedProfile", "true");
+      }
+      else{
+        sessionStorage.setItem("isAppliedProfile", "false");
+      }
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
       this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null, 'nodeName' : null, 'topologyName' : null };
 

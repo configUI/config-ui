@@ -101,6 +101,13 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   serverId: any;
 
+  // to show info dialog
+  infoDialog: boolean = false;
+  infoMsg: any[] = [];
+  
+  //Check to see if user wants to override all levels or not
+  isOverride: boolean = false;
+
   ngOnInit() {
 
     this.showserverinstance = sessionStorage.getItem("showserverinstance");
@@ -248,7 +255,7 @@ export class ConfigTreeDetailComponent implements OnInit {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.tierGroupName == event.data.nodeLabel) this.tierGroupEntity = row })
       }
       sessionStorage.setItem("tierGroupName", event.data.nodeLabel);
-      this.configTopologyService.getTierDetail(event.data.nodeLabel, this.tierGroupEntity,this.topologyName).subscribe(data => {
+      this.configTopologyService.getTierDetail(event.data.nodeLabel, this.tierGroupEntity, this.topologyName).subscribe(data => {
         if (this.showserverinstance == "false") {
           this.routingFromAIGui = true;
           this.topologyData = data;
@@ -272,7 +279,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.tierName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.TIER;
       // this.topologyData.filter(row => { if (row.topoId == event.data.nodeId) this.topologyEntity = row })
-      this.configTopologyService.getTierDetail((sessionStorage.getItem("tierGroupName")), this.tierGroupEntity,this.topologyName).subscribe(data => this.topologyData = data);
+      this.configTopologyService.getTierDetail((sessionStorage.getItem("tierGroupName")), this.tierGroupEntity, this.topologyName).subscribe(data => this.topologyData = data);
       this.selectedEntityArr = event.data.nodeLabel + " : " + CONS.TOPOLOGY.TIER;
     }
 
@@ -284,16 +291,16 @@ export class ConfigTreeDetailComponent implements OnInit {
       //only show Instance level data in topology detail gui if showserverinstance is true
       if (this.showserverinstance == "false") {
         this.topologyData.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
-      } 
+      }
       else {
         this.topologyDataAIInstanceLevel.filter(row => { if (row.tierId == event.data.nodeId) this.tierEntity = row })
       }
       sessionStorage.setItem("serverId", event.data.nodeId);
-      this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity,this.topologyName).subscribe(data => {
+      this.configTopologyService.getServerDetail(event.data.nodeId, this.tierEntity, this.topologyName).subscribe(data => {
         if (this.showserverinstance == "false") {
           this.routingFromAIGui = true;
           this.topologyData = data;
-          this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "  + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
+          this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
         }
         else {
           this.routingFromAIGui = false;
@@ -313,8 +320,8 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.serverName = event.data.nodeLabel;
       this.currentEntity = CONS.TOPOLOGY.SERVER;
       // this.topologyData.filter(row => { if (row.serverId == event.data.nodeId) this.serverEntity = row })
-      this.configTopologyService.getServerDetail(+(sessionStorage.getItem("serverId")), this.tierEntity,this.topologyName).subscribe(data => this.topologyData = data);
-      this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "  + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
+      this.configTopologyService.getServerDetail(+(sessionStorage.getItem("serverId")), this.tierEntity, this.topologyName).subscribe(data => this.topologyData = data);
+      this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > " + event.data.nodeLabel + " : " + CONS.TOPOLOGY.SERVER;
     }
 
     //When expanding at server level
@@ -333,7 +340,7 @@ export class ConfigTreeDetailComponent implements OnInit {
 
       //Update the status of AI and icon when AI process id completed when its duration is completed
       this.configTopologyService.durationCompletion().subscribe(data => {
-        that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity,this.topologyName).subscribe(data => {
+        that.configTopologyService.getInstanceDetail(event.data.nodeId, that.serverEntity, this.topologyName).subscribe(data => {
           that.topologyData = data;
           this.routingFromAIGui = true;
           if ((that.topologyData.length == 0) && (this.showserverinstance == "true")) {
@@ -347,7 +354,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           }
         });
       })
-      this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > "+ this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
+      this.selectedEntityArr = this.topologyName + "  >  " + sessionStorage.getItem("tierGroupName") + " > " + this.tierName + "  >  " + event.data.nodeLabel + "  :  " + CONS.TOPOLOGY.INSTANCE;
     }
 
     // this.selectedEntityArr = [this.selectedEntityArr.join(": ")];
@@ -441,8 +448,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       this.configUtilityService.errorMessage("Select only one row to edit profile");
       return;
     }
-    else if(this.selectedTopologyData[0].tierGroupName == 'default')
-    {
+    else if (this.selectedTopologyData[0].tierGroupName == 'default') {
       this.configUtilityService.errorMessage("Tier group(default) profile change is not applicable.");
       return;
     }
@@ -470,20 +476,70 @@ export class ConfigTreeDetailComponent implements OnInit {
 
   }
 
+
+  //To check if any profile is apready appied at child levels or not
+  checkForChildProfile() {
+
+    //Sending NoGroup to backend if selected entity is other than tierGroup
+    if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY) {
+      this.configTopologyService.checkChildProfile(this.topoData.topoId, this.currentEntity, "NoGroup", this.topologyName).subscribe(data => {
+        console.log("dddd  " ,data)
+        this.showInfo(data);
+      })
+    }
+  else if (this.currentEntity == CONS.TOPOLOGY.TIERGROUP) {
+    this.configTopologyService.checkChildProfile(this.topoData.tierGroupId, this.currentEntity, this.topoData.tierGroupName, this.topologyName).subscribe(data => { 
+      this.showInfo(data);
+
+    })
+  }
+      else if (this.currentEntity == CONS.TOPOLOGY.TIER) {
+        this.configTopologyService.checkChildProfile(this.topoData.tierId, this.currentEntity, "NoGroup", this.topologyName).subscribe(data => {
+          this.showInfo(data);
+
+        })
+      }
+    else if (this.currentEntity == CONS.TOPOLOGY.SERVER) {
+      this.configTopologyService.checkChildProfile(this.topoData.serverId, this.currentEntity, "NoGroup", this.topologyName).subscribe(data => {
+        this.showInfo(data);
+
+      })
+    }
+    else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE) {
+      this.configTopologyService.checkChildProfile(this.topoData.instanceId, this.currentEntity, "NoGroup", this.topologyName).subscribe(data => {
+        this.showInfo(data);
+
+      })
+    }
+  }
+
+  //Show dialog at all levels if any profile is applied at any level
+  showInfo(data: String[]) {
+    if(data.includes("None")){
+      this.saveEditProfile()
+    }
+    else{ 
+      this.infoDialog = true;
+      this.infoMsg = data;
+    }
+  }
+
   saveEditProfile(): void {
+    console.log("selcted  ", this.topoData)
     if (this.currentEntity == CONS.TOPOLOGY.TOPOLOGY)
-      this.configTopologyService.updateAttachedProfTopo(this.topoData).subscribe(data => {
+      this.configTopologyService.updateAttachedProfTopo(this.topoData, this.isOverride).subscribe(data => {
         this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully");
       })
     else if (this.currentEntity == CONS.TOPOLOGY.TIERGROUP)
-      this.configTopologyService.updateAttachedProfTierGroup(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfTierGroup(this.topoData, this.topologyName, this.isOverride).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.TIER)
-      this.configTopologyService.updateAttachedProfTier(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfTier(this.topoData, this.topologyName, this.isOverride).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.SERVER)
-      this.configTopologyService.updateAttachedProfServer(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfServer(this.topoData, this.topologyName, this.isOverride).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
     else if (this.currentEntity == CONS.TOPOLOGY.INSTANCE)
-      this.configTopologyService.updateAttachedProfInstance(this.topoData,this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
+      this.configTopologyService.updateAttachedProfInstance(this.topoData, this.topologyName).subscribe(data => { this.updateTopo(data); this.configUtilityService.successMessage("Saved Successfully"); })
 
+      this.infoDialog = false;
     // this.configUtilityService.successMessage("Saved Successfully");
   }
 
@@ -568,19 +624,19 @@ export class ConfigTreeDetailComponent implements OnInit {
   routeToConfiguration(entity) {
 
     if ('topoId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId, 'nodeName' : entity.topoName, 'topologyName' : this.topologyName  };
+      this.configProfileService.nodeData = { 'nodeType': 'topology', 'nodeId': entity.topoId, 'nodeName': entity.topoName, 'topologyName': this.topologyName };
     }
     else if ('tierGroupId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'tierGroup', 'nodeId': entity.tierGroupId, 'nodeName' : entity.tierGroupName, 'topologyName' : this.topologyName  };
+      this.configProfileService.nodeData = { 'nodeType': 'tierGroup', 'nodeId': entity.tierGroupId, 'nodeName': entity.tierGroupName, 'topologyName': this.topologyName };
     }
     else if ('tierId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'tier', 'nodeId': entity.tierId, 'nodeName' : entity.tierName, 'topologyName' : this.topologyName  };
+      this.configProfileService.nodeData = { 'nodeType': 'tier', 'nodeId': entity.tierId, 'nodeName': entity.tierName, 'topologyName': this.topologyName };
     }
     else if ('serverId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'server', 'nodeId': entity.serverId, 'nodeName' : entity.serverDisplayName, 'topologyName' : this.topologyName  };
+      this.configProfileService.nodeData = { 'nodeType': 'server', 'nodeId': entity.serverId, 'nodeName': entity.serverDisplayName, 'topologyName': this.topologyName };
     }
     else if ('instanceId' in entity) {
-      this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId, 'nodeName' : entity.instanceDisplayName, 'topologyName' : this.topologyName  };
+      this.configProfileService.nodeData = { 'nodeType': 'instance', 'nodeId': entity.instanceId, 'nodeName': entity.instanceDisplayName, 'topologyName': this.topologyName };
     }
 
     //Observable profile name
@@ -595,7 +651,7 @@ export class ConfigTreeDetailComponent implements OnInit {
       }
     })
 
-   }
+  }
 
 
   disableProfInstance(instanceId, flag, profileID) {
@@ -615,7 +671,7 @@ export class ConfigTreeDetailComponent implements OnInit {
     if (this.configHomeService.trData.status == null) {
       this.configUtilityService.errorMessage("Could not start instrumentation, Session is not running")
       return;
-    } 
+    }
     if (sessionStorage.getItem("isSwitch") === 'false') {
       this.configUtilityService.errorMessage("Please enable Session toggle button for AI");
       return;
@@ -685,7 +741,7 @@ export class ConfigTreeDetailComponent implements OnInit {
           //Check for successful RTC connection  
           if (data.length != 0 || !data[0]['contains']) {
             that.configTopologyService.updateAIEnable(that.currentInsId, false, "stop", that.topologyName).subscribe(data => {
-              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity,that.topologyName).subscribe(data => {
+              that.configTopologyService.getInstanceDetail(that.serverId, that.serverEntity, that.topologyName).subscribe(data => {
 
                 that.topologyData = data;
               });
