@@ -1,16 +1,16 @@
 //  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
 //  const  SERVICE_URL = 'https://10.10.40.14/configUI';
-//  const  SERVICE_URL = 'http://localhost:8090';
+ const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
- const SERVICE_URL = '/configUI';
+//  const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-// export const ROUTING_PATH: string = "";
+export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-  export const ROUTING_PATH: string = "/home/config";
+  // export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -233,6 +233,8 @@ export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
 export const UPLOAD_BT_METHOD_FILE = `${SERVICE_URL}/custom/btmethod/uploadfile`;
+export const UPDATE_BT_METHOD_PARENT_ID = `${SERVICE_URL}/custom/btmethod/updateparentid`;
+export const GET_BTMETHOD_ON_EDIT = `${SERVICE_URL}/custom/btmethod/getassocbtmethod`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;
@@ -289,6 +291,9 @@ export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
 export const UPLOAD_BT_HTTP_HDR_FILE = `${SERVICE_URL}/custom/bthttpheader/uploadfile`;
+export const UPDATE_REQ_PARENT_ID = `${SERVICE_URL}/custom/bthttpheader/updateparentid`;
+export const GET_ASSOC_REQ_HDR = `${SERVICE_URL}/custom/bthttpheader/getassocreqhdr`;
+
 
 /**** URL for BT Response Headers */
 export const BT_RESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader`;
@@ -297,6 +302,9 @@ export const FETCH_BTRESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader/
 export const DELETE_BT_RESPONSE_HDR = `${SERVICE_URL}/custom/btresponseheader/delete`;
 export const DEL_RESPONSE_HDR_COND = `${SERVICE_URL}/custom/btresponseheader/deletebtresponseconditions`;
 export const EDIT_BTRESPONSE_HEADER = `${SERVICE_URL}/custom/btresponseheader/editbtresponseheader`;
+export const UPDATE_RES_PARENT_ID = `${SERVICE_URL}/custom/btresponseheader/updateparentid`;
+export const GET_ASSOC_RES_HDR = `${SERVICE_URL}/custom/btresponseheader/getassocreshdr`;
+
 
 /*Import Instrumentation Profile*/
 export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;

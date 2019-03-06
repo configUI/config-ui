@@ -135,7 +135,7 @@
     <!-- This will look for this component in the ProductUI at this path -
          ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\-->
 
-    <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
+   <!-- <app-config-nd-file-explorer></app-config-nd-file-explorer> -->
 </p-dialog>
 <!-- Adding Node Dialog -->
 <p-dialog class="profile-dialog" [header]="addDialogHeader" [(visible)]="addNodeDialog" [width]="450"
@@ -166,7 +166,7 @@
 
 
 <!-- Adding NodeJS Dialog -->
-<p-dialog class="profile-dialog" header="Add Module Details" *ngIf="openNodeJSDialog" [(visible)]="openNodeJSDialog"
+<p-dialog class="profile-dialog" header="{{isEditModuleInfo ? 'Edit Module Details' : 'Add Module Details'}}" *ngIf="openNodeJSDialog" [(visible)]="openNodeJSDialog"
     modal="modal" width="300" responsive="true" [resizable]="false">
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">

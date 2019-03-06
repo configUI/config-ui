@@ -1,13 +1,22 @@
-<p-dataTable class="nde-ui" [value]="btResponseHeadersInfo" [(selection)]="selectedResponseHeaders" [rows]="12" [pageLinks]="3">
+<p-dataTable class="nde-ui" [value]="btResponseHeadersInfo" [(selection)]="selectedResponseHeaders" [rows]="12"
+    [pageLinks]="3">
     <p-header>
         <span style="float: left"> Manage Response Headers Rule(s)</span>
         <span style="float: right; margin-top:-3px">
-            <button pButton type="button" title="Add Response Header" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openHeader()" icon="fa-plus"></button>
-            <button pButton type="button" title="Add Response Header" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openHeader()" icon="fa-plus"></button>
-            <button pButton type="button" title="Edit Response Header " *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openEditResponseHeader()" icon="fa-pencil" ></button>
-            <button pButton type="button" title="Edit Response Header " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditResponseHeader()" icon="fa-pencil" ></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete Response Header(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteBTResponseHeaders()" icon="fa-trash"></button>
-            <button pButton type="button"class="ui-button-danger" title="Delete Response Header(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteBTResponseHeaders()" icon="fa-trash"></button>
+            <button pButton type="button" title="Add Response Header" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+                (click)="openResHeader()" icon="fa-plus"></button>
+            <button pButton type="button" title="Add Response Header" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+                (click)="openResHeader()" icon="fa-plus"></button>
+            <button pButton type="button" title="Edit Response Header " *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+                (click)="openEditResponseHeader()" icon="fa-pencil"></button>
+            <button pButton type="button" title="Edit Response Header " *ngIf="!isProfilePerm" [disabled]="saveDisable"
+                (click)="openEditResponseHeader()" icon="fa-pencil"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete Response Header(s)"
+                *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="deleteBTResponseHeaders()"
+                icon="fa-trash"></button>
+            <button pButton type="button" class="ui-button-danger" title="Delete Response Header(s)"
+                *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="deleteBTResponseHeaders()"
+                icon="fa-trash"></button>
         </span>
     </p-header>
     <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
@@ -25,55 +34,70 @@
 </p-dataTable>
 
 <!--Dialog for adding BT Response headers-->
-<p-dialog class="profile-dialog" header="{{isNewHeader ? 'Add BT Response Header' : 'Edit BT Response Header'}}" *ngIf="addResReqHeaderDialog" [(visible)]="addResReqHeaderDialog" modal="modal" width="700" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewResHeader ? 'Add BT Response Header' : 'Edit BT Response Header'}}"
+    *ngIf="addResReqHeaderDialog2" [(visible)]="addResReqHeaderDialog2" width="700" responsive="true" [resizable]="false">
     <form #groupForm="ngForm" (ngSubmit)="saveAddEditResponseheaders()" ngNativeValidate>
 
         <div class="ui-g">
-            <!--<div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <p-checkbox name="response" label="Add response header(s)" [(ngModel)]="enableResponse" binary="true"></p-checkbox>
-                    </div>
-                    <div class="ui-g-12" *ngIf="enableResponse">
-                        <p-dataTable class="nde-ui" [rows]="4"
-                            [pageLinks]="3">
-                            <p-header>
-                                <span style="float: left;">  Response headers </span>
-                                <span style="float: right; margin-top:-5px">
-                       <button pButton type="button" title="Add a response header"icon="fa-plus"></button>
-                       <button pButton type="button"class="ui-button-danger" title="Delete response header(s)"  icon="fa-trash"></button>
-                    </span>
-                            </p-header>
-                            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                            <p-column class="col-overflow" field="value" header="Value" [sortable]="true">
-                                <template let-col let-application="rowData">
-                                    <span title="{{application[col.field]}}"><a [routerLink]="['/tree-main', application['dcId']]">{{application[col.field]}}</a></span>
-                                </template>
-                            </p-column>
-                            <p-column class="col-overflow" field="operationName" header="Operation" [sortable]="true">
-                                <template let-col let-application="rowData">
-                                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
-                                </template>
-                            </p-column>
-                            </p-dataTable>
-                    </div>
-                </div>-->
+
             <div class="ui-g-12">
                 <div class="ui-g-2">
                     <label>Header Name</label>
                 </div>
                 <div class="ui-g-4" style="margin-top: -5px">
-                    <input name="header" type="text" size="35" pattern="[a-zA-Z0-9_-]*" pInputText [(ngModel)]="btResponseHeadersDetail.headerName" required autofocus ngModel/>
+                    <input name="header" type="text" size="35" pattern="[a-zA-Z0-9_-]*" pInputText
+                        [(ngModel)]="btResponseHeadersDetail.headerName" required autofocus ngModel />
                 </div>
             </div>
             <div class="ui-g-12">
-                <p-dataTable class="nde-ui" [rows]="4" [value]="headerConditionInfo" [pageLinks]="3" [(selection)]="selectedResponseHeader">
+                <form #groupForm="ngForm" (ngSubmit)="saveConditions2()" ngNativeValidate>
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <input name="btname" type="text" autofocus pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*"
+                                    (keydown.space)="$event.preventDefault()"
+                                    title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
+                                    [(ngModel)]="resresHeaderConditionDetail.btName" placeholder="BT Name"
+                                    [disabled]="resresHeaderConditionDetail.operation=='VALUE'||resresHeaderConditionDetail.operation==''"
+                                    pInputText required ngModel />
+                            </div>
+                            <div class="ui-g-3">
+                                <input name="type" type="text" class='hidden-validator' pInputText
+                                    [(ngModel)]="resresHeaderConditionDetail.operation" required ngModel />
+                                <p-dropdown name="resOperationName" [options]="resOperationName" [style]="{'width': '83%'}"
+                                    [(ngModel)]="resresHeaderConditionDetail.operation" placeholder="--Select Operation--"
+                                    appendTo="body"></p-dropdown>
+                            </div>
+                            <div class="ui-g-3">
+                                <input name="hdrValue" type="text"
+                                    title="Please enter valid Pattern.  &#013; Whitespaces are not allowed."
+                                    (keydown.space)="$event.preventDefault()"
+                                    [(ngModel)]="resresHeaderConditionDetail.hdrValue" placeholder="Pattern"
+                                    [disabled]="resresHeaderConditionDetail.operation=='VALUE'||resresHeaderConditionDetail.operation=='OCCURS'||resresHeaderConditionDetail.operation==''"
+                                    pInputText required ngModel />
+                            </div>
+                            <div class="ui-g-3">
+                                    <button type="submit" pButton icon="fa-plus" label="Add"></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="ui-g-12">
+                <p-dataTable class="nde-ui" [rows]="4" [value]="resHeaderConditionInfo" [pageLinks]="3"
+                    [(selection)]="selectedResponseHeader">
                     <p-header>
                         <span style="float: left;"> Response Header Rule(s)</span>
                         <span style="float: right; margin-top:-3px">
-                       <button pButton type="button" title="Add a Response Header Condition" (click)="openResDialog()" icon="fa-plus"></button>
-                        <button pButton type="button" title="Edit a Response Header Condition" (click)="openEditResDialog()" icon="fa-pencil" ></button>                       
-                       <button pButton type="button"class="ui-button-danger" title="Delete Response Header Condition(s)" (click)="deleteResHdr()" icon="fa-trash"></button>
-                    </span>
+                            <!-- <button pButton type="button" title="Add a Response Header Condition"
+                                (click)="openResDialog()" icon="fa-plus"></button> -->
+                            <button pButton type="button" title="Edit a Response Header Condition"
+                                (click)="openEditResDialog()" icon="fa-pencil"></button>
+                            <button pButton type="button" class="ui-button-danger"
+                                title="Delete Response Header Condition(s)" (click)="deleteResHdr()"
+                                icon="fa-trash"></button>
+                        </span>
                     </p-header>
                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
                     <p-column class="col-overflow" field="btName" header="BT Name" [sortable]="true">
@@ -97,7 +121,7 @@
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+                <button type="button" pButton icon="fa-close" (click)="closeDialog3()" label="Cancel"></button>
             </div>
         </footer>
     </form>
@@ -105,41 +129,8 @@
 
 <!--Dialog to add Response header-->
 
-<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add Response Header Condition' : 'Edit Response Header Condition'}}" modal="modal" *ngIf="addResDialog" [(visible)]="addResDialog" width="600" responsive="true" [resizable]="false">
-    <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label>BT Name</label>
-                </div>
-                <div class="ui-g-4">
-                    <label>Operation</label>
-                </div>
-                <div class="ui-g-4">
-                    <label>Pattern</label>
-                </div>
-            </div>
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <input name="btname" type="text" autofocus pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*"  (keydown.space)="$event.preventDefault()" title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
-                        [(ngModel)]="headerConditionDetail.btName" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation==''" pInputText required ngModel/>
-                </div>
-                <div class="ui-g-4">
-                    <input name="type" type="text" class='hidden-validator' pInputText [(ngModel)]="headerConditionDetail.operation" required ngModel/>
-                    <p-dropdown name="operationName" [options]="operationName" [style]="{'width': '83%'}" [(ngModel)]="headerConditionDetail.operation" placeholder="--Select--" appendTo="body"></p-dropdown>
-                </div>
-                <div class="ui-g-4">
-                    <input name="hdrValue" type="text" title="Please enter valid Pattern.  &#013; Whitespaces are not allowed."  
-(keydown.space)="$event.preventDefault()" [(ngModel)]="headerConditionDetail.hdrValue" [disabled]="headerConditionDetail.operation=='VALUE'||headerConditionDetail.operation=='OCCURS'||headerConditionDetail.operation==''" pInputText
-                        required ngModel/>
-                </div>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="submit" pButton icon="fa-check" label="Save"></button>
-                <button type="button" pButton icon="fa-close" (click)="closeResponseDialog()" label="Cancel"></button>
-            </div>
-        </footer>
-    </form>
+<p-dialog class="profile-dialog"
+    header="{{isNewResCond ? 'Add Response Header Condition' : 'Edit Response Header Condition'}}" *ngIf="addResDialog"
+    [(visible)]="addResDialog" width="600" responsive="true" [resizable]="false">
+
 </p-dialog>

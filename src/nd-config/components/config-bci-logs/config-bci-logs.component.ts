@@ -246,6 +246,9 @@ export class ConfigBCILogsComponent implements OnInit {
             if (this.selectedTier == obj.tier && this.selectedServer == obj.server && this.selectedInstance == obj.instance) {
                 this.viewAdvanceSetting.osType = obj.os;
                 this.viewAdvanceSetting.installationDir = obj.iD;
+
+                //To identify the agent and auto fill in textfield
+                this.viewAdvanceSetting.agentMode = obj.at;
                 break;
             }
         }
