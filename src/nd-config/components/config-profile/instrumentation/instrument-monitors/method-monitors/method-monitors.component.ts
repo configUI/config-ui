@@ -61,6 +61,10 @@ export class MethodMonitorsComponent implements OnInit {
     this.agentType = sessionStorage.getItem("agentType");
     this.type = this.agentType == "Java" || this.agentType == "NodeJS" ? true : false;
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+
+    if (this.saveDisable || this.isProfilePerm)
+    this.configUtilityService.infoMessage("Reset and Save are disabled");
+
     this.loadMethodMonitorList();
 
     if (this.configKeywordsService.keywordData != undefined) {
@@ -139,7 +143,7 @@ export class MethodMonitorsComponent implements OnInit {
   loadMethodMonitorList() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+      if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888 || this.profileId == 666666 || this.profileId == 999999)
        this.saveDisable =  true;
     });
     this.configKeywordsService.getMethodMonitorList(this.profileId).subscribe(data => {

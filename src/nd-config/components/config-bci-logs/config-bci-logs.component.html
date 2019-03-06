@@ -15,7 +15,7 @@
                         <div class="ui-g-9">
                             <input name="tier" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedTier"
                                 required ngModel />
-                            <p-dropdown [options]="tierList" name="tier" [style]="{'width':'100%'}" [(ngModel)]="selectedTier"
+                            <p-dropdown [options]="tierList" name="tier" [disabled]="isProfilePerm" [style]="{'width':'100%'}" [(ngModel)]="selectedTier"
                                 (ngModelChange)="fetchServer(selectedTier)" filter="filter" class="instrprofmaker autosearchfield" placeholder="--Select--" required></p-dropdown>
                         </div>
                     </div>
@@ -48,6 +48,16 @@
                         </div>
                     </div>
 
+                    <!-- Agent Mode-->
+                    <div class="ui-g-12">
+                        <div class="ui-g-3 label">
+                            <label>Agent Type</label>
+                        </div>
+                        <div class="ui-g-9">
+                            <input name="agentMode" type="text"  pInputText [(ngModel)]="viewAdvanceSetting.agentMode" disabled="true" style="width:100%;" required ngModel />
+                        </div>
+                    </div>
+
                     <!-- File Type-->
                     <div class="ui-g-12">
                         <div class="ui-g-3 label">
@@ -56,8 +66,7 @@
                         <div class="ui-g-9">
                             <input name="fileType" type="text" class='hidden-validator' pInputText [(ngModel)]="selectedFileType"
                                 required ngModel />
-                            <p-dropdown [options]="fileTypeList" name="fileType" [style]="{'width':'100%'}" [(ngModel)]="selectedFileType"
-                                placeholder="--Select--" required></p-dropdown>
+                            <p-dropdown [options]="fileTypeList" name="fileType" [style]="{'width':'100%'}" [(ngModel)]="selectedFileType" [disabled]="isProfilePerm" placeholder="--Select--" required></p-dropdown>
                         </div>
                     </div>
 
@@ -69,19 +78,6 @@
                         <div class="ui-g-9">
                             <input type="text" name="source" pInputText [(ngModel)]="viewAdvanceSetting.sourcePath"
                                 style="width:100%" required />
-                        </div>
-                    </div>
-
-                    <!-- Agent Mode-->
-                    <div class="ui-g-12">
-                        <div class="ui-g-3 label">
-                            <label>Agent Type</label>
-                        </div>
-                        <div class="ui-g-9">
-                            <input name="agentMode" type="text" class='hidden-validator' pInputText [(ngModel)]="viewAdvanceSetting.agentMode"
-                                required ngModel />
-                            <p-dropdown [options]="agentList" name="agentMode" [style]="{'width':'100%'}" [(ngModel)]="viewAdvanceSetting.agentMode"
-                                placeholder="--Select--" required></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -124,8 +120,8 @@
                     <div class="pull-right" style="margin-top: 7px">
                         <!-- To refresh the connected tier/server/instance-->
                         <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
-                        <button type="button" pButton icon="fa fa-refresh" (click)="loadNDAgentStatusData()" title="Reload connected Instances and reset fields to default value" label="Reset"></button>
-                        <button type="submit" pButton icon="fa-files-o" label="Show files"></button>
+                        <button type="button" pButton icon="fa fa-refresh" [disabled]="isProfilePerm" (click)="loadNDAgentStatusData()" title="Reload connected Instances and reset fields to default value" label="Reset"></button>
+                        <button type="submit" pButton icon="fa-files-o"  [disabled]="isProfilePerm" label="Show files"></button>
                     </div>
 
                 </div>
@@ -145,9 +141,9 @@
                             ({{messageFields.tier}} > {{messageFields.server}} > {{messageFields.instance}})</div>
                         <div class="header-button" style="height: 20px;">
                             <!-- Search box-->
-                            <input *ngIf="fileListArr.length!=0" [(ngModel)]="searchText" class="search_css"
+                            <input *ngIf="fileListArr.length!=0" [(ngModel)]="searchText" (keyup.enter)="filterItem(searchText)" class="search_css"
                                 placeholder="Search...">
-                            <button *ngIf="fileListArr.length!=0" type="button" [disabled]="searchText==''" pButton icon="fa-search" (click)="filterItem(searchText)"></button>
+                            <button *ngIf="fileListArr.length!=0" type="button" pButton icon="fa-search" (click)="filterItem(searchText)"></button>
                         </div>
                     </md-card-subtitle>
 
@@ -190,8 +186,8 @@
                         <div class="header-Name">{{fileNameHeader}} </div>
                         <div class="header-button" style="height: 20px;">
                             <!-- Search box-->
-                            <input [(ngModel)]="searchFileText" class="search_css" placeholder="Search...">
-                            <button type="button" [disabled]="searchFileText==''" pButton icon="fa-search" (click)="searchContent(searchFileText)"></button>
+                            <input [(ngModel)]="searchFileText" (keyup.enter)="searchContent(searchFileText)" class="search_css" placeholder="Search...">
+                            <button type="button" pButton icon="fa-search" (click)="searchContent(searchFileText)"></button>
                         </div>
                     </md-card-subtitle>
                     <p-panel>

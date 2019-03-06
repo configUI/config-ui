@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {ConfigExceptionFilterService} from './services/config-exceptionfilter.service';
-import { AutofocusModule } from 'angular-autofocus-fix';
+// import { AutofocusModule } from 'angular-autofocus-fix';
 
 /**Import materiapl module */
 import { MaterialModule } from '@angular/material';
@@ -281,7 +281,7 @@ import { CavNdAgentComponent } from './components/cav-nd-agent/cav-nd-agent.comp
     SplitButtonModule,
     InputTextareaModule,
     FileUploadModule,
-    AutofocusModule
+    // AutofocusModule
   ],
 
   providers: [

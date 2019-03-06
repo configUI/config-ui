@@ -168,6 +168,9 @@ export class BusinessTransMethodData    // Business Transaction Method by Lucky
     rules: RulesData[];
     methodInvocation :string;
     methodInvocationIndex : number = -1;
+    ruleId : number;
+    parentRuleId : number;
+    btPatternId : number
 }
 
 export class RulesData {
@@ -221,6 +224,12 @@ export class BusinessTransPatternData   // Business Transaction Pattern by Lucky
     agent: string;
     parentBtId:number;
     asyncTrans: number;
+    btMethod: boolean;
+	btResponse: boolean;
+	btRequest: boolean;
+	httpBody: boolean;
+	btRuleId: number;
+    parentRuleId: number;
 }
 
 export class BusinessTransGlobalData {
@@ -453,4 +462,9 @@ export class InterfacePoint {
 export class InterfaceEndPointInfo {
     id: number;
     enabled: boolean;
+}
+
+export class InstrumentationProfileForNodeJS {
+    moduleName: string;
+    isInstrument: boolean = false;
 }

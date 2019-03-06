@@ -42,6 +42,12 @@
               <span title="Dot Net" *ngIf="key['agentMode'] == '4' || key['agentMode'] == '5' || key['agentMode'] == '6' || key['agentMode'] == '7'">
                 <i class="icon ndegui-dotnet dotnet-color"></i>
               </span>
+              <span title="Php" *ngIf="key['agentMode'] == '8'">
+                <i class="icon ndegui-java java-color"></i>
+              </span>
+              <span title="Python" *ngIf="key['agentMode'] == '16'">
+                <i class="icon ndegui-java java-color"></i>
+              </span>
             </template>
           </p-column>
           <p-column class="tableCss" field="desc" header="Description" [sortable]="true">

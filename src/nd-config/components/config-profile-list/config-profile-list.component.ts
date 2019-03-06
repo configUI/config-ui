@@ -64,7 +64,7 @@ export class ConfigProfileListComponent implements OnInit {
   }
 
   loadAgentList() {
-    let key = ['Dot Net','Java', 'NodeJS'];
+    let key = ['Dot Net','Java', 'NodeJS', 'Php', 'Python'];
     this.agentList = ConfigUiUtility.createDropdown(key);
 
   }
@@ -73,16 +73,16 @@ export class ConfigProfileListComponent implements OnInit {
     this.configProfileService.getProfileList().subscribe(data => {
       let tempArray = [];
       for (let i = 0; i < data.length; i++) {
-        if (+data[i].profileId == 1 || +data[i].profileId == 777777 || +data[i].profileId == 888888) {
+        /*if (+data[i].profileId == 1 || +data[i].profileId == 777777 || +data[i].profileId == 888888 ||  +data[i].profileId == 666666 || +data[i].profileId == 999999 ) {
           tempArray.push(data[i]);
-        }
+        }*/
       }
-
-      this.profileData = data.reverse();
-      this.profileData.splice(0, 3); 
-      for (let i = 0; i < tempArray.length; i++) {
+      //this.profileData = data.reverse();
+      this.profileData = data;
+      //this.profileData.splice(0, 5); 
+      /*for (let i = 0; i < tempArray.length; i++) {
         this.profileData.push(tempArray[i]);
-      }
+      }*/
     });
   }
 
@@ -113,6 +113,16 @@ export class ConfigProfileListComponent implements OnInit {
           }
         }
         else if (pro == "NodeJS" && this.profileData[j].agent == "NodeJS" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
+        else if (pro == "Php" && this.profileData[j].agent == "Php" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
+        else if (pro == "Python" && this.profileData[j].agent == "Python" || this.profileData[j].agent == "-") {
           if (this.profileData[j].profileName == arr[i]) {
             this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }

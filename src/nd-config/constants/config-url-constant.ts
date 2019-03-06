@@ -239,6 +239,8 @@ export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
 export const UPLOAD_BT_METHOD_FILE = `${SERVICE_URL}/custom/btmethod/uploadfile`;
+export const UPDATE_BT_METHOD_PARENT_ID = `${SERVICE_URL}/custom/btmethod/updateparentid`;
+export const GET_BTMETHOD_ON_EDIT = `${SERVICE_URL}/custom/btmethod/getassocbtmethod`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;
@@ -295,6 +297,9 @@ export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
 export const UPLOAD_BT_HTTP_HDR_FILE = `${SERVICE_URL}/custom/bthttpheader/uploadfile`;
+export const UPDATE_REQ_PARENT_ID = `${SERVICE_URL}/custom/bthttpheader/updateparentid`;
+export const GET_ASSOC_REQ_HDR = `${SERVICE_URL}/custom/bthttpheader/getassocreqhdr`;
+
 
 /**** URL for BT Response Headers */
 export const BT_RESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader`;
@@ -303,6 +308,9 @@ export const FETCH_BTRESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader/
 export const DELETE_BT_RESPONSE_HDR = `${SERVICE_URL}/custom/btresponseheader/delete`;
 export const DEL_RESPONSE_HDR_COND = `${SERVICE_URL}/custom/btresponseheader/deletebtresponseconditions`;
 export const EDIT_BTRESPONSE_HEADER = `${SERVICE_URL}/custom/btresponseheader/editbtresponseheader`;
+export const UPDATE_RES_PARENT_ID = `${SERVICE_URL}/custom/btresponseheader/updateparentid`;
+export const GET_ASSOC_RES_HDR = `${SERVICE_URL}/custom/btresponseheader/getassocreshdr`;
+
 
 /*Import Instrumentation Profile*/
 export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;
@@ -313,8 +321,12 @@ export const GET_TOPO_NAME = `${SERVICE_URL}/custom/instrumentation/gettoponame`
 
 /*Edit Instrumentation Profile */
 export const EDIT_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/generatetreenodefromxml`;
-export const DELETE_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/deletexmlfile`;
 export const SAVE_EDITED_XML_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/saveinstrumenteddatainxmlfile`;
+export const DELETE_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/deletefile`;
+
+//Save and Edit Instrumentation Profile for JSON Profile
+export const SAVE_EDITED_JSON_DATA_FROM_SELECTED_XML_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/saveinstrumenteddatainJSONfile`;
+export const EDIT_JSON_DATA_FROM_SELECTED_JSON_FILE = `${SERVICE_URL}/custom/xmlInstrumentation/editjsondatafromselectedjsonfile`;
 
 /**Auto discover */
 export const FETCH_AUTO_DISCOVERED_INSTANCE = `${SERVICE_URL}/custom/autodiscover/getadrfiles`;
@@ -446,7 +458,7 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  /* Url for Uploading Auto Injection File */
  export const UPLOAD_AUTO_INJECTION_FILE = `${SERVICE_URL}/custom/autoinjection/uploadfile`;
 
-
  /** URL for BCI Logs */
  export const LIST_BCI_FILES = `${SERVICE_URL}/custom/bcilogs/listFiles`;
  export const DOWNLOAD_BCI_FILE = `${SERVICE_URL}/custom/bcilogs/downloadagentfile`;
+

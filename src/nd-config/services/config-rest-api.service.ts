@@ -161,7 +161,7 @@ export class ConfigRestApiService {
 
   // This Method is used for get MultiDC data and Add Product key 
   getURLRegardingMultiDC(url: string) {
-   let productKey = "cavisson:172.24.1.64:01-18-2019%2012-34-10";
+   let productKey = "surbhi:172.24.1.64:02-20-2019%2022-58-38";
   //  if (url.indexOf("?") > 0)
     //   url = this._productConfig.getINSPrefix() + this._navService.getDCNameForScreen('ndConfig') + url + "&productKey=" + productKey;
     // else

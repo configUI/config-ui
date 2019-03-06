@@ -523,6 +523,7 @@ export class CavNdAgentComponent implements OnInit {
     this.cmonEnvNormalTextAreaValueList = [];
     this.loading = true;
     this.protocolList = [
+	  {label: 'Select', value: ''},
       {label: 'WSS', value: 'WSS'},
       {label: 'WS', value: 'WS'},
       {label: 'TCP/IP', value: 'TCP/IP'} ];

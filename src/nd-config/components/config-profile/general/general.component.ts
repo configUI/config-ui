@@ -57,8 +57,8 @@ export class GeneralComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-	if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-		this.saveDisable =  true;
+	  if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888 || this.profileId == 666666 || this.profileId == 999999)
+		  this.saveDisable =  true;
       this.index = params['tabId']
     });
 

@@ -9,7 +9,12 @@
                 <button type="button" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="saveBTTransactionOnFile()" label="Save"></button>
             </div>
         </div>
-<p-tabView>
+        <p-panel class="hideheader">
+                <!-- <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader"> -->
+        <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
+                <!-- </div> -->
+        </p-panel>
+<!-- <p-tabView>
     <p-tabPanel header="Configure Detection Rules">
         <app-http-bt-configuration (keywordData)="saveKeywordData($event)"></app-http-bt-configuration>
     </p-tabPanel>
@@ -25,7 +30,7 @@
      <p-tabPanel *ngIf="agentType == 'Dot Net'" header="Split by HTTP Body">
         <bt-http-body (keywordData)="saveKeywordData($event)"></bt-http-body>
      </p-tabPanel>
-</p-tabView>
+</p-tabView> -->
     </div>
 </form>
 

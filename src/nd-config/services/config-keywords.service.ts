@@ -28,6 +28,19 @@ import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
 @Injectable()
 export class ConfigKeywordsService {
 
+
+  // private childBTOfPattern = new Subject<Object>();
+
+  // childBTOfPattern$ = this.childBTOfPattern.asObservable();
+
+  // public getInvokeChildBTs(btPatternId,parentRuleId,operation) {
+
+  //   this.childBTOfPattern.next({ "btPatternId": btPatternId,'parentRuleId' : parentRuleId,'operation':operation});
+
+  // }
+
+
+
   /**
   *To support Help Notification the getHelpContent()
   *method is made in this class
@@ -639,9 +652,19 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.SAVE_EDITED_XML_DATA_FROM_SELECTED_XML_FILE}`, dataArr);
   }
 
-  /* Delete XML File */
-  deleteXMLFile(fileName) {
-    return this._restApi.getDataByGetReq(`${URL.DELETE_XML_FILE}?fileName=${fileName}`);
+  /*this method is used for get selected json instrumnetation profile in json format*/
+  editJSONDataFromSelectedJSONFile(data) {
+    return this._restApi.getDataByGetReq(`${URL.EDIT_JSON_DATA_FROM_SELECTED_JSON_FILE}?filePath=${data}`);
+  }
+
+   /*this method is resposible for saving JSON data after Editing */
+   saveInstrumentedDataInJSONFile(JSONdataArr) {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_EDITED_JSON_DATA_FROM_SELECTED_XML_FILE}`, JSONdataArr);
+  }
+
+  /* Delete File */
+  deleteFile(fileName) {
+    return this._restApi.getDataByGetReq(`${URL.DELETE_FILE}?fileName=${fileName}`);
   }
 
   getAutoDiscoverTreeData(adrFile, reqId, fileName) {
@@ -782,6 +805,31 @@ export class ConfigKeywordsService {
   /** Method to upload file */
   uploadBTMethodFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_BT_METHOD_FILE}/${profileId}`, filePath);
+  }
+
+  /** Set btpattern and parent rule id in btmethod */
+  updateParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BT_METHOD_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
+  updateReqParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_REQ_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
+  updateResParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_RES_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
+  getAssocBTMethod(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_BTMETHOD_ON_EDIT}/${id}`)
+  }
+
+  getAssocReqHdr(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_ASSOC_REQ_HDR}/${id}`)
+  }
+
+  getAssocResHdr(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_ASSOC_RES_HDR}/${id}`)
   }
 
   /** URL for creating method monitor from auto discover */

@@ -44,6 +44,27 @@
     </p-tabView>
 </div>
 
+<div class='tabs-all'  *ngIf="agentType == 'Php'">
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="Monitors" *ngIf="isUserMode" [selected]="index == 0">
+            <app-monitors *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
+        </p-tabPanel>
+        <p-tabPanel header="Custom Configuration" *ngIf="adminMode" [selected]="index == 1">
+            <app-custom-keywords *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveCustomKeywordData($event)"></app-custom-keywords>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<div class='tabs-all'  *ngIf="agentType == 'Python'">
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="Monitors" *ngIf="isUserMode" [selected]="index == 0">
+            <app-monitors *ngIf="index == 0" [saveDisable]="saveDisable" (keywordData)="saveKeywordData($event)"></app-monitors>
+        </p-tabPanel>
+        <p-tabPanel header="Custom Configuration" *ngIf="adminMode" [selected]="index == 1">
+            <app-custom-keywords *ngIf="index == 1" [saveDisable]="saveDisable" (keywordData)="saveCustomKeywordData($event)"></app-custom-keywords>
+        </p-tabPanel>
+    </p-tabView>
+</div>
 
 <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
   width="500" responsive="true">

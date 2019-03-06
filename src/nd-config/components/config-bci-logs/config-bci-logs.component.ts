@@ -93,6 +93,8 @@ export class ConfigBCILogsComponent implements OnInit {
     /** To show header message in download file dialog */
     hdrMsg: string = "";
 
+    /** To get the access rights */
+    isProfilePerm : boolean
 
     constructor(private configNdAgentService: ConfigNdAgentService,
         private configUtilityService: ConfigUtilityService,
@@ -100,6 +102,10 @@ export class ConfigBCILogsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+
+        if (this.isProfilePerm)
+            this.configUtilityService.infoMessage("User operations are disabled. Kindly upgrade access level !!");
         /** Get connected agents list by executing get_bci_agents_info shell */
         this.loadNDAgentStatusData();
     }
@@ -240,6 +246,9 @@ export class ConfigBCILogsComponent implements OnInit {
             if (this.selectedTier == obj.tier && this.selectedServer == obj.server && this.selectedInstance == obj.instance) {
                 this.viewAdvanceSetting.osType = obj.os;
                 this.viewAdvanceSetting.installationDir = obj.iD;
+
+                //To identify the agent and auto fill in textfield
+                this.viewAdvanceSetting.agentMode = obj.at;
                 break;
             }
         }
