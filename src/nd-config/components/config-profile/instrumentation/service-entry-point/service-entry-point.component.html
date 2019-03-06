@@ -1,4 +1,4 @@
-<p-dataTable *ngIf="type" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
+<p-dataTable *ngIf="agentType == 'Java'" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
     <p-header>
             <span class="configui-float-css">
                     <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxtrue" binary="true" [disabled]="true"></p-checkbox>
@@ -47,7 +47,7 @@
     </p-column>
 </p-dataTable>
 
-<p-dataTable *ngIf="!type" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
+<p-dataTable *ngIf="agentType == 'Dot Net'" class="nde-ui config-ui" [value]="serviceEntryData" [rows]="12" [paginator]="serviceEntryData?.length > 12" [pageLinks]="3" [(selection)]="selectedServiceEntryData">
     <p-header>
             <span class="configui-float-css">
                     <p-checkbox name="groupname" value="val1" [(ngModel)]="checkboxtrue" binary="true" [disabled]="true"></p-checkbox>

@@ -13,54 +13,42 @@
             </div>
             <p-panel class="hideheader">
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader">
-                    <!--<div class="ui-g">
-                        <div class="ui-g-1"></div>Monitors</div>-->
-                    <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"></div> -->
+                    <div class="ui-g-12" >
                         <div class="ui-g-3">
                             <p-checkbox name="enableBTMonitor" [(ngModel)]="enableBTMonitorChk" label="Monitor Business Transactions" binary="true" ngModel></p-checkbox>
                         </div>
                     </div>
-                    <!--<div class="ui-g">
-                        <div class="ui-g-1"></div> Backend Monitors</div>-->
                     <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">
                             <p-checkbox name="enableBackendMonitor" [(ngModel)]="enableBackendMonitorChk" binary="true" ngModel label="Backend Monitor"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12" *ngIf="agentType == 'Java'">
-                            <!-- <div class="ui-g-1"></div> -->
                             <div class="ui-g-3">
                                 <p-checkbox name="enableJavaGCMonitor" [(ngModel)]="enableJavaGCMonitorChk" binary="true" ngModel label="Java GC Monitor"></p-checkbox>
                             </div>
                         </div>
                     <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">
                             <p-checkbox name="eventLoopMonitor" [(ngModel)]="eventLoopMonitorChk" binary="true" ngModel label="Average Time Taken by Event Loop"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">
                             <p-checkbox name="gcProfiler" [(ngModel)]="gcProfilerChk" binary="true" ngModel label="GC and Heap Usage Information"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">
                             <p-checkbox name="nodeAsyncEventMonitor" [(ngModel)]="nodeAsyncEventMonitorChk" binary="true" ngModel label="Asynchronous Events Information"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-4">
                             <p-checkbox name="nodeServerMonitor" [(ngModel)]="nodeServerMonitorChk" binary="true" ngModel label="Server Request/Response Information on Particular Node Server"></p-checkbox>
                         </div>
                     </div>
                     <div class="ui-g-12" *ngIf="agentType == 'NodeJS'">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-4">
                           <label>Profile CPU for particular time for nodejs agent (in seconds)</label>
                         </div>

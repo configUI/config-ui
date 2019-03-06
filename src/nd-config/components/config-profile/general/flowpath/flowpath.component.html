@@ -16,8 +16,6 @@
                 <div class="ui-g">
 
                     <div class="ui-g-12">
-                        <!--<div class = "ui-g-6">-->
-                        <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3">
                             <label>Flowpath Instrumentation (%)</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
@@ -229,8 +227,6 @@
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'NodeJS'">
                 <div class="ui-g">
                     <div class="ui-g-12">
-                        <!--<div class = "ui-g-6">-->
-                        <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3">
                             <label>Flowpath Instrumentation (%)</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
@@ -240,7 +236,6 @@
                         </div>
                     </div>
                     <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-3">
                             <label>HTTP Header Name for CorrelationID</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="HTTP Header name used by Application to pass CorrelationID."></i>
@@ -251,7 +246,6 @@
                             <span></span>
                         </div>
                         <div class="ui-g-12" style="margin-left: -3px">
-                            <!-- <div class="ui-g-1"></div> -->
                             <div class="ui-g-5">
                                 <p-checkbox name="excludeMethodOnRespTime" [(ngModel)]="excludeMethodOnRespTimeChk" binary="true" ngModel label="Enable excluding of methods which are taking more time then keyword value"></p-checkbox>
                             </div>
@@ -261,10 +255,7 @@
             </div>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'Dot Net'">
                 <div class="ui-g">
-
                     <div class="ui-g-12">
-                        <!--<div class = "ui-g-6">-->
-                        <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3">
                             <label>Flowpath Instrumentation (%)</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
@@ -286,15 +277,12 @@
 
                     </div>
                         <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"></div> -->
                         <div class="ui-g-6" style="padding-left:6px">
                             <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath"></i>
                         </div>
-
                     </div>
                     <div class="ui-g-12">
-                        <!-- <div class="ui-g-1"> </div> -->
                         <div class="ui-g-3">
                             <label>CPU Profiling</label>
                             <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transactions"></i>
@@ -309,10 +297,78 @@
                             <p-radioButton name="enableCpuTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'Php'">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-3">
+                            <label>Flowpath Instrumentation (%)</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
+                        </div>
+                        <div class="ui-g-2">
+                            <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6" style="padding-left:6px">
+                            <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath"></i>
+                        </div>
 
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-3">
+                            <label>CPU Profiling</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transactions"></i>
+                        </div>
+                        <div class="ui-g-1">
+                            <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 radioButtoncss">
+                            <p-radioButton name="enableCpuTime" value="1" label="Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 configui-flowpath-css">
+                            <p-radioButton name="enableCpuTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid configui-hideheader" *ngIf="agentType == 'Python'">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-3">
+                            <label>Flowpath Instrumentation (%)</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Percentage of Flowpath(s) to be captured for all Business Transaction monitored by Application agent.Slow,very Slow, and Error Flowpath is always captured."></i>
+                        </div>
+                        <div class="ui-g-2">
+                            <input type="number" name="bciInstrSessionPct" step=0.01 pInputText min={{flowPath.bciInstrSessionPct.min}} max={{flowPath.bciInstrSessionPct.max}} [(ngModel)]="flowPath.bciInstrSessionPct.value" required />
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6" style="padding-left:6px">
+                            <p-checkbox name="captureMethodForAllFP" [(ngModel)]="captureMethodForAllFPChk" binary="true" ngModel label="Capture callstacks of all offending business transaction(s)"></p-checkbox>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture all instrumented methods of slow/very slow/error flowpath"></i>
+                        </div>
+
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-3">
+                            <label>CPU Profiling</label>
+                            <i class="fa fa-info-circle" aria-hidden="true" title="Capture CPU Time consumed by Business transactions"></i>
+                        </div>
+                        <div class="ui-g-1">
+                            <p-radioButton name="enableCpuTime" value="0" label="Disable" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 radioButtoncss">
+                            <p-radioButton name="enableCpuTime" value="1" label="Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                        <div class="ui-g-3 configui-flowpath-css">
+                            <p-radioButton name="enableCpuTime" value="3" label="Method and Business Transaction Level" [(ngModel)]="cpuTime"></p-radioButton>
+                        </div>
+                    </div>
                 </div>
             </div>
         </p-panel>
-
     </div>
 </form>
