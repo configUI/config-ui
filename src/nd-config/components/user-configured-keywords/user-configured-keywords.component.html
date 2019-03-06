@@ -42,28 +42,14 @@
                             <span title="Dot Net" *ngIf="key['agentMode'] == '4' || key['agentMode'] == '5' || key['agentMode'] == '6' || key['agentMode'] == '7'">
                 <i class="icon ndegui-dotnet dotnet-color"></i>
               </span>
-              <span title="Php" *ngIf="key['agentMode'] == '8'">
-                <i class="icon ndegui-java java-color"></i>
-              </span>
-              <span title="Python" *ngIf="key['agentMode'] == '16'">
-                <i class="icon ndegui-java java-color"></i>
-              </span>
-            </ng-template>
-          </p-column>
-          <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
-            <ng-template let-col let-customKeywordsData="rowData" pTemplate>
-              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
-            </ng-template>
-          </p-column>
-        </p-dataTable>
-      </div>
-      <!-- Dialog for user configured keywords-->
-      <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Settings' : 'Edit Settings'}}" *ngIf="userDialog" [(visible)]="userDialog"
-        modal="modal" width="550" responsive="true" [resizable]="false">
-        <form (ngSubmit)="saveUserKeywords()" #groupForm="ngForm" ngNativeValidate>
-          <div class="ui-g-12">
-            <div class="ui-g-2">
-              <label>Name</label>
+                        </ng-template>
+                    </p-column>
+                    <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+                        <ng-template let-col let-customKeywordsData="rowData" pTemplate>
+                            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
             </div>
             <!-- Dialog for user configured keywords-->
             <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Settings' : 'Edit Settings'}}" *ngIf="userDialog" [(visible)]="userDialog" modal="modal" width="550" responsive="true" [resizable]="false">
@@ -246,9 +232,9 @@
                 <div class="header">Settings
                     <div class="pull-right">
                         <i class="fa fa-question-circle" title="Help" (click)="globalSettingsHelp()"></i>
-   <!--                     <button type="button" pButton icon="fa-refresh" (click)="resetGlobalSettingsToDefault()" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
+                        <button type="button" pButton icon="fa-refresh" (click)="resetGlobalSettingsToDefault()" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset to Default"></button>
                         <button type="button" pButton icon="fa-refresh" (click)="resetGlobalSettingsData()" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Reset"></button>
-                        <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>  -->
+                        <button type="submit" pButton icon="fa-check" *ngIf="isProfilePerm" [disabled]="isProfilePerm" label="Save"></button>
 
                         <button type="button" pButton icon="fa-refresh" (click)="resetGlobalSettingsToDefault()" label="Reset to Default"></button>
                         <button type="button" pButton icon="fa-refresh" (click)="resetGlobalSettingsData()" label="Reset"></button>
