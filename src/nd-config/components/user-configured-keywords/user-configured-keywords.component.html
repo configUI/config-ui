@@ -42,14 +42,28 @@
                             <span title="Dot Net" *ngIf="key['agentMode'] == '4' || key['agentMode'] == '5' || key['agentMode'] == '6' || key['agentMode'] == '7'">
                 <i class="icon ndegui-dotnet dotnet-color"></i>
               </span>
-                        </ng-template>
-                    </p-column>
-                    <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
-                        <ng-template let-col let-customKeywordsData="rowData" pTemplate>
-                            <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
+              <span title="Php" *ngIf="key['agentMode'] == '8'">
+                <i class="icon ndegui-java java-color"></i>
+              </span>
+              <span title="Python" *ngIf="key['agentMode'] == '16'">
+                <i class="icon ndegui-java java-color"></i>
+              </span>
+            </ng-template>
+          </p-column>
+          <p-column class="tableCss" field="desc" header="Description" [sortable]="true">
+            <ng-template let-col let-customKeywordsData="rowData" pTemplate>
+              <span title="{{customKeywordsData[col.field]}}">{{customKeywordsData[col.field]}}</span>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+      </div>
+      <!-- Dialog for user configured keywords-->
+      <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Settings' : 'Edit Settings'}}" *ngIf="userDialog" [(visible)]="userDialog"
+        modal="modal" width="550" responsive="true" [resizable]="false">
+        <form (ngSubmit)="saveUserKeywords()" #groupForm="ngForm" ngNativeValidate>
+          <div class="ui-g-12">
+            <div class="ui-g-2">
+              <label>Name</label>
             </div>
             <!-- Dialog for user configured keywords-->
             <p-dialog class="profile-dialog" header="{{isNewUserDialog ? 'Add Settings' : 'Edit Settings'}}" *ngIf="userDialog" [(visible)]="userDialog" modal="modal" width="550" responsive="true" [resizable]="false">

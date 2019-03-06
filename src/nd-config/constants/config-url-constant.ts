@@ -1,22 +1,24 @@
-//  const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
-//  const  SERVICE_URL = 'https://10.10.40.14/configUI';
-//  const  SERVICE_URL = 'http://localhost:8090';
+ const  SERVICE_URL = 'https://10.10.50.16:4431/configUI';
+//  const  SERVICE_URL = 'https://10.10.30.26:4431/configUI';
+// const  SERVICE_URL = 'http://localhost:8090';
 
 
 //For Production use this SERVICE_URL
- const SERVICE_URL = '/configUI';
+//  const SERVICE_URL = '/configUI';
 
 //for running configUI as a standAlone
-// export const ROUTING_PATH: string = "";
+export const ROUTING_PATH: string = "";
 
 /* for running configUI with ProductUI*/
-  export const ROUTING_PATH: string = "/home/config";
+  // export const ROUTING_PATH: string = "/home/config";
 
 /* Url for Home Screen */
+
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
 export const GET_TOPO_LIST = `${SERVICE_URL}/gettopologylist`;
 export const GET_TEST_RUN_STATUS = `${SERVICE_URL}/runningtestrunstatus`;
+export const GET_RUNNING_APP = `${SERVICE_URL}/getrunningapp`;
 
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
@@ -40,6 +42,7 @@ export const ATTACH_PROFTO_TOPO_BY_TOPOID = `${SERVICE_URL}/custom/topology/edit
 export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
 export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 export const DELETE_TOPOLOGY = `${SERVICE_URL}/custom/topology/deletetopology`;
+export const CHECK_CHILD_PROFILE = `${SERVICE_URL}/custom/topology/checkchildprofile`;
 
 /* Url for Profiles */
 //export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
@@ -52,6 +55,8 @@ export const GET_PROFILE_AGENT = `${SERVICE_URL}/custom/profile/getprofileagent`
 export const FETCH_JAVA_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/javaprofilelist`
 export const FETCH_DOTNET_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/dotnetprofilelist`
 export const FETCH_NODEJS_PROFILE_TABLEDATA = `${SERVICE_URL}/custom/profile/nodejsprofilelist`
+export const GET_APPLIED_PROFILE = `${SERVICE_URL}/custom/profile/getappliedprofile`
+export const GET_APPLIED_PROFILE_DETAILS = `${SERVICE_URL}/custom/profile/getappliedprofiledetails`
 
 /* URL for TierGroup */
 export const FETCH_TIER_GROUP_TREE_URL = `${SERVICE_URL}/custom/tree/ng/tiergroup`;
@@ -198,6 +203,7 @@ export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server
 export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
 export const RUNTIME_CHANGE_AUTO_INSTR = `${SERVICE_URL}/custom/runtimechange/autoinstrumentation`;
 export const RUNTIME_CHANGE_INSTR_PROFILE = `${SERVICE_URL}/custom/runtimechange/editinstrumentationprofile`;
+export const RUNTIME_CHANGE_PROFILE_LEVEL= `${SERVICE_URL}/custom/runtimechange/profilelevelrtc`;
 
 
 /* URL for ND Agent Status */
@@ -233,6 +239,8 @@ export const DEL_METHOD_RULES = `${SERVICE_URL}/custom/btmethod/deleteRules`;
 export const DEL_METHOD_BT = `${SERVICE_URL}/custom/btmethod/delete`;
 export const DEL_METHOD_RULES_BT = `${SERVICE_URL}/custom/btmethod/deleteBtMethodrules`;
 export const UPLOAD_BT_METHOD_FILE = `${SERVICE_URL}/custom/btmethod/uploadfile`;
+export const UPDATE_BT_METHOD_PARENT_ID = `${SERVICE_URL}/custom/btmethod/updateparentid`;
+export const GET_BTMETHOD_ON_EDIT = `${SERVICE_URL}/custom/btmethod/getassocbtmethod`;
 
 /*URL for Main Save button of BT Transaction */
 export const SAVE_BT_TRANSACTION = `${SERVICE_URL}/custom/bttransaction/save`;
@@ -289,6 +297,9 @@ export const DELETE_BT_HDR = `${SERVICE_URL}/custom/bthttpheader/delete`;
 export const DEL_HTTP_HDR_COND = `${SERVICE_URL}/custom/bthttpheader/deletebthttpconditions`;
 export const EDIT_BTHTTP_HEADER = `${SERVICE_URL}/custom/bthttpheader/editbthttpheader`;
 export const UPLOAD_BT_HTTP_HDR_FILE = `${SERVICE_URL}/custom/bthttpheader/uploadfile`;
+export const UPDATE_REQ_PARENT_ID = `${SERVICE_URL}/custom/bthttpheader/updateparentid`;
+export const GET_ASSOC_REQ_HDR = `${SERVICE_URL}/custom/bthttpheader/getassocreqhdr`;
+
 
 /**** URL for BT Response Headers */
 export const BT_RESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader`;
@@ -297,6 +308,9 @@ export const FETCH_BTRESPONSE_HDR_URL = `${SERVICE_URL}/custom/btresponseheader/
 export const DELETE_BT_RESPONSE_HDR = `${SERVICE_URL}/custom/btresponseheader/delete`;
 export const DEL_RESPONSE_HDR_COND = `${SERVICE_URL}/custom/btresponseheader/deletebtresponseconditions`;
 export const EDIT_BTRESPONSE_HEADER = `${SERVICE_URL}/custom/btresponseheader/editbtresponseheader`;
+export const UPDATE_RES_PARENT_ID = `${SERVICE_URL}/custom/btresponseheader/updateparentid`;
+export const GET_ASSOC_RES_HDR = `${SERVICE_URL}/custom/btresponseheader/getassocreshdr`;
+
 
 /*Import Instrumentation Profile*/
 export const GET_IMPORT_INSTRUMENT_PROFILE_XML = `${SERVICE_URL}/custom/instrumentation/xmlprofilemaker`;

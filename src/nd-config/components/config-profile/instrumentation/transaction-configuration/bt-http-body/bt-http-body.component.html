@@ -42,7 +42,7 @@
 </p-dataTable>
 
 <p-dialog class="profile-dialog" header="{{isNewBodyRule ? 'Add BT HTTP Body' : 'Edit BT HTTP Body'}}" *ngIf="addNewRuleDialog"
-  [(visible)]="addNewRuleDialog" modal="modal" width="700" responsive="true" [resizable]="false">
+  [(visible)]="addNewRuleDialog" width="700" responsive="true" [resizable]="false">
   <form #groupForm="ngForm" (ngSubmit)="saveAddEditHttpBody()" ngNativeValidate>
 
     <div class="ui-g">
@@ -114,7 +114,7 @@
 
 
 <!-- Dialog for BT HTTP Body conditions -->
-<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add HTTP Body Condition' : 'Edit HTTP Body Condition'}}" modal="modal"
+<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add HTTP Body Condition' : 'Edit HTTP Body Condition'}}"
   *ngIf="addCondDialog" [(visible)]="addCondDialog" width="600" responsive="true" [resizable]="false">
   <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
     <div class="ui-g">

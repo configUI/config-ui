@@ -33,30 +33,29 @@ export class BTResponseHeadersComponent implements OnInit {
     selectedResponseHeaders: BTResponseHeaderData[];
 
     /** Assign data to BT Response header conditions */
-    headerConditionInfo: BTResponseHeaderConditions[];
-    headerConditionDetail: BTResponseHeaderConditions;
+    resHeaderConditionInfo: BTResponseHeaderConditions[];
+    resHeaderConditionDetail: BTResponseHeaderConditions;
     selectedResponseHeader: BTResponseHeaderConditions[];
 
     //For initializing drop down data
     responseHeader: SelectItem[];
-    headerType: SelectItem[];
-    operationName: SelectItem[];
+    resHeaderType: SelectItem[];
+    resOperationName: SelectItem[];
 
     addResReqHeaderDialog: boolean = false;
     addResDialog: boolean = false;
 
-    editConditions: boolean = false;
-    editHeaders: boolean = false;
+    editResConditions: boolean = false;
 
     //For checking if it is new row or existing
-    isNewHeader: boolean = false;
-    isNewCond: boolean = false;
+    isNewResHeader: boolean = false;
+    isNewResCond: boolean = false;
 
     responseHdrDelete = [];
 
     //Counter for adding/editing conditions
-    condCount: number = 0;
-    condCountEdit: number = 0;
+    resCondCount: number = 0;
+    resCondCountEdit: number = 0;
 
     saveDisable: boolean = false;
     isProfilePerm: boolean;
@@ -78,42 +77,43 @@ export class BTResponseHeadersComponent implements OnInit {
         });
 
         this.btResponseHeadersDetail = new BTResponseHeaderData();
-        this.headerConditionDetail = new BTResponseHeaderConditions();
+        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
 
     }
 
     //opens add Response conditions dialog
     openResDialog() {
         this.addResDialog = true;
-        this.isNewCond = true;
-        this.headerConditionDetail = new BTResponseHeaderConditions();
+        this.isNewResCond = true;
+        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
         this.loadOperationName();
     }
 
     //Opens Add BT Response header dialog
     openHeader() {
         this.btResponseHeadersDetail = new BTResponseHeaderData();
-        this.headerConditionDetail = new BTResponseHeaderConditions();
-        this.isNewHeader = true;
+        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
+        this.isNewResHeader = true;
         this.addResReqHeaderDialog = true;
-        this.headerConditionInfo = [];
+        this.resHeaderConditionInfo = [];
         if (this.btResponseHeadersInfo == undefined)
             this.btResponseHeadersInfo = [];
+        this.loadOperationName();
     }
 
-    //To load opeartion operationName
+    //To load opeartion resOperationName
     loadOperationName() {
-        this.operationName = [];
+        this.resOperationName = [];
         var opName = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
         var opVal = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
 
-        this.operationName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
+        this.resOperationName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
     }
 
     //Method to add and edit BT Response headers data
     saveAddEditResponseheaders() {
         //When add new Response Headers
-        if (this.isNewHeader) {
+        if (this.isNewResHeader) {
 
             this.saveResponseHeaders();
         }
@@ -128,8 +128,8 @@ export class BTResponseHeadersComponent implements OnInit {
     saveResponseHeaders() {
         this.btResponseHeadersDetail.conditions = [];
 
-        this.btResponseHeadersDetail.conditions = this.headerConditionInfo;
-        if (this.headerConditionInfo.length == 0) {
+        this.btResponseHeadersDetail.conditions = this.resHeaderConditionInfo;
+        if (this.resHeaderConditionInfo.length == 0) {
             this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
             return;
         }
@@ -144,11 +144,11 @@ export class BTResponseHeadersComponent implements OnInit {
 
     //Method to edit Response Headers
     editResponseHeader() {
-        if (this.headerConditionInfo.length == 0) {
+        if (this.resHeaderConditionInfo.length == 0) {
             this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
             return;
         }
-        this.btResponseHeadersDetail.conditions = this.headerConditionInfo;
+        this.btResponseHeadersDetail.conditions = this.resHeaderConditionInfo;
         this.btResponseHeadersDetail.headerId = this.selectedResponseHeaders[0].headerId;
         /****for edit case
       *  first triggering the response to delete the  conditions and
@@ -182,7 +182,7 @@ export class BTResponseHeadersComponent implements OnInit {
                 this.configUtilityService.successMessage(editMessage);
             });
         })
-        this.closeDialog();
+        this.closeDialog3();
     }
 
     //Opens edit Response Headers dialog
@@ -198,19 +198,19 @@ export class BTResponseHeadersComponent implements OnInit {
             return;
         }
         else {
-            this.isNewHeader = false;
+            this.isNewResHeader = false;
             this.addResReqHeaderDialog = true;
-            // this.editConditions = true;
-            this.isNewCond = true;
+            // this.editResConditions = true;
+            this.isNewResCond = true;
             let that = this;
             this.responseHdrDelete = [];
             this.btResponseHeadersDetail = Object.assign({}, this.selectedResponseHeaders[0]);
             this.loadOperationName();
-            this.headerConditionInfo = this.selectedResponseHeaders[0].conditions;
+            this.resHeaderConditionInfo = this.selectedResponseHeaders[0].conditions;
             //providing Id for editing conditions in edit header form
-            this.headerConditionInfo.map(function (val) {
-                val.id = that.condCountEdit;
-                that.condCountEdit = that.condCountEdit + 1;
+            this.resHeaderConditionInfo.map(function (val) {
+                val.id = that.resCondCountEdit;
+                that.resCondCountEdit = that.resCondCountEdit + 1;
             })
         }
 
@@ -255,25 +255,25 @@ export class BTResponseHeadersComponent implements OnInit {
 
     //Method to add BT Response response conditions
     saveConditions() {
-        if (this.headerConditionDetail.operation == "VALUE") {
-            this.headerConditionDetail.btName = "-";
-            this.headerConditionDetail.hdrValue = "-";
+        if (this.resHeaderConditionDetail.operation == "VALUE") {
+            this.resHeaderConditionDetail.btName = "-";
+            this.resHeaderConditionDetail.hdrValue = "-";
         }
-        if (this.headerConditionDetail.operation == "OCCURS") {
-            this.headerConditionDetail.hdrValue = "-";
+        if (this.resHeaderConditionDetail.operation == "OCCURS") {
+            this.resHeaderConditionDetail.hdrValue = "-";
         }
         //EDIT functionality
-        if (!this.isNewHeader) {
-            if (this.editConditions) {
+        if (!this.isNewResHeader) {
+            if (this.editResConditions) {
                 //In edit form to edit conditions
-                this.isNewCond = false;
-                this.editConditions = false;
+                this.isNewResCond = false;
+                this.editResConditions = false;
                 let that = this;
-                this.headerConditionInfo.map(function (val) {
-                    if (val.id == that.headerConditionDetail.id) {
-                        val.btName = that.headerConditionDetail.btName;
-                        val.hdrValue = that.headerConditionDetail.hdrValue;
-                        val.operation = that.headerConditionDetail.operation;
+                this.resHeaderConditionInfo.map(function (val) {
+                    if (val.id == that.resHeaderConditionDetail.id) {
+                        val.btName = that.resHeaderConditionDetail.btName;
+                        val.hdrValue = that.resHeaderConditionDetail.hdrValue;
+                        val.operation = that.resHeaderConditionDetail.operation;
                     }
                 });
                 this.selectedResponseHeader = [];
@@ -281,25 +281,25 @@ export class BTResponseHeadersComponent implements OnInit {
 
             else {
                 //In edit form to add conditions
-                this.isNewCond = true;
-                this.headerConditionDetail["id"] = this.condCountEdit;
-                this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
-                this.condCountEdit = this.condCountEdit + 1;
+                this.isNewResCond = true;
+                this.resHeaderConditionDetail["id"] = this.resCondCountEdit;
+                this.resHeaderConditionInfo = ImmutableArray.push(this.resHeaderConditionInfo, this.resHeaderConditionDetail);
+                this.resCondCountEdit = this.resCondCountEdit + 1;
             }
         }
 
         //ADD functionality
         else {
             //In add form, to edit conditions
-            if (this.editConditions) {
-                this.isNewCond = false;
-                this.editConditions = false;
+            if (this.editResConditions) {
+                this.isNewResCond = false;
+                this.editResConditions = false;
                 let that = this;
-                this.headerConditionInfo.map(function (val) {
-                    if (val.id == that.headerConditionDetail.id) {
-                        val.btName = that.headerConditionDetail.btName;
-                        val.hdrValue = that.headerConditionDetail.hdrValue;
-                        val.operation = that.headerConditionDetail.operation;
+                this.resHeaderConditionInfo.map(function (val) {
+                    if (val.id == that.resHeaderConditionDetail.id) {
+                        val.btName = that.resHeaderConditionDetail.btName;
+                        val.hdrValue = that.resHeaderConditionDetail.hdrValue;
+                        val.operation = that.resHeaderConditionDetail.operation;
                     }
                 });
                 this.selectedResponseHeader = [];
@@ -308,13 +308,14 @@ export class BTResponseHeadersComponent implements OnInit {
             else {
                 //In add form to add conditions
 
-                this.isNewCond = true;
-                this.headerConditionDetail["id"] = this.condCount;
-                this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
-                this.condCount = this.condCount + 1;
+                this.isNewResCond = true;
+                this.resHeaderConditionDetail["id"] = this.resCondCount;
+                this.resHeaderConditionInfo = ImmutableArray.push(this.resHeaderConditionInfo, this.resHeaderConditionDetail);
+                this.resCondCount = this.resCondCount + 1;
             }
         }
         this.addResDialog = false;
+        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
     }
 
     //Method to delete response headers
@@ -396,13 +397,13 @@ export class BTResponseHeadersComponent implements OnInit {
        for (let index in arrResIndex) {
             rowIndex.push(this.getCondIndex(arrResIndex[index]));
         }
-        this.headerConditionInfo = deleteMany(this.headerConditionInfo, rowIndex);
+        this.resHeaderConditionInfo = deleteMany(this.resHeaderConditionInfo, rowIndex);
     }
 
     /**This method returns selected condition row on the basis of selected row */
     getCondIndex(appId: any): number {
-        for (let i = 0; i < this.headerConditionInfo.length; i++) {
-            if (this.headerConditionInfo[i] == appId) {
+        for (let i = 0; i < this.resHeaderConditionInfo.length; i++) {
+            if (this.resHeaderConditionInfo[i] == appId) {
                 return i;
             }
         }
@@ -418,9 +419,8 @@ export class BTResponseHeadersComponent implements OnInit {
             this.configUtilityService.errorMessage("Select only one row to edit")
         }
         else {
-            this.isNewCond = false;
-            this.editConditions = true;
-            this.addResDialog = true;
+            this.isNewResCond = false;
+            this.editResConditions = true;
             // On opening edit conditions dialog, replacing '-' with ''
             if (this.selectedResponseHeader[0].operation == "VALUE") {
                 this.selectedResponseHeader[0].btName = "";
@@ -429,7 +429,7 @@ export class BTResponseHeadersComponent implements OnInit {
             else if (this.selectedResponseHeader[0].operation == "OCCURS") {
                 this.selectedResponseHeader[0].hdrValue = "";
             }
-            this.headerConditionDetail = Object.assign({}, this.selectedResponseHeader[0]);
+            this.resHeaderConditionDetail = Object.assign({}, this.selectedResponseHeader[0]);
         }
 
     }
@@ -440,7 +440,7 @@ export class BTResponseHeadersComponent implements OnInit {
     }
 
     //Closing BT Response Headers dialog
-    closeDialog() {
+    closeDialog3() {
         this.addResReqHeaderDialog = false;
     }
 }

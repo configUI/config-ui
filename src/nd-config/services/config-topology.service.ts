@@ -7,6 +7,7 @@ import { TreeNode } from 'primeng/primeng';
 
 import * as URL from '../constants/config-url-constant';
 import { ConfigUtilityService } from './config-utility.service';
+import { onErrorResumeNext } from 'rxjs/operator/onErrorResumeNext';
 
 @Injectable()
 export class ConfigTopologyService {
@@ -83,26 +84,26 @@ export class ConfigTopologyService {
   }
 
   /* Changing Profile To Topology */
-  updateAttachedProfTopo(data): Observable<Object> {
+  updateAttachedProfTopo(data, override): Observable<Object> {
     if(data.dcTopoId == 0)
-        return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO_BY_TOPOID}/${data.topoId}/${data.profileId}`);
+        return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO_BY_TOPOID}/${data.topoId}/${data.profileId}/${override}`);
     else
-        return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`);
+        return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}/${override}`);
   }
 
   /* Changing Profile to TierGroup */
-  updateAttachedProfTierGroup(data,topologyName) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER_GROUP}/${data.tierGroupName}/${data.profileId}/${topologyName}`);
+  updateAttachedProfTierGroup(data,topologyName, override) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER_GROUP}/${data.tierGroupName}/${data.profileId}/${topologyName}/${override}`);
   }
 
   /* Changing Profile to Tier */
-  updateAttachedProfTier(data,topologyName) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}/${topologyName}`);
+  updateAttachedProfTier(data,topologyName, override) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}/${topologyName}/${override}`);
   }
 
   /* Changing Profile to Server */
-  updateAttachedProfServer(data,topologyName) {
-    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}/${topologyName}`);
+  updateAttachedProfServer(data,topologyName, override) {
+    return this._restApi.getDataByGetReq(`${URL.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}/${topologyName}/${override}`);
   }
 
   /* Changing Profile to Instance */
@@ -256,6 +257,10 @@ export class ConfigTopologyService {
 
   deleteTopology(ids: number[]): Observable<TopologyInfo[]> {
     return this._restApi.getDataByPostReq(`${URL.DELETE_TOPOLOGY}`, ids);
+  }
+
+  checkChildProfile(id, currentEntity, groupName, topologyName): Observable<String[]>{
+    return this._restApi.getDataByGetReq(`${URL.CHECK_CHILD_PROFILE}/${currentEntity}/${id}/${groupName}/${topologyName}`)
   }
 
   deleteAI(data,instanceId): Observable<boolean> {

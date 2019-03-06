@@ -102,6 +102,7 @@ export class BTHTTPHeadersComponent implements OnInit {
     openHeader() {
         this.btHttpHeadersDetail = new BTHTTPHeaderData();
         this.headerConditionDetail = new BTHTTPHeaderConditions();
+        this.loadOperationName();
         this.isNewHeader = true;
         this.addResReqHeaderDialog = true;
         this.headerConditionInfo = [];
@@ -374,6 +375,7 @@ export class BTHTTPHeadersComponent implements OnInit {
             }
         }
         this.addReqDialog = false;
+        this.headerConditionDetail = new BTHTTPHeaderConditions();
     }
 
     //Method to check redundancy for BT Name
@@ -489,7 +491,7 @@ export class BTHTTPHeadersComponent implements OnInit {
         else {
             this.isNewCond = false;
             this.editConditions = true;
-            this.addReqDialog = true;
+            // this.addReqDialog = true;
             // On opening edit conditions dialog, replacing '-' with ''
             if (this.selectedRequestHeader[0].operation == "VALUE") {
                 this.selectedRequestHeader[0].btName = "";

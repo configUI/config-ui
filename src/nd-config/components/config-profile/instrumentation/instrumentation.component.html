@@ -1,63 +1,92 @@
-<div class='tabs-all' *ngIf="agentType != 'NodeJS'">
-    <p-tabView (onChange)="handleChange($event)">
-        <p-tabPanel header="Service Entry Point" [selected]="index == 0" *ngIf="agentType != 'NodeJS'">
-            <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId" (keywordData)="saveKeywordData($event)"></app-service-entry-point>
-        </p-tabPanel>
-        <p-tabPanel header="Integration Point" [selected]="index == 1" *ngIf="agentType != 'NodeJS'">
-            <app-integration-pt-detection *ngIf="index == 1" [profileId]="profileId"></app-integration-pt-detection>
-        </p-tabPanel>
+<div class='tabs-all'>
+    <p-tabView (onChange)=" handleChange($event)">
+    <p-tabPanel header="Service Entry Point" [selected]="index == 0"
+        *ngIf="agentType == 'Java' || agentType == 'Dot Net'">
+        <app-service-entry-point *ngIf="index == 0" [saveDisable]="saveDisable" [profileId]="profileId"
+            (keywordData)="saveKeywordData($event)"></app-service-entry-point>
+    </p-tabPanel>
+    <p-tabPanel header="Integration Point" [selected]="index == 1"
+        *ngIf="agentType == 'Java' || agentType == 'Dot Net'">
+        <app-integration-pt-detection *ngIf="index == 1" [profileId]="profileId"></app-integration-pt-detection>
+    </p-tabPanel>
+    <p-tabPanel header="Business Transaction" [selected]="index == 2"
+        *ngIf="agentType == 'Java' || agentType == 'Dot Net'">
+        <app-transaction-configuration *ngIf="index == 2" [profileId]=profileId></app-transaction-configuration>
+    </p-tabPanel>
+    <p-tabPanel header="Instrument Monitors" [selected]="index == 3"
+        *ngIf="agentType == 'Java' || agentType == 'Dot Net'">
+        <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)">
+        </app-instrument-monitors>
+    </p-tabPanel>
+    <p-tabPanel header="Error Detection" [selected]="index == 4" *ngIf="agentType == 'Java'">
+        <app-error-detection *ngIf="index == 4" [profileId]=profileId (keywordData)="saveKeywordData($event)">
+        </app-error-detection>
+    </p-tabPanel>
+    <p-tabPanel header="Asynchronous Transaction" [selected]="index == 5" *ngIf="agentType == 'Java'">
+        <app-asynchronous-rule *ngIf="index == 5" [profileId]=profileId (keywordData)="saveKeywordData($event)">
+        </app-asynchronous-rule>
+    </p-tabPanel>
 
-        <p-tabPanel header="Business Transaction" [selected]="index == 2">
-            <app-transaction-configuration *ngIf="index == 2" [profileId]=profileId></app-transaction-configuration>
-        </p-tabPanel>
-        <p-tabPanel header="Instrument Monitors" [selected]="index == 3" >
-            <app-instrument-monitors *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
-        </p-tabPanel>
-        <p-tabPanel  *ngIf="agentType != 'Dot Net'" header="Error Detection" [selected]="index == 4">
-            <app-error-detection *ngIf="index == 4" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
-        </p-tabPanel>
-        <p-tabPanel *ngIf="agentType != 'Dot Net'" header="Asynchronous Transaction" [selected]="index == 5">
-            <app-asynchronous-rule *ngIf="index == 5" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-asynchronous-rule>
-        </p-tabPanel>
+    <!-- Handling for NodeJs, Php and Python agents -->
+    <p-tabPanel header="Integration Point" [selected]="index == 0"
+        *ngIf="agentType == 'NodeJS' || agentType == 'Php' || agentType == 'Python'">
+        <app-integration-pt-detection *ngIf="index == 0" [profileId]="profileId"></app-integration-pt-detection>
+    </p-tabPanel>
+    <p-tabPanel header="Business Transaction" [selected]="index == 1"
+        *ngIf="agentType == 'NodeJS' || agentType == 'Php' || agentType == 'Python'">
+        <app-transaction-configuration *ngIf="index == 1" [profileId]=profileId></app-transaction-configuration>
+    </p-tabPanel>
+    <p-tabPanel header="Instrument Monitors" [selected]="index == 2"
+        *ngIf="agentType == 'NodeJS' || agentType == 'Php' || agentType == 'Python'">
+        <app-instrument-monitors *ngIf="index == 2" [profileId]=profileId (keywordData)="saveKeywordData($event)">
+        </app-instrument-monitors>
+    </p-tabPanel>
+    <p-tabPanel header="Error Detection" [selected]="index == 3" *ngIf="agentType == 'NodeJS'">
+        <app-error-detection *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)">
+        </app-error-detection>
+    </p-tabPanel>
     </p-tabView>
 </div>
 
-<div class='tabs-all' *ngIf="agentType == 'NodeJS'">
-        <p-tabView (onChange)="handleChange($event)">
-            <p-tabPanel header="Integration Point" [selected]="index == 0">
-                <app-integration-pt-detection *ngIf="index == 0" [profileId]="profileId"></app-integration-pt-detection>
-            </p-tabPanel> 
-            <p-tabPanel header="Business Transaction" [selected]="index == 1">
-                <app-transaction-configuration *ngIf="index == 1" [profileId]=profileId></app-transaction-configuration>
-            </p-tabPanel>
-            <p-tabPanel header="Instrument Monitors" [selected]="index == 2" >
-                <app-instrument-monitors *ngIf="index == 2" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-instrument-monitors>
-            </p-tabPanel>
-            <p-tabPanel header="Error Detection" [selected]="index == 3">
-                <app-error-detection *ngIf="index == 3" [profileId]=profileId (keywordData)="saveKeywordData($event)"></app-error-detection>
-            </p-tabPanel>
-        </p-tabView>
-    </div>
 
-<p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
-width="500" responsive="true">
-<div style="max-height: 500px; overflow-y: auto;">
-  Runtime changes successfully applied on: 
-  <ul>
-   <li *ngFor="let err of msg">
-      <span>{{err}}</span>
-   </li>
-  </ul>
-  Error while applying Runtime changes on:
-  <ul>
-    <li *ngFor="let e of errMsg">
-       <span>{{e}}</span>
-    </li>
-   </ul>
-</div>
-<footer>
-  <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
-    <button type="button" pButton (click)="errDialog=false" icon="fa-check" label="Ok"></button>
-  </div>
-</footer>
-</p-dialog>
+    <p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
+    width="500" responsive="true">
+    <div style="max-height: 500px; overflow-y: auto;" *ngIf="!showLevels">
+      Runtime changes successfully applied on: 
+      <ul>
+       <li *ngFor="let err of msg">
+          <span>{{err}}</span>
+       </li>
+      </ul>
+      Error while applying Runtime changes on:
+      <ul>
+        <li *ngFor="let e of errMsg">
+           <span>{{e}}</span>
+        </li>
+       </ul>
+    </div>
+    <div *ngIf="showLevels" style="font-size: 13px;color: #111113;">
+  This profile is applied at following levels:
+  <br><br>
+  <b>
+    <ul>
+      <li *ngFor="let i of info">
+        <span>{{i}}</span>
+      </li>
+    </ul>
+  </b>
+  <br>
+  Are you sure you want to send Run Time Changes ?
+  <br>
+  <!-- <h6 style="color: red">Saving settings will also send the RTC at the above levels</h6> -->
+    </div>
+    <footer>
+      <div class="ui-dialog-buttonpane ui-wnameget-content ui-helper-clearfix">
+        <button type="button" pButton (click)="errDialog=false" *ngIf="!showLevels"  icon="fa-check" label="Ok"></button>
+        <button type="button" pButton (click)="saveSettings()" *ngIf="showLevels" icon="fa-check" label="Save"></button> 
+        <button type="button" pButton (click)="errDialog=false" *ngIf="showLevels" icon="fa-close" label="Cancel"></button>      
+      </div>
+    </footer>
+  </p-dialog>
+
+  

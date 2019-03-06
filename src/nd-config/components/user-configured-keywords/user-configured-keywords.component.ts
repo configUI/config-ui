@@ -61,6 +61,8 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false
+    if (this.isProfilePerm)
+      this.configUtilityService.infoMessage("User operations are disabled. Kindly upgrade access level !!");
     this.loadUserConfiguredBCIKeywordList();
     this.loadUserConfiguredNDCKeywordList();
     this.loadGlobalSettingsList();
@@ -108,8 +110,8 @@ export class UserConfiguredKeywordComponent implements OnInit {
 
   loadAgentNames() {
     this.agentList = [];
-    let data = ['Java', 'NodeJS', 'DotNet']
-    let value = ['0', '1', '2']
+    let data = ['Java', 'NodeJS', 'DotNet','Php', 'Python']
+    let value = ['0', '1', '2', '3', '4']
     for (let i = 0; i < data.length; i++)
       this.agentList.push({ label: data[i], value: value[i] });
   }

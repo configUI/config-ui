@@ -36,6 +36,12 @@ export class InstrumentMonitorsComponent implements OnInit {
   msg = [];
   errMsg = [];
   agentType: string = "";
+
+  keywordData: Object;
+
+  /** To open content in dialog with topology levels information */
+  showLevels: boolean = false
+  info: string = "";
   
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
@@ -48,15 +54,38 @@ export class InstrumentMonitorsComponent implements OnInit {
   }
   
 
- saveKeywordData(keywordData) {
-   for (let key in keywordData) {
-      this.configKeywordsService.keywordData[key] = keywordData[key];
-      this.configKeywordsService.keywordData[key].enable = true;
-    }
-  //  this.configUtilityService.successMessage(Messages);
-    // this.configKeywordsService.saveProfileKeywords(this.profileId);
-   this.triggerRunTimeChanges(keywordData);
 
+  saveKeywordData(keywordData) {
+    this.keywordData = keywordData
+
+    //If selected profile is applied at any level of topology
+    if(sessionStorage.getItem("isAppliedProfile") == "true"){
+      this.configProfileService.getAppliedProfileDetails(this.profileId).subscribe(data => {
+        console.log("data  " , data)
+        this.info = data["_body"].substring(0, data["_body"].length - 1).split(";");
+
+        //Removing last semi colon
+        this.info.slice(0,-1)
+        this.showLevels = true;
+        this.errDialog = true;
+      })
+
+    }
+    //Offline case or independent profile case
+    else{
+      this.saveSettings();
+    }
+  }
+
+  //To save setting after clicking on confirmation
+  saveSettings(){
+    this.errDialog = false;
+    for (let key in this.keywordData) {
+      this.configKeywordsService.keywordData[key] = this.keywordData[key];
+      this.configKeywordsService.keywordData[key].enable = true
+    }
+    
+    this.triggerRunTimeChanges(this.keywordData);
   }
 
   ngOnInit() {
@@ -94,8 +123,29 @@ export class InstrumentMonitorsComponent implements OnInit {
         console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
         console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
     
+        if(sessionStorage.getItem("isAppliedProfile") == "true"){
+          let trNo = sessionStorage.getItem("isTrNumber");
+    
+          //If test is not running then send -1 to the backend
+          if(trNo == null){
+            trNo = "-1";
+          }
+          const url = `${URL.RUNTIME_CHANGE_PROFILE_LEVEL}/${trNo}`;
+          let that = this;
+          this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
+            console.log("profile level rtc")
+            that.msg = rtcMsg;
+            that.errMsg = rtcErrMsg;
+    
+            //Showing partialError messages in dialog
+            if (that.msg.length > 0 || that.errMsg.length > 0) {
+              
+              that.errDialog = true;
+            }
+          })
+        }
         //if test is offline mode, return (no run time changes)
-        if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
+        else if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null || this.configProfileService.nodeData.nodeType == null) {
           console.log(this.className, "constructor", "No NO RUN TIme Changes");
           this.configKeywordsService.saveProfileKeywords(this.profileId);
           return;
@@ -118,7 +168,7 @@ export class InstrumentMonitorsComponent implements OnInit {
             })
           }
           else if (this.configProfileService.nodeData.nodeType == 'tierGroup') {
-            const url = `${URL.RUNTIME_CHANGE_TIER_GROUP}/${this.configProfileService.nodeData.nodeName}`;
+            const url = `${URL.RUNTIME_CHANGE_TIER_GROUP}/${this.configProfileService.nodeData.nodeName}/${this.configProfileService.nodeData.nodeId}`;
             let that = this
             this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
               that.msg = rtcMsg;
