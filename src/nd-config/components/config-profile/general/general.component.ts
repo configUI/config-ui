@@ -51,7 +51,7 @@ export class GeneralComponent implements OnInit {
     private configProfileService: ConfigProfileService,
     private configHomeService: ConfigHomeService
   ) { 
-    this.agentType = sessionStorage.getItem("agentType");        
+    this.agentType = sessionStorage.getItem("agentType");  
   }
 
   ngOnInit() {

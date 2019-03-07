@@ -5,7 +5,10 @@ BEGIN;
 INSERT INTO config.profile(profile_id,profile_name,profile_desc,controller_name,agent) VALUES
 (1,'default_Java','Default profile for Java','-','Java'),
 (777777,'default_NodeJS','Default profile for Node JS','-','NodeJS'),
-(888888,'default_DotNet','Default profile for Dot Net','-','Dot Net');
+(888888,'default_DotNet','Default profile for Dot Net','-','Dot Net'),
+(666666,'default_Php','Default profile for Php','-','Php'),
+(999999,'default_Python','Default profile for Python','-','Python');
+
 
 INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail) VALUES
 (1,'HttpServletService','description'),

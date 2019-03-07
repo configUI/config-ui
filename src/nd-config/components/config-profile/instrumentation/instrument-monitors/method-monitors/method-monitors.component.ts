@@ -224,6 +224,9 @@ export class MethodMonitorsComponent implements OnInit {
     if(this.agentType == "Java" || this.agentType == "NodeJS"){
       this.methodMonitorDetail.module = "-";
     }
+    if(this.agentType == "Php"){
+      this.methodMonitorDetail.module = "";
+    }
     this.configKeywordsService.editMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {
         let index = this.getMethodMonitorIndex();
@@ -265,6 +268,9 @@ export class MethodMonitorsComponent implements OnInit {
     this.methodMonitorDetail.agent = this.agentType
     if(this.agentType == "Java" || this.agentType == "NodeJS"){
       this.methodMonitorDetail.module = "-";
+    }
+    if(this.agentType == "Php"){
+      this.methodMonitorDetail.module = "";
     }
     this.configKeywordsService.addMethodMonitorData(this.methodMonitorDetail, this.profileId)
       .subscribe(data => {

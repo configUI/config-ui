@@ -30,6 +30,8 @@ export class MonitorsComponent implements OnInit {
   keywordList = ['enableBTMonitor', 'enableBackendMonitor'];
   javaKeywordList = ['enableBTMonitor', 'enableBackendMonitor', 'enableJavaGCMonitor'];
   NodeJSkeywordList = ['enableBTMonitor', 'enableBackendMonitor', 'eventLoopMonitor', 'gcProfiler', 'nodejsCpuProfilingTime', 'nodeAsyncEventMonitor', 'nodeServerMonitor'];
+  PhpkeywordList = ['enableBTMonitor', 'enableBackendMonitor'];
+  PythonkeywordList = ['enableBTMonitor', 'enableBackendMonitor'];
 
   /**It stores keyword data for showing in GUI */
   monitor: Object;
@@ -83,6 +85,35 @@ export class MonitorsComponent implements OnInit {
         this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
         this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
         this.enableJavaGCMonitorChk = this.monitor["enableJavaGCMonitor"].value == 0 ? false : true;
+        this.configKeywordsService.toggleKeywordData();
+      });
+    }
+    //Below two block checks For Php and Python 
+    else if(this.agentType == 'Php') {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        let keywordDataVal = {}
+        this.PhpkeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+
+        this.monitor = keywordDataVal;
+        this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+        this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
+        this.configKeywordsService.toggleKeywordData();
+      });
+    }
+    else if(this.agentType == 'Python') {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        let keywordDataVal = {}
+        this.PythonkeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+
+        this.monitor = keywordDataVal;
+        this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+        this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+        // this.subscriptionEG = this.configKeywordsService.keywordGroupProvider$.subscribe(data => this.enableGroupKeyword = data.advance.monitors.enable);
         this.configKeywordsService.toggleKeywordData();
       });
     }
@@ -148,6 +179,36 @@ export class MonitorsComponent implements OnInit {
         this.monitor["nodeServerMonitor"].value = 0;
       }
     }
+
+    //Below two blocks is for Php and Python
+    else if(this.agentType == 'Php') {
+      if (this.enableBTMonitorChk) {
+        this.monitor["enableBTMonitor"].value = 1;
+      }
+      else {
+        this.monitor["enableBTMonitor"].value = 0;
+      }
+      if (this.enableBackendMonitorChk) {
+        this.monitor["enableBackendMonitor"].value = 1;
+      }
+      else {
+        this.monitor["enableBackendMonitor"].value = 0;
+      }
+    }
+    else if(this.agentType == 'Python') {
+      if (this.enableBTMonitorChk) {
+        this.monitor["enableBTMonitor"].value = 1;
+      }
+      else {
+        this.monitor["enableBTMonitor"].value = 0;
+      }
+      if (this.enableBackendMonitorChk) {
+        this.monitor["enableBackendMonitor"].value = 1;
+      }
+      else {
+        this.monitor["enableBackendMonitor"].value = 0;
+      }
+    }
     else {
       if (this.enableBTMonitorChk) {
         this.monitor["enableBTMonitor"].value = 1;
@@ -196,6 +257,29 @@ export class MonitorsComponent implements OnInit {
       this.enableJavaGCMonitorChk = this.monitor["enableJavaGCMonitor"].value == 0 ? false : true;
       this.configKeywordsService.toggleKeywordData();
     }
+    //Below two blocks checks for Agent Type : Php OR Python
+    else if(this.agentType == 'Php') {
+      let data = this.configKeywordsService.keywordData;
+      for (let key in data) {
+        if (this.PhpkeywordList.includes(key)) {
+          this.monitor[key].value = data[key].value;
+        }
+      }
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+      this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+      this.configKeywordsService.toggleKeywordData();
+    }
+    else if(this.agentType == 'Python') {
+      let data = this.configKeywordsService.keywordData;
+      for (let key in data) {
+        if (this.PythonkeywordList.includes(key)) {
+          this.monitor[key].value = data[key].value;
+        }
+      }
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+      this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+      this.configKeywordsService.toggleKeywordData();
+    }
     else {
       let data = this.configKeywordsService.keywordData;
       for (let key in data) {
@@ -225,6 +309,21 @@ export class MonitorsComponent implements OnInit {
         }
       }
     }
+    //Below two blocks checks for Agent Type : Php OR Python
+    else if(this.agentType == 'Php') {
+      for (let key in data) {
+        if (this.PhpkeywordList.includes(key)) {
+          this.monitor[key].value = data[key].defaultValue;
+        }
+      }
+    }
+    else if(this.agentType == 'Python') {
+      for (let key in data) {
+        if (this.PythonkeywordList.includes(key)) {
+          this.monitor[key].value = data[key].defaultValue;
+        }
+      }
+    }
     else {
       for (let key in data) {
         if (this.keywordList.includes(key)) {
@@ -243,6 +342,15 @@ export class MonitorsComponent implements OnInit {
       this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
       this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
       this.enableJavaGCMonitorChk = this.monitor["enableJavaGCMonitor"].value == 0 ? false : true;
+    }
+    //Below two blocks checks for Agent Type : Php OR Python
+    else if(this.agentType == 'Php') {
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+      this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
+    }
+    else if(this.agentType == 'Python') {
+      this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
+      this.enableBTMonitorChk = this.monitor["enableBTMonitor"].value == 0 ? false : true;
     }
     else {
       this.enableBackendMonitorChk = this.monitor["enableBackendMonitor"].value == 0 ? false : true;
