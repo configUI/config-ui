@@ -18,3 +18,12 @@ export interface NDCKeywordsInfo{
 
 }
 
+export class GlobalKeywords{
+    defaultValue: string;
+    keyId: number;
+    max: string;
+    min: string;
+    keyValue: string;
+    desc: string;
+    keyName: string;
+}

@@ -108,7 +108,7 @@ export class IntegrationPtComponent implements OnInit {
     this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888 || this.profileId == 666666 || this.profileId == 999999)
         this.saveDisable = true;
     });
     this.loadIntegrationPTDetectionList();
@@ -166,6 +166,9 @@ export class IntegrationPtComponent implements OnInit {
     if (this.agentType == "Java") {
       this.addIPDetectionDetail.module = "-";
     }
+    if (this.agentType == "Php") {
+      this.addIPDetectionDetail.module = "";
+    }
     this.configKeywordsService.addIntegrationPTDetectionData(this.profileId, this.addIPDetectionDetail)
       .subscribe(data => {
         //Getting index for set data in main array table data.
@@ -185,6 +188,10 @@ export class IntegrationPtComponent implements OnInit {
         }
         else if (this.agentType == "Dot Net") {
           endPointData.agent = "Dot Net";
+        }
+        else if (this.agentType == "Php") {
+          endPointData.agent = "Php";
+          endPointData.module = "";
         }
         // this.ipDetectionData[index].lstEndPoints.push(endPointData);
 

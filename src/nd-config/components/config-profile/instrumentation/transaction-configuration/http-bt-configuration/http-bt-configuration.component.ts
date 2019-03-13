@@ -417,6 +417,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
     else if (this.agentType == "Dot Net") {
       profileid = 888888;
     }
+    else if (this.agentType == "Php") {
+      profileid = 666666;
+    }
+    else if (this.agentType == "Python") {
+      profileid = 999999;
+    }
     else
       profileid = 777777;
     this.configKeywordsService.getBusinessTransGlobalData(profileid).subscribe(data => { this.doAssignBusinessTransData(data) });
@@ -1554,7 +1560,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     // this.businessTransMethodDetail = new BusinessTransMethodData();
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888 || this.profileId == 666666 || this.profileId == 999999)
         this.saveDisable = true;
     });
     //this.businessTransMethodInfo = data

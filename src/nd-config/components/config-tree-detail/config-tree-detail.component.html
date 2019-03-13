@@ -1,48 +1,58 @@
 <div style="width:100%">
     <div class="header-content"><i aria-hidden="true"></i> <span>{{selectedEntityArr}} Detail (s)</span>
         <span class="appIcon-css">
-            <button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()" icon="fa-pencil" ></button>
-            </span>
+            <button pButton type="button" title="Edit" [disabled]="perm" (click)="editDialog()"
+                icon="fa-pencil"></button>
+        </span>
 
     </div>
     <div *ngIf="routingFromAIGui == false" class="progressIcon">
         <img class="loadingIcon" src="./images/loading.gif" />
     </div>
-    <p-dataTable class="nde-ui toggleChk" *ngIf="routingFromAIGui == true" [value]=topologyData [rows]="15" [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData" [rowsPerPageOptions]="[15,50,100,200,400]" scrollable="true"
-        scrollHeight="400px">
+    <p-dataTable class="nde-ui toggleChk" *ngIf="routingFromAIGui == true" [value]=topologyData [rows]="15"
+        [paginator]="topologyData?.length > 15" [pageLinks]="3" [(selection)]="selectedTopologyData"
+        [rowsPerPageOptions]="[15,50,100,200,400]" scrollable="true" scrollHeight="400px">
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-        <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo" [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true" [filter]="true" filterPlaceholder="Search">
-       <template  *ngIf="col.field != 'profileName' || col.field != 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
-        <span title="{{entity[col.field]}}">{{entity[col.field]}}</span>
-       </template>
-        <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
-                    <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()" >{{entity[col.field]}}</a>
-                    <a class="hyperlink" *ngIf="!noProfilePerm && entity['tierGroupName'] != 'default'" (click)="routeToConfiguration(entity)" >{{entity[col.field]}}</a>
-                    <span *ngIf="!noProfilePerm && entity['tierGroupName'] == 'default'">{{entity[col.field]}}</span>
+        <p-column [style]="{'text-overflow':'ellipsis','white-space': 'nowrap'}" *ngFor="let col of tableHeaderInfo"
+            [field]="col.field" [header]="col.header" class="config-ui toggleChk" [sortable]="true" [filter]="true"
+            filterPlaceholder="Search">
+            <template *ngIf="col.field != 'profileName' || col.field != 'aiEnable'" let-col let-entity="rowData"
+                pTemplate="body">
+                <span title="{{entity[col.field]}}">{{entity[col.field]}}</span>
             </template>
-        <!-- <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
+            <template *ngIf="col.field == 'profileName'" let-col let-entity="rowData" pTemplate="body">
+                <a class="hyperlink" *ngIf="noProfilePerm" (click)="accessMessage()">{{entity[col.field]}}</a>
+                <a class="hyperlink" *ngIf="!noProfilePerm && entity['tierGroupName'] != 'default'"
+                    (click)="routeToConfiguration(entity)">{{entity[col.field]}}</a>
+                <span *ngIf="!noProfilePerm && entity['tierGroupName'] == 'default'">{{entity[col.field]}}</span>
+            </template>
+            <!-- <template *ngIf="col.field == 'enabled'" let-col let-entity="rowData" pTemplate="body">
             <md-slide-toggle  *ngIf="perm" [disabled]="perm" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
                     <md-slide-toggle *ngIf="!perm" (change)="disableProfInstance(entity['instanceId'], entity[col.field], entity['profileId'])" style="margin-left: 35%; padding-top: 4px;" [(ngModel)]=entity[col.field]></md-slide-toggle>
             </template> -->
-        <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
-                    <span *ngIf="entity[col.field]== false" title="Start">
-                        <a class="hyperlink iconFontSize" *ngIf="isAIPerm"  (click)="accessMessage()" style="margin-left: 45%; color:green">
-                            <i class="fa fa-play-circle-o" ></i>
-                        </a>
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm" (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'], entity['profileId'], entity['profileName'])">
-                            <i class="fa fa-play-circle-o" ></i>
-                        </a>
-                       </span>
-                     <span *ngIf="entity[col.field]== true" title="Stop">
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="isAIPerm"  (click)="accessMessage()">
-                            <i class="fa fa-stop-circle"></i>
-                        </a>
-                        <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm" (click)="stopInstrumentation(entity['instanceDisplayName'], entity['instanceId'])">
-                            <i class="fa fa-stop-circle"></i>
-                        </a>
-                       </span>
-                  
-                  </template>
+            <template *ngIf="col.field == 'aiEnable'" let-col let-entity="rowData" pTemplate="body">
+                <span *ngIf="entity[col.field]== false" title="Start">
+                    <a class="hyperlink iconFontSize" *ngIf="isAIPerm" (click)="accessMessage()"
+                        style="margin-left: 45%; color:green">
+                        <i class="fa fa-play-circle-o"></i>
+                    </a>
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:green" *ngIf="!isAIPerm"
+                        (click)="openAutoInstrDialog(entity['instanceDisplayName'], entity['instanceId'], entity['instanceType'], entity['profileId'], entity['profileName'])">
+                        <i class="fa fa-play-circle-o"></i>
+                    </a>
+                </span>
+                <span *ngIf="entity[col.field]== true" title="Stop">
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="isAIPerm"
+                        (click)="accessMessage()">
+                        <i class="fa fa-stop-circle"></i>
+                    </a>
+                    <a class="hyperlink iconFontSize" style="margin-left: 45%; color:red" *ngIf="!isAIPerm"
+                        (click)="stopInstrumentation(entity['instanceDisplayName'], entity['instanceId'])">
+                        <i class="fa fa-stop-circle"></i>
+                    </a>
+                </span>
+
+            </template>
         </p-column>
     </p-dataTable>
 
@@ -50,8 +60,9 @@
 
 
 <!--Dialog for changing profile-------->
-<p-dialog class="profile-dialog" header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal" width="500" responsive="true" [resizable]="false">
-    <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
+<p-dialog class="profile-dialog" header="Change Profile" *ngIf="changeProf" [(visible)]="changeProf" modal="modal"
+    width="500" responsive="true" [resizable]="false">
+    <form (ngSubmit)="checkForChildProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
 
         <div class="ui-g">
             <div class="ui-g-4">
@@ -59,7 +70,8 @@
             </div>
             <div class="ui-g-8">
                 <!--<input id="in2" type="text" size="30" pInputText [(ngModel)]="applicationDetail.topoName" />-->
-                <p-dropdown name="profileId" [options]="profileSelectItem" [(ngModel)]="topoData.profileId" [style]="{'width':'70%','margin-left':'-75px'}" appendTo="body" required ngModel></p-dropdown>
+                <p-dropdown name="profileId" [options]="profileSelectItem" [(ngModel)]="topoData.profileId"
+                    [style]="{'width':'70%','margin-left':'-75px'}" appendTo="body" required ngModel></p-dropdown>
             </div>
         </div>
         <footer>
@@ -72,6 +84,35 @@
 </p-dialog>
 
 <!-- Dialog for Auto Instrumentation settings -->
-<p-dialog class="profile-dialog headerCss" header="Auto Instrumentation Configuration" [resizable]="false" *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" [contentStyle]="{'max-height':'560px'}" responsive="true">
-    <app-dynamic-diagnostics (closeAIDDGui)="closeAIDDDialog($event)" (topologyData)="setTopologyData($event)" [passAIDDSettings]="passAIDDSettings" [passAIDDserverEntity]="passAIDDserverEntity"></app-dynamic-diagnostics>
+<p-dialog class="profile-dialog headerCss" header="Auto Instrumentation Configuration" [resizable]="false"
+    *ngIf="showInstr" [(visible)]="showInstr" modal="modal" width="500" [contentStyle]="{'max-height':'560px'}"
+    responsive="true">
+    <app-dynamic-diagnostics (closeAIDDGui)="closeAIDDDialog($event)" (topologyData)="setTopologyData($event)"
+        [passAIDDSettings]="passAIDDSettings" [passAIDDserverEntity]="passAIDDserverEntity"></app-dynamic-diagnostics>
+</p-dialog>
+
+<!-- Dialog for showing info about the children's profile applied-->
+<p-dialog class="profile-dialog headerCss" header="Confirmation" [resizable]="false" *ngIf="infoDialog"
+    [(visible)]="infoDialog" modal="modal" width="500" responsive="true">
+    <form (ngSubmit)="saveEditProfile(groupForm)" #groupForm="ngForm" ngNativeValidate>
+        <div style="font-size: 13px;color: #111113;">
+            Editing profile at current level will also override profiles applied at below levels:
+            <br><br>
+            <b>
+                <ul>
+                    <li *ngFor="let i of infoMsg">
+                        <span>{{i}}</span>
+                    </li>
+                </ul>
+            </b>
+            <br>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" (click)="saveEditProfile()" pButton icon="fa-check" label="Edit Selected"></button>
+                <button type="submit" pButton (click)="isOverride=true" icon="fa-check" label="Override All"></button>
+                <button type="button" pButton icon="fa-close" (click)="infoDialog=false" label="Cancel"></button>
+            </div>
+        </footer>
+    </form>
 </p-dialog>

@@ -32,6 +32,9 @@ export class ConfigProfileListComponent implements OnInit {
   showMsg: boolean = false;
   displayErrMsg = [];
 
+  //Applied profile list
+  appliedProfileList = [];
+
   isProfilePerm: boolean;
   ROUTING_PATH = ROUTING_PATH;
 
@@ -48,15 +51,20 @@ export class ConfigProfileListComponent implements OnInit {
 
   ngOnInit() {
     this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    this.loadProfileList();
-    this.loadAgentList();
-    this.configKeywordsService.fileListProvider.subscribe(data => {
-      this.uploadFile(data);
+
+    /** Get list of applied profile in the application */
+    this.configProfileService.getListOfAppliedProfile((data) => {
+      this.appliedProfileList = data
+      this.loadProfileList();
+      this.loadAgentList();
+      this.configKeywordsService.fileListProvider.subscribe(data => {
+        this.uploadFile(data);
+      })
     });
   }
 
   loadAgentList() {
-    let key = ['Dot Net','Java', 'NodeJS'];
+    let key = ['Dot Net','Java', 'NodeJS', 'Php', 'Python'];
     this.agentList = ConfigUiUtility.createDropdown(key);
 
   }
@@ -65,16 +73,16 @@ export class ConfigProfileListComponent implements OnInit {
     this.configProfileService.getProfileList().subscribe(data => {
       let tempArray = [];
       for (let i = 0; i < data.length; i++) {
-        if (+data[i].profileId == 1 || +data[i].profileId == 777777 || +data[i].profileId == 888888) {
+        /*if (+data[i].profileId == 1 || +data[i].profileId == 777777 || +data[i].profileId == 888888 ||  +data[i].profileId == 666666 || +data[i].profileId == 999999 ) {
           tempArray.push(data[i]);
-        }
+        }*/
       }
-
-      this.profileData = data.reverse();
-      this.profileData.splice(0, 3); 
-      for (let i = 0; i < tempArray.length; i++) {
+      //this.profileData = data.reverse();
+      this.profileData = data;
+      //this.profileData.splice(0, 5); 
+      /*for (let i = 0; i < tempArray.length; i++) {
         this.profileData.push(tempArray[i]);
-      }
+      }*/
     });
   }
 
@@ -105,6 +113,16 @@ export class ConfigProfileListComponent implements OnInit {
           }
         }
         else if (pro == "NodeJS" && this.profileData[j].agent == "NodeJS" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
+        else if (pro == "Php" && this.profileData[j].agent == "Php" || this.profileData[j].agent == "-") {
+          if (this.profileData[j].profileName == arr[i]) {
+            this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
+          }
+        }
+        else if (pro == "Python" && this.profileData[j].agent == "Python" || this.profileData[j].agent == "-") {
           if (this.profileData[j].profileName == arr[i]) {
             this.profileListItem.push({ label: arr[i], value: this.profileData[j].profileId });
           }
@@ -147,6 +165,14 @@ export class ConfigProfileListComponent implements OnInit {
   routeToConfiguration(selectedProfileId, selectedProfileName, entity, selectedProfileAgent) {
 
     sessionStorage.setItem("agentType", selectedProfileAgent);
+
+    //Check if the selected profile is applied at running application or not if yes then set in session
+    if(this.appliedProfileList.includes(selectedProfileName)){
+      sessionStorage.setItem("isAppliedProfile", "true");
+    }
+    else{
+      sessionStorage.setItem("isAppliedProfile", "false");
+    }
     if (!('topoId' in entity) && !('tierId' in entity) && !('serverId' in entity) && !('instanceId' in entity))
       this.configProfileService.nodeData = { 'nodeType': null, 'nodeId': null, 'nodeName': null, 'topologyName' : null };
 
@@ -363,6 +389,7 @@ export class ConfigProfileListComponent implements OnInit {
     openDownloadReports(res) {
       window.open( "/common/" + res);
     }
+
   ngOnDestroy() {
    this.isProfileListBrowse = false;
   }

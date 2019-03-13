@@ -24,6 +24,7 @@ import { ConfigUtilityService } from '../services/config-utility.service';
 import { Messages, customKeywordMessage } from '../constants/config-constant'
 import { NDE, NDERoutingRules } from './../containers/nde-cluster-data';
 import { httpRepHeaderInfo } from '../interfaces/httpRepHeaderInfo';
+import {GlobalSettings} from '../interfaces/globalSettings';
 
 @Injectable()
 export class ConfigKeywordsService {
@@ -1046,5 +1047,13 @@ export class ConfigKeywordsService {
   uploadAutoInjectionFile(filePath, profileId) {
     return this._restApi.getDataByPostReq(`${URL.UPLOAD_AUTO_INJECTION_FILE}/${profileId}`, filePath);
   }
-
+  /** Get Global Settings List */
+  getGlobalSettings(): Observable<GlobalSettings> {
+    return this._restApi.getDataByGetReq(`${URL.GET_GLOBAL_SETTINGS}`)
+  }
+  
+  /** Save Global Settings List into DB */
+  saveGlobalSettings(data): Observable<GlobalSettings> {
+    return this._restApi.getDataByPostReq(`${URL.SAVE_GLOBAL_SETTINGS}`, data)
+  }
 }

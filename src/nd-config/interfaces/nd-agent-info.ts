@@ -15,6 +15,7 @@ export interface NDAgentInfo {
 	si:string;
 	cpath:string;
 	os?:string;
+	tierGroup?:string
 }
 
 export interface CmonInfo{

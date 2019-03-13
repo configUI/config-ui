@@ -15,7 +15,7 @@ import { ROUTING_PATH } from '../../constants/config-url-constant';
 
 import { ImmutableArray } from '../../utils/immutable-array';
 
-import { descMsg , addMessage ,editMessage} from '../../constants/config-constant';
+import { descMsg, addMessage, editMessage } from '../../constants/config-constant';
 import { ConfigTopologyService } from '../../services/config-topology.service';
 
 @Component({
@@ -51,13 +51,25 @@ export class ConfigApplicationListComponent implements OnInit {
   userName = sessionStorage.getItem("sesLoginName") == null ? "netstorm" : sessionStorage.getItem("sesLoginName");
 
   ROUTING_PATH = ROUTING_PATH;
+  
+  runningApp: any;
 
   ngOnInit() {
     this.isAppPerm = +sessionStorage.getItem("ApplicationAccess") == 4 ? true : false;
     sessionStorage.setItem("agentType", "");
+    //If test is running then get the running application name
+    let trNo = sessionStorage.getItem("isTrNumber");
+    if (trNo != "null")
+      this.loadRunningApp(trNo);
     this.loadApplicationData();
   }
 
+  //To get the running application name when test is running
+  loadRunningApp(trNo): any {
+    this.configHomeService.getRunningApp(trNo).subscribe(data => {
+      this.runningApp = data["_body"];
+    })
+  }
 
   /**Getting application list data */
   loadApplicationData(): void {
@@ -102,7 +114,7 @@ export class ConfigApplicationListComponent implements OnInit {
     this.isNewApp = false;
     this.addEditAppDialog = true;
     this.applicationDetail = Object.assign({}, this.selectedApplicationData[0]);
-    this.topologySelectItem.push({label:this.selectedApplicationData[0].topoName, value:this.selectedApplicationData[0].topoName})
+    this.topologySelectItem.push({ label: this.selectedApplicationData[0].topoName, value: this.selectedApplicationData[0].topoName })
   }
 
 
@@ -112,6 +124,16 @@ export class ConfigApplicationListComponent implements OnInit {
       this.configUtilityService.errorMessage("Select application(s) to delete");
       return;
     }
+    if(this.runningApp != ""){
+
+      //If application is running, do not allow to delete
+      for(let i in this.selectedApplicationData){
+        if(this.selectedApplicationData[i].appName == this.runningApp){
+          this.configUtilityService.errorMessage("Could Not Delete Running Application '" + this.runningApp + "'")
+          return;
+        }
+      }
+    }  
     this.confirmationService.confirm({
       message: 'Do you want to delete selected Application?',
       header: 'Delete Confirmation',
@@ -129,10 +151,10 @@ export class ConfigApplicationListComponent implements OnInit {
         let that = this;
         //delete appication
         this.configApplicationService.deleteApplicationData(arrAppIndex)
-        .subscribe(data => {
-          this.deleteApplications(arrAppIndex);
-          this.configUtilityService.infoMessage("Deleted Successfully");
-        })
+          .subscribe(data => {
+            this.deleteApplications(arrAppIndex);
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
       },
       reject: () => {
       }
@@ -185,21 +207,21 @@ export class ConfigApplicationListComponent implements OnInit {
     }
     let arr = []
     arr.push(this.applicationDetail.topoName)
-      this.configApplicationService.addApplicationData(this.applicationDetail)
-        .subscribe(data => {
-          if(data[Object.keys(data)[0]] == "Provided Application Name already exists!!!"){
-            this.configUtilityService.errorMessage("Application Name already exists.");
-            return;
-          }
-          //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
-          this.applicationData = ImmutableArray.push(this.applicationData, data);
-          this.configUtilityService.successMessage(addMessage);
-          this.loadApplicationData();
-          this.closeDialog();
-        });
+    this.configApplicationService.addApplicationData(this.applicationDetail)
+      .subscribe(data => {
+        if (data[Object.keys(data)[0]] == "Provided Application Name already exists!!!") {
+          this.configUtilityService.errorMessage("Application Name already exists.");
+          return;
+        }
+        //to insert new row in table ImmutableArray.push() is created as primeng 4.0.0 does not support above line 
+        this.applicationData = ImmutableArray.push(this.applicationData, data);
+        this.configUtilityService.successMessage(addMessage);
+        this.loadApplicationData();
+        this.closeDialog();
+      });
   }
 
-  
+
   /**This method is used to edit application detail */
   editApp(): void {
     if (this.applicationDetail.appDesc != null) {
@@ -221,7 +243,7 @@ export class ConfigApplicationListComponent implements OnInit {
         this.loadApplicationData();
         this.selectedApplicationData.length = 0;
       });
-      this.closeDialog();
+    this.closeDialog();
   }
 
 
@@ -278,6 +300,7 @@ export class ConfigApplicationListComponent implements OnInit {
     //Observable app name
     this.configApplicationService.applicationNameObserver(selectedAppName);
     sessionStorage.setItem("showserverinstance", "false");
+    sessionStorage.setItem("isAppliedProfile", "false");
     this.router.navigate([ROUTING_PATH + '/tree-main', selectedAppId]);
 
   }

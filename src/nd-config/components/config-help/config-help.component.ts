@@ -170,6 +170,16 @@ export class HelpComponent implements OnInit {
   ]
       this.helpdialog = true;
     }
+
+    else if(data.module == "Settings"){
+      //Code content starts from here.....
+      this.mainheader = data.component;
+      this.header = ["Settings"];
+      this.headermessage ="";
+      this.messagefirst = ["RTC Time Out"];
+      this.submessagefirst = ["It facilitates the User to set RTC Time Out (in second) globally.This value will be applied while communication between GUI->NDC"]
+      this.helpdialog = true;
+    }
   }
 
 
@@ -523,7 +533,7 @@ export class HelpComponent implements OnInit {
       "Selecting 'Logs' displays logs within the ND_HOME directory. " +
       "Selecting 'Scripts' displays scripts within the ND_HOME directory. " + 
       "Selecting ‘Custom’ prompts a user to provide the customized source path. ",
-      "Type of agent on which files are to be downloaded. Currently this feature is supported for Java agent only. ",
+      "Type of agent on which files are to be downloaded.",
       "To download Agent file, some parameters are required by NDC. " +
       "Timeout: This is the time (in minutes) after which the system stops waiting for the response. Its default value is 10 minutes. " +
       "Compressed Mode: If this is selected, the file is downloaded in compressed mode. By default, the file is downloaded in non-compressed mode."+

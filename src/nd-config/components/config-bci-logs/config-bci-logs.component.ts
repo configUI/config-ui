@@ -92,9 +92,9 @@ export class ConfigBCILogsComponent implements OnInit {
 
     /** To show header message in download file dialog */
     hdrMsg: string = "";
- 
-    /** To disable profile permissions for users */
-    isProfilePerm: boolean;
+
+    /** To get the access rights */
+    isProfilePerm : boolean
 
     constructor(private configNdAgentService: ConfigNdAgentService,
         private configUtilityService: ConfigUtilityService,
@@ -102,9 +102,10 @@ export class ConfigBCILogsComponent implements OnInit {
     }
 
     ngOnInit() {
- 	/** For Profile Access Permission */
-	this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+        this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
 
+        if (this.isProfilePerm)
+            this.configUtilityService.infoMessage("User operations are disabled. Kindly upgrade access level !!");
         /** Get connected agents list by executing get_bci_agents_info shell */
         this.loadNDAgentStatusData();
     }

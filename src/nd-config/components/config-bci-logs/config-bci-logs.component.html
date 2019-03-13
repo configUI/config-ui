@@ -120,8 +120,8 @@
                     <div class="pull-right" style="margin-top: 7px">
                         <!-- To refresh the connected tier/server/instance-->
                         <i class="fa fa-question-circle" title="Help" (click)="sendHelpNotification()"></i>
-                        <button type="button" pButton icon="fa fa-refresh" (click)="loadNDAgentStatusData()" title="Reload connected Instances and reset fields to default value" label="Reset"[disabled]="isProfilePerm"></button>
-                        <button type="submit" pButton icon="fa-files-o" label="Show files" [disabled]="isProfilePerm"></button>
+                        <button type="button" pButton icon="fa fa-refresh" [disabled]="isProfilePerm" (click)="loadNDAgentStatusData()" title="Reload connected Instances and reset fields to default value" label="Reset"></button>
+                        <button type="submit" pButton icon="fa-files-o"  [disabled]="isProfilePerm" label="Show files"></button>
                     </div>
 
                 </div>
