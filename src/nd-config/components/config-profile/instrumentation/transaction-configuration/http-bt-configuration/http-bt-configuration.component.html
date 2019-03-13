@@ -199,6 +199,26 @@
               <span title="{{application[col.field]}}">{{application[col.field]}}</span>
             </template>
         </p-column>
+        <p-column class="col-overflow" field="btMethod" *ngIf="agentType=='Java' || agentType=='NodeJS'" header="BT Method" [sortable]="true" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="col-overflow" field="btRequest" *ngIf="agentType=='Java'|| agentType=='Dot Net' || agentType=='NodeJS'" header="BT Request" [sortable]="true" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="col-overflow" field="btResponse" *ngIf="agentType=='Java' || agentType=='Dot Net' || agentType=='NodeJS'" header="BT response" [sortable]="true" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column class="col-overflow" field="httpBody"  *ngIf="agentType=='Dot Net'" header="BT Body" [sortable]="true" [style]="{'width':'9%'}">
+            <template let-col let-application="rowData" pTemplate type="body">
+              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+            </template>
+        </p-column>
     </p-dataTable>
 
     <!-- Download reports as PDF,Excel and Word File  -->
@@ -211,7 +231,7 @@
 </div>
 
 <!--Dialog for ADD and Edit Pattern-->
-<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog"  width="950" responsive="true" [resizable]="false">
+<p-dialog class="profile-dialog" header="{{isNewApp ? 'Add Business Transaction Pattern' : 'Edit Business Transaction Pattern'}}" *ngIf="addEditPatternDialog" [(visible)]="addEditPatternDialog"  width="950" responsive="true" [resizable]="false" (onHide)="cancelDialog()">
         <form (ngSubmit)="saveADDEditBTPatternTrans()" #groupForm="ngForm" >   
         <div class="pull-right">
                 <button type="submit" pButton icon="fa-check" *ngIf="!isProfilePerm" [disabled]="saveDisable"  label="Save"></button>
@@ -1030,7 +1050,206 @@
                     <!-- <bt-response-headers (keywordData)="saveKeywordData($event)"></bt-response-headers> -->
          </p-tabPanel>
          <p-tabPanel *ngIf="agentType == 'Dot Net'" header="Split by HTTP Body">
-            <bt-http-body (keywordData)="saveKeywordData($event)"></bt-http-body>
+            <!-- <bt-http-body (keywordData)="saveKeywordData($event)"></bt-http-body> -->
+
+            <p-dataTable class="nde-ui" [value]="httpBodyInfo" [(selection)]="selectedHttpBody" [rows]="12" [pageLinks]="3">
+                <p-header>
+                  <span style="float: left"> Manage HTTP Body Rule(s)</span>
+                  <span style="float: right; margin-top:-3px">
+              
+                    <button pButton type="button" title="Add HTTP Body" *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openAddNewBodyRule()"
+                      icon="fa-plus"></button>
+                    <button pButton type="button" title="Add HTTP Body" *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openAddNewBodyRule()"
+                      icon="fa-plus"></button>
+                    <button pButton type="button" title="Edit HTTP Body " *ngIf="isProfilePerm" [disabled]="isProfilePerm" (click)="openEditHttpBody()"
+                      icon="fa-pencil"></button>
+                    <button pButton type="button" title="Edit HTTP Body " *ngIf="!isProfilePerm" [disabled]="saveDisable" (click)="openEditHttpBody()"
+                      icon="fa-pencil"></button>
+                    <button pButton type="button" class="ui-button-danger" title="Delete HTTP body(s)" *ngIf="isProfilePerm" [disabled]="isProfilePerm"
+                      (click)="deleteBTHTTPBody()" icon="fa-trash"></button>
+                    <button pButton type="button" class="ui-button-danger" title="Delete HTTP body(s)" *ngIf="!isProfilePerm" [disabled]="saveDisable"
+                      (click)="deleteBTHTTPBody()" icon="fa-trash"></button>
+                  </span>
+                </p-header>
+                <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
+                <p-column class="col-overflow" field="xpath" header="X Path" [sortable]="true">
+                  <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                  </template>
+                </p-column>
+                <p-column class="col-overflow" field="bodyType" header="Body Type" [sortable]="true">
+                  <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                  </template>
+                </p-column>
+                <p-column class="col-overflow" field="dataType" header="Data Type" [sortable]="true">
+                  <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field] | dataTypeVal}}</span>
+                  </template>
+                </p-column>
+                <p-column class="col-overflow" field="bodyBtNames" header="BT Name" [sortable]="true">
+                  <template let-col let-application="rowData" pTemplate>
+                    <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                  </template>
+                </p-column>
+              
+              </p-dataTable>
+              
+              <p-dialog class="profile-dialog" header="{{isNewBodyRule ? 'Add BT HTTP Body' : 'Edit BT HTTP Body'}}" *ngIf="addNewRuleDialog"
+                [(visible)]="addNewRuleDialog" width="700" responsive="true" [resizable]="false">
+                <form #groupForm="ngForm" (ngSubmit)="saveAddEditHttpBody()" ngNativeValidate>
+              
+                  <div class="ui-g">
+                    <div class="ui-g-12">
+                      <div class="ui-g-2">
+                        <label>Body Type</label>
+                      </div>
+                      <div class="ui-g-4" style="margin-top: -5px">
+                        <input name="type" type="text" class='hidden-validator' pInputText [(ngModel)]="httpBodyDetail.bodyType" required ngModel/>
+                        <p-dropdown name="type" [options]="btNameList" [style]="{'width': '83%'}" [(ngModel)]="httpBodyDetail.bodyType" placeholder="--Select--"
+                          appendTo="body"></p-dropdown>
+                      </div>
+                      <div class="ui-g-2">
+                        <label>Data Type</label>
+                      </div>
+                      <div class="ui-g-4">
+                        <input name="datatype" type="text" size="25" [disabled]="disableDataType" class='hidden-validator' pInputText [(ngModel)]="httpBodyDetail.dataType"
+                          required ngModel/>
+                        <p-dropdown name="datatype" [disabled]="disableDataType" [options]="dataType" [style]="{'width': '97%'}" [(ngModel)]="httpBodyDetail.dataType"
+                          (ngModelChange)="loadopCodeName()" (click)="checkIfDisabled()" placeholder="--Select--" appendTo="body"></p-dropdown>
+                      </div>
+                    </div>
+                    <div class="ui-g-12">
+                      <div class="ui-g-2">
+                        <label>X Path</label>
+                      </div>
+                      <div class="ui-g-4" style="margin-top: -5px">
+                        <input name="header" type="text" size="35" pInputText [(ngModel)]="httpBodyDetail.xpath" required ngModel/>
+                      </div>
+                    </div>
+                    <div class="ui-g-12">
+                    <form #groupForm="ngForm" (ngSubmit)="saveBodyConditions()" ngNativeValidate>
+                        <div class="ui-g">
+
+                            <div class="ui-g-3" *ngIf="condDetail.opCode != 'VALUE'">
+                              <input name="btname" type="text" size="15" autofocus placeholder="BT Name" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()"
+                                title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
+                                [(ngModel)]="condDetail.btName" pInputText required ngModel/>
+                            </div>
+                            <div class="ui-g-3" *ngIf="condDetail.opCode == 'VALUE'">
+                              <input name="btname" type="text" size="15" placeholder="BT Name" autofocus pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()"
+                                title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
+                                [(ngModel)]="condDetail.btName" pInputText ngModel/>
+                            </div>
+                            <div class="ui-g-3">
+                              <input name="opCodeName" type="text" size="15" [disabled]="httpBodyDetail.dataType==''" class='hidden-validator' pInputText
+                                [(ngModel)]="condDetail.opCode" required ngModel/>
+                              <p-dropdown name="opCodeName" [disabled]="httpBodyDetail.dataType==''" [options]="opCodeName" [style]="{'width': '97%'}"
+                                [(ngModel)]="condDetail.opCode" (click)="openCondDialog()" placeholder="--Select Operation--" appendTo="body"></p-dropdown>
+                            </div>
+                            <div class="ui-g-3">
+                              <input name="hdrValue" placeholder="Match Value" [disabled]="httpBodyDetail.dataType == '4' || httpBodyDetail.dataType == ''" type="text" size="15"
+                                title="Please enter valid match value.   &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()"
+                                [(ngModel)]="condDetail.value" pInputText required ngModel/>
+                            </div>
+                            <div class="ui-g-3">
+
+                                <button type="submit" pButton icon="fa-check" label="Save"></button>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+
+
+                    <div class="ui-g-12">
+                      <p-dataTable class="nde-ui" [rows]="4" [value]="condInfo" [pageLinks]="3" [(selection)]="selectedCond">
+                        <p-header>
+                          <span style="float: left;"> HTTP Body Rule(s)</span>
+                          <span style="float: right; margin-top:-3px">
+                            <!-- <button pButton type="button" title="Add a HTTP body condition" (click)="openCondDialog()" icon="fa-plus"></button> -->
+                            <button pButton type="button" title="Edit a HTTP body condition" (click)="openEditCondDialog()" icon="fa-pencil"></button>
+                            <button pButton type="button" class="ui-button-danger" title="Delete HTTP body condition(s)" (click)="deleteConditions()"
+                              icon="fa-trash"></button>
+                          </span>
+                        </p-header>
+                        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                        <p-column class="col-overflow" field="btName" header="BT Name" [sortable]="true">
+                          <template let-col let-application="rowData">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                          </template>
+                        </p-column>
+                        <p-column class="col-overflow" field="opCode" header="Match Criteria" [sortable]="true">
+                          <template let-col let-application="rowData">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                          </template>
+                        </p-column>
+                        <p-column class="col-overflow" field="value" header="Match Value" [sortable]="true">
+                          <template let-col let-application="rowData">
+                            <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                          </template>
+                        </p-column>
+                      </p-dataTable>
+                    </div>
+                  </div>
+                  <footer>
+                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                      <button type="submit" pButton icon="fa-check" label="Save"></button>
+                      <button type="button" pButton icon="fa-close" (click)="closeBodyDialog()" label="Cancel"></button>
+                    </div>
+                  </footer>
+                </form>
+              </p-dialog>
+              
+              
+              <!-- Dialog for BT HTTP Body conditions -->
+              <p-dialog class="profile-dialog" header="{{isNewBodyCond ? 'Add HTTP Body Condition' : 'Edit HTTP Body Condition'}}"
+                *ngIf="addCondDialog" [(visible)]="addCondDialog" width="600" responsive="true" [resizable]="false">
+                <form #groupForm="ngForm" (ngSubmit)="saveBodyConditions()" ngNativeValidate>
+                  <div class="ui-g">
+                    <div class="ui-g-12">
+                      <div class="ui-g-4">
+                        <label>BT Name</label>
+                      </div>
+                      <div class="ui-g-4">
+                        <label>Operation</label>
+                      </div>
+                      <div class="ui-g-4">
+                        <label>Match Value</label>
+                      </div>
+                    </div>
+                    <div class="ui-g-12">
+                      <div class="ui-g-4" *ngIf="condDetail.opCode != 'VALUE'">
+                        <input name="btname" type="text" size="15" autofocus pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()"
+                          title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
+                          [(ngModel)]="condDetail.btName" pInputText required ngModel/>
+                      </div>
+                      <div class="ui-g-4" *ngIf="condDetail.opCode == 'VALUE'">
+                        <input name="btname" type="text" size="15" autofocus pattern="[a-zA-Z0-9]+[a-zA-Z0-9-_%@#.]*" (keydown.space)="$event.preventDefault()"
+                          title="Please enter valid value. &#013;Rule 1 : Cannot include whitespaces & Can't start with special characters .&#013;Rule 2 : In between alphanumeric character only this set of special character will be accepted [-_%@#.]"
+                          [(ngModel)]="condDetail.btName" pInputText ngModel/>
+                      </div>
+                      <div class="ui-g-4">
+                        <input name="opCodeName" type="text" size="15" [disabled]="httpBodyDetail.dataType==''" class='hidden-validator' pInputText
+                          [(ngModel)]="condDetail.opCode" required ngModel/>
+                        <p-dropdown name="opCodeName" [disabled]="httpBodyDetail.dataType==''" [options]="opCodeName" [style]="{'width': '97%'}"
+                          [(ngModel)]="condDetail.opCode" placeholder="--Select--" appendTo="body"></p-dropdown>
+                      </div>
+                      <div class="ui-g-4">
+                        <input name="hdrValue" [disabled]="httpBodyDetail.dataType == '4' || httpBodyDetail.dataType == ''" type="text" size="15"
+                          title="Please enter valid match value.   &#013; Whitespaces are not allowed." (keydown.space)="$event.preventDefault()"
+                          [(ngModel)]="condDetail.value" pInputText required ngModel/>
+                      </div>
+                    </div>
+                  </div>
+                  <footer>
+                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                      <button type="submit" pButton icon="fa-check" label="Save"></button>
+                      <button type="button" pButton icon="fa-close" (click)="addCondDialog=false" label="Cancel"></button>
+                    </div>
+                  </footer>
+                </form>
+              </p-dialog>
+              
          </p-tabPanel>
     </p-tabView>
 </form>

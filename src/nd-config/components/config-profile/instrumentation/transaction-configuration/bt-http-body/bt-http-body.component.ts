@@ -44,7 +44,7 @@ export class BTHTTPBodyComponent implements OnInit {
 
     //New HTTP Body rule
     isNewBodyRule: boolean = false;
-    isNewCond: boolean = false;
+    isNewBodyCond: boolean = false;
     addCondDialog: boolean = false;
     editcond: boolean = false;
 
@@ -58,8 +58,8 @@ export class BTHTTPBodyComponent implements OnInit {
     saveDisable: boolean = false;
 
     //Counter for adding/editing cond
-    condCount: number = 0;
-    condCountEdit: number = 0;
+    condBodyCount: number = 0;
+    condBodyCountEdit: number = 0;
 
     disableDataType: boolean = false;
 
@@ -82,7 +82,7 @@ export class BTHTTPBodyComponent implements OnInit {
         //Request to get all BT HTTP body data
         this.configKeywordsService.getBtHttpBodyData(this.profileId).subscribe(data => {
             this.httpBodyInfo = data;
-            this.modifyData(data);
+            this.modifyBodyData(data);
         });
     }
 
@@ -134,7 +134,7 @@ export class BTHTTPBodyComponent implements OnInit {
         else {
             this.isNewBodyRule = false;
             this.addNewRuleDialog = true;
-            this.isNewCond = true;
+            this.isNewBodyCond = true;
             let that = this;
             this.httpBodyDelete = [];
             this.httpBodyDetail = Object.assign({}, this.selectedHttpBody[0]);
@@ -142,8 +142,8 @@ export class BTHTTPBodyComponent implements OnInit {
             this.condInfo = this.selectedHttpBody[0].cond;
             //providing id for editing cond in edit body form
             this.condInfo.map(function (val) {
-                val.id = that.condCountEdit;
-                that.condCountEdit = that.condCountEdit + 1;
+                val.id = that.condBodyCountEdit;
+                that.condBodyCountEdit = that.condBodyCountEdit + 1;
             })
         }
         this.disableDataType = true;
@@ -158,7 +158,7 @@ export class BTHTTPBodyComponent implements OnInit {
             return
         }
         this.addCondDialog = true;
-        this.isNewCond = true;
+        this.isNewBodyCond = true;
         this.condDetail = new BTHTTPBodyConditions();
         this.loadopCodeName();
     }
@@ -172,7 +172,7 @@ export class BTHTTPBodyComponent implements OnInit {
             this.configUtilityService.errorMessage("Select only one row to edit")
         }
         else {
-            this.isNewCond = false;
+            this.isNewBodyCond = false;
             this.editcond = true;
             this.addCondDialog = true;
 
@@ -191,7 +191,7 @@ export class BTHTTPBodyComponent implements OnInit {
 
 
 //MEthod to save/edit BT HTTP body conditions
-    saveConditions() {
+    saveBodyConditions() {
         if (this.condDetail.btName == '' || this.condDetail.btName == null) {
             this.condDetail.btName = "-"
         }
@@ -204,12 +204,12 @@ export class BTHTTPBodyComponent implements OnInit {
                 //In edit form to edit cond
                 // Purpose: The below if block is required for checking redundancy for  BT Name 
                 if (this.selectedCond[0].btName != this.condDetail.btName) {
-                    if (this.checkbtNameAlreadyExist()) {
+                    if (this.checkBodybtNameAlreadyExist()) {
                         return;
                     }
                 }
 
-                this.isNewCond = false;
+                this.isNewBodyCond = false;
                 this.editcond = false;
                 let that = this;
                 this.condInfo.map(function (val) {
@@ -223,13 +223,13 @@ export class BTHTTPBodyComponent implements OnInit {
             }
 
             else {
-                if (this.checkbtNameAlreadyExist()) {
+                if (this.checkBodybtNameAlreadyExist()) {
                     return;
                 }
-                this.isNewCond = true;
-                this.condDetail["id"] = this.condCountEdit;
+                this.isNewBodyCond = true;
+                this.condDetail["id"] = this.condBodyCountEdit;
                 this.condInfo = ImmutableArray.push(this.condInfo, this.condDetail);
-                this.condCountEdit = this.condCountEdit + 1;
+                this.condBodyCountEdit = this.condBodyCountEdit + 1;
             }
         }
 
@@ -239,11 +239,11 @@ export class BTHTTPBodyComponent implements OnInit {
             if (this.editcond) {
                 // Purpose: The below if block is required for checking redundancy for Bt Name
                 if (this.selectedCond[0].btName != this.condDetail.btName) {
-                    if (this.checkbtNameAlreadyExist()) {
+                    if (this.checkBodybtNameAlreadyExist()) {
                         return;
                     }
                 }
-                this.isNewCond = false;
+                this.isNewBodyCond = false;
                 this.editcond = false;
                 let that = this;
                 this.condInfo.map(function (val) {
@@ -257,15 +257,15 @@ export class BTHTTPBodyComponent implements OnInit {
             }
 
             else {
-                if (this.checkbtNameAlreadyExist()) {
+                if (this.checkBodybtNameAlreadyExist()) {
                     return;
                 }
                 else //In add form to add cond
                 {
-                    this.isNewCond = true;
-                    this.condDetail["id"] = this.condCount;
+                    this.isNewBodyCond = true;
+                    this.condDetail["id"] = this.condBodyCount;
                     this.condInfo = ImmutableArray.push(this.condInfo, this.condDetail);
-                    this.condCount = this.condCount + 1;
+                    this.condBodyCount = this.condBodyCount + 1;
                 }
             }
         }
@@ -306,7 +306,7 @@ export class BTHTTPBodyComponent implements OnInit {
     }
 
     //Method to check redundancy for BT Name
-    checkbtNameAlreadyExist(): boolean {
+    checkBodybtNameAlreadyExist(): boolean {
         for (let i = 0; i < this.condInfo.length; i++) {
             if (this.condInfo[i].btName == this.condDetail.btName) {
                 this.configUtilityService.errorMessage("BT Name already exist");
@@ -329,7 +329,7 @@ export class BTHTTPBodyComponent implements OnInit {
                 this.httpBodyDelete.push(selectCond[index].condId);
             }
         }
-        this.deleteConditionFromTable(arrCondIndex);
+        this.deleteBodyConditionFromTable(arrCondIndex);
         this.selectedCond = [];
         if(this.condInfo.length == 0){
             this.disableDataType = false;
@@ -337,7 +337,7 @@ export class BTHTTPBodyComponent implements OnInit {
     }
 
     /**This method is used to delete cond from Data Table */
-    deleteConditionFromTable(arrCondIndex: any[]): void {
+    deleteBodyConditionFromTable(arrCondIndex: any[]): void {
         //For stores table row index
         let rowIndex: number[] = [];
 
@@ -346,13 +346,13 @@ export class BTHTTPBodyComponent implements OnInit {
             return;
         }
         for (let index in arrCondIndex) {
-            rowIndex.push(this.getCondIndex(arrCondIndex[index]));
+            rowIndex.push(this.getBodyCondIndex(arrCondIndex[index]));
         }
         this.condInfo = deleteMany(this.condInfo, rowIndex);
     }
 
     /**This method returns selected condition row on the basis of selected row */
-    getCondIndex(appId: any): number {
+    getBodyCondIndex(appId: any): number {
         for (let i = 0; i < this.condInfo.length; i++) {
             if (this.condInfo[i] == appId) {
                 return i;
@@ -374,7 +374,7 @@ export class BTHTTPBodyComponent implements OnInit {
             this.httpBodyInfo = ImmutableArray.push(this.httpBodyInfo, data);
             
             this.configUtilityService.successMessage(addMessage);
-            this.modifyData(this.httpBodyInfo);
+            this.modifyBodyData(this.httpBodyInfo);
 
         });
         this.addNewRuleDialog = false;
@@ -440,11 +440,11 @@ export class BTHTTPBodyComponent implements OnInit {
     }
 
     //Method to show bt names seperated by commas in BT HTTP body table
-    modifyData(data) {
+    modifyBodyData(data) {
         let that = this;
         data.map(function (val) {
             if (val.cond != null && val.cond.length != 0) {
-                let btNames = that.getbtNames(val.cond);
+                let btNames = that.getBodybtNames(val.cond);
                 val.bodyBtNames = btNames
             }
             else {
@@ -454,7 +454,7 @@ export class BTHTTPBodyComponent implements OnInit {
         this.httpBodyInfo = data
     }
 
-    getbtNames(data) {
+    getBodybtNames(data) {
         let btNamesHref = '';
         data.map(function (val, index) {
             if (index != (data.length - 1)) {
@@ -503,7 +503,7 @@ export class BTHTTPBodyComponent implements OnInit {
                         val.id = data.id;
                     }
                     if (val.cond != null && val.cond.length != 0) {
-                        let btNames = that.getbtNames(val.cond);
+                        let btNames = that.getBodybtNames(val.cond);
                         val.bodyBtNames = btNames
                     }
                     else {
@@ -514,7 +514,7 @@ export class BTHTTPBodyComponent implements OnInit {
                 this.configUtilityService.successMessage(editMessage);
             });
         })
-        this.closeDialog();
+        this.closeBodyDialog();
     }
 
     //To check if data type drop down is disabled
@@ -527,7 +527,7 @@ export class BTHTTPBodyComponent implements OnInit {
     }
 
     //Closing BT HTTP Body dialog
-    closeDialog() {
+    closeBodyDialog() {
         this.addNewRuleDialog = false;
     }
 }

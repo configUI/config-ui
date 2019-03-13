@@ -106,7 +106,7 @@
     <footer>
       <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
         <button type="submit" pButton icon="fa-check" label="Save"></button>
-        <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+        <button type="button" pButton icon="fa-close" (click)="closeBodyDialog()" label="Cancel"></button>
       </div>
     </footer>
   </form>
@@ -114,9 +114,9 @@
 
 
 <!-- Dialog for BT HTTP Body conditions -->
-<p-dialog class="profile-dialog" header="{{isNewCond ? 'Add HTTP Body Condition' : 'Edit HTTP Body Condition'}}"
+<p-dialog class="profile-dialog" header="{{isNewBodyCond ? 'Add HTTP Body Condition' : 'Edit HTTP Body Condition'}}"
   *ngIf="addCondDialog" [(visible)]="addCondDialog" width="600" responsive="true" [resizable]="false">
-  <form #groupForm="ngForm" (ngSubmit)="saveConditions()" ngNativeValidate>
+  <form #groupForm="ngForm" (ngSubmit)="saveBodyConditions()" ngNativeValidate>
     <div class="ui-g">
       <div class="ui-g-12">
         <div class="ui-g-4">
