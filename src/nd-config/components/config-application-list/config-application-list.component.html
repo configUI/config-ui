@@ -17,8 +17,9 @@
     
                 <p-column class="col-overflow" field="appName" header="Name" [sortable]="true" [style]="{'width':'20%'}">
                     <template let-col let-application="rowData" pTemplate>
-                <i class="fa fa-spinner icon_size" style="color: #073c77" title="Running Application" *ngIf="runningApp==application[col.field]"></i>
-                    <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
+                        <!-- <i class="fa fa-spinner icon_size" style="color: #073c77" title="Running Application" *ngIf="runningApp==application[col.field]"></i> -->
+                        <span title="Click to open '{{application[col.field]}}' topology details"><a class="hyperlink" (click)="routeToTree(application['dcId'], application['appName'])">{{application[col.field]}}</a></span>
+                        <img  *ngIf="runningApp==application[col.field]" border='0' width='13' height='13' src='./images/play.gif' style="margin-left: 4px;">
                 </template>
                 </p-column>
                 <p-column class="col-overflow" field="topoName" header="Topology Applied" [sortable]="true" [style]="{'width':'20%'}">

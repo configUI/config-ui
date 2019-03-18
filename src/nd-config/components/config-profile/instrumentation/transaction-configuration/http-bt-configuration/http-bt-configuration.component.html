@@ -201,22 +201,27 @@
         </p-column>
         <p-column class="col-overflow" field="btMethod" *ngIf="agentType=='Java' || agentType=='NodeJS'" header="BT Method" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+              <!-- <span title="{{application[col.field]}}">{{application[col.field]}}</span> -->
+                <i class="fa fa-check-circle icon_size" style="color: green; font-size: 15px" title="BT Method Exists" *ngIf="application[col.field] == true"></i>
+                <i class="fa fa-times-circle icon_size" style="color: red; font-size: 15px" title="BT Method Exists" *ngIf="application[col.field] == false"></i>
             </template>
         </p-column>
         <p-column class="col-overflow" field="btRequest" *ngIf="agentType=='Java'|| agentType=='Dot Net' || agentType=='NodeJS'" header="BT Request" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    <i class="fa fa-check-circle icon_size" style="color: green; font-size: 15px" title="BT HTTP Request Exists" *ngIf="application[col.field] == true"></i>
+                    <i class="fa fa-times-circle icon_size" style="color: red; font-size: 15px" title="BT HTTP Request Exists" *ngIf="application[col.field] == false"></i>
             </template>
         </p-column>
         <p-column class="col-overflow" field="btResponse" *ngIf="agentType=='Java' || agentType=='Dot Net' || agentType=='NodeJS'" header="BT response" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    <i class="fa fa-check-circle icon_size" style="color: green; font-size: 15px" title="BT HTTP Response Exists" *ngIf="application[col.field] == true"></i>
+                    <i class="fa fa-times-circle icon_size" style="color: red; font-size: 15px" title="BT HTTP Response Exists" *ngIf="application[col.field] == false"></i>
             </template>
         </p-column>
         <p-column class="col-overflow" field="httpBody"  *ngIf="agentType=='Dot Net'" header="BT Body" [sortable]="true" [style]="{'width':'9%'}">
             <template let-col let-application="rowData" pTemplate type="body">
-              <span title="{{application[col.field]}}">{{application[col.field]}}</span>
+                    <i class="fa fa-check-circle icon_size" style="color: green; font-size: 15px" title="BT HTTP Body Exists" *ngIf="application[col.field] == true"></i>
+                    <i class="fa fa-times-circle icon_size" style="color: red; font-size: 15px" title="BT HTTP Body Exists" *ngIf="application[col.field] == false"></i>
             </template>
         </p-column>
     </p-dataTable>

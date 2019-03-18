@@ -13,8 +13,8 @@
                 <p-column [style]="{'width':'2%'}" selectionMode="multiple"></p-column>
                 <p-column class="tableCss" field="profileName" header="Name" [sortable]="true" [style]="{'width':'35%'}">
                     <template let-col let-profile="rowData" pTemplate>
-                            <i class="fa fa-circle icon_size" style="color: mediumseagreen" title="Active profile (Used in running Application)" *ngIf="appliedProfileList.includes(profile['profileName'])"></i>
-            <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
+                        <span title="Click to open '{{profile[col.field]}}' profile configuration"><a class="hyperlink" (click)="routeToConfiguration(profile['profileId'], profile['profileName'], profile, profile['agent'])" >{{profile[col.field]}}</a></span>
+                        <i class="fa fa-circle icon_size" style="color: mediumseagreen; margin-left: 4px;" title="Active profile (Used in running Application)" *ngIf="appliedProfileList.includes(profile['profileName'])"></i>
           </template>
                 </p-column>
                 <p-column class="tableCss" field="agent" header="Agent" [sortable]="true" [style]="{'width':'11%'}">

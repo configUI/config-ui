@@ -60,9 +60,16 @@ export class ConfigHomeComponent implements OnInit {
   constructor(private configKeywordsService: ConfigKeywordsService,private http: Http,private configHomeService: ConfigHomeService, private configUtilityService: ConfigUtilityService, private configProfileService: ConfigProfileService, private configApplicationService: ConfigApplicationService, private router: Router) { }
 
   ngOnInit() {
+    this.configHomeService.getTestRunStatus().subscribe(data => 
+      {
+      sessionStorage.setItem("isTrNumber", data.trData.trNo);
         /** Get list of applied profile in the application */
         this.configProfileService.getListOfAppliedProfile((data) => {
           this.appliedProfileList = data
+          this.appliedProfileList = this.appliedProfileList.filter((name) => {
+            if(name != 'default_Java' && name != 'default_NodeJS' && name != 'default_DotNet' && name != 'default_Php' && name != 'default_Python' )
+              return name;
+          })
     //this.configHomeService.getAIStartStopOperationOnHome();
 // this.configHomeService.getAIStartStopOperationOnHome();
 var userName = sessionStorage.getItem('sesLoginName');
@@ -91,6 +98,7 @@ var passWord =  sessionStorage.getItem('sesLoginPass');
         let trNo = sessionStorage.getItem("isTrNumber");
         if(trNo != "null")
           this.loadRunningApp(trNo);
+      });
   }
 
   //To get the running application name when test is running
