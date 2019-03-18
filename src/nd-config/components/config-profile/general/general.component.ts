@@ -42,7 +42,8 @@ export class GeneralComponent implements OnInit {
 
   /** To open content in dialog with topology levels information */
   showLevels: boolean = false
-  info: string = "";
+  info: any
+  dialogHeader = "";
 
   constructor(private configKeywordsService: ConfigKeywordsService,
     private configUtilityService: ConfigUtilityService,
@@ -81,8 +82,8 @@ export class GeneralComponent implements OnInit {
     if(sessionStorage.getItem("isAppliedProfile") == "true" && this.configHomeService.trData.switch != false && this.configHomeService.trData.status != null){
       this.configProfileService.getAppliedProfileDetails(this.profileId).subscribe(data => {
         console.log("data  " , data)
-        this.info = data["_body"].substring(0, data["_body"].length - 1).split(";");
-
+        this.info = data.substring(0, data.length - 1).split(";");
+        this.dialogHeader = "Applied Profile Information"
         //Removing last semi colon
         this.info.slice(0,-1)
         this.showLevels = true;
@@ -92,6 +93,7 @@ export class GeneralComponent implements OnInit {
     }
     //Offline case or independent profile case
     else{
+      this.dialogHeader = "Runtime changes partially applied on instances";
       this.saveSettings();
     }
   }
@@ -125,9 +127,9 @@ export class GeneralComponent implements OnInit {
     }
     console.log(this.className, "constructor", "this.configHomeService.trData.switch", this.configHomeService.trData);
     console.log(this.className, "constructor", "this.configProfileService.nodeData", this.configProfileService.nodeData);
-
+    
         //if test is offline mode, return (no run time changes)
-    if (this.configHomeService.trData.switch == false || this.configHomeService.trData.status == null) {
+    if (this.configProfileService.nodeData.nodeType == null && sessionStorage.getItem("isAppliedProfile") == "false") {
           console.log(this.className, "constructor", "No NO RUN TIme Changes");
           this.configKeywordsService.saveProfileKeywords(this.profileId);
           return;
@@ -185,7 +187,7 @@ export class GeneralComponent implements OnInit {
         })
       }
       else if (this.configProfileService.nodeData.nodeType == 'tier') {
-        const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}`;
+        const url = `${URL.RUNTIME_CHANGE_TIER}/${this.configProfileService.nodeData.nodeId}/${this.configProfileService.nodeData.nodeName}/${this.configProfileService.nodeData.topologyName}`;
         let that = this
         this.configKeywordsService.sendRunTimeChange(url, keyWordDataList, this.profileId, function (rtcMsg, rtcErrMsg) {
           that.msg = rtcMsg;

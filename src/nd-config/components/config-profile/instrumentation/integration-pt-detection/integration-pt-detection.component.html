@@ -11,7 +11,7 @@
 </p-tabView>
 
 
-<p-dialog class="profile-dialog" header="Runtime changes partially applied on instances" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
+<p-dialog class="profile-dialog" header="{{dialogHeader}}" *ngIf="errDialog" [(visible)]="errDialog" modal="modal"
   width="500" responsive="true">
   <div style="max-height: 500px; overflow-y: auto;" *ngIf="!showLevels">
     Runtime changes successfully applied on: 

@@ -91,7 +91,7 @@ export class ConfigProfileService {
   }
 
     /** To get the details of applied profile */
-    getAppliedProfileDetails(profileId): Observable<string[]>{
+    getAppliedProfileDetails(profileId): Observable<string>{
       return this._restApi.getDataByPostReqWithNoJSON(`${URL.GET_APPLIED_PROFILE_DETAILS}/${profileId}`);
     }
 
