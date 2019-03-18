@@ -5,7 +5,10 @@ BEGIN;
 INSERT INTO config.profile(profile_id,profile_name,profile_desc,controller_name,agent) VALUES
 (1,'default_Java','Default profile for Java','-','Java'),
 (777777,'default_NodeJS','Default profile for Node JS','-','NodeJS'),
-(888888,'default_DotNet','Default profile for Dot Net','-','Dot Net');
+(888888,'default_DotNet','Default profile for Dot Net','-','Dot Net'),
+(666666,'default_Php','Default profile for Php','-','Php'),
+(999999,'default_Python','Default profile for Python','-','Python');
+
 
 INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail) VALUES
 (1,'HttpServletService','description'),
@@ -501,7 +504,6 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (163,'Async HTTP Backend','org.apache.http.impl.nio.client.FutureWrapper','client.FutureWrapper',1,false,'-','Java'),
 (164,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.completed(Ljava/lang/Object;)Z','BasicFuture.completed(Object)Z',1,false,'-','Java'),
 (165,'Async HTTP Backend','org.apache.http.concurrent.BasicFuture.failed(Ljava/lang/Exception;)Z','BasicFuture.failed(Exception)Z',1,false,'-','Java'),
-(166,'Async HTTP Backend','org.apache.http.impl.nio.client.InternalHttpAsyncClient.execute(Lorg/apache/http/nio/protocol/HttpAsyncRequestProducer;Lorg/apache/http/nio/protocol/HttpAsyncResponseConsumer;Lorg/apache/http/protocol/HttpContext;Lorg/apache/http/concurrent/FutureCallback;)Ljava/util/concurrent/Future;','InternalHttpAsyncClient.execute(HttpAsyncRequestProducer,HttpAsyncResponseConsumer,HttpContext,FutureCallback)',1,false,'-','Java'),
 (167,'HADOOP end point','org.apache.hadoop.hbase.client.HTable.finishSetup()V','HTable.finishSetup()V',8,false,'-','Java'),
 (168,'HTTP end point','org.apache.commons.httpclient.HttpClient.executeMethod(Lorg/apache/commons/httpclient/HostConfiguration;Lorg/apache/commons/httpclient/HttpMethod;Lorg/apache/commons/httpclient/HttpState;)I','HttpClient.executeMethod(HostConfiguration,HttpMethod,HttpState)',1,false,'-','Java'),
 (169,'SQL call for dot net','System.Data.OracleClient.OracleCommand.ExecuteReader','OracleCommand.ExecuteReader',17,false,'System.Data.OracleClient.dll','Dot Net'),
@@ -738,7 +740,6 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (163,true,163,1),
 (164,true,164,1),
 (165,true,165,1),
-(166,true,166,1),
 (167,false,167,1),
 (168,false,168,1),
 (169,true,169,888888),

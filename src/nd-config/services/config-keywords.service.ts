@@ -821,6 +821,10 @@ export class ConfigKeywordsService {
     return this._restApi.getDataByPostReq(`${URL.UPDATE_RES_PARENT_ID}/${currentId}/${currentRuleId}`, data)
   }
 
+  updateBodyParentId(currentId, currentRuleId, data): Observable<any[]>{
+    return this._restApi.getDataByPostReq(`${URL.UPDATE_BODY_PARENT_ID}/${currentId}/${currentRuleId}`, data)
+  }
+
   getAssocBTMethod(id){
     return this._restApi.getDataByGetReq(`${URL.GET_BTMETHOD_ON_EDIT}/${id}`)
   }
@@ -832,6 +836,11 @@ export class ConfigKeywordsService {
   getAssocResHdr(id){
     return this._restApi.getDataByGetReq(`${URL.GET_ASSOC_RES_HDR}/${id}`)
   }
+
+  getAssocHttpBody(id){
+    return this._restApi.getDataByGetReq(`${URL.GET_ASSOC_HTTP_BODY}/${id}`)
+  }
+
 
   /** URL for creating method monitor from auto discover */
   addMethodMonitorFromAutoDiscover(methodMonitorMap, profileIdList, methodFrom) {

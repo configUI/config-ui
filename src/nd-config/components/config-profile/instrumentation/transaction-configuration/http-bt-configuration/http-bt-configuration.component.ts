@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, PipeTransform, Pipe } from '@angular/core';
 import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { ConfigKeywordsService } from '../../../../../services/config-keywords.service';
 import { BusinessTransGlobalInfo } from '../../../../../interfaces/business-Trans-global-info';
-import { BusinessTransPatternData, BusinessTransGlobalData, RequestParamData, RulesData, BusinessTransMethodData, BTHTTPHeaderData, BTHTTPHeaderConditions, BTResponseHeaderData, BTResponseHeaderConditions } from '../../../../../containers/instrumentation-data';
+import { BusinessTransPatternData, BusinessTransGlobalData, RequestParamData, RulesData, BusinessTransMethodData, BTHTTPHeaderData, BTHTTPHeaderConditions, BTResponseHeaderData, BTResponseHeaderConditions, BTHTTPBodyConditions, BTHTTPBody } from '../../../../../containers/instrumentation-data';
 
 import { ConfigUtilityService } from '../../../../../services/config-utility.service';
 import { ConfigUiUtility } from '../../../../../utils/config-utility';
@@ -14,7 +14,7 @@ import { deleteMany } from '../../../../../utils/config-utility';
 
 import { ActivatedRoute, Params } from '@angular/router';
 import { KeywordData, KeywordList } from '../../../../../containers/keyword-data';
-import { Messages , addMessage , editMessage } from '../../../../../constants/config-constant';
+import { Messages, addMessage, editMessage } from '../../../../../constants/config-constant';
 import { ConfigHomeService } from '../../../../../services/config-home.service';
 import { ArgumentTypeData, MethodBasedCustomData } from '../../../../../containers/method-based-custom-data';
 
@@ -117,9 +117,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
   globalThresholdDialog: boolean = false;
 
   //global slow threshold value
-  slowThresholdGlobalValue: any ;
+  slowThresholdGlobalValue: any;
   //global very slow threshold value
-  vslowThresholdGlobalValue: any ;
+  vslowThresholdGlobalValue: any;
 
   //To apply global/default threshold values
   globalCheck: boolean = true;
@@ -160,7 +160,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
     this.initialBusinessTransaction();
 
-    
+
 
     let arrLabel1 = ['Numeric', 'String', 'Boolean', 'Char or byte'];
     let arrValue1 = ['0', '1', '2', '3'];
@@ -233,8 +233,8 @@ export class HTTPBTConfigurationComponent implements OnInit {
     });
 
     this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    if (this.flag)
-    this.loadBTMethodData();
+    // if (this.flag)
+    // this.loadBTMethodData();
     //New Method
     // this.loadBTs();/
 
@@ -248,37 +248,49 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.readGlobalThresholdFile();
     this.isProfilePerm = +sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
     this.route.params.subscribe((params: Params) => {
-        this.profileId = params['profileId'];
-        if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-            this.saveDisable = true;
+      this.profileId = params['profileId'];
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+        this.saveDisable = true;
     });
     this.configKeywordsService.fileListProvider.subscribe(data => {
-        this.uploadFile(data);
+      this.uploadFile(data);
     });
     //Request to get all BT HTTP headers data
-    this.configKeywordsService.getBTHttpHdrData(this.profileId).subscribe(data => {
-        this.btHttpHeadersInfo = data;
-        this.modifyData(data);
-    });
+    // this.configKeywordsService.getBTHttpHdrData(this.profileId).subscribe(data => {
+    //     this.btHttpHeadersInfo = data;
+    //     this.modifyData(data);
+    // });
 
     this.btHttpHeadersDetail = new BTHTTPHeaderData();
     this.headerConditionDetail = new BTHTTPHeaderConditions();
 
-    this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
-    this.route.params.subscribe((params: Params) => {
-        this.profileId = params['profileId'];
-        if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
-            this.saveDisable =  true;
-    });
+    // this.isProfilePerm=+sessionStorage.getItem("ProfileAccess") == 4 ? true : false;
+    // this.route.params.subscribe((params: Params) => {
+    //     this.profileId = params['profileId'];
+    //     if(this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+    //         this.saveDisable =  true;
+    // });
 
     //Response to get all BT Response headers data
-    this.configKeywordsService.getBTResponseHdrData(this.profileId).subscribe(data => {
-        this.btResponseHeadersInfo = data;
-        this.modifyData(data);
-    });
+    // this.configKeywordsService.getBTResponseHdrData(this.profileId).subscribe(data => {
+    //     this.btResponseHeadersInfo = data;
+    //     this.modifyData(data);
+    // });
 
     this.btResponseHeadersDetail = new BTResponseHeaderData();
     this.resHeaderConditionDetail = new BTResponseHeaderConditions();
+
+    this.btNameList = [];
+    var name = ['XML'];
+    var val = ['XML'];
+
+    this.btNameList = ConfigUiUtility.createListWithKeyValue(name, val);
+
+    //Request to get all BT HTTP body data
+    this.configKeywordsService.getBtHttpBodyData(this.profileId).subscribe(data => {
+      this.httpBodyInfo = data;
+      this.modifyBodyData(data);
+    });
   }
 
 
@@ -404,6 +416,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
       profileid = 1;
     else if (this.agentType == "Dot Net") {
       profileid = 888888;
+    }
+    else if (this.agentType == "Php") {
+      profileid = 666666;
+    }
+    else if (this.agentType == "Python") {
+      profileid = 999999;
     }
     else
       profileid = 777777;
@@ -545,12 +563,6 @@ export class HTTPBTConfigurationComponent implements OnInit {
     }
     this.configKeywordsService.addBusinessTransPattern(this.businessTransPatternDetail, this.profileId, this.parentBtId)
       .subscribe(data => {
-        let id :number;
-        console.log("Data  =====>",data)
-        console.log("Data id is =====>",data[data.length-1].id)
-        console.log("Data parentRuleId is =====>",data[data.length-1].btRuleId)
-        // id = data.
-        // this.invokeChildBTs(data[data.length-1].id, data[data.length-1]. btRuleId, 'Add');
 
         // The below method is called to set all values that contains "-" to null
         this.methodToSetValuesForGUI(data);
@@ -560,17 +572,17 @@ export class HTTPBTConfigurationComponent implements OnInit {
         //get the currently added btpattern from the response
         let currentId = 0;
         let currentRuleId = 0;
-        for(let row of this.businessTransPatternInfo){
-          if(row.btName == this.businessTransPatternDetail.btName && row.urlName == this.businessTransPatternDetail.urlName){
+        for (let row of this.businessTransPatternInfo) {
+          if (row.btName == this.businessTransPatternDetail.btName && row.urlName == this.businessTransPatternDetail.urlName) {
             currentId = row.id;
             currentRuleId = row.btRuleId;
             break;
           }
         }
-        
+
         //UPDATE BT METHOD PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data =>{
-          
+        this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data => {
+
         })
 
         //UPDATE BT HTTP REQUES HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
@@ -581,7 +593,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
         //UPDATE BT HTTP RESPONSE HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
         this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo).subscribe(data => {
 
-        })        
+        })
+
+        //UPDATE BT HTTP BODY PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
+        this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo).subscribe(data => {
+
+        })
 
         this.configUtilityService.successMessage(addMessage);
       });
@@ -589,10 +606,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
 
-//To invoke other 
-//  invokeChildBTs(btPatternId, parentRuleId, operation) {
-//   this.configKeywordsService.getInvokeChildBTs(btPatternId, parentRuleId, operation);
-// }
+  //To invoke other 
+  //  invokeChildBTs(btPatternId, parentRuleId, operation) {
+  //   this.configKeywordsService.getInvokeChildBTs(btPatternId, parentRuleId, operation);
+  // }
 
 
   /**
@@ -603,6 +620,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     this.businessTransMethodInfo = []
     this.btHttpHeadersInfo = []
     this.btResponseHeadersInfo = [];
+    this.httpBodyInfo = [];
     this.reqParamInfo = [];
     this.readGlobalThresholdFile();
     this.businessTransPatternDetail.slowTransaction = "3000";
@@ -670,13 +688,18 @@ export class HTTPBTConfigurationComponent implements OnInit {
     })
 
     //get list of assocuated bt http request hdr(if any)
-    this.configKeywordsService.getAssocReqHdr(this.businessTransPatternDetail.id).subscribe(data =>{
+    this.configKeywordsService.getAssocReqHdr(this.businessTransPatternDetail.id).subscribe(data => {
       this.btHttpHeadersInfo = data
     })
 
     //get list of assocuated bt http response hdr(if any)
-    this.configKeywordsService.getAssocResHdr(this.businessTransPatternDetail.id).subscribe(data =>{
+    this.configKeywordsService.getAssocResHdr(this.businessTransPatternDetail.id).subscribe(data => {
       this.btResponseHeadersInfo = data
+    })
+
+    //get list of associated BT HTTP Body(if any)
+    this.configKeywordsService.getAssocHttpBody(this.businessTransPatternDetail.id).subscribe(data => {
+      this.httpBodyInfo = data
     })
   }
 
@@ -907,30 +930,35 @@ export class HTTPBTConfigurationComponent implements OnInit {
         this.selectedPatternData.push(data);
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
         this.loadBTPatternData()
-                //get the currently added btpattern from the response
-                let currentId = 0;
-                let currentRuleId = 0;
-                for(let row of this.businessTransPatternInfo){
-                  if(row.btName == this.businessTransPatternDetail.btName && row.urlName == this.businessTransPatternDetail.urlName){
-                    currentId = row.id;
-                    currentRuleId = row.btRuleId;
-                    break;
-                  }
-                }
-                        
+        //get the currently added btpattern from the response
+        let currentId = 0;
+        let currentRuleId = 0;
+        for (let row of this.businessTransPatternInfo) {
+          if (row.btName == this.businessTransPatternDetail.btName && row.urlName == this.businessTransPatternDetail.urlName) {
+            currentId = row.id;
+            currentRuleId = row.btRuleId;
+            break;
+          }
+        }
+
         //UPDATE BT METHOD PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data =>{
-          
+        this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data => {
+
         })
         //UPDATE BT HTTP REQUEST HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
         this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo).subscribe(data => {
 
-       })
+        })
 
         //UPDATE BT HTTP RESPONSE HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
         this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo).subscribe(data => {
 
-        })        
+        })
+
+        //UPDATE BT HTTP BODY PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
+        this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo).subscribe(data => {
+
+        })
 
         this.configUtilityService.successMessage(editMessage);
       });
@@ -1042,6 +1070,15 @@ export class HTTPBTConfigurationComponent implements OnInit {
       }
     }
     for (let i = 0; i < this.businessTransPatternInfo.length; i++) {
+
+      //if bt pattern entry is blank
+      let flag1 = this.businessTransPatternDetail.btName == undefined || this.businessTransPatternDetail.btName == null || this.businessTransPatternDetail.btName == "";
+      //if other tables are not blank
+      let flag2 = this.businessTransMethodInfo.length > 0 || this.httpBodyInfo.length > 0 || this.btResponseHeadersInfo.length > 0 || this.btHttpHeadersInfo.length > 0;
+      if (flag1 && flag2) {
+        return;
+      }
+
       if (this.businessTransPatternInfo[i].urlName == this.businessTransPatternDetail.urlName &&
         this.businessTransPatternInfo[i].btName == this.businessTransPatternDetail.btName
         && this.businessTransPatternInfo[i].reqParamKey == this.businessTransPatternDetail.reqParamKey &&
@@ -1166,16 +1203,16 @@ export class HTTPBTConfigurationComponent implements OnInit {
     let arrAlignmentOfColumn = { "0": "left", "1": "left", "2": "left", "3": "left", "4": "right", "5": "right", "6": "right", "7": "right", "8": "left", "9": "left", "10": "left" };
     let arrFieldName = { "0": "btName", "1": "matchType", "2": "urlName", "3": "include", "4": "slowTransaction", "5": "verySlowTransaction", "6": "slowDynamicThreshold", "7": "verySlowDynamicThreshold", "8": "paramKeyValue", "9": "reqMethod", "10": "headerKeyValue" };
     let object =
-      {
-        data: this.businessTransPatternInfo,
-        headerList: arrHeader,
-        colSize: arrcolSize,
-        alignArr: arrAlignmentOfColumn,
-        fieldName: arrFieldName,
-        downloadType: reports,
-        title: "BT Pattern",
-        fileName: "btpattern",
-      }
+    {
+      data: this.businessTransPatternInfo,
+      headerList: arrHeader,
+      colSize: arrcolSize,
+      alignArr: arrAlignmentOfColumn,
+      fieldName: arrFieldName,
+      downloadType: reports,
+      title: "BT Pattern",
+      fileName: "btpattern",
+    }
     this.configKeywordsService.downloadReports(JSON.stringify(object)).subscribe(data => {
       this.openDownloadReports(data._body)
     })
@@ -1191,13 +1228,13 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   /** Open global threshold values dialog to apply values to all BTs or to change global threshold values */
-  openGlobalThresholdDialog(){
+  openGlobalThresholdDialog() {
 
     //Put label = Save if no BT is selected otherwise put Save and Apply
-    if(this.selectedPatternData.length == 0){
+    if (this.selectedPatternData.length == 0) {
       this.globalSaveLabel = "Save";
     }
-    else{
+    else {
       this.globalSaveLabel = "Save and Apply";
     }
     this.globalThresholdDialog = true;
@@ -1206,24 +1243,24 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   //Read global threshold values from .globalThreshold.txt file or create file if not exists
-  readGlobalThresholdFile(){
+  readGlobalThresholdFile() {
 
     this.configKeywordsService.readGlobalThresholdFile(this.profileId).subscribe(data => {
       this.globalFileData = data._body.split("|")
       this.slowThresholdGlobalValue = this.globalFileData[0];
       this.vslowThresholdGlobalValue = this.globalFileData[1];
-      
+
     })
 
   }
 
   /** To save global threshold values in hidden file and apply these values to selected BT */
-  applyGlobalThresholdValues(){
+  applyGlobalThresholdValues() {
     let fileData = this.slowThresholdGlobalValue + "|" + this.vslowThresholdGlobalValue
     this.configKeywordsService.saveGlobalThresholdFile(this.profileId, fileData).subscribe(data => {
 
       // If any BT is selected then update its value with global threshold values
-      if(this.selectedPatternData.length > 0){
+      if (this.selectedPatternData.length > 0) {
         this.confirmationService.confirm({
           message: 'Do you want to update the selected Business Transaction Global Threshold values?',
           header: 'Update Confirmation',
@@ -1234,9 +1271,9 @@ export class HTTPBTConfigurationComponent implements OnInit {
           reject: () => {
 
           }
-          })
+        })
       }
-      else{
+      else {
         this.globalThresholdDialog = false;
         this.configUtilityService.successMessage(Messages);
       }
@@ -1246,10 +1283,10 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   /** UPDATE selected BT with global threshold values  */
-  updateBTWithGlobalThreshold(fileData){
+  updateBTWithGlobalThreshold(fileData) {
     let btIdArr = [];
     //Get the selected BTs bt_pattern_id and store in an array
-    for(let bt of this.selectedPatternData){
+    for (let bt of this.selectedPatternData) {
       btIdArr.push(bt.id);
     }
     this.configKeywordsService.updateBTWithGlobalThreshold(btIdArr, this.profileId).subscribe(data => {
@@ -1261,30 +1298,30 @@ export class HTTPBTConfigurationComponent implements OnInit {
   }
 
   /**Change the threshold values on toggle change- If ON then apply global values */
-  changeThresholdOnClick(){
-    if(!this.globalCheck){
+  changeThresholdOnClick() {
+    if (!this.globalCheck) {
       this.businessTransPatternDetail.slowTransaction = this.slowThresholdGlobalValue
       this.businessTransPatternDetail.verySlowTransaction = this.vslowThresholdGlobalValue
     }
-    else{
+    else {
       //ADD Pattern case
-      if(this.isNewApp){
+      if (this.isNewApp) {
         this.businessTransPatternDetail.slowTransaction = "3000";
         this.businessTransPatternDetail.verySlowTransaction = "5000";
       }
       //Edit pattern case
-      else{
+      else {
         this.businessTransPatternDetail.slowTransaction = this.selectedPatternData[0].slowTransaction;
         this.businessTransPatternDetail.verySlowTransaction = this.selectedPatternData[0].verySlowTransaction;
       }
     }
   }
 
-    /**
-   * This method is used for validating slow and very slow transactions
-   * @param slow 
-   * @param vslow 
-   */
+  /**
+ * This method is used for validating slow and very slow transactions
+ * @param slow 
+ * @param vslow 
+ */
   checkGlobalThresholdValidity(slow, vslow) {
     if (this.slowThresholdGlobalValue >= this.vslowThresholdGlobalValue) {
       vslow.setCustomValidity('Very slow value should be greater than slow value.');
@@ -1523,7 +1560,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     // this.businessTransMethodDetail = new BusinessTransMethodData();
     this.route.params.subscribe((params: Params) => {
       this.profileId = params['profileId'];
-      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888)
+      if (this.profileId == 1 || this.profileId == 777777 || this.profileId == 888888 || this.profileId == 666666 || this.profileId == 999999)
         this.saveDisable = true;
     });
     //this.businessTransMethodInfo = data
@@ -2290,7 +2327,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
   saveMethod() {
     // this.loadBTMethodData();
     // if (this.btPatternId == -1) {
-      // this.businessTransMethodInfo = [];
+    // this.businessTransMethodInfo = [];
     // }
     // If any method bt is given then FQM is also provided, only then save otherwise not
     if (this.businessTransMethodDetail.fqm != "" && this.businessTransMethodDetail.fqm != undefined) {
@@ -2347,30 +2384,30 @@ export class HTTPBTConfigurationComponent implements OnInit {
       this.configUtilityService.successMessage(addMessage);
       // console.log("Arg value is ====>", arg)
       // if (arg == 'From Main Save') {
-        // if(arg == 'From Child'){
+      // if(arg == 'From Child'){
 
 
-        console.log("Before Hitting Service data is ======>", this.businessTransMethodDetail);
+      console.log("Before Hitting Service data is ======>", this.businessTransMethodDetail);
 
-        this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
-          // this.businessTransMethodInfo.push(data)
-          this.modifyData(data);
-          this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
-          if (!this.flag) {
-            this.configKeywordsService.saveBusinessTransMethodData(this.profileId)
-              .subscribe(data => {
+      this.configKeywordsService.addBusinessTransMethod(this.businessTransMethodDetail, this.profileId).subscribe(data => {
+        // this.businessTransMethodInfo.push(data)
+        this.modifyData(data);
+        this.businessTransMethodInfo = ImmutableArray.push(this.businessTransMethodInfo, data);
+        if (!this.flag) {
+          this.configKeywordsService.saveBusinessTransMethodData(this.profileId)
+            .subscribe(data => {
 
+              this.configUtilityService.successMessage(addMessage);
 
-              })
-          }
-          this.configUtilityService.successMessage(addMessage);
-        });
-        this.addBusinessTransMethodDialog = false;
-        this.selectedbusinessTransMethod = [];
-        this.indexList = [];
+            })
+        }
+      });
+      this.addBusinessTransMethodDialog = false;
+      this.selectedbusinessTransMethod = [];
+      this.indexList = [];
       // }
       // else {
-        // this.addBusinessTransMethodDialog = false;
+      // this.addBusinessTransMethodDialog = false;
       // }
     }
   }
@@ -2659,941 +2696,1517 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
 
 
-    /**Assign data to BT HTTP Headers table */
-    btHttpHeadersInfo: BTHTTPHeaderData[];
-    btHttpHeadersDetail: BTHTTPHeaderData;
-    selectedHTTPHeaders: BTHTTPHeaderData[];
+  /**Assign data to BT HTTP Headers table */
+  btHttpHeadersInfo: BTHTTPHeaderData[];
+  btHttpHeadersDetail: BTHTTPHeaderData;
+  selectedHTTPHeaders: BTHTTPHeaderData[];
 
-    /** Assign data to BT HTTP Request header conditions */
-    headerConditionInfo: BTHTTPHeaderConditions[];
-    headerConditionDetail: BTHTTPHeaderConditions;
-    selectedRequestHeader: BTHTTPHeaderConditions[];
+  /** Assign data to BT HTTP Request header conditions */
+  headerConditionInfo: BTHTTPHeaderConditions[];
+  headerConditionDetail: BTHTTPHeaderConditions;
+  selectedRequestHeader: BTHTTPHeaderConditions[];
 
-    //For initializing drop down data
-    requestHeader: SelectItem[];
-    headerType: SelectItem[];
-    operationName: SelectItem[];
+  //For initializing drop down data
+  requestHeader: SelectItem[];
+  headerType: SelectItem[];
+  operationName: SelectItem[];
 
-    addResReqHeaderDialog: boolean = false;
-    addReqDialog: boolean = false;
+  addResReqHeaderDialog: boolean = false;
+  addReqDialog: boolean = false;
 
-    enableRequest: boolean;
+  enableRequest: boolean;
 
-    editConditions: boolean = false;
-    editHeaders: boolean = false;
+  editConditions: boolean = false;
+  editHeaders: boolean = false;
 
-    //For checking if it is new row or existing
-    isNewHeader: boolean = false;
-    isNewCond: boolean = false;
+  //For checking if it is new row or existing
+  isNewHeader: boolean = false;
+  isNewCond: boolean = false;
 
-    httpHdrDelete = [];
+  httpHdrDelete = [];
 
-    //Counter for adding/editing conditions
-    condCount: number = 0;
-    condCountEdit: number = 0;
+  //Counter for adding/editing conditions
+  condCount: number = 0;
+  condCountEdit: number = 0;
 
-    isbTHTTPHdrBrowse: boolean;
+  isbTHTTPHdrBrowse: boolean;
 
-    //opens add request conditions dialog
-    openReqDialog() {
-        this.addReqDialog = true;
+  //opens add request conditions dialog
+  openReqDialog() {
+    this.addReqDialog = true;
+    this.isNewCond = true;
+    this.headerConditionDetail = new BTHTTPHeaderConditions();
+    this.loadOperationName();
+  }
+
+  //Opens Add BT HTTP header dialog
+  openHeader() {
+    this.btHttpHeadersDetail = new BTHTTPHeaderData();
+    this.headerConditionDetail = new BTHTTPHeaderConditions();
+    this.loadOperationName();
+    this.isNewHeader = true;
+    this.addResReqHeaderDialog = true;
+    this.headerConditionInfo = [];
+    if (this.btHttpHeadersInfo == undefined)
+      this.btHttpHeadersInfo = [];
+  }
+
+
+  //To load opeartion operationName
+  loadOperationName() {
+    this.operationName = [];
+    var opName = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
+    var opVal = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
+
+    this.operationName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
+  }
+
+  //Method to add and edit BT HTTP headers data
+  saveAddEditHttpheaders() {
+    //When add new HTTP Headers
+    if (this.isNewHeader) {
+      if (this.checkHeaderNameAlreadyExist()) {
+        return;
+      }
+      this.saveHttpHeaders();
+    }
+
+    //When add edit HTTP Headers
+    else {
+      if (this.selectedHTTPHeaders[0].headerName != this.btHttpHeadersDetail.headerName) {
+        if (this.checkHeaderNameAlreadyExist()) {
+          return;
+        }
+      }
+      this.editHttpHeader();
+    }
+  }
+  //Method to check redundancy for Header Name
+  checkHeaderNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.btHttpHeadersInfo.length; i++) {
+      if (this.btHttpHeadersInfo[i].headerName == this.btHttpHeadersDetail.headerName) {
+        this.configUtilityService.errorMessage("Header Name already exist");
+        return true;
+      }
+    }
+  }
+
+  //Method to save new HTTP Headers
+  saveHttpHeaders() {
+    this.btHttpHeadersDetail.conditions = [];
+
+    this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
+    if (this.headerConditionInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
+      return;
+    }
+    this.configKeywordsService.addBtHttpHeaders(this.btHttpHeadersDetail, this.profileId).subscribe(data => {
+      this.btHttpHeadersInfo = ImmutableArray.push(this.btHttpHeadersInfo, data);
+      this.configUtilityService.successMessage(addMessage);
+      this.modifyData1(this.btHttpHeadersInfo);
+
+    });
+    this.addResReqHeaderDialog = false;
+  }
+
+  //Method to edit HTTP Headers
+  editHttpHeader() {
+    if (this.headerConditionInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
+      return;
+    }
+    this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
+    this.btHttpHeadersDetail.headerId = this.selectedHTTPHeaders[0].headerId;
+    /****for edit case
+  *  first triggering the request to delete the  conditions and
+  *  when response comes then triggering request to add the new HTTP Headers
+  *
+  */
+    this.selectedHTTPHeaders = [];
+    this.configKeywordsService.deleteHTTPHdrConditions(this.httpHdrDelete).subscribe(data => {
+      let that = this;
+      //Edit call, sending row data to service
+      this.configKeywordsService.editBTHTTPHeaders(this.btHttpHeadersDetail).subscribe(data => {
+
+        this.btHttpHeadersInfo.map(function (val) {
+          if (val.headerId == data.headerId) {
+            val.conditions = data.conditions;
+            val.hdrBtNames = data.hdrBtNames;
+            val.headerName = data.headerName;
+            val.headerValType = data.headerValType;
+            val.id = data.id;
+          }
+          // that.modifyData(val);
+          if (val.conditions != null && val.conditions.length != 0) {
+            let btNames = that.getBtNames(val.conditions);
+            val.hdrBtNames = btNames
+          }
+          else {
+            val.hdrBtNames = "NA"
+          }
+
+        });
+        this.configUtilityService.successMessage(editMessage);
+      });
+    })
+    this.closeDialog2();
+  }
+
+  //Opens edit HTTP Headers dialog
+  openEditHttpHeader() {
+    this.selectedRequestHeader = [];
+    this.btHttpHeadersDetail = new BTHTTPHeaderData();
+    if (!this.selectedHTTPHeaders || this.selectedHTTPHeaders.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+      return;
+    }
+    else if (this.selectedHTTPHeaders.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit");
+      return;
+    }
+    else {
+      this.isNewHeader = false;
+      this.addResReqHeaderDialog = true;
+      // this.editConditions = true;
+      this.isNewCond = true;
+      let that = this;
+      this.httpHdrDelete = [];
+      this.btHttpHeadersDetail = Object.assign({}, this.selectedHTTPHeaders[0]);
+      this.loadOperationName();
+      this.headerConditionInfo = this.selectedHTTPHeaders[0].conditions;
+      //providing Id for editing conditions in edit header form
+      this.headerConditionInfo.map(function (val) {
+        val.id = that.condCountEdit;
+        that.condCountEdit = that.condCountEdit + 1;
+      })
+    }
+
+  }
+
+  //Method to show bt names seperated by commas in BT HTTP headers table
+  modifyData1(data) {
+    let that = this;
+    data.map(function (val) {
+      if (val.conditions != null && val.conditions.length != 0) {
+        let btNames = that.getBtNames(val.conditions);
+        val.hdrBtNames = btNames
+      }
+      else {
+        val.hdrBtNames = "NA"
+      }
+    })
+    this.btHttpHeadersInfo = data
+  }
+
+
+  getBtNames(data) {
+    let btNamesHref = '';
+    data.map(function (val, index) {
+      if (index != (data.length - 1)) {
+        if (val.btName == null) {
+          btNamesHref = btNamesHref + " - " + ",";
+        }
+        else
+          btNamesHref = btNamesHref + val.btName + ",";
+      }
+      else {
+        if (val.btName == null) {
+          btNamesHref = btNamesHref + " - "
+        }
+        else
+          btNamesHref = btNamesHref + val.btName
+      }
+    })
+    return btNamesHref;
+  }
+
+  //Method to add BT http request conditions
+  saveConditions() {
+    if (this.headerConditionDetail.operation == "VALUE") {
+      this.headerConditionDetail.btName = "-";
+      this.headerConditionDetail.hdrValue = "-";
+    }
+    if (this.headerConditionDetail.operation == "OCCURS") {
+      this.headerConditionDetail.hdrValue = "-";
+    }
+    //EDIT functionality
+    if (!this.isNewHeader) {
+      if (this.editConditions) {
+        //In edit form to edit conditions
+        // Purpose: The below if block is required for checking redundancy for  BT Name 
+        if (this.selectedRequestHeader[0].btName != this.headerConditionDetail.btName) {
+          if (this.checkBTNameAlreadyExist()) {
+            return;
+          }
+        }
+
+        this.isNewCond = false;
+        this.editConditions = false;
+        let that = this;
+        this.headerConditionInfo.map(function (val) {
+          if (val.id == that.headerConditionDetail.id) {
+            val.btName = that.headerConditionDetail.btName;
+            val.hdrValue = that.headerConditionDetail.hdrValue;
+            val.operation = that.headerConditionDetail.operation;
+          }
+        });
+        this.selectedRequestHeader = [];
+      }
+
+      else {
+        if (this.checkBTNameAlreadyExist()) {
+          return;
+        }
         this.isNewCond = true;
-        this.headerConditionDetail = new BTHTTPHeaderConditions();
-        this.loadOperationName();
+        this.headerConditionDetail["id"] = this.condCountEdit;
+        this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
+        this.condCountEdit = this.condCountEdit + 1;
+      }
     }
 
-    //Opens Add BT HTTP header dialog
-    openHeader() {
-        this.btHttpHeadersDetail = new BTHTTPHeaderData();
-        this.headerConditionDetail = new BTHTTPHeaderConditions();
-        this.loadOperationName();
-        this.isNewHeader = true;
-        this.addResReqHeaderDialog = true;
-        this.headerConditionInfo = [];
-        if (this.btHttpHeadersInfo == undefined)
-            this.btHttpHeadersInfo = [];
-    }
-
-
-    //To load opeartion operationName
-    loadOperationName() {
-        this.operationName = [];
-        var opName = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
-        var opVal = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
-
-        this.operationName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
-    }
-
-    //Method to add and edit BT HTTP headers data
-    saveAddEditHttpheaders() {
-        //When add new HTTP Headers
-        if (this.isNewHeader) {
-            if(this.checkHeaderNameAlreadyExist()){
-                return;
-            }
-                 this.saveHttpHeaders();
-        }
-
-        //When add edit HTTP Headers
-        else {
-            if(this.selectedHTTPHeaders[0].headerName != this.btHttpHeadersDetail.headerName){
-                if(this.checkHeaderNameAlreadyExist()){
-                    return;
-                }
-            }
-                this.editHttpHeader();
-        }
-    }
-        //Method to check redundancy for Header Name
-        checkHeaderNameAlreadyExist(): boolean {
-            for (let i = 0; i < this.btHttpHeadersInfo.length; i++) {
-                if (this.btHttpHeadersInfo[i].headerName == this.btHttpHeadersDetail.headerName) {
-                    this.configUtilityService.errorMessage("Header Name already exist");
-                    return true;
-                }
-            }
-        }
-
-    //Method to save new HTTP Headers
-    saveHttpHeaders() {
-        this.btHttpHeadersDetail.conditions = [];
-
-        this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
-        if (this.headerConditionInfo.length == 0) {
-            this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
+    //ADD functionality
+    else {
+      //In add form, to edit conditions
+      if (this.editConditions) {
+        // Purpose: The below if block is required for checking redundancy for Bt Name
+        if (this.selectedRequestHeader[0].btName != this.headerConditionDetail.btName) {
+          if (this.checkBTNameAlreadyExist()) {
             return;
+          }
         }
-        this.configKeywordsService.addBtHttpHeaders(this.btHttpHeadersDetail, this.profileId).subscribe(data => {
-            this.btHttpHeadersInfo = ImmutableArray.push(this.btHttpHeadersInfo, data);
-            this.configUtilityService.successMessage(addMessage);
-            this.modifyData1(this.btHttpHeadersInfo);
-
-        });
-        this.addResReqHeaderDialog = false;
-    }
-
-    //Method to edit HTTP Headers
-    editHttpHeader() {
-        if (this.headerConditionInfo.length == 0) {
-            this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
-            return;
-        }
-        this.btHttpHeadersDetail.conditions = this.headerConditionInfo;
-        this.btHttpHeadersDetail.headerId = this.selectedHTTPHeaders[0].headerId;
-        /****for edit case
-      *  first triggering the request to delete the  conditions and
-      *  when response comes then triggering request to add the new HTTP Headers
-      *
-      */
-        this.selectedHTTPHeaders = [];
-        this.configKeywordsService.deleteHTTPHdrConditions(this.httpHdrDelete).subscribe(data => {
-            let that = this;
-            //Edit call, sending row data to service
-            this.configKeywordsService.editBTHTTPHeaders(this.btHttpHeadersDetail).subscribe(data => {
-
-                this.btHttpHeadersInfo.map(function (val) {
-                    if (val.headerId == data.headerId) {
-                        val.conditions = data.conditions;
-                        val.hdrBtNames = data.hdrBtNames;
-                        val.headerName = data.headerName;
-                        val.headerValType = data.headerValType;
-                        val.id = data.id;
-                    }
-                    // that.modifyData(val);
-                    if (val.conditions != null && val.conditions.length != 0) {
-                        let btNames = that.getBtNames(val.conditions);
-                        val.hdrBtNames = btNames
-                    }
-                    else {
-                        val.hdrBtNames = "NA"
-                    }
-
-                });
-                this.configUtilityService.successMessage(editMessage);
-            });
-        })
-        this.closeDialog2();
-    }
-
-    //Opens edit HTTP Headers dialog
-    openEditHttpHeader() {
-        this.selectedRequestHeader = [];
-        this.btHttpHeadersDetail = new BTHTTPHeaderData();
-        if (!this.selectedHTTPHeaders || this.selectedHTTPHeaders.length < 1) {
-            this.configUtilityService.errorMessage("Select a row to edit");
-            return;
-        }
-        else if (this.selectedHTTPHeaders.length > 1) {
-            this.configUtilityService.errorMessage("Select only one row to edit");
-            return;
-        }
-        else {
-            this.isNewHeader = false;
-            this.addResReqHeaderDialog = true;
-            // this.editConditions = true;
-            this.isNewCond = true;
-            let that = this;
-            this.httpHdrDelete = [];
-            this.btHttpHeadersDetail = Object.assign({}, this.selectedHTTPHeaders[0]);
-            this.loadOperationName();
-            this.headerConditionInfo = this.selectedHTTPHeaders[0].conditions;
-            //providing Id for editing conditions in edit header form
-            this.headerConditionInfo.map(function (val) {
-                val.id = that.condCountEdit;
-                that.condCountEdit = that.condCountEdit + 1;
-            })
-        }
-
-    }
-
-    //Method to show bt names seperated by commas in BT HTTP headers table
-    modifyData1(data) {
+        this.isNewCond = false;
+        this.editConditions = false;
         let that = this;
-        data.map(function (val) {
-            if (val.conditions != null && val.conditions.length != 0) {
-                let btNames = that.getBtNames(val.conditions);
-                val.hdrBtNames = btNames
-            }
-            else {
-                val.hdrBtNames = "NA"
-            }
-        })
-        this.btHttpHeadersInfo = data
-    }
-
-
-    getBtNames(data) {
-        let btNamesHref = '';
-        data.map(function (val, index) {
-            if (index != (data.length - 1)) {
-                if (val.btName == null) {
-                    btNamesHref = btNamesHref + " - " + ",";
-                }
-                else
-                    btNamesHref = btNamesHref + val.btName + ",";
-            }
-            else {
-                if (val.btName == null) {
-                    btNamesHref = btNamesHref + " - "
-                }
-                else
-                    btNamesHref = btNamesHref + val.btName
-            }
-        })
-        return btNamesHref;
-    }
-
-    //Method to add BT http request conditions
-    saveConditions() {
-        if (this.headerConditionDetail.operation == "VALUE") {
-            this.headerConditionDetail.btName = "-";
-            this.headerConditionDetail.hdrValue = "-";
-        }
-        if (this.headerConditionDetail.operation == "OCCURS") {
-            this.headerConditionDetail.hdrValue = "-";
-        }
-        //EDIT functionality
-        if (!this.isNewHeader) {
-            if (this.editConditions) {
-                //In edit form to edit conditions
-                // Purpose: The below if block is required for checking redundancy for  BT Name 
-                if (this.selectedRequestHeader[0].btName != this.headerConditionDetail.btName) {
-                    if (this.checkBTNameAlreadyExist()) {
-                        return;
-                    }
-                }
-                
-                this.isNewCond = false;
-                this.editConditions = false;
-                let that = this;
-                this.headerConditionInfo.map(function (val) {
-                    if (val.id == that.headerConditionDetail.id) {
-                        val.btName = that.headerConditionDetail.btName;
-                        val.hdrValue = that.headerConditionDetail.hdrValue;
-                        val.operation = that.headerConditionDetail.operation;
-                    }
-                });
-                this.selectedRequestHeader = [];
-            }
-
-            else {
-                if (this.checkBTNameAlreadyExist()) {
-                    return;
-                }
-                    this.isNewCond = true;
-                    this.headerConditionDetail["id"] = this.condCountEdit;
-                    this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
-                    this.condCountEdit = this.condCountEdit + 1;
-            }
-        }
-
-        //ADD functionality
-        else {
-            //In add form, to edit conditions
-            if (this.editConditions) {
-                // Purpose: The below if block is required for checking redundancy for Bt Name
-                if (this.selectedRequestHeader[0].btName != this.headerConditionDetail.btName) {
-                    if (this.checkBTNameAlreadyExist()) {
-                        return;
-                    }
-                }
-                this.isNewCond = false;
-                this.editConditions = false;
-                let that = this;
-                this.headerConditionInfo.map(function (val) {
-                    if (val.id == that.headerConditionDetail.id) {
-                        val.btName = that.headerConditionDetail.btName;
-                        val.hdrValue = that.headerConditionDetail.hdrValue;
-                        val.operation = that.headerConditionDetail.operation;
-                    }
-                });
-                this.selectedRequestHeader = [];
-            }
-
-            else {
-                if (this.checkBTNameAlreadyExist()) {
-                    return;
-                }
-                else //In add form to add conditions
-                {
-                    this.isNewCond = true;
-                    this.headerConditionDetail["id"] = this.condCount;
-                    this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
-                    this.condCount = this.condCount + 1;
-                }
-            }
-        }
-        this.addReqDialog = false;
-        this.headerConditionDetail = new BTHTTPHeaderConditions();
-    }
-
-    //Method to check redundancy for BT Name
-    checkBTNameAlreadyExist(): boolean {
-        for (let i = 0; i < this.headerConditionInfo.length; i++) {
-            if (this.headerConditionInfo[i].btName == this.headerConditionDetail.btName) {
-                this.configUtilityService.errorMessage("BT Name already exist");
-                return true;
-            }
-        }
-    }
-
-    //Method to delete request headers
-    deleteReqHdr() {
-        if (!this.selectedRequestHeader || this.selectedRequestHeader.length < 1) {
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;
-        }
-        let selectReqHdrs = this.selectedRequestHeader;
-        let arrReqIndex = [];
-        for (let index in selectReqHdrs) {
-            arrReqIndex.push(selectReqHdrs[index]);
-            if (selectReqHdrs[index].hasOwnProperty('hdrCondId')) {
-                this.httpHdrDelete.push(selectReqHdrs[index].hdrCondId);
-            }
-        }
-        this.deleteConditionFromTable(arrReqIndex);
-        this.selectedRequestHeader = [];
-    }
-
-    /**This method is used to delete BT HTTP Headers*/
-    deleteBTHTTPHeaders(): void {
-        if (!this.selectedHTTPHeaders || this.selectedHTTPHeaders.length < 1) {
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;
-        }
-        this.confirmationService.confirm({
-            message: 'Do you want to delete the selected row?',
-            header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
-            accept: () => {
-                //Get Selected headers's headerId
-                let selectedApp = this.selectedHTTPHeaders;
-                let arrAppIndex = [];
-                for (let index in selectedApp) {
-                    arrAppIndex.push(selectedApp[index].headerId);
-                }
-                this.configKeywordsService.deleteBTHTTPHeaders(arrAppIndex, this.profileId)
-                    .subscribe(data => {
-                        this.deleteBtHttpHeaders(arrAppIndex);
-                        this.selectedHTTPHeaders = [];
-                        this.configUtilityService.infoMessage("Deleted Successfully");
-                    })
-            },
-            reject: () => {
-            }
+        this.headerConditionInfo.map(function (val) {
+          if (val.id == that.headerConditionDetail.id) {
+            val.btName = that.headerConditionDetail.btName;
+            val.hdrValue = that.headerConditionDetail.hdrValue;
+            val.operation = that.headerConditionDetail.operation;
+          }
         });
-    }
+        this.selectedRequestHeader = [];
+      }
 
-    /**This method is used to delete headers from Data Table */
-    deleteBtHttpHeaders(arrIndex) {
-        let rowIndex: number[] = [];
-
-        for (let index in arrIndex) {
-            rowIndex.push(this.getHeadersIndex(arrIndex[index]));
+      else {
+        if (this.checkBTNameAlreadyExist()) {
+          return;
         }
-        this.btHttpHeadersInfo = deleteMany(this.btHttpHeadersInfo, rowIndex);
-    }
-
-    /**This method returns selected headers row on the basis of selected row */
-    getHeadersIndex(appId: any): number {
-        for (let i = 0; i < this.btHttpHeadersInfo.length; i++) {
-            if (this.btHttpHeadersInfo[i].headerId == appId) {
-                return i;
-            }
+        else //In add form to add conditions
+        {
+          this.isNewCond = true;
+          this.headerConditionDetail["id"] = this.condCount;
+          this.headerConditionInfo = ImmutableArray.push(this.headerConditionInfo, this.headerConditionDetail);
+          this.condCount = this.condCount + 1;
         }
-        return -1;
+      }
     }
+    this.addReqDialog = false;
+    this.headerConditionDetail = new BTHTTPHeaderConditions();
+  }
 
-    /**This method is used to delete conditions from Data Table */
-    deleteConditionFromTable(arrReqIndex: any[]): void {
-        //For stores table row index
-        let rowIndex: number[] = [];
+  //Method to check redundancy for BT Name
+  checkBTNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.headerConditionInfo.length; i++) {
+      if (this.headerConditionInfo[i].btName == this.headerConditionDetail.btName) {
+        this.configUtilityService.errorMessage("BT Name already exist");
+        return true;
+      }
+    }
+  }
 
-        if (arrReqIndex.length < 1) {
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;
+  //Method to delete request headers
+  deleteReqHdr() {
+    if (!this.selectedRequestHeader || this.selectedRequestHeader.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    let selectReqHdrs = this.selectedRequestHeader;
+    let arrReqIndex = [];
+    for (let index in selectReqHdrs) {
+      arrReqIndex.push(selectReqHdrs[index]);
+      if (selectReqHdrs[index].hasOwnProperty('hdrCondId')) {
+        this.httpHdrDelete.push(selectReqHdrs[index].hdrCondId);
+      }
+    }
+    this.deleteConditionFromTable(arrReqIndex);
+    this.selectedRequestHeader = [];
+  }
+
+  /**This method is used to delete BT HTTP Headers*/
+  deleteBTHTTPHeaders(): void {
+    if (!this.selectedHTTPHeaders || this.selectedHTTPHeaders.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected headers's headerId
+        let selectedApp = this.selectedHTTPHeaders;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].headerId);
         }
-        for (let index in arrReqIndex) {
-            rowIndex.push(this.getCondIndex(arrReqIndex[index]));
+        this.configKeywordsService.deleteBTHTTPHeaders(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteBtHttpHeaders(arrAppIndex);
+            this.selectedHTTPHeaders = [];
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  /**This method is used to delete headers from Data Table */
+  deleteBtHttpHeaders(arrIndex) {
+    let rowIndex: number[] = [];
+
+    for (let index in arrIndex) {
+      rowIndex.push(this.getHeadersIndex(arrIndex[index]));
+    }
+    this.btHttpHeadersInfo = deleteMany(this.btHttpHeadersInfo, rowIndex);
+  }
+
+  /**This method returns selected headers row on the basis of selected row */
+  getHeadersIndex(appId: any): number {
+    for (let i = 0; i < this.btHttpHeadersInfo.length; i++) {
+      if (this.btHttpHeadersInfo[i].headerId == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**This method is used to delete conditions from Data Table */
+  deleteConditionFromTable(arrReqIndex: any[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    if (arrReqIndex.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    for (let index in arrReqIndex) {
+      rowIndex.push(this.getCondIndex(arrReqIndex[index]));
+    }
+    this.headerConditionInfo = deleteMany(this.headerConditionInfo, rowIndex);
+  }
+
+  /**This method returns selected condition row on the basis of selected row */
+  getCondIndex(appId: any): number {
+    for (let i = 0; i < this.headerConditionInfo.length; i++) {
+      if (this.headerConditionInfo[i] == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  //Opens Edit conditions window
+  openEditReqDialog() {
+    if (!this.selectedRequestHeader || this.selectedRequestHeader.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+    }
+    else if (this.selectedRequestHeader.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit")
+    }
+    else {
+      this.isNewCond = false;
+      this.editConditions = true;
+      // this.addReqDialog = true;
+      // On opening edit conditions dialog, replacing '-' with ''
+      if (this.selectedRequestHeader[0].operation == "VALUE") {
+        this.selectedRequestHeader[0].btName = "";
+        this.selectedRequestHeader[0].hdrValue = "";
+      }
+      else if (this.selectedRequestHeader[0].operation == "OCCURS") {
+        this.selectedRequestHeader[0].hdrValue = "";
+      }
+      this.headerConditionDetail = Object.assign({}, this.selectedRequestHeader[0]);
+    }
+
+  }
+
+  //Closing conditions dialog
+  closeResponseDialog() {
+    this.addReqDialog = false;
+  }
+
+  //Closing BT HTTP Headers dialog
+  closeDialog2() {
+    this.addResReqHeaderDialog = false;
+  }
+
+
+
+
+
+  openFileManager() {
+    this.openFileExplorerDialog = true;
+    this.isbTHTTPHdrBrowse = true;
+  }
+
+  /** This method is called form ProductUI config-nd-file-explorer component with the path
+ ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
+
+  /* dialog window & set relative path */
+  uploadFile(filepath) {
+    if (this.isbTHTTPHdrBrowse == true) {
+      this.isbTHTTPHdrBrowse = false;
+      this.openFileExplorerDialog = false;
+      let fileNameWithExt: string;
+      let fileExt: string;
+      fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
+      fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
+      let check: boolean;
+      if (fileExt == ".btr" || fileExt == ".txt") {
+        check = true;
+      }
+      else {
+        check = false;
+      }
+      if (check == false) {
+        this.configUtilityService.errorMessage("File Extension(s) other than .txt and .btr are not supported");
+        return;
+      }
+
+      if (filepath.includes(";")) {
+        this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
+        return;
+      }
+      this.configKeywordsService.uploadBTHTTPHdrFile(filepath, this.profileId).subscribe(data => {
+        if (data.length == this.btHttpHeadersInfo.length) {
+          this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
         }
-        this.headerConditionInfo = deleteMany(this.headerConditionInfo, rowIndex);
+        this.btHttpHeadersInfo = data;
+        this.modifyData1(data);
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**Assign data to BT Response Headers table */
+  btResponseHeadersInfo: BTResponseHeaderData[];
+  btResponseHeadersDetail: BTResponseHeaderData;
+  selectedResponseHeaders: BTResponseHeaderData[];
+
+  /** Assign data to BT Response header conditions */
+  resHeaderConditionInfo: BTResponseHeaderConditions[];
+  resHeaderConditionDetail: BTResponseHeaderConditions;
+  selectedResponseHeader: BTResponseHeaderConditions[];
+
+  resHeaderType: SelectItem[];
+  resOperationName: SelectItem[];
+
+  addResReqHeaderDialog2: boolean = false;
+  addResDialog: boolean = false;
+
+  editResConditions: boolean = false;
+
+  //For checking if it is new row or existing
+  isNewResHeader: boolean = false;
+  isNewResCond: boolean = false;
+
+  responseHdrDelete = [];
+
+  //Counter for adding/editing conditions
+  resCondCount: number = 0;
+  resCondCountEdit: number = 0;
+
+  //opens add Response conditions dialog
+  openResDialog() {
+    this.addResDialog = true;
+    this.isNewResCond = true;
+    this.resHeaderConditionDetail = new BTResponseHeaderConditions();
+    this.loadOperationName2();
+  }
+
+  //Opens Add BT Response header dialog
+  openResHeader() {
+    this.btResponseHeadersDetail = new BTResponseHeaderData();
+    this.resHeaderConditionDetail = new BTResponseHeaderConditions();
+    this.isNewResHeader = true;
+    this.addResReqHeaderDialog2 = true;
+    this.resHeaderConditionInfo = [];
+    if (this.btResponseHeadersInfo == undefined)
+      this.btResponseHeadersInfo = [];
+    this.loadOperationName2();
+  }
+
+  //To load opeartion resOperationName
+  loadOperationName2() {
+    this.resOperationName = [];
+    var opName = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
+    var opVal = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
+
+    this.resOperationName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
+  }
+
+  //Method to add and edit BT Response headers data
+  saveAddEditResponseheaders() {
+    //When add new Response Headers
+    if (this.isNewResHeader) {
+
+      this.saveResponseHeaders();
     }
 
-    /**This method returns selected condition row on the basis of selected row */
-    getCondIndex(appId: any): number {
-        for (let i = 0; i < this.headerConditionInfo.length; i++) {
-            if (this.headerConditionInfo[i] == appId) {
-                return i;
-            }
+    //When add edit Response Headers
+    else {
+      this.editResponseHeader();
+    }
+  }
+
+  //Method to save new Response Headers
+  saveResponseHeaders() {
+    this.btResponseHeadersDetail.conditions = [];
+
+    this.btResponseHeadersDetail.conditions = this.resHeaderConditionInfo;
+    if (this.resHeaderConditionInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
+      return;
+    }
+    this.configKeywordsService.addBtResponseHeaders(this.btResponseHeadersDetail, this.profileId).subscribe(data => {
+      this.btResponseHeadersInfo = ImmutableArray.push(this.btResponseHeadersInfo, data);
+      this.configUtilityService.successMessage(addMessage);
+      this.modifyData2(this.btResponseHeadersInfo);
+
+    });
+    this.addResReqHeaderDialog2 = false;
+  }
+
+  //Method to edit Response Headers
+  editResponseHeader() {
+    if (this.resHeaderConditionInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
+      return;
+    }
+    this.btResponseHeadersDetail.conditions = this.resHeaderConditionInfo;
+    this.btResponseHeadersDetail.headerId = this.selectedResponseHeaders[0].headerId;
+    /****for edit case
+  *  first triggering the response to delete the  conditions and
+  *  when response comes then triggering response to add the new Response Headers
+  *
+  */
+    this.selectedResponseHeaders = [];
+    this.configKeywordsService.deleteResponseHdrConditions(this.responseHdrDelete).subscribe(data => {
+      let that = this;
+      //Edit call, sending row data to service
+      this.configKeywordsService.editBTResponseHeaders(this.btResponseHeadersDetail).subscribe(data => {
+
+        this.btResponseHeadersInfo.map(function (val) {
+          if (val.headerId == data.headerId) {
+            val.conditions = data.conditions;
+            val.hdrBtNames = data.hdrBtNames;
+            val.headerName = data.headerName;
+            val.headerValType = data.headerValType;
+            val.id = data.id;
+          }
+          // that.modifyData(val);
+          if (val.conditions != null && val.conditions.length != 0) {
+            let btNames = that.getBtNames2(val.conditions);
+            val.hdrBtNames = btNames
+          }
+          else {
+            val.hdrBtNames = "NA"
+          }
+
+        });
+        this.configUtilityService.successMessage(editMessage);
+      });
+    })
+    this.closeDialog3();
+  }
+
+  //Opens edit Response Headers dialog
+  openEditResponseHeader() {
+    this.selectedResponseHeader = [];
+    this.btResponseHeadersDetail = new BTResponseHeaderData();
+    if (!this.selectedResponseHeaders || this.selectedResponseHeaders.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+      return;
+    }
+    else if (this.selectedResponseHeaders.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit");
+      return;
+    }
+    else {
+      this.isNewResHeader = false;
+      this.addResReqHeaderDialog2 = true;
+      // this.editResConditions = true;
+      this.isNewResCond = true;
+      let that = this;
+      this.responseHdrDelete = [];
+      this.btResponseHeadersDetail = Object.assign({}, this.selectedResponseHeaders[0]);
+      this.loadOperationName2();
+      this.resHeaderConditionInfo = this.selectedResponseHeaders[0].conditions;
+      //providing Id for editing conditions in edit header form
+      this.resHeaderConditionInfo.map(function (val) {
+        val.id = that.resCondCountEdit;
+        that.resCondCountEdit = that.resCondCountEdit + 1;
+      })
+    }
+
+  }
+
+  //Method to show bt names seperated by commas in BT Response headers table
+  modifyData2(data) {
+    let that = this;
+    data.map(function (val) {
+      if (val.conditions != null && val.conditions.length != 0) {
+        let btNames = that.getBtNames2(val.conditions);
+        val.hdrBtNames = btNames
+      }
+      else {
+        val.hdrBtNames = "NA"
+      }
+    })
+    this.btResponseHeadersInfo = data
+  }
+
+
+  getBtNames2(data) {
+    let btNamesHref = '';
+    data.map(function (val, index) {
+      if (index != (data.length - 1)) {
+        if (val.btName == null) {
+          btNamesHref = btNamesHref + " - " + ",";
         }
-        return -1;
-    }
-
-    //Opens Edit conditions window
-    openEditReqDialog() {
-        if (!this.selectedRequestHeader || this.selectedRequestHeader.length < 1) {
-            this.configUtilityService.errorMessage("Select a row to edit");
+        else
+          btNamesHref = btNamesHref + val.btName + ",";
+      }
+      else {
+        if (val.btName == null) {
+          btNamesHref = btNamesHref + " - "
         }
-        else if (this.selectedRequestHeader.length > 1) {
-            this.configUtilityService.errorMessage("Select only one row to edit")
-        }
-        else {
-            this.isNewCond = false;
-            this.editConditions = true;
-            // this.addReqDialog = true;
-            // On opening edit conditions dialog, replacing '-' with ''
-            if (this.selectedRequestHeader[0].operation == "VALUE") {
-                this.selectedRequestHeader[0].btName = "";
-                this.selectedRequestHeader[0].hdrValue = "";
-            }
-            else if (this.selectedRequestHeader[0].operation == "OCCURS") {
-                this.selectedRequestHeader[0].hdrValue = "";
-            }
-            this.headerConditionDetail = Object.assign({}, this.selectedRequestHeader[0]);
-        }
+        else
+          btNamesHref = btNamesHref + val.btName
+      }
+    })
+    return btNamesHref;
+  }
 
+  //Method to add BT Response response conditions
+  saveConditions2() {
+    if (this.resHeaderConditionDetail.operation == "VALUE") {
+      this.resHeaderConditionDetail.btName = "-";
+      this.resHeaderConditionDetail.hdrValue = "-";
     }
-
-    //Closing conditions dialog
-    closeResponseDialog() {
-        this.addReqDialog = false;
+    if (this.resHeaderConditionDetail.operation == "OCCURS") {
+      this.resHeaderConditionDetail.hdrValue = "-";
     }
-
-    //Closing BT HTTP Headers dialog
-    closeDialog2() {
-        this.addResReqHeaderDialog = false;
-    }
-
-
-
-
-
-    openFileManager() {
-        this.openFileExplorerDialog = true;
-        this.isbTHTTPHdrBrowse = true;
-    }
-
-    /** This method is called form ProductUI config-nd-file-explorer component with the path
-   ..\ProductUI\gui\src\app\modules\file-explorer\components\config-nd-file-explorer\ */
-
-    /* dialog window & set relative path */
-    uploadFile(filepath) {
-        if (this.isbTHTTPHdrBrowse == true) {
-            this.isbTHTTPHdrBrowse = false;
-            this.openFileExplorerDialog = false;
-            let fileNameWithExt: string;
-            let fileExt: string;
-            fileNameWithExt = filepath.substring(filepath.lastIndexOf("/"), filepath.length)
-            fileExt = fileNameWithExt.substring(fileNameWithExt.lastIndexOf("."), fileNameWithExt.length);
-            let check: boolean;
-            if (fileExt == ".btr" || fileExt == ".txt") {
-                check = true;
-            }
-            else {
-                check = false;
-            }
-            if (check == false) {
-                this.configUtilityService.errorMessage("File Extension(s) other than .txt and .btr are not supported");
-                return;
-            }
-
-            if (filepath.includes(";")) {
-                this.configUtilityService.errorMessage("Multiple files cannot be imported at the same time");
-                return;
-            }
-            this.configKeywordsService.uploadBTHTTPHdrFile(filepath, this.profileId).subscribe(data => {
-                if (data.length == this.btHttpHeadersInfo.length) {
-                    this.configUtilityService.errorMessage("Could not upload. This file may already be imported or contains invalid data");
-                }
-                this.btHttpHeadersInfo = data;
-                this.modifyData1(data);
-            });
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**Assign data to BT Response Headers table */
-    btResponseHeadersInfo: BTResponseHeaderData[];
-    btResponseHeadersDetail: BTResponseHeaderData;
-    selectedResponseHeaders: BTResponseHeaderData[];
-
-    /** Assign data to BT Response header conditions */
-    resHeaderConditionInfo: BTResponseHeaderConditions[];
-    resHeaderConditionDetail: BTResponseHeaderConditions;
-    selectedResponseHeader: BTResponseHeaderConditions[];
-
-    resHeaderType: SelectItem[];
-    resOperationName: SelectItem[];
-
-    addResReqHeaderDialog2: boolean = false;
-    addResDialog: boolean = false;
-
-    editResConditions: boolean = false;
-
-    //For checking if it is new row or existing
-    isNewResHeader: boolean = false;
-    isNewResCond: boolean = false;
-
-    responseHdrDelete = [];
-
-    //Counter for adding/editing conditions
-    resCondCount: number = 0;
-    resCondCountEdit: number = 0;
-
-    //opens add Response conditions dialog
-    openResDialog() {
-        this.addResDialog = true;
+    //EDIT functionality
+    if (!this.isNewResHeader) {
+      if (this.editResConditions) {
+        //In edit form to edit conditions
+        this.isNewResCond = false;
+        this.editResConditions = false;
+        let that = this;
+        this.resHeaderConditionInfo.map(function (val) {
+          if (val.id == that.resHeaderConditionDetail.id) {
+            val.btName = that.resHeaderConditionDetail.btName;
+            val.hdrValue = that.resHeaderConditionDetail.hdrValue;
+            val.operation = that.resHeaderConditionDetail.operation;
+          }
+        });
+        this.selectedResponseHeader = [];
+      }
+
+      else {
+        //In edit form to add conditions
         this.isNewResCond = true;
-        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
-        this.loadOperationName2();
+        this.resHeaderConditionDetail["id"] = this.resCondCountEdit;
+        this.resHeaderConditionInfo = ImmutableArray.push(this.resHeaderConditionInfo, this.resHeaderConditionDetail);
+        this.resCondCountEdit = this.resCondCountEdit + 1;
+      }
     }
 
-    //Opens Add BT Response header dialog
-    openResHeader() {
-        this.btResponseHeadersDetail = new BTResponseHeaderData();
-        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
-        this.isNewResHeader = true;
-        this.addResReqHeaderDialog2 = true;
-        this.resHeaderConditionInfo = [];
-        if (this.btResponseHeadersInfo == undefined)
-            this.btResponseHeadersInfo = [];
-        this.loadOperationName2();
-    }
-
-    //To load opeartion resOperationName
-    loadOperationName2() {
-        this.resOperationName = [];
-        var opName = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
-        var opVal = ['EQUALS', 'OCCURS', 'VALUE', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH'];
-
-        this.resOperationName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
-    }
-
-    //Method to add and edit BT Response headers data
-    saveAddEditResponseheaders() {
-        //When add new Response Headers
-        if (this.isNewResHeader) {
-
-            this.saveResponseHeaders();
-        }
-
-        //When add edit Response Headers
-        else {
-            this.editResponseHeader();
-        }
-    }
-
-    //Method to save new Response Headers
-    saveResponseHeaders() {
-        this.btResponseHeadersDetail.conditions = [];
-
-        this.btResponseHeadersDetail.conditions = this.resHeaderConditionInfo;
-        if (this.resHeaderConditionInfo.length == 0) {
-            this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
-            return;
-        }
-        this.configKeywordsService.addBtResponseHeaders(this.btResponseHeadersDetail, this.profileId).subscribe(data => {
-            this.btResponseHeadersInfo = ImmutableArray.push(this.btResponseHeadersInfo, data);
-            this.configUtilityService.successMessage(addMessage);
-            this.modifyData2(this.btResponseHeadersInfo);
-
-        });
-        this.addResReqHeaderDialog2 = false;
-    }
-
-    //Method to edit Response Headers
-    editResponseHeader() {
-        if (this.resHeaderConditionInfo.length == 0) {
-            this.configUtilityService.errorMessage("Provide header conditions for selected Header name");
-            return;
-        }
-        this.btResponseHeadersDetail.conditions = this.resHeaderConditionInfo;
-        this.btResponseHeadersDetail.headerId = this.selectedResponseHeaders[0].headerId;
-        /****for edit case
-      *  first triggering the response to delete the  conditions and
-      *  when response comes then triggering response to add the new Response Headers
-      *
-      */
-        this.selectedResponseHeaders = [];
-        this.configKeywordsService.deleteResponseHdrConditions(this.responseHdrDelete).subscribe(data => {
-            let that = this;
-            //Edit call, sending row data to service
-            this.configKeywordsService.editBTResponseHeaders(this.btResponseHeadersDetail).subscribe(data => {
-
-                this.btResponseHeadersInfo.map(function (val) {
-                    if (val.headerId == data.headerId) {
-                        val.conditions = data.conditions;
-                        val.hdrBtNames = data.hdrBtNames;
-                        val.headerName = data.headerName;
-                        val.headerValType = data.headerValType;
-                        val.id = data.id;
-                    }
-                    // that.modifyData(val);
-                    if (val.conditions != null && val.conditions.length != 0) {
-                        let btNames = that.getBtNames2(val.conditions);
-                        val.hdrBtNames = btNames
-                    }
-                    else {
-                        val.hdrBtNames = "NA"
-                    }
-
-                });
-                this.configUtilityService.successMessage(editMessage);
-            });
-        })
-        this.closeDialog3();
-    }
-
-    //Opens edit Response Headers dialog
-    openEditResponseHeader() {
-        this.selectedResponseHeader = [];
-        this.btResponseHeadersDetail = new BTResponseHeaderData();
-        if (!this.selectedResponseHeaders || this.selectedResponseHeaders.length < 1) {
-            this.configUtilityService.errorMessage("Select a row to edit");
-            return;
-        }
-        else if (this.selectedResponseHeaders.length > 1) {
-            this.configUtilityService.errorMessage("Select only one row to edit");
-            return;
-        }
-        else {
-            this.isNewResHeader = false;
-            this.addResReqHeaderDialog2 = true;
-            // this.editResConditions = true;
-            this.isNewResCond = true;
-            let that = this;
-            this.responseHdrDelete = [];
-            this.btResponseHeadersDetail = Object.assign({}, this.selectedResponseHeaders[0]);
-            this.loadOperationName2();
-            this.resHeaderConditionInfo = this.selectedResponseHeaders[0].conditions;
-            //providing Id for editing conditions in edit header form
-            this.resHeaderConditionInfo.map(function (val) {
-                val.id = that.resCondCountEdit;
-                that.resCondCountEdit = that.resCondCountEdit + 1;
-            })
-        }
-
-    }
-
-    //Method to show bt names seperated by commas in BT Response headers table
-    modifyData2(data) {
+    //ADD functionality
+    else {
+      //In add form, to edit conditions
+      if (this.editResConditions) {
+        this.isNewResCond = false;
+        this.editResConditions = false;
         let that = this;
-        data.map(function (val) {
-            if (val.conditions != null && val.conditions.length != 0) {
-                let btNames = that.getBtNames2(val.conditions);
-                val.hdrBtNames = btNames
-            }
-            else {
-                val.hdrBtNames = "NA"
-            }
-        })
-        this.btResponseHeadersInfo = data
-    }
-
-
-    getBtNames2(data) {
-        let btNamesHref = '';
-        data.map(function (val, index) {
-            if (index != (data.length - 1)) {
-                if (val.btName == null) {
-                    btNamesHref = btNamesHref + " - " + ",";
-                }
-                else
-                    btNamesHref = btNamesHref + val.btName + ",";
-            }
-            else {
-                if (val.btName == null) {
-                    btNamesHref = btNamesHref + " - "
-                }
-                else
-                    btNamesHref = btNamesHref + val.btName
-            }
-        })
-        return btNamesHref;
-    }
-
-    //Method to add BT Response response conditions
-    saveConditions2() {
-        if (this.resHeaderConditionDetail.operation == "VALUE") {
-            this.resHeaderConditionDetail.btName = "-";
-            this.resHeaderConditionDetail.hdrValue = "-";
-        }
-        if (this.resHeaderConditionDetail.operation == "OCCURS") {
-            this.resHeaderConditionDetail.hdrValue = "-";
-        }
-        //EDIT functionality
-        if (!this.isNewResHeader) {
-            if (this.editResConditions) {
-                //In edit form to edit conditions
-                this.isNewResCond = false;
-                this.editResConditions = false;
-                let that = this;
-                this.resHeaderConditionInfo.map(function (val) {
-                    if (val.id == that.resHeaderConditionDetail.id) {
-                        val.btName = that.resHeaderConditionDetail.btName;
-                        val.hdrValue = that.resHeaderConditionDetail.hdrValue;
-                        val.operation = that.resHeaderConditionDetail.operation;
-                    }
-                });
-                this.selectedResponseHeader = [];
-            }
-
-            else {
-                //In edit form to add conditions
-                this.isNewResCond = true;
-                this.resHeaderConditionDetail["id"] = this.resCondCountEdit;
-                this.resHeaderConditionInfo = ImmutableArray.push(this.resHeaderConditionInfo, this.resHeaderConditionDetail);
-                this.resCondCountEdit = this.resCondCountEdit + 1;
-            }
-        }
-
-        //ADD functionality
-        else {
-            //In add form, to edit conditions
-            if (this.editResConditions) {
-                this.isNewResCond = false;
-                this.editResConditions = false;
-                let that = this;
-                this.resHeaderConditionInfo.map(function (val) {
-                    if (val.id == that.resHeaderConditionDetail.id) {
-                        val.btName = that.resHeaderConditionDetail.btName;
-                        val.hdrValue = that.resHeaderConditionDetail.hdrValue;
-                        val.operation = that.resHeaderConditionDetail.operation;
-                    }
-                });
-                this.selectedResponseHeader = [];
-            }
-
-            else {
-                //In add form to add conditions
-
-                this.isNewResCond = true;
-                this.resHeaderConditionDetail["id"] = this.resCondCount;
-                this.resHeaderConditionInfo = ImmutableArray.push(this.resHeaderConditionInfo, this.resHeaderConditionDetail);
-                this.resCondCount = this.resCondCount + 1;
-            }
-        }
-        this.addResDialog = false;
-        this.resHeaderConditionDetail = new BTResponseHeaderConditions();
-    }
-
-    //Method to delete response headers
-    deleteResHdr() {
-        if (!this.selectedResponseHeader || this.selectedResponseHeader.length < 1) {
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;
-        }
-        let selectResHdrs = this.selectedResponseHeader;
-        let arrResIndex = [];
-        for (let index in selectResHdrs) {
-            arrResIndex.push(selectResHdrs[index]);
-            if (selectResHdrs[index].hasOwnProperty('hdrCondId')) {
-                this.responseHdrDelete.push(selectResHdrs[index].hdrCondId);
-            }
-        }
-        this.deleteConditionFromTable2(arrResIndex);
-        this.selectedResponseHeader = [];
-    }
-
-    /**This method is used to delete BT Response Headers*/
-    deleteBTResponseHeaders(): void {
-        if (!this.selectedResponseHeaders || this.selectedResponseHeaders.length < 1) {
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;
-        }
-        this.confirmationService.confirm({
-            message: 'Do you want to delete the selected row?',
-            header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
-            accept: () => {
-                //Get Selected headers's headerId
-                let selectedApp = this.selectedResponseHeaders;
-                let arrAppIndex = [];
-                for (let index in selectedApp) {
-                    arrAppIndex.push(selectedApp[index].headerId);
-                }
-                this.configKeywordsService.deleteBTResponseHeaders(arrAppIndex, this.profileId)
-                    .subscribe(data => {
-                        this.deleteBtResponseHeaders(arrAppIndex);
-                        this.selectedResponseHeaders = [];
-                        this.configUtilityService.infoMessage("Deleted Successfully");
-                    })
-            },
-            reject: () => {
-            }
+        this.resHeaderConditionInfo.map(function (val) {
+          if (val.id == that.resHeaderConditionDetail.id) {
+            val.btName = that.resHeaderConditionDetail.btName;
+            val.hdrValue = that.resHeaderConditionDetail.hdrValue;
+            val.operation = that.resHeaderConditionDetail.operation;
+          }
         });
+        this.selectedResponseHeader = [];
+      }
+
+      else {
+        //In add form to add conditions
+
+        this.isNewResCond = true;
+        this.resHeaderConditionDetail["id"] = this.resCondCount;
+        this.resHeaderConditionInfo = ImmutableArray.push(this.resHeaderConditionInfo, this.resHeaderConditionDetail);
+        this.resCondCount = this.resCondCount + 1;
+      }
     }
+    this.addResDialog = false;
+    this.resHeaderConditionDetail = new BTResponseHeaderConditions();
+  }
 
-    /**This method is used to delete headers from Data Table */
-    deleteBtResponseHeaders(arrIndex) {
-        let rowIndex: number[] = [];
+  //Method to delete response headers
+  deleteResHdr() {
+    if (!this.selectedResponseHeader || this.selectedResponseHeader.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    let selectResHdrs = this.selectedResponseHeader;
+    let arrResIndex = [];
+    for (let index in selectResHdrs) {
+      arrResIndex.push(selectResHdrs[index]);
+      if (selectResHdrs[index].hasOwnProperty('hdrCondId')) {
+        this.responseHdrDelete.push(selectResHdrs[index].hdrCondId);
+      }
+    }
+    this.deleteConditionFromTable2(arrResIndex);
+    this.selectedResponseHeader = [];
+  }
 
-        for (let index in arrIndex) {
-            rowIndex.push(this.getHeadersIndex2(arrIndex[index]));
+  /**This method is used to delete BT Response Headers*/
+  deleteBTResponseHeaders(): void {
+    if (!this.selectedResponseHeaders || this.selectedResponseHeaders.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected headers's headerId
+        let selectedApp = this.selectedResponseHeaders;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].headerId);
         }
-        this.btResponseHeadersInfo = deleteMany(this.btResponseHeadersInfo, rowIndex);
+        this.configKeywordsService.deleteBTResponseHeaders(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteBtResponseHeaders(arrAppIndex);
+            this.selectedResponseHeaders = [];
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  /**This method is used to delete headers from Data Table */
+  deleteBtResponseHeaders(arrIndex) {
+    let rowIndex: number[] = [];
+
+    for (let index in arrIndex) {
+      rowIndex.push(this.getHeadersIndex2(arrIndex[index]));
+    }
+    this.btResponseHeadersInfo = deleteMany(this.btResponseHeadersInfo, rowIndex);
+  }
+
+  /**This method returns selected headers row on the basis of selected row */
+  getHeadersIndex2(appId: any): number {
+    for (let i = 0; i < this.btResponseHeadersInfo.length; i++) {
+      if (this.btResponseHeadersInfo[i].headerId == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**This method is used to delete conditions from Data Table */
+  deleteConditionFromTable2(arrResIndex: any[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    if (arrResIndex.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    for (let index in arrResIndex) {
+      rowIndex.push(this.getCondIndex2(arrResIndex[index]));
+    }
+    this.resHeaderConditionInfo = deleteMany(this.resHeaderConditionInfo, rowIndex);
+  }
+
+  /**This method returns selected condition row on the basis of selected row */
+  getCondIndex2(appId: any): number {
+    for (let i = 0; i < this.resHeaderConditionInfo.length; i++) {
+      if (this.resHeaderConditionInfo[i] == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  //Opens Edit conditions window
+  openEditResDialog() {
+    if (!this.selectedResponseHeader || this.selectedResponseHeader.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+    }
+    else if (this.selectedResponseHeader.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit")
+    }
+    else {
+      this.isNewResCond = false;
+      this.editResConditions = true;
+      // On opening edit conditions dialog, replacing '-' with ''
+      if (this.selectedResponseHeader[0].operation == "VALUE") {
+        this.selectedResponseHeader[0].btName = "";
+        this.selectedResponseHeader[0].hdrValue = "";
+      }
+      else if (this.selectedResponseHeader[0].operation == "OCCURS") {
+        this.selectedResponseHeader[0].hdrValue = "";
+      }
+      this.resHeaderConditionDetail = Object.assign({}, this.selectedResponseHeader[0]);
     }
 
-    /**This method returns selected headers row on the basis of selected row */
-    getHeadersIndex2(appId: any): number {
-        for (let i = 0; i < this.btResponseHeadersInfo.length; i++) {
-            if (this.btResponseHeadersInfo[i].headerId == appId) {
-                return i;
+  }
+
+  //Closing BT Response Headers dialog
+  closeDialog3() {
+    this.addResReqHeaderDialog2 = false;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Table data for HTTP body
+  httpBodyInfo: BTHTTPBody[];
+
+  //Table row data for HTTP Body
+  httpBodyDetail: BTHTTPBody;
+
+  //Selected row(s) data for HTTP Body
+  selectedHttpBody: BTHTTPBody[];
+
+  // Table data for HTTP Body cond
+  condInfo: BTHTTPBodyConditions[] = [];
+
+  //Table row data for HTTP Body cond
+  condDetail: BTHTTPBodyConditions;
+
+  //Selecteed row(s) data for HTTP Body cond
+  selectedCond: BTHTTPBodyConditions[];
+
+  //New HTTP Body rule
+  isNewBodyRule: boolean = false;
+  isNewBodyCond: boolean = false;
+  addCondDialog: boolean = false;
+  editcond: boolean = false;
+
+  addNewRuleDialog: boolean = false;
+  httpBodyDelete = [];
+
+  btNameList: SelectItem[];
+  opCodeName: SelectItem[];
+  dataType: SelectItem[];
+
+  //Counter for adding/editing cond
+  condBodyCount: number = 0;
+  condBodyCountEdit: number = 0;
+
+  disableDataType: boolean = false;
+
+
+  //Open add dialog for BT HTTP body
+  openAddNewBodyRule() {
+    this.isNewBodyRule = true;
+    this.httpBodyDetail = new BTHTTPBody();
+    this.condDetail = new BTHTTPBodyConditions();
+    this.loadopCodeName()
+    this.addNewRuleDialog = true;
+    this.condInfo = []
+    this.disableDataType = false
+
+  }
+
+  //Method to add and edit BT HTTP body data
+  saveAddEditHttpBody() {
+    //When add new HTTP body
+    if (this.isNewBodyRule) {
+      if (this.checkXpathAlreadyExist()) {
+        return;
+      }
+      this.saveHttpBody();
+    }
+
+    //When add edit HTTP body
+    else {
+      if (this.selectedHttpBody[0].xpath != this.httpBodyDetail.xpath) {
+        if (this.checkXpathAlreadyExist()) {
+          return;
+        }
+      }
+      this.editHttpBody();
+    }
+  }
+
+  //Open edit dialog for BT HTTP body
+  openEditHttpBody() {
+    this.httpBodyDetail = new BTHTTPBody();
+    this.condDetail = new BTHTTPBodyConditions();
+    if (!this.selectedHttpBody || this.selectedHttpBody.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+      return;
+    }
+    else if (this.selectedHttpBody.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit");
+      return;
+    }
+    else {
+      this.isNewBodyRule = false;
+      this.addNewRuleDialog = true;
+      this.isNewBodyCond = true;
+      let that = this;
+      this.httpBodyDelete = [];
+      this.httpBodyDetail = Object.assign({}, this.selectedHttpBody[0]);
+      this.loadopCodeName();
+      this.condInfo = this.selectedHttpBody[0].cond;
+      //providing id for editing cond in edit body form
+      this.condInfo.map(function (val) {
+        val.id = that.condBodyCountEdit;
+        that.condBodyCountEdit = that.condBodyCountEdit + 1;
+      })
+    }
+    this.disableDataType = true;
+    // this.selectedHttpBody = [];
+
+  }
+
+  //opens add http body condition dialog
+  openCondDialog() {
+    if (this.httpBodyDetail.dataType == null) {
+      this.configUtilityService.errorMessage("Select Data Type")
+      return
+    }
+    // this.addCondDialog = true;
+    // this.isNewBodyCond = true;
+    // this.condDetail = new BTHTTPBodyConditions();
+    // this.loadopCodeName();
+  }
+
+  //Opens Edit condition window
+  openEditCondDialog() {
+    if (!this.selectedCond || this.selectedCond.length < 1) {
+      this.configUtilityService.errorMessage("Select a row to edit");
+    }
+    else if (this.selectedCond.length > 1) {
+      this.configUtilityService.errorMessage("Select only one row to edit")
+    }
+    else {
+      this.isNewBodyCond = false;
+      this.editcond = true;
+      // this.addCondDialog = true;
+
+      this.condDetail = Object.assign({}, this.selectedCond[0]);
+      this.loadopCodeName()
+      if (this.selectedCond[0].btName == '-')
+        this.condDetail.btName = '';
+
+      if (this.selectedCond[0].value == '-')
+        this.condDetail.value = '';
+
+      this.condDetail.opCode = this.selectedCond[0].opCode;
+    }
+
+  }
+
+
+  //MEthod to save/edit BT HTTP body conditions
+  saveBodyConditions() {
+    if (this.condDetail.btName == '' || this.condDetail.btName == null) {
+      this.condDetail.btName = "-"
+    }
+    if (this.condDetail.opCode == 'VALUE') {
+      this.condDetail.value = "-"
+    }
+    //EDIT functionality
+    if (!this.isNewBodyRule) {
+      if (this.editcond) {
+        //In edit form to edit cond
+        // Purpose: The below if block is required for checking redundancy for  BT Name 
+        if (this.selectedCond[0].btName != this.condDetail.btName) {
+          if (this.checkBodybtNameAlreadyExist()) {
+            return;
+          }
+        }
+
+        this.isNewBodyCond = false;
+        this.editcond = false;
+        let that = this;
+        this.condInfo.map(function (val) {
+          if (val.id == that.condDetail.id) {
+            val.btName = that.condDetail.btName;
+            val.value = that.condDetail.value;
+            val.opCode = that.condDetail.opCode;
+          }
+        });
+        this.selectedCond = [];
+      }
+
+      else {
+        if (this.checkBodybtNameAlreadyExist()) {
+          return;
+        }
+        this.isNewBodyCond = true;
+        this.condDetail["id"] = this.condBodyCountEdit;
+        this.condInfo = ImmutableArray.push(this.condInfo, this.condDetail);
+        this.condBodyCountEdit = this.condBodyCountEdit + 1;
+      }
+    }
+
+    //ADD functionality
+    else {
+      //In add form, to edit cond
+      if (this.editcond) {
+        // Purpose: The below if block is required for checking redundancy for Bt Name
+        if (this.selectedCond[0].btName != this.condDetail.btName) {
+          if (this.checkBodybtNameAlreadyExist()) {
+            return;
+          }
+        }
+        this.isNewBodyCond = false;
+        this.editcond = false;
+        let that = this;
+        this.condInfo.map(function (val) {
+          if (val.id == that.condDetail.id) {
+            val.btName = that.condDetail.btName;
+            val.value = that.condDetail.value;
+            val.opCode = that.condDetail.opCode;
+          }
+        });
+        this.selectedCond = [];
+      }
+
+      else {
+        if (this.checkBodybtNameAlreadyExist()) {
+          return;
+        }
+        else //In add form to add cond
+        {
+          this.isNewBodyCond = true;
+          this.condDetail["id"] = this.condBodyCount;
+          this.condInfo = ImmutableArray.push(this.condInfo, this.condDetail);
+          this.condBodyCount = this.condBodyCount + 1;
+        }
+      }
+    }
+    this.disableDataType = true;
+    this.addCondDialog = false;
+    this.condDetail = new BTHTTPBodyConditions();
+  }
+
+
+  //To load operation code dropdown
+  loadopCodeName() {
+
+    this.dataType = [];
+    this.condDetail.opCode = null
+    var dataName = ['Numeric', 'String or Object', 'Boolean', 'Value'];
+    var dataVal = ['0', '1', '2', '4'];
+
+    this.dataType = ConfigUiUtility.createListWithKeyValue(dataName, dataVal);
+
+    this.opCodeName = [];
+    if (this.httpBodyDetail.dataType == '0') {
+      var opName = ['Equals', 'Not equals', 'Less than', 'Greater than', 'Less than equal to', 'Greater than equal to', 'EXCEPTION'];
+      var opVal = ['EQ', 'NE', 'LT', 'GT', 'LE', 'GE', 'EXCEPTION'];
+    }
+    else if (this.httpBodyDetail.dataType == '1') {
+      var opName = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+      var opVal = ['EQUALS', 'NOT_EQUALS', 'CONTAINS', 'STARTS_WITH', 'ENDS_WITH', 'EXCEPTION'];
+    }
+    else if (this.httpBodyDetail.dataType == '2') {
+      var opName = ['TRUE', 'FALSE', 'EXCEPTION'];
+      var opVal = ['TRUE', 'FALSE', 'EXCEPTION'];
+    }
+    else if (this.httpBodyDetail.dataType == '4') {
+      var opName = ['VALUE'];
+      var opVal = ['VALUE'];
+    }
+
+    this.opCodeName = ConfigUiUtility.createListWithKeyValue(opName, opVal);
+  }
+
+  //Method to check redundancy for BT Name
+  checkBodybtNameAlreadyExist(): boolean {
+    for (let i = 0; i < this.condInfo.length; i++) {
+      if (this.condInfo[i].btName == this.condDetail.btName) {
+        this.configUtilityService.errorMessage("BT Name already exist");
+        return true;
+      }
+    }
+  }
+
+  //Method to delete http body conditions
+  deleteConditions() {
+    if (!this.selectedCond || this.selectedCond.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    let selectCond = this.selectedCond;
+    let arrCondIndex = [];
+    for (let index in selectCond) {
+      arrCondIndex.push(selectCond[index]);
+      if (selectCond[index].hasOwnProperty('condId')) {
+        this.httpBodyDelete.push(selectCond[index].condId);
+      }
+    }
+    this.deleteBodyConditionFromTable(arrCondIndex);
+    this.selectedCond = [];
+    if (this.condInfo.length == 0) {
+      this.disableDataType = false;
+    }
+  }
+
+  /**This method is used to delete cond from Data Table */
+  deleteBodyConditionFromTable(arrCondIndex: any[]): void {
+    //For stores table row index
+    let rowIndex: number[] = [];
+
+    if (arrCondIndex.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    for (let index in arrCondIndex) {
+      rowIndex.push(this.getBodyCondIndex(arrCondIndex[index]));
+    }
+    this.condInfo = deleteMany(this.condInfo, rowIndex);
+  }
+
+  /**This method returns selected condition row on the basis of selected row */
+  getBodyCondIndex(appId: any): number {
+    for (let i = 0; i < this.condInfo.length; i++) {
+      if (this.condInfo[i] == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  //Method to save new HTTP Body
+  saveHttpBody() {
+    this.httpBodyDetail.cond = [];
+
+    this.httpBodyDetail.cond = this.condInfo;
+    if (this.condInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide condition(s) for selected Body rule");
+      return;
+    }
+    this.configKeywordsService.addBtHttpBody(this.httpBodyDetail, this.profileId).subscribe(data => {
+      this.httpBodyInfo = ImmutableArray.push(this.httpBodyInfo, data);
+
+      this.configUtilityService.successMessage(addMessage);
+      this.modifyBodyData(this.httpBodyInfo);
+
+    });
+    this.addNewRuleDialog = false;
+  }
+
+  //Method to check redundancy for XPath
+  checkXpathAlreadyExist(): boolean {
+    for (let i = 0; i < this.httpBodyInfo.length; i++) {
+      if (this.httpBodyInfo[i].xpath == this.httpBodyDetail.xpath) {
+        this.configUtilityService.errorMessage("X Path already exists");
+        return true;
+      }
+    }
+  }
+
+  /**This method is used to delete BT HTTP Body*/
+  deleteBTHTTPBody(): void {
+    if (!this.selectedHttpBody || this.selectedHttpBody.length < 1) {
+      this.configUtilityService.errorMessage("Select row(s) to delete");
+      return;
+    }
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the selected row?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        //Get Selected body's id
+        let selectedApp = this.selectedHttpBody;
+        let arrAppIndex = [];
+        for (let index in selectedApp) {
+          arrAppIndex.push(selectedApp[index].id);
+        }
+        this.configKeywordsService.deleteBTHTTPBody(arrAppIndex, this.profileId)
+          .subscribe(data => {
+            this.deleteBtHttpBody(arrAppIndex);
+            this.selectedHttpBody = [];
+            this.configUtilityService.infoMessage("Deleted Successfully");
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  /**This method is used to delete body from Data Table */
+  deleteBtHttpBody(arrIndex) {
+    let rowIndex: number[] = [];
+
+    for (let index in arrIndex) {
+      rowIndex.push(this.getBodyIndex(arrIndex[index]));
+    }
+    this.httpBodyInfo = deleteMany(this.httpBodyInfo, rowIndex);
+  }
+
+  /**This method returns selected body row on the basis of selected row */
+  getBodyIndex(appId: any): number {
+    for (let i = 0; i < this.httpBodyInfo.length; i++) {
+      if (this.httpBodyInfo[i].id == appId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  //Method to show bt names seperated by commas in BT HTTP body table
+  modifyBodyData(data) {
+    let that = this;
+    data.map(function (val) {
+      if (val.cond != null && val.cond.length != 0) {
+        let btNames = that.getBodybtNames(val.cond);
+        val.bodyBtNames = btNames
+      }
+      else {
+        val.bodyBtNames = "NA"
+      }
+    })
+    this.httpBodyInfo = data
+  }
+
+  getBodybtNames(data) {
+    let btNamesHref = '';
+    data.map(function (val, index) {
+      if (index != (data.length - 1)) {
+        if (val.btName == null) {
+          btNamesHref = btNamesHref + " - " + ",";
+        }
+        else
+          btNamesHref = btNamesHref + val.btName + ",";
+      }
+      else {
+        if (val.btName == null) {
+          btNamesHref = btNamesHref + " - "
+        }
+        else
+          btNamesHref = btNamesHref + val.btName
+      }
+    })
+    return btNamesHref;
+  }
+
+  //Method to edit HTTP Body
+  editHttpBody() {
+    if (this.condInfo.length == 0) {
+      this.configUtilityService.errorMessage("Provide conditions for selected HTTP Body");
+      return;
+    }
+    this.httpBodyDetail.cond = this.condInfo;
+    this.httpBodyDetail.id = this.selectedHttpBody[0].id;
+    /****for edit case
+  *  first triggering the request to delete the  cond and
+  *  when response comes then triggering request to add the new HTTP Body
+  *
+  */
+    this.selectedHttpBody = [];
+    this.configKeywordsService.deleteHTTPBodyConditions(this.httpBodyDelete).subscribe(data => {
+      let that = this;
+      //Edit call, sending row data to service
+      this.configKeywordsService.editBTHTTPBody(this.httpBodyDetail).subscribe(data => {
+
+        this.httpBodyInfo.map(function (val) {
+          if (val.id == data.id) {
+            val.cond = data.cond;
+            val.bodyType = data.bodyType;
+            val.xpath = data.xpath;
+            val.bodyBtNames = data.bodyBtNames
+            val.id = data.id;
+          }
+          if (val.cond != null && val.cond.length != 0) {
+            let btNames = that.getBodybtNames(val.cond);
+            val.bodyBtNames = btNames
+          }
+          else {
+            val.bodyBtNames = "NA"
+          }
+
+        });
+        this.configUtilityService.successMessage(editMessage);
+      });
+    })
+    this.closeBodyDialog();
+  }
+
+  //To check if data type drop down is disabled
+  checkIfDisabled() {
+
+    if (this.disableDataType == true) {
+      this.configUtilityService.infoMessage("Delete configured rule(s) to change Data Type")
+      return;
+    }
+  }
+
+  //Closing BT HTTP Body dialog
+  closeBodyDialog() {
+    this.addNewRuleDialog = false;
+  }
+
+
+  //When Add BT Pattern dialog cancel or(X) button is clicked then if any table has entries then delete those entries from backend
+  cancelDialog() {
+    console.log("called hide method")
+
+    //Ask user if he really wants to close the dialog or not if there is entry in any table
+    if (this.businessTransMethodInfo.length > 0 || this.btResponseHeadersInfo.length > 0 || this.btHttpHeadersInfo.length > 0 || this.httpBodyInfo.length > 0) {
+
+      this.confirmationService.confirm({
+        message: "Are you surer want to discard changes made?",
+        header: "Discard changes",
+        icon: "fa fa-trash",
+        accept: () => {
+
+          //Check if BT Method has any entries or not, if yes then delete those entries from table
+          if (this.businessTransMethodInfo.length > 0) {
+            let arrAppIndex = [];
+            for (let index in this.businessTransMethodInfo) {
+              arrAppIndex.push(this.businessTransMethodInfo[index].btMethodId);
             }
-        }
-        return -1;
-    }
+            this.configKeywordsService.deleteBusinessTransMethodData(arrAppIndex, this.profileId)
+              .subscribe(data => {
+                this.deleteMethodsBusinessTransactions(arrAppIndex);
+              })
+          }
 
-    /**This method is used to delete conditions from Data Table */
-    deleteConditionFromTable2(arrResIndex: any[]): void {
-        //For stores table row index
-        let rowIndex: number[] = [];
-
-       if(arrResIndex.length < 1){
-            this.configUtilityService.errorMessage("Select row(s) to delete");
-            return;    
-        }
-       for (let index in arrResIndex) {
-            rowIndex.push(this.getCondIndex2(arrResIndex[index]));
-        }
-        this.resHeaderConditionInfo = deleteMany(this.resHeaderConditionInfo, rowIndex);
-    }
-
-    /**This method returns selected condition row on the basis of selected row */
-    getCondIndex2(appId: any): number {
-        for (let i = 0; i < this.resHeaderConditionInfo.length; i++) {
-            if (this.resHeaderConditionInfo[i] == appId) {
-                return i;
+          //Check if there is any entry in BT HTTP response headers
+          if (this.btResponseHeadersInfo.length > 0) {
+            let arrAppIndex = [];
+            for (let index in this.btResponseHeadersInfo) {
+              arrAppIndex.push(this.btResponseHeadersInfo[index].headerId);
             }
-        }
-        return -1;
-    }
+            this.configKeywordsService.deleteBTResponseHeaders(arrAppIndex, this.profileId)
+              .subscribe(data => {
+                this.deleteBtResponseHeaders(arrAppIndex);
+              })
+          }
 
-    //Opens Edit conditions window
-    openEditResDialog() {
-        if (!this.selectedResponseHeader || this.selectedResponseHeader.length < 1) {
-            this.configUtilityService.errorMessage("Select a row to edit");
-        }
-        else if (this.selectedResponseHeader.length > 1) {
-            this.configUtilityService.errorMessage("Select only one row to edit")
-        }
-        else {
-            this.isNewResCond = false;
-            this.editResConditions = true;
-            // On opening edit conditions dialog, replacing '-' with ''
-            if (this.selectedResponseHeader[0].operation == "VALUE") {
-                this.selectedResponseHeader[0].btName = "";
-                this.selectedResponseHeader[0].hdrValue = "";
+          //Check if there is any entry of BT HTTP Request headers
+          if (this.btHttpHeadersInfo.length > 0) {
+            let arrAppIndex = [];
+            for (let index in this.btHttpHeadersInfo) {
+              arrAppIndex.push(this.btHttpHeadersInfo[index].headerId);
             }
-            else if (this.selectedResponseHeader[0].operation == "OCCURS") {
-                this.selectedResponseHeader[0].hdrValue = "";
+            this.configKeywordsService.deleteBTHTTPHeaders(arrAppIndex, this.profileId)
+              .subscribe(data => {
+                this.deleteBtHttpHeaders(arrAppIndex);
+              })
+          }
+
+          //Check if there  is any entry of BT HTTP Body
+          if (this.httpBodyInfo.length > 0) {
+            let arrAppIndex = [];
+            for (let index in this.httpBodyInfo) {
+              arrAppIndex.push(this.httpBodyInfo[index].id);
             }
-            this.resHeaderConditionDetail = Object.assign({}, this.selectedResponseHeader[0]);
+            this.configKeywordsService.deleteBTHTTPBody(arrAppIndex, this.profileId)
+              .subscribe(data => {
+                this.deleteBtHttpBody(arrAppIndex);
+              })
+          }
+          this.configUtilityService.infoMessage("Changes discarded")
+        },
+        reject: () => {
+          this.addEditPatternDialog = true
         }
 
+      })
     }
-
-    //Closing BT Response Headers dialog
-    closeDialog3() {
-        this.addResReqHeaderDialog2 = false;
-    }
+  }
 }
 
+//It will convert the values of data type from 0, 1, 2 and 4 to Numeric, String or Object, Boolean and Value respectively
+@Pipe({ name: 'dataTypeVal' })
+export class PipeForDataType implements PipeTransform {
 
-
-
-
-
-
-
-
-
-
-
+  transform(value: string): string {
+    let label = "";
+    if (value == '0')
+      label = 'Numeric';
+    if (value == '1')
+      label = 'String or Object';
+    if (value == '2')
+      label = 'Boolean';
+    if (value == '4')
+      label = 'Value'
+    return label;
+  }
+}

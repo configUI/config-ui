@@ -55,6 +55,10 @@ export class ConfigProfileListComponent implements OnInit {
     /** Get list of applied profile in the application */
     this.configProfileService.getListOfAppliedProfile((data) => {
       this.appliedProfileList = data
+      this.appliedProfileList = this.appliedProfileList.filter((name) => {
+        if(name != 'default_Java' && name != 'default_NodeJS' && name != 'default_DotNet' && name != 'default_Php' && name != 'default_Python' )
+          return name;
+      })
       this.loadProfileList();
       this.loadAgentList();
       this.configKeywordsService.fileListProvider.subscribe(data => {

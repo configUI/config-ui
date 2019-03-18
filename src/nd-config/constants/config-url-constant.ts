@@ -404,6 +404,8 @@ export const LOGGED_USER_NAME = `${SERVICE_URL}/home/getusername`;
  export const EDIT_BTHTTP_BODY = `${SERVICE_URL}/custom/bthttpbody/editbthttpbody`;
  export const DEL_HTTP_BODY_COND = `${SERVICE_URL}/custom/bthttpbody/deletebthttpbodycond`;
  export const DELETE_BT_BODY = `${SERVICE_URL}/custom/bthttpbody/delete`;
+ export const UPDATE_BODY_PARENT_ID = `${SERVICE_URL}/custom/bthttpbody/updateparentid`;
+export const GET_ASSOC_HTTP_BODY = `${SERVICE_URL}/custom/bthttpbody/getassochttpbody`;
 
  /** URL for NDE Cluster Configuration */
  export const ADD_NDE_URL = `${SERVICE_URL}/custom/ndeclusterconfig/savende`;

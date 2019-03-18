@@ -488,12 +488,10 @@ export class ConfigTreeDetailComponent implements OnInit {
       })
     }
   else if (this.currentEntity == CONS.TOPOLOGY.TIERGROUP) {
-    //if tiergrp id is null then send -1 
-    let id;
-    if(null == this.topoData.tierGroupId)
-      id = -1;
-    else
+    let id = -1
+    if(this.topoData.tierGroupId != null){
       id = this.topoData.tierGroupId
+    }
     this.configTopologyService.checkChildProfile(id, this.currentEntity, this.topoData.tierGroupName, this.topologyName).subscribe(data => { 
       this.showInfo(data);
 

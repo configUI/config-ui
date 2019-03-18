@@ -29,6 +29,9 @@ export class FlowpathComponent implements OnInit, OnDestroy {
   javaKeywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP', 'enableMethodBreakDownTime', 'methodResponseTimeFilter', 'dumpOnlyMethodExitInFP', 'enableFPMethodStackTrace'];
   dotNetKeywordList = ['bciInstrSessionPct', 'enableCpuTime', 'correlationIDHeader', 'captureMethodForAllFP'];
   NodeJSkeywordList = ['bciInstrSessionPct', 'correlationIDHeader', 'excludeMethodOnRespTime'];
+  //For Php && Python
+  PhpKeywordList = ['bciInstrSessionPct', 'enableCpuTime','captureMethodForAllFP'];
+  PythonKeywordList = ['bciInstrSessionPct', 'enableCpuTime','captureMethodForAllFP'];
 
   flowPath: Object;
   cpuTime: string = '1';
@@ -129,6 +132,40 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.configKeywordsService.toggleKeywordData();
       });
     }
+    else if(this.agentType == 'Php') {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        let keywordDataVal = {}
+        this.PhpKeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.flowPath = keywordDataVal;
+        if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+          this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
+          this.childCpuFp = true;
+        }
+        else {
+          this.cpuTime = this.flowPath['enableCpuTime'].value
+        }
+        this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+      });
+    }
+    else if(this.agentType == 'Python') {
+      this.subscription = this.store.select("keywordData").subscribe(data => {
+        let keywordDataVal = {}
+        this.PythonKeywordList.map(function (key) {
+          keywordDataVal[key] = data[key];
+        })
+        this.flowPath = keywordDataVal;
+        if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+          this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
+          this.childCpuFp = true;
+        }
+        else {
+          this.cpuTime = this.flowPath['enableCpuTime'].value
+        }
+        this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+      });
+    }
     else {
       this.subscription = this.store.select("keywordData").subscribe(data => {
         var keywordDataVal = {}
@@ -149,7 +186,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+  // NodeJSkeywordList = ['bciInstrSessionPct', 'correlationIDHeader', 'excludeMethodOnRespTime'];
   saveKeywordData() {
     if (this.agentType == 'NodeJS') {
       if (this.excludeMethodOnRespTimeChk) {
@@ -208,6 +245,7 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
       }
     }
+    //Here, It is for common i.e Java,NodeJS,.NET ,Php and Python
     else {
       if (this.captureMethodForAllFPChk) {
         this.flowPath["captureMethodForAllFP"].value = 1;
@@ -223,11 +261,12 @@ export class FlowpathComponent implements OnInit, OnDestroy {
         this.flowPath['enableCpuTime'].value = this.cpuTime + "%201";
       }
     }
-
+  if(this.agentType == 'Java' || this.agentType == 'Dot Net' || this.agentType == 'NodeJS'){
     if (this.correlationIDHeader != null && this.correlationIDHeader != "" && this.correlationIDHeader != "-")
       this.flowPath["correlationIDHeader"].value = this.correlationIDHeader;
     else
       this.flowPath["correlationIDHeader"].value = this.flowPath["correlationIDHeader"].defaultValue;
+  }
     this.keywordData.emit(this.flowPath);
   }
 
@@ -333,6 +372,18 @@ export class FlowpathComponent implements OnInit, OnDestroy {
       this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
 
     }
+    //For Php and Python
+    else if (this.agentType == "Php" || this.agentType == "Python") {
+      if (this.flowPath['enableCpuTime'].value.includes("%20")) {
+        this.cpuTime = this.flowPath['enableCpuTime'].value.substring(0, 1);
+        this.childCpuFp = true;
+      }
+      else {
+        this.cpuTime = this.flowPath['enableCpuTime'].value;
+        this.childCpuFp = false;
+      }
+      this.captureMethodForAllFPChk = this.flowPath["captureMethodForAllFP"].value == 0 ? false : true;
+    }
     else {
       this.correlationIDHeader = this.flowPath["correlationIDHeader"].value;
       if (this.flowPath['enableCpuTime'].value.includes("%20")) {
@@ -361,6 +412,23 @@ export class FlowpathComponent implements OnInit, OnDestroy {
     else if (this.agentType == 'Java') {
       for (let key in data) {
         if (this.javaKeywordList.includes(key)) {
+          this.flowPath[key].value = data[key].defaultValue;
+        }
+      }
+      this.methodToSetValues(this.flowPath);
+    }
+    //For Php and Python
+    else if (this.agentType == 'Php' || this.agentType == 'Python') {
+      for (let key in data) {
+        if (this.PhpKeywordList.includes(key)) {
+          this.flowPath[key].value = data[key].defaultValue;
+        }
+      }
+      this.methodToSetValues(this.flowPath);
+    }
+    else if (this.agentType == 'Python') {
+      for (let key in data) {
+        if (this.PythonKeywordList.includes(key)) {
           this.flowPath[key].value = data[key].defaultValue;
         }
       }
