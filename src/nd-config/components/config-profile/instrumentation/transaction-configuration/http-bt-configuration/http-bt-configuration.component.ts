@@ -579,26 +579,34 @@ export class HTTPBTConfigurationComponent implements OnInit {
             break;
           }
         }
+        if (this.businessTransMethodInfo.length > 0) {
 
-        //UPDATE BT METHOD PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data => {
+          //UPDATE BT METHOD PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
+          this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data => {
 
-        })
+          })
+        }
+        if (this.btHttpHeadersInfo.length > 0) {
 
-        //UPDATE BT HTTP REQUES HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo).subscribe(data => {
+          //UPDATE BT HTTP REQUES HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
+          this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo).subscribe(data => {
 
-        })
+          })
+        }
+        if (this.btResponseHeadersInfo.length > 0) {
 
-        //UPDATE BT HTTP RESPONSE HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo).subscribe(data => {
+          //UPDATE BT HTTP RESPONSE HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
+          this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo).subscribe(data => {
 
-        })
+          })
+        }
+        if (this.httpBodyInfo.length > 0) {
 
-        //UPDATE BT HTTP BODY PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo).subscribe(data => {
+          //UPDATE BT HTTP BODY PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
+          this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo).subscribe(data => {
 
-        })
+          })
+        }
 
         this.configUtilityService.successMessage(addMessage);
       });
