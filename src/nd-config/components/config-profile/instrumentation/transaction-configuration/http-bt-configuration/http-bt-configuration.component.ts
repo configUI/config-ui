@@ -17,6 +17,8 @@ import { KeywordData, KeywordList } from '../../../../../containers/keyword-data
 import { Messages, addMessage, editMessage } from '../../../../../constants/config-constant';
 import { ConfigHomeService } from '../../../../../services/config-home.service';
 import { ArgumentTypeData, MethodBasedCustomData } from '../../../../../containers/method-based-custom-data';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-http-bt-configuration',
@@ -457,7 +459,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
     );
   }
 
-
+  
   /**
    * This method is used to save the newly added BT Pattern
    */
@@ -567,46 +569,51 @@ export class HTTPBTConfigurationComponent implements OnInit {
         // The below method is called to set all values that contains "-" to null
         this.methodToSetValuesForGUI(data);
         //Insert data in main table after inserting application in DB
-        this.businessTransPatternInfo = data
+        // this.businessTransPatternInfo = data
 
         //get the currently added btpattern from the response
         let currentId = 0;
         let currentRuleId = 0;
-        for (let row of this.businessTransPatternInfo) {
+        for (let row of data) {
           if (row.btName == this.businessTransPatternDetail.btName && row.urlName == this.businessTransPatternDetail.urlName) {
             currentId = row.id;
             currentRuleId = row.btRuleId;
             break;
           }
         }
+        let observables = [];
+        var index = 0;
         if (this.businessTransMethodInfo.length > 0) {
-
           //UPDATE BT METHOD PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-          this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data => {
-
-          })
+          observables.push(this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo))
         }
         if (this.btHttpHeadersInfo.length > 0) {
-
+          
           //UPDATE BT HTTP REQUES HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-          this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo).subscribe(data => {
-
-          })
+          observables.push(this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo))
+          
         }
         if (this.btResponseHeadersInfo.length > 0) {
-
           //UPDATE BT HTTP RESPONSE HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-          this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo).subscribe(data => {
-
-          })
+          observables.push(this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo))
         }
         if (this.httpBodyInfo.length > 0) {
-
           //UPDATE BT HTTP BODY PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-          this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo).subscribe(data => {
+          observables.push(this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo))
 
-          })
         }
+
+        // if(index == observables.length)
+        // {
+        //   this.loadBTPatternData();
+        // }
+        //calling this method after all requests are executed
+        Observable.forkJoin(observables).subscribe((resp) => {
+          console.log("resp ", resp);
+          // resp.forEach()
+          
+          this.loadBTPatternData();
+        })
 
         this.configUtilityService.successMessage(addMessage);
       });
@@ -937,7 +944,7 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
         this.selectedPatternData.push(data);
         this.businessTransPatternInfo = ImmutableArray.replace(this.businessTransPatternInfo, data, index);
-        this.loadBTPatternData()
+        // this.loadBTPatternData()
         //get the currently added btpattern from the response
         let currentId = 0;
         let currentRuleId = 0;
@@ -948,25 +955,26 @@ export class HTTPBTConfigurationComponent implements OnInit {
             break;
           }
         }
-
+        let observables = [];
         //UPDATE BT METHOD PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo).subscribe(data => {
+        observables.push(this.configKeywordsService.updateParentId(currentId, currentRuleId, this.businessTransMethodInfo))
 
-        })
         //UPDATE BT HTTP REQUEST HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo).subscribe(data => {
-
-        })
+        observables.push(this.configKeywordsService.updateReqParentId(currentId, currentRuleId, this.btHttpHeadersInfo))
 
         //UPDATE BT HTTP RESPONSE HDR PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo).subscribe(data => {
-
-        })
+        observables.push(this.configKeywordsService.updateResParentId(currentId, currentRuleId, this.btResponseHeadersInfo))
 
         //UPDATE BT HTTP BODY PARENT_RULE_ID AND BT_PATTERN_ID AFTER RECIEVING RESPONSE FOR ADDED BTPATTERN
-        this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo).subscribe(data => {
+        observables.push(this.configKeywordsService.updateBodyParentId(currentId, currentRuleId, this.httpBodyInfo))
 
-        })
+                //calling this method after all requests are executed
+                Observable.forkJoin(observables).subscribe((resp) => {
+                  console.log("resp ", resp);
+                  // resp.forEach()
+                  
+                  this.loadBTPatternData();
+                })
 
         this.configUtilityService.successMessage(editMessage);
       });
@@ -4132,13 +4140,12 @@ export class HTTPBTConfigurationComponent implements OnInit {
 
   //When Add BT Pattern dialog cancel or(X) button is clicked then if any table has entries then delete those entries from backend
   cancelDialog() {
-    console.log("called hide method")
 
     //Ask user if he really wants to close the dialog or not if there is entry in any table
-    if (this.businessTransMethodInfo.length > 0 || this.btResponseHeadersInfo.length > 0 || this.btHttpHeadersInfo.length > 0 || this.httpBodyInfo.length > 0) {
+    if (this.isNewApp && (this.businessTransMethodInfo.length > 0 || this.btResponseHeadersInfo.length > 0 || this.btHttpHeadersInfo.length > 0 || this.httpBodyInfo.length > 0)) {
 
       this.confirmationService.confirm({
-        message: "Are you surer want to discard changes made?",
+        message: "Are you sure you want to discard changes made?",
         header: "Discard changes",
         icon: "fa fa-trash",
         accept: () => {
